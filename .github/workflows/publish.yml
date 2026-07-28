@@ -1,0 +1,142 @@
+name: Publish packages
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: packages-${{ github.repository }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  preflight:
+    name: Publication preflight
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+
+    steps:
+      - name: Check out sources
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Resolve publication version
+        id: version
+        shell: bash
+        env:
+          COMMIT_SHA: ${{ github.sha }}
+          REF_NAME: ${{ github.ref_name }}
+          REF_TYPE: ${{ github.ref_type }}
+        run: |
+          set -euo pipefail
+
+          configured_version="$(
+            sed -n 's/^VERSION_NAME=//p' gradle.properties
+          )"
+          if [[ -z "$configured_version" ]]; then
+            echo "VERSION_NAME is missing from gradle.properties" >&2
+            exit 1
+          fi
+
+          if [[ "$REF_TYPE" == "branch" ]]; then
+            if [[ "$REF_NAME" != "main" ]]; then
+              echo "Only main may publish a branch snapshot" >&2
+              exit 1
+            fi
+            if [[ ! "$configured_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+-SNAPSHOT$ ]]; then
+              echo "VERSION_NAME must have the form MAJOR.MINOR.PATCH-SNAPSHOT" >&2
+              exit 1
+            fi
+            publication_version="$configured_version"
+          elif [[ "$REF_TYPE" == "tag" ]]; then
+            if [[ ! "$REF_NAME" =~ ^v([0-9]+\.[0-9]+\.[0-9]+)$ ]]; then
+              echo "Release tags must have the form vMAJOR.MINOR.PATCH" >&2
+              exit 1
+            fi
+            publication_version="${BASH_REMATCH[1]}"
+            if [[ "$configured_version" != "$publication_version-SNAPSHOT" ]]; then
+              echo "Tag version does not match the configured snapshot" >&2
+              exit 1
+            fi
+            if ! git rev-parse --verify \
+              "refs/remotes/origin/main^{commit}" >/dev/null; then
+              echo "origin/main was not fetched" >&2
+              exit 1
+            fi
+            tagged_commit="$(
+              git rev-parse "${COMMIT_SHA}^{commit}"
+            )"
+            if ! git merge-base --is-ancestor \
+              "$tagged_commit" refs/remotes/origin/main; then
+              echo "Release tags must point to a commit on origin/main" >&2
+              exit 1
+            fi
+          else
+            echo "Unsupported ref type: $REF_TYPE" >&2
+            exit 1
+          fi
+
+          echo "Publishing version $publication_version"
+          printf 'version=%s\n' "$publication_version" >> "$GITHUB_OUTPUT"
+
+  full-verification:
+    name: Full CI verification
+    needs: preflight
+    permissions:
+      contents: read
+    uses: ./.github/workflows/ci.yml
+    with:
+      invocation: package-publish
+
+  github-packages:
+    name: GitHub Packages
+    needs:
+      - preflight
+      - full-verification
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Check out sources
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Java
+        uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5.6.0
+        with:
+          distribution: temurin
+          java-version: |
+            17
+            21
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@3f131e8634966bd73d06cc69884922b02e6faf92 # v6.2.0
+        with:
+          cache-provider: basic
+          cache-read-only: true
+
+      - name: Publish all multiplatform artifacts
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUBLICATION_VERSION: ${{ needs.preflight.outputs.version }}
+        run: >-
+          ./gradlew
+          "-PVERSION_NAME=$PUBLICATION_VERSION"
+          publishAllPublicationsToGitHubPackagesRepository
+          --no-configuration-cache
+          --no-daemon
+          --stacktrace

@@ -18,11 +18,12 @@ kotlin {
     }
     
     listOf(
+        iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "ComposeApp"
+            baseName = "Symbols"
             isStatic = true
         }
     }
@@ -46,6 +47,10 @@ kotlin {
             implementation(libs.androidx.activity.compose)
         }
         commonMain.dependencies {
+            implementation(projects.modules.materialOutlined)
+            implementation(projects.modules.materialRounded)
+            implementation(projects.modules.materialSharp)
+            implementation(projects.modules.materialVectorsOutlined)
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
@@ -66,15 +71,15 @@ kotlin {
 }
 
 android {
-    namespace = "illyan.symbols.material"
+    namespace = "io.github.hlcaptain.symbols.sample"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "illyan.symbols.material"
+        applicationId = "io.github.hlcaptain.symbols.sample"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
-        versionName = "1.0"
+        versionName = "0.1.0"
     }
     packaging {
         resources {
@@ -98,11 +103,12 @@ dependencies {
 
 compose.desktop {
     application {
-        mainClass = "illyan.symbols.material.MainKt"
+        mainClass = "io.github.hlcaptain.symbols.sample.MainKt"
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "illyan.symbols.material"
+            packageName = "symbols-sample"
+            // macOS DMG metadata requires a positive major version.
             packageVersion = "1.0.0"
         }
     }

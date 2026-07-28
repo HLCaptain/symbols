@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Upstream Material Symbols
+    url: https://github.com/google/material-design-icons/issues
+    about: Request or report the design of a Google Material Symbol upstream.

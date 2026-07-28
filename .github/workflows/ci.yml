@@ -1,0 +1,162 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_call:
+    inputs:
+      invocation:
+        description: Distinguishes reusable invocations from direct CI runs
+        required: false
+        default: reusable
+        type: string
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}-${{ inputs.invocation || 'direct' }}
+  cancel-in-progress: true
+
+jobs:
+  generated-sources-and-fonts:
+    name: Generated sources and fonts
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out sources
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: tools/requirements-font-verification.txt
+
+      - name: Install maintainer dependencies
+        run: >-
+          python -m pip install
+          --disable-pip-version-check
+          -r tools/requirements-font-verification.txt
+
+      - name: Run generator and verifier tests
+        run: python -m unittest discover -s tools/tests -p "test_*.py"
+
+      - name: Check generated symbol catalog
+        run: python tools/generate_material_symbols.py --check
+
+      - name: Check generated vector packs
+        run: python tools/generate_material_vectors.py --check
+
+      - name: Verify pinned Material Symbols fonts
+        run: python tools/verify_material_fonts.py
+
+  jvm-and-android:
+    name: JVM tests and Android release
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+
+    steps:
+      - name: Check out sources
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Java
+        uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5.6.0
+        with:
+          distribution: temurin
+          java-version: |
+            17
+            21
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@3f131e8634966bd73d06cc69884922b02e6faf92 # v6.2.0
+        with:
+          cache-provider: basic
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+
+      - name: Test JVM and verify release artifacts
+        run: >-
+          ./gradlew
+          jvmTest
+          assembleRelease
+          lintRelease
+          verifyPublishedArchives
+          --no-daemon
+          --stacktrace
+
+  web:
+    name: JS and Wasm production bundles
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+
+    steps:
+      - name: Check out sources
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Java
+        uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5.6.0
+        with:
+          distribution: temurin
+          java-version: |
+            17
+            21
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@3f131e8634966bd73d06cc69884922b02e6faf92 # v6.2.0
+        with:
+          cache-provider: basic
+          cache-read-only: true
+
+      - name: Compile every library and bundle the web sample
+        run: >-
+          ./gradlew
+          compileKotlinJs
+          compileKotlinWasmJs
+          :composeApp:jsBrowserProductionWebpack
+          :composeApp:wasmJsBrowserProductionWebpack
+          --no-daemon
+          --stacktrace
+
+  apple:
+    name: Apple libraries and sample framework
+    runs-on: macos-15-intel
+    timeout-minutes: 60
+
+    steps:
+      - name: Check out sources
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Java
+        uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5.6.0
+        with:
+          distribution: temurin
+          java-version: |
+            17
+            21
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@3f131e8634966bd73d06cc69884922b02e6faf92 # v6.2.0
+        with:
+          cache-provider: basic
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+
+      - name: Compile every iOS library and link the sample framework
+        run: >-
+          ./gradlew
+          compileKotlinIosSimulatorArm64
+          :composeApp:linkDebugFrameworkIosSimulatorArm64
+          --no-daemon
+          --stacktrace

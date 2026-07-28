@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		376867BEA13571E8C2EF50E0 /* MaterialSymbols.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MaterialSymbols.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		376867BEA13571E8C2EF50E0 /* Symbols.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Symbols.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -59,7 +59,7 @@
 		D8D51C5022C84C463183D11C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				376867BEA13571E8C2EF50E0 /* MaterialSymbols.app */,
+				376867BEA13571E8C2EF50E0 /* Symbols.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -87,7 +87,7 @@
 			packageProductDependencies = (
 			);
 			productName = iosApp;
-			productReference = 376867BEA13571E8C2EF50E0 /* MaterialSymbols.app */;
+			productReference = 376867BEA13571E8C2EF50E0 /* Symbols.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */

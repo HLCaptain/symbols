@@ -1,0 +1,77 @@
+name: Bug report
+description: Report reproducible behavior that is incorrect or unexpected.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. Search existing issues first. Do not include security vulnerabilities here; follow SECURITY.md instead.
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What happened, and what did you expect instead?
+      placeholder: A concise description of the observed and expected behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Provide a small project, code sample, or exact steps that reproduce the problem.
+      placeholder: |
+        1. Configure ...
+        2. Call ...
+        3. Observe ...
+    validations:
+      required: true
+  - type: input
+    id: revision
+    attributes:
+      label: Version or revision
+      description: Give the library version, commit SHA, or branch you tested.
+      placeholder: Commit SHA or unreleased branch
+    validations:
+      required: true
+  - type: dropdown
+    id: target
+    attributes:
+      label: Target
+      description: Select the primary affected platform.
+      options:
+        - Android
+        - JVM/Desktop
+        - iOS
+        - JavaScript
+        - Wasm
+        - Build or code generation
+        - Multiple or platform-independent
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Include OS, JDK, Gradle, Kotlin, Compose, and relevant toolchain versions.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or screenshots
+      description: Remove secrets and personal data before pasting logs.
+      render: text
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues for this problem.
+          required: true
+        - label: I reduced this to the smallest reproduction I can provide.
+          required: true
+        - label: This report does not disclose a security vulnerability.
+          required: true

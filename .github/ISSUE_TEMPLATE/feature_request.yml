@@ -1,0 +1,52 @@
+name: Feature or API proposal
+description: Propose a new capability, API, target, symbol source, or build improvement.
+title: "[Proposal]: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Explain the problem before the solution. Substantial changes should be agreed on before implementation.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What use case is not adequately supported today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: Describe the API or behavior from a consumer's point of view.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: What workarounds or different designs did you evaluate?
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Compatibility and performance impact
+      description: Consider binary size, build time, runtime cost, source/binary compatibility, targets, and dependencies.
+    validations:
+      required: true
+  - type: textarea
+    id: provenance
+    attributes:
+      label: Asset provenance
+      description: If this involves fonts, icons, or generated data, provide the source, revision, license, and modification status.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues and proposals.
+          required: true
+        - label: I am willing to help implement or test this proposal.
+          required: false

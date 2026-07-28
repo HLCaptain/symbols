@@ -1,0 +1,285 @@
+#!/usr/bin/env python3
+"""Generate the allocation-light Material Symbols Kotlin catalog.
+
+The generator intentionally depends only on the Python standard library. Its
+output is sorted by canonical symbol name so name lookup can use binary search
+without constructing a runtime map.
+"""
+
+from __future__ import annotations
+
+import argparse
+import re
+import sys
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Iterable, Sequence
+
+
+REPOSITORY_ROOT = Path(__file__).resolve().parent.parent
+DEFAULT_INPUT = REPOSITORY_ROOT / "fonts/material/MaterialSymbols.codepoints"
+LEGACY_INPUTS = (
+    REPOSITORY_ROOT
+    / "symbols/material/MaterialSymbolsOutlined[FILL,GRAD,opsz,wght].codepoints",
+)
+DEFAULT_OUTPUT = (
+    REPOSITORY_ROOT
+    / "symbols/material-core/src/commonMain/kotlin"
+    / "io/github/hlcaptain/symbols/material/MaterialSymbols.generated.kt"
+)
+DEFAULT_PACKAGE = "io.github.hlcaptain.symbols.material"
+
+CODEPOINT_LINE = re.compile(
+    r"^(?P<name>[a-z0-9]+(?:_[a-z0-9]+)*)[ \t]+"
+    r"(?P<code_point>[0-9a-fA-F]{1,6})[ \t]*$"
+)
+PACKAGE_NAME = re.compile(r"^[a-zA-Z_][a-zA-Z0-9_]*(?:\.[a-zA-Z_][a-zA-Z0-9_]*)*$")
+UNICODE_MAX = 0x10FFFF
+SURROGATE_START = 0xD800
+SURROGATE_END = 0xDFFF
+
+
+class CatalogError(ValueError):
+    """Raised when canonical input cannot produce an unambiguous Kotlin API."""
+
+
+@dataclass(frozen=True)
+class Entry:
+    name: str
+    code_point: int
+    source_line: int
+
+
+def is_unicode_scalar(code_point: int) -> bool:
+    return (
+        0 <= code_point <= UNICODE_MAX
+        and not SURROGATE_START <= code_point <= SURROGATE_END
+    )
+
+
+def kotlin_identifier(name: str) -> str:
+    """Convert a canonical snake_case name to the public simple PascalCase API."""
+
+    parts = name.split("_")
+    identifier = "".join(part[0].upper() + part[1:] for part in parts)
+    if identifier[0].isdigit():
+        return f"_{identifier}"
+    return identifier
+
+
+def parse_codepoints(path: Path) -> tuple[Entry, ...]:
+    entries: list[Entry] = []
+    first_line_by_name: dict[str, int] = {}
+
+    try:
+        lines = path.read_text(encoding="utf-8").splitlines()
+    except FileNotFoundError as error:
+        raise CatalogError(f"Codepoints file does not exist: {path}") from error
+
+    for line_number, line in enumerate(lines, start=1):
+        if not line.strip():
+            continue
+
+        match = CODEPOINT_LINE.fullmatch(line)
+        if match is None:
+            raise CatalogError(
+                f"{path}:{line_number}: expected '<snake_case_name> <hex_code_point>'"
+            )
+
+        name = match.group("name")
+        previous_line = first_line_by_name.get(name)
+        if previous_line is not None:
+            raise CatalogError(
+                f"{path}:{line_number}: duplicate name {name!r}; "
+                f"first declared on line {previous_line}"
+            )
+
+        code_point = int(match.group("code_point"), 16)
+        if not is_unicode_scalar(code_point):
+            raise CatalogError(
+                f"{path}:{line_number}: U+{code_point:04X} is not a Unicode scalar value"
+            )
+
+        first_line_by_name[name] = line_number
+        entries.append(Entry(name, code_point, line_number))
+
+    if not entries:
+        raise CatalogError(f"Codepoints file is empty: {path}")
+
+    entries.sort(key=lambda entry: entry.name)
+    validate_identifier_collisions(entries)
+    return tuple(entries)
+
+
+def validate_identifier_collisions(entries: Iterable[Entry]) -> None:
+    name_by_identifier: dict[str, str] = {}
+    for entry in entries:
+        identifier = kotlin_identifier(entry.name)
+        previous_name = name_by_identifier.get(identifier)
+        if previous_name is not None:
+            raise CatalogError(
+                "Kotlin identifier collision: "
+                f"{previous_name!r} and {entry.name!r} both become {identifier!r}"
+            )
+        name_by_identifier[identifier] = entry.name
+
+
+def code_point_order(entries: Sequence[Entry]) -> tuple[int, ...]:
+    return tuple(
+        sorted(
+            range(len(entries)),
+            key=lambda index: (entries[index].code_point, index),
+        )
+    )
+
+
+def _render_string_array(entries: Sequence[Entry]) -> list[str]:
+    return [f'    "{entry.name}",' for entry in entries]
+
+
+def _render_int_array(values: Sequence[int], *, hexadecimal: bool) -> list[str]:
+    rendered = [
+        f"0x{value:X}" if hexadecimal else str(value)
+        for value in values
+    ]
+    lines: list[str] = []
+    width = 12
+    for offset in range(0, len(rendered), width):
+        lines.append(f"    {', '.join(rendered[offset:offset + width])},")
+    return lines
+
+
+def render_kotlin(entries: Sequence[Entry], package_name: str) -> str:
+    if not PACKAGE_NAME.fullmatch(package_name):
+        raise CatalogError(f"Invalid Kotlin package name: {package_name!r}")
+
+    order = code_point_order(entries)
+    lines = [
+        "// Generated by tools/generate_material_symbols.py. DO NOT EDIT.",
+        f"package {package_name}",
+        "",
+        "@Suppress(",
+        '    "LargeClass",',
+        '    "MagicNumber",',
+        '    "ObjectPropertyName",',
+        '    "TooManyFunctions",',
+        ")",
+        "private fun materialSymbolNames(): Array<String> = arrayOf(",
+        *_render_string_array(entries),
+        ")",
+        "",
+        '@Suppress("MagicNumber")',
+        "private fun materialSymbolCodePoints(): IntArray = intArrayOf(",
+        *_render_int_array([entry.code_point for entry in entries], hexadecimal=True),
+        ")",
+        "",
+        '@Suppress("MagicNumber")',
+        "private fun materialSymbolCodePointOrder(): IntArray = intArrayOf(",
+        *_render_int_array(order, hexadecimal=False),
+        ")",
+        "",
+        "private object MaterialSymbolsData {",
+        "    val names: Array<String> = materialSymbolNames()",
+        "    val codePoints: IntArray = materialSymbolCodePoints()",
+        "    val codePointOrder: IntArray = materialSymbolCodePointOrder()",
+        "}",
+        "",
+        "internal val MATERIAL_SYMBOL_NAMES: Array<String>",
+        "    get() = MaterialSymbolsData.names",
+        "",
+        "internal val MATERIAL_SYMBOL_CODE_POINTS: IntArray",
+        "    get() = MaterialSymbolsData.codePoints",
+        "",
+        "internal val MATERIAL_SYMBOL_CODE_POINT_ORDER: IntArray",
+        "    get() = MaterialSymbolsData.codePointOrder",
+        "",
+    ]
+
+    for index, entry in enumerate(entries):
+        lines.extend(
+            (
+                f"public val MaterialSymbols.{kotlin_identifier(entry.name)}: MaterialSymbol",
+                f"    get() = symbolAt({index})",
+                "",
+            )
+        )
+
+    return "\n".join(lines)
+
+
+def resolve_default_input() -> Path:
+    if DEFAULT_INPUT.is_file():
+        return DEFAULT_INPUT
+    for candidate in LEGACY_INPUTS:
+        if candidate.is_file():
+            return candidate
+    return DEFAULT_INPUT
+
+
+def write_generated(output: Path, content: str, *, check: bool) -> bool:
+    existing = output.read_text(encoding="utf-8") if output.is_file() else None
+    if existing == content:
+        return False
+    if check:
+        raise CatalogError(
+            f"Generated catalog is missing or stale: {output}\n"
+            "Run tools/generate_material_symbols.py from the repository root."
+        )
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with output.open("w", encoding="utf-8", newline="\n") as generated_file:
+        generated_file.write(content)
+    return True
+
+
+def create_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--input",
+        type=Path,
+        default=resolve_default_input(),
+        help=f"Canonical codepoints file (default: {DEFAULT_INPUT.relative_to(REPOSITORY_ROOT)})",
+    )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=DEFAULT_OUTPUT,
+        help=(
+            "Generated Kotlin file "
+            f"(default: {DEFAULT_OUTPUT.relative_to(REPOSITORY_ROOT)})"
+        ),
+    )
+    parser.add_argument(
+        "--package",
+        default=DEFAULT_PACKAGE,
+        help=f"Generated Kotlin package (default: {DEFAULT_PACKAGE})",
+    )
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="Fail instead of writing when generated output is stale.",
+    )
+    return parser
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    arguments = create_parser().parse_args(argv)
+    try:
+        entries = parse_codepoints(arguments.input)
+        content = render_kotlin(entries, arguments.package)
+        changed = write_generated(arguments.output, content, check=arguments.check)
+    except CatalogError as error:
+        print(f"error: {error}", file=sys.stderr)
+        return 1
+
+    unique_code_points = len({entry.code_point for entry in entries})
+    digit_leading = sum(entry.name[0].isdigit() for entry in entries)
+    state = "generated" if changed else "up to date"
+    print(
+        f"{arguments.output}: {state}; {len(entries)} names, "
+        f"{unique_code_points} code points, {digit_leading} digit-leading names"
+    )
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
