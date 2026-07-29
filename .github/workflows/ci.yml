@@ -24,7 +24,7 @@ concurrency:
 jobs:
   generated-sources-and-fonts:
     name: Generated sources and fonts
-    runs-on: ubuntu-24.04
+    runs-on: [self-hosted, macOS, ARM64]
     timeout-minutes: 20
 
     steps:
@@ -66,7 +66,7 @@ jobs:
 
   jvm-and-android:
     name: JVM tests and Android release
-    runs-on: ubuntu-24.04
+    runs-on: [self-hosted, macOS, ARM64]
     timeout-minutes: 60
 
     steps:
@@ -126,7 +126,7 @@ jobs:
 
   web:
     name: JS and Wasm production bundles
-    runs-on: ubuntu-24.04
+    runs-on: [self-hosted, macOS, ARM64]
     timeout-minutes: 60
 
     steps:
@@ -162,7 +162,7 @@ jobs:
 
   apple:
     name: Apple libraries and sample framework
-    runs-on: macos-15-intel
+    runs-on: [self-hosted, macOS, ARM64]
     timeout-minutes: 60
 
     steps:

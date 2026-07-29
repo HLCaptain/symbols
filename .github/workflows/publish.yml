@@ -17,7 +17,7 @@ concurrency:
 jobs:
   preflight:
     name: Publication preflight
-    runs-on: ubuntu-24.04
+    runs-on: [self-hosted, macOS, ARM64]
     timeout-minutes: 10
     outputs:
       version: ${{ steps.version.outputs.version }}
@@ -102,7 +102,7 @@ jobs:
     needs:
       - preflight
       - full-verification
-    runs-on: ubuntu-24.04
+    runs-on: [self-hosted, macOS, ARM64]
     timeout-minutes: 90
     permissions:
       contents: read
