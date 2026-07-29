@@ -43,6 +43,9 @@ public data class MaterialSymbolAxes(
         )
 
     public companion object {
+        /** The immutable default point used by Material Symbols fonts and themes. */
+        public val Default: MaterialSymbolAxes = MaterialSymbolAxes()
+
         public const val MinFill: Float = 0f
         public const val DefaultFill: Float = 0f
         public const val MaxFill: Float = 1f

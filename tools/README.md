@@ -1,4 +1,17 @@
-# Catalog generation
+# Maintainer generation
+
+The checked-in Material Symbols artifacts have four generation stages:
+
+1. the upstream codepoint manifest produces the catalog;
+2. the catalog produces style-typed font namespaces;
+3. the upstream variable fonts produce default-axis regular fonts; and
+4. the manifest plus variable fonts produce built-in typed vector packs.
+
+Normal consumers of the published runtime artifacts do not execute these
+scripts. The separate Gradle font converter for application-owned icons is
+described under [Build-time font conversion](#build-time-font-conversion).
+
+## Catalog generation
 
 `generate_material_symbols.py` converts the canonical Material Symbols
 codepoints map into the allocation-light Kotlin catalog used by
@@ -35,13 +48,29 @@ An alternate package expects the small catalog runtime from
 `MaterialSymbol.kt` to be present in that package. It is intended for a source
 fork/custom catalog module, not as code injection into an arbitrary consumer.
 
-## Vector generation
+## Typed font namespace generation
 
-`generate_material_vectors.py` instantiates each bundled variable font at
-`FILL=0, GRAD=0, opsz=24, wght=400` and generates the three optional
-`ImageVector` packs. It reads every unique manifest code point, preserves
-aliases through the shared catalog identity, and writes path data in stable
-chunks.
+`generate_material_font_namespaces.py` creates the allocation-free
+`Symbols.Outlined`, `Symbols.Rounded`, and `Symbols.Sharp` getters in
+`:modules:material-compose`. It uses the catalog as the single source of
+semantic names and code points and uses only the Python standard library.
+
+```shell
+python3 tools/generate_material_font_namespaces.py
+python3 tools/generate_material_font_namespaces.py --check
+```
+
+The output is split into deterministic 128-name files per style. Do not hand
+edit it; regenerate whenever the manifest, catalog name conversion, wrapper
+types, or chunking changes.
+
+## Static font generation
+
+`generate_material_static_fonts.py` instantiates each pinned variable font at
+`FILL=0, GRAD=0, opsz=24, wght=400`. It writes the API-21-compatible regular
+fonts used by the three `material-{style}-static` modules. The files are
+modified derivatives, and their hashes and generation method are recorded in
+[`THIRD_PARTY_NOTICES.md`](../THIRD_PARTY_NOTICES.md).
 
 Install the pinned maintainer dependency in an isolated environment:
 
@@ -51,6 +80,24 @@ python3 -m venv /tmp/symbols-fonttools
   -r tools/requirements-font-verification.txt
 ```
 
+Regenerate every style or byte-compare the checked-in results:
+
+```shell
+/tmp/symbols-fonttools/bin/python tools/generate_material_static_fonts.py
+/tmp/symbols-fonttools/bin/python tools/generate_material_static_fonts.py --check
+```
+
+The script requires FontTools 4.59.0 exactly, removes variable tables, disables
+timestamp recalculation, and writes a stable table order.
+
+## Vector generation
+
+`generate_material_vectors.py` instantiates each bundled variable font at
+`FILL=0, GRAD=0, opsz=24, wght=400` and generates the three optional
+`ImageVector` packs. It reads every unique manifest code point, preserves aliases
+through shared per-codepoint builders/caches, and writes direct Compose path
+operations in stable chunks.
+
 Regenerate every style or verify that checked-in output is current:
 
 ```shell
@@ -59,12 +106,35 @@ Regenerate every style or verify that checked-in output is current:
 ```
 
 The generated APIs use 24×24 viewports, retain up to four decimal places, and
-preserve intentional outline overshoot. Code-point lookup is portable common
-Kotlin. Vector caches are split into lazy 128-entry chunks so first use does not
-allocate a cache wrapper for all 3,802 shapes.
+preserve intentional outline overshoot. Typed access uses the shared
+`Icons.{Style}.{Name}` namespace and directly reaches an independent codepoint
+builder. The compatibility `MaterialSymbol` lookup keeps a portable common
+Kotlin index/dispatcher for dynamic selection.
 
 Do not hand-edit generated vector files. An axis, font, manifest, rounding, or
 chunk-layout change must update the generator and tests in the same change.
+
+## Build-time font conversion
+
+The Kotlin tooling build contains:
+
+- `symbol-generator-core`, an engine-neutral outline model, Skiko font reader,
+  deterministic Kotlin/XML renderers, stale-safe writer, and CLI; and
+- `symbol-gradle-plugin`, the cacheable
+  `io.github.hlcaptain.symbol-fonts` integration.
+
+Unlike the repository-maintainer Python scripts, this path is intended for
+application builds. It accepts regular or variable TTF/OTF/TTC input and emits
+selected `ImageVector`, native Android drawable, and Compose drawable output
+without packaging the input font. See
+[`docs/GENERATOR.md`](../docs/GENERATOR.md) for setup and the DSL.
+
+Run the tooling tests from the repository root:
+
+```shell
+./gradlew -p tooling :symbol-generator-core:test \
+  :symbol-gradle-plugin:test
+```
 
 ## Font conformance
 
@@ -78,3 +148,22 @@ snapshot expected by this repository:
 
 See [FONT_VERIFICATION.md](FONT_VERIFICATION.md) for the complete trust boundary
 and intentional-update procedure.
+
+## Python tests and CI checks
+
+Run the complete maintainer test suite:
+
+```shell
+python3 -m unittest discover -s tools/tests -p "test_*.py"
+```
+
+CI runs that suite and all four relevant `--check` modes:
+
+```shell
+python3 tools/generate_material_symbols.py --check
+python3 tools/generate_material_font_namespaces.py --check
+/tmp/symbols-fonttools/bin/python tools/generate_material_static_fonts.py --check
+/tmp/symbols-fonttools/bin/python tools/generate_material_vectors.py --check
+```
+
+It also runs `verify_material_fonts.py` against the pinned unmodified inputs.

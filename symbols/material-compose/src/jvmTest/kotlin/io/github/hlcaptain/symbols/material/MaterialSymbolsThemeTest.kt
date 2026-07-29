@@ -1,0 +1,55 @@
+package io.github.hlcaptain.symbols.material
+
+import androidx.compose.runtime.AbstractApplier
+import androidx.compose.runtime.Composition
+import androidx.compose.runtime.Recomposer
+import kotlin.coroutines.EmptyCoroutineContext
+import kotlin.test.Test
+import kotlin.test.assertEquals
+
+class MaterialSymbolsThemeTest {
+    @Test
+    fun defaultNestedAndRestoredAxesAreVisible() {
+        val outer = MaterialSymbolAxes(fill = 1f, weight = 500)
+        val inner = MaterialSymbolAxes(grade = 100f, opticalSize = 48f)
+        var defaultAxes: MaterialSymbolAxes? = null
+        var outerAxes: MaterialSymbolAxes? = null
+        var innerAxes: MaterialSymbolAxes? = null
+        var restoredAxes: MaterialSymbolAxes? = null
+
+        val recomposer = Recomposer(EmptyCoroutineContext)
+        val composition = Composition(UnitApplier(), recomposer)
+        try {
+            composition.setContent {
+                defaultAxes = MaterialSymbolsTheme.axes
+                MaterialSymbolsTheme(axes = outer) {
+                    outerAxes = MaterialSymbolsTheme.axes
+                    MaterialSymbolsTheme(axes = inner) {
+                        innerAxes = MaterialSymbolsTheme.axes
+                    }
+                    restoredAxes = MaterialSymbolsTheme.axes
+                }
+            }
+
+            assertEquals(MaterialSymbolAxes.Default, defaultAxes)
+            assertEquals(outer, outerAxes)
+            assertEquals(inner, innerAxes)
+            assertEquals(outer, restoredAxes)
+        } finally {
+            composition.dispose()
+            recomposer.cancel()
+        }
+    }
+}
+
+private class UnitApplier : AbstractApplier<Unit>(Unit) {
+    override fun insertBottomUp(index: Int, instance: Unit) = Unit
+
+    override fun insertTopDown(index: Int, instance: Unit) = Unit
+
+    override fun move(from: Int, to: Int, count: Int) = Unit
+
+    override fun onClear() = Unit
+
+    override fun remove(index: Int, count: Int) = Unit
+}

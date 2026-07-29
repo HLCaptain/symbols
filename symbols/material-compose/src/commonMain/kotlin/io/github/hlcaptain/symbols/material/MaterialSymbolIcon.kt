@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 
 /**
- * Renders [symbol] directly from a single variable-font resource.
+ * Renders [symbol] directly from a regular or variable font resource.
  *
  * The underlying private-use Unicode text is always removed from semantics. When
  * [contentDescription] is non-null, that localized description is exposed with image semantics.
@@ -34,7 +34,7 @@ public fun MaterialSymbolIcon(
     font: MaterialSymbolFont,
     contentDescription: String?,
     modifier: Modifier = Modifier,
-    axes: MaterialSymbolAxes = MaterialSymbolAxes(),
+    axes: MaterialSymbolAxes = MaterialSymbolsTheme.axes,
     tint: Color = Color.Black,
     size: Dp = 24.dp,
     autoMirror: Boolean = false,
@@ -65,7 +65,7 @@ public fun MaterialSymbolIcon(
     font: MaterialSymbolFont,
     contentDescription: String?,
     modifier: Modifier = Modifier,
-    axes: MaterialSymbolAxes = MaterialSymbolAxes(),
+    axes: MaterialSymbolAxes = MaterialSymbolsTheme.axes,
     tint: Color = Color.Black,
     size: Dp = 24.dp,
     autoMirror: Boolean = false,
@@ -96,7 +96,7 @@ public fun MaterialSymbolIcon(
     fontFamily: FontFamily,
     contentDescription: String?,
     modifier: Modifier = Modifier,
-    axes: MaterialSymbolAxes = MaterialSymbolAxes(),
+    axes: MaterialSymbolAxes = MaterialSymbolsTheme.axes,
     tint: Color = Color.Black,
     size: Dp = 24.dp,
     autoMirror: Boolean = false,
@@ -124,7 +124,7 @@ public fun MaterialSymbolIcon(
     fontFamily: FontFamily,
     contentDescription: String?,
     modifier: Modifier = Modifier,
-    axes: MaterialSymbolAxes = MaterialSymbolAxes(),
+    axes: MaterialSymbolAxes = MaterialSymbolsTheme.axes,
     tint: Color = Color.Black,
     size: Dp = 24.dp,
     autoMirror: Boolean = false,

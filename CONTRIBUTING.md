@@ -74,6 +74,34 @@ Custom glyphs must have an origin, license, stable codepoint allocation, source
 artwork, and tests. Do not assume that an outline added to a variable font
 supports every variation axis.
 
+The maintainer checks for generated sources and fonts are:
+
+```shell
+python3 tools/generate_material_symbols.py --check
+python3 tools/generate_material_font_namespaces.py --check
+python3 -m unittest discover -s tools/tests -p "test_*.py"
+
+/tmp/symbols-fonttools/bin/python tools/verify_material_fonts.py
+/tmp/symbols-fonttools/bin/python tools/generate_material_static_fonts.py --check
+/tmp/symbols-fonttools/bin/python tools/generate_material_vectors.py --check
+
+./gradlew -p tooling test \
+  :symbol-gradle-plugin:validatePlugins \
+  :symbol-generator-core:generatePomFileForMavenPublication \
+  :symbol-gradle-plugin:generatePomFileForPluginMavenPublication \
+  :symbol-gradle-plugin:generatePomFileForSymbolFontsPluginMarkerMavenPublication
+
+./gradlew \
+  :benchmarks:shrinkable-vectors:assembleUnshrunk \
+  :benchmarks:shrinkable-vectors:assembleShrunk
+python3 benchmarks/shrinkable-vectors/verify.py
+```
+
+Install the pinned FontTools environment as described in
+[`tools/FONT_VERIFICATION.md`](tools/FONT_VERIFICATION.md) before running the
+`/tmp/symbols-fonttools` commands. A change to a derived regular font must update
+its generation method and hash as well as its upstream source provenance.
+
 ## Commits and pull requests
 
 Keep commits focused and use an imperative summary such as `Add alias collision

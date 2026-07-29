@@ -2,6 +2,7 @@ package io.github.hlcaptain.symbols.material.outlined.vectors
 
 import androidx.compose.ui.unit.dp
 import io.github.hlcaptain.symbols.material.Grade
+import io.github.hlcaptain.symbols.material.Icons
 import io.github.hlcaptain.symbols.material.MaterialSymbols
 import io.github.hlcaptain.symbols.material.Search
 import io.github.hlcaptain.symbols.material.Star
@@ -38,10 +39,20 @@ class MaterialSymbolsOutlinedVectorsTest {
             MaterialSymbols.Search.outlinedImageVector,
             MaterialSymbols.Search.asOutlinedImageVector(),
         )
+        assertSame(
+            Icons.Outlined.Search,
+            MaterialSymbols.Search.outlinedImageVector,
+        )
+        assertSame(Icons.Outlined.Search, Icons.Outlined.Search)
         assertEquals(MaterialSymbols.Grade.codePoint, MaterialSymbols.Star.codePoint)
+        assertSame(Icons.Outlined.Grade, Icons.Outlined.Star)
         assertSame(
             MaterialSymbols.Grade.outlinedImageVector,
             MaterialSymbols.Star.outlinedImageVector,
+        )
+        assertSame(
+            Icons.Outlined.Grade,
+            MaterialSymbols.Grade.outlinedImageVector,
         )
         assertSame(
             MaterialSymbols.Grade.asOutlinedImageVector(autoMirror = true),
@@ -64,21 +75,5 @@ class MaterialSymbolsOutlinedVectorsTest {
             assertTrue(index >= 0, symbol.name)
             assertEquals(symbol.codePoint, outlinedVectorCodePoints[index])
         }
-    }
-
-    @Test
-    fun generatedPathsKeepPrecisionAndViewportOvershoot() {
-        val decimals = Regex("""\.(\d+)""")
-        repeat(outlinedVectorCount) { index ->
-            val path = outlinedVectorPathAt(index)
-            assertTrue(path.isNotEmpty(), "empty path at $index")
-            decimals.findAll(path).forEach { match ->
-                assertTrue(match.groupValues[1].length <= 4, "path $index: $path")
-            }
-        }
-
-        val face2 = outlinedVectorPathAt(outlinedVectorIndex(0xF8DA))
-        assertTrue("-0.3" in face2)
-        assertTrue("24.35" in face2)
     }
 }

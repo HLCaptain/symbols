@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Shrinkable vector benchmark</string>
+    <string name="unused_resource_marker">Removed only by resource shrinking</string>
+</resources>

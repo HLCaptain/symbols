@@ -2,8 +2,10 @@ import java.util.zip.ZipFile
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DuplicatesStrategy
+import org.gradle.api.provider.MapProperty
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
@@ -39,6 +41,9 @@ abstract class VerifyPublishedArchives : DefaultTask() {
     @get:PathSensitive(PathSensitivity.RELATIVE)
     abstract val namespacedLegalArchives: ConfigurableFileCollection
 
+    @get:Input
+    abstract val legalNamespaceByArchivePath: MapProperty<String, String>
+
     @TaskAction
     fun verifyArchives() {
         val singleFontArchivePaths = singleFontArchives.files
@@ -58,6 +63,15 @@ abstract class VerifyPublishedArchives : DefaultTask() {
             val archivePath = archive.toPath().toAbsolutePath().normalize()
             val expectsNamespacedLegal =
                 archivePath in namespacedLegalArchivePaths
+            val expectedLegalNamespace = if (expectsNamespacedLegal) {
+                checkNotNull(
+                    legalNamespaceByArchivePath.get()[archivePath.toString()],
+                ) {
+                    "Missing legal namespace metadata for $archive"
+                }
+            } else {
+                null
+            }
             ZipFile(archive).use { zip ->
                 val entries = buildList {
                     val archiveEntries = zip.entries()
@@ -66,23 +80,20 @@ abstract class VerifyPublishedArchives : DefaultTask() {
                     }
                 }
 
-                val legalEntryNames = expectedLegalDocuments.map {
+                expectedLegalDocuments.forEach {
                     (documentName, expectedContent) ->
-                    val matchingEntries = if (expectsNamespacedLegal) {
-                        entries.filter {
-                            it.matches(
-                                Regex(
-                                    "META-INF/[^/]+/${Regex.escape(documentName)}",
-                                ),
-                            )
-                        }
+                    val expectedEntryName = if (expectedLegalNamespace != null) {
+                        "META-INF/$expectedLegalNamespace/$documentName"
                     } else {
-                        entries.filter { it == "META-INF/$documentName" }
+                        "META-INF/$documentName"
+                    }
+                    val matchingEntries = entries.filter {
+                        it == expectedEntryName
                     }
                     check(matchingEntries.size == 1) {
-                        "$archive must contain exactly one legal entry for " +
-                            "$documentName; found ${matchingEntries.size}: " +
-                            matchingEntries
+                        "$archive must contain exactly one module-owned legal " +
+                            "entry at $expectedEntryName; found " +
+                            "${matchingEntries.size}"
                     }
                     val legalEntryName = matchingEntries.single()
                     val actualContent = zip.getInputStream(
@@ -93,16 +104,6 @@ abstract class VerifyPublishedArchives : DefaultTask() {
                     check(actualContent.contentEquals(expectedContent)) {
                         "$archive contains stale or modified content at " +
                             legalEntryName
-                    }
-                    legalEntryName
-                }
-                if (expectsNamespacedLegal) {
-                    val legalDirectories = legalEntryNames.map {
-                        it.substringBeforeLast("/")
-                    }.toSet()
-                    check(legalDirectories.size == 1) {
-                        "$archive must keep legal documents in one module " +
-                            "namespace; found $legalDirectories"
                     }
                 }
 
@@ -164,13 +165,17 @@ subprojects {
             "material-outlined",
             "material-rounded",
             "material-sharp",
+            "material-outlined-static",
+            "material-rounded-static",
+            "material-sharp-static",
         )
         val publicationDescription = when (project.name) {
             "material-core" ->
                 "Typed Material Symbols catalog, aliases, and code points for " +
                     "Kotlin Multiplatform; no Compose or bundled font."
             "material-compose" ->
-                "Variable-font axis model and renderer for Material Symbols in " +
+                "Regular/variable font contracts, themed axes, runtime capability " +
+                    "checks, and typed font namespaces for Material Symbols in " +
                     "Compose Multiplatform; no bundled font."
             "material-outlined" ->
                 "Outlined Material Symbols variable font and Compose adapter for " +
@@ -181,6 +186,15 @@ subprojects {
             "material-sharp" ->
                 "Sharp Material Symbols variable font and Compose adapter for " +
                     "Compose Multiplatform."
+            "material-outlined-static" ->
+                "Default-axis static Outlined Material Symbols font and Compose " +
+                    "adapter for Android API 21 and Compose Multiplatform."
+            "material-rounded-static" ->
+                "Default-axis static Rounded Material Symbols font and Compose " +
+                    "adapter for Android API 21 and Compose Multiplatform."
+            "material-sharp-static" ->
+                "Default-axis static Sharp Material Symbols font and Compose " +
+                    "adapter for Android API 21 and Compose Multiplatform."
             "material-vectors-outlined" ->
                 "Default-axis Outlined Material Symbols ImageVector pack for " +
                     "Compose Multiplatform; no bundled font."
@@ -219,7 +233,7 @@ subprojects {
             }
             .configureEach {
                 from(legalDocuments) {
-                    into("META-INF")
+                    into("META-INF/${project.name}")
                     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
                 }
             }
@@ -248,11 +262,13 @@ subprojects {
                             it.name != "metadataSourcesJar" &&
                             !it.name.contains("Debug")
                         ) ||
+                    it.name.endsWith("MetadataElements") ||
                     it.name == "bundleReleaseAar" ||
                     it.name.endsWith("ZipMultiplatformResourcesForPublication")
             }
             .all {
                 val archiveTask = this
+                val legalNamespace = project.name
                 val expectsSingleFont = project.name in fontModuleNames &&
                     (
                         name == "jvmJar" ||
@@ -265,13 +281,13 @@ subprojects {
                 verifyPublishedArchives.configure {
                     dependsOn(archiveTask)
                     archives.from(archiveTask.archiveFile)
-                    if (
-                        archiveTask.name.endsWith(
-                            "ZipMultiplatformResourcesForPublication",
-                        )
-                    ) {
-                        namespacedLegalArchives.from(archiveTask.archiveFile)
-                    }
+                    namespacedLegalArchives.from(archiveTask.archiveFile)
+                    val archivePath = archiveTask.archiveFile.get().asFile
+                        .toPath()
+                        .toAbsolutePath()
+                        .normalize()
+                        .toString()
+                    legalNamespaceByArchivePath.put(archivePath, legalNamespace)
                     if (expectsSingleFont) {
                         singleFontArchives.from(archiveTask.archiveFile)
                     }

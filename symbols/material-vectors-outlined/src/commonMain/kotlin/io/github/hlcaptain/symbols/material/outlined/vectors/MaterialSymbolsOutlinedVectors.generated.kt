@@ -4,11 +4,7 @@
 // See THIRD_PARTY_NOTICES.md for immutable provenance and modification details.
 package io.github.hlcaptain.symbols.material.outlined.vectors
 
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathParser
-import androidx.compose.ui.unit.dp
 import io.github.hlcaptain.symbols.material.MaterialSymbol
 
 /**
@@ -16,8 +12,8 @@ import io.github.hlcaptain.symbols.material.MaterialSymbol
  * `FILL=0, GRAD=0, opsz=24, wght=400`.
  *
  * Repeated access, including access through code-point aliases, returns
- * the same lazily built instance. Cache chunks and individual vectors use
- * Kotlin's default thread-safe lazy semantics on threaded platforms.
+ * the same lazily built instance. Each unique code point owns one default
+ * cache, shared by its typed alias getters.
  */
 public val MaterialSymbol.outlinedImageVector: ImageVector
     get() = asOutlinedImageVector()
@@ -33,52 +29,5 @@ public fun MaterialSymbol.asOutlinedImageVector(autoMirror: Boolean = false): Im
     require(vectorIndex >= 0) {
         "MaterialSymbol '$name' (U+${codePoint.toString(16).uppercase()}) is not in the Outlined vector snapshot"
     }
-    return cachedOutlinedImageVector(vectorIndex, autoMirror)
-}
-
-private const val outlinedVectorCacheChunkSize: Int = 128
-private const val outlinedVectorCacheChunkCount: Int = 30
-
-private val outlinedVectorCacheChunks: Array<Lazy<Array<Lazy<ImageVector>>>> by lazy {
-    Array(outlinedVectorCacheChunkCount * 2) { cacheChunkIndex ->
-        val autoMirror = cacheChunkIndex >= outlinedVectorCacheChunkCount
-        val vectorChunkIndex = cacheChunkIndex % outlinedVectorCacheChunkCount
-        lazy {
-            val firstVectorIndex = vectorChunkIndex * outlinedVectorCacheChunkSize
-            val chunkSize = minOf(
-                outlinedVectorCacheChunkSize,
-                outlinedVectorCount - firstVectorIndex,
-            )
-            Array(chunkSize) { chunkOffset ->
-                lazy {
-                    buildOutlinedImageVector(firstVectorIndex + chunkOffset, autoMirror)
-                }
-            }
-        }
-    }
-}
-
-private fun cachedOutlinedImageVector(vectorIndex: Int, autoMirror: Boolean): ImageVector {
-    val vectorChunkIndex = vectorIndex / outlinedVectorCacheChunkSize
-    val chunkOffset = vectorIndex % outlinedVectorCacheChunkSize
-    val mirrorChunkOffset = if (autoMirror) outlinedVectorCacheChunkCount else 0
-    return outlinedVectorCacheChunks[mirrorChunkOffset + vectorChunkIndex].value[chunkOffset].value
-}
-
-private fun buildOutlinedImageVector(vectorIndex: Int, autoMirror: Boolean): ImageVector {
-    val codePoint = outlinedVectorCodePoints[vectorIndex]
-    val mirrorSuffix = if (autoMirror) ".AutoMirrored" else ""
-    return ImageVector.Builder(
-        name = "MaterialSymbolsOutlined.U+${codePoint.toString(16).uppercase()}$mirrorSuffix",
-        defaultWidth = 24.dp,
-        defaultHeight = 24.dp,
-        viewportWidth = 24f,
-        viewportHeight = 24f,
-        autoMirror = autoMirror,
-    ).apply {
-        addPath(
-            pathData = PathParser().parsePathString(outlinedVectorPathAt(vectorIndex)).toNodes(),
-            fill = SolidColor(Color.Black),
-        )
-    }.build()
+    return outlinedVectorAt(vectorIndex, autoMirror)
 }

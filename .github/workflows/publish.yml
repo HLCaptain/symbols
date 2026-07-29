@@ -128,15 +128,28 @@ jobs:
           cache-provider: basic
           cache-read-only: true
 
-      - name: Publish all multiplatform artifacts
+      - name: Publish runtime and generator artifacts
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PUBLICATION_VERSION: ${{ needs.preflight.outputs.version }}
-        run: >-
-          ./gradlew
-          "-PVERSION_NAME=$PUBLICATION_VERSION"
-          publishAllPublicationsToGitHubPackagesRepository
-          --no-configuration-cache
-          --no-daemon
-          --stacktrace
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          ./gradlew \
+            "-PVERSION_NAME=$PUBLICATION_VERSION" \
+            publishAllPublicationsToGitHubPackagesRepository \
+            --max-workers=1 \
+            --no-configuration-cache \
+            --no-daemon \
+            --stacktrace
+
+          ./gradlew \
+            -p tooling \
+            "-PVERSION_NAME=$PUBLICATION_VERSION" \
+            publishAllPublicationsToGitHubPackagesRepository \
+            --max-workers=1 \
+            --no-configuration-cache \
+            --no-daemon \
+            --stacktrace

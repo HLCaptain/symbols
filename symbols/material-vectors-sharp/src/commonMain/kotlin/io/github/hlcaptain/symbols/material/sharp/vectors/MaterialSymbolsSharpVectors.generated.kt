@@ -4,11 +4,7 @@
 // See THIRD_PARTY_NOTICES.md for immutable provenance and modification details.
 package io.github.hlcaptain.symbols.material.sharp.vectors
 
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathParser
-import androidx.compose.ui.unit.dp
 import io.github.hlcaptain.symbols.material.MaterialSymbol
 
 /**
@@ -16,8 +12,8 @@ import io.github.hlcaptain.symbols.material.MaterialSymbol
  * `FILL=0, GRAD=0, opsz=24, wght=400`.
  *
  * Repeated access, including access through code-point aliases, returns
- * the same lazily built instance. Cache chunks and individual vectors use
- * Kotlin's default thread-safe lazy semantics on threaded platforms.
+ * the same lazily built instance. Each unique code point owns one default
+ * cache, shared by its typed alias getters.
  */
 public val MaterialSymbol.sharpImageVector: ImageVector
     get() = asSharpImageVector()
@@ -33,52 +29,5 @@ public fun MaterialSymbol.asSharpImageVector(autoMirror: Boolean = false): Image
     require(vectorIndex >= 0) {
         "MaterialSymbol '$name' (U+${codePoint.toString(16).uppercase()}) is not in the Sharp vector snapshot"
     }
-    return cachedSharpImageVector(vectorIndex, autoMirror)
-}
-
-private const val sharpVectorCacheChunkSize: Int = 128
-private const val sharpVectorCacheChunkCount: Int = 30
-
-private val sharpVectorCacheChunks: Array<Lazy<Array<Lazy<ImageVector>>>> by lazy {
-    Array(sharpVectorCacheChunkCount * 2) { cacheChunkIndex ->
-        val autoMirror = cacheChunkIndex >= sharpVectorCacheChunkCount
-        val vectorChunkIndex = cacheChunkIndex % sharpVectorCacheChunkCount
-        lazy {
-            val firstVectorIndex = vectorChunkIndex * sharpVectorCacheChunkSize
-            val chunkSize = minOf(
-                sharpVectorCacheChunkSize,
-                sharpVectorCount - firstVectorIndex,
-            )
-            Array(chunkSize) { chunkOffset ->
-                lazy {
-                    buildSharpImageVector(firstVectorIndex + chunkOffset, autoMirror)
-                }
-            }
-        }
-    }
-}
-
-private fun cachedSharpImageVector(vectorIndex: Int, autoMirror: Boolean): ImageVector {
-    val vectorChunkIndex = vectorIndex / sharpVectorCacheChunkSize
-    val chunkOffset = vectorIndex % sharpVectorCacheChunkSize
-    val mirrorChunkOffset = if (autoMirror) sharpVectorCacheChunkCount else 0
-    return sharpVectorCacheChunks[mirrorChunkOffset + vectorChunkIndex].value[chunkOffset].value
-}
-
-private fun buildSharpImageVector(vectorIndex: Int, autoMirror: Boolean): ImageVector {
-    val codePoint = sharpVectorCodePoints[vectorIndex]
-    val mirrorSuffix = if (autoMirror) ".AutoMirrored" else ""
-    return ImageVector.Builder(
-        name = "MaterialSymbolsSharp.U+${codePoint.toString(16).uppercase()}$mirrorSuffix",
-        defaultWidth = 24.dp,
-        defaultHeight = 24.dp,
-        viewportWidth = 24f,
-        viewportHeight = 24f,
-        autoMirror = autoMirror,
-    ).apply {
-        addPath(
-            pathData = PathParser().parsePathString(sharpVectorPathAt(vectorIndex)).toNodes(),
-            fill = SolidColor(Color.Black),
-        )
-    }.build()
+    return sharpVectorAt(vectorIndex, autoMirror)
 }

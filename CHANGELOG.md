@@ -16,12 +16,22 @@ artifacts are released.
   codepoint rendering.
 - Outlined, Rounded, and Sharp Compose Multiplatform artifacts backed by one
   variable font resource per style.
+- API-21-compatible Outlined, Rounded, and Sharp regular-font artifacts
+  deterministically instantiated at the default axes.
 - Fill, weight, grade, and optical-size axis support plus accessible and
   optionally auto-mirrored font rendering.
-- Optional Outlined, Rounded, and Sharp `ImageVector` packs at the default axis
-  position.
-- Deterministic catalog/vector generators and strict pinned font conformance
-  verification.
+- Style-typed `Symbols.{Style}.{Name}` font APIs, shared
+  `Icons.{Style}.{Name}` vector APIs, inherited axes through
+  `MaterialSymbolsTheme`, and an Android variable-font capability gate.
+- Optional shrinker-friendly Outlined, Rounded, and Sharp `ImageVector` packs at
+  the default axis position, while preserving dynamic catalog lookup.
+- A cacheable Gradle plugin that converts selected regular or variable font
+  glyphs into typed `ImageVector`, native Android drawable, and Compose drawable
+  output.
+- A reproducible Android fixture that verifies typed-vector removal by
+  full-mode R8 and unused-resource removal by the Android resource shrinker.
+- Deterministic catalog/namespace/static-font/vector generators and strict
+  pinned font and provenance verification.
 - Android, JVM, JS, Wasm, and iOS publication targets, an interactive
   multiplatform sample, CI/release automation, and open-source project
   governance.

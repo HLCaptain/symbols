@@ -2,6 +2,7 @@ package io.github.hlcaptain.symbols.material.rounded.vectors
 
 import androidx.compose.ui.unit.dp
 import io.github.hlcaptain.symbols.material.Grade
+import io.github.hlcaptain.symbols.material.Icons
 import io.github.hlcaptain.symbols.material.MaterialSymbols
 import io.github.hlcaptain.symbols.material.Search
 import io.github.hlcaptain.symbols.material.Star
@@ -38,10 +39,20 @@ class MaterialSymbolsRoundedVectorsTest {
             MaterialSymbols.Search.roundedImageVector,
             MaterialSymbols.Search.asRoundedImageVector(),
         )
+        assertSame(
+            Icons.Rounded.Search,
+            MaterialSymbols.Search.roundedImageVector,
+        )
+        assertSame(Icons.Rounded.Search, Icons.Rounded.Search)
         assertEquals(MaterialSymbols.Grade.codePoint, MaterialSymbols.Star.codePoint)
+        assertSame(Icons.Rounded.Grade, Icons.Rounded.Star)
         assertSame(
             MaterialSymbols.Grade.roundedImageVector,
             MaterialSymbols.Star.roundedImageVector,
+        )
+        assertSame(
+            Icons.Rounded.Grade,
+            MaterialSymbols.Grade.roundedImageVector,
         )
         assertSame(
             MaterialSymbols.Grade.asRoundedImageVector(autoMirror = true),
@@ -64,21 +75,5 @@ class MaterialSymbolsRoundedVectorsTest {
             assertTrue(index >= 0, symbol.name)
             assertEquals(symbol.codePoint, roundedVectorCodePoints[index])
         }
-    }
-
-    @Test
-    fun generatedPathsKeepPrecisionAndViewportOvershoot() {
-        val decimals = Regex("""\.(\d+)""")
-        repeat(roundedVectorCount) { index ->
-            val path = roundedVectorPathAt(index)
-            assertTrue(path.isNotEmpty(), "empty path at $index")
-            decimals.findAll(path).forEach { match ->
-                assertTrue(match.groupValues[1].length <= 4, "path $index: $path")
-            }
-        }
-
-        val face2 = roundedVectorPathAt(roundedVectorIndex(0xF8DA))
-        assertTrue("-0.3" in face2)
-        assertTrue("24.35" in face2)
     }
 }

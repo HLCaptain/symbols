@@ -33,27 +33,91 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import io.github.hlcaptain.symbols.material.Home
+import io.github.hlcaptain.symbols.material.Icons
 import io.github.hlcaptain.symbols.material.MaterialSymbol
 import io.github.hlcaptain.symbols.material.MaterialSymbolAxes
 import io.github.hlcaptain.symbols.material.MaterialSymbolFont
 import io.github.hlcaptain.symbols.material.MaterialSymbolIcon
 import io.github.hlcaptain.symbols.material.MaterialSymbols
+import io.github.hlcaptain.symbols.material.MaterialSymbolsRuntime
+import io.github.hlcaptain.symbols.material.MaterialSymbolsTheme
 import io.github.hlcaptain.symbols.material.Search
+import io.github.hlcaptain.symbols.material.Symbols
 import io.github.hlcaptain.symbols.material.outlined.MaterialSymbolsOutlined
-import io.github.hlcaptain.symbols.material.outlined.vectors.outlinedImageVector
+import io.github.hlcaptain.symbols.material.outlined.vectors.Home
 import io.github.hlcaptain.symbols.material.rememberMaterialSymbolFontFamily
 import io.github.hlcaptain.symbols.material.rounded.MaterialSymbolsRounded
+import io.github.hlcaptain.symbols.material.rounded.staticfont.MaterialSymbolsRoundedStatic
 import io.github.hlcaptain.symbols.material.sharp.MaterialSymbolsSharp
+import io.github.hlcaptain.symbols.sample.generated.AppIcons
+import io.github.hlcaptain.symbols.sample.generated.regular.Check
+import io.github.hlcaptain.symbols.sample.generated.rounded.Favorite
 import kotlin.math.roundToInt
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import io.github.hlcaptain.symbols.material.rounded.staticfont.MaterialSymbolIcon as StaticRoundedSymbolIcon
 
 @Composable
 @Preview
 fun App() {
     MaterialTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-            SymbolExplorer()
+            if (MaterialSymbolsRuntime.variableFontsSupported) {
+                SymbolExplorer()
+            } else {
+                Api21SymbolShowcase()
+            }
+        }
+    }
+}
+
+@Composable
+private fun Api21SymbolShowcase() {
+    MaterialSymbolsTheme {
+        Column(
+            modifier = Modifier
+                .safeContentPadding()
+                .fillMaxSize()
+                .padding(24.dp),
+            verticalArrangement = Arrangement.spacedBy(20.dp),
+        ) {
+            Text(
+                text = "Symbols on Android 21–25",
+                style = MaterialTheme.typography.headlineMedium,
+            )
+            Text(
+                text = "A live regular font and build-time snapshots of regular " +
+                    "and variable fonts all work without runtime font variations.",
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(24.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                StaticRoundedSymbolIcon(
+                    symbol = Symbols.Rounded.Search,
+                    contentDescription = "Search from a regular font",
+                    tint = MaterialTheme.colorScheme.primary,
+                    size = 40.dp,
+                )
+                Icon(
+                    imageVector = AppIcons.Regular.Check,
+                    contentDescription = "Check generated from a regular font",
+                    modifier = Modifier.size(40.dp),
+                    tint = MaterialTheme.colorScheme.secondary,
+                )
+                Icon(
+                    imageVector = AppIcons.Rounded.Favorite,
+                    contentDescription =
+                        "Favorite generated from a variable font instance",
+                    modifier = Modifier.size(40.dp),
+                    tint = MaterialTheme.colorScheme.tertiary,
+                )
+            }
+            Text(
+                text = "The two vectors were selected by semantic name in the " +
+                    "Gradle DSL, so unused generated symbols never enter this app.",
+                style = MaterialTheme.typography.bodyMedium,
+            )
         }
     }
 }
@@ -73,7 +137,6 @@ private fun SymbolExplorer() {
         grade = grade,
         opticalSize = opticalSize,
     )
-    val fontFamily = rememberMaterialSymbolFontFamily(style.font, axes)
     val normalizedQuery = query.trim().lowercase()
     val symbols = remember(normalizedQuery) {
         MaterialSymbols.all.asSequence()
@@ -82,29 +145,30 @@ private fun SymbolExplorer() {
             .toList()
     }
 
-    Scaffold { contentPadding ->
-        Column(
-            modifier = Modifier
-                .safeContentPadding()
-                .fillMaxSize()
-                .padding(contentPadding)
-                .padding(horizontal = 20.dp, vertical = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-        ) {
+    MaterialSymbolsTheme(axes) {
+        val fontFamily = rememberMaterialSymbolFontFamily(style.font)
+        Scaffold { contentPadding ->
+            Column(
+                modifier = Modifier
+                    .safeContentPadding()
+                    .fillMaxSize()
+                    .padding(contentPadding)
+                    .padding(horizontal = 20.dp, vertical = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 MaterialSymbolIcon(
-                    symbol = MaterialSymbols.Home,
+                    symbol = MaterialSymbols.Search,
                     fontFamily = fontFamily,
                     contentDescription = null,
-                    axes = axes,
                     tint = MaterialTheme.colorScheme.primary,
                     size = 40.dp,
                 )
                 Icon(
-                    imageVector = MaterialSymbols.Home.outlinedImageVector,
+                    imageVector = Icons.Outlined.Home,
                     contentDescription = "Static ImageVector access",
                     modifier = Modifier.size(32.dp),
                     tint = MaterialTheme.colorScheme.secondary,
@@ -178,7 +242,6 @@ private fun SymbolExplorer() {
                         symbol = MaterialSymbols.Search,
                         fontFamily = fontFamily,
                         contentDescription = null,
-                        axes = axes,
                         tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 },
@@ -199,13 +262,13 @@ private fun SymbolExplorer() {
                 ) { symbol ->
                     SymbolCard(
                         symbol = symbol,
-                        axes = axes,
                         fontFamily = fontFamily,
                     )
                 }
             }
         }
     }
+}
 }
 
 @Composable
@@ -245,7 +308,6 @@ private fun AxisControl(
 @Composable
 private fun SymbolCard(
     symbol: MaterialSymbol,
-    axes: MaterialSymbolAxes,
     fontFamily: androidx.compose.ui.text.font.FontFamily,
 ) {
     Card {
@@ -260,7 +322,6 @@ private fun SymbolCard(
                 symbol = symbol,
                 fontFamily = fontFamily,
                 contentDescription = symbol.name.replace('_', ' '),
-                axes = axes,
                 tint = MaterialTheme.colorScheme.onSurface,
                 size = 32.dp,
             )

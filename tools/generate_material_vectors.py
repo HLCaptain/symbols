@@ -13,12 +13,12 @@ Run with the repository's pinned FontTools environment:
 from __future__ import annotations
 
 import argparse
-import json
 import re
 import sys
+from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Iterable, Sequence
+from typing import Any, Sequence
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parent.parent
@@ -29,7 +29,7 @@ EXPECTED_NAME_COUNT = 4_102
 EXPECTED_CODE_POINT_COUNT = 3_802
 UNITS_PER_EM = 960
 VIEWPORT_SIZE = 24
-PATHS_PER_CHUNK = 128
+ICONS_PER_FILE = 64
 AXIS_LOCATION = {
     "FILL": 0.0,
     "GRAD": 0.0,
@@ -46,6 +46,16 @@ CODEPOINT_LINE = re.compile(
     r"^(?P<name>[a-z0-9]+(?:_[a-z0-9]+)*)[ \t]+"
     r"(?P<code_point>[0-9a-fA-F]{1,6})[ \t]*$"
 )
+PATH_TOKEN = re.compile(
+    r"[MLHVQZ]|[-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][-+]?\d+)?"
+)
+PATH_COMMANDS = frozenset("MLHVQZ")
+PATH_OPERATION = {
+    "L": ("lineTo", 2),
+    "H": ("horizontalLineTo", 1),
+    "V": ("verticalLineTo", 1),
+    "Q": ("quadTo", 4),
+}
 
 
 class GenerationError(RuntimeError):
@@ -56,6 +66,7 @@ class GenerationError(RuntimeError):
 class Style:
     name: str
     title: str
+    typed_root: str = "Icons"
 
     @property
     def font_path(self) -> Path:
@@ -87,6 +98,16 @@ STYLES = (
 )
 
 
+def kotlin_identifier(name: str) -> str:
+    """Convert a canonical snake_case name to its typed Kotlin property."""
+
+    identifier = "".join(
+        part[0].upper() + part[1:]
+        for part in name.split("_")
+    )
+    return f"_{identifier}" if identifier[0].isdigit() else identifier
+
+
 def import_fonttools() -> tuple[Any, Any, Any, str]:
     try:
         import fontTools
@@ -116,6 +137,7 @@ def parse_codepoints(path: Path) -> tuple[tuple[str, int], ...]:
 
     entries: list[tuple[str, int]] = []
     names: set[str] = set()
+    name_by_identifier: dict[str, str] = {}
     for line_number, line in enumerate(lines, start=1):
         if not line.strip():
             continue
@@ -129,8 +151,25 @@ def parse_codepoints(path: Path) -> tuple[tuple[str, int], ...]:
             raise GenerationError(
                 f"{path}:{line_number}: duplicate symbol name {name!r}"
             )
+        identifier = kotlin_identifier(name)
+        previous_name = name_by_identifier.get(identifier)
+        if previous_name is not None:
+            raise GenerationError(
+                f"{path}:{line_number}: Kotlin identifier collision: "
+                f"{previous_name!r} and {name!r} both become {identifier!r}"
+            )
         names.add(name)
-        entries.append((name, int(match.group("code_point"), 16)))
+        name_by_identifier[identifier] = name
+        code_point = int(match.group("code_point"), 16)
+        if (
+            code_point > 0x10FFFF
+            or 0xD800 <= code_point <= 0xDFFF
+        ):
+            raise GenerationError(
+                f"{path}:{line_number}: U+{code_point:04X} "
+                "is not a Unicode scalar value"
+            )
+        entries.append((name, code_point))
 
     unique_code_points = {code_point for _, code_point in entries}
     if len(entries) != EXPECTED_NAME_COUNT:
@@ -222,11 +261,6 @@ def extract_paths(
         font.close()
 
 
-def chunked(values: Sequence[str], size: int) -> Iterable[tuple[int, Sequence[str]]]:
-    for start in range(0, len(values), size):
-        yield start, values[start : start + size]
-
-
 def render_int_array(values: Sequence[int]) -> list[str]:
     rendered = [f"0x{value:X}" for value in values]
     return [
@@ -235,7 +269,90 @@ def render_int_array(values: Sequence[int]) -> list[str]:
     ]
 
 
-def render_public_api(style: Style, chunk_count: int) -> str:
+def group_names_by_code_point(
+    entries: Sequence[tuple[str, int]],
+) -> dict[int, tuple[str, ...]]:
+    grouped: defaultdict[int, list[str]] = defaultdict(list)
+    for name, code_point in entries:
+        grouped[code_point].append(name)
+    return {
+        code_point: tuple(sorted(names))
+        for code_point, names in grouped.items()
+    }
+
+
+def tokenize_path(path: str) -> tuple[str, ...]:
+    tokens: list[str] = []
+    position = 0
+    for match in PATH_TOKEN.finditer(path):
+        separator = path[position : match.start()]
+        if separator.strip(" ,\t\r\n"):
+            raise GenerationError(
+                f"Unsupported SVG path syntax near {separator!r} in {path!r}"
+            )
+        tokens.append(match.group())
+        position = match.end()
+    trailing = path[position:]
+    if trailing.strip(" ,\t\r\n"):
+        raise GenerationError(
+            f"Unsupported SVG path syntax near {trailing!r} in {path!r}"
+        )
+    if not tokens:
+        raise GenerationError("Cannot render an empty SVG path")
+    return tuple(tokens)
+
+
+def render_path_operations(path: str) -> tuple[str, ...]:
+    """Render a compact absolute SVG path as shrinkable PathBuilder calls."""
+
+    tokens = tokenize_path(path)
+    operations: list[str] = []
+    index = 0
+    command: str | None = None
+    while index < len(tokens):
+        token = tokens[index]
+        if token in PATH_COMMANDS:
+            command = token
+            index += 1
+            if command == "Z":
+                operations.append("close()")
+                command = None
+                continue
+        elif command is None:
+            raise GenerationError(
+                f"SVG path operand {token!r} has no command in {path!r}"
+            )
+
+        if command == "M":
+            operation, arity = "moveTo", 2
+        elif command is not None:
+            try:
+                operation, arity = PATH_OPERATION[command]
+            except KeyError as error:
+                raise GenerationError(
+                    f"Unsupported SVG path command {command!r} in {path!r}"
+                ) from error
+        else:
+            raise GenerationError(f"Missing SVG path command in {path!r}")
+
+        operands = tokens[index : index + arity]
+        if len(operands) != arity or any(
+            operand in PATH_COMMANDS for operand in operands
+        ):
+            raise GenerationError(
+                f"SVG path command {command!r} has incomplete operands in {path!r}"
+            )
+        arguments = ", ".join(f"{operand}f" for operand in operands)
+        operations.append(f"{operation}({arguments})")
+        index += arity
+        if command == "M":
+            # Additional coordinate pairs after an SVG move are implicit lines.
+            command = "L"
+
+    return tuple(operations)
+
+
+def render_public_api(style: Style) -> str:
     prefix = style.name
     title = style.title
     return "\n".join(
@@ -243,11 +360,7 @@ def render_public_api(style: Style, chunk_count: int) -> str:
             GENERATED_HEADER.rstrip(),
             f"package {style.package_name}",
             "",
-            "import androidx.compose.ui.graphics.Color",
-            "import androidx.compose.ui.graphics.SolidColor",
             "import androidx.compose.ui.graphics.vector.ImageVector",
-            "import androidx.compose.ui.graphics.vector.PathParser",
-            "import androidx.compose.ui.unit.dp",
             "import io.github.hlcaptain.symbols.material.MaterialSymbol",
             "",
             "/**",
@@ -255,8 +368,8 @@ def render_public_api(style: Style, chunk_count: int) -> str:
             " * `FILL=0, GRAD=0, opsz=24, wght=400`.",
             " *",
             " * Repeated access, including access through code-point aliases, returns",
-            " * the same lazily built instance. Cache chunks and individual vectors use",
-            " * Kotlin's default thread-safe lazy semantics on threaded platforms.",
+            " * the same lazily built instance. Each unique code point owns one default",
+            " * cache, shared by its typed alias getters.",
             " */",
             f"public val MaterialSymbol.{prefix}ImageVector: ImageVector",
             f"    get() = as{title}ImageVector()",
@@ -279,90 +392,7 @@ def render_public_api(style: Style, chunk_count: int) -> str:
                 f'is not in the {title} vector snapshot"'
             ),
             "    }",
-            f"    return cached{title}ImageVector(vectorIndex, autoMirror)",
-            "}",
-            "",
-            f"private const val {prefix}VectorCacheChunkSize: Int = {PATHS_PER_CHUNK}",
-            (
-                f"private const val {prefix}VectorCacheChunkCount: Int = "
-                f"{chunk_count}"
-            ),
-            "",
-            (
-                f"private val {prefix}VectorCacheChunks: "
-                "Array<Lazy<Array<Lazy<ImageVector>>>> by lazy {"
-            ),
-            f"    Array({prefix}VectorCacheChunkCount * 2) {{ cacheChunkIndex ->",
-            f"        val autoMirror = cacheChunkIndex >= {prefix}VectorCacheChunkCount",
-            (
-                f"        val vectorChunkIndex = "
-                f"cacheChunkIndex % {prefix}VectorCacheChunkCount"
-            ),
-            "        lazy {",
-            (
-                f"            val firstVectorIndex = "
-                f"vectorChunkIndex * {prefix}VectorCacheChunkSize"
-            ),
-            "            val chunkSize = minOf(",
-            f"                {prefix}VectorCacheChunkSize,",
-            f"                {prefix}VectorCount - firstVectorIndex,",
-            "            )",
-            "            Array(chunkSize) { chunkOffset ->",
-            "                lazy {",
-            (
-                f"                    build{title}ImageVector("
-                "firstVectorIndex + chunkOffset, autoMirror)"
-            ),
-            "                }",
-            "            }",
-            "        }",
-            "    }",
-            "}",
-            "",
-            (
-                f"private fun cached{title}ImageVector("
-                "vectorIndex: Int, autoMirror: Boolean): ImageVector {"
-            ),
-            f"    val vectorChunkIndex = vectorIndex / {prefix}VectorCacheChunkSize",
-            f"    val chunkOffset = vectorIndex % {prefix}VectorCacheChunkSize",
-            (
-                f"    val mirrorChunkOffset = if (autoMirror) "
-                f"{prefix}VectorCacheChunkCount else 0"
-            ),
-            (
-                f"    return {prefix}VectorCacheChunks"
-                "[mirrorChunkOffset + vectorChunkIndex].value[chunkOffset].value"
-            ),
-            "}",
-            "",
-            (
-                f"private fun build{title}ImageVector("
-                "vectorIndex: Int, autoMirror: Boolean): ImageVector {"
-            ),
-            f"    val codePoint = {prefix}VectorCodePoints[vectorIndex]",
-            (
-                "    val mirrorSuffix = "
-                'if (autoMirror) ".AutoMirrored" else ""'
-            ),
-            "    return ImageVector.Builder(",
-            (
-                f'        name = "MaterialSymbols{title}.U+${{'
-                'codePoint.toString(16).uppercase()}$mirrorSuffix",'
-            ),
-            "        defaultWidth = 24.dp,",
-            "        defaultHeight = 24.dp,",
-            "        viewportWidth = 24f,",
-            "        viewportHeight = 24f,",
-            "        autoMirror = autoMirror,",
-            "    ).apply {",
-            "        addPath(",
-            (
-                "            pathData = PathParser()"
-                f".parsePathString({prefix}VectorPathAt(vectorIndex)).toNodes(),"
-            ),
-            "            fill = SolidColor(Color.Black),",
-            "        )",
-            "    }.build()",
+            f"    return {prefix}VectorAt(vectorIndex, autoMirror)",
             "}",
             "",
         )
@@ -374,6 +404,8 @@ def render_index(style: Style, code_points: Sequence[int], chunk_count: int) -> 
     lines = [
         GENERATED_HEADER.rstrip(),
         f"package {style.package_name}",
+        "",
+        "import androidx.compose.ui.graphics.vector.ImageVector",
         "",
         f"internal const val {prefix}VectorCount: Int = {len(code_points)}",
         "",
@@ -397,14 +429,17 @@ def render_index(style: Style, code_points: Sequence[int], chunk_count: int) -> 
         "    return -1",
         "}",
         "",
-        f"internal fun {prefix}VectorPathAt(index: Int): String {{",
+        (
+            f"internal fun {prefix}VectorAt("
+            "index: Int, autoMirror: Boolean): ImageVector {"
+        ),
         f'    require(index in 0 until {prefix}VectorCount) {{ "index: $index" }}',
-        f"    return when (index / {PATHS_PER_CHUNK}) {{",
+        f"    return when (index / {ICONS_PER_FILE}) {{",
     ]
     for chunk_index in range(chunk_count):
         lines.append(
             f"        {chunk_index} -> "
-            f"{prefix}VectorPath{chunk_index:03d}(index)"
+            f"{prefix}VectorChunk{chunk_index:03d}(index, autoMirror)"
         )
     lines.extend(
         (
@@ -417,25 +452,102 @@ def render_index(style: Style, code_points: Sequence[int], chunk_count: int) -> 
     return "\n".join(lines)
 
 
-def render_path_chunk(
+def render_icon_file(
     style: Style,
     chunk_index: int,
     start: int,
+    code_points: Sequence[int],
     paths: Sequence[str],
+    names_by_code_point: dict[int, tuple[str, ...]],
 ) -> str:
     prefix = style.name
+    title = style.title
     lines = [
         GENERATED_HEADER.rstrip(),
         f"package {style.package_name}",
         "",
-        '@Suppress("CyclomaticComplexMethod", "MagicNumber")',
-        (
-            f"internal fun {prefix}VectorPath{chunk_index:03d}("
-            "index: Int): String = when (index) {"
-        ),
+        "import androidx.compose.ui.graphics.Color",
+        "import androidx.compose.ui.graphics.SolidColor",
+        "import androidx.compose.ui.graphics.vector.ImageVector",
+        "import androidx.compose.ui.graphics.vector.path",
+        "import androidx.compose.ui.unit.dp",
+        f"import io.github.hlcaptain.symbols.material.{style.typed_root}",
+        "",
     ]
-    for offset, path in enumerate(paths):
-        lines.append(f"    {start + offset} -> {json.dumps(path)}")
+    for code_point, path in zip(code_points, paths):
+        object_name = f"{title}Vector{code_point:X}"
+        names = names_by_code_point.get(code_point)
+        if not names:
+            raise GenerationError(
+                f"{style.name}: U+{code_point:04X} has no typed symbol names"
+            )
+        for name in names:
+            identifier = kotlin_identifier(name)
+            lines.extend(
+                (
+                    f"public val {style.typed_root}.{title}.{identifier}: ImageVector",
+                    f"    get() = {object_name}.value(autoMirror = false)",
+                    "",
+                )
+            )
+
+        mirror_suffix = (
+            'if (autoMirror) ".AutoMirrored" else ""'
+        )
+        lines.extend(
+            (
+                f"private object {object_name} {{",
+                "    private val default: ImageVector by lazy {",
+                "        build(autoMirror = false)",
+                "    }",
+                "",
+                "    private val autoMirrored: ImageVector by lazy {",
+                "        build(autoMirror = true)",
+                "    }",
+                "",
+                "    public fun value(autoMirror: Boolean): ImageVector =",
+                "        if (autoMirror) autoMirrored else default",
+                "",
+                "    private fun build(autoMirror: Boolean): ImageVector {",
+                f"        val mirrorSuffix = {mirror_suffix}",
+                "        return ImageVector.Builder(",
+                (
+                    f'            name = "MaterialSymbols{title}.'
+                    f'U+{code_point:X}$mirrorSuffix",'
+                ),
+                "            defaultWidth = 24.dp,",
+                "            defaultHeight = 24.dp,",
+                "            viewportWidth = 24f,",
+                "            viewportHeight = 24f,",
+                "            autoMirror = autoMirror,",
+                "        ).apply {",
+                "            path(fill = SolidColor(Color.Black)) {",
+                *(
+                    f"                {operation}"
+                    for operation in render_path_operations(path)
+                ),
+                "            }",
+                "        }.build()",
+                "    }",
+                "}",
+                "",
+            )
+        )
+
+    lines.extend(
+        (
+            '@Suppress("CyclomaticComplexMethod", "MagicNumber")',
+            (
+                f"internal fun {prefix}VectorChunk{chunk_index:03d}("
+                "index: Int, autoMirror: Boolean): ImageVector = when (index) {"
+            ),
+        )
+    )
+    for offset, code_point in enumerate(code_points):
+        object_name = f"{title}Vector{code_point:X}"
+        lines.append(
+            f"    {start + offset} -> {object_name}.value(autoMirror)"
+        )
     lines.extend(
         (
             '    else -> error("index outside generated chunk: $index")',
@@ -448,6 +560,7 @@ def render_path_chunk(
 
 def render_style(
     style: Style,
+    entries: Sequence[tuple[str, int]],
     code_points: Sequence[int],
     paths: Sequence[str],
 ) -> dict[Path, str]:
@@ -456,25 +569,36 @@ def render_style(
             f"{style.name}: {len(paths)} paths for {len(code_points)} code points"
         )
 
-    chunks = list(chunked(paths, PATHS_PER_CHUNK))
+    chunk_count = (
+        len(code_points) + ICONS_PER_FILE - 1
+    ) // ICONS_PER_FILE
+    names_by_code_point = group_names_by_code_point(entries)
     rendered = {
         style.source_directory
-        / f"MaterialSymbols{style.title}Vectors.generated.kt": render_public_api(
-            style,
-            len(chunks),
-        ),
+        / f"MaterialSymbols{style.title}Vectors.generated.kt": render_public_api(style),
         style.source_directory
         / f"{style.title}VectorIndex.generated.kt": render_index(
             style,
             code_points,
-            len(chunks),
+            chunk_count,
         ),
     }
-    for chunk_index, (start, chunk_paths) in enumerate(chunks):
+    for chunk_index, start in enumerate(
+        range(0, len(code_points), ICONS_PER_FILE)
+    ):
+        chunk_code_points = code_points[start : start + ICONS_PER_FILE]
+        chunk_paths = paths[start : start + ICONS_PER_FILE]
         rendered[
             style.source_directory
-            / f"{style.title}VectorPaths{chunk_index:03d}.generated.kt"
-        ] = render_path_chunk(style, chunk_index, start, chunk_paths)
+            / f"{style.title}Icons{chunk_index:03d}.generated.kt"
+        ] = render_icon_file(
+            style,
+            chunk_index,
+            start,
+            chunk_code_points,
+            chunk_paths,
+            names_by_code_point,
+        )
     return rendered
 
 
@@ -559,7 +683,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 svg_path_pen,
                 transform_pen,
             )
-            rendered.update(render_style(style, code_points, paths))
+            rendered.update(render_style(style, entries, code_points, paths))
         changed, total_bytes = synchronize_generated(
             rendered,
             selected_styles,

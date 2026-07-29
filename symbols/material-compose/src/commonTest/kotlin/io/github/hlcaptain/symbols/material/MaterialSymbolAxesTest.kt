@@ -3,6 +3,7 @@ package io.github.hlcaptain.symbols.material
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
+import kotlin.test.assertSame
 
 class MaterialSymbolAxesTest {
     @Test
@@ -11,6 +12,8 @@ class MaterialSymbolAxesTest {
             MaterialSymbolAxes(fill = 0f, weight = 400, grade = 0f, opticalSize = 24f),
             MaterialSymbolAxes(),
         )
+        assertEquals(MaterialSymbolAxes(), MaterialSymbolAxes.Default)
+        assertSame(MaterialSymbolAxes.Default, MaterialSymbolAxes.Default)
     }
 
     @Test

@@ -1,10 +1,11 @@
 # Custom fonts and code points
 
-Symbols supports a custom variable font without making custom glyph processing
-part of an application build. Prepare and license the font separately, package it
-as a Compose Multiplatform resource, and use the low-level codepoint API.
+Symbols supports custom regular and variable fonts as runtime Compose resources,
+or as build-time inputs for generated `ImageVector`/drawable output. Prepare and
+license the font separately, then choose whether the application should ship the
+font itself or only selected extracted outlines.
 
-## Package a font
+## Package a variable font
 
 Place one font in the custom module:
 
@@ -12,23 +13,25 @@ Place one font in the custom module:
 src/commonMain/composeResources/font/my_symbols_variable.ttf
 ```
 
-Expose it through `MaterialSymbolFont`:
+Expose it through the explicit variable-font contract:
 
 ```kotlin
-import io.github.hlcaptain.symbols.material.MaterialSymbolFont
+import io.github.hlcaptain.symbols.material.MaterialSymbolVariableFont
 import my.symbols.generated.resources.Res
 import my.symbols.generated.resources.my_symbols_variable
 
-object MySymbols : MaterialSymbolFont {
+object MySymbols : MaterialSymbolVariableFont {
     override val familyName = "My Symbols"
     override val resource = Res.font.my_symbols_variable
 }
 ```
 
 The font must use the same `FILL`, `wght`, `GRAD`, and `opsz` contracts if it is
-rendered with `MaterialSymbolAxes`. A static font or a variable font with
-different axes needs its own renderer instead of pretending to implement this
-contract.
+rendered with `MaterialSymbolAxes`. A variable font with different tags or
+ranges needs its own renderer instead of pretending to implement this contract.
+The older `MaterialSymbolFont` interface remains source compatible, but is
+treated as variable; new implementations should state their capability
+explicitly.
 
 Render a private-use or supplementary scalar directly:
 
@@ -43,6 +46,44 @@ MaterialSymbolIcon(
 `materialSymbolText(codePoint)` is available for a custom `BasicText` layout.
 Both APIs reject negative values, surrogate code points, and values above
 `U+10FFFF`.
+
+## Package a regular font
+
+Use `MaterialSymbolRegularFont` for a font baked at one immutable point:
+
+```kotlin
+import io.github.hlcaptain.symbols.material.MaterialSymbolAxes
+import io.github.hlcaptain.symbols.material.MaterialSymbolRegularFont
+import my.symbols.generated.resources.Res
+import my.symbols.generated.resources.my_symbols_regular
+
+object MyRegularSymbols : MaterialSymbolRegularFont {
+    override val familyName = "My Symbols"
+    override val resource = Res.font.my_symbols_regular
+    override val axes = MaterialSymbolAxes.Default
+}
+```
+
+The renderer never attaches `FontVariation.Settings` to this resource, so it can
+render on Android API 21. It verifies that the requested axes equal the declared
+fixed point. In a non-default `MaterialSymbolsTheme`, pass
+`axes = MyRegularSymbols.axes` explicitly or provide a style-specific overload
+that does so.
+
+## Generate outlines instead of shipping a font
+
+The `io.github.hlcaptain.symbol-fonts` Gradle plugin accepts a custom regular
+font or a fixed instance of a custom variable font. It validates the manifest
+and glyph coverage and can emit:
+
+- direct common Compose `ImageVector` properties;
+- native Android vector drawables; and
+- Compose Multiplatform drawable resources.
+
+Use explicit `include(...)` entries so unneeded glyphs are never generated. The
+input font remains a build input and is not packaged unless another dependency
+adds it as a resource. See [build-time font conversion](GENERATOR.md) for the
+complete DSL, generated API, and shrinker boundaries.
 
 ## Allocate code points deliberately
 
@@ -60,7 +101,7 @@ Aliases are valid when several names intentionally address one glyph. Duplicate
 names are not. Treat a collision between generated Kotlin identifiers as an
 error rather than silently renaming one property.
 
-## Generate a forked catalog
+## Generate a forked runtime catalog
 
 `tools/generate_material_symbols.py` accepts explicit input, output, and package
 arguments:
@@ -75,7 +116,9 @@ python3 tools/generate_material_symbols.py \
 The generated file expects the catalog runtime types from `MaterialSymbol.kt` in
 the same package. This mode is intended for a source fork or a custom module that
 adapts that small runtime; it does not inject types into an arbitrary consuming
-project. Run the generator's `--check` mode in CI.
+project. Run the generator's `--check` mode in CI. A consumer that only needs
+typed vectors/drawables should normally use the Gradle plugin instead of forking
+the built-in runtime catalog.
 
 If a custom glyph is added to the bundled Google font snapshot, the result is a
 derivative font. Record:
@@ -103,3 +146,7 @@ A custom catalog/font test suite should cover:
 - axis boundaries and defaults;
 - RTL behavior for directional glyphs; and
 - accessible descriptions that never expose raw private-use text.
+
+For generated outputs, also test regular and variable inputs, selected versus
+missing names, deterministic warm builds, stale-output cleanup, and the
+release-artifact reachability of only the referenced icons.

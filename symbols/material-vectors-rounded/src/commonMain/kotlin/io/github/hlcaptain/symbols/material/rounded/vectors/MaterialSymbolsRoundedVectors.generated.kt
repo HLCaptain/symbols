@@ -4,11 +4,7 @@
 // See THIRD_PARTY_NOTICES.md for immutable provenance and modification details.
 package io.github.hlcaptain.symbols.material.rounded.vectors
 
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathParser
-import androidx.compose.ui.unit.dp
 import io.github.hlcaptain.symbols.material.MaterialSymbol
 
 /**
@@ -16,8 +12,8 @@ import io.github.hlcaptain.symbols.material.MaterialSymbol
  * `FILL=0, GRAD=0, opsz=24, wght=400`.
  *
  * Repeated access, including access through code-point aliases, returns
- * the same lazily built instance. Cache chunks and individual vectors use
- * Kotlin's default thread-safe lazy semantics on threaded platforms.
+ * the same lazily built instance. Each unique code point owns one default
+ * cache, shared by its typed alias getters.
  */
 public val MaterialSymbol.roundedImageVector: ImageVector
     get() = asRoundedImageVector()
@@ -33,52 +29,5 @@ public fun MaterialSymbol.asRoundedImageVector(autoMirror: Boolean = false): Ima
     require(vectorIndex >= 0) {
         "MaterialSymbol '$name' (U+${codePoint.toString(16).uppercase()}) is not in the Rounded vector snapshot"
     }
-    return cachedRoundedImageVector(vectorIndex, autoMirror)
-}
-
-private const val roundedVectorCacheChunkSize: Int = 128
-private const val roundedVectorCacheChunkCount: Int = 30
-
-private val roundedVectorCacheChunks: Array<Lazy<Array<Lazy<ImageVector>>>> by lazy {
-    Array(roundedVectorCacheChunkCount * 2) { cacheChunkIndex ->
-        val autoMirror = cacheChunkIndex >= roundedVectorCacheChunkCount
-        val vectorChunkIndex = cacheChunkIndex % roundedVectorCacheChunkCount
-        lazy {
-            val firstVectorIndex = vectorChunkIndex * roundedVectorCacheChunkSize
-            val chunkSize = minOf(
-                roundedVectorCacheChunkSize,
-                roundedVectorCount - firstVectorIndex,
-            )
-            Array(chunkSize) { chunkOffset ->
-                lazy {
-                    buildRoundedImageVector(firstVectorIndex + chunkOffset, autoMirror)
-                }
-            }
-        }
-    }
-}
-
-private fun cachedRoundedImageVector(vectorIndex: Int, autoMirror: Boolean): ImageVector {
-    val vectorChunkIndex = vectorIndex / roundedVectorCacheChunkSize
-    val chunkOffset = vectorIndex % roundedVectorCacheChunkSize
-    val mirrorChunkOffset = if (autoMirror) roundedVectorCacheChunkCount else 0
-    return roundedVectorCacheChunks[mirrorChunkOffset + vectorChunkIndex].value[chunkOffset].value
-}
-
-private fun buildRoundedImageVector(vectorIndex: Int, autoMirror: Boolean): ImageVector {
-    val codePoint = roundedVectorCodePoints[vectorIndex]
-    val mirrorSuffix = if (autoMirror) ".AutoMirrored" else ""
-    return ImageVector.Builder(
-        name = "MaterialSymbolsRounded.U+${codePoint.toString(16).uppercase()}$mirrorSuffix",
-        defaultWidth = 24.dp,
-        defaultHeight = 24.dp,
-        viewportWidth = 24f,
-        viewportHeight = 24f,
-        autoMirror = autoMirror,
-    ).apply {
-        addPath(
-            pathData = PathParser().parsePathString(roundedVectorPathAt(vectorIndex)).toNodes(),
-            fill = SolidColor(Color.Black),
-        )
-    }.build()
+    return roundedVectorAt(vectorIndex, autoMirror)
 }

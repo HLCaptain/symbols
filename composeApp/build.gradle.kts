@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
+    id("io.github.hlcaptain.symbol-fonts")
 }
 
 kotlin {
@@ -50,6 +51,7 @@ kotlin {
             implementation(projects.modules.materialOutlined)
             implementation(projects.modules.materialRounded)
             implementation(projects.modules.materialSharp)
+            implementation(projects.modules.materialRoundedStatic)
             implementation(projects.modules.materialVectorsOutlined)
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -94,6 +96,46 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+    }
+}
+
+symbolFonts {
+    iconSet("AppIcons") {
+        packageName.set("io.github.hlcaptain.symbols.sample.generated")
+        manifest.set(
+            rootProject.layout.projectDirectory.file(
+                "fonts/material/MaterialSymbols.codepoints",
+            ),
+        )
+        include("check", "favorite", "home")
+
+        style("Rounded") {
+            font.set(
+                rootProject.layout.projectDirectory.file(
+                    "fonts/material/rounded/composeResources/font/" +
+                        "material_symbols_rounded_variable.ttf",
+                ),
+            )
+            axis("FILL", 1f)
+            axis("GRAD", 0f)
+            axis("opsz", 24f)
+            axis("wght", 400f)
+            imageVectors()
+            androidDrawables()
+            composeDrawables()
+        }
+
+        style("Regular") {
+            font.set(
+                rootProject.layout.projectDirectory.file(
+                    "fonts/material/rounded-static/composeResources/font/" +
+                        "material_symbols_rounded_regular.ttf",
+                ),
+            )
+            imageVectors()
+            androidDrawables()
+            composeDrawables()
+        }
     }
 }
 

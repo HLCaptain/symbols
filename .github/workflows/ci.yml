@@ -46,11 +46,17 @@ jobs:
           --disable-pip-version-check
           -r tools/requirements-font-verification.txt
 
-      - name: Run generator and verifier tests
+      - name: Run all Python generator and verifier tests
         run: python -m unittest discover -s tools/tests -p "test_*.py"
 
       - name: Check generated symbol catalog
         run: python tools/generate_material_symbols.py --check
+
+      - name: Check generated typed font namespaces
+        run: python tools/generate_material_font_namespaces.py --check
+
+      - name: Check generated API 21 static fonts
+        run: python tools/generate_material_static_fonts.py --check
 
       - name: Check generated vector packs
         run: python tools/generate_material_vectors.py --check
@@ -83,6 +89,18 @@ jobs:
           cache-provider: basic
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
 
+      - name: Test and validate font generator publications
+        run: >-
+          ./gradlew
+          -p tooling
+          test
+          :symbol-gradle-plugin:validatePlugins
+          :symbol-generator-core:generatePomFileForMavenPublication
+          :symbol-gradle-plugin:generatePomFileForPluginMavenPublication
+          :symbol-gradle-plugin:generatePomFileForSymbolFontsPluginMarkerMavenPublication
+          --no-daemon
+          --stacktrace
+
       - name: Test JVM and verify release artifacts
         run: >-
           ./gradlew
@@ -90,8 +108,21 @@ jobs:
           assembleRelease
           lintRelease
           verifyPublishedArchives
+          --max-workers=1
           --no-daemon
           --stacktrace
+
+      - name: Verify R8 and Android resource shrinking
+        run: >-
+          ./gradlew
+          :benchmarks:shrinkable-vectors:assembleUnshrunk
+          :benchmarks:shrinkable-vectors:assembleShrunk
+          --max-workers=1
+          --no-daemon
+          --stacktrace
+
+      - name: Inspect shrink benchmark APKs
+        run: python3 benchmarks/shrinkable-vectors/verify.py
 
   web:
     name: JS and Wasm production bundles
@@ -125,6 +156,7 @@ jobs:
           compileKotlinWasmJs
           :composeApp:jsBrowserProductionWebpack
           :composeApp:wasmJsBrowserProductionWebpack
+          --max-workers=1
           --no-daemon
           --stacktrace
 
@@ -158,5 +190,6 @@ jobs:
           ./gradlew
           compileKotlinIosSimulatorArm64
           :composeApp:linkDebugFrameworkIosSimulatorArm64
+          --max-workers=1
           --no-daemon
           --stacktrace
