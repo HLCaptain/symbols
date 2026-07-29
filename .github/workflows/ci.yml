@@ -34,11 +34,14 @@ jobs:
           persist-credentials: false
 
       - name: Set up Python
-        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
-        with:
-          python-version: "3.13"
-          cache: pip
-          cache-dependency-path: tools/requirements-font-verification.txt
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python_venv="$RUNNER_TEMP/material-symbols-python"
+          python3.13 -m venv "$python_venv"
+          echo "$python_venv/bin" >> "$GITHUB_PATH"
+          "$python_venv/bin/python" --version
 
       - name: Install maintainer dependencies
         run: >-
@@ -82,6 +85,19 @@ jobs:
           java-version: |
             17
             21
+
+      - name: Configure Android SDK
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          android_sdk="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-$HOME/Library/Android/sdk}}"
+          if [[ ! -d "$android_sdk" ]]; then
+            echo "Android SDK not found at $android_sdk" >&2
+            exit 1
+          fi
+          echo "ANDROID_HOME=$android_sdk" >> "$GITHUB_ENV"
+          echo "ANDROID_SDK_ROOT=$android_sdk" >> "$GITHUB_ENV"
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@3f131e8634966bd73d06cc69884922b02e6faf92 # v6.2.0
