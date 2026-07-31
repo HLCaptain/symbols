@@ -24,7 +24,7 @@ from typing import Any, Sequence
 REPOSITORY_ROOT = Path(__file__).resolve().parent.parent
 CODEPOINTS_PATH = REPOSITORY_ROOT / "fonts/material/MaterialSymbols.codepoints"
 PACKAGE_ROOT = "io/github/hlcaptain/symbols/material"
-PINNED_FONTTOOLS_VERSION = "4.59.0"
+PINNED_FONTTOOLS_VERSION = "4.60.2"
 EXPECTED_NAME_COUNT = 4_102
 EXPECTED_CODE_POINT_COUNT = 3_802
 UNITS_PER_EM = 960

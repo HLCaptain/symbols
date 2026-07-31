@@ -1,2 +1,2 @@
 # Maintainer/CI-only dependency for verify_material_fonts.py.
-fonttools==4.59.0
+fonttools==4.60.2

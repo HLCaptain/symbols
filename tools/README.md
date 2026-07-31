@@ -87,7 +87,7 @@ Regenerate every style or byte-compare the checked-in results:
 /tmp/symbols-fonttools/bin/python tools/generate_material_static_fonts.py --check
 ```
 
-The script requires FontTools 4.59.0 exactly, removes variable tables, disables
+The script requires FontTools 4.60.2 exactly, removes variable tables, disables
 timestamp recalculation, and writes a stable table order.
 
 ## Vector generation

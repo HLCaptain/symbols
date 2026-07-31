@@ -326,8 +326,9 @@ See [architecture](docs/ARCHITECTURE.md), [performance choices](docs/PERFORMANCE
 
 ## Build and verify
 
-The checked-in wrapper uses Gradle 8.14.3. Use JDK 17 or 21 and an Android SDK
-with API 36:
+The checked-in wrapper uses Gradle 8.14.5 with Kotlin 2.2.21 and AGP 8.11.1.
+Use JDK 17 or 21 and an Android SDK with API 36; Gradle provisions the exact
+JDK 17 compiler toolchain when it is not installed:
 
 ```shell
 ./gradlew jvmTest assembleRelease lintRelease verifyPublishedArchives

@@ -1,7 +1,7 @@
 import org.gradle.api.publish.maven.MavenPublication
 
 plugins {
-    kotlin("jvm") version "2.2.20"
+    alias(libs.plugins.kotlinJvm)
     application
     `maven-publish`
 }
@@ -10,8 +10,6 @@ kotlin {
     explicitApi()
     jvmToolchain(17)
 }
-
-val skikoVersion = "0.9.22.2"
 
 fun skikoRuntimeTarget(): String {
     val os = System.getProperty("os.name").lowercase()
@@ -31,9 +29,10 @@ fun skikoRuntimeTarget(): String {
 }
 
 dependencies {
-    implementation("org.jetbrains.skiko:skiko-awt:$skikoVersion")
+    implementation(libs.skiko.awt)
     testRuntimeOnly(
-        "org.jetbrains.skiko:skiko-awt-runtime-${skikoRuntimeTarget()}:$skikoVersion",
+        "org.jetbrains.skiko:skiko-awt-runtime-${skikoRuntimeTarget()}:" +
+            libs.versions.skiko.get(),
     )
 
     testImplementation(kotlin("test-junit"))

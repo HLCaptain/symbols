@@ -9,6 +9,12 @@ artifacts are released.
 
 ## [Unreleased]
 
+### Changed
+
+- Updated the supported Gradle 8, Kotlin 2.2, Compose 1.9, Android API 21, and
+  JVM 11 dependency lines, and enabled JDK 17 toolchain provisioning in the
+  included tooling build.
+
 ### Added
 
 - Typed catalog access for all 4,102 Material Symbols 2.874 names, including

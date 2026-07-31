@@ -69,7 +69,7 @@ immutable release coordinates.
 
 ## Why publication runs on one host
 
-Kotlin 2.2.20 can cross-compile the Apple `.klib` publications on Linux. This
+Kotlin 2.2.21 can cross-compile the Apple `.klib` publications on Linux. This
 project has no CocoaPods or cinterop dependencies, so the workflow can publish
 all target and umbrella publications from one Ubuntu job. Publishing from one
 host also prevents two jobs from attempting to upload the same multiplatform

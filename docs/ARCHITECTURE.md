@@ -85,7 +85,7 @@ They contain no variable tables and cannot animate or override axes.
 
 These TTFs are deterministic, checked-in derivatives of the pinned Google
 variable fonts. They are generated only in an explicit maintainer workflow with
-FontTools 4.59.0; normal Gradle builds package the already generated result.
+FontTools 4.60.2; normal Gradle builds package the already generated result.
 Their modification status, hashes, and exact commands are recorded in
 [`THIRD_PARTY_NOTICES.md`](../THIRD_PARTY_NOTICES.md).
 
