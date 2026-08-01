@@ -85,9 +85,10 @@ home e9b2
 This is the plugin's canonical interchange format, not an industry standard.
 OpenType's `cmap` identifies code points but does not provide stable semantic
 API names. Providers commonly publish those names in CSS, YAML, or JSON; convert
-that metadata once into a checked-in manifest. The runnable sample normalizes
-Font Awesome YAML, Tabler CSS, and Powerline assignments under
-[`fonts/samples`](../fonts/samples/README.md).
+that metadata once into a checked-in manifest. The runnable sample provides
+complete normalized Font Awesome, Tabler, and Powerline manifests under
+[`fonts/samples`](../fonts/samples/README.md), while `include(...)` limits the
+generated demo output.
 
 Configure one or more font styles against that manifest:
 

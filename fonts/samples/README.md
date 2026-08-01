@@ -4,14 +4,17 @@ These pinned fonts are build inputs for the sample app. The generated vectors,
 not the input fonts, are packaged in the app.
 
 The generator uses one canonical `<snake_case_name> <hex_code_point>` manifest.
-That file shape is not an icon-font standard: each small manifest below was
+That file shape is not an icon-font standard: each complete manifest below was
 normalized from the upstream project's own metadata.
 
-| Set | Upstream mapping | Sample normalization |
-| --- | --- | --- |
-| Font Awesome Free Solid 6.7.2 | `metadata/icons.yml` | hyphens become underscores |
-| Tabler Icons Filled 3.46.0 | CSS `content` declarations | class names lose `ti-` and hyphens become underscores |
-| Powerline Symbols 2.8.4 | documented private-use assignments and the font `cmap` | descriptive snake-case names |
+| Set | Manifest coverage | Upstream mapping | Normalization |
+| --- | ---: | --- | --- |
+| Font Awesome Free Solid 6.7.2 | 1,966 names / 1,402 glyphs | `metadata/icons.yml` | canonical and alias-name hyphens become underscores |
+| Tabler Icons Filled 3.46.0 | 1,057 names / 1,054 glyphs | CSS `content` declarations | class names lose `ti-` and hyphens become underscores |
+| Powerline Symbols 2.8.4 | 8 names / 8 glyphs | documented assignments and the font `cmap` | descriptive snake-case names |
+
+The sample app still calls `include(...)` for only three names per set. That
+keeps generated output small without truncating the reusable manifests.
 
 Other common distributions are equivalent in purpose but not syntax:
 [Bootstrap Icons](https://github.com/twbs/icons/blob/v1.13.1/font/bootstrap-icons.json)
