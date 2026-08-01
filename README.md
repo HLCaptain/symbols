@@ -32,7 +32,8 @@ All 4,102 upstream names have style-typed completion such as
   Android drawable, and Compose drawable output.
 - Android, iOS, JVM/Desktop, JavaScript, and Wasm targets.
 - Deterministic generators and strict font/provenance verification.
-- Apache-2.0 project code and Apache-2.0 Google Material Symbols assets.
+- Apache-2.0 project code and Google Material Symbols assets; external sample
+  fonts retain their upstream MIT/OFL terms and notices.
 
 ## Add a dependency
 
@@ -348,6 +349,12 @@ adds it as a runtime resource. Generated Kotlin has typed completion such as
 `AppIcons.Rounded.Home`; native and Compose XML use one resource per unique
 codepoint. Explicit `include(...)` selection avoids generating unused glyphs,
 while `includeAll()` opts into the complete manifest.
+
+The sample also generates typed vectors from Font Awesome Free Solid, Tabler
+Icons Filled, and Powerline Symbols. Their upstream YAML, CSS, and font-only
+assignments are normalized into the same small manifest format under
+[`fonts/samples`](fonts/samples/README.md); the input fonts are not packaged in
+the application.
 
 See [build-time font conversion](docs/GENERATOR.md) for plugin setup, the full
 DSL, output wiring, resource names, caching, and shrinker boundaries.

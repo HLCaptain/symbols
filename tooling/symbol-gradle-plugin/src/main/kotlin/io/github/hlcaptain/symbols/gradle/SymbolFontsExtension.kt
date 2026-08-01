@@ -127,6 +127,20 @@ public abstract class SymbolFontStyle @Inject constructor(
     public val viewportHeight: Property<Float> =
         objects.property(Float::class.java).convention(24f)
 
+    /** Viewport units occupied by one font em. Defaults to the smaller viewport dimension. */
+    public val emSize: Property<Float> =
+        objects.property(Float::class.java).convention(
+            viewportWidth.zip(viewportHeight, ::minOf),
+        )
+
+    /** Horizontal viewport position of the font origin. */
+    public val originX: Property<Float> =
+        objects.property(Float::class.java).convention(0f)
+
+    /** Vertical viewport position of the font baseline. Defaults to the viewport height. */
+    public val baselineY: Property<Float> =
+        objects.property(Float::class.java).convention(viewportHeight)
+
     /** Adds or replaces one OpenType variation coordinate. */
     public fun axis(tag: String, value: Float) {
         axes.put(tag, value)

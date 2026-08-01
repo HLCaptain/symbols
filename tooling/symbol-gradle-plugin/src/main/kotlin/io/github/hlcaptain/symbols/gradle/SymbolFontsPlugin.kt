@@ -162,6 +162,9 @@ private fun Project.registerGenerationTask(
         task.precision.set(style.precision)
         task.viewportWidth.set(style.viewportWidth)
         task.viewportHeight.set(style.viewportHeight)
+        task.emSize.set(style.emSize)
+        task.originX.set(style.originX)
+        task.baselineY.set(style.baselineY)
 
         val outputRoot = generationOutputRoot(iconSet.name, style.name)
         task.kotlinOutputDirectory.convention(

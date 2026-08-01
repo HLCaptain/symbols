@@ -85,6 +85,14 @@ input font remains a build input and is not packaged unless another dependency
 adds it as a resource. See [build-time font conversion](GENERATOR.md) for the
 complete DSL, generated API, and shrinker boundaries.
 
+Google's two-column `.codepoints` file is not universal. CSS pseudo-element
+maps, Font Awesome metadata, IcoMoon/Fontello JSON, and the font's OpenType
+`cmap` all describe related pieces of the same mapping but use different name
+and number conventions. Normalize the chosen source into the plugin's stable
+snake-case/hex manifest rather than making application builds depend on a
+provider-specific parser. The checked-in [external font samples](../fonts/samples/README.md)
+show three such conversions.
+
 ## Allocate code points deliberately
 
 Prefer the Unicode Private Use Areas for glyphs that have no standard Unicode

@@ -78,6 +78,15 @@ public abstract class GenerateSymbolFontTask : DefaultTask() {
     @get:Input
     public abstract val viewportHeight: Property<Float>
 
+    @get:Input
+    public abstract val emSize: Property<Float>
+
+    @get:Input
+    public abstract val originX: Property<Float>
+
+    @get:Input
+    public abstract val baselineY: Property<Float>
+
     @get:OutputDirectory
     public abstract val kotlinOutputDirectory: DirectoryProperty
 
@@ -124,6 +133,9 @@ public abstract class GenerateSymbolFontTask : DefaultTask() {
             addAll(listOf("--precision", precision.get().toString()))
             addAll(listOf("--viewport-width", viewportWidth.get().toString()))
             addAll(listOf("--viewport-height", viewportHeight.get().toString()))
+            addAll(listOf("--em-size", emSize.get().toString()))
+            addAll(listOf("--origin-x", originX.get().toString()))
+            addAll(listOf("--baseline-y", baselineY.get().toString()))
             if (generateImageVectors.get()) {
                 add("--omit-kotlin-namespace")
                 addAll(

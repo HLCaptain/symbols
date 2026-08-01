@@ -101,3 +101,50 @@ shasum -a 256 \
   fonts/material/rounded-static/composeResources/font/material_symbols_rounded_regular.ttf \
   fonts/material/sharp-static/composeResources/font/material_symbols_sharp_regular.ttf
 ```
+
+## Font Awesome Free Solid sample
+
+- Copyright: 2024 Fonticons, Inc.
+- Upstream project: [FortAwesome/Font-Awesome](https://github.com/FortAwesome/Font-Awesome)
+- Version/revision: [`6.7.2`](https://github.com/FortAwesome/Font-Awesome/tree/af620534bfc3c2d4cbefcfeec29603bbe7809e64), commit `af620534bfc3c2d4cbefcfeec29603bbe7809e64`
+- Font license: SIL Open Font License 1.1, with Reserved Font Name “Font Awesome”
+- Icon/generated-outline license: Creative Commons Attribution 4.0
+- Metadata/code license: MIT
+- Complete upstream terms retained at `fonts/samples/font-awesome-free-solid/LICENSE.txt`
+
+`fonts/samples/font-awesome-free-solid/fa-solid-900.ttf` is the unmodified
+upstream `webfonts/fa-solid-900.ttf`, SHA-256
+`af19d135d3a935b3ebfbd80320716ffe1202052c5f68dc2c5f1abc57005ac605`.
+The three-entry sample manifest was normalized from the pinned
+[`metadata/icons.yml`](https://github.com/FortAwesome/Font-Awesome/blob/af620534bfc3c2d4cbefcfeec29603bbe7809e64/metadata/icons.yml)
+by replacing hyphens with underscores. Generated outlines remain Font Awesome
+third-party material; no brand icons are selected.
+
+## Tabler Icons Filled sample
+
+- Copyright: 2020–2026 Paweł Kuna
+- Upstream project: [tabler/tabler-icons](https://github.com/tabler/tabler-icons)
+- Version/revision: [`v3.46.0`](https://github.com/tabler/tabler-icons/tree/v3.46.0), commit `8ac7d81b72ece11072ef25ea9fd92e80c6f3c9fc`
+- Distribution: official [`@tabler/icons-webfont` 3.46.0](https://www.npmjs.com/package/@tabler/icons-webfont/v/3.46.0) package
+- License: MIT, retained at `fonts/samples/tabler-icons-filled/LICENSE`
+
+`fonts/samples/tabler-icons-filled/tabler-icons-filled.ttf` is the unmodified
+package font, SHA-256
+`e1aa44d701709565e8b33b6ccbf9dc7f78e0b435defb50a47c1c0cb162c1cab6`.
+The three-entry sample manifest was normalized from the package's CSS
+`content` declarations. It deliberately includes supplementary Unicode scalar
+U+101B2.
+
+## Powerline Symbols sample
+
+- Copyright: 2013 Kim Silkebækken and other contributors
+- Upstream project: [powerline/powerline](https://github.com/powerline/powerline)
+- Version/revision: [`2.8.4`](https://github.com/powerline/powerline/tree/51570938d4a558578fa3512a4b546584530e23c1), commit `51570938d4a558578fa3512a4b546584530e23c1`
+- License: MIT, retained at `fonts/samples/powerline/LICENSE`
+
+`fonts/samples/powerline/PowerlineSymbols.otf` is the unmodified upstream font,
+SHA-256
+`4a2496a009b1649878ce067a7ec2aed9f79656c90136971e1dba00766515f7a1`.
+The manifest gives descriptive sample names to the documented U+E0A0–U+E0A2
+assignments. Its explicit transform settings demonstrate a symbol font whose
+metrics do not occupy a Material-style 0..UPEM square.

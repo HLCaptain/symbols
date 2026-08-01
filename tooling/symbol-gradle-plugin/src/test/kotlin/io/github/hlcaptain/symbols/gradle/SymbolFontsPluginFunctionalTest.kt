@@ -61,6 +61,62 @@ class SymbolFontsPluginFunctionalTest {
     }
 
     @Test
+    fun transformDefaultsFollowViewportAndCustomValuesReachGenerationTasks() {
+        val project = fixture(
+            """
+            import io.github.hlcaptain.symbols.gradle.GenerateSymbolFontTask
+
+            plugins {
+                id 'io.github.hlcaptain.symbol-fonts'
+            }
+
+            symbolFonts {
+                iconSet('AppIcons') {
+                    packageName.set('com.example.icons')
+
+                    style('Defaults') {
+                        viewportWidth.set(30f)
+                        viewportHeight.set(18f)
+                    }
+                    style('Custom') {
+                        emSize.set(15.5f)
+                        originX.set(2.25f)
+                        baselineY.set(16.75f)
+                    }
+                }
+            }
+
+            tasks.register('assertSymbolTransforms') {
+                doLast {
+                    def defaults = tasks.named(
+                        'generateAppIconsDefaultsSymbolFonts',
+                        GenerateSymbolFontTask
+                    ).get()
+                    assert defaults.emSize.get() == 18f
+                    assert defaults.originX.get() == 0f
+                    assert defaults.baselineY.get() == 18f
+
+                    def custom = tasks.named(
+                        'generateAppIconsCustomSymbolFonts',
+                        GenerateSymbolFontTask
+                    ).get()
+                    assert custom.emSize.get() == 15.5f
+                    assert custom.originX.get() == 2.25f
+                    assert custom.baselineY.get() == 16.75f
+                }
+            }
+            """,
+        )
+
+        val result = runner(project, "assertSymbolTransforms").build()
+
+        assertEquals(
+            TaskOutcome.SUCCESS,
+            result.task(":assertSymbolTransforms")?.outcome,
+        )
+    }
+
+    @Test
     fun rejectsAmbiguousGenerationTaskNamesBeforeRegistration() {
         val project = fixture(
             """

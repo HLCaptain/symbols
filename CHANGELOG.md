@@ -37,6 +37,8 @@ artifacts are released.
 - A cacheable Gradle plugin that converts selected regular or variable font
   glyphs into typed `ImageVector`, native Android drawable, and Compose drawable
   output.
+- Runnable Font Awesome, Tabler Icons, and Powerline samples, including
+  provider-metadata normalization and configurable font-outline placement.
 - A reproducible Android fixture that verifies typed-vector removal by
   full-mode R8 and unused-resource removal by the Android resource shrinker.
 - Deterministic catalog/namespace/static-font/vector generators and strict

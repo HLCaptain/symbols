@@ -82,6 +82,13 @@ favorite e87e
 home e9b2
 ```
 
+This is the plugin's canonical interchange format, not an industry standard.
+OpenType's `cmap` identifies code points but does not provide stable semantic
+API names. Providers commonly publish those names in CSS, YAML, or JSON; convert
+that metadata once into a checked-in manifest. The runnable sample normalizes
+Font Awesome YAML, Tabler CSS, and Powerline assignments under
+[`fonts/samples`](../fonts/samples/README.md).
+
 Configure one or more font styles against that manifest:
 
 ```kotlin
@@ -123,6 +130,25 @@ Optional settings include `rootName`, `fontIndex`, `resourcePrefix`,
 `symbolsPerFile`, `precision`, `viewportWidth`, and `viewportHeight`. Defaults
 are a 24×24 viewport, four decimal places, and 64 unique code points per Kotlin
 file.
+
+The default outline transform maps one font em into the smaller viewport
+dimension, starts at `originX = 0`, and places the baseline at the viewport
+bottom. Fonts with different ascent, descent, or side-bearing conventions can
+set `emSize`, `originX`, and `baselineY` explicitly:
+
+```kotlin
+style("Regular") {
+    font.set(layout.projectDirectory.file("icons/symbols.otf"))
+    emSize.set(21.145374f)
+    originX.set(6.533921f)
+    baselineY.set(20.130396f)
+    imageVectors()
+}
+```
+
+These are one transform per style, not automatic per-glyph fitting. Choose a
+consistent upstream font face or split incompatible metrics into separate
+styles.
 
 ## Consume the outputs
 

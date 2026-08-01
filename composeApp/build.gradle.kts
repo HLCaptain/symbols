@@ -147,6 +147,69 @@ symbolFonts {
             composeDrawables()
         }
     }
+
+    iconSet("FontAwesomeIcons") {
+        packageName.set("io.github.hlcaptain.symbols.sample.generated.fontawesome")
+        manifest.set(
+            rootProject.layout.projectDirectory.file(
+                "fonts/samples/font-awesome-free-solid/" +
+                    "FontAwesomeFreeSolid.codepoints",
+            ),
+        )
+        include("circle_check", "compass", "face_smile")
+
+        style("Solid") {
+            font.set(
+                rootProject.layout.projectDirectory.file(
+                    "fonts/samples/font-awesome-free-solid/fa-solid-900.ttf",
+                ),
+            )
+            baselineY.set(21f)
+            imageVectors()
+        }
+    }
+
+    iconSet("TablerIcons") {
+        packageName.set("io.github.hlcaptain.symbols.sample.generated.tabler")
+        manifest.set(
+            rootProject.layout.projectDirectory.file(
+                "fonts/samples/tabler-icons-filled/TablerIconsFilled.codepoints",
+            ),
+        )
+        include("alien", "dice_5", "sparkles")
+
+        style("Filled") {
+            font.set(
+                rootProject.layout.projectDirectory.file(
+                    "fonts/samples/tabler-icons-filled/tabler-icons-filled.ttf",
+                ),
+            )
+            baselineY.set(23.5f)
+            imageVectors()
+        }
+    }
+
+    iconSet("PowerlineIcons") {
+        packageName.set("io.github.hlcaptain.symbols.sample.generated.powerline")
+        manifest.set(
+            rootProject.layout.projectDirectory.file(
+                "fonts/samples/powerline/PowerlineSymbols.codepoints",
+            ),
+        )
+        include("branch", "line_number", "read_only")
+
+        style("Regular") {
+            font.set(
+                rootProject.layout.projectDirectory.file(
+                    "fonts/samples/powerline/PowerlineSymbols.otf",
+                ),
+            )
+            emSize.set(21.145374f)
+            originX.set(6.533921f)
+            baselineY.set(20.130396f)
+            imageVectors()
+        }
+    }
 }
 
 dependencies {

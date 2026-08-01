@@ -1,6 +1,7 @@
 package io.github.hlcaptain.symbols.sample
 
 import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.rememberScrollState
@@ -53,8 +55,14 @@ import io.github.hlcaptain.symbols.material.rounded.staticfont.MaterialSymbolsRo
 import io.github.hlcaptain.symbols.material.sharp.MaterialSymbolsSharp
 import io.github.hlcaptain.symbols.material.vectors.themed.Home
 import io.github.hlcaptain.symbols.sample.generated.AppIcons
+import io.github.hlcaptain.symbols.sample.generated.fontawesome.FontAwesomeIcons
+import io.github.hlcaptain.symbols.sample.generated.fontawesome.solid.CircleCheck
+import io.github.hlcaptain.symbols.sample.generated.powerline.PowerlineIcons
+import io.github.hlcaptain.symbols.sample.generated.powerline.regular.Branch
 import io.github.hlcaptain.symbols.sample.generated.regular.Check
 import io.github.hlcaptain.symbols.sample.generated.rounded.Favorite
+import io.github.hlcaptain.symbols.sample.generated.tabler.TablerIcons
+import io.github.hlcaptain.symbols.sample.generated.tabler.filled.Alien
 import kotlin.math.roundToInt
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import io.github.hlcaptain.symbols.material.rounded.staticfont.MaterialSymbolIcon as StaticRoundedSymbolIcon
@@ -85,6 +93,7 @@ private fun Api21SymbolShowcase(onOpenLegacyViews: (() -> Unit)?) {
             modifier = Modifier
                 .safeContentPadding()
                 .fillMaxSize()
+                .verticalScroll(rememberScrollState())
                 .padding(24.dp),
             verticalArrangement = Arrangement.spacedBy(20.dp),
         ) {
@@ -126,6 +135,7 @@ private fun Api21SymbolShowcase(onOpenLegacyViews: (() -> Unit)?) {
                     "Gradle DSL, so unused generated symbols never enter this app.",
                 style = MaterialTheme.typography.bodyMedium,
             )
+            OtherIconFontsShowcase()
             LegacyViewsButton(onOpenLegacyViews)
         }
     }
@@ -267,6 +277,9 @@ private fun SymbolExplorer(onOpenLegacyViews: (() -> Unit)?) {
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
+                item(span = { GridItemSpan(maxLineSpan) }) {
+                    OtherIconFontsShowcase()
+                }
                 items(
                     items = symbols,
                     key = MaterialSymbol::name,
@@ -280,6 +293,40 @@ private fun SymbolExplorer(onOpenLegacyViews: (() -> Unit)?) {
         }
     }
 }
+}
+
+@Composable
+private fun OtherIconFontsShowcase() {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(
+            text = "Other icon fonts",
+            style = MaterialTheme.typography.titleMedium,
+        )
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(20.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Icon(
+                imageVector = FontAwesomeIcons.Solid.CircleCheck,
+                contentDescription = "Font Awesome circle check",
+                modifier = Modifier.size(32.dp),
+            )
+            Icon(
+                imageVector = TablerIcons.Filled.Alien,
+                contentDescription = "Tabler alien",
+                modifier = Modifier.size(32.dp),
+            )
+            Icon(
+                imageVector = PowerlineIcons.Regular.Branch,
+                contentDescription = "Powerline branch",
+                modifier = Modifier.size(32.dp),
+            )
+        }
+        Text(
+            text = "Font Awesome · Tabler · Powerline",
+            style = MaterialTheme.typography.labelMedium,
+        )
+    }
 }
 
 @Composable
