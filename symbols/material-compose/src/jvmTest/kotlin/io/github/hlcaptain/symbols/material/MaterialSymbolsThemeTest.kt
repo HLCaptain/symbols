@@ -40,6 +40,37 @@ class MaterialSymbolsThemeTest {
             recomposer.cancel()
         }
     }
+
+    @Test
+    fun defaultNestedAndRestoredStylesAreVisible() {
+        var defaultStyle: MaterialSymbolStyle? = null
+        var outerStyle: MaterialSymbolStyle? = null
+        var innerStyle: MaterialSymbolStyle? = null
+        var restoredStyle: MaterialSymbolStyle? = null
+
+        val recomposer = Recomposer(EmptyCoroutineContext)
+        val composition = Composition(UnitApplier(), recomposer)
+        try {
+            composition.setContent {
+                defaultStyle = MaterialSymbolsTheme.style
+                MaterialSymbolsTheme(style = MaterialSymbolStyle.Rounded) {
+                    outerStyle = MaterialSymbolsTheme.style
+                    MaterialSymbolsTheme(style = MaterialSymbolStyle.Sharp) {
+                        innerStyle = MaterialSymbolsTheme.style
+                    }
+                    restoredStyle = MaterialSymbolsTheme.style
+                }
+            }
+
+            assertEquals(MaterialSymbolStyle.Outlined, defaultStyle)
+            assertEquals(MaterialSymbolStyle.Rounded, outerStyle)
+            assertEquals(MaterialSymbolStyle.Sharp, innerStyle)
+            assertEquals(MaterialSymbolStyle.Rounded, restoredStyle)
+        } finally {
+            composition.dispose()
+            recomposer.cancel()
+        }
+    }
 }
 
 private class UnitApplier : AbstractApplier<Unit>(Unit) {

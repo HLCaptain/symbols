@@ -23,10 +23,11 @@ All 4,102 upstream names have style-typed completion such as
   `FILL=0, GRAD=0, opsz=24, wght=400`.
 - Four live axes: fill, weight, grade, and optical size.
 - 4,102 style-typed names covering 3,802 unique code points, including aliases.
-- `MaterialSymbolsTheme` and `LocalMaterialSymbolAxes` for inherited axes.
+- `MaterialSymbolsTheme` composition locals for inherited axes and vector style.
 - A runtime variable-font capability gate for Android API 21–25 fallbacks.
 - Allocation-light inline catalog handles and lazy lookup tables.
-- Optional typed vector packs at the default axes.
+- Optional fixed and theme-selected vector packs at the default axes.
+- Prebuilt Android `R.drawable` packs for legacy View and XML applications.
 - A cacheable Gradle generator for regular/variable font to `ImageVector`,
   Android drawable, and Compose drawable output.
 - Android, iOS, JVM/Desktop, JavaScript, and Wasm targets.
@@ -73,9 +74,15 @@ kotlin {
                 "io.github.hlcaptain:symbols-material-outlined-static:0.1.0-SNAPSHOT",
             )
 
-            // Optional built-in ImageVector pack; it does not include a font.
+            // Theme-selected ImageVectors for all three styles; no fonts.
             implementation(
-                "io.github.hlcaptain:symbols-material-vectors-outlined:0.1.0-SNAPSHOT",
+                "io.github.hlcaptain:symbols-material-vectors-themed:0.1.0-SNAPSHOT",
+            )
+        }
+        androidMain.dependencies {
+            // Native VectorDrawables for XML and the Android View system.
+            implementation(
+                "io.github.hlcaptain:symbols-material-drawables-outlined:0.1.0-SNAPSHOT",
             )
         }
     }
@@ -252,6 +259,62 @@ matters. Vector packs intentionally do not pretend to support variable axes;
 choose a font artifact when the design needs axis animation or non-default
 values.
 
+To select Outlined, Rounded, or Sharp through the composition, add
+`material-vectors-themed` and import the generated property for each icon used:
+
+```kotlin
+import io.github.hlcaptain.symbols.material.*
+import io.github.hlcaptain.symbols.material.vectors.themed.Home
+
+MaterialSymbolsTheme(style = MaterialSymbolStyle.Rounded) {
+    Icon(
+        imageVector = Icons.Themed.Home,
+        contentDescription = "Home",
+    )
+}
+```
+
+`Icons.Themed.*` properties are composable read-only getters. Each getter reads
+`LocalMaterialSymbolStyle` and directly reaches one icon in each fixed style,
+so a code shrinker does not need the catalog-wide dispatcher. Axes do not alter
+these snapshots.
+
+## Use Android drawables and Views
+
+The `material-drawables-{outlined|rounded|sharp}` AARs contain native Android
+`VectorDrawable` resources at the default axes and no font. They work anywhere
+an ordinary drawable ID works, including XML:
+
+```kotlin
+dependencies {
+    implementation(
+        "io.github.hlcaptain:symbols-material-drawables-outlined:0.1.0-SNAPSHOT",
+    )
+}
+```
+
+```xml
+<ImageView
+    android:layout_width="48dp"
+    android:layout_height="48dp"
+    android:contentDescription="@string/home"
+    android:src="@drawable/material_symbols_outlined_home_ue9b2" />
+```
+
+and View code:
+
+```kotlin
+import io.github.hlcaptain.symbols.material.outlined.drawables.R as SymbolsR
+
+binding.icon.setImageDrawable(
+    context.getDrawable(SymbolsR.drawable.material_symbols_outlined_home_ue9b2),
+)
+```
+
+The Android sample also exercises plain XML, `findViewById`, View Binding, Data
+Binding, `setImageResource`, a custom `ImageView` attribute, and a `TextView`
+compound drawable. These are legacy View-system patterns, not deprecated APIs.
+
 ## Generate selected vectors and drawables
 
 The build plugin accepts regular fonts and fixed instances of variable fonts,
@@ -317,6 +380,10 @@ an entire catalog.
 | `material-vectors-outlined` | typed default-axis Outlined vectors; no font | 21 |
 | `material-vectors-rounded` | typed default-axis Rounded vectors; no font | 21 |
 | `material-vectors-sharp` | typed default-axis Sharp vectors; no font | 21 |
+| `material-vectors-themed` | composable `Icons.Themed.*` access over all vector styles; no font | 21 |
+| `material-drawables-outlined` | default-axis Outlined Android drawables; no font | 21 |
+| `material-drawables-rounded` | default-axis Rounded Android drawables; no font | 21 |
+| `material-drawables-sharp` | default-axis Sharp Android drawables; no font | 21 |
 | `symbol-generator-core` | JVM outline generator/CLI; build-time only | — |
 | `symbol-gradle-plugin` | `io.github.hlcaptain.symbol-fonts` implementation; build-time only | — |
 

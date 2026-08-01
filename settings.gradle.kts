@@ -45,9 +45,13 @@ include(
     ":modules:material-outlined-static",
     ":modules:material-rounded-static",
     ":modules:material-sharp-static",
+    ":modules:material-drawables-outlined",
+    ":modules:material-drawables-rounded",
+    ":modules:material-drawables-sharp",
     ":modules:material-vectors-outlined",
     ":modules:material-vectors-rounded",
     ":modules:material-vectors-sharp",
+    ":modules:material-vectors-themed",
 )
 
 project(":modules:material-core").projectDir = file("symbols/material-core")
@@ -61,9 +65,17 @@ project(":modules:material-rounded-static").projectDir =
     file("symbols/material-rounded-static")
 project(":modules:material-sharp-static").projectDir =
     file("symbols/material-sharp-static")
+project(":modules:material-drawables-outlined").projectDir =
+    file("symbols/material-drawables-outlined")
+project(":modules:material-drawables-rounded").projectDir =
+    file("symbols/material-drawables-rounded")
+project(":modules:material-drawables-sharp").projectDir =
+    file("symbols/material-drawables-sharp")
 project(":modules:material-vectors-outlined").projectDir =
     file("symbols/material-vectors-outlined")
 project(":modules:material-vectors-rounded").projectDir =
     file("symbols/material-vectors-rounded")
 project(":modules:material-vectors-sharp").projectDir =
     file("symbols/material-vectors-sharp")
+project(":modules:material-vectors-themed").projectDir =
+    file("symbols/material-vectors-themed")

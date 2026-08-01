@@ -24,6 +24,12 @@ from typing import Any, Sequence
 REPOSITORY_ROOT = Path(__file__).resolve().parent.parent
 CODEPOINTS_PATH = REPOSITORY_ROOT / "fonts/material/MaterialSymbols.codepoints"
 PACKAGE_ROOT = "io/github/hlcaptain/symbols/material"
+THEMED_PACKAGE = "io.github.hlcaptain.symbols.material.vectors.themed"
+THEMED_SOURCE_DIRECTORY = (
+    REPOSITORY_ROOT
+    / "symbols/material-vectors-themed/src/commonMain/kotlin"
+    / THEMED_PACKAGE.replace(".", "/")
+)
 PINNED_FONTTOOLS_VERSION = "4.60.2"
 EXPECTED_NAME_COUNT = 4_102
 EXPECTED_CODE_POINT_COUNT = 3_802
@@ -558,6 +564,66 @@ def render_icon_file(
     return "\n".join(lines)
 
 
+def render_themed_icon_file(
+    entries: Sequence[tuple[str, int]],
+) -> str:
+    lines = [
+        GENERATED_HEADER.rstrip(),
+        f"package {THEMED_PACKAGE}",
+        "",
+        "import androidx.compose.runtime.Composable",
+        "import androidx.compose.runtime.ReadOnlyComposable",
+        "import androidx.compose.ui.graphics.vector.ImageVector",
+        "import io.github.hlcaptain.symbols.material.Icons",
+        "import io.github.hlcaptain.symbols.material.MaterialSymbolStyle",
+        "import io.github.hlcaptain.symbols.material.MaterialSymbolsTheme",
+    ]
+    for name, _ in entries:
+        identifier = kotlin_identifier(name)
+        for style in STYLES:
+            lines.append(
+                f"import {style.package_name}.{identifier} as "
+                f"{style.title}{identifier}"
+            )
+    lines.append("")
+
+    for name, _ in entries:
+        identifier = kotlin_identifier(name)
+        lines.extend(
+            (
+                f"public val Icons.Themed.{identifier}: ImageVector",
+                "    @Composable",
+                "    @ReadOnlyComposable",
+                "    get() = when (MaterialSymbolsTheme.style) {",
+                (
+                    "        MaterialSymbolStyle.Outlined -> "
+                    f"Icons.Outlined.Outlined{identifier}"
+                ),
+                (
+                    "        MaterialSymbolStyle.Rounded -> "
+                    f"Icons.Rounded.Rounded{identifier}"
+                ),
+                (
+                    "        MaterialSymbolStyle.Sharp -> "
+                    f"Icons.Sharp.Sharp{identifier}"
+                ),
+                "    }",
+                "",
+            )
+        )
+    return "\n".join(lines)
+
+
+def render_themed(entries: Sequence[tuple[str, int]]) -> dict[Path, str]:
+    return {
+        THEMED_SOURCE_DIRECTORY / f"ThemedIcons{chunk_index:03d}.generated.kt":
+            render_themed_icon_file(
+                entries[start : start + ICONS_PER_FILE]
+            )
+        for chunk_index, start in enumerate(range(0, len(entries), ICONS_PER_FILE))
+    }
+
+
 def render_style(
     style: Style,
     entries: Sequence[tuple[str, int]],
@@ -615,6 +681,8 @@ def synchronize_generated(
         if style.source_directory.is_dir()
         for path in style.source_directory.glob("*.generated.kt")
     }
+    if THEMED_SOURCE_DIRECTORY.is_dir():
+        existing.update(THEMED_SOURCE_DIRECTORY.glob("*.generated.kt"))
     stale = sorted(existing - expected)
     changed = [
         path
@@ -684,6 +752,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 transform_pen,
             )
             rendered.update(render_style(style, entries, code_points, paths))
+        rendered.update(render_themed(entries))
         changed, total_bytes = synchronize_generated(
             rendered,
             selected_styles,

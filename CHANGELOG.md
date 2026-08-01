@@ -31,6 +31,9 @@ artifacts are released.
   `MaterialSymbolsTheme`, and an Android variable-font capability gate.
 - Optional shrinker-friendly Outlined, Rounded, and Sharp `ImageVector` packs at
   the default axis position, while preserving dynamic catalog lookup.
+- Composable `Icons.Themed.{Name}` vectors selected by a style composition local.
+- Outlined, Rounded, and Sharp Android `R.drawable` AARs plus XML, View Binding,
+  Data Binding, custom View, and programmatic View examples.
 - A cacheable Gradle plugin that converts selected regular or variable font
   glyphs into typed `ImageVector`, native Android drawable, and Compose drawable
   output.

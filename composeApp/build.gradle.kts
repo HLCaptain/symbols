@@ -46,13 +46,14 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation(projects.modules.materialDrawablesOutlined)
         }
         commonMain.dependencies {
             implementation(projects.modules.materialOutlined)
             implementation(projects.modules.materialRounded)
             implementation(projects.modules.materialSharp)
             implementation(projects.modules.materialRoundedStatic)
-            implementation(projects.modules.materialVectorsOutlined)
+            implementation(projects.modules.materialVectorsThemed)
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
@@ -82,6 +83,15 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "0.1.0"
+    }
+    androidResources {
+        // Typeface.Builder can mmap uncompressed font assets; compressed variable fonts are
+        // inflated into a full-size buffer for every variation, exhausting small heaps quickly.
+        noCompress += "ttf"
+    }
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
     }
     packaging {
         resources {

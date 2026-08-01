@@ -16,6 +16,17 @@ import androidx.compose.runtime.compositionLocalOf
 public val LocalMaterialSymbolAxes: ProvidableCompositionLocal<MaterialSymbolAxes> =
     compositionLocalOf { MaterialSymbolAxes.Default }
 
+/** Available styles for theme-selected, fixed-axis [Icons] properties. */
+public enum class MaterialSymbolStyle {
+    Outlined,
+    Rounded,
+    Sharp,
+}
+
+/** Supplies the style inherited by theme-selected [Icons] properties. */
+public val LocalMaterialSymbolStyle: ProvidableCompositionLocal<MaterialSymbolStyle> =
+    compositionLocalOf { MaterialSymbolStyle.Outlined }
+
 /**
  * Access to Material Symbols values supplied by [MaterialSymbolsTheme].
  */
@@ -29,6 +40,12 @@ public object MaterialSymbolsTheme {
         @Composable
         @ReadOnlyComposable
         get() = LocalMaterialSymbolAxes.current
+
+    /** The style used by composable `Icons.Themed.*` vector properties. */
+    public val style: MaterialSymbolStyle
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalMaterialSymbolStyle.current
 }
 
 /**
@@ -42,8 +59,28 @@ public fun MaterialSymbolsTheme(
     axes: MaterialSymbolAxes = MaterialSymbolsTheme.axes,
     content: @Composable () -> Unit,
 ) {
+    MaterialSymbolsTheme(
+        style = MaterialSymbolsTheme.style,
+        axes = axes,
+        content = content,
+    )
+}
+
+/**
+ * Supplies a fixed [style] to themed vectors and [axes] to font-backed symbols.
+ *
+ * The vector snapshots stay fixed at the documented default axes; only their
+ * Outlined, Rounded, or Sharp style is selected dynamically.
+ */
+@Composable
+public fun MaterialSymbolsTheme(
+    style: MaterialSymbolStyle,
+    axes: MaterialSymbolAxes = MaterialSymbolsTheme.axes,
+    content: @Composable () -> Unit,
+) {
     CompositionLocalProvider(
         LocalMaterialSymbolAxes provides axes,
+        LocalMaterialSymbolStyle provides style,
         content = content,
     )
 }

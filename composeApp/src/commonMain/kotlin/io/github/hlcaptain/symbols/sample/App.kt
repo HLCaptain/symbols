@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
@@ -31,6 +32,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import io.github.hlcaptain.symbols.material.Icons
@@ -38,17 +40,18 @@ import io.github.hlcaptain.symbols.material.MaterialSymbol
 import io.github.hlcaptain.symbols.material.MaterialSymbolAxes
 import io.github.hlcaptain.symbols.material.MaterialSymbolFont
 import io.github.hlcaptain.symbols.material.MaterialSymbolIcon
+import io.github.hlcaptain.symbols.material.MaterialSymbolStyle
 import io.github.hlcaptain.symbols.material.MaterialSymbols
 import io.github.hlcaptain.symbols.material.MaterialSymbolsRuntime
 import io.github.hlcaptain.symbols.material.MaterialSymbolsTheme
 import io.github.hlcaptain.symbols.material.Search
 import io.github.hlcaptain.symbols.material.Symbols
 import io.github.hlcaptain.symbols.material.outlined.MaterialSymbolsOutlined
-import io.github.hlcaptain.symbols.material.outlined.vectors.Home
 import io.github.hlcaptain.symbols.material.rememberMaterialSymbolFontFamily
 import io.github.hlcaptain.symbols.material.rounded.MaterialSymbolsRounded
 import io.github.hlcaptain.symbols.material.rounded.staticfont.MaterialSymbolsRoundedStatic
 import io.github.hlcaptain.symbols.material.sharp.MaterialSymbolsSharp
+import io.github.hlcaptain.symbols.material.vectors.themed.Home
 import io.github.hlcaptain.symbols.sample.generated.AppIcons
 import io.github.hlcaptain.symbols.sample.generated.regular.Check
 import io.github.hlcaptain.symbols.sample.generated.rounded.Favorite
@@ -59,19 +62,24 @@ import io.github.hlcaptain.symbols.material.rounded.staticfont.MaterialSymbolIco
 @Composable
 @Preview
 fun App() {
+    App(onOpenLegacyViews = null)
+}
+
+@Composable
+internal fun App(onOpenLegacyViews: (() -> Unit)?) {
     MaterialTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
             if (MaterialSymbolsRuntime.variableFontsSupported) {
-                SymbolExplorer()
+                SymbolExplorer(onOpenLegacyViews)
             } else {
-                Api21SymbolShowcase()
+                Api21SymbolShowcase(onOpenLegacyViews)
             }
         }
     }
 }
 
 @Composable
-private fun Api21SymbolShowcase() {
+private fun Api21SymbolShowcase(onOpenLegacyViews: (() -> Unit)?) {
     MaterialSymbolsTheme {
         Column(
             modifier = Modifier
@@ -118,12 +126,13 @@ private fun Api21SymbolShowcase() {
                     "Gradle DSL, so unused generated symbols never enter this app.",
                 style = MaterialTheme.typography.bodyMedium,
             )
+            LegacyViewsButton(onOpenLegacyViews)
         }
     }
 }
 
 @Composable
-private fun SymbolExplorer() {
+private fun SymbolExplorer(onOpenLegacyViews: (() -> Unit)?) {
     var style by remember { mutableStateOf(DemoStyle.Outlined) }
     var fill by remember { mutableFloatStateOf(0f) }
     var weight by remember { mutableFloatStateOf(400f) }
@@ -145,7 +154,7 @@ private fun SymbolExplorer() {
             .toList()
     }
 
-    MaterialSymbolsTheme(axes) {
+    MaterialSymbolsTheme(style = style.vectorStyle, axes = axes) {
         val fontFamily = rememberMaterialSymbolFontFamily(style.font)
         Scaffold { contentPadding ->
             Column(
@@ -168,8 +177,8 @@ private fun SymbolExplorer() {
                     size = 40.dp,
                 )
                 Icon(
-                    imageVector = Icons.Outlined.Home,
-                    contentDescription = "Static ImageVector access",
+                    imageVector = Icons.Themed.Home,
+                    contentDescription = "Theme-selected ImageVector access",
                     modifier = Modifier.size(32.dp),
                     tint = MaterialTheme.colorScheme.secondary,
                 )
@@ -185,6 +194,8 @@ private fun SymbolExplorer() {
                     )
                 }
             }
+
+            LegacyViewsButton(onOpenLegacyViews)
 
             Row(
                 modifier = Modifier
@@ -272,6 +283,15 @@ private fun SymbolExplorer() {
 }
 
 @Composable
+private fun LegacyViewsButton(onOpenLegacyViews: (() -> Unit)?) {
+    if (onOpenLegacyViews != null) {
+        Button(onClick = onOpenLegacyViews) {
+            Text("Open Android Views examples")
+        }
+    }
+}
+
+@Composable
 private fun AxisControl(
     label: String,
     valueLabel: String,
@@ -308,7 +328,7 @@ private fun AxisControl(
 @Composable
 private fun SymbolCard(
     symbol: MaterialSymbol,
-    fontFamily: androidx.compose.ui.text.font.FontFamily,
+    fontFamily: FontFamily,
 ) {
     Card {
         Column(
@@ -338,8 +358,21 @@ private fun SymbolCard(
 private enum class DemoStyle(
     val label: String,
     val font: MaterialSymbolFont,
+    val vectorStyle: MaterialSymbolStyle,
 ) {
-    Outlined("Outlined", MaterialSymbolsOutlined),
-    Rounded("Rounded", MaterialSymbolsRounded),
-    Sharp("Sharp", MaterialSymbolsSharp),
+    Outlined(
+        "Outlined",
+        MaterialSymbolsOutlined,
+        MaterialSymbolStyle.Outlined,
+    ),
+    Rounded(
+        "Rounded",
+        MaterialSymbolsRounded,
+        MaterialSymbolStyle.Rounded,
+    ),
+    Sharp(
+        "Sharp",
+        MaterialSymbolsSharp,
+        MaterialSymbolStyle.Sharp,
+    ),
 }

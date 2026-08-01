@@ -195,6 +195,15 @@ subprojects {
             "material-sharp-static" ->
                 "Default-axis static Sharp Material Symbols font and Compose " +
                     "adapter for Android API 21 and Compose Multiplatform."
+            "material-drawables-outlined" ->
+                "Default-axis Outlined Material Symbols Android vector drawable " +
+                    "pack; no bundled font."
+            "material-drawables-rounded" ->
+                "Default-axis Rounded Material Symbols Android vector drawable " +
+                    "pack; no bundled font."
+            "material-drawables-sharp" ->
+                "Default-axis Sharp Material Symbols Android vector drawable " +
+                    "pack; no bundled font."
             "material-vectors-outlined" ->
                 "Default-axis Outlined Material Symbols ImageVector pack for " +
                     "Compose Multiplatform; no bundled font."
@@ -204,6 +213,9 @@ subprojects {
             "material-vectors-sharp" ->
                 "Default-axis Sharp Material Symbols ImageVector pack for " +
                     "Compose Multiplatform; no bundled font."
+            "material-vectors-themed" ->
+                "Theme-selected default-axis ImageVector access over all three " +
+                    "style packs; no bundled font."
             else -> error("Missing publication description for ${project.path}")
         }
         val legalDocuments = rootProject.files(

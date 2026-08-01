@@ -136,6 +136,26 @@ class VectorGeneratorTest(unittest.TestCase):
         )
         self.assertIn("public val Glyphs.Outlined.Check", icon_file)
 
+    def test_themed_getters_select_direct_style_properties(self) -> None:
+        rendered = generator.render_themed_icon_file(
+            entries=(("home", 0xE9B2),),
+        )
+
+        self.assertIn("public val Icons.Themed.Home: ImageVector", rendered)
+        self.assertIn(
+            "MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedHome",
+            rendered,
+        )
+        self.assertIn(
+            "MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedHome",
+            rendered,
+        )
+        self.assertIn(
+            "MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpHome",
+            rendered,
+        )
+        self.assertNotIn("outlinedVectorAt", rendered)
+
     def test_legacy_api_uses_separate_index_dispatch(self) -> None:
         style = generator.Style("rounded", "Rounded")
         public_api = generator.render_public_api(style)

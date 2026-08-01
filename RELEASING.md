@@ -1,12 +1,13 @@
 # Releasing Symbols
 
-Symbols publishes its Kotlin Multiplatform artifacts to the repository's
-GitHub Packages Maven registry. The workflow uses the repository-scoped
-`GITHUB_TOKEN`; maintainers do not need to create a publication secret.
+Symbols publishes its Kotlin Multiplatform libraries, Android drawable AARs,
+and JVM build tooling to the repository's GitHub Packages Maven registry. The
+workflow uses the repository-scoped `GITHUB_TOKEN`; maintainers do not need to
+create a publication secret.
 
 ## Published artifacts
 
-Every library has an umbrella multiplatform coordinate under
+The Kotlin Multiplatform libraries have umbrella coordinates under
 `io.github.hlcaptain`:
 
 - `symbols-material-core`
@@ -14,12 +15,25 @@ Every library has an umbrella multiplatform coordinate under
 - `symbols-material-outlined`
 - `symbols-material-rounded`
 - `symbols-material-sharp`
+- `symbols-material-outlined-static`
+- `symbols-material-rounded-static`
+- `symbols-material-sharp-static`
 - `symbols-material-vectors-outlined`
 - `symbols-material-vectors-rounded`
 - `symbols-material-vectors-sharp`
+- `symbols-material-vectors-themed`
 
 Gradle module metadata selects the target-specific Android, JVM, JS, Wasm, or
 Apple artifact for consumers.
+
+The native resource packs are Android-only AAR coordinates:
+
+- `symbols-material-drawables-outlined`
+- `symbols-material-drawables-rounded`
+- `symbols-material-drawables-sharp`
+
+The tooling build separately publishes `symbol-generator-core`,
+`symbol-gradle-plugin`, and the `io.github.hlcaptain.symbol-fonts` plugin marker.
 
 GitHub Packages requires authentication when resolving Maven packages,
 including public packages. Consumers need a personal access token (classic)

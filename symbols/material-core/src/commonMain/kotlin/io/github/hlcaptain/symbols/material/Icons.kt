@@ -7,6 +7,9 @@ package io.github.hlcaptain.symbols.material
  * properties to access familiar names such as `Icons.Rounded.Check`.
  */
 public object Icons {
+    /** Theme-selected Material Symbols vectors. */
+    public object Themed
+
     /** Material Symbols Outlined vectors. */
     public object Outlined
 

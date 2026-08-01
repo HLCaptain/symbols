@@ -13,6 +13,9 @@ variable font (one style) ──runtime resource──────────�
         │
         ├──default-axis instancing────────────────────────> material-{style}-static
         ├──default-axis outline extraction────────────────> material-vectors-{style}
+        │                                                    │
+        │                                                    └──> material-vectors-themed
+        ├──default-axis Android XML generation─────────────> material-drawables-{style}
         └──Gradle generator + app manifest────────────────> selected ImageVectors /
                                                             Android drawables /
                                                             Compose drawables
@@ -21,6 +24,8 @@ variable font (one style) ──runtime resource──────────�
 The built-in catalog, typed namespaces, regular fonts, and vector packs are
 checked-in repository outputs. Consumers of those artifacts do not parse a
 codepoint manifest, inspect a TTF, run Python, or execute a generator. The
+drawable AARs are generated from checked-in static fonts when the library is
+built; their consumers receive ordinary Android resources. The
 separate Gradle plugin is an opt-in application-build path for custom fonts or
 smaller selected icon sets; it inspects the declared font in an isolated JVM and
 does not require Python or FontTools.
@@ -128,12 +133,15 @@ See [build-time font conversion](GENERATOR.md) for the DSL and resource names.
 
 ## Resource and publication boundaries
 
-All public runtime modules publish Android, JVM, JS, Wasm, iOS x64, iOS arm64,
-and iOS simulator arm64 variants. `material-core` has no Compose dependency.
+Kotlin Multiplatform runtime modules publish Android, JVM, JS, Wasm, iOS x64,
+iOS arm64, and iOS simulator arm64 variants. The native drawable packs are
+Android-only AARs. `material-core` has no Compose dependency.
 Variable and regular style modules expose their `FontResource` and depend on the
-small Compose adapter. Vector modules depend on `material-core` and Compose UI
-but not on a font. Build-time tooling is a JVM/Gradle concern and does not become
-a runtime dependency.
+small Compose adapter. Fixed vector modules depend on `material-core` and
+Compose UI but not on a font; the themed vector module adds composition-local
+style selection over all three packs. Drawable AARs contain only generated
+Android XML resources. Build-time tooling is a JVM/Gradle concern and does not
+become a runtime dependency.
 
 Every runtime and JVM tooling archive packages the project license and
 third-party notice at

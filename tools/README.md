@@ -96,7 +96,9 @@ timestamp recalculation, and writes a stable table order.
 `FILL=0, GRAD=0, opsz=24, wght=400` and generates the three optional
 `ImageVector` packs. It reads every unique manifest code point, preserves aliases
 through shared per-codepoint builders/caches, and writes direct Compose path
-operations in stable chunks.
+operations in stable chunks. It also writes the composable `Icons.Themed.*`
+getters that select direct Outlined, Rounded, or Sharp properties from the
+theme's style composition local.
 
 Regenerate every style or verify that checked-in output is current:
 
