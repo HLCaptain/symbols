@@ -90,6 +90,37 @@ Regenerate every style or byte-compare the checked-in results:
 The script requires FontTools 4.60.2 exactly, removes variable tables, disables
 timestamp recalculation, and writes a stable table order.
 
+## SVG icon font generation
+
+`generate_svg_icon_font.py` builds a regular TrueType icon font and the same
+two-column manifest consumed by the build-time vector/drawable generator. Each
+SVG filename becomes a snake-case name, and new names receive stable BMP
+Private Use Area assignments:
+
+```shell
+/tmp/symbols-fonttools/bin/python tools/generate_svg_icon_font.py \
+  --input-dir path/to/icons \
+  --font build/AppIcons.ttf \
+  --manifest path/to/AppIcons.codepoints \
+  --family-name "App Icons"
+```
+
+Keep the generated manifest under version control. Later runs preserve every
+assignment, allocate only new names, and fail if an SVG disappears instead of
+silently recycling its code point. `--check` byte-compares both outputs for CI.
+
+The input directory is intentionally flat. Basic shapes, paths, groups,
+transforms, `<use>`, clip paths, and strokes such as Tabler's are flattened to
+monochrome outlines through PicoSVG. Text, images, masks, filters, gradients,
+patterns, multiple paint colors, and opacity fail because a monochrome font
+cannot preserve them. Every glyph is fitted without distortion into a
+1000-unit square and emitted as an unhinted regular TTF.
+
+This command rebuilds a source-owned icon font; it does not patch an arbitrary
+third-party, CFF, or variable font binary. The source icons' licenses continue
+to govern the generated font. A future Figma exporter or IntelliJ UI can use
+this manifest/font contract without owning a second compiler.
+
 ## Vector generation
 
 `generate_material_vectors.py` instantiates each bundled variable font at

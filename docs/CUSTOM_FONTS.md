@@ -93,6 +93,27 @@ snake-case/hex manifest rather than making application builds depend on a
 provider-specific parser. The checked-in [external font samples](../fonts/samples/README.md)
 show three such conversions.
 
+## Build a font from SVG sources
+
+For a source-owned SVG set, the maintainer CLI can create both the regular TTF
+and its stable manifest:
+
+```shell
+python tools/generate_svg_icon_font.py \
+  --input-dir icons/svg \
+  --font icons/AppIcons.ttf \
+  --manifest icons/AppIcons.codepoints \
+  --family-name "App Icons"
+```
+
+Names come from SVG filenames. Existing manifest assignments are preserved,
+and deleting an assigned SVG is rejected so a released code point is not
+reused accidentally. See the
+[maintainer generation guide](../tools/README.md#svg-icon-font-generation) for
+supported SVG features, deterministic `--check` mode, and installation. The
+resulting font and manifest can be passed directly to the Gradle generator
+described above.
+
 ## Allocate code points deliberately
 
 Prefer the Unicode Private Use Areas for glyphs that have no standard Unicode

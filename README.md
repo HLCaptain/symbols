@@ -356,6 +356,10 @@ assignments are normalized into the same small manifest format under
 [`fonts/samples`](fonts/samples/README.md); the input fonts are not packaged in
 the application.
 
+For a source-owned SVG directory, the
+[SVG icon font CLI](tools/README.md#svg-icon-font-generation) creates a
+deterministic regular TTF and stable manifest that feed this same pipeline.
+
 See [build-time font conversion](docs/GENERATOR.md) for plugin setup, the full
 DSL, output wiring, resource names, caching, and shrinker boundaries.
 
