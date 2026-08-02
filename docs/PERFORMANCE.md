@@ -72,9 +72,9 @@ cold and warm access.
 
 ## Shrinkability boundaries
 
-The build-time plugin makes explicit `include(...)` selection the default. This
-is the strongest size control: unselected glyphs produce no Kotlin method and no
-XML file. `includeAll()` deliberately changes that boundary.
+The build-time plugin generates every codepoint by default. Call `include(...)`
+when generation time, compiler memory, or unshrunk artifact size matters:
+unselected glyphs produce no Kotlin method and no XML file.
 
 Generated `ImageVector` properties call independent per-codepoint builders.
 They emit direct path operations and contain no registry, path table, reflection

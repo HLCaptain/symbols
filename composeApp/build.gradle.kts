@@ -111,15 +111,14 @@ android {
 
 symbolFonts {
     iconSet("AppIcons") {
-        packageName.set("io.github.hlcaptain.symbols.sample.generated")
-        manifest.set(
-            rootProject.layout.projectDirectory.file(
-                "fonts/material/MaterialSymbols.codepoints",
-            ),
-        )
         include("check", "favorite", "home")
 
         style("Rounded") {
+            codepoints.set(
+                rootProject.layout.projectDirectory.file(
+                    "fonts/material/MaterialSymbols.codepoints",
+                ),
+            )
             font.set(
                 rootProject.layout.projectDirectory.file(
                     "fonts/material/rounded/composeResources/font/" +
@@ -136,6 +135,11 @@ symbolFonts {
         }
 
         style("Regular") {
+            codepoints.set(
+                rootProject.layout.projectDirectory.file(
+                    "fonts/material/MaterialSymbols.codepoints",
+                ),
+            )
             font.set(
                 rootProject.layout.projectDirectory.file(
                     "fonts/material/rounded-static/composeResources/font/" +
@@ -150,15 +154,15 @@ symbolFonts {
 
     iconSet("FontAwesomeIcons") {
         packageName.set("io.github.hlcaptain.symbols.sample.generated.fontawesome")
-        manifest.set(
-            rootProject.layout.projectDirectory.file(
-                "fonts/samples/font-awesome-free-solid/" +
-                    "FontAwesomeFreeSolid.codepoints",
-            ),
-        )
         include("circle_check", "compass", "face_smile")
 
         style("Solid") {
+            codepoints.set(
+                rootProject.layout.projectDirectory.file(
+                    "fonts/samples/font-awesome-free-solid/" +
+                        "FontAwesomeFreeSolid.codepoints",
+                ),
+            )
             font.set(
                 rootProject.layout.projectDirectory.file(
                     "fonts/samples/font-awesome-free-solid/fa-solid-900.ttf",
@@ -171,14 +175,15 @@ symbolFonts {
 
     iconSet("TablerIcons") {
         packageName.set("io.github.hlcaptain.symbols.sample.generated.tabler")
-        manifest.set(
-            rootProject.layout.projectDirectory.file(
-                "fonts/samples/tabler-icons-filled/TablerIconsFilled.codepoints",
-            ),
-        )
         include("alien", "dice_5", "sparkles")
 
         style("Filled") {
+            codepoints.set(
+                rootProject.layout.projectDirectory.file(
+                    "fonts/samples/tabler-icons-filled/" +
+                        "TablerIconsFilled.codepoints",
+                ),
+            )
             font.set(
                 rootProject.layout.projectDirectory.file(
                     "fonts/samples/tabler-icons-filled/tabler-icons-filled.ttf",
@@ -191,14 +196,14 @@ symbolFonts {
 
     iconSet("PowerlineIcons") {
         packageName.set("io.github.hlcaptain.symbols.sample.generated.powerline")
-        manifest.set(
-            rootProject.layout.projectDirectory.file(
-                "fonts/samples/powerline/PowerlineSymbols.codepoints",
-            ),
-        )
         include("branch", "line_number", "read_only")
 
         style("Regular") {
+            codepoints.set(
+                rootProject.layout.projectDirectory.file(
+                    "fonts/samples/powerline/PowerlineSymbols.codepoints",
+                ),
+            )
             font.set(
                 rootProject.layout.projectDirectory.file(
                     "fonts/samples/powerline/PowerlineSymbols.otf",

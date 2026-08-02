@@ -11,6 +11,9 @@ artifacts are released.
 
 ### Changed
 
+- Font-generation codepoint maps now belong to each style. The Gradle plugin
+  generates all entries by default, derives a package name, and discovers fonts
+  in conventional Android and Compose resource directories.
 - Updated the supported Gradle 8, Kotlin 2.2, Compose 1.9, Android API 21, and
   JVM 11 dependency lines, and enabled JDK 17 toolchain provisioning in the
   included tooling build.

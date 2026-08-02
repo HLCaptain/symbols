@@ -21,17 +21,12 @@ android {
 
 symbolFonts {
     iconSet("MaterialSymbols") {
-        packageName.set(
-            "io.github.hlcaptain.symbols.material.rounded.drawables.generated",
-        )
-        manifest.set(
-            rootProject.layout.projectDirectory.file(
-                "fonts/material/MaterialSymbols.codepoints",
-            ),
-        )
-        includeAll()
-
         style("Rounded") {
+            codepoints.set(
+                rootProject.layout.projectDirectory.file(
+                    "fonts/material/MaterialSymbols.codepoints",
+                ),
+            )
             font.set(
                 rootProject.layout.projectDirectory.file(
                     "fonts/material/rounded-static/composeResources/font/" +

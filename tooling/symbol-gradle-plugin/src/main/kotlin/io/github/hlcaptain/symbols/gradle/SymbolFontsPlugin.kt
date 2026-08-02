@@ -1,5 +1,6 @@
 package io.github.hlcaptain.symbols.gradle
 
+import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.variant.AndroidComponentsExtension
 import com.android.build.api.variant.Variant
 import com.android.build.api.variant.VariantBuilder
@@ -30,6 +31,13 @@ public class SymbolFontsPlugin : Plugin<Project> {
             "symbolFonts",
             SymbolFontsExtension::class.java,
         )
+        var androidProject = false
+        project.plugins.withId("com.android.application") {
+            androidProject = true
+        }
+        project.plugins.withId("com.android.library") {
+            androidProject = true
+        }
         val derivedNames = DerivedNameRegistry()
         val composeResources = project.tasks.register(
             "mergeGeneratedSymbolComposeResources",
@@ -85,6 +93,14 @@ public class SymbolFontsPlugin : Plugin<Project> {
             }
         }
         project.afterEvaluate {
+            val defaultPackageName = if (androidProject) {
+                project.androidDefaultPackageName()
+            } else {
+                project.defaultPackageName()
+            }
+            extension.iconSets.forEach { iconSet ->
+                iconSet.packageName.convention(defaultPackageName)
+            }
             validateConfiguredIconSets(extension)
         }
     }
@@ -136,24 +152,24 @@ private fun Project.registerGenerationTask(
     style: SymbolFontStyle,
     generatorClasspath: FileCollection,
 ): TaskProvider<GenerateSymbolFontTask> {
-    return tasks.register(
+    val generationTask = tasks.register(
         generationTaskName(iconSet.name, style.name),
         GenerateSymbolFontTask::class.java,
     ) { task ->
         task.group = "symbol fonts"
         task.description =
-            "Generates ${iconSet.name}.${style.name} from ${style.font.orNull?.asFile?.name ?: "a font"}."
+            "Generates ${iconSet.name}.${style.name} icons."
 
         task.generatorClasspath.from(generatorClasspath)
-        task.manifest.set(iconSet.manifest)
+        task.manifest.set(style.codepoints)
         task.font.set(style.font)
+        task.conventionalFontName.set(style.conventionalFontName)
         task.packageName.set(iconSet.packageName)
         task.rootName.set(iconSet.rootName)
         task.styleName.set(style.name)
         task.fontIndex.set(style.fontIndex)
         task.axes.set(style.axes)
         task.includedNames.set(iconSet.includedNames)
-        task.allSymbols.set(iconSet.allSymbols)
         task.generateImageVectors.set(style.generateImageVectors)
         task.generateAndroidDrawables.set(style.generateAndroidDrawables)
         task.generateComposeDrawables.set(style.generateComposeDrawables)
@@ -177,6 +193,21 @@ private fun Project.registerGenerationTask(
             layout.buildDirectory.dir("$outputRoot/composeResources"),
         )
     }
+    afterEvaluate {
+        if (!style.font.isPresent) {
+            generationTask.configure { task ->
+                task.conventionalFonts.from(
+                    fileTree(layout.projectDirectory.dir("src")) {
+                        it.include(
+                            "main/res/font/*",
+                            "commonMain/composeResources/font/*",
+                        )
+                    },
+                )
+            }
+        }
+    }
+    return generationTask
 }
 
 private fun Project.registerNamespaceTask(
@@ -264,6 +295,33 @@ private fun Project.wireAndroidResources(
 
     plugins.withId("com.android.application") { wire() }
     plugins.withId("com.android.library") { wire() }
+}
+
+private fun Project.androidDefaultPackageName(): String {
+    @Suppress("UNCHECKED_CAST")
+    val namespace =
+        (extensions.findByName("android") as?
+            CommonExtension<*, *, *, *, *, *>)
+            ?.namespace
+            ?.takeIf(String::isNotBlank)
+        ?: return defaultPackageName()
+    return "$namespace.generated"
+}
+
+private fun Project.defaultPackageName(): String {
+    val projectSegment = androidResourcePrefix(name).let { segment ->
+        runCatching { SymbolNames.requirePackageName(segment) }
+            .fold(onSuccess = { segment }, onFailure = { "symbols_$segment" })
+    }
+    val groupPackage = group.toString().takeUnless { value ->
+        value == "unspecified" ||
+            runCatching { SymbolNames.requirePackageName(value) }.isFailure
+    }
+    return if (groupPackage != null) {
+        "$groupPackage.$projectSegment.generated"
+    } else {
+        "generated.symbols.$projectSegment"
+    }
 }
 
 private fun skikoHost(): String {
@@ -431,9 +489,9 @@ private fun validateConfiguredIconSets(extension: SymbolFontsExtension) {
         if (resourceStyles.isEmpty()) {
             return@forEach
         }
-        val selectedEntries = selectedResourceEntries(iconSet)
         resourceStyles.forEach { style ->
             val styleOwner = "$iconSetOwner style '${style.name}'"
+            val selectedEntries = selectedResourceEntries(iconSet, style)
             val resourcePrefix = style.resourcePrefix.get()
             require(AndroidResourcePrefix.matches(resourcePrefix)) {
                 "Invalid Android resource prefix '$resourcePrefix' for $styleOwner"
@@ -464,20 +522,17 @@ private fun validateConfiguredIconSets(extension: SymbolFontsExtension) {
 
 private fun selectedResourceEntries(
     iconSet: SymbolIconSet,
+    style: SymbolFontStyle,
 ): List<Pair<Int, String>> {
-    val catalog = SymbolManifestParser.parse(iconSet.manifest.get().asFile.toPath())
-    val selected = if (iconSet.allSymbols.get()) {
+    val catalog = SymbolManifestParser.parse(style.codepoints.get().asFile.toPath())
+    val includedNames = iconSet.includedNames.get()
+    val selected = if (includedNames.isEmpty()) {
         catalog.entries
     } else {
         val entriesByName = catalog.entries.associateBy { entry -> entry.name }
-        val includedNames = iconSet.includedNames.get()
-        require(includedNames.isNotEmpty()) {
-            "Icon set ${iconSet.name} has no selected symbols. Call include(...) " +
-                "or opt into includeAll()."
-        }
         val unknownNames = includedNames - entriesByName.keys
         require(unknownNames.isEmpty()) {
-            "Unknown included symbol names for ${iconSet.name}: " +
+            "Unknown included symbol names for ${iconSet.name}.${style.name}: " +
                 unknownNames.sorted().joinToString()
         }
         includedNames.map(entriesByName::getValue)

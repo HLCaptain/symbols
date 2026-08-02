@@ -3,6 +3,7 @@ package io.github.hlcaptain.symbols.gradle
 import java.io.File
 import javax.inject.Inject
 import org.gradle.api.DefaultTask
+import org.gradle.api.InvalidUserDataException
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
@@ -13,6 +14,8 @@ import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Classpath
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFile
+import org.gradle.api.tasks.InputFiles
+import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
@@ -30,8 +33,16 @@ public abstract class GenerateSymbolFontTask : DefaultTask() {
     public abstract val manifest: RegularFileProperty
 
     @get:InputFile
+    @get:Optional
     @get:PathSensitive(PathSensitivity.NONE)
     public abstract val font: RegularFileProperty
+
+    @get:InputFiles
+    @get:PathSensitive(PathSensitivity.RELATIVE)
+    public abstract val conventionalFonts: ConfigurableFileCollection
+
+    @get:Input
+    public abstract val conventionalFontName: Property<String>
 
     @get:Input
     public abstract val packageName: Property<String>
@@ -50,9 +61,6 @@ public abstract class GenerateSymbolFontTask : DefaultTask() {
 
     @get:Input
     public abstract val includedNames: SetProperty<String>
-
-    @get:Input
-    public abstract val allSymbols: Property<Boolean>
 
     @get:Input
     public abstract val generateImageVectors: Property<Boolean>
@@ -116,14 +124,11 @@ public abstract class GenerateSymbolFontTask : DefaultTask() {
             "Style ${styleName.get()} has no output. Call imageVectors(), " +
                 "androidDrawables(), and/or composeDrawables()."
         }
-        require(allSymbols.get() || includedNames.get().isNotEmpty()) {
-            "Icon set ${rootName.get()} has no selected symbols. Call include(...) " +
-                "or opt into includeAll()."
-        }
+        val resolvedFont = resolveFont()
 
         val arguments = buildList {
             addAll(listOf("--manifest", manifest.get().asFile.absolutePath))
-            addAll(listOf("--font", font.get().asFile.absolutePath))
+            addAll(listOf("--font", resolvedFont.absolutePath))
             addAll(listOf("--package", packageName.get()))
             addAll(listOf("--set", rootName.get()))
             addAll(listOf("--style", styleName.get()))
@@ -165,7 +170,7 @@ public abstract class GenerateSymbolFontTask : DefaultTask() {
             axes.get().toSortedMap().forEach { (tag, value) ->
                 addAll(listOf("--axis", "$tag=$value"))
             }
-            if (allSymbols.get()) {
+            if (includedNames.get().isEmpty()) {
                 add("--include-all")
             } else {
                 includedNames.get().sorted().forEach { name ->
@@ -184,6 +189,13 @@ public abstract class GenerateSymbolFontTask : DefaultTask() {
             spec.systemProperty("java.awt.headless", "true")
         }.assertNormalExitValue()
     }
+
+    private fun resolveFont(): File =
+        font.orNull?.asFile ?: selectConventionalFont(
+            styleName = styleName.get(),
+            requestedName = conventionalFontName.get().ifEmpty { null },
+            candidates = conventionalFonts.files,
+        )
 
     private fun outputDirectories(): List<File> = listOf(
         kotlinOutputDirectory.get().asFile,
@@ -214,4 +226,40 @@ public abstract class GenerateSymbolFontTask : DefaultTask() {
         private const val GeneratorMainClass: String =
             "io.github.hlcaptain.symbols.generator.MainKt"
     }
+}
+
+internal fun selectConventionalFont(
+    styleName: String,
+    requestedName: String?,
+    candidates: Collection<File>,
+): File {
+    val supported = candidates
+        .filter { file ->
+            file.isFile &&
+                file.extension.lowercase() in SupportedFontExtensions
+        }
+        .sortedBy(File::getAbsolutePath)
+    val matches = if (requestedName != null) {
+        supported.filter { file -> file.name == requestedName }
+    } else {
+        supported
+    }
+    if (matches.size == 1) {
+        return matches.single()
+    }
+
+    val searched =
+        "src/main/res/font and src/commonMain/composeResources/font"
+    val available = supported.joinToString(transform = File::getAbsolutePath)
+        .ifEmpty { "none" }
+    throw InvalidUserDataException(
+        if (requestedName != null) {
+            "Expected exactly one '$requestedName' for style '$styleName' in " +
+                "$searched; found ${matches.size}. Available fonts: $available."
+        } else {
+            "Cannot choose a font for style '$styleName' from $searched. " +
+                "Available fonts: $available. Add one font, call " +
+                "font(\"file.ttf\"), or set font explicitly."
+        },
+    )
 }
