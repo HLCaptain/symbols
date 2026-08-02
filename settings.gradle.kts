@@ -32,6 +32,22 @@ dependencyResolutionManagement {
 
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
+    id("com.gradleup.nmcp.settings") version "1.6.1"
+}
+
+nmcpSettings {
+    centralPortal {
+        username = providers.gradleProperty("mavenCentralUsername")
+            .orElse("")
+            .get()
+        password = providers.gradleProperty("mavenCentralPassword")
+            .orElse("")
+            .get()
+        publishingType = "USER_MANAGED"
+        publicationName = "symbols:" +
+            providers.gradleProperty("VERSION_NAME").orElse("unspecified").get()
+        publishingTimeout = java.time.Duration.ZERO
+    }
 }
 
 include(":composeApp")

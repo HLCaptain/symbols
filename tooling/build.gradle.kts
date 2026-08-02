@@ -3,6 +3,7 @@ import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.api.tasks.bundling.Jar
+import org.gradle.plugins.signing.SigningExtension
 
 allprojects {
     group = providers.gradleProperty("GROUP")
@@ -33,8 +34,21 @@ subprojects {
     }
 
     plugins.withId("maven-publish") {
+        val signingKey = providers.gradleProperty("signingInMemoryKey")
+        if (signingKey.isPresent) {
+            pluginManager.apply("signing")
+            extensions.configure<SigningExtension> {
+                useInMemoryPgpKeys(
+                    signingKey.get(),
+                    providers.gradleProperty("signingInMemoryKeyPassword").orNull,
+                )
+            }
+        }
         extensions.configure<PublishingExtension> {
             publications.withType<MavenPublication>().configureEach {
+                if (signingKey.isPresent) {
+                    project.extensions.getByType<SigningExtension>().sign(this)
+                }
                 pom {
                     name.set("Symbols ${project.name}")
                     description.set(

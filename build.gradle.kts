@@ -11,6 +11,8 @@ import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.bundling.AbstractArchiveTask
+import org.gradle.api.tasks.bundling.Jar
+import org.gradle.plugins.signing.SigningExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 plugins {
@@ -161,6 +163,20 @@ subprojects {
     }
 
     plugins.withId("maven-publish") {
+        val centralJavadocJar = tasks.register<Jar>("centralJavadocJar") {
+            archiveClassifier.set("javadoc")
+            from(rootProject.layout.projectDirectory.file("README.md"))
+        }
+        val signingKey = providers.gradleProperty("signingInMemoryKey")
+        if (signingKey.isPresent) {
+            pluginManager.apply("signing")
+            extensions.configure<SigningExtension> {
+                useInMemoryPgpKeys(
+                    signingKey.get(),
+                    providers.gradleProperty("signingInMemoryKeyPassword").orNull,
+                )
+            }
+        }
         val fontModuleNames = setOf(
             "material-outlined",
             "material-rounded",
@@ -316,6 +332,10 @@ subprojects {
                 }
 
             publications.withType<MavenPublication>().configureEach {
+                artifact(centralJavadocJar)
+                if (signingKey.isPresent) {
+                    project.extensions.getByType<SigningExtension>().sign(this)
+                }
                 pom {
                     name.set("Symbols ${project.name}")
                     description.set(publicationDescription)

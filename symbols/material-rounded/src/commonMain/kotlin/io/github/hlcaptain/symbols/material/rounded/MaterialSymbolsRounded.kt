@@ -7,7 +7,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import io.github.hlcaptain.symbols.material.MaterialSymbolAxes
 import io.github.hlcaptain.symbols.material.MaterialSymbolVariableFont
-import io.github.hlcaptain.symbols.material.MaterialSymbolsTheme
+import io.github.hlcaptain.symbols.material.SymbolsTheme
 import io.github.hlcaptain.symbols.material.RoundedMaterialSymbol
 import io.github.hlcaptain.symbols.material.rounded.resources.Res
 import io.github.hlcaptain.symbols.material.rounded.resources.material_symbols_rounded_variable
@@ -30,14 +30,14 @@ public object MaterialSymbolsRounded : MaterialSymbolVariableFont {
 /**
  * Renders the style-typed [symbol] with the bundled Rounded variable font.
  *
- * Axes inherit from [MaterialSymbolsTheme] unless explicitly overridden.
+ * Axes inherit from [SymbolsTheme] unless explicitly overridden.
  */
 @Composable
 public fun MaterialSymbolIcon(
     symbol: RoundedMaterialSymbol,
     contentDescription: String?,
     modifier: Modifier = Modifier,
-    axes: MaterialSymbolAxes = MaterialSymbolsTheme.axes,
+    axes: MaterialSymbolAxes = SymbolsTheme.axes,
     tint: Color = Color.Black,
     size: Dp = 24.dp,
     autoMirror: Boolean = false,

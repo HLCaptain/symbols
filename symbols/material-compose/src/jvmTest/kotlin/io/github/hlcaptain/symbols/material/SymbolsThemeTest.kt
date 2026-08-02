@@ -7,7 +7,7 @@ import kotlin.coroutines.EmptyCoroutineContext
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class MaterialSymbolsThemeTest {
+class SymbolsThemeTest {
     @Test
     fun defaultNestedAndRestoredAxesAreVisible() {
         val outer = MaterialSymbolAxes(fill = 1f, weight = 500)
@@ -21,13 +21,13 @@ class MaterialSymbolsThemeTest {
         val composition = Composition(UnitApplier(), recomposer)
         try {
             composition.setContent {
-                defaultAxes = MaterialSymbolsTheme.axes
-                MaterialSymbolsTheme(axes = outer) {
-                    outerAxes = MaterialSymbolsTheme.axes
-                    MaterialSymbolsTheme(axes = inner) {
-                        innerAxes = MaterialSymbolsTheme.axes
+                defaultAxes = SymbolsTheme.axes
+                SymbolsTheme(axes = outer) {
+                    outerAxes = SymbolsTheme.axes
+                    SymbolsTheme(axes = inner) {
+                        innerAxes = SymbolsTheme.axes
                     }
-                    restoredAxes = MaterialSymbolsTheme.axes
+                    restoredAxes = SymbolsTheme.axes
                 }
             }
 
@@ -52,13 +52,13 @@ class MaterialSymbolsThemeTest {
         val composition = Composition(UnitApplier(), recomposer)
         try {
             composition.setContent {
-                defaultStyle = MaterialSymbolsTheme.style
-                MaterialSymbolsTheme(style = MaterialSymbolStyle.Rounded) {
-                    outerStyle = MaterialSymbolsTheme.style
-                    MaterialSymbolsTheme(style = MaterialSymbolStyle.Sharp) {
-                        innerStyle = MaterialSymbolsTheme.style
+                defaultStyle = SymbolsTheme.style
+                SymbolsTheme(style = MaterialSymbolStyle.Rounded) {
+                    outerStyle = SymbolsTheme.style
+                    SymbolsTheme(style = MaterialSymbolStyle.Sharp) {
+                        innerStyle = SymbolsTheme.style
                     }
-                    restoredStyle = MaterialSymbolsTheme.style
+                    restoredStyle = SymbolsTheme.style
                 }
             }
 

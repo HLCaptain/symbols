@@ -73,7 +73,7 @@ select the Sharp font. The convenient overload remembers a family per call site.
 Large collections should remember one family for a `(font, axes)` pair and pass
 that shared family to the lower-level overload.
 
-`MaterialSymbolsTheme` supplies axes through `LocalMaterialSymbolAxes`; explicit
+`SymbolsTheme` supplies axes through `LocalMaterialSymbolAxes`; explicit
 renderer axes take precedence. Android variable-font settings require API 26.
 `MaterialSymbolsRuntime.variableFontsSupported` exposes that boundary so API
 21–25 applications can choose a regular-font or vector/drawable fallback before

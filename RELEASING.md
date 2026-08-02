@@ -1,9 +1,9 @@
 # Releasing Symbols
 
-Symbols publishes its Kotlin Multiplatform libraries, Android drawable AARs,
-and JVM build tooling to the repository's GitHub Packages Maven registry. The
-workflow uses the repository-scoped `GITHUB_TOKEN`; maintainers do not need to
-create a publication secret.
+Symbols publishes development snapshots to GitHub Packages. A stable release
+tag also uploads the Kotlin Multiplatform libraries, Android drawable AARs, and
+JVM build tooling to Central Portal. They become available from Maven Central
+after a maintainer releases both staged deployments.
 
 ## Published artifacts
 
@@ -40,6 +40,28 @@ including public packages. Consumers need a personal access token (classic)
 with `read:packages`, while workflows in authorized repositories can use a
 `GITHUB_TOKEN`.
 
+Stable artifacts released through Maven Central need only `mavenCentral()`.
+
+## Central Portal setup
+
+Before the first stable release:
+
+1. Create a publisher account at the Central Portal and verify the
+   `io.github.hlcaptain` namespace.
+2. Create a Central Portal user token.
+3. Create a password-protected PGP signing key and publish its public key.
+4. Create a protected GitHub environment named `maven-central` with these
+   secrets:
+
+   - `MAVEN_CENTRAL_USERNAME`: Central Portal token username
+   - `MAVEN_CENTRAL_PASSWORD`: Central Portal token password
+   - `SIGNING_KEY`: ASCII-armored private PGP key
+   - `SIGNING_PASSWORD`: private-key password
+
+The NMCP settings plugin reuses the project's existing Maven publications,
+adds checksums, and uploads through the Central Portal API. Runtime and tooling
+are separate Gradle builds, so a release creates two user-managed deployments.
+
 ## Snapshot publication
 
 `gradle.properties` holds the next development version:
@@ -73,27 +95,29 @@ Maven `-SNAPSHOT` versions.
    and requires the tag version to match `VERSION_NAME`. It then reuses the
    complete CI workflow—generated inputs, JVM tests, Android lint/release
    assembly, production JS/Wasm bundles, and Apple compilation/linking—before
-   publishing the exact non-snapshot version.
-6. Create the GitHub Release for the tag and copy the relevant changelog
+   publishing the exact non-snapshot version to GitHub Packages and staging it
+   in Central Portal.
+6. In Central Portal, inspect and manually release both the `symbols` and
+   `symbols-tooling` deployments. User-managed staging prevents a partial build
+   from becoming public automatically.
+7. Create the GitHub Release for the tag and copy the relevant changelog
    section into its notes.
-7. On `main`, advance `VERSION_NAME` to the next development snapshot.
+8. On `main`, advance `VERSION_NAME` to the next development snapshot.
 
 Do not move or reuse a release tag. Published stable Maven versions are
 immutable release coordinates.
 
 ## Why publication runs on one host
 
-Kotlin 2.2.21 can cross-compile the Apple `.klib` publications on Linux. This
-project has no CocoaPods or cinterop dependencies, so the workflow can publish
-all target and umbrella publications from one Ubuntu job. Publishing from one
-host also prevents two jobs from attempting to upload the same multiplatform
-metadata. Final Apple application binaries remain validated separately on a
-macOS runner.
+Kotlin 2.2.21 can publish every target from the self-hosted macOS runner. One
+host prevents multiple jobs from uploading the same multiplatform metadata and
+also covers the Apple publications natively.
 
 For a local, non-network publication check:
 
 ```shell
 ./gradlew publishToMavenLocal
+./gradlew -p tooling publishToMavenLocal
 ```
 
 For an authenticated manual GitHub Packages publication, set
@@ -101,4 +125,20 @@ For an authenticated manual GitHub Packages publication, set
 
 ```shell
 ./gradlew publishAllPublicationsToGitHubPackagesRepository
+./gradlew -p tooling publishAllPublicationsToGitHubPackagesRepository
+```
+
+For a manual Central staging upload, set these environment-backed Gradle
+properties:
+
+- `ORG_GRADLE_PROJECT_mavenCentralUsername`
+- `ORG_GRADLE_PROJECT_mavenCentralPassword`
+- `ORG_GRADLE_PROJECT_signingInMemoryKey`
+- `ORG_GRADLE_PROJECT_signingInMemoryKeyPassword`
+
+Then run:
+
+```shell
+./gradlew -PVERSION_NAME=0.1.0 publishAggregationToCentralPortal
+./gradlew -p tooling -PVERSION_NAME=0.1.0 publishAggregationToCentralPortal
 ```

@@ -45,7 +45,7 @@ import io.github.hlcaptain.symbols.material.MaterialSymbolIcon
 import io.github.hlcaptain.symbols.material.MaterialSymbolStyle
 import io.github.hlcaptain.symbols.material.MaterialSymbols
 import io.github.hlcaptain.symbols.material.MaterialSymbolsRuntime
-import io.github.hlcaptain.symbols.material.MaterialSymbolsTheme
+import io.github.hlcaptain.symbols.material.SymbolsTheme
 import io.github.hlcaptain.symbols.material.Search
 import io.github.hlcaptain.symbols.material.Symbols
 import io.github.hlcaptain.symbols.material.outlined.MaterialSymbolsOutlined
@@ -88,7 +88,7 @@ internal fun App(onOpenLegacyViews: (() -> Unit)?) {
 
 @Composable
 private fun Api21SymbolShowcase(onOpenLegacyViews: (() -> Unit)?) {
-    MaterialSymbolsTheme {
+    SymbolsTheme {
         Column(
             modifier = Modifier
                 .safeContentPadding()
@@ -164,7 +164,7 @@ private fun SymbolExplorer(onOpenLegacyViews: (() -> Unit)?) {
             .toList()
     }
 
-    MaterialSymbolsTheme(style = style.vectorStyle, axes = axes) {
+    SymbolsTheme(style = style.vectorStyle, axes = axes) {
         val fontFamily = rememberMaterialSymbolFontFamily(style.font)
         Scaffold { contentPadding ->
             Column(

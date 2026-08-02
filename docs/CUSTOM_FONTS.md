@@ -66,7 +66,7 @@ object MyRegularSymbols : MaterialSymbolRegularFont {
 
 The renderer never attaches `FontVariation.Settings` to this resource, so it can
 render on Android API 21. It verifies that the requested axes equal the declared
-fixed point. In a non-default `MaterialSymbolsTheme`, pass
+fixed point. In a non-default `SymbolsTheme`, pass
 `axes = MyRegularSymbols.axes` explicitly or provide a style-specific overload
 that does so.
 
