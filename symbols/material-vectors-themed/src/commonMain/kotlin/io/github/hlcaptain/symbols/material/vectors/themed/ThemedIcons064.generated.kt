@@ -9,7 +9,7 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.vector.ImageVector
 import io.github.hlcaptain.symbols.material.Icons
 import io.github.hlcaptain.symbols.material.MaterialSymbolStyle
-import io.github.hlcaptain.symbols.material.MaterialSymbolsTheme
+import io.github.hlcaptain.symbols.material.SymbolsTheme
 import io.github.hlcaptain.symbols.material.outlined.vectors.ZonePersonIdle as OutlinedZonePersonIdle
 import io.github.hlcaptain.symbols.material.rounded.vectors.ZonePersonIdle as RoundedZonePersonIdle
 import io.github.hlcaptain.symbols.material.sharp.vectors.ZonePersonIdle as SharpZonePersonIdle
@@ -32,7 +32,7 @@ import io.github.hlcaptain.symbols.material.sharp.vectors.ZoomOutMap as SharpZoo
 public val Icons.Themed.ZonePersonIdle: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedZonePersonIdle
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedZonePersonIdle
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpZonePersonIdle
@@ -41,7 +41,7 @@ public val Icons.Themed.ZonePersonIdle: ImageVector
 public val Icons.Themed.ZonePersonUrgent: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedZonePersonUrgent
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedZonePersonUrgent
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpZonePersonUrgent
@@ -50,7 +50,7 @@ public val Icons.Themed.ZonePersonUrgent: ImageVector
 public val Icons.Themed.ZoomIn: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedZoomIn
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedZoomIn
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpZoomIn
@@ -59,7 +59,7 @@ public val Icons.Themed.ZoomIn: ImageVector
 public val Icons.Themed.ZoomInMap: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedZoomInMap
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedZoomInMap
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpZoomInMap
@@ -68,7 +68,7 @@ public val Icons.Themed.ZoomInMap: ImageVector
 public val Icons.Themed.ZoomOut: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedZoomOut
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedZoomOut
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpZoomOut
@@ -77,7 +77,7 @@ public val Icons.Themed.ZoomOut: ImageVector
 public val Icons.Themed.ZoomOutMap: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedZoomOutMap
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedZoomOutMap
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpZoomOutMap

@@ -72,7 +72,7 @@ public object MaterialSymbolsRuntime {
 @Composable
 public fun rememberMaterialSymbolFontFamily(
     font: MaterialSymbolFont,
-    axes: MaterialSymbolAxes = MaterialSymbolsTheme.axes,
+    axes: MaterialSymbolAxes = SymbolsTheme.axes,
 ): FontFamily {
     val variationSettings = materialSymbolVariationSettings(
         font = font,

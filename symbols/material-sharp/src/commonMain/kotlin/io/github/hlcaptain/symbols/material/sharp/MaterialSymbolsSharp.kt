@@ -7,7 +7,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import io.github.hlcaptain.symbols.material.MaterialSymbolAxes
 import io.github.hlcaptain.symbols.material.MaterialSymbolVariableFont
-import io.github.hlcaptain.symbols.material.MaterialSymbolsTheme
+import io.github.hlcaptain.symbols.material.SymbolsTheme
 import io.github.hlcaptain.symbols.material.SharpMaterialSymbol
 import io.github.hlcaptain.symbols.material.sharp.resources.Res
 import io.github.hlcaptain.symbols.material.sharp.resources.material_symbols_sharp_variable
@@ -30,14 +30,14 @@ public object MaterialSymbolsSharp : MaterialSymbolVariableFont {
 /**
  * Renders the style-typed [symbol] with the bundled Sharp variable font.
  *
- * Axes inherit from [MaterialSymbolsTheme] unless explicitly overridden.
+ * Axes inherit from [SymbolsTheme] unless explicitly overridden.
  */
 @Composable
 public fun MaterialSymbolIcon(
     symbol: SharpMaterialSymbol,
     contentDescription: String?,
     modifier: Modifier = Modifier,
-    axes: MaterialSymbolAxes = MaterialSymbolsTheme.axes,
+    axes: MaterialSymbolAxes = SymbolsTheme.axes,
     tint: Color = Color.Black,
     size: Dp = 24.dp,
     autoMirror: Boolean = false,

@@ -6,7 +6,7 @@ import androidx.compose.runtime.Recomposer
 import androidx.compose.ui.graphics.vector.ImageVector
 import io.github.hlcaptain.symbols.material.Icons
 import io.github.hlcaptain.symbols.material.MaterialSymbolStyle
-import io.github.hlcaptain.symbols.material.MaterialSymbolsTheme
+import io.github.hlcaptain.symbols.material.SymbolsTheme
 import io.github.hlcaptain.symbols.material.outlined.vectors.Home as OutlinedHome
 import io.github.hlcaptain.symbols.material.rounded.vectors.Home as RoundedHome
 import io.github.hlcaptain.symbols.material.sharp.vectors.Home as SharpHome
@@ -37,7 +37,7 @@ class MaterialSymbolsThemedVectorsTest {
         val composition = Composition(UnitApplier(), recomposer)
         try {
             composition.setContent {
-                MaterialSymbolsTheme(style = style) {
+                SymbolsTheme(style = style) {
                     vector = Icons.Themed.Home
                 }
             }

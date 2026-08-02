@@ -9,7 +9,7 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.vector.ImageVector
 import io.github.hlcaptain.symbols.material.Icons
 import io.github.hlcaptain.symbols.material.MaterialSymbolStyle
-import io.github.hlcaptain.symbols.material.MaterialSymbolsTheme
+import io.github.hlcaptain.symbols.material.SymbolsTheme
 import io.github.hlcaptain.symbols.material.outlined.vectors.FileJson as OutlinedFileJson
 import io.github.hlcaptain.symbols.material.rounded.vectors.FileJson as RoundedFileJson
 import io.github.hlcaptain.symbols.material.sharp.vectors.FileJson as SharpFileJson
@@ -206,7 +206,7 @@ import io.github.hlcaptain.symbols.material.sharp.vectors.Flare as SharpFlare
 public val Icons.Themed.FileJson: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFileJson
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFileJson
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFileJson
@@ -215,7 +215,7 @@ public val Icons.Themed.FileJson: ImageVector
 public val Icons.Themed.FileMap: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFileMap
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFileMap
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFileMap
@@ -224,7 +224,7 @@ public val Icons.Themed.FileMap: ImageVector
 public val Icons.Themed.FileMapStack: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFileMapStack
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFileMapStack
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFileMapStack
@@ -233,7 +233,7 @@ public val Icons.Themed.FileMapStack: ImageVector
 public val Icons.Themed.FileOpen: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFileOpen
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFileOpen
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFileOpen
@@ -242,7 +242,7 @@ public val Icons.Themed.FileOpen: ImageVector
 public val Icons.Themed.FilePng: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFilePng
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFilePng
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFilePng
@@ -251,7 +251,7 @@ public val Icons.Themed.FilePng: ImageVector
 public val Icons.Themed.FilePresent: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFilePresent
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFilePresent
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFilePresent
@@ -260,7 +260,7 @@ public val Icons.Themed.FilePresent: ImageVector
 public val Icons.Themed.FileSave: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFileSave
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFileSave
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFileSave
@@ -269,7 +269,7 @@ public val Icons.Themed.FileSave: ImageVector
 public val Icons.Themed.FileSaveOff: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFileSaveOff
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFileSaveOff
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFileSaveOff
@@ -278,7 +278,7 @@ public val Icons.Themed.FileSaveOff: ImageVector
 public val Icons.Themed.FileUpload: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFileUpload
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFileUpload
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFileUpload
@@ -287,7 +287,7 @@ public val Icons.Themed.FileUpload: ImageVector
 public val Icons.Themed.FileUploadOff: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFileUploadOff
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFileUploadOff
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFileUploadOff
@@ -296,7 +296,7 @@ public val Icons.Themed.FileUploadOff: ImageVector
 public val Icons.Themed.Files: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFiles
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFiles
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFiles
@@ -305,7 +305,7 @@ public val Icons.Themed.Files: ImageVector
 public val Icons.Themed.Filter: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFilter
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFilter
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFilter
@@ -314,7 +314,7 @@ public val Icons.Themed.Filter: ImageVector
 public val Icons.Themed.Filter1: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFilter1
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFilter1
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFilter1
@@ -323,7 +323,7 @@ public val Icons.Themed.Filter1: ImageVector
 public val Icons.Themed.Filter2: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFilter2
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFilter2
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFilter2
@@ -332,7 +332,7 @@ public val Icons.Themed.Filter2: ImageVector
 public val Icons.Themed.Filter3: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFilter3
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFilter3
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFilter3
@@ -341,7 +341,7 @@ public val Icons.Themed.Filter3: ImageVector
 public val Icons.Themed.Filter4: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFilter4
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFilter4
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFilter4
@@ -350,7 +350,7 @@ public val Icons.Themed.Filter4: ImageVector
 public val Icons.Themed.Filter5: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFilter5
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFilter5
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFilter5
@@ -359,7 +359,7 @@ public val Icons.Themed.Filter5: ImageVector
 public val Icons.Themed.Filter6: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFilter6
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFilter6
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFilter6
@@ -368,7 +368,7 @@ public val Icons.Themed.Filter6: ImageVector
 public val Icons.Themed.Filter7: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFilter7
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFilter7
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFilter7
@@ -377,7 +377,7 @@ public val Icons.Themed.Filter7: ImageVector
 public val Icons.Themed.Filter8: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFilter8
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFilter8
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFilter8
@@ -386,7 +386,7 @@ public val Icons.Themed.Filter8: ImageVector
 public val Icons.Themed.Filter9: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFilter9
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFilter9
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFilter9
@@ -395,7 +395,7 @@ public val Icons.Themed.Filter9: ImageVector
 public val Icons.Themed.Filter9Plus: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFilter9Plus
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFilter9Plus
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFilter9Plus
@@ -404,7 +404,7 @@ public val Icons.Themed.Filter9Plus: ImageVector
 public val Icons.Themed.FilterAlt: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFilterAlt
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFilterAlt
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFilterAlt
@@ -413,7 +413,7 @@ public val Icons.Themed.FilterAlt: ImageVector
 public val Icons.Themed.FilterAltOff: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFilterAltOff
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFilterAltOff
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFilterAltOff
@@ -422,7 +422,7 @@ public val Icons.Themed.FilterAltOff: ImageVector
 public val Icons.Themed.FilterArrowRight: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFilterArrowRight
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFilterArrowRight
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFilterArrowRight
@@ -431,7 +431,7 @@ public val Icons.Themed.FilterArrowRight: ImageVector
 public val Icons.Themed.FilterBAndW: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFilterBAndW
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFilterBAndW
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFilterBAndW
@@ -440,7 +440,7 @@ public val Icons.Themed.FilterBAndW: ImageVector
 public val Icons.Themed.FilterCenterFocus: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFilterCenterFocus
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFilterCenterFocus
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFilterCenterFocus
@@ -449,7 +449,7 @@ public val Icons.Themed.FilterCenterFocus: ImageVector
 public val Icons.Themed.FilterDrama: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFilterDrama
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFilterDrama
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFilterDrama
@@ -458,7 +458,7 @@ public val Icons.Themed.FilterDrama: ImageVector
 public val Icons.Themed.FilterFrames: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFilterFrames
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFilterFrames
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFilterFrames
@@ -467,7 +467,7 @@ public val Icons.Themed.FilterFrames: ImageVector
 public val Icons.Themed.FilterHdr: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFilterHdr
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFilterHdr
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFilterHdr
@@ -476,7 +476,7 @@ public val Icons.Themed.FilterHdr: ImageVector
 public val Icons.Themed.FilterList: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFilterList
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFilterList
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFilterList
@@ -485,7 +485,7 @@ public val Icons.Themed.FilterList: ImageVector
 public val Icons.Themed.FilterListAlt: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFilterListAlt
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFilterListAlt
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFilterListAlt
@@ -494,7 +494,7 @@ public val Icons.Themed.FilterListAlt: ImageVector
 public val Icons.Themed.FilterListOff: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFilterListOff
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFilterListOff
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFilterListOff
@@ -503,7 +503,7 @@ public val Icons.Themed.FilterListOff: ImageVector
 public val Icons.Themed.FilterNone: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFilterNone
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFilterNone
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFilterNone
@@ -512,7 +512,7 @@ public val Icons.Themed.FilterNone: ImageVector
 public val Icons.Themed.FilterRetrolux: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFilterRetrolux
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFilterRetrolux
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFilterRetrolux
@@ -521,7 +521,7 @@ public val Icons.Themed.FilterRetrolux: ImageVector
 public val Icons.Themed.FilterTiltShift: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFilterTiltShift
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFilterTiltShift
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFilterTiltShift
@@ -530,7 +530,7 @@ public val Icons.Themed.FilterTiltShift: ImageVector
 public val Icons.Themed.FilterVintage: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFilterVintage
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFilterVintage
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFilterVintage
@@ -539,7 +539,7 @@ public val Icons.Themed.FilterVintage: ImageVector
 public val Icons.Themed.Finance: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFinance
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFinance
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFinance
@@ -548,7 +548,7 @@ public val Icons.Themed.Finance: ImageVector
 public val Icons.Themed.FinanceChip: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFinanceChip
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFinanceChip
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFinanceChip
@@ -557,7 +557,7 @@ public val Icons.Themed.FinanceChip: ImageVector
 public val Icons.Themed.FinanceMode: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFinanceMode
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFinanceMode
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFinanceMode
@@ -566,7 +566,7 @@ public val Icons.Themed.FinanceMode: ImageVector
 public val Icons.Themed.FindInPage: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFindInPage
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFindInPage
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFindInPage
@@ -575,7 +575,7 @@ public val Icons.Themed.FindInPage: ImageVector
 public val Icons.Themed.FindReplace: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFindReplace
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFindReplace
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFindReplace
@@ -584,7 +584,7 @@ public val Icons.Themed.FindReplace: ImageVector
 public val Icons.Themed.Fingerprint: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFingerprint
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFingerprint
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFingerprint
@@ -593,7 +593,7 @@ public val Icons.Themed.Fingerprint: ImageVector
 public val Icons.Themed.FingerprintOff: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFingerprintOff
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFingerprintOff
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFingerprintOff
@@ -602,7 +602,7 @@ public val Icons.Themed.FingerprintOff: ImageVector
 public val Icons.Themed.FireExtinguisher: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFireExtinguisher
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFireExtinguisher
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFireExtinguisher
@@ -611,7 +611,7 @@ public val Icons.Themed.FireExtinguisher: ImageVector
 public val Icons.Themed.FireHydrant: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFireHydrant
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFireHydrant
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFireHydrant
@@ -620,7 +620,7 @@ public val Icons.Themed.FireHydrant: ImageVector
 public val Icons.Themed.FireTruck: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFireTruck
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFireTruck
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFireTruck
@@ -629,7 +629,7 @@ public val Icons.Themed.FireTruck: ImageVector
 public val Icons.Themed.Fireplace: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFireplace
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFireplace
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFireplace
@@ -638,7 +638,7 @@ public val Icons.Themed.Fireplace: ImageVector
 public val Icons.Themed.FirstPage: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFirstPage
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFirstPage
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFirstPage
@@ -647,7 +647,7 @@ public val Icons.Themed.FirstPage: ImageVector
 public val Icons.Themed.FitPage: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFitPage
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFitPage
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFitPage
@@ -656,7 +656,7 @@ public val Icons.Themed.FitPage: ImageVector
 public val Icons.Themed.FitPageHeight: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFitPageHeight
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFitPageHeight
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFitPageHeight
@@ -665,7 +665,7 @@ public val Icons.Themed.FitPageHeight: ImageVector
 public val Icons.Themed.FitPageWidth: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFitPageWidth
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFitPageWidth
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFitPageWidth
@@ -674,7 +674,7 @@ public val Icons.Themed.FitPageWidth: ImageVector
 public val Icons.Themed.FitScreen: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFitScreen
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFitScreen
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFitScreen
@@ -683,7 +683,7 @@ public val Icons.Themed.FitScreen: ImageVector
 public val Icons.Themed.FitWidth: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFitWidth
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFitWidth
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFitWidth
@@ -692,7 +692,7 @@ public val Icons.Themed.FitWidth: ImageVector
 public val Icons.Themed.FitnessCenter: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFitnessCenter
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFitnessCenter
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFitnessCenter
@@ -701,7 +701,7 @@ public val Icons.Themed.FitnessCenter: ImageVector
 public val Icons.Themed.FitnessTracker: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFitnessTracker
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFitnessTracker
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFitnessTracker
@@ -710,7 +710,7 @@ public val Icons.Themed.FitnessTracker: ImageVector
 public val Icons.Themed.FitnessTrackers: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFitnessTrackers
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFitnessTrackers
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFitnessTrackers
@@ -719,7 +719,7 @@ public val Icons.Themed.FitnessTrackers: ImageVector
 public val Icons.Themed.Flag: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFlag
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFlag
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFlag
@@ -728,7 +728,7 @@ public val Icons.Themed.Flag: ImageVector
 public val Icons.Themed.Flag2: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFlag2
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFlag2
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFlag2
@@ -737,7 +737,7 @@ public val Icons.Themed.Flag2: ImageVector
 public val Icons.Themed.FlagCheck: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFlagCheck
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFlagCheck
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFlagCheck
@@ -746,7 +746,7 @@ public val Icons.Themed.FlagCheck: ImageVector
 public val Icons.Themed.FlagCircle: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFlagCircle
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFlagCircle
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFlagCircle
@@ -755,7 +755,7 @@ public val Icons.Themed.FlagCircle: ImageVector
 public val Icons.Themed.FlagFilled: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFlagFilled
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFlagFilled
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFlagFilled
@@ -764,7 +764,7 @@ public val Icons.Themed.FlagFilled: ImageVector
 public val Icons.Themed.Flaky: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFlaky
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFlaky
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFlaky
@@ -773,7 +773,7 @@ public val Icons.Themed.Flaky: ImageVector
 public val Icons.Themed.Flare: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedFlare
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedFlare
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpFlare

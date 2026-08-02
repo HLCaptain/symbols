@@ -7,7 +7,7 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.compositionLocalOf
 
 /**
- * The Material Symbols axes inherited by variable-font icon renderers.
+ * The Material-compatible axes inherited by variable-font icon renderers.
  *
  * This is a dynamic composition local because axis values can be animated or
  * otherwise changed at runtime. Regular-font adapters, build-time generated
@@ -28,9 +28,9 @@ public val LocalMaterialSymbolStyle: ProvidableCompositionLocal<MaterialSymbolSt
     compositionLocalOf { MaterialSymbolStyle.Outlined }
 
 /**
- * Access to Material Symbols values supplied by [MaterialSymbolsTheme].
+ * Access to symbol values supplied by [SymbolsTheme].
  */
-public object MaterialSymbolsTheme {
+public object SymbolsTheme {
     /**
      * The axes at the current position in the composition.
      *
@@ -49,18 +49,19 @@ public object MaterialSymbolsTheme {
 }
 
 /**
- * Supplies [axes] to variable-font Material Symbols in [content].
+ * Supplies [axes] to Material-axis-compatible variable-font symbols in
+ * [content].
  *
  * Nesting inherits the current axes by default. An explicit axes argument on a
  * renderer still takes precedence over this provider.
  */
 @Composable
-public fun MaterialSymbolsTheme(
-    axes: MaterialSymbolAxes = MaterialSymbolsTheme.axes,
+public fun SymbolsTheme(
+    axes: MaterialSymbolAxes = SymbolsTheme.axes,
     content: @Composable () -> Unit,
 ) {
-    MaterialSymbolsTheme(
-        style = MaterialSymbolsTheme.style,
+    SymbolsTheme(
+        style = SymbolsTheme.style,
         axes = axes,
         content = content,
     )
@@ -73,9 +74,9 @@ public fun MaterialSymbolsTheme(
  * Outlined, Rounded, or Sharp style is selected dynamically.
  */
 @Composable
-public fun MaterialSymbolsTheme(
+public fun SymbolsTheme(
     style: MaterialSymbolStyle,
-    axes: MaterialSymbolAxes = MaterialSymbolsTheme.axes,
+    axes: MaterialSymbolAxes = SymbolsTheme.axes,
     content: @Composable () -> Unit,
 ) {
     CompositionLocalProvider(

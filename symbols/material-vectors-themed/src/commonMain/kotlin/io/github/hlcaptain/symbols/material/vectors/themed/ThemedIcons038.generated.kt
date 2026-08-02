@@ -9,7 +9,7 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.vector.ImageVector
 import io.github.hlcaptain.symbols.material.Icons
 import io.github.hlcaptain.symbols.material.MaterialSymbolStyle
-import io.github.hlcaptain.symbols.material.MaterialSymbolsTheme
+import io.github.hlcaptain.symbols.material.SymbolsTheme
 import io.github.hlcaptain.symbols.material.outlined.vectors.NestCamStand as OutlinedNestCamStand
 import io.github.hlcaptain.symbols.material.rounded.vectors.NestCamStand as RoundedNestCamStand
 import io.github.hlcaptain.symbols.material.sharp.vectors.NestCamStand as SharpNestCamStand
@@ -206,7 +206,7 @@ import io.github.hlcaptain.symbols.material.sharp.vectors.NetworkWifi3BarLocked 
 public val Icons.Themed.NestCamStand: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestCamStand
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestCamStand
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestCamStand
@@ -215,7 +215,7 @@ public val Icons.Themed.NestCamStand: ImageVector
 public val Icons.Themed.NestCamWallMount: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestCamWallMount
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestCamWallMount
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestCamWallMount
@@ -224,7 +224,7 @@ public val Icons.Themed.NestCamWallMount: ImageVector
 public val Icons.Themed.NestCamWiredStand: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestCamWiredStand
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestCamWiredStand
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestCamWiredStand
@@ -233,7 +233,7 @@ public val Icons.Themed.NestCamWiredStand: ImageVector
 public val Icons.Themed.NestClockFarsightAnalog: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestClockFarsightAnalog
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestClockFarsightAnalog
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestClockFarsightAnalog
@@ -242,7 +242,7 @@ public val Icons.Themed.NestClockFarsightAnalog: ImageVector
 public val Icons.Themed.NestClockFarsightDigital: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestClockFarsightDigital
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestClockFarsightDigital
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestClockFarsightDigital
@@ -251,7 +251,7 @@ public val Icons.Themed.NestClockFarsightDigital: ImageVector
 public val Icons.Themed.NestConnect: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestConnect
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestConnect
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestConnect
@@ -260,7 +260,7 @@ public val Icons.Themed.NestConnect: ImageVector
 public val Icons.Themed.NestDetect: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestDetect
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestDetect
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestDetect
@@ -269,7 +269,7 @@ public val Icons.Themed.NestDetect: ImageVector
 public val Icons.Themed.NestDisplay: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestDisplay
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestDisplay
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestDisplay
@@ -278,7 +278,7 @@ public val Icons.Themed.NestDisplay: ImageVector
 public val Icons.Themed.NestDisplayMax: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestDisplayMax
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestDisplayMax
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestDisplayMax
@@ -287,7 +287,7 @@ public val Icons.Themed.NestDisplayMax: ImageVector
 public val Icons.Themed.NestDoorbellVisitor: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestDoorbellVisitor
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestDoorbellVisitor
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestDoorbellVisitor
@@ -296,7 +296,7 @@ public val Icons.Themed.NestDoorbellVisitor: ImageVector
 public val Icons.Themed.NestEcoLeaf: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestEcoLeaf
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestEcoLeaf
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestEcoLeaf
@@ -305,7 +305,7 @@ public val Icons.Themed.NestEcoLeaf: ImageVector
 public val Icons.Themed.NestFarsightCool: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestFarsightCool
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestFarsightCool
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestFarsightCool
@@ -314,7 +314,7 @@ public val Icons.Themed.NestFarsightCool: ImageVector
 public val Icons.Themed.NestFarsightDual: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestFarsightDual
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestFarsightDual
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestFarsightDual
@@ -323,7 +323,7 @@ public val Icons.Themed.NestFarsightDual: ImageVector
 public val Icons.Themed.NestFarsightEco: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestFarsightEco
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestFarsightEco
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestFarsightEco
@@ -332,7 +332,7 @@ public val Icons.Themed.NestFarsightEco: ImageVector
 public val Icons.Themed.NestFarsightHeat: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestFarsightHeat
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestFarsightHeat
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestFarsightHeat
@@ -341,7 +341,7 @@ public val Icons.Themed.NestFarsightHeat: ImageVector
 public val Icons.Themed.NestFarsightSeasonal: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestFarsightSeasonal
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestFarsightSeasonal
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestFarsightSeasonal
@@ -350,7 +350,7 @@ public val Icons.Themed.NestFarsightSeasonal: ImageVector
 public val Icons.Themed.NestFarsightWeather: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestFarsightWeather
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestFarsightWeather
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestFarsightWeather
@@ -359,7 +359,7 @@ public val Icons.Themed.NestFarsightWeather: ImageVector
 public val Icons.Themed.NestFoundSavings: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestFoundSavings
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestFoundSavings
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestFoundSavings
@@ -368,7 +368,7 @@ public val Icons.Themed.NestFoundSavings: ImageVector
 public val Icons.Themed.NestGaleWifi: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestGaleWifi
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestGaleWifi
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestGaleWifi
@@ -377,7 +377,7 @@ public val Icons.Themed.NestGaleWifi: ImageVector
 public val Icons.Themed.NestHeatLinkE: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestHeatLinkE
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestHeatLinkE
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestHeatLinkE
@@ -386,7 +386,7 @@ public val Icons.Themed.NestHeatLinkE: ImageVector
 public val Icons.Themed.NestHeatLinkGen3: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestHeatLinkGen3
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestHeatLinkGen3
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestHeatLinkGen3
@@ -395,7 +395,7 @@ public val Icons.Themed.NestHeatLinkGen3: ImageVector
 public val Icons.Themed.NestHelloDoorbell: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestHelloDoorbell
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestHelloDoorbell
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestHelloDoorbell
@@ -404,7 +404,7 @@ public val Icons.Themed.NestHelloDoorbell: ImageVector
 public val Icons.Themed.NestLocatorTag: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestLocatorTag
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestLocatorTag
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestLocatorTag
@@ -413,7 +413,7 @@ public val Icons.Themed.NestLocatorTag: ImageVector
 public val Icons.Themed.NestMini: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestMini
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestMini
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestMini
@@ -422,7 +422,7 @@ public val Icons.Themed.NestMini: ImageVector
 public val Icons.Themed.NestMultiRoom: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestMultiRoom
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestMultiRoom
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestMultiRoom
@@ -431,7 +431,7 @@ public val Icons.Themed.NestMultiRoom: ImageVector
 public val Icons.Themed.NestProtect: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestProtect
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestProtect
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestProtect
@@ -440,7 +440,7 @@ public val Icons.Themed.NestProtect: ImageVector
 public val Icons.Themed.NestRemote: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestRemote
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestRemote
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestRemote
@@ -449,7 +449,7 @@ public val Icons.Themed.NestRemote: ImageVector
 public val Icons.Themed.NestRemoteComfortSensor: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestRemoteComfortSensor
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestRemoteComfortSensor
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestRemoteComfortSensor
@@ -458,7 +458,7 @@ public val Icons.Themed.NestRemoteComfortSensor: ImageVector
 public val Icons.Themed.NestSecureAlarm: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestSecureAlarm
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestSecureAlarm
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestSecureAlarm
@@ -467,7 +467,7 @@ public val Icons.Themed.NestSecureAlarm: ImageVector
 public val Icons.Themed.NestSunblock: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestSunblock
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestSunblock
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestSunblock
@@ -476,7 +476,7 @@ public val Icons.Themed.NestSunblock: ImageVector
 public val Icons.Themed.NestTag: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestTag
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestTag
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestTag
@@ -485,7 +485,7 @@ public val Icons.Themed.NestTag: ImageVector
 public val Icons.Themed.NestThermostat: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestThermostat
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestThermostat
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestThermostat
@@ -494,7 +494,7 @@ public val Icons.Themed.NestThermostat: ImageVector
 public val Icons.Themed.NestThermostatEEu: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestThermostatEEu
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestThermostatEEu
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestThermostatEEu
@@ -503,7 +503,7 @@ public val Icons.Themed.NestThermostatEEu: ImageVector
 public val Icons.Themed.NestThermostatGen3: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestThermostatGen3
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestThermostatGen3
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestThermostatGen3
@@ -512,7 +512,7 @@ public val Icons.Themed.NestThermostatGen3: ImageVector
 public val Icons.Themed.NestThermostatSensor: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestThermostatSensor
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestThermostatSensor
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestThermostatSensor
@@ -521,7 +521,7 @@ public val Icons.Themed.NestThermostatSensor: ImageVector
 public val Icons.Themed.NestThermostatSensorEu: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestThermostatSensorEu
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestThermostatSensorEu
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestThermostatSensorEu
@@ -530,7 +530,7 @@ public val Icons.Themed.NestThermostatSensorEu: ImageVector
 public val Icons.Themed.NestThermostatZirconiumEu: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestThermostatZirconiumEu
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestThermostatZirconiumEu
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestThermostatZirconiumEu
@@ -539,7 +539,7 @@ public val Icons.Themed.NestThermostatZirconiumEu: ImageVector
 public val Icons.Themed.NestTrueRadiant: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestTrueRadiant
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestTrueRadiant
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestTrueRadiant
@@ -548,7 +548,7 @@ public val Icons.Themed.NestTrueRadiant: ImageVector
 public val Icons.Themed.NestWakeOnApproach: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestWakeOnApproach
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestWakeOnApproach
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestWakeOnApproach
@@ -557,7 +557,7 @@ public val Icons.Themed.NestWakeOnApproach: ImageVector
 public val Icons.Themed.NestWakeOnPress: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestWakeOnPress
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestWakeOnPress
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestWakeOnPress
@@ -566,7 +566,7 @@ public val Icons.Themed.NestWakeOnPress: ImageVector
 public val Icons.Themed.NestWifiGale: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestWifiGale
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestWifiGale
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestWifiGale
@@ -575,7 +575,7 @@ public val Icons.Themed.NestWifiGale: ImageVector
 public val Icons.Themed.NestWifiMistral: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestWifiMistral
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestWifiMistral
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestWifiMistral
@@ -584,7 +584,7 @@ public val Icons.Themed.NestWifiMistral: ImageVector
 public val Icons.Themed.NestWifiPoint: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestWifiPoint
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestWifiPoint
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestWifiPoint
@@ -593,7 +593,7 @@ public val Icons.Themed.NestWifiPoint: ImageVector
 public val Icons.Themed.NestWifiPointVento: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestWifiPointVento
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestWifiPointVento
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestWifiPointVento
@@ -602,7 +602,7 @@ public val Icons.Themed.NestWifiPointVento: ImageVector
 public val Icons.Themed.NestWifiPro: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestWifiPro
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestWifiPro
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestWifiPro
@@ -611,7 +611,7 @@ public val Icons.Themed.NestWifiPro: ImageVector
 public val Icons.Themed.NestWifiPro2: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestWifiPro2
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestWifiPro2
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestWifiPro2
@@ -620,7 +620,7 @@ public val Icons.Themed.NestWifiPro2: ImageVector
 public val Icons.Themed.NestWifiRouter: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNestWifiRouter
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNestWifiRouter
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNestWifiRouter
@@ -629,7 +629,7 @@ public val Icons.Themed.NestWifiRouter: ImageVector
 public val Icons.Themed.NetworkCell: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNetworkCell
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNetworkCell
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNetworkCell
@@ -638,7 +638,7 @@ public val Icons.Themed.NetworkCell: ImageVector
 public val Icons.Themed.NetworkCheck: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNetworkCheck
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNetworkCheck
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNetworkCheck
@@ -647,7 +647,7 @@ public val Icons.Themed.NetworkCheck: ImageVector
 public val Icons.Themed.NetworkIntelNode: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNetworkIntelNode
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNetworkIntelNode
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNetworkIntelNode
@@ -656,7 +656,7 @@ public val Icons.Themed.NetworkIntelNode: ImageVector
 public val Icons.Themed.NetworkIntelligence: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNetworkIntelligence
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNetworkIntelligence
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNetworkIntelligence
@@ -665,7 +665,7 @@ public val Icons.Themed.NetworkIntelligence: ImageVector
 public val Icons.Themed.NetworkIntelligenceHistory: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNetworkIntelligenceHistory
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNetworkIntelligenceHistory
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNetworkIntelligenceHistory
@@ -674,7 +674,7 @@ public val Icons.Themed.NetworkIntelligenceHistory: ImageVector
 public val Icons.Themed.NetworkIntelligenceUpdate: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNetworkIntelligenceUpdate
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNetworkIntelligenceUpdate
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNetworkIntelligenceUpdate
@@ -683,7 +683,7 @@ public val Icons.Themed.NetworkIntelligenceUpdate: ImageVector
 public val Icons.Themed.NetworkLocked: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNetworkLocked
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNetworkLocked
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNetworkLocked
@@ -692,7 +692,7 @@ public val Icons.Themed.NetworkLocked: ImageVector
 public val Icons.Themed.NetworkManage: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNetworkManage
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNetworkManage
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNetworkManage
@@ -701,7 +701,7 @@ public val Icons.Themed.NetworkManage: ImageVector
 public val Icons.Themed.NetworkNode: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNetworkNode
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNetworkNode
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNetworkNode
@@ -710,7 +710,7 @@ public val Icons.Themed.NetworkNode: ImageVector
 public val Icons.Themed.NetworkPing: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNetworkPing
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNetworkPing
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNetworkPing
@@ -719,7 +719,7 @@ public val Icons.Themed.NetworkPing: ImageVector
 public val Icons.Themed.NetworkWifi: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNetworkWifi
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNetworkWifi
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNetworkWifi
@@ -728,7 +728,7 @@ public val Icons.Themed.NetworkWifi: ImageVector
 public val Icons.Themed.NetworkWifi1Bar: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNetworkWifi1Bar
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNetworkWifi1Bar
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNetworkWifi1Bar
@@ -737,7 +737,7 @@ public val Icons.Themed.NetworkWifi1Bar: ImageVector
 public val Icons.Themed.NetworkWifi1BarLocked: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNetworkWifi1BarLocked
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNetworkWifi1BarLocked
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNetworkWifi1BarLocked
@@ -746,7 +746,7 @@ public val Icons.Themed.NetworkWifi1BarLocked: ImageVector
 public val Icons.Themed.NetworkWifi2Bar: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNetworkWifi2Bar
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNetworkWifi2Bar
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNetworkWifi2Bar
@@ -755,7 +755,7 @@ public val Icons.Themed.NetworkWifi2Bar: ImageVector
 public val Icons.Themed.NetworkWifi2BarLocked: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNetworkWifi2BarLocked
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNetworkWifi2BarLocked
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNetworkWifi2BarLocked
@@ -764,7 +764,7 @@ public val Icons.Themed.NetworkWifi2BarLocked: ImageVector
 public val Icons.Themed.NetworkWifi3Bar: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNetworkWifi3Bar
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNetworkWifi3Bar
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNetworkWifi3Bar
@@ -773,7 +773,7 @@ public val Icons.Themed.NetworkWifi3Bar: ImageVector
 public val Icons.Themed.NetworkWifi3BarLocked: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedNetworkWifi3BarLocked
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedNetworkWifi3BarLocked
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpNetworkWifi3BarLocked

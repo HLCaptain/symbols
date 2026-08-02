@@ -11,6 +11,9 @@ artifacts are released.
 
 ### Changed
 
+- Renamed `MaterialSymbolsTheme` to `SymbolsTheme` and reorganized the README
+  around migration from `material-icons-extended`, standard Compose `Icon`, and
+  Android Views/XML before the advanced font renderer.
 - Font-generation codepoint maps now belong to each style. The Gradle plugin
   generates all entries by default, derives a package name, and discovers fonts
   in conventional Android and Compose resource directories.
@@ -31,7 +34,7 @@ artifacts are released.
   optionally auto-mirrored font rendering.
 - Style-typed `Symbols.{Style}.{Name}` font APIs, shared
   `Icons.{Style}.{Name}` vector APIs, inherited axes through
-  `MaterialSymbolsTheme`, and an Android variable-font capability gate.
+  `SymbolsTheme`, and an Android variable-font capability gate.
 - Optional shrinker-friendly Outlined, Rounded, and Sharp `ImageVector` packs at
   the default axis position, while preserving dynamic catalog lookup.
 - Composable `Icons.Themed.{Name}` vectors selected by a style composition local.
@@ -49,5 +52,7 @@ artifacts are released.
 - Android, JVM, JS, Wasm, and iOS publication targets, an interactive
   multiplatform sample, CI/release automation, and open-source project
   governance.
+- Signed Maven Central staging for stable release tags while retaining GitHub
+  Packages snapshots.
 
 No versioned release has been published yet.

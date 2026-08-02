@@ -9,7 +9,7 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.vector.ImageVector
 import io.github.hlcaptain.symbols.material.Icons
 import io.github.hlcaptain.symbols.material.MaterialSymbolStyle
-import io.github.hlcaptain.symbols.material.MaterialSymbolsTheme
+import io.github.hlcaptain.symbols.material.SymbolsTheme
 import io.github.hlcaptain.symbols.material.outlined.vectors.BatteryAndroidBolt as OutlinedBatteryAndroidBolt
 import io.github.hlcaptain.symbols.material.rounded.vectors.BatteryAndroidBolt as RoundedBatteryAndroidBolt
 import io.github.hlcaptain.symbols.material.sharp.vectors.BatteryAndroidBolt as SharpBatteryAndroidBolt
@@ -206,7 +206,7 @@ import io.github.hlcaptain.symbols.material.sharp.vectors.Blanket as SharpBlanke
 public val Icons.Themed.BatteryAndroidBolt: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryAndroidBolt
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryAndroidBolt
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidBolt
@@ -215,7 +215,7 @@ public val Icons.Themed.BatteryAndroidBolt: ImageVector
 public val Icons.Themed.BatteryAndroidFrame1: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryAndroidFrame1
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryAndroidFrame1
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidFrame1
@@ -224,7 +224,7 @@ public val Icons.Themed.BatteryAndroidFrame1: ImageVector
 public val Icons.Themed.BatteryAndroidFrame2: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryAndroidFrame2
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryAndroidFrame2
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidFrame2
@@ -233,7 +233,7 @@ public val Icons.Themed.BatteryAndroidFrame2: ImageVector
 public val Icons.Themed.BatteryAndroidFrame3: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryAndroidFrame3
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryAndroidFrame3
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidFrame3
@@ -242,7 +242,7 @@ public val Icons.Themed.BatteryAndroidFrame3: ImageVector
 public val Icons.Themed.BatteryAndroidFrame4: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryAndroidFrame4
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryAndroidFrame4
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidFrame4
@@ -251,7 +251,7 @@ public val Icons.Themed.BatteryAndroidFrame4: ImageVector
 public val Icons.Themed.BatteryAndroidFrame5: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryAndroidFrame5
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryAndroidFrame5
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidFrame5
@@ -260,7 +260,7 @@ public val Icons.Themed.BatteryAndroidFrame5: ImageVector
 public val Icons.Themed.BatteryAndroidFrame6: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryAndroidFrame6
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryAndroidFrame6
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidFrame6
@@ -269,7 +269,7 @@ public val Icons.Themed.BatteryAndroidFrame6: ImageVector
 public val Icons.Themed.BatteryAndroidFrameAlert: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryAndroidFrameAlert
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryAndroidFrameAlert
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidFrameAlert
@@ -278,7 +278,7 @@ public val Icons.Themed.BatteryAndroidFrameAlert: ImageVector
 public val Icons.Themed.BatteryAndroidFrameBolt: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryAndroidFrameBolt
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryAndroidFrameBolt
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidFrameBolt
@@ -287,7 +287,7 @@ public val Icons.Themed.BatteryAndroidFrameBolt: ImageVector
 public val Icons.Themed.BatteryAndroidFrameFull: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryAndroidFrameFull
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryAndroidFrameFull
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidFrameFull
@@ -296,7 +296,7 @@ public val Icons.Themed.BatteryAndroidFrameFull: ImageVector
 public val Icons.Themed.BatteryAndroidFramePlus: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryAndroidFramePlus
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryAndroidFramePlus
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidFramePlus
@@ -305,7 +305,7 @@ public val Icons.Themed.BatteryAndroidFramePlus: ImageVector
 public val Icons.Themed.BatteryAndroidFrameQuestion: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryAndroidFrameQuestion
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryAndroidFrameQuestion
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidFrameQuestion
@@ -314,7 +314,7 @@ public val Icons.Themed.BatteryAndroidFrameQuestion: ImageVector
 public val Icons.Themed.BatteryAndroidFrameShare: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryAndroidFrameShare
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryAndroidFrameShare
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidFrameShare
@@ -323,7 +323,7 @@ public val Icons.Themed.BatteryAndroidFrameShare: ImageVector
 public val Icons.Themed.BatteryAndroidFrameShield: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryAndroidFrameShield
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryAndroidFrameShield
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidFrameShield
@@ -332,7 +332,7 @@ public val Icons.Themed.BatteryAndroidFrameShield: ImageVector
 public val Icons.Themed.BatteryAndroidFull: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryAndroidFull
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryAndroidFull
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidFull
@@ -341,7 +341,7 @@ public val Icons.Themed.BatteryAndroidFull: ImageVector
 public val Icons.Themed.BatteryAndroidPlus: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryAndroidPlus
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryAndroidPlus
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidPlus
@@ -350,7 +350,7 @@ public val Icons.Themed.BatteryAndroidPlus: ImageVector
 public val Icons.Themed.BatteryAndroidQuestion: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryAndroidQuestion
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryAndroidQuestion
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidQuestion
@@ -359,7 +359,7 @@ public val Icons.Themed.BatteryAndroidQuestion: ImageVector
 public val Icons.Themed.BatteryAndroidShare: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryAndroidShare
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryAndroidShare
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidShare
@@ -368,7 +368,7 @@ public val Icons.Themed.BatteryAndroidShare: ImageVector
 public val Icons.Themed.BatteryAndroidShield: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryAndroidShield
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryAndroidShield
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidShield
@@ -377,7 +377,7 @@ public val Icons.Themed.BatteryAndroidShield: ImageVector
 public val Icons.Themed.BatteryChange: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryChange
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryChange
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryChange
@@ -386,7 +386,7 @@ public val Icons.Themed.BatteryChange: ImageVector
 public val Icons.Themed.BatteryCharging20: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryCharging20
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryCharging20
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryCharging20
@@ -395,7 +395,7 @@ public val Icons.Themed.BatteryCharging20: ImageVector
 public val Icons.Themed.BatteryCharging30: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryCharging30
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryCharging30
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryCharging30
@@ -404,7 +404,7 @@ public val Icons.Themed.BatteryCharging30: ImageVector
 public val Icons.Themed.BatteryCharging50: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryCharging50
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryCharging50
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryCharging50
@@ -413,7 +413,7 @@ public val Icons.Themed.BatteryCharging50: ImageVector
 public val Icons.Themed.BatteryCharging60: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryCharging60
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryCharging60
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryCharging60
@@ -422,7 +422,7 @@ public val Icons.Themed.BatteryCharging60: ImageVector
 public val Icons.Themed.BatteryCharging80: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryCharging80
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryCharging80
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryCharging80
@@ -431,7 +431,7 @@ public val Icons.Themed.BatteryCharging80: ImageVector
 public val Icons.Themed.BatteryCharging90: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryCharging90
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryCharging90
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryCharging90
@@ -440,7 +440,7 @@ public val Icons.Themed.BatteryCharging90: ImageVector
 public val Icons.Themed.BatteryChargingFull: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryChargingFull
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryChargingFull
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryChargingFull
@@ -449,7 +449,7 @@ public val Icons.Themed.BatteryChargingFull: ImageVector
 public val Icons.Themed.BatteryError: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryError
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryError
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryError
@@ -458,7 +458,7 @@ public val Icons.Themed.BatteryError: ImageVector
 public val Icons.Themed.BatteryFull: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryFull
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryFull
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryFull
@@ -467,7 +467,7 @@ public val Icons.Themed.BatteryFull: ImageVector
 public val Icons.Themed.BatteryFullAlt: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryFullAlt
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryFullAlt
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryFullAlt
@@ -476,7 +476,7 @@ public val Icons.Themed.BatteryFullAlt: ImageVector
 public val Icons.Themed.BatteryHoriz000: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryHoriz000
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryHoriz000
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryHoriz000
@@ -485,7 +485,7 @@ public val Icons.Themed.BatteryHoriz000: ImageVector
 public val Icons.Themed.BatteryHoriz050: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryHoriz050
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryHoriz050
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryHoriz050
@@ -494,7 +494,7 @@ public val Icons.Themed.BatteryHoriz050: ImageVector
 public val Icons.Themed.BatteryHoriz075: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryHoriz075
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryHoriz075
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryHoriz075
@@ -503,7 +503,7 @@ public val Icons.Themed.BatteryHoriz075: ImageVector
 public val Icons.Themed.BatteryLow: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryLow
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryLow
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryLow
@@ -512,7 +512,7 @@ public val Icons.Themed.BatteryLow: ImageVector
 public val Icons.Themed.BatteryPlus: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryPlus
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryPlus
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryPlus
@@ -521,7 +521,7 @@ public val Icons.Themed.BatteryPlus: ImageVector
 public val Icons.Themed.BatteryProfile: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryProfile
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryProfile
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryProfile
@@ -530,7 +530,7 @@ public val Icons.Themed.BatteryProfile: ImageVector
 public val Icons.Themed.BatterySaver: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatterySaver
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatterySaver
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatterySaver
@@ -539,7 +539,7 @@ public val Icons.Themed.BatterySaver: ImageVector
 public val Icons.Themed.BatteryShare: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryShare
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryShare
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryShare
@@ -548,7 +548,7 @@ public val Icons.Themed.BatteryShare: ImageVector
 public val Icons.Themed.BatteryStatusGood: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryStatusGood
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryStatusGood
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryStatusGood
@@ -557,7 +557,7 @@ public val Icons.Themed.BatteryStatusGood: ImageVector
 public val Icons.Themed.BatteryStd: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryStd
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryStd
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryStd
@@ -566,7 +566,7 @@ public val Icons.Themed.BatteryStd: ImageVector
 public val Icons.Themed.BatteryUnknown: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryUnknown
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryUnknown
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryUnknown
@@ -575,7 +575,7 @@ public val Icons.Themed.BatteryUnknown: ImageVector
 public val Icons.Themed.BatteryVert005: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryVert005
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryVert005
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryVert005
@@ -584,7 +584,7 @@ public val Icons.Themed.BatteryVert005: ImageVector
 public val Icons.Themed.BatteryVert020: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryVert020
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryVert020
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryVert020
@@ -593,7 +593,7 @@ public val Icons.Themed.BatteryVert020: ImageVector
 public val Icons.Themed.BatteryVert050: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryVert050
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryVert050
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryVert050
@@ -602,7 +602,7 @@ public val Icons.Themed.BatteryVert050: ImageVector
 public val Icons.Themed.BatteryVeryLow: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBatteryVeryLow
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBatteryVeryLow
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryVeryLow
@@ -611,7 +611,7 @@ public val Icons.Themed.BatteryVeryLow: ImageVector
 public val Icons.Themed.BeachAccess: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBeachAccess
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBeachAccess
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBeachAccess
@@ -620,7 +620,7 @@ public val Icons.Themed.BeachAccess: ImageVector
 public val Icons.Themed.Bed: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBed
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBed
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBed
@@ -629,7 +629,7 @@ public val Icons.Themed.Bed: ImageVector
 public val Icons.Themed.BedroomBaby: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBedroomBaby
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBedroomBaby
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBedroomBaby
@@ -638,7 +638,7 @@ public val Icons.Themed.BedroomBaby: ImageVector
 public val Icons.Themed.BedroomChild: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBedroomChild
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBedroomChild
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBedroomChild
@@ -647,7 +647,7 @@ public val Icons.Themed.BedroomChild: ImageVector
 public val Icons.Themed.BedroomParent: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBedroomParent
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBedroomParent
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBedroomParent
@@ -656,7 +656,7 @@ public val Icons.Themed.BedroomParent: ImageVector
 public val Icons.Themed.Bedtime: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBedtime
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBedtime
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBedtime
@@ -665,7 +665,7 @@ public val Icons.Themed.Bedtime: ImageVector
 public val Icons.Themed.BedtimeOff: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBedtimeOff
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBedtimeOff
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBedtimeOff
@@ -674,7 +674,7 @@ public val Icons.Themed.BedtimeOff: ImageVector
 public val Icons.Themed.Beenhere: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBeenhere
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBeenhere
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBeenhere
@@ -683,7 +683,7 @@ public val Icons.Themed.Beenhere: ImageVector
 public val Icons.Themed.BeerMeal: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBeerMeal
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBeerMeal
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBeerMeal
@@ -692,7 +692,7 @@ public val Icons.Themed.BeerMeal: ImageVector
 public val Icons.Themed.Bento: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBento
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBento
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBento
@@ -701,7 +701,7 @@ public val Icons.Themed.Bento: ImageVector
 public val Icons.Themed.Bia: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBia
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBia
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBia
@@ -710,7 +710,7 @@ public val Icons.Themed.Bia: ImageVector
 public val Icons.Themed.BidLandscape: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBidLandscape
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBidLandscape
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBidLandscape
@@ -719,7 +719,7 @@ public val Icons.Themed.BidLandscape: ImageVector
 public val Icons.Themed.BidLandscapeDisabled: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBidLandscapeDisabled
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBidLandscapeDisabled
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBidLandscapeDisabled
@@ -728,7 +728,7 @@ public val Icons.Themed.BidLandscapeDisabled: ImageVector
 public val Icons.Themed.BigtopUpdates: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBigtopUpdates
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBigtopUpdates
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBigtopUpdates
@@ -737,7 +737,7 @@ public val Icons.Themed.BigtopUpdates: ImageVector
 public val Icons.Themed.BikeDock: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBikeDock
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBikeDock
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBikeDock
@@ -746,7 +746,7 @@ public val Icons.Themed.BikeDock: ImageVector
 public val Icons.Themed.BikeLane: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBikeLane
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBikeLane
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBikeLane
@@ -755,7 +755,7 @@ public val Icons.Themed.BikeLane: ImageVector
 public val Icons.Themed.BikeScooter: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBikeScooter
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBikeScooter
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBikeScooter
@@ -764,7 +764,7 @@ public val Icons.Themed.BikeScooter: ImageVector
 public val Icons.Themed.Biotech: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBiotech
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBiotech
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBiotech
@@ -773,7 +773,7 @@ public val Icons.Themed.Biotech: ImageVector
 public val Icons.Themed.Blanket: ImageVector
     @Composable
     @ReadOnlyComposable
-    get() = when (MaterialSymbolsTheme.style) {
+    get() = when (SymbolsTheme.style) {
         MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedBlanket
         MaterialSymbolStyle.Rounded -> Icons.Rounded.RoundedBlanket
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBlanket

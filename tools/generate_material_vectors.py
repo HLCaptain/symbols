@@ -576,7 +576,7 @@ def render_themed_icon_file(
         "import androidx.compose.ui.graphics.vector.ImageVector",
         "import io.github.hlcaptain.symbols.material.Icons",
         "import io.github.hlcaptain.symbols.material.MaterialSymbolStyle",
-        "import io.github.hlcaptain.symbols.material.MaterialSymbolsTheme",
+        "import io.github.hlcaptain.symbols.material.SymbolsTheme",
     ]
     for name, _ in entries:
         identifier = kotlin_identifier(name)
@@ -594,7 +594,7 @@ def render_themed_icon_file(
                 f"public val Icons.Themed.{identifier}: ImageVector",
                 "    @Composable",
                 "    @ReadOnlyComposable",
-                "    get() = when (MaterialSymbolsTheme.style) {",
+                "    get() = when (SymbolsTheme.style) {",
                 (
                     "        MaterialSymbolStyle.Outlined -> "
                     f"Icons.Outlined.Outlined{identifier}"
