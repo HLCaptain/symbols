@@ -21,17 +21,12 @@ android {
 
 symbolFonts {
     iconSet("MaterialSymbols") {
-        packageName.set(
-            "io.github.hlcaptain.symbols.material.sharp.drawables.generated",
-        )
-        manifest.set(
-            rootProject.layout.projectDirectory.file(
-                "fonts/material/MaterialSymbols.codepoints",
-            ),
-        )
-        includeAll()
-
         style("Sharp") {
+            codepoints.set(
+                rootProject.layout.projectDirectory.file(
+                    "fonts/material/MaterialSymbols.codepoints",
+                ),
+            )
             font.set(
                 rootProject.layout.projectDirectory.file(
                     "fonts/material/sharp-static/composeResources/font/" +

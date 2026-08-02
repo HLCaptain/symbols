@@ -26,7 +26,7 @@ public abstract class SymbolFontsExtension @Inject constructor(
     }
 }
 
-/** A semantic manifest and its generated, strongly typed root namespace. */
+/** A generated, strongly typed icon namespace. */
 public abstract class SymbolIconSet @Inject constructor(
     private val setName: String,
     objects: ObjectFactory,
@@ -40,16 +40,9 @@ public abstract class SymbolIconSet @Inject constructor(
     public val rootName: Property<String> =
         objects.property(String::class.java).convention(setName)
 
-    /** Stable `<snake_case_name> <hex_code_point>` semantic manifest. */
-    public val manifest: RegularFileProperty = objects.fileProperty()
-
-    /** Explicitly selected manifest names. This is the fast default. */
+    /** Explicitly selected codepoint names. Empty means every name. */
     public val includedNames: SetProperty<String> =
         objects.setProperty(String::class.java).convention(emptySet())
-
-    /** Whether every manifest entry should be generated. */
-    public val allSymbols: Property<Boolean> =
-        objects.property(Boolean::class.java).convention(false)
 
     /** Named visual/font styles, for example `Rounded`. */
     public val styles: NamedDomainObjectContainer<SymbolFontStyle> =
@@ -57,14 +50,14 @@ public abstract class SymbolIconSet @Inject constructor(
             objects.newInstance(SymbolFontStyle::class.java, name)
         }
 
-    /** Adds manifest names without replacing an earlier selection. */
+    /** Generates only these names, adding to any earlier selection. */
     public fun include(vararg names: String) {
         includedNames.addAll(names.toList())
     }
 
-    /** Opts into generating the complete manifest. */
+    /** Generates every name. This is already the default. */
     public fun includeAll() {
-        allSymbols.set(true)
+        includedNames.set(emptySet())
     }
 
     /** Declares or configures a visual/font style. */
@@ -80,8 +73,14 @@ public abstract class SymbolFontStyle @Inject constructor(
 ) : Named {
     override fun getName(): String = styleName
 
+    /** Stable `<snake_case_name> <hex_code_point>` map for this font. */
+    public val codepoints: RegularFileProperty = objects.fileProperty()
+
     /** TTF, OTF, or indexed TTC input. */
     public val font: RegularFileProperty = objects.fileProperty()
+
+    internal val conventionalFontName: Property<String> =
+        objects.property(String::class.java).convention("")
 
     /** TTC face index. */
     public val fontIndex: Property<Int> =
@@ -146,6 +145,23 @@ public abstract class SymbolFontStyle @Inject constructor(
         axes.put(tag, value)
     }
 
+    /**
+     * Selects a font by name from a conventional Android or Compose font
+     * directory.
+     */
+    public fun font(fileName: String) {
+        require(
+            fileName.isNotBlank() &&
+                '/' !in fileName &&
+                '\\' !in fileName &&
+                fileName.substringAfterLast('.', "").lowercase() in
+                SupportedFontExtensions
+        ) {
+            "Font name must be a .ttf, .otf, or .ttc file name: $fileName"
+        }
+        conventionalFontName.set(fileName)
+    }
+
     /** Enables the common Kotlin `ImageVector` output. */
     public fun imageVectors() {
         generateImageVectors.set(true)
@@ -161,3 +177,6 @@ public abstract class SymbolFontStyle @Inject constructor(
         generateComposeDrawables.set(true)
     }
 }
+
+internal val SupportedFontExtensions: Set<String> =
+    setOf("ttf", "otf", "ttc")

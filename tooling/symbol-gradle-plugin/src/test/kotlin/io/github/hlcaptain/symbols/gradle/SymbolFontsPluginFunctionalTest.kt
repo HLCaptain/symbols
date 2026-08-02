@@ -3,7 +3,9 @@ package io.github.hlcaptain.symbols.gradle
 import java.io.File
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
+import org.gradle.api.InvalidUserDataException
 import org.gradle.testkit.runner.GradleRunner
 import org.gradle.testkit.runner.TaskOutcome
 import org.junit.Rule
@@ -24,14 +26,15 @@ class SymbolFontsPluginFunctionalTest {
             symbolFonts {
                 iconSet('AppIcons') {
                     packageName.set('com.example.icons')
-                    manifest.set(file('icons.codepoints'))
                     include('home')
 
                     style('Rounded') {
+                        codepoints.set(file('icons.codepoints'))
                         font.set(file('font.ttf'))
                         imageVectors()
                     }
                     style('Regular') {
+                        codepoints.set(file('icons.codepoints'))
                         font.set(file('font.ttf'))
                         imageVectors()
                     }
@@ -57,6 +60,188 @@ class SymbolFontsPluginFunctionalTest {
         assertEquals(
             TaskOutcome.UP_TO_DATE,
             second.task(":generateAppIconsSymbolFontNamespace")?.outcome,
+        )
+    }
+
+    @Test
+    fun defaultsPackageSelectionAndConventionalFonts() {
+        val project = fixture(
+            """
+            import io.github.hlcaptain.symbols.gradle.GenerateSymbolFontTask
+
+            plugins {
+                id 'io.github.hlcaptain.symbol-fonts'
+            }
+
+            group = 'com.example'
+
+            symbolFonts {
+                iconSet('AppIcons') {
+                    style('Rounded') {
+                        codepoints.set(file('rounded.codepoints'))
+                        imageVectors()
+                    }
+                    style('Sharp') {
+                        codepoints.set(file('sharp.codepoints'))
+                        font('material-rounded.ttf')
+                        imageVectors()
+                    }
+                }
+                iconSet('SubsetIcons') {
+                    include('home')
+                    style('Regular') {
+                        codepoints.set(file('icons.codepoints'))
+                        font.set(file('font.ttf'))
+                        imageVectors()
+                    }
+                }
+            }
+
+            tasks.register('assertSymbolDefaults') {
+                doLast {
+                    def rounded = tasks.named(
+                        'generateAppIconsRoundedSymbolFonts',
+                        GenerateSymbolFontTask
+                    ).get()
+                    assert rounded.packageName.get() ==
+                        'com.example.symbol_fonts_plugin_test.generated'
+                    assert rounded.includedNames.get().isEmpty()
+                    assert rounded.manifest.get().asFile == file('rounded.codepoints')
+                    assert !rounded.font.isPresent()
+                    assert rounded.conventionalFontName.get().isEmpty()
+                    assert rounded.conventionalFonts.singleFile ==
+                        file('src/commonMain/composeResources/font/material-rounded.ttf')
+
+                    def sharp = tasks.named(
+                        'generateAppIconsSharpSymbolFonts',
+                        GenerateSymbolFontTask
+                    ).get()
+                    assert sharp.manifest.get().asFile == file('sharp.codepoints')
+                    assert !sharp.font.isPresent()
+                    assert sharp.conventionalFontName.get() == 'material-rounded.ttf'
+                    assert sharp.conventionalFonts.singleFile ==
+                        file('src/commonMain/composeResources/font/material-rounded.ttf')
+
+                    def subset = tasks.named(
+                        'generateSubsetIconsRegularSymbolFonts',
+                        GenerateSymbolFontTask
+                    ).get()
+                    assert subset.includedNames.get() == ['home'] as Set
+                    assert subset.conventionalFonts.isEmpty()
+                }
+            }
+            """,
+            files = mapOf(
+                "rounded.codepoints" to "home e001\n",
+                "sharp.codepoints" to "home e101\n",
+                "src/commonMain/composeResources/font/material-rounded.ttf" to
+                    "rounded",
+            ),
+        )
+
+        val result = runner(project, "assertSymbolDefaults").build()
+
+        assertEquals(
+            TaskOutcome.SUCCESS,
+            result.task(":assertSymbolDefaults")?.outcome,
+        )
+    }
+
+    @Test
+    fun conventionalFontDiscoverySurvivesConfigurationCacheReuse() {
+        val project = fixture(
+            """
+            import io.github.hlcaptain.symbols.gradle.GenerateSymbolFontTask
+            import org.gradle.api.DefaultTask
+            import org.gradle.api.file.ConfigurableFileCollection
+            import org.gradle.api.tasks.InputFiles
+            import org.gradle.api.tasks.TaskAction
+
+            plugins {
+                id 'io.github.hlcaptain.symbol-fonts'
+            }
+
+            symbolFonts {
+                iconSet('AppIcons') {
+                    style('Rounded') {
+                        codepoints.set(file('icons.codepoints'))
+                        imageVectors()
+                    }
+                }
+            }
+
+            abstract class AssertOneConventionalFont extends DefaultTask {
+                @InputFiles
+                abstract ConfigurableFileCollection getFonts()
+
+                @TaskAction
+                void verify() {
+                    def count = fonts.files.size()
+                    if (count != 1) {
+                        throw new GradleException(
+                            'Expected one conventional font; found ' + count + '.'
+                        )
+                    }
+                }
+            }
+
+            def generation = tasks.named(
+                'generateAppIconsRoundedSymbolFonts',
+                GenerateSymbolFontTask
+            ).get()
+            tasks.register(
+                'assertOneConventionalFont',
+                AssertOneConventionalFont
+            ) {
+                fonts.from(generation.conventionalFonts)
+            }
+            """,
+            files = mapOf(
+                "src/main/res/font/app-icons.otf" to "icons",
+            ),
+        )
+
+        val taskName = "assertOneConventionalFont"
+        val first = cachedRunner(project, taskName).build()
+        assertEquals(
+            TaskOutcome.SUCCESS,
+            first.task(":$taskName")?.outcome,
+        )
+
+        project.resolve(
+            "src/commonMain/composeResources/font/other-icons.otf",
+        ).also { file ->
+            file.parentFile.mkdirs()
+            file.writeText("other")
+        }
+
+        val second = cachedRunner(project, taskName).buildAndFail()
+        assertTrue("Reusing configuration cache." in second.output)
+        assertTrue(
+            "Expected one conventional font; found 2." in second.output,
+        )
+    }
+
+    @Test
+    fun conventionalFontSelectionRequiresOneMatch() {
+        val directory = temporaryFolder.newFolder()
+        val first = directory.resolve("first.ttf").apply { writeText("first") }
+        val second = directory.resolve("second.otf").apply { writeText("second") }
+
+        assertEquals(
+            second,
+            selectConventionalFont(
+                "Rounded",
+                "second.otf",
+                listOf(first, second),
+            ),
+        )
+        val failure = assertFailsWith<InvalidUserDataException> {
+            selectConventionalFont("Rounded", null, listOf(first, second))
+        }
+        assertTrue(
+            "Cannot choose a font for style 'Rounded'" in
+                failure.message.orEmpty(),
         )
     }
 
@@ -230,13 +415,14 @@ class SymbolFontsPluginFunctionalTest {
             symbolFonts {
                 iconSet('AppIcons') {
                     packageName.set('com.example.icons')
-                    manifest.set(file('icons.codepoints'))
                     include('home')
                     style('a1a') {
+                        codepoints.set(file('icons.codepoints'))
                         font.set(file('font.ttf'))
                         composeDrawables()
                     }
                     style('a1A_') {
+                        codepoints.set(file('icons.codepoints'))
                         font.set(file('font.ttf'))
                         composeDrawables()
                     }
@@ -259,9 +445,9 @@ class SymbolFontsPluginFunctionalTest {
             symbolFonts {
                 iconSet('One') {
                     packageName.set('com.example.one')
-                    manifest.set(file('one.codepoints'))
                     include('bar_baz')
                     style('Foo') {
+                        codepoints.set(file('one.codepoints'))
                         font.set(file('font.ttf'))
                         resourcePrefix.set('app')
                         composeDrawables()
@@ -269,9 +455,9 @@ class SymbolFontsPluginFunctionalTest {
                 }
                 iconSet('Two') {
                     packageName.set('com.example.two')
-                    manifest.set(file('two.codepoints'))
                     include('baz')
                     style('FooBar') {
+                        codepoints.set(file('two.codepoints'))
                         font.set(file('font.ttf'))
                         resourcePrefix.set('app')
                         composeDrawables()
@@ -348,14 +534,24 @@ class SymbolFontsPluginFunctionalTest {
     }
 
     private fun runner(project: File, vararg tasks: String): GradleRunner =
+        configuredRunner(project, tasks.toList(), "--no-configuration-cache")
+
+    private fun cachedRunner(project: File, vararg tasks: String): GradleRunner =
+        configuredRunner(project, tasks.toList(), "--configuration-cache")
+
+    private fun configuredRunner(
+        project: File,
+        tasks: List<String>,
+        configurationCacheArgument: String,
+    ): GradleRunner =
         GradleRunner.create()
             .withProjectDir(project)
             .withTestKitDir(project.resolve(".test-kit"))
             .withPluginClasspath()
             .withArguments(
-                tasks.toList() + listOf(
+                tasks + listOf(
                     "--offline",
-                    "--no-configuration-cache",
+                    configurationCacheArgument,
                     "--no-build-cache",
                     "--console=plain",
                     "--stacktrace",

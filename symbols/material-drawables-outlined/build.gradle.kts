@@ -21,17 +21,12 @@ android {
 
 symbolFonts {
     iconSet("MaterialSymbols") {
-        packageName.set(
-            "io.github.hlcaptain.symbols.material.outlined.drawables.generated",
-        )
-        manifest.set(
-            rootProject.layout.projectDirectory.file(
-                "fonts/material/MaterialSymbols.codepoints",
-            ),
-        )
-        includeAll()
-
         style("Outlined") {
+            codepoints.set(
+                rootProject.layout.projectDirectory.file(
+                    "fonts/material/MaterialSymbols.codepoints",
+                ),
+            )
             font.set(
                 rootProject.layout.projectDirectory.file(
                     "fonts/material/outlined-static/composeResources/font/" +
