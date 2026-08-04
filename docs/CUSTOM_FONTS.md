@@ -5,6 +5,18 @@ or as build-time inputs for generated `ImageVector`/drawable output. Prepare and
 license the font separately, then choose whether the application should ship the
 font itself or only selected extracted outlines.
 
+Runtime custom-font support lives in the generic
+`io.github.hlcaptain:symbols-variant-font-core` artifact. Material font artifacts
+depend on it transitively; a custom-only module can add it directly:
+
+```kotlin
+implementation(
+    "io.github.hlcaptain:symbols-variant-font-core:0.1.0-SNAPSHOT",
+)
+```
+
+In Kotlin Multiplatform, declare this in `commonMain.dependencies`.
+
 ## Package a variable font
 
 Place one font in the custom module:
@@ -13,62 +25,136 @@ Place one font in the custom module:
 src/commonMain/composeResources/font/my_symbols_variable.ttf
 ```
 
+Runtime fonts use the generated Compose Multiplatform `FontResource` shown
+below. Android `R.font` resources are supported as generator inputs, but do not
+implement this runtime contract.
+
 Expose it through the explicit variable-font contract:
 
 ```kotlin
-import io.github.hlcaptain.symbols.material.MaterialSymbolVariableFont
+import io.github.hlcaptain.symbols.font.SymbolVariableFont
 import my.symbols.generated.resources.Res
 import my.symbols.generated.resources.my_symbols_variable
 
-object MySymbols : MaterialSymbolVariableFont {
+object MySymbols : SymbolVariableFont {
     override val familyName = "My Symbols"
     override val resource = Res.font.my_symbols_variable
 }
 ```
 
-The font must use the same `FILL`, `wght`, `GRAD`, and `opsz` contracts if it is
-rendered with `MaterialSymbolAxes`. A variable font with different tags or
-ranges needs its own renderer instead of pretending to implement this contract.
-The older `MaterialSymbolFont` interface remains source compatible, but is
-treated as variable; new implementations should state their capability
-explicitly.
-
-Render a private-use or supplementary scalar directly:
+`SymbolFontSettings` stores one Compose `FontVariation.Settings` value. Its
+convenience constructor converts `FontWeight` and `FontStyle` to the standard
+`wght` and `ital` axes; pass `FontVariation.Settings` directly for arbitrary
+font axes. Supply either form directly or inherit it through the generic
+`SymbolsTheme`:
 
 ```kotlin
-MaterialSymbolIcon(
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontVariation
+import androidx.compose.ui.text.font.FontWeight
+import io.github.hlcaptain.symbols.font.SymbolFontIcon
+import io.github.hlcaptain.symbols.font.SymbolFontSettings
+import io.github.hlcaptain.symbols.font.SymbolsTheme
+
+val standardSettings = SymbolFontSettings(
+    weight = FontWeight.Medium,
+    style = FontStyle.Italic,
+)
+
+val settings = SymbolFontSettings(
+    variationSettings = FontVariation.Settings(
+        FontVariation.Setting("FILL", 1f),
+        FontVariation.Setting("wdth", 110f),
+        FontVariation.weight(500),
+    ),
+)
+
+SymbolsTheme(fontSettings = settings) {
+    SymbolFontIcon(
+        codePoint = 0xF0001,
+        font = MySymbols,
+        contentDescription = "Custom action",
+    )
+}
+```
+
+Android can apply variable-font settings from API 26. Check
+`SymbolsRuntime.variableFontsSupported` before selecting this path on an app
+whose minSdk is lower.
+
+`symbolFontText(codePoint)` is available for a custom `BasicText` layout. Both
+it and `SymbolFontIcon` reject negative values, surrogate code points, and
+values above `U+10FFFF`.
+
+## Material-compatible custom fonts
+
+Add the Material adapter when this module does not already depend on a bundled
+Material font artifact:
+
+```kotlin
+implementation(
+    "io.github.hlcaptain:symbols-material-compose:0.1.0-SNAPSHOT",
+)
+```
+
+`MaterialSymbolAxes` remains a validated adapter for the bundled `FILL`,
+`wght`, `GRAD`, and `opsz` ranges. Its `fontSettings` property exposes the
+equivalent generic settings. `MaterialSymbolsTheme` provides both its Material
+style/axes locals and those generic font settings, so a custom font with the
+same axis contract can inherit them:
+
+```kotlin
+import io.github.hlcaptain.symbols.font.SymbolFontIcon
+import io.github.hlcaptain.symbols.material.MaterialSymbolAxes
+import io.github.hlcaptain.symbols.material.MaterialSymbolStyle
+import io.github.hlcaptain.symbols.material.MaterialSymbolsTheme
+
+MaterialSymbolsTheme(
+    style = MaterialSymbolStyle.Rounded,
+    axes = MaterialSymbolAxes(fill = 1f, weight = 500),
+) {
+    SymbolFontIcon(
+        codePoint = 0xF0001,
+        font = MySymbols,
+        contentDescription = "Custom action",
+    )
+}
+```
+
+Use the generic `SymbolsTheme` instead when the custom font has different tags
+or ranges. `MaterialSymbolsTheme` also owns the Outlined, Rounded, and Sharp
+selection used by built-in `Icons.Themed.*` properties.
+
+## Package a regular font
+
+Use `SymbolRegularFont` for a font baked at one immutable point:
+
+```kotlin
+import androidx.compose.ui.text.font.FontWeight
+import io.github.hlcaptain.symbols.font.SymbolFontIcon
+import io.github.hlcaptain.symbols.font.SymbolFontSettings
+import io.github.hlcaptain.symbols.font.SymbolRegularFont
+import my.symbols.generated.resources.Res
+import my.symbols.generated.resources.my_symbols_regular
+
+object MyRegularSymbols : SymbolRegularFont {
+    override val familyName = "My Symbols"
+    override val resource = Res.font.my_symbols_regular
+    override val fontSettings = SymbolFontSettings(weight = FontWeight.Bold)
+}
+
+SymbolFontIcon(
     codePoint = 0xF0001,
-    font = MySymbols,
+    font = MyRegularSymbols,
+    fontSettings = MyRegularSymbols.fontSettings,
     contentDescription = "Custom action",
 )
 ```
 
-`materialSymbolText(codePoint)` is available for a custom `BasicText` layout.
-Both APIs reject negative values, surrogate code points, and values above
-`U+10FFFF`.
-
-## Package a regular font
-
-Use `MaterialSymbolRegularFont` for a font baked at one immutable point:
-
-```kotlin
-import io.github.hlcaptain.symbols.material.MaterialSymbolAxes
-import io.github.hlcaptain.symbols.material.MaterialSymbolRegularFont
-import my.symbols.generated.resources.Res
-import my.symbols.generated.resources.my_symbols_regular
-
-object MyRegularSymbols : MaterialSymbolRegularFont {
-    override val familyName = "My Symbols"
-    override val resource = Res.font.my_symbols_regular
-    override val axes = MaterialSymbolAxes.Default
-}
-```
-
 The renderer never attaches `FontVariation.Settings` to this resource, so it can
-render on Android API 21. It verifies that the requested axes equal the declared
-fixed point. In a non-default `SymbolsTheme`, pass
-`axes = MyRegularSymbols.axes` explicitly or provide a style-specific overload
-that does so.
+render on Android API 21. It verifies that the requested settings equal the
+declared fixed `fontSettings`; pass that value explicitly or provide it through
+`SymbolsTheme`.
 
 ## Generate outlines instead of shipping a font
 
@@ -86,6 +172,11 @@ should never be generated. A font selected from `src/main/res/font` or
 explicit file outside those directories when it should remain build-only. See
 [build-time font conversion](GENERATOR.md) for the complete DSL, generated API,
 and shrinker boundaries.
+
+All generated `ImageVector`, Android XML, and Compose XML outputs are fixed
+snapshots at the Gradle style's configured `axis(...)` coordinates. They do not
+read `SymbolsTheme` or `MaterialSymbolsTheme` at runtime and do not require the
+variant-font core unless the application separately renders the font itself.
 
 Google's two-column `.codepoints` file is not universal. CSS pseudo-element
 maps, Font Awesome metadata, IcoMoon/Fontello JSON, and the font's OpenType

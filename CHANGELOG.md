@@ -11,9 +11,11 @@ artifacts are released.
 
 ### Changed
 
-- Renamed `MaterialSymbolsTheme` to `SymbolsTheme` and reorganized the README
-  around migration from `material-icons-extended`, standard Compose `Icon`, and
-  Android Views/XML before the advanced font renderer.
+- Extracted reusable regular/variable symbol-font Compose APIs into the generic
+  `variant-font-core` module under `io.github.hlcaptain.symbols.font`, while
+  keeping `MaterialSymbolsTheme` as the Material axes/style adapter. Reorganized
+  the README around migration from `material-icons-extended`, standard Compose
+  `Icon`, and Android Views/XML before the advanced font renderer.
 - Font-generation codepoint maps now belong to each style. The Gradle plugin
   generates all entries by default, derives a package name, and discovers fonts
   in conventional Android and Compose resource directories.
@@ -32,9 +34,13 @@ artifacts are released.
   deterministically instantiated at the default axes.
 - Fill, weight, grade, and optical-size axis support plus accessible and
   optionally auto-mirrored font rendering.
+- Reusable `SymbolFont`, `SymbolRegularFont`, `SymbolVariableFont`,
+  `SymbolFontSettings`, `SymbolFontIcon`, `rememberSymbolFontFamily`,
+  `SymbolsTheme`, and `SymbolsRuntime` APIs for arbitrary Compose Multiplatform
+  symbol fonts.
 - Style-typed `Symbols.{Style}.{Name}` font APIs, shared
-  `Icons.{Style}.{Name}` vector APIs, inherited axes through
-  `SymbolsTheme`, and an Android variable-font capability gate.
+  `Icons.{Style}.{Name}` vector APIs, and inherited Material axes/style through
+  `MaterialSymbolsTheme`.
 - Optional shrinker-friendly Outlined, Rounded, and Sharp `ImageVector` packs at
   the default axis position, while preserving dynamic catalog lookup.
 - Composable `Icons.Themed.{Name}` vectors selected by a style composition local.

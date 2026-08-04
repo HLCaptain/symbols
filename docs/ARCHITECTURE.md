@@ -5,17 +5,21 @@ generated vectors/resources so consumers pay only for the access modes and
 visual styles they select.
 
 ```text
+variant-font-core ──generic font settings/theme/renderer──┐
+                                                          │
 MaterialSymbols.codepoints ──catalog generator──> material-core
               │                                      │
-              └──typed namespace generator──────────> material-compose
+              └──typed namespace generator──────────> material-compose <────┘
                                                         │
 variable font (one style) ──runtime resource────────────┴──> material-{style}
         │
         ├──default-axis instancing────────────────────────> material-{style}-static
+        │                                                    │
+        │                                                    └──Android XML generation
+        │                                                       └──> material-drawables-{style}
         ├──default-axis outline extraction────────────────> material-vectors-{style}
         │                                                    │
         │                                                    └──> material-vectors-themed
-        ├──default-axis Android XML generation─────────────> material-drawables-{style}
         └──Gradle generator + app manifest────────────────> selected ImageVectors /
                                                             Android drawables /
                                                             Compose drawables
@@ -49,33 +53,40 @@ the cached `ImageVector`.
 
 ## Variable-font rendering
 
-Each variable style module contains exactly one TTF under Compose Multiplatform
-resources. `MaterialSymbolAxes` validates the four font axes, and
-`rememberMaterialSymbolFontFamily` constructs the Compose `Font` with those
-variation settings.
+`symbols-variant-font-core` is independent of the Material catalog. Its
+`SymbolFontSettings` stores one Compose `FontVariation.Settings` value, with a
+convenience constructor for `FontWeight` and `FontStyle`. `SymbolsTheme`
+supplies it through `LocalSymbolFontSettings`, and `rememberSymbolFontFamily`
+constructs the Compose `Font`.
 
-`MaterialSymbolVariableFont` states that a resource supports live axes.
-`MaterialSymbolRegularFont` states that a resource is baked at one immutable
-axis point. The older `MaterialSymbolFont` interface remains source compatible
-and is treated as variable unless an implementation opts into the explicit
-regular contract. A regular font is loaded without
-`FontVariation.Settings`; requesting axes other than its declared point fails.
+`SymbolVariableFont` states that a resource supports live coordinates.
+`SymbolRegularFont` states that a resource is baked at one immutable
+`fontSettings` point. An unmarked `SymbolFont`, or a font implementing both
+capability interfaces, is rejected. A regular font is loaded without
+`FontVariation.Settings`; requesting settings other than its declared point
+fails.
 
-`MaterialSymbolIcon` renders one Unicode scalar through `BasicText`. Its layout
-box has an explicit square size, the private-use text is cleared from semantics,
+`SymbolFontIcon` renders one Unicode scalar through `BasicText`. Its layout box
+has an explicit square size, the private-use text is cleared from semantics,
 and an optional localized description is exposed with image semantics. Optional
 RTL mirroring transforms the glyph inside the box.
+
+The Material adapter remains deliberately narrower. `MaterialSymbolAxes`
+validates the bundled fonts' `FILL`, `wght`, `GRAD`, and `opsz` ranges and maps
+them to generic `fontSettings`. `MaterialSymbolsTheme` owns Material axes and
+Outlined/Rounded/Sharp style selection while also providing the mapped generic
+settings to font rendering. Custom fonts with other coordinates use the generic
+theme directly.
 
 `Symbols.Outlined`, `Symbols.Rounded`, and `Symbols.Sharp` provide
 allocation-free style-typed handles. Each style artifact contributes a matching
 `MaterialSymbolIcon` overload, so `Symbols.Rounded.Home` cannot accidentally
 select the Sharp font. The convenient overload remembers a family per call site.
-Large collections should remember one family for a `(font, axes)` pair and pass
-that shared family to the lower-level overload.
+Large collections should remember one family for a `(font, fontSettings)` pair
+and pass that shared family to the lower-level overload.
 
-`SymbolsTheme` supplies axes through `LocalMaterialSymbolAxes`; explicit
-renderer axes take precedence. Android variable-font settings require API 26.
-`MaterialSymbolsRuntime.variableFontsSupported` exposes that boundary so API
+Android variable-font settings require API 26.
+`SymbolsRuntime.variableFontsSupported` exposes that boundary so API
 21–25 applications can choose a regular-font or vector/drawable fallback before
 rendering. Variable style AARs themselves have minSdk 21 so both paths can be
 present in one application. The capability is true on supported non-Android
@@ -113,6 +124,9 @@ more of the pack. Aliases share their per-codepoint backing object and cache.
 
 Static vectors cannot represent variable axes. Each vector module is therefore
 an explicit optional alternative, not a transitive dependency of a font style.
+Neither `SymbolsTheme` nor `MaterialSymbolsTheme` changes a built-in vector;
+theme-selected vectors switch only among fixed Outlined, Rounded, and Sharp
+snapshots.
 
 ## Build-time generated vectors and drawables
 
@@ -129,19 +143,27 @@ is registered as a generated `commonMain` custom resource directory. Tasks
 declare their font, manifest, axes, selection, options, generator classpath, and
 outputs and are cacheable.
 
+Each Gradle style's `axis(...)` declarations are build-time coordinates. All
+generated `ImageVector`, Android XML, and Compose XML outputs are fixed snapshots
+at those coordinates and do not read `SymbolsTheme` or `MaterialSymbolsTheme` at
+runtime.
+
 See [build-time font conversion](GENERATOR.md) for the DSL and resource names.
 
 ## Resource and publication boundaries
 
 Kotlin Multiplatform runtime modules publish Android, JVM, JS, Wasm, iOS x64,
 iOS arm64, and iOS simulator arm64 variants. The native drawable packs are
-Android-only AARs. `material-core` has no Compose dependency.
-Variable and regular style modules expose their `FontResource` and depend on the
-small Compose adapter. Fixed vector modules depend on `material-core` and
-Compose UI but not on a font; the themed vector module adds composition-local
-style selection over all three packs. Drawable AARs contain only generated
-Android XML resources. Build-time tooling is a JVM/Gradle concern and does not
-become a runtime dependency.
+Android-only AARs. `material-core` contains the catalog and has no Compose
+dependency. `symbols-variant-font-core` contains the generic font contracts,
+settings theme, renderer, and platform capability check; it has no Material
+catalog or bundled font. `material-compose` depends on both and adds the Material
+catalog adapters and Material style/axes theme. Variable and regular style
+modules expose their `FontResource` through those adapters. Fixed vector modules
+depend on `material-core` and Compose UI but not on a font; the themed vector
+module adds Material composition-local style selection over all three packs.
+Drawable AARs contain only generated Android XML resources. Build-time tooling
+is a JVM/Gradle concern and does not become a runtime dependency.
 
 Every runtime and JVM tooling archive packages the project license and
 third-party notice at

@@ -23,6 +23,18 @@ class MaterialSymbolAxesTest {
     }
 
     @Test
+    fun mapsToGenericFontSettings() {
+        val axes = MaterialSymbolAxes(fill = 1f, weight = 500, grade = 100f)
+        val settings = axes.fontSettings.variationSettings.settings
+
+        assertEquals(listOf("FILL", "GRAD", "opsz", "wght"), settings.map { it.axisName })
+        assertEquals(
+            500f,
+            settings.single { it.axisName == "wght" }.toVariationValue(null),
+        )
+    }
+
+    @Test
     fun rejectsValuesOutsideEveryAxis() {
         assertFailsWith<IllegalArgumentException> { MaterialSymbolAxes(fill = -0.01f) }
         assertFailsWith<IllegalArgumentException> { MaterialSymbolAxes(fill = Float.NaN) }

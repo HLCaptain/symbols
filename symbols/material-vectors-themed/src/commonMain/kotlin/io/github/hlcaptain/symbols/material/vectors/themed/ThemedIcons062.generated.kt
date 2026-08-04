@@ -9,7 +9,7 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.vector.ImageVector
 import io.github.hlcaptain.symbols.material.Icons
 import io.github.hlcaptain.symbols.material.MaterialSymbolStyle
-import io.github.hlcaptain.symbols.material.SymbolsTheme
+import io.github.hlcaptain.symbols.material.MaterialSymbolsTheme as SymbolsTheme
 import io.github.hlcaptain.symbols.material.outlined.vectors.Wallpaper as OutlinedWallpaper
 import io.github.hlcaptain.symbols.material.rounded.vectors.Wallpaper as RoundedWallpaper
 import io.github.hlcaptain.symbols.material.sharp.vectors.Wallpaper as SharpWallpaper

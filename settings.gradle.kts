@@ -53,6 +53,7 @@ nmcpSettings {
 include(":composeApp")
 include(":benchmarks:shrinkable-vectors")
 include(
+    ":modules:variant-font-core",
     ":modules:material-core",
     ":modules:material-compose",
     ":modules:material-outlined",
@@ -70,6 +71,7 @@ include(
     ":modules:material-vectors-themed",
 )
 
+project(":modules:variant-font-core").projectDir = file("symbols/variant-font-core")
 project(":modules:material-core").projectDir = file("symbols/material-core")
 project(":modules:material-compose").projectDir = file("symbols/material-compose")
 project(":modules:material-outlined").projectDir = file("symbols/material-outlined")

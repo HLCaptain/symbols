@@ -9,7 +9,7 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.vector.ImageVector
 import io.github.hlcaptain.symbols.material.Icons
 import io.github.hlcaptain.symbols.material.MaterialSymbolStyle
-import io.github.hlcaptain.symbols.material.SymbolsTheme
+import io.github.hlcaptain.symbols.material.MaterialSymbolsTheme as SymbolsTheme
 import io.github.hlcaptain.symbols.material.outlined.vectors.Subscriptions as OutlinedSubscriptions
 import io.github.hlcaptain.symbols.material.rounded.vectors.Subscriptions as RoundedSubscriptions
 import io.github.hlcaptain.symbols.material.sharp.vectors.Subscriptions as SharpSubscriptions

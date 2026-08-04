@@ -48,9 +48,12 @@ Pick the artifact that matches how the application renders icons:
 
 | Need | Artifact | Runtime payload |
 | --- | --- | --- |
+| Material names and code points only | `symbols-material-core` | Typed catalog; no Compose or bundled font |
 | Familiar Compose `Icon(ImageVector, ...)` | `symbols-material-vectors-{outlined|rounded|sharp}` | Fixed vectors for one style; unused typed vectors can be removed by R8 |
 | Runtime style selection in Compose | `symbols-material-vectors-themed` | Fixed vectors for all three styles |
 | Android XML and Views | `symbols-material-drawables-{outlined|rounded|sharp}` | Native `VectorDrawable` resources; unused resources can be removed by Android resource shrinking |
+| Runtime custom regular or variable fonts | `symbols-variant-font-core` | Generic Compose theme and code-point renderer; no bundled font or catalog |
+| Material catalog adapters and theming only | `symbols-material-compose` | Material axes, style theme, and typed font namespaces; no bundled font |
 | Font icons on Android API 21+ | `symbols-material-{outlined|rounded|sharp}-static` | One indivisible regular font at the default axes |
 | Live fill, weight, grade, or optical size | `symbols-material-{outlined|rounded|sharp}` | One indivisible variable font; variable axes require Android API 26+ |
 
@@ -102,7 +105,7 @@ import androidx.compose.material3.Icon
 import io.github.hlcaptain.symbols.material.*
 import io.github.hlcaptain.symbols.material.vectors.themed.Home
 
-SymbolsTheme(style = MaterialSymbolStyle.Rounded) {
+MaterialSymbolsTheme(style = MaterialSymbolStyle.Rounded) {
     Icon(
         imageVector = Icons.Themed.Home,
         contentDescription = "Home",
@@ -110,10 +113,10 @@ SymbolsTheme(style = MaterialSymbolStyle.Rounded) {
 }
 ```
 
-`Icons.Themed.*` values are composable read-only properties. `SymbolsTheme`
-selects their Outlined, Rounded, or Sharp snapshot. Its axes also supply defaults
-to font renderers, including custom fonts that follow the Material axis contract;
-axes do not alter fixed vectors.
+`Icons.Themed.*` values are composable read-only properties.
+`MaterialSymbolsTheme` selects their Outlined, Rounded, or Sharp snapshot and
+supplies Material axes to variable and Material-compatible font renderers. Axes
+do not alter fixed vectors or regular fonts.
 
 When an icon is selected dynamically rather than referenced by name, use the
 catalog bridge:
@@ -212,6 +215,11 @@ symbolFonts {
 }
 ```
 
+The `axis(...)` values are applied while generating the output. Generated
+`ImageVector` and XML resources are fixed snapshots: they do not read
+`SymbolsTheme` or change at runtime. Use the generic runtime font API below when
+a custom font needs live variation coordinates.
+
 `font("rounded-variable.ttf")` searches `src/main/res/font` and
 `src/commonMain/composeResources/font`. Omit it when those directories contain
 only one supported font, or use `font.set(...)` for another path. Android
@@ -244,8 +252,8 @@ not packaged in the sample app.
 
 See [build-time generation](docs/GENERATOR.md) for plugin resolution, the full
 DSL, generated resource names, caching, and shrinker boundaries. See
-[custom fonts](docs/CUSTOM_FONTS.md) for the codepoint manifest format and the
-Material-axis compatibility contract.
+[custom fonts](docs/CUSTOM_FONTS.md) for the codepoint manifest format and
+runtime regular/variable font contracts.
 
 ## Catalog lookup
 
@@ -267,16 +275,70 @@ stored as `Int`, including valid Unicode scalars outside the BMP.
 
 ## Advanced: render directly from a font
 
-`MaterialSymbolIcon` renders a glyph with `BasicText`. Prefer regular Compose
-`Icon` and generated vectors for migration-style usage; choose the font renderer
-when the design needs variable axes or a runtime-selected catalog.
+Prefer regular Compose `Icon` and generated vectors for migration-style usage.
+Use a runtime font when an icon is selected dynamically or its variation axes
+must change without regenerating a fixed vector.
+
+### Custom runtime fonts
+
+The generic APIs live in `io.github.hlcaptain.symbols.font`. A custom variable
+font implements `SymbolVariableFont`; `SymbolFontSettings` accepts Compose's
+native `FontVariation.Settings`, so each font can use its own four-character
+OpenType axis tags and values:
+
+```kotlin
+import androidx.compose.ui.text.font.FontVariation
+import io.github.hlcaptain.symbols.font.SymbolFontIcon
+import io.github.hlcaptain.symbols.font.SymbolFontSettings
+import io.github.hlcaptain.symbols.font.SymbolVariableFont
+import io.github.hlcaptain.symbols.font.SymbolsTheme
+import my.symbols.generated.resources.Res
+import my.symbols.generated.resources.my_symbols_variable
+
+object MySymbols : SymbolVariableFont {
+    override val familyName = "My Symbols"
+    override val resource = Res.font.my_symbols_variable
+}
+
+SymbolsTheme(
+    fontSettings = SymbolFontSettings(
+        variationSettings = FontVariation.Settings(
+            FontVariation.Setting("FILL", 1f),
+            FontVariation.width(110f),
+            FontVariation.weight(500),
+        ),
+    ),
+) {
+    SymbolFontIcon(
+        codePoint = 0xF0001,
+        font = MySymbols,
+        contentDescription = "Custom action",
+    )
+}
+```
+
+`SymbolFontIcon` removes the private-use glyph from semantics and exposes only a
+supplied, localized description. Use `contentDescription = null` for a
+decorative icon. A `SymbolRegularFont` declares one fixed `fontSettings` point;
+it renders on Android API 21 and rejects other requested settings.
+
+Variable-font APIs start on Android API 26. Check
+`SymbolsRuntime.variableFontsSupported` before selecting a variable font, and
+use a regular font or generated vector/drawable as the Android API 21–25
+fallback.
+
+### Material Symbols font renderer
+
+`MaterialSymbolsTheme` adds validated Material axes and supplies their equivalent
+generic `SymbolFontSettings`. The style-specific `MaterialSymbolIcon` overloads
+select the matching bundled font:
 
 ```kotlin
 import androidx.compose.material3.MaterialTheme
 import io.github.hlcaptain.symbols.material.*
 import io.github.hlcaptain.symbols.material.rounded.MaterialSymbolIcon as RoundedMaterialSymbolIcon
 
-SymbolsTheme(
+MaterialSymbolsTheme(
     axes = MaterialSymbolAxes(
         fill = 1f,
         weight = 500,
@@ -292,19 +354,20 @@ SymbolsTheme(
 }
 ```
 
-Use `contentDescription = null` for a decorative icon. The private-use glyph is
-removed from semantics; only a supplied localized description is exposed.
-An explicit `axes` argument overrides `SymbolsTheme`.
+An explicit `axes` argument overrides `MaterialSymbolsTheme`. A regular Material
+font artifact provides a fixed default-axis fallback on Android API 21–25:
 
-Variable-font APIs start on Android API 26. A regular-font artifact provides a
-fixed default-axis fallback on Android API 21–25:
+Add both `symbols-material-rounded` and `symbols-material-rounded-static` when
+the application selects between these paths.
 
 ```kotlin
-import io.github.hlcaptain.symbols.material.*
+import io.github.hlcaptain.symbols.font.SymbolsRuntime
+import io.github.hlcaptain.symbols.material.Home
+import io.github.hlcaptain.symbols.material.Symbols
 import io.github.hlcaptain.symbols.material.rounded.MaterialSymbolIcon as VariableRoundedIcon
 import io.github.hlcaptain.symbols.material.rounded.staticfont.MaterialSymbolIcon as RegularRoundedIcon
 
-if (MaterialSymbolsRuntime.variableFontsSupported) {
+if (SymbolsRuntime.variableFontsSupported) {
     VariableRoundedIcon(Symbols.Rounded.Home, contentDescription = "Home")
 } else {
     RegularRoundedIcon(Symbols.Rounded.Home, contentDescription = "Home")
@@ -314,38 +377,25 @@ if (MaterialSymbolsRuntime.variableFontsSupported) {
 For a list or grid, build one family and share it:
 
 ```kotlin
+import io.github.hlcaptain.symbols.font.rememberSymbolFontFamily
 import io.github.hlcaptain.symbols.material.*
 import io.github.hlcaptain.symbols.material.outlined.MaterialSymbolsOutlined
 
 val axes = MaterialSymbolAxes(weight = 500)
-val family = rememberMaterialSymbolFontFamily(MaterialSymbolsOutlined, axes)
+MaterialSymbolsTheme(axes = axes) {
+    val family = rememberSymbolFontFamily(MaterialSymbolsOutlined)
 
-LazyRow {
-    items(symbols) { symbol ->
-        MaterialSymbolIcon(
-            symbol = symbol,
-            fontFamily = family,
-            contentDescription = symbol.name,
-            axes = axes,
-        )
+    LazyRow {
+        items(symbols) { symbol ->
+            MaterialSymbolIcon(
+                symbol = symbol,
+                fontFamily = family,
+                contentDescription = symbol.name,
+            )
+        }
     }
 }
 ```
-
-A Material-axis-compatible custom font can implement
-`MaterialSymbolVariableFont` or `MaterialSymbolRegularFont`. Custom glyphs do
-not need to belong to the Material catalog:
-
-```kotlin
-MaterialSymbolIcon(
-    codePoint = 0xF0001,
-    font = MySymbols,
-    contentDescription = "Custom action",
-)
-```
-
-`SymbolsTheme` currently models `FILL`, `wght`, `GRAD`, and `opsz`; arbitrary
-custom variable-axis schemas are not supported.
 
 ## Material axes
 

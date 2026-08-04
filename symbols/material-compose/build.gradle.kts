@@ -43,11 +43,8 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                api(projects.modules.variantFontCore)
                 api(projects.modules.materialCore)
-                api(compose.components.resources)
-                api(compose.foundation)
-                api(compose.runtime)
-                api(compose.ui)
             }
         }
         commonTest.dependencies {

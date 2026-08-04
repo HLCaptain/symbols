@@ -143,6 +143,12 @@ class VectorGeneratorTest(unittest.TestCase):
 
         self.assertIn("public val Icons.Themed.Home: ImageVector", rendered)
         self.assertIn(
+            "import io.github.hlcaptain.symbols.material.MaterialSymbolsTheme "
+            "as SymbolsTheme",
+            rendered,
+        )
+        self.assertIn("when (SymbolsTheme.style)", rendered)
+        self.assertIn(
             "MaterialSymbolStyle.Outlined -> Icons.Outlined.OutlinedHome",
             rendered,
         )

@@ -5,9 +5,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import io.github.hlcaptain.symbols.font.SymbolVariableFont
 import io.github.hlcaptain.symbols.material.MaterialSymbolAxes
-import io.github.hlcaptain.symbols.material.MaterialSymbolVariableFont
-import io.github.hlcaptain.symbols.material.SymbolsTheme
+import io.github.hlcaptain.symbols.material.MaterialSymbolsTheme
 import io.github.hlcaptain.symbols.material.OutlinedMaterialSymbol
 import io.github.hlcaptain.symbols.material.outlined.resources.Res
 import io.github.hlcaptain.symbols.material.outlined.resources.material_symbols_outlined_variable
@@ -20,7 +20,7 @@ import io.github.hlcaptain.symbols.material.MaterialSymbolIcon as BaseMaterialSy
  * This artifact contains exactly one font file. Its supported axes are `FILL`, `wght`,
  * `GRAD`, and `opsz`.
  */
-public object MaterialSymbolsOutlined : MaterialSymbolVariableFont {
+public object MaterialSymbolsOutlined : SymbolVariableFont {
     override val familyName: String = "Material Symbols Outlined"
 
     override val resource: FontResource
@@ -30,14 +30,14 @@ public object MaterialSymbolsOutlined : MaterialSymbolVariableFont {
 /**
  * Renders the style-typed [symbol] with the bundled Outlined variable font.
  *
- * Axes inherit from [SymbolsTheme] unless explicitly overridden.
+ * Axes inherit from [MaterialSymbolsTheme] unless explicitly overridden.
  */
 @Composable
 public fun MaterialSymbolIcon(
     symbol: OutlinedMaterialSymbol,
     contentDescription: String?,
     modifier: Modifier = Modifier,
-    axes: MaterialSymbolAxes = SymbolsTheme.axes,
+    axes: MaterialSymbolAxes = MaterialSymbolsTheme.axes,
     tint: Color = Color.Black,
     size: Dp = 24.dp,
     autoMirror: Boolean = false,

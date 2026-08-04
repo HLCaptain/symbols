@@ -2,7 +2,7 @@ package io.github.hlcaptain.symbols.material
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.text.font.FontVariation
-import androidx.compose.ui.text.font.FontWeight
+import io.github.hlcaptain.symbols.font.SymbolFontSettings
 
 /**
  * A point in the four-axis Material Symbols design space.
@@ -31,15 +31,15 @@ public data class MaterialSymbolAxes(
         }
     }
 
-    internal val fontWeight: FontWeight
-        get() = FontWeight(weight)
-
-    internal fun variationSettings(): FontVariation.Settings =
-        FontVariation.Settings(
-            FontVariation.Setting("FILL", fill),
-            FontVariation.Setting("GRAD", grade),
-            FontVariation.Setting("opsz", opticalSize),
-            FontVariation.weight(weight),
+    /** These Material coordinates as generic symbol-font settings. */
+    public val fontSettings: SymbolFontSettings =
+        SymbolFontSettings(
+            variationSettings = FontVariation.Settings(
+                FontVariation.Setting("FILL", fill),
+                FontVariation.Setting("GRAD", grade),
+                FontVariation.Setting("opsz", opticalSize),
+                FontVariation.weight(weight),
+            ),
         )
 
     public companion object {

@@ -47,23 +47,51 @@ MaterialSymbolIcon(
 For a large collection rendered from one runtime font, share a family:
 
 ```kotlin
+import io.github.hlcaptain.symbols.font.rememberSymbolFontFamily
+
 val axes = MaterialSymbolAxes(weight = 500)
-val family = rememberMaterialSymbolFontFamily(MaterialSymbolsRounded, axes)
+val family = rememberSymbolFontFamily(
+    font = MaterialSymbolsRounded,
+    fontSettings = axes.fontSettings,
+)
 
 symbols.forEach { symbol ->
     MaterialSymbolIcon(
         symbol = symbol,
         fontFamily = family,
         contentDescription = null,
-        axes = axes,
     )
 }
 ```
 
-Keep the `(style, axes)` pair stable across recompositions. A regular font has
-one fixed pair and never constructs variation settings. Searching
-`MaterialSymbols.all` is suitable for an icon picker; a hot application path
-should retain its filtered result rather than scanning all names on every frame.
+The reusable family and capability APIs live in
+`io.github.hlcaptain.symbols.font`. `SymbolsRuntime.variableFontsSupported`
+reports whether the current platform can apply variable-font settings; on
+Android API 21–25, use a `SymbolRegularFont` or generated vector/drawable
+instead. Material's `axes.fontSettings` adapts its four axes to the generic
+`SymbolFontSettings` contract. `MaterialSymbolsTheme` supplies those generic
+settings automatically inside its content.
+
+Keep the `(font, axes.fontSettings)` pair stable across recompositions. A
+regular font has one fixed settings point and never constructs variation
+settings. Searching `MaterialSymbols.all` is suitable for an icon picker; a hot
+application path should retain its filtered result rather than scanning all
+names on every frame.
+
+On Android, repeated instances of a large compressed variable TTF can require a
+separate inflated heap buffer. Apps that hit allocation failures while changing
+axes can let `Typeface.Builder` memory-map the asset instead:
+
+```kotlin
+android {
+    androidResources {
+        noCompress += "ttf"
+    }
+}
+```
+
+This trades a larger APK download for lower font-instantiation heap pressure;
+the sample enables it because its Rounded variable font is 14.6 MB.
 
 A vector builder runs on first property access and caches the resulting
 `ImageVector`. Codepoint aliases share that builder and cache. This trades

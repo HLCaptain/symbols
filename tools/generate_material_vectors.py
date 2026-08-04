@@ -576,7 +576,7 @@ def render_themed_icon_file(
         "import androidx.compose.ui.graphics.vector.ImageVector",
         "import io.github.hlcaptain.symbols.material.Icons",
         "import io.github.hlcaptain.symbols.material.MaterialSymbolStyle",
-        "import io.github.hlcaptain.symbols.material.SymbolsTheme",
+        "import io.github.hlcaptain.symbols.material.MaterialSymbolsTheme as SymbolsTheme",
     ]
     for name, _ in entries:
         identifier = kotlin_identifier(name)

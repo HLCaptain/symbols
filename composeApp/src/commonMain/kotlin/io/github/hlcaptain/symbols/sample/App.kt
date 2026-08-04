@@ -37,19 +37,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import io.github.hlcaptain.symbols.font.SymbolFont
+import io.github.hlcaptain.symbols.font.SymbolsRuntime
+import io.github.hlcaptain.symbols.font.rememberSymbolFontFamily
 import io.github.hlcaptain.symbols.material.Icons
 import io.github.hlcaptain.symbols.material.MaterialSymbol
 import io.github.hlcaptain.symbols.material.MaterialSymbolAxes
-import io.github.hlcaptain.symbols.material.MaterialSymbolFont
 import io.github.hlcaptain.symbols.material.MaterialSymbolIcon
 import io.github.hlcaptain.symbols.material.MaterialSymbolStyle
 import io.github.hlcaptain.symbols.material.MaterialSymbols
-import io.github.hlcaptain.symbols.material.MaterialSymbolsRuntime
-import io.github.hlcaptain.symbols.material.SymbolsTheme
+import io.github.hlcaptain.symbols.material.MaterialSymbolsTheme
 import io.github.hlcaptain.symbols.material.Search
 import io.github.hlcaptain.symbols.material.Symbols
 import io.github.hlcaptain.symbols.material.outlined.MaterialSymbolsOutlined
-import io.github.hlcaptain.symbols.material.rememberMaterialSymbolFontFamily
 import io.github.hlcaptain.symbols.material.rounded.MaterialSymbolsRounded
 import io.github.hlcaptain.symbols.material.rounded.staticfont.MaterialSymbolsRoundedStatic
 import io.github.hlcaptain.symbols.material.sharp.MaterialSymbolsSharp
@@ -77,7 +77,7 @@ fun App() {
 internal fun App(onOpenLegacyViews: (() -> Unit)?) {
     MaterialTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-            if (MaterialSymbolsRuntime.variableFontsSupported) {
+            if (SymbolsRuntime.variableFontsSupported) {
                 SymbolExplorer(onOpenLegacyViews)
             } else {
                 Api21SymbolShowcase(onOpenLegacyViews)
@@ -88,7 +88,7 @@ internal fun App(onOpenLegacyViews: (() -> Unit)?) {
 
 @Composable
 private fun Api21SymbolShowcase(onOpenLegacyViews: (() -> Unit)?) {
-    SymbolsTheme {
+    MaterialSymbolsTheme {
         Column(
             modifier = Modifier
                 .safeContentPadding()
@@ -164,8 +164,8 @@ private fun SymbolExplorer(onOpenLegacyViews: (() -> Unit)?) {
             .toList()
     }
 
-    SymbolsTheme(style = style.vectorStyle, axes = axes) {
-        val fontFamily = rememberMaterialSymbolFontFamily(style.font)
+    MaterialSymbolsTheme(style = style.vectorStyle, axes = axes) {
+        val fontFamily = rememberSymbolFontFamily(style.font)
         Scaffold { contentPadding ->
             Column(
                 modifier = Modifier
@@ -404,7 +404,7 @@ private fun SymbolCard(
 
 private enum class DemoStyle(
     val label: String,
-    val font: MaterialSymbolFont,
+    val font: SymbolFont,
     val vectorStyle: MaterialSymbolStyle,
 ) {
     Outlined(
