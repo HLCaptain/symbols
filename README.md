@@ -4,7 +4,7 @@ A migration-friendly alternative to Compose's `material-icons-extended`: keep
 the familiar `Icon(Icons.Rounded.Home, ...)` shape while choosing shrinkable
 `ImageVector`s, Android XML drawables, regular fonts, or live variable fonts.
 Use Material Symbols, another icon font, or generate a typed icon set from your
-own font.
+own font or SVG assets.
 
 [![CI](https://github.com/HLCaptain/symbols/actions/workflows/ci.yml/badge.svg)](https://github.com/HLCaptain/symbols/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
@@ -249,6 +249,10 @@ The sample also generates typed vectors from Font Awesome Free Solid, Tabler
 Icons Filled, and Powerline Symbols. Their YAML, CSS, and font-only metadata are
 normalized under [`fonts/samples`](fonts/samples/README.md); the input fonts are
 not packaged in the sample app.
+
+For a source-owned SVG directory, the
+[SVG icon font CLI](tools/README.md#svg-icon-font-generation) creates a
+deterministic regular TTF and stable manifest that feed this same pipeline.
 
 See [build-time generation](docs/GENERATOR.md) for plugin resolution, the full
 DSL, generated resource names, caching, and shrinker boundaries. See
