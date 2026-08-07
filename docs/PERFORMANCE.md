@@ -35,11 +35,12 @@ data is requested; direct property access alone does not build a runtime map.
 
 ## Runtime rendering
 
-For one icon, a style-specific overload is appropriate:
+For one runtime-font icon, use the generic renderer:
 
 ```kotlin
-MaterialSymbolIcon(
-    Symbols.Rounded.Home,
+SymbolFontIcon(
+    codePoint = MaterialSymbols.Home.codePoint,
+    font = MaterialSymbolsRounded,
     contentDescription = null,
 )
 ```
@@ -56,8 +57,8 @@ val family = rememberSymbolFontFamily(
 )
 
 symbols.forEach { symbol ->
-    MaterialSymbolIcon(
-        symbol = symbol,
+    SymbolFontIcon(
+        codePoint = symbol.codePoint,
         fontFamily = family,
         contentDescription = null,
     )

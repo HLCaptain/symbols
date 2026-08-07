@@ -2,12 +2,12 @@
 """Generate allocation-free, style-typed font symbol namespaces.
 
 The generated API keeps the semantic catalog in ``material-core`` as the
-single source of truth while allowing Compose call sites such as:
+single source of truth while allowing style-aware catalog access such as:
 
-    MaterialSymbolIcon(Symbols.Rounded.Check, contentDescription = null)
+    val check = Symbols.Rounded.Check.symbol
 
-The output contains only inline wrapper getters. Font resources and rendering
-overloads remain in the independently selectable style artifacts.
+The output contains only inline wrapper getters. Font resources remain in the
+independently selectable style artifacts.
 """
 
 from __future__ import annotations

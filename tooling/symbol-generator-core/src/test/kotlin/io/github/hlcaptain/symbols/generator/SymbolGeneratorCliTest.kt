@@ -37,6 +37,35 @@ class SymbolGeneratorCliTest {
     }
 
     @Test
+    fun reportsIoErrorsWithoutLeakingAStackTrace() {
+        val directory = Files.createTempDirectory("symbol-generator-io-")
+        try {
+            val manifest = directory.resolve("invalid.codepoints")
+            Files.write(manifest, byteArrayOf(0xC3.toByte()))
+            val errors = ByteArrayOutputStream()
+
+            assertEquals(
+                1,
+                SymbolGeneratorCli.run(
+                    arrayOf(
+                        "--font", directory.resolve("font.ttf").toString(),
+                        "--manifest", manifest.toString(),
+                        "--package", "com.example.icons",
+                        "--set", "AppIcons",
+                        "--style", "Regular",
+                        "--include-all",
+                        "--kotlin-output", directory.resolve("output").toString(),
+                    ),
+                    standardError = PrintStream(errors),
+                ),
+            )
+            assertTrue(errors.toString().startsWith("error: "))
+        } finally {
+            directory.toFile().deleteRecursively()
+        }
+    }
+
+    @Test
     fun generatesSelectedOutputsAndRemovesOnlyStaleOwnedFiles() {
         val repositoryRoot = Path.of(
             requireNotNull(System.getProperty("symbols.repositoryRoot")),
@@ -160,5 +189,20 @@ class SymbolGeneratorCliTest {
             ),
         )
         assertTrue("Output directories must be distinct" in overlapError.toString())
+
+        val nestedOutputError = ByteArrayOutputStream()
+        assertEquals(
+            2,
+            SymbolGeneratorCli.run(
+                commonArguments + arrayOf(
+                    "--kotlin-output",
+                    "generated",
+                    "--android-output",
+                    "generated/android",
+                ),
+                standardError = PrintStream(nestedOutputError),
+            ),
+        )
+        assertTrue("non-overlapping" in nestedOutputError.toString())
     }
 }

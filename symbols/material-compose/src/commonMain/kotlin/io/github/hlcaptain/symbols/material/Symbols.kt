@@ -7,8 +7,7 @@ import kotlin.jvm.JvmInline
  * Compose-style namespace for font-backed Material Symbols.
  *
  * Generated properties such as `Symbols.Rounded.Check` retain their visual
- * style in the Kotlin type. The corresponding style artifact supplies a
- * [MaterialSymbolIcon] overload that selects its bundled font.
+ * style in the Kotlin type while exposing the shared [MaterialSymbol].
  */
 public object Symbols {
     /** Material Symbols Outlined font glyphs. */

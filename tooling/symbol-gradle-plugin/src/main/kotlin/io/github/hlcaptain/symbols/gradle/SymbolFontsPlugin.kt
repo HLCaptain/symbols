@@ -7,6 +7,7 @@ import com.android.build.api.variant.VariantBuilder
 import io.github.hlcaptain.symbols.generator.SymbolGeneratorCli
 import io.github.hlcaptain.symbols.generator.SymbolManifestParser
 import io.github.hlcaptain.symbols.generator.SymbolNames
+import java.io.File
 import org.gradle.api.Action
 import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Plugin
@@ -21,7 +22,6 @@ import org.jetbrains.compose.ComposeExtension
 import org.jetbrains.compose.resources.ResourcesExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import java.io.File
 
 /** Gradle integration for deterministic, typed symbol-font generation. */
 public class SymbolFontsPlugin : Plugin<Project> {

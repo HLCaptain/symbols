@@ -5,7 +5,9 @@ import androidx.compose.runtime.Composition
 import androidx.compose.runtime.Recomposer
 import androidx.compose.ui.graphics.vector.ImageVector
 import io.github.hlcaptain.symbols.material.Icons
+import io.github.hlcaptain.symbols.material.Home
 import io.github.hlcaptain.symbols.material.MaterialSymbolStyle
+import io.github.hlcaptain.symbols.material.MaterialSymbols
 import io.github.hlcaptain.symbols.material.MaterialSymbolsTheme
 import io.github.hlcaptain.symbols.material.outlined.vectors.Home as OutlinedHome
 import io.github.hlcaptain.symbols.material.rounded.vectors.Home as RoundedHome
@@ -31,6 +33,13 @@ class MaterialSymbolsThemedVectorsTest {
         )
     }
 
+    @Test
+    fun symbolSelectsTheCurrentStyle() {
+        assertSame(Icons.Outlined.OutlinedHome, themedSymbol(MaterialSymbolStyle.Outlined))
+        assertSame(Icons.Rounded.RoundedHome, themedSymbol(MaterialSymbolStyle.Rounded))
+        assertSame(Icons.Sharp.SharpHome, themedSymbol(MaterialSymbolStyle.Sharp))
+    }
+
     private fun themedHome(style: MaterialSymbolStyle): ImageVector {
         var vector: ImageVector? = null
         val recomposer = Recomposer(EmptyCoroutineContext)
@@ -39,6 +48,23 @@ class MaterialSymbolsThemedVectorsTest {
             composition.setContent {
                 MaterialSymbolsTheme(style = style) {
                     vector = Icons.Themed.Home
+                }
+            }
+            return requireNotNull(vector)
+        } finally {
+            composition.dispose()
+            recomposer.cancel()
+        }
+    }
+
+    private fun themedSymbol(style: MaterialSymbolStyle): ImageVector {
+        var vector: ImageVector? = null
+        val recomposer = Recomposer(EmptyCoroutineContext)
+        val composition = Composition(UnitApplier(), recomposer)
+        try {
+            composition.setContent {
+                MaterialSymbolsTheme(style = style) {
+                    vector = MaterialSymbols.Home.asThemedImageVector()
                 }
             }
             return requireNotNull(vector)

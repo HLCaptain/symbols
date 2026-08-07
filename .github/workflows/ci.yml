@@ -55,6 +55,9 @@ jobs:
       - name: Check generated symbol catalog
         run: python tools/generate_material_symbols.py --check
 
+      - name: Check generated sample catalogs
+        run: python tools/generate_sample_catalogs.py --check
+
       - name: Check generated typed font namespaces
         run: python tools/generate_material_font_namespaces.py --check
 

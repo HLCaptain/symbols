@@ -82,6 +82,16 @@ Android can apply variable-font settings from API 26. Check
 `SymbolsRuntime.variableFontsSupported` before selecting this path on an app
 whose minSdk is lower.
 
+The sample keeps its custom-variable-font `@Preview` beside the shared UI in
+`commonMain`. Its Gradle build backports the resource task dependency from
+[CMP-7170](https://youtrack.jetbrains.com/issue/CMP-7170), so Android Studio
+copies generated Compose resources into Android assets before preview packaging.
+After adding or removing a font,
+[build or re-import the project](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-resources-usage.html)
+once so `Res` and its accessors are regenerated; changing axis values needs no
+rebuild. The sample Preview starts on an Academmunicons regular font frozen at
+`ital=0,wght=400`; moving either control switches to its variable resource.
+
 `symbolFontText(codePoint)` is available for a custom `BasicText` layout. Both
 it and `SymbolFontIcon` reject negative values, surrogate code points, and
 values above `U+10FFFF`.
@@ -156,6 +166,12 @@ render on Android API 21. It verifies that the requested settings equal the
 declared fixed `fontSettings`; pass that value explicitly or provide it through
 `SymbolsTheme`.
 
+`tools/generate_material_static_fonts.py --input ... --output ... --axis
+TAG=VALUE` can freeze any variable font at build time. Unspecified axes use the
+font's declared defaults, and the output contains no variation tables. A UI can
+select the regular resource at that exact settings value and switch to its
+`SymbolVariableFont` only after an axis changes, as the sample does.
+
 ## Generate outlines instead of shipping a font
 
 The `io.github.hlcaptain.symbol-fonts` Gradle plugin accepts a custom regular
@@ -183,8 +199,8 @@ maps, Font Awesome metadata, IcoMoon/Fontello JSON, and the font's OpenType
 `cmap` all describe related pieces of the same mapping but use different name
 and number conventions. Normalize the chosen source into the plugin's stable
 snake-case/hex manifest rather than making application builds depend on a
-provider-specific parser. The checked-in [external font samples](../fonts/samples/README.md)
-show three such conversions.
+provider-specific parser. The checked-in
+[external font samples](../fonts/samples/README.md) show five such conversions.
 
 ## Build a font from SVG sources
 
@@ -196,7 +212,8 @@ python tools/generate_svg_icon_font.py \
   --input-dir icons/svg \
   --font icons/AppIcons.ttf \
   --manifest icons/AppIcons.codepoints \
-  --family-name "App Icons"
+  --family-name "App Icons" \
+  --stroke-width 1.5
 ```
 
 Names come from SVG filenames. Existing manifest assignments are preserved,
@@ -205,7 +222,10 @@ reused accidentally. See the
 [maintainer generation guide](../tools/README.md#svg-icon-font-generation) for
 supported SVG features, deterministic `--check` mode, and installation. The
 resulting font and manifest can be passed directly to the Gradle generator
-described above.
+described above. `--stroke-width` overrides stroked SVG shapes before their
+outlines are baked. It produces one regular font, not an OpenType variation
+axis; live stroke changes require an authored variable font or SVG/vector
+rendering at runtime.
 
 ## Allocate code points deliberately
 

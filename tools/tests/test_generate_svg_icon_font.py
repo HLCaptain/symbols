@@ -110,6 +110,93 @@ class GenerateSvgIconFontTest(unittest.TestCase):
             )
             self.assertEqual(expected_font, font_path.read_bytes())
 
+    def test_stroke_width_override_handles_inheritance_styles_and_use(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            mixed = root / "mixed"
+            canonical = root / "canonical"
+            mixed.mkdir()
+            canonical.mkdir()
+            mixed_svg = """<svg xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <defs><path id="short" d="M2 2h4"/></defs>
+                <g style="stroke-width:3">
+                    <path d="M2 8h8" stroke-width="4" style="stroke-width:5"/>
+                    <use href="#short" x="0" y="12" style="stroke-width:6"/>
+                </g>
+                <path d="M2 20h4v2H2z" fill="currentColor" stroke="none"
+                    stroke-width="9"/>
+            </svg>"""
+            canonical_svg = """<svg xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <defs><path id="short" d="M2 2h4"/></defs>
+                <g>
+                    <path d="M2 8h8"/>
+                    <use href="#short" x="0" y="12"/>
+                </g>
+                <path d="M2 20h4v2H2z" fill="currentColor" stroke="none"
+                    stroke-width="9"/>
+            </svg>"""
+            mixed_path = mixed / "icon.svg"
+            canonical_path = canonical / "icon.svg"
+            mixed_path.write_text(mixed_svg, encoding="utf-8")
+            canonical_path.write_text(canonical_svg, encoding="utf-8")
+            assignments = {"icon": 0xE000}
+
+            overridden = module.build_font(
+                {"icon": mixed_path},
+                assignments,
+                "Test Icons",
+                stroke_width=1.5,
+            )
+            expected = module.build_font(
+                {"icon": canonical_path},
+                assignments,
+                "Test Icons",
+            )
+            thicker = module.build_font(
+                {"icon": mixed_path},
+                assignments,
+                "Test Icons",
+                stroke_width=2,
+            )
+
+            self.assertEqual(expected, overridden)
+            self.assertNotEqual(overridden, thicker)
+            font = module.TTFont(BytesIO(overridden))
+            self.assertNotIn("fvar", font)
+            self.assertNotIn("gvar", font)
+
+    def test_stroke_width_override_is_validated_and_requires_strokes(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            icon = Path(directory) / "icon.svg"
+            icon.write_text(
+                """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M2 2h20v20H2z"/>
+                </svg>""",
+                encoding="utf-8",
+            )
+            sources = {"icon": icon}
+            assignments = {"icon": 0xE000}
+
+            for stroke_width in (0, -1, float("nan"), float("inf")):
+                with self.assertRaisesRegex(ValueError, "finite and positive"):
+                    module.build_font(
+                        sources,
+                        assignments,
+                        "Test Icons",
+                        stroke_width=stroke_width,
+                    )
+            with self.assertRaisesRegex(ValueError, "no stroked shapes"):
+                module.build_font(
+                    sources,
+                    assignments,
+                    "Test Icons",
+                    stroke_width=1.5,
+                )
+
     def test_refuses_collisions_removals_and_unrepresentable_paint(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

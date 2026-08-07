@@ -60,6 +60,44 @@ class GenerateMaterialStaticFontsTest(unittest.TestCase):
             len({spec.output_path for spec in module.FONT_SPECS}),
         )
 
+    def test_custom_axes_create_a_renamed_regular_font(self) -> None:
+        input_path = (
+            module.REPOSITORY_ROOT
+            / "fonts/samples/academmunicons/academmunicons-variable.ttf"
+        )
+
+        generated = module.instantiate_static_font(
+            input_path,
+            {"wght": 400.0},
+            family_name="Symbols Academic Icons",
+        )
+        self.assertEqual(
+            generated,
+            module.instantiate_static_font(
+                input_path,
+                {"ital": 0.0, "wght": 400.0},
+                family_name="Symbols Academic Icons",
+            ),
+        )
+        font = module.TTFont(module.BytesIO(generated), recalcTimestamp=False)
+
+        self.assertFalse(module.VARIABLE_TABLES.intersection(font.keys()))
+        self.assertEqual("Symbols Academic Icons", font["name"].getDebugName(1))
+        self.assertEqual(
+            "Symbols-Academic-Icons-Regular",
+            font["name"].getDebugName(6),
+        )
+
+    def test_custom_axes_are_validated(self) -> None:
+        input_path = (
+            module.REPOSITORY_ROOT
+            / "fonts/samples/academmunicons/academmunicons-variable.ttf"
+        )
+        with self.assertRaisesRegex(ValueError, "does not define axes: NOPE"):
+            module.instantiate_static_font(input_path, {"NOPE": 1.0})
+        with self.assertRaisesRegex(ValueError, "cannot represent 900.0"):
+            module.instantiate_static_font(input_path, {"wght": 900.0})
+
 
 if __name__ == "__main__":
     unittest.main()

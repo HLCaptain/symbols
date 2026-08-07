@@ -1,3 +1,4 @@
+import org.gradle.api.tasks.Sync
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -177,6 +178,22 @@ symbolFonts {
         packageName.set("io.github.hlcaptain.symbols.sample.generated.tabler")
         include("alien", "dice_5", "sparkles")
 
+        style("Outline") {
+            codepoints.set(
+                rootProject.layout.projectDirectory.file(
+                    "fonts/samples/tabler-icons-outline/" +
+                        "TablerIconsOutline.codepoints",
+                ),
+            )
+            font.set(
+                rootProject.layout.projectDirectory.file(
+                    "fonts/samples/tabler-icons-outline/tabler-icons-outline-2.ttf",
+                ),
+            )
+            baselineY.set(23.5f)
+            imageVectors()
+        }
+
         style("Filled") {
             codepoints.set(
                 rootProject.layout.projectDirectory.file(
@@ -193,32 +210,83 @@ symbolFonts {
             imageVectors()
         }
     }
-
-    iconSet("PowerlineIcons") {
-        packageName.set("io.github.hlcaptain.symbols.sample.generated.powerline")
-        include("branch", "line_number", "read_only")
-
-        style("Regular") {
-            codepoints.set(
-                rootProject.layout.projectDirectory.file(
-                    "fonts/samples/powerline/PowerlineSymbols.codepoints",
-                ),
-            )
-            font.set(
-                rootProject.layout.projectDirectory.file(
-                    "fonts/samples/powerline/PowerlineSymbols.otf",
-                ),
-            )
-            emSize.set(21.145374f)
-            originX.set(6.533921f)
-            baselineY.set(20.130396f)
-            imageVectors()
-        }
-    }
 }
 
 dependencies {
     debugImplementation(compose.uiTooling)
+}
+
+// Backport CMP-7170: Preview packaging must include generated Compose assets.
+tasks.configureEach {
+    if (name == "packageDebugResources") {
+        dependsOn("copyDebugComposeResourcesToAndroidAssets")
+    }
+}
+
+val sampleFontResourcesDirectory =
+    layout.buildDirectory.dir("generated/sampleFontResources")
+val prepareSampleFontResources = tasks.register<Sync>("prepareSampleFontResources") {
+    into(sampleFontResourcesDirectory)
+    from(
+        rootProject.layout.projectDirectory.file(
+            "fonts/samples/academmunicons/academmunicons-variable.ttf",
+        ),
+    ) {
+        into("font")
+        rename { "academmunicons_variable.ttf" }
+    }
+    from(
+        rootProject.layout.projectDirectory.file(
+            "fonts/samples/academmunicons/academmunicons-regular.ttf",
+        ),
+    ) {
+        into("font")
+        rename { "academmunicons_regular.ttf" }
+    }
+    from(
+        rootProject.layout.projectDirectory.file(
+            "fonts/samples/font-awesome-free-solid/fa-solid-900.ttf",
+        ),
+    ) {
+        into("font")
+        rename { "font_awesome_free_solid.ttf" }
+    }
+    from(
+        rootProject.layout.projectDirectory.file(
+            "fonts/samples/powerline/PowerlineSymbols.otf",
+        ),
+    ) {
+        into("font")
+        rename { "powerline_symbols.otf" }
+    }
+    from(
+        rootProject.layout.projectDirectory.file(
+            "fonts/samples/tabler-icons-filled/tabler-icons-filled.ttf",
+        ),
+    ) {
+        into("font")
+        rename { "tabler_icons_filled.ttf" }
+    }
+    from(
+        rootProject.layout.projectDirectory.dir("fonts/samples/tabler-icons-outline"),
+    ) {
+        into("font")
+        include("*.ttf")
+        rename { it.replace('-', '_') }
+    }
+}
+
+compose.resources {
+    // The sample owns lightweight FontResource descriptors in commonMain so Fast Preview
+    // never depends on a generated Font0_commonMainKt class.
+    packageOfResClass = "io.github.hlcaptain.composeapp.generated.resources"
+    generateResClass = never
+    customDirectory(
+        sourceSetName = "commonMain",
+        directoryProvider = prepareSampleFontResources.map {
+            sampleFontResourcesDirectory.get()
+        },
+    )
 }
 
 compose.desktop {

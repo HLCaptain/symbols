@@ -79,11 +79,11 @@ settings to font rendering. Custom fonts with other coordinates use the generic
 theme directly.
 
 `Symbols.Outlined`, `Symbols.Rounded`, and `Symbols.Sharp` provide
-allocation-free style-typed handles. Each style artifact contributes a matching
-`MaterialSymbolIcon` overload, so `Symbols.Rounded.Home` cannot accidentally
-select the Sharp font. The convenient overload remembers a family per call site.
-Large collections should remember one family for a `(font, fontSettings)` pair
-and pass that shared family to the lower-level overload.
+allocation-free style-typed handles over the shared catalog. Runtime rendering
+uses the generic `SymbolFontIcon`; fixed vectors use composable-scoped
+`Icons.Themed.*` properties or `MaterialSymbol.asThemedImageVector()`. Large
+collections should remember one family for a `(font, fontSettings)` pair and
+pass that shared family to `SymbolFontIcon`.
 
 Android variable-font settings require API 26.
 `SymbolsRuntime.variableFontsSupported` exposes that boundary so API

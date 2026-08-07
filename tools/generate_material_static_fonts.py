@@ -1,19 +1,21 @@
 #!/usr/bin/env python3
-"""Generate API-21-compatible static Material Symbols font instances.
+"""Generate deterministic static instances from variable symbol fonts.
 
-This is a maintainer/CI tool. Consumer builds use the Gradle symbol-font
-generator for vectors and never require Python or FontTools.
+With no custom input, this updates the API-21-compatible Material Symbols
+regular fonts. Consumer builds never require Python or FontTools.
 """
 
 from __future__ import annotations
 
 import argparse
 import hashlib
+import math
+import re
 import sys
 from dataclasses import dataclass
 from io import BytesIO
 from pathlib import Path
-from typing import Sequence
+from typing import Mapping, Sequence
 
 try:
     import fontTools
@@ -75,8 +77,45 @@ def _require_fonttools() -> None:
         )
 
 
-def instantiate_static_font(input_path: Path) -> bytes:
-    """Return a deterministic static instance at the documented default axes."""
+def _postscript_name(family_name: str) -> str:
+    name = re.sub(r"[^A-Za-z0-9]+", "-", family_name).strip("-")
+    if not name:
+        raise ValueError("family name must contain an ASCII letter or digit")
+    return name[:55].rstrip("-")
+
+
+def _rename_font(font: TTFont, family_name: str) -> None:
+    family_name = family_name.strip()
+    if not family_name or any(not character.isprintable() for character in family_name):
+        raise ValueError("family name must be nonempty and printable")
+    postscript_name = _postscript_name(family_name)
+    replacements = {
+        1: family_name,
+        3: f"1.000;symbols;{postscript_name}-Regular",
+        4: f"{family_name} Regular",
+        6: f"{postscript_name}-Regular",
+        16: family_name,
+    }
+    names = font["name"]
+    for record in list(names.names):
+        value = replacements.get(record.nameID)
+        if value is not None:
+            names.setName(
+                value,
+                record.nameID,
+                record.platformID,
+                record.platEncID,
+                record.langID,
+            )
+
+
+def instantiate_static_font(
+    input_path: Path,
+    axes: Mapping[str, float] = DEFAULT_AXES,
+    *,
+    family_name: str | None = None,
+) -> bytes:
+    """Return a deterministic static instance at one fully resolved axis point."""
 
     _require_fonttools()
     source = TTFont(input_path, recalcTimestamp=False)
@@ -87,14 +126,18 @@ def instantiate_static_font(input_path: Path) -> bytes:
             axis.axisTag: (axis.minValue, axis.defaultValue, axis.maxValue)
             for axis in source["fvar"].axes
         }
-        missing_axes = sorted(DEFAULT_AXES.keys() - available_axes.keys())
-        if missing_axes:
+        unknown_axes = sorted(axes.keys() - available_axes.keys())
+        if unknown_axes:
             raise ValueError(
-                f"{input_path} is missing required axes: {', '.join(missing_axes)}"
+                f"{input_path} does not define axes: {', '.join(unknown_axes)}"
             )
-        for tag, value in DEFAULT_AXES.items():
+        resolved_axes = {
+            tag: axes.get(tag, default)
+            for tag, (_, default, _) in available_axes.items()
+        }
+        for tag, value in resolved_axes.items():
             minimum, _, maximum = available_axes[tag]
-            if not minimum <= value <= maximum:
+            if not math.isfinite(value) or not minimum <= value <= maximum:
                 raise ValueError(
                     f"{input_path} axis {tag} cannot represent {value}; "
                     f"range is {minimum}..{maximum}"
@@ -102,7 +145,7 @@ def instantiate_static_font(input_path: Path) -> bytes:
 
         static_font = instantiateVariableFont(
             source,
-            DEFAULT_AXES,
+            resolved_axes,
             inplace=False,
             optimize=True,
         )
@@ -112,6 +155,8 @@ def instantiate_static_font(input_path: Path) -> bytes:
                 "Static instancing retained variable tables: "
                 + ", ".join(sorted(remaining_tables))
             )
+        if family_name is not None:
+            _rename_font(static_font, family_name)
 
         output = BytesIO()
         static_font.recalcTimestamp = False
@@ -123,6 +168,24 @@ def instantiate_static_font(input_path: Path) -> bytes:
 
 def sha256(content: bytes) -> str:
     return hashlib.sha256(content).hexdigest()
+
+
+def parse_axis(value: str) -> tuple[str, float]:
+    tag, separator, raw_value = value.partition("=")
+    if (
+        separator != "="
+        or len(tag) != 4
+        or not tag.isascii()
+        or not tag.isprintable()
+    ):
+        raise argparse.ArgumentTypeError("axis must be TAG=VALUE with a four-character tag")
+    try:
+        coordinate = float(raw_value)
+    except ValueError as error:
+        raise argparse.ArgumentTypeError(f"invalid axis value: {raw_value}") from error
+    if not math.isfinite(coordinate):
+        raise argparse.ArgumentTypeError("axis value must be finite")
+    return tag, coordinate
 
 
 def process_spec(spec: StaticFontSpec, *, check: bool) -> tuple[int, str]:
@@ -160,11 +223,62 @@ def build_parser() -> argparse.ArgumentParser:
         action="append",
         help="Generate only this style. Repeat for multiple styles.",
     )
+    parser.add_argument("--input", type=Path, help="Custom variable font input.")
+    parser.add_argument("--output", type=Path, help="Custom regular font output.")
+    parser.add_argument(
+        "--axis",
+        action="append",
+        default=[],
+        type=parse_axis,
+        metavar="TAG=VALUE",
+        help="Custom axis override; unspecified axes use their font defaults.",
+    )
+    parser.add_argument(
+        "--family-name",
+        help="Rename a custom derivative, including its PostScript names.",
+    )
     return parser
 
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
+    custom_mode = any(
+        value is not None
+        for value in (args.input, args.output, args.family_name)
+    ) or bool(args.axis)
+
+    if custom_mode:
+        try:
+            if args.input is None or args.output is None:
+                raise ValueError("--input and --output are both required for a custom font")
+            if args.style:
+                raise ValueError("--style cannot be combined with a custom font")
+            if args.input.resolve() == args.output.resolve():
+                raise ValueError("--output must not overwrite --input")
+            axes = dict(args.axis)
+            if len(axes) != len(args.axis):
+                raise ValueError("each --axis tag may be supplied only once")
+            generated = instantiate_static_font(
+                args.input,
+                axes,
+                family_name=args.family_name,
+            )
+            if args.check:
+                if not args.output.is_file() or args.output.read_bytes() != generated:
+                    raise RuntimeError(f"Generated static font is stale: {args.output}")
+            else:
+                args.output.parent.mkdir(parents=True, exist_ok=True)
+                args.output.write_bytes(generated)
+            verb = "Verified" if args.check else "Generated"
+            print(
+                f"{verb} custom static font: {len(generated):,} bytes, "
+                f"SHA-256 {sha256(generated)}"
+            )
+        except (AssertionError, OSError, RuntimeError, ValueError) as error:
+            print(f"error: {error}", file=sys.stderr)
+            return 1
+        return 0
+
     selected_styles = set(args.style or ())
     specs = tuple(
         spec

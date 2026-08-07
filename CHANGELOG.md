@@ -49,12 +49,16 @@ artifacts are released.
 - A cacheable Gradle plugin that converts selected regular or variable font
   glyphs into typed `ImageVector`, native Android drawable, and Compose drawable
   output.
-- Runnable Font Awesome, Tabler Icons, and Powerline samples, including
-  provider-metadata normalization and configurable font-outline placement.
+- Runnable complete-catalog Font Awesome, Tabler, and Academmunicons samples,
+  including Tabler Outline/Filled styles, 1/1.5/2 px static strokes, live
+  Academmunicons custom axes with a regular-first default, provider-metadata
+  normalization, and configurable font-outline placement.
+- A common-source Interactive Preview that renders the same live Material and
+  custom fonts and variable-axis controls as the running sample.
 - A reproducible Android fixture that verifies typed-vector removal by
   full-mode R8 and unused-resource removal by the Android resource shrinker.
-- Deterministic catalog/namespace/static-font/vector generators and strict
-  pinned font and provenance verification.
+- Deterministic catalog/namespace/static-font/vector generators, build-time SVG
+  stroke-width baking, and strict pinned font and provenance verification.
 - Android, JVM, JS, Wasm, and iOS publication targets, an interactive
   multiplatform sample, CI/release automation, and open-source project
   governance.

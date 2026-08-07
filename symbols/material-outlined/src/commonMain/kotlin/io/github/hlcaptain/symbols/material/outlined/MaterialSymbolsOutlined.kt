@@ -1,18 +1,9 @@
 package io.github.hlcaptain.symbols.material.outlined
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import io.github.hlcaptain.symbols.font.SymbolVariableFont
-import io.github.hlcaptain.symbols.material.MaterialSymbolAxes
-import io.github.hlcaptain.symbols.material.MaterialSymbolsTheme
-import io.github.hlcaptain.symbols.material.OutlinedMaterialSymbol
 import io.github.hlcaptain.symbols.material.outlined.resources.Res
 import io.github.hlcaptain.symbols.material.outlined.resources.material_symbols_outlined_variable
 import org.jetbrains.compose.resources.FontResource
-import io.github.hlcaptain.symbols.material.MaterialSymbolIcon as BaseMaterialSymbolIcon
 
 /**
  * The Material Symbols Outlined 2.874 variable font.
@@ -25,31 +16,4 @@ public object MaterialSymbolsOutlined : SymbolVariableFont {
 
     override val resource: FontResource
         get() = Res.font.material_symbols_outlined_variable
-}
-
-/**
- * Renders the style-typed [symbol] with the bundled Outlined variable font.
- *
- * Axes inherit from [MaterialSymbolsTheme] unless explicitly overridden.
- */
-@Composable
-public fun MaterialSymbolIcon(
-    symbol: OutlinedMaterialSymbol,
-    contentDescription: String?,
-    modifier: Modifier = Modifier,
-    axes: MaterialSymbolAxes = MaterialSymbolsTheme.axes,
-    tint: Color = Color.Black,
-    size: Dp = 24.dp,
-    autoMirror: Boolean = false,
-) {
-    BaseMaterialSymbolIcon(
-        symbol = symbol.symbol,
-        font = MaterialSymbolsOutlined,
-        contentDescription = contentDescription,
-        modifier = modifier,
-        axes = axes,
-        tint = tint,
-        size = size,
-        autoMirror = autoMirror,
-    )
 }

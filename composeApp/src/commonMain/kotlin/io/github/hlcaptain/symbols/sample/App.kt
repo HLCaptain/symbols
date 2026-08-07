@@ -1,7 +1,6 @@
 package io.github.hlcaptain.symbols.sample
 
-import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,85 +9,173 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.GridItemSpan
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.material3.Button
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
-import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Slider
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import io.github.hlcaptain.symbols.font.SymbolFont
+import io.github.hlcaptain.symbols.font.SymbolFontIcon
+import io.github.hlcaptain.symbols.font.SymbolFontSettings
 import io.github.hlcaptain.symbols.font.SymbolsRuntime
-import io.github.hlcaptain.symbols.font.rememberSymbolFontFamily
-import io.github.hlcaptain.symbols.material.Icons
-import io.github.hlcaptain.symbols.material.MaterialSymbol
+import io.github.hlcaptain.symbols.font.SymbolsTheme
 import io.github.hlcaptain.symbols.material.MaterialSymbolAxes
-import io.github.hlcaptain.symbols.material.MaterialSymbolIcon
 import io.github.hlcaptain.symbols.material.MaterialSymbolStyle
 import io.github.hlcaptain.symbols.material.MaterialSymbols
 import io.github.hlcaptain.symbols.material.MaterialSymbolsTheme
 import io.github.hlcaptain.symbols.material.Search
-import io.github.hlcaptain.symbols.material.Symbols
 import io.github.hlcaptain.symbols.material.outlined.MaterialSymbolsOutlined
 import io.github.hlcaptain.symbols.material.rounded.MaterialSymbolsRounded
 import io.github.hlcaptain.symbols.material.rounded.staticfont.MaterialSymbolsRoundedStatic
 import io.github.hlcaptain.symbols.material.sharp.MaterialSymbolsSharp
-import io.github.hlcaptain.symbols.material.vectors.themed.Home
 import io.github.hlcaptain.symbols.sample.generated.AppIcons
 import io.github.hlcaptain.symbols.sample.generated.fontawesome.FontAwesomeIcons
 import io.github.hlcaptain.symbols.sample.generated.fontawesome.solid.CircleCheck
-import io.github.hlcaptain.symbols.sample.generated.powerline.PowerlineIcons
-import io.github.hlcaptain.symbols.sample.generated.powerline.regular.Branch
 import io.github.hlcaptain.symbols.sample.generated.regular.Check
 import io.github.hlcaptain.symbols.sample.generated.rounded.Favorite
 import io.github.hlcaptain.symbols.sample.generated.tabler.TablerIcons
 import io.github.hlcaptain.symbols.sample.generated.tabler.filled.Alien
-import kotlin.math.roundToInt
+import io.github.hlcaptain.symbols.sample.generated.tabler.outline.Sparkles
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import io.github.hlcaptain.symbols.material.rounded.staticfont.MaterialSymbolIcon as StaticRoundedSymbolIcon
 
 @Composable
-@Preview
-fun App() {
+public fun App() {
     App(onOpenLegacyViews = null)
 }
 
+@Preview(name = "Custom variable font")
 @Composable
-internal fun App(onOpenLegacyViews: (() -> Unit)?) {
-    MaterialTheme {
+private fun AppPreview() {
+    App(
+        onOpenLegacyViews = null,
+        initialSettings = ExplorerSettings(
+            family = ExplorerFamily.Academmunicons,
+            academmuniconsAxes = AcademmuniconsAxes(weight = 600f),
+        ),
+    )
+}
+
+@Composable
+internal fun App(
+    onOpenLegacyViews: (() -> Unit)?,
+    initialSettings: ExplorerSettings = ExplorerSettings(),
+) {
+    MaterialTheme(
+        colorScheme = if (isSystemInDarkTheme()) darkColorScheme() else lightColorScheme(),
+    ) {
         Surface(modifier = Modifier.fillMaxSize()) {
-            if (SymbolsRuntime.variableFontsSupported) {
-                SymbolExplorer(onOpenLegacyViews)
-            } else {
+            if (!SymbolsRuntime.variableFontsSupported) {
                 Api21SymbolShowcase(onOpenLegacyViews)
+            } else {
+                SymbolExplorerRoot(onOpenLegacyViews, initialSettings)
             }
         }
     }
 }
 
 @Composable
+private fun SymbolExplorerRoot(
+    onOpenLegacyViews: (() -> Unit)?,
+    initialSettings: ExplorerSettings,
+) {
+    var settings by remember(initialSettings) {
+        mutableStateOf(initialSettings)
+    }
+    val onFamilyChange: (ExplorerFamily) -> Unit = { family ->
+        settings = settings.copy(family = family, query = "")
+    }
+    val onQueryChange: (String) -> Unit = { query ->
+        settings = settings.copy(query = query)
+    }
+
+    SymbolsTheme(fontSettings = settings.fontSettings) {
+        when (settings.family) {
+            ExplorerFamily.Material -> MaterialSymbolsTheme(
+                style = settings.materialStyle.style,
+                axes = settings.axes,
+            ) {
+                MaterialCatalogExplorer(
+                    families = ExplorerFamily.entries,
+                    query = settings.query,
+                    style = settings.materialStyle,
+                    axes = settings.axes,
+                    onFamilyChange = onFamilyChange,
+                    onQueryChange = onQueryChange,
+                    onStyleChange = { settings = settings.copy(materialStyle = it) },
+                    onAxesChange = { settings = settings.copy(axes = it) },
+                    onOpenLegacyViews = onOpenLegacyViews,
+                )
+            }
+
+            ExplorerFamily.FontAwesome -> FontCatalogExplorer(
+                families = ExplorerFamily.entries,
+                selectedFamily = settings.family,
+                query = settings.query,
+                label = "Font Awesome",
+                searchHint = "Try face_smile",
+                catalog = FontAwesomeCatalog,
+                font = FontAwesomeRegular,
+                onFamilyChange = onFamilyChange,
+                onQueryChange = onQueryChange,
+                onOpenLegacyViews = onOpenLegacyViews,
+            )
+
+            ExplorerFamily.Tabler -> TablerCatalogExplorer(
+                families = ExplorerFamily.entries,
+                query = settings.query,
+                style = settings.tablerStyle,
+                stroke = settings.tablerStroke,
+                onFamilyChange = onFamilyChange,
+                onQueryChange = onQueryChange,
+                onStyleChange = { settings = settings.copy(tablerStyle = it) },
+                onStrokeChange = { settings = settings.copy(tablerStroke = it) },
+                onOpenLegacyViews = onOpenLegacyViews,
+            )
+
+            ExplorerFamily.Powerline -> FontCatalogExplorer(
+                families = ExplorerFamily.entries,
+                selectedFamily = settings.family,
+                query = settings.query,
+                label = "Powerline",
+                searchHint = "Try branch",
+                catalog = PowerlineCatalog,
+                font = PowerlineRegular,
+                onFamilyChange = onFamilyChange,
+                onQueryChange = onQueryChange,
+                onOpenLegacyViews = onOpenLegacyViews,
+            )
+
+            ExplorerFamily.Academmunicons -> AcademmuniconsCatalogExplorer(
+                families = ExplorerFamily.entries,
+                query = settings.query,
+                axes = settings.academmuniconsAxes,
+                onFamilyChange = onFamilyChange,
+                onQueryChange = onQueryChange,
+                onAxesChange = { settings = settings.copy(academmuniconsAxes = it) },
+                onOpenLegacyViews = onOpenLegacyViews,
+            )
+        }
+    }
+}
+
+@Composable
 private fun Api21SymbolShowcase(onOpenLegacyViews: (() -> Unit)?) {
-    MaterialSymbolsTheme {
+    MaterialSymbolsTheme(style = MaterialSymbolStyle.Rounded) {
         Column(
             modifier = Modifier
                 .safeContentPadding()
@@ -103,15 +190,17 @@ private fun Api21SymbolShowcase(onOpenLegacyViews: (() -> Unit)?) {
             )
             Text(
                 text = "A live regular font and build-time snapshots of regular " +
-                    "and variable fonts all work without runtime font variations.",
+                    "and variable fonts work without runtime font variations.",
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
             Row(
                 horizontalArrangement = Arrangement.spacedBy(24.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                StaticRoundedSymbolIcon(
-                    symbol = Symbols.Rounded.Search,
+                SymbolFontIcon(
+                    codePoint = MaterialSymbols.Search.codePoint,
+                    font = MaterialSymbolsRoundedStatic,
+                    fontSettings = MaterialSymbolsRoundedStatic.fontSettings,
                     contentDescription = "Search from a regular font",
                     tint = MaterialTheme.colorScheme.primary,
                     size = 40.dp,
@@ -124,15 +213,14 @@ private fun Api21SymbolShowcase(onOpenLegacyViews: (() -> Unit)?) {
                 )
                 Icon(
                     imageVector = AppIcons.Rounded.Favorite,
-                    contentDescription =
-                        "Favorite generated from a variable font instance",
+                    contentDescription = "Favorite generated from a variable font instance",
                     modifier = Modifier.size(40.dp),
                     tint = MaterialTheme.colorScheme.tertiary,
                 )
             }
             Text(
-                text = "The two vectors were selected by semantic name in the " +
-                    "Gradle DSL, so unused generated symbols never enter this app.",
+                text = "The two vectors were selected by semantic name in the Gradle DSL, " +
+                    "so unused generated symbols never enter this app.",
                 style = MaterialTheme.typography.bodyMedium,
             )
             OtherIconFontsShowcase()
@@ -142,284 +230,104 @@ private fun Api21SymbolShowcase(onOpenLegacyViews: (() -> Unit)?) {
 }
 
 @Composable
-private fun SymbolExplorer(onOpenLegacyViews: (() -> Unit)?) {
-    var style by remember { mutableStateOf(DemoStyle.Outlined) }
-    var fill by remember { mutableFloatStateOf(0f) }
-    var weight by remember { mutableFloatStateOf(400f) }
-    var grade by remember { mutableFloatStateOf(0f) }
-    var opticalSize by remember { mutableFloatStateOf(24f) }
-    var query by remember { mutableStateOf("") }
-
-    val axes = MaterialSymbolAxes(
-        fill = fill,
-        weight = weight.roundToInt(),
-        grade = grade,
-        opticalSize = opticalSize,
-    )
-    val normalizedQuery = query.trim().lowercase()
-    val symbols = remember(normalizedQuery) {
-        MaterialSymbols.all.asSequence()
-            .filter { normalizedQuery.isEmpty() || normalizedQuery in it.name }
-            .take(180)
-            .toList()
-    }
-
-    MaterialSymbolsTheme(style = style.vectorStyle, axes = axes) {
-        val fontFamily = rememberSymbolFontFamily(style.font)
-        Scaffold { contentPadding ->
-            Column(
-                modifier = Modifier
-                    .safeContentPadding()
-                    .fillMaxSize()
-                    .padding(contentPadding)
-                    .padding(horizontal = 20.dp, vertical = 16.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp),
-            ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-            ) {
-                MaterialSymbolIcon(
-                    symbol = MaterialSymbols.Search,
-                    fontFamily = fontFamily,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary,
-                    size = 40.dp,
+private fun OtherIconFontsShowcase() {
+    Card(modifier = Modifier.fillMaxWidth()) {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            Text(
+                text = "Generated from other icon fonts",
+                style = MaterialTheme.typography.titleMedium,
+            )
+            Row(modifier = Modifier.fillMaxWidth()) {
+                OtherFontExample(
+                    imageVector = FontAwesomeIcons.Solid.CircleCheck,
+                    label = "Font Awesome",
+                    modifier = Modifier.weight(1f),
                 )
-                Icon(
-                    imageVector = Icons.Themed.Home,
-                    contentDescription = "Theme-selected ImageVector access",
-                    modifier = Modifier.size(32.dp),
-                    tint = MaterialTheme.colorScheme.secondary,
+                OtherFontExample(
+                    imageVector = TablerIcons.Outline.Sparkles,
+                    label = "Tabler outline",
+                    modifier = Modifier.weight(1f),
                 )
-                Column {
-                    Text(
-                        text = "Symbols",
-                        style = MaterialTheme.typography.headlineMedium,
-                    )
-                    Text(
-                        text = "4,102 names · one variable font per style",
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        style = MaterialTheme.typography.bodyMedium,
-                    )
-                }
-            }
-
-            LegacyViewsButton(onOpenLegacyViews)
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .horizontalScroll(rememberScrollState()),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                DemoStyle.entries.forEach { candidate ->
-                    FilterChip(
-                        selected = style == candidate,
-                        onClick = { style = candidate },
-                        label = { Text(candidate.label) },
-                    )
-                }
-            }
-
-            AxisControl(
-                label = "Fill",
-                valueLabel = "${(fill * 100).roundToInt()}%",
-                value = fill,
-                range = 0f..1f,
-                onValueChange = { fill = it },
-            )
-            AxisControl(
-                label = "Weight",
-                valueLabel = weight.roundToInt().toString(),
-                value = weight,
-                range = 100f..700f,
-                steps = 5,
-                onValueChange = { weight = it },
-            )
-            AxisControl(
-                label = "Grade",
-                valueLabel = grade.roundToInt().toString(),
-                value = grade,
-                range = -50f..200f,
-                onValueChange = { grade = it },
-            )
-            AxisControl(
-                label = "Optical",
-                valueLabel = opticalSize.roundToInt().toString(),
-                value = opticalSize,
-                range = 20f..48f,
-                onValueChange = { opticalSize = it },
-            )
-
-            OutlinedTextField(
-                value = query,
-                onValueChange = { query = it },
-                modifier = Modifier.fillMaxWidth(),
-                singleLine = true,
-                label = { Text("Find a canonical name") },
-                leadingIcon = {
-                    MaterialSymbolIcon(
-                        symbol = MaterialSymbols.Search,
-                        fontFamily = fontFamily,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                },
-                supportingText = {
-                    Text("${symbols.size} shown · type a name such as account_circle")
-                },
-            )
-
-            LazyVerticalGrid(
-                columns = GridCells.Adaptive(minSize = 104.dp),
-                modifier = Modifier.fillMaxSize(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                item(span = { GridItemSpan(maxLineSpan) }) {
-                    OtherIconFontsShowcase()
-                }
-                items(
-                    items = symbols,
-                    key = MaterialSymbol::name,
-                ) { symbol ->
-                    SymbolCard(
-                        symbol = symbol,
-                        fontFamily = fontFamily,
-                    )
-                }
+                OtherFontExample(
+                    imageVector = TablerIcons.Filled.Alien,
+                    label = "Tabler filled",
+                    modifier = Modifier.weight(1f),
+                )
             }
         }
     }
-}
 }
 
 @Composable
-private fun OtherIconFontsShowcase() {
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Text(
-            text = "Other icon fonts",
-            style = MaterialTheme.typography.titleMedium,
+private fun OtherFontExample(
+    imageVector: ImageVector,
+    label: String,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        Icon(
+            imageVector = imageVector,
+            contentDescription = null,
+            modifier = Modifier.size(32.dp),
         )
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(20.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Icon(
-                imageVector = FontAwesomeIcons.Solid.CircleCheck,
-                contentDescription = "Font Awesome circle check",
-                modifier = Modifier.size(32.dp),
-            )
-            Icon(
-                imageVector = TablerIcons.Filled.Alien,
-                contentDescription = "Tabler alien",
-                modifier = Modifier.size(32.dp),
-            )
-            Icon(
-                imageVector = PowerlineIcons.Regular.Branch,
-                contentDescription = "Powerline branch",
-                modifier = Modifier.size(32.dp),
-            )
-        }
         Text(
-            text = "Font Awesome · Tabler · Powerline",
+            text = label,
+            textAlign = TextAlign.Center,
             style = MaterialTheme.typography.labelMedium,
         )
     }
 }
 
 @Composable
-private fun LegacyViewsButton(onOpenLegacyViews: (() -> Unit)?) {
+internal fun LegacyViewsButton(onOpenLegacyViews: (() -> Unit)?) {
     if (onOpenLegacyViews != null) {
-        Button(onClick = onOpenLegacyViews) {
+        OutlinedButton(onClick = onOpenLegacyViews) {
             Text("Open Android Views examples")
         }
     }
 }
 
-@Composable
-private fun AxisControl(
-    label: String,
-    valueLabel: String,
-    value: Float,
-    range: ClosedFloatingPointRange<Float>,
-    steps: Int = 0,
-    onValueChange: (Float) -> Unit,
-) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-        Text(
-            text = label,
-            modifier = Modifier.width(64.dp),
-            style = MaterialTheme.typography.labelLarge,
-        )
-        Slider(
-            value = value,
-            onValueChange = onValueChange,
-            modifier = Modifier.weight(1f),
-            valueRange = range,
-            steps = steps,
-        )
-        Text(
-            text = valueLabel,
-            modifier = Modifier.width(44.dp),
-            style = MaterialTheme.typography.labelMedium,
-        )
-    }
+internal enum class ExplorerFamily(val label: String, val tabLabel: String) {
+    Material("Material Symbols", "Material"),
+    FontAwesome("Font Awesome", "Awesome"),
+    Tabler("Tabler Icons", "Tabler"),
+    Powerline("Powerline Symbols", "Powerline"),
+    Academmunicons("Academmunicons", "Academic"),
 }
 
-@Composable
-private fun SymbolCard(
-    symbol: MaterialSymbol,
-    fontFamily: FontFamily,
-) {
-    Card {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(12.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-        ) {
-            MaterialSymbolIcon(
-                symbol = symbol,
-                fontFamily = fontFamily,
-                contentDescription = symbol.name.replace('_', ' '),
-                tint = MaterialTheme.colorScheme.onSurface,
-                size = 32.dp,
-            )
-            Text(
-                text = symbol.name,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                style = MaterialTheme.typography.labelSmall,
-            )
-        }
-    }
-}
-
-private enum class DemoStyle(
+internal enum class MaterialStyleOption(
     val label: String,
     val font: SymbolFont,
-    val vectorStyle: MaterialSymbolStyle,
+    val style: MaterialSymbolStyle,
 ) {
-    Outlined(
-        "Outlined",
-        MaterialSymbolsOutlined,
-        MaterialSymbolStyle.Outlined,
-    ),
-    Rounded(
-        "Rounded",
-        MaterialSymbolsRounded,
-        MaterialSymbolStyle.Rounded,
-    ),
-    Sharp(
-        "Sharp",
-        MaterialSymbolsSharp,
-        MaterialSymbolStyle.Sharp,
-    ),
+    Outlined("Outlined", MaterialSymbolsOutlined, MaterialSymbolStyle.Outlined),
+    Rounded("Rounded", MaterialSymbolsRounded, MaterialSymbolStyle.Rounded),
+    Sharp("Sharp", MaterialSymbolsSharp, MaterialSymbolStyle.Sharp),
+}
+
+internal data class ExplorerSettings(
+    val family: ExplorerFamily = ExplorerFamily.Material,
+    val query: String = "",
+    val materialStyle: MaterialStyleOption = MaterialStyleOption.Outlined,
+    val axes: MaterialSymbolAxes = MaterialSymbolAxes.Default,
+    val tablerStyle: TablerStyle = TablerStyle.Outline,
+    val tablerStroke: TablerStroke = TablerStroke.Default,
+    val academmuniconsAxes: AcademmuniconsAxes = AcademmuniconsAxes.Default,
+) {
+    val fontSettings: SymbolFontSettings
+        get() = when (family) {
+            ExplorerFamily.Material -> axes.fontSettings
+            ExplorerFamily.Academmunicons -> academmuniconsAxes.fontSettings
+            ExplorerFamily.FontAwesome,
+            ExplorerFamily.Tabler,
+            ExplorerFamily.Powerline,
+            -> SymbolFontSettings.Default
+        }
 }

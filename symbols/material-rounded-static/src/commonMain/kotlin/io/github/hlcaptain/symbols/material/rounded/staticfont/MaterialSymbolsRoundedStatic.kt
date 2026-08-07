@@ -1,18 +1,11 @@
 package io.github.hlcaptain.symbols.material.rounded.staticfont
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import io.github.hlcaptain.symbols.font.SymbolFontSettings
 import io.github.hlcaptain.symbols.font.SymbolRegularFont
 import io.github.hlcaptain.symbols.material.MaterialSymbolAxes
-import io.github.hlcaptain.symbols.material.RoundedMaterialSymbol
 import io.github.hlcaptain.symbols.material.rounded.staticfont.resources.Res
 import io.github.hlcaptain.symbols.material.rounded.staticfont.resources.material_symbols_rounded_regular
 import org.jetbrains.compose.resources.FontResource
-import io.github.hlcaptain.symbols.material.MaterialSymbolIcon as BaseMaterialSymbolIcon
 
 /**
  * A static Material Symbols Rounded 2.874 font at the default axis point.
@@ -29,27 +22,4 @@ public object MaterialSymbolsRoundedStatic : SymbolRegularFont {
     public val axes: MaterialSymbolAxes = MaterialSymbolAxes.Default
 
     override val fontSettings: SymbolFontSettings = axes.fontSettings
-}
-
-/** Renders [symbol] with the bundled API-21-compatible static Rounded font. */
-@Composable
-public fun MaterialSymbolIcon(
-    symbol: RoundedMaterialSymbol,
-    contentDescription: String?,
-    modifier: Modifier = Modifier,
-    axes: MaterialSymbolAxes = MaterialSymbolsRoundedStatic.axes,
-    tint: Color = Color.Black,
-    size: Dp = 24.dp,
-    autoMirror: Boolean = false,
-) {
-    BaseMaterialSymbolIcon(
-        symbol = symbol.symbol,
-        font = MaterialSymbolsRoundedStatic,
-        contentDescription = contentDescription,
-        modifier = modifier,
-        axes = axes,
-        tint = tint,
-        size = size,
-        autoMirror = autoMirror,
-    )
 }

@@ -181,7 +181,28 @@ def render_manifest(assignments: dict[str, int]) -> bytes:
     ).encode("utf-8")
 
 
-def _svg_glyph(path: Path):
+def _override_stroke_width(document: SVG, stroke_width: float | None) -> None:
+    if stroke_width is None:
+        return
+    if not math.isfinite(stroke_width) or stroke_width <= 0:
+        raise ValueError("--stroke-width must be finite and positive")
+    if document.xpath(".//svg:style"):
+        raise ValueError("--stroke-width does not support <style> elements")
+
+    document.apply_style_attributes(inplace=True)
+    document.resolve_use(inplace=True)
+    rendered_width = str(stroke_width)
+    stroked_shapes = 0
+    for context in document.depth_first(resolve_clip_paths=False):
+        if not context.is_shape() or str(context.shape().stroke).lower() == "none":
+            continue
+        context.element.attrib["stroke-width"] = rendered_width
+        stroked_shapes += 1
+    if not stroked_shapes:
+        raise ValueError("--stroke-width requested but SVG contains no stroked shapes")
+
+
+def _svg_glyph(path: Path, stroke_width: float | None = None):
     try:
         document = SVG.fromstring(path.read_bytes())
         for use in document.xpath(".//svg:use"):
@@ -191,6 +212,7 @@ def _svg_glyph(path: Path):
                 if existing_href is not None and existing_href != href:
                     raise ValueError("<use> has conflicting href attributes")
                 use.attrib[XLINK_HREF] = href
+        _override_stroke_width(document, stroke_width)
         normalized = document.topicosvg(ndigits=6)
         view_box = normalized.view_box()
         if view_box is None:
@@ -273,6 +295,7 @@ def build_font(
     sources: dict[str, Path],
     assignments: dict[str, int],
     family_name: str,
+    stroke_width: float | None = None,
 ) -> bytes:
     family_name = family_name.strip()
     if not family_name or any(not character.isprintable() for character in family_name):
@@ -283,7 +306,10 @@ def build_font(
     glyph_names = {codepoint: f"uni{codepoint:04X}" for codepoint, _ in by_codepoint}
     glyphs = {".notdef": TTGlyphPen(None).glyph()}
     for codepoint, name in by_codepoint:
-        glyphs[glyph_names[codepoint]] = _svg_glyph(sources[name])
+        glyphs[glyph_names[codepoint]] = _svg_glyph(
+            sources[name],
+            stroke_width,
+        )
 
     builder = FontBuilder(UNITS_PER_EM, isTTF=True)
     builder.updateHead(
@@ -360,6 +386,7 @@ def process(
     manifest_path: Path,
     family_name: str,
     start_codepoint: int = PRIVATE_USE_START,
+    stroke_width: float | None = None,
     check: bool = False,
 ) -> int:
     _require_dependencies()
@@ -376,7 +403,7 @@ def process(
         start_codepoint,
     )
     manifest = render_manifest(assignments)
-    font = build_font(sources, assignments, family_name)
+    font = build_font(sources, assignments, family_name, stroke_width)
 
     if check:
         stale = []
@@ -421,6 +448,18 @@ def parse_codepoint(value: str) -> int:
     return codepoint
 
 
+def parse_stroke_width(value: str) -> float:
+    try:
+        stroke_width = float(value)
+    except ValueError as error:
+        raise argparse.ArgumentTypeError(
+            f"stroke width must be a number: {value}"
+        ) from error
+    if not math.isfinite(stroke_width) or stroke_width <= 0:
+        raise argparse.ArgumentTypeError("stroke width must be finite and positive")
+    return stroke_width
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -442,6 +481,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="Generated and subsequently preserved .codepoints file.",
     )
     parser.add_argument("--family-name", required=True, help="OpenType family name.")
+    parser.add_argument(
+        "--stroke-width",
+        type=parse_stroke_width,
+        help="Override every painted SVG stroke before building a regular font.",
+    )
     parser.add_argument(
         "--start-codepoint",
         default=PRIVATE_USE_START,
@@ -465,6 +509,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             manifest_path=args.manifest,
             family_name=args.family_name,
             start_codepoint=args.start_codepoint,
+            stroke_width=args.stroke_width,
             check=args.check,
         )
         verb = "Verified" if args.check else "Generated"

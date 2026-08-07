@@ -118,6 +118,15 @@ MaterialSymbolsTheme(style = MaterialSymbolStyle.Rounded) {
 supplies Material axes to variable and Material-compatible font renderers. Axes
 do not alter fixed vectors or regular fonts.
 
+For a symbol selected dynamically, use the equivalent composable-scoped lookup:
+
+```kotlin
+Icon(
+    imageVector = symbol.asThemedImageVector(),
+    contentDescription = symbol.name,
+)
+```
+
 When an icon is selected dynamically rather than referenced by name, use the
 catalog bridge:
 
@@ -245,10 +254,12 @@ Icon(
 )
 ```
 
-The sample also generates typed vectors from Font Awesome Free Solid, Tabler
-Icons Filled, and Powerline Symbols. Their YAML, CSS, and font-only metadata are
-normalized under [`fonts/samples`](fonts/samples/README.md); the input fonts are
-not packaged in the sample app.
+The sample also generates typed vectors from Font Awesome Free Solid and Tabler
+Icons Outline/Filled. Their YAML and CSS metadata are normalized under
+[`fonts/samples`](fonts/samples/README.md). Complete searchable catalogs are
+packaged for both, while only three icons per style are generated as vectors.
+The same primary font tabs include the complete Academmunicons catalog, whose
+real `ital` and `wght` axes exercise the generic custom-variable-font path.
 
 For a source-owned SVG directory, the
 [SVG icon font CLI](tools/README.md#svg-icon-font-generation) creates a
@@ -334,13 +345,14 @@ fallback.
 ### Material Symbols font renderer
 
 `MaterialSymbolsTheme` adds validated Material axes and supplies their equivalent
-generic `SymbolFontSettings`. The style-specific `MaterialSymbolIcon` overloads
-select the matching bundled font:
+generic `SymbolFontSettings`. Render the shared catalog through the generic font
+API when axes must remain live:
 
 ```kotlin
 import androidx.compose.material3.MaterialTheme
+import io.github.hlcaptain.symbols.font.SymbolFontIcon
 import io.github.hlcaptain.symbols.material.*
-import io.github.hlcaptain.symbols.material.rounded.MaterialSymbolIcon as RoundedMaterialSymbolIcon
+import io.github.hlcaptain.symbols.material.rounded.MaterialSymbolsRounded
 
 MaterialSymbolsTheme(
     axes = MaterialSymbolAxes(
@@ -350,31 +362,42 @@ MaterialSymbolsTheme(
         opticalSize = 24f,
     ),
 ) {
-    RoundedMaterialSymbolIcon(
-        symbol = Symbols.Rounded.Home,
+    SymbolFontIcon(
+        codePoint = MaterialSymbols.Home.codePoint,
+        font = MaterialSymbolsRounded,
         contentDescription = "Home",
         tint = MaterialTheme.colorScheme.primary,
     )
 }
 ```
 
-An explicit `axes` argument overrides `MaterialSymbolsTheme`. A regular Material
-font artifact provides a fixed default-axis fallback on Android API 21–25:
+A regular Material font artifact provides a fixed default-axis fallback on
+Android API 21–25:
 
 Add both `symbols-material-rounded` and `symbols-material-rounded-static` when
 the application selects between these paths.
 
 ```kotlin
+import io.github.hlcaptain.symbols.font.SymbolFontIcon
 import io.github.hlcaptain.symbols.font.SymbolsRuntime
 import io.github.hlcaptain.symbols.material.Home
-import io.github.hlcaptain.symbols.material.Symbols
-import io.github.hlcaptain.symbols.material.rounded.MaterialSymbolIcon as VariableRoundedIcon
-import io.github.hlcaptain.symbols.material.rounded.staticfont.MaterialSymbolIcon as RegularRoundedIcon
+import io.github.hlcaptain.symbols.material.MaterialSymbols
+import io.github.hlcaptain.symbols.material.rounded.MaterialSymbolsRounded
+import io.github.hlcaptain.symbols.material.rounded.staticfont.MaterialSymbolsRoundedStatic
 
 if (SymbolsRuntime.variableFontsSupported) {
-    VariableRoundedIcon(Symbols.Rounded.Home, contentDescription = "Home")
+    SymbolFontIcon(
+        MaterialSymbols.Home.codePoint,
+        MaterialSymbolsRounded,
+        contentDescription = "Home",
+    )
 } else {
-    RegularRoundedIcon(Symbols.Rounded.Home, contentDescription = "Home")
+    SymbolFontIcon(
+        MaterialSymbols.Home.codePoint,
+        MaterialSymbolsRoundedStatic,
+        contentDescription = "Home",
+        fontSettings = MaterialSymbolsRoundedStatic.fontSettings,
+    )
 }
 ```
 
@@ -382,6 +405,7 @@ For a list or grid, build one family and share it:
 
 ```kotlin
 import io.github.hlcaptain.symbols.font.rememberSymbolFontFamily
+import io.github.hlcaptain.symbols.font.SymbolFontIcon
 import io.github.hlcaptain.symbols.material.*
 import io.github.hlcaptain.symbols.material.outlined.MaterialSymbolsOutlined
 
@@ -391,8 +415,8 @@ MaterialSymbolsTheme(axes = axes) {
 
     LazyRow {
         items(symbols) { symbol ->
-            MaterialSymbolIcon(
-                symbol = symbol,
+            SymbolFontIcon(
+                codePoint = symbol.codePoint,
                 fontFamily = family,
                 contentDescription = symbol.name,
             )

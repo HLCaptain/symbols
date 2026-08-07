@@ -121,13 +121,13 @@ and 564 official aliases from the pinned
 by replacing hyphens with underscores. Generated outlines remain Font Awesome
 third-party material; no brand icons are included.
 
-## Tabler Icons Filled sample
+## Tabler Icons sample
 
 - Copyright: 2020–2026 Paweł Kuna
 - Upstream project: [tabler/tabler-icons](https://github.com/tabler/tabler-icons)
 - Version/revision: [`v3.46.0`](https://github.com/tabler/tabler-icons/tree/v3.46.0), commit `8ac7d81b72ece11072ef25ea9fd92e80c6f3c9fc`
 - Distribution: official [`@tabler/icons-webfont` 3.46.0](https://www.npmjs.com/package/@tabler/icons-webfont/v/3.46.0) package
-- License: MIT, retained at `fonts/samples/tabler-icons-filled/LICENSE`
+- License: MIT, retained beside both sample font families
 
 `fonts/samples/tabler-icons-filled/tabler-icons-filled.ttf` is the unmodified
 package font, SHA-256
@@ -135,6 +135,24 @@ package font, SHA-256
 The manifest contains all 1,057 CSS names for the font's 1,054 encoded glyphs,
 normalized from the package's `content` declarations. These include
 supplementary Unicode scalars such as U+101B2.
+
+The outline sample carries the official package's three static stroke fonts.
+The package's build maps `tabler-icons-200.ttf` to 1 px,
+`tabler-icons-300.ttf` to 1.5 px, and `tabler-icons.ttf` to the default 2 px.
+They are stored as `tabler-icons-outline-1.ttf`,
+`tabler-icons-outline-1-5.ttf`, and `tabler-icons-outline-2.ttf` with SHA-256:
+
+| Stroke | SHA-256 |
+| ---: | --- |
+| 1 px | `9dfddc56080de80c8981115d9d4bfe0d91ebf632fe5fd8507df44e7e32de079c` |
+| 1.5 px | `5f9aeaa71d851dff83367660f90f759730dcf4e7937f8a474675e112d056a93c` |
+| 2 px | `9920d9866628db84af956877d04ff185ee3472a9716b03a9bb958b529ae1a9da` |
+
+The outline manifest contains all 5,193 CSS names for 5,130 encoded glyphs,
+normalized with the same rules as the filled manifest.
+These fonts have no OpenType variation axis. Tabler's website changes the
+`stroke-width` of inline SVG paths instead, so selectable font strokes require
+the separate binaries above.
 
 ## Powerline Symbols sample
 
@@ -147,6 +165,25 @@ supplementary Unicode scalars such as U+101B2.
 SHA-256
 `4a2496a009b1649878ce067a7ec2aed9f79656c90136971e1dba00766515f7a1`.
 The manifest covers all eight Unicode mappings in the font: U+2588 and the
-documented Powerline assignments U+E0A0–U+E0A2 and U+E0B0–U+E0B3. Its explicit
-transform settings demonstrate a symbol font whose metrics do not occupy a
-Material-style 0..UPEM square.
+documented Powerline assignments U+E0A0–U+E0A2 and U+E0B0–U+E0B3.
+
+## Academmunicons sample
+
+- Copyright: 2020 Academmunicons Authors; 2014 Creative Commons
+- Upstream project: [twardoch/academmunicons-font](https://github.com/twardoch/academmunicons-font)
+- Version/revision: `200415`, commit [`6ae78e1c8831765fb5e6c4a276675a4f4e12ab73`](https://github.com/twardoch/academmunicons-font/tree/6ae78e1c8831765fb5e6c4a276675a4f4e12ab73)
+- License: SIL Open Font License 1.1, with Reserved Font Name “Academmunicons”
+- Complete upstream terms retained at `fonts/samples/academmunicons/LICENSE.txt`
+
+`fonts/samples/academmunicons/academmunicons-variable.ttf` is the unmodified
+upstream `fonts/Variable-TT/Academmunicons-VF.ttf`, SHA-256
+`b9b5e711a566f16f86dcca0441977c75a88296e0f93e1b847f9e89be55bf622e`.
+It exposes `ital` 0–1 and `wght` 100–800. The checked-in manifest contains all
+50 semantic icons in the upstream recommended PUA range; its snake-case names
+come directly from the font's `cmap` glyph names.
+
+`fonts/samples/academmunicons/academmunicons-regular.ttf` is a modified static
+instance generated with FontTools 4.60.2 at `ital=0,wght=400`. Its variation
+tables were removed and, as required by the Reserved Font Name clause, its
+family was renamed “Symbols Academic Icons”. SHA-256:
+`8c89d561295874ccf575d4d5d128247cd40e25979ae0ae0307a525388edf77cf`.

@@ -90,6 +90,20 @@ Regenerate every style or byte-compare the checked-in results:
 The script requires FontTools 4.60.2 exactly, removes variable tables, disables
 timestamp recalculation, and writes a stable table order.
 
+The same tool can freeze one custom variable font before runtime. Every omitted
+axis uses that font's own default; `--family-name` is useful when a derivative
+must not retain an upstream Reserved Font Name:
+
+```shell
+/tmp/symbols-fonttools/bin/python tools/generate_material_static_fonts.py \
+  --input fonts/samples/academmunicons/academmunicons-variable.ttf \
+  --output fonts/samples/academmunicons/academmunicons-regular.ttf \
+  --axis ital=0 --axis wght=400 \
+  --family-name "Symbols Academic Icons"
+```
+
+Pass the same arguments with `--check` to byte-compare a checked-in result.
+
 ## SVG icon font generation
 
 `generate_svg_icon_font.py` builds a regular TrueType icon font and the same
@@ -102,7 +116,8 @@ Private Use Area assignments:
   --input-dir path/to/icons \
   --font build/AppIcons.ttf \
   --manifest path/to/AppIcons.codepoints \
-  --family-name "App Icons"
+  --family-name "App Icons" \
+  --stroke-width 1.5
 ```
 
 Keep the generated manifest under version control. Later runs preserve every
@@ -115,6 +130,10 @@ monochrome outlines through PicoSVG. Text, images, masks, filters, gradients,
 patterns, multiple paint colors, and opacity fail because a monochrome font
 cannot preserve them. Every glyph is fitted without distortion into a
 1000-unit square and emitted as an unhinted regular TTF.
+
+`--stroke-width` replaces inherited, explicit, inline-style, and `<use>` stroke
+widths before conversion. It bakes one regular font and does not invent an
+OpenType variation axis; omit it to preserve each SVG's authored width.
 
 This command rebuilds a source-owned icon font; it does not patch an arbitrary
 third-party, CFF, or variable font binary. The source icons' licenses continue

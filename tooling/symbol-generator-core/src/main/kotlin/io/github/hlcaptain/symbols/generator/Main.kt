@@ -28,7 +28,7 @@ public object SymbolGeneratorCli {
             standardError.println("error: ${error.message}")
             standardError.println("Run with --help for usage.")
             2
-        } catch (error: RuntimeException) {
+        } catch (error: Exception) {
             standardError.println("error: ${error.message ?: error::class.simpleName}")
             1
         }
@@ -150,7 +150,7 @@ public object SymbolGeneratorCli {
         |  --set NAME                  Generated root object, for example AppIcons
         |  --style NAME                Generated style object, for example Rounded
         |
-        |Outputs (at least one, each directory must be distinct):
+        |Outputs (at least one, directories must not overlap):
         |  --kotlin-output DIR         ImageVector source output directory
         |  --android-output DIR        Android res output directory
         |  --compose-output DIR        Compose resources output directory
@@ -315,8 +315,15 @@ private data class CliOptions(
                 androidOutput,
                 composeOutput,
             ).map { output -> output.toAbsolutePath().normalize() }
-            require(normalizedOutputs.size == normalizedOutputs.toSet().size) {
-                "Output directories must be distinct"
+            require(
+                normalizedOutputs.indices.none { first ->
+                    normalizedOutputs.indices.any { second ->
+                        first != second &&
+                            normalizedOutputs[first].startsWith(normalizedOutputs[second])
+                    }
+                },
+            ) {
+                "Output directories must be distinct and non-overlapping"
             }
             val includeArguments = values["--include"].orEmpty()
             require(includeAll.xor(includeArguments.isNotEmpty())) {

@@ -16,7 +16,7 @@ class SymbolsThemeTest {
         val outer = SymbolFontSettings(
             weight = FontWeight.Medium,
         )
-       FontVariation.Settings val inner = SymbolFontSettings(
+        val inner = SymbolFontSettings(
             variationSettings = FontVariation.Settings(
                 FontVariation.Setting("wdth", 80f),
             ),
