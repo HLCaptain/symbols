@@ -32,6 +32,14 @@ class MaterialSymbolAxesTest {
             500f,
             settings.single { it.axisName == "wght" }.toVariationValue(null),
         )
+        assertEquals(
+            listOf("FILL", "wght", "GRAD", "opsz"),
+            MaterialSymbolAxes.VariationAxes.map { it.tag },
+        )
+        assertEquals(
+            listOf("Fill", "Weight", "Grade", "Optical"),
+            MaterialSymbolAxes.VariationAxes.map { it.label },
+        )
     }
 
     @Test

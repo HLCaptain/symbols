@@ -3,7 +3,6 @@ package io.github.hlcaptain.symbols.sample
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -31,180 +30,93 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import io.github.hlcaptain.symbols.font.SymbolFont
+import io.github.hlcaptain.symbols.font.SymbolFontAxis
 import io.github.hlcaptain.symbols.font.SymbolFontIcon
+import io.github.hlcaptain.symbols.font.SymbolFontSettings
 import io.github.hlcaptain.symbols.font.rememberSymbolFontFamily
 import io.github.hlcaptain.symbols.material.Icons
-import io.github.hlcaptain.symbols.material.MaterialSymbol
 import io.github.hlcaptain.symbols.material.MaterialSymbolAxes
-import io.github.hlcaptain.symbols.material.MaterialSymbols
 import io.github.hlcaptain.symbols.material.vectors.themed.Home
 import io.github.hlcaptain.symbols.material.vectors.themed.Search
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
 @Composable
-internal fun MaterialCatalogExplorer(
-    families: List<ExplorerFamily>,
-    query: String,
-    style: MaterialStyleOption,
-    axes: MaterialSymbolAxes,
-    onFamilyChange: (ExplorerFamily) -> Unit,
-    onQueryChange: (String) -> Unit,
-    onStyleChange: (MaterialStyleOption) -> Unit,
-    onAxesChange: (MaterialSymbolAxes) -> Unit,
-    onOpenLegacyViews: (() -> Unit)?,
-) {
-    val fontFamily = rememberSymbolFontFamily(style.font)
-
-    ExplorerLayout(
-        families = families,
-        selectedFamily = ExplorerFamily.Material,
-        query = query,
-        label = ExplorerFamily.Material.label,
-        searchHint = "Try account_circle",
-        items = MaterialSymbols.all,
-        itemName = MaterialSymbol::name,
-        icon = { symbol -> MaterialFontIcon(symbol, fontFamily) },
-        onFamilyChange = onFamilyChange,
-        onQueryChange = onQueryChange,
-        onOpenLegacyViews = onOpenLegacyViews,
-        options = {
-            MaterialOptions(
-                style = style,
-                axes = axes,
-                onStyleChange = onStyleChange,
-                onAxesChange = onAxesChange,
-            )
-        },
-    )
-}
-
-@Composable
-private fun MaterialFontIcon(
-    symbol: MaterialSymbol,
-    fontFamily: FontFamily,
-) {
-    SymbolFontIcon(
-        codePoint = symbol.codePoint,
-        fontFamily = fontFamily,
-        contentDescription = null,
-        tint = MaterialTheme.colorScheme.onSurface,
-        size = 26.dp,
-    )
-}
-
-@Composable
-internal fun TablerCatalogExplorer(
-    families: List<ExplorerFamily>,
-    query: String,
-    style: TablerStyle,
-    stroke: TablerStroke,
-    onFamilyChange: (ExplorerFamily) -> Unit,
-    onQueryChange: (String) -> Unit,
-    onStyleChange: (TablerStyle) -> Unit,
-    onStrokeChange: (TablerStroke) -> Unit,
-    onOpenLegacyViews: (() -> Unit)?,
-) {
-    val font = when (style) {
-        TablerStyle.Outline -> stroke
-        TablerStyle.Filled -> TablerFilled
-    }
-    val catalog = when (style) {
-        TablerStyle.Outline -> TablerOutlineCatalog
-        TablerStyle.Filled -> TablerFilledCatalog
-    }
-
-    FontCatalogExplorer(
-        families = families,
-        selectedFamily = ExplorerFamily.Tabler,
-        query = query,
-        label = "Tabler ${style.label}",
-        searchHint = "Try sparkles",
-        catalog = catalog,
-        font = font,
-        onFamilyChange = onFamilyChange,
-        onQueryChange = onQueryChange,
-        onOpenLegacyViews = onOpenLegacyViews,
-        options = {
-            TablerOptions(
-                style = style,
-                stroke = stroke,
-                onStyleChange = onStyleChange,
-                onStrokeChange = onStrokeChange,
-            )
-        },
-    )
-}
-
-@Composable
-internal fun AcademmuniconsCatalogExplorer(
-    families: List<ExplorerFamily>,
-    query: String,
-    axes: AcademmuniconsAxes,
-    onFamilyChange: (ExplorerFamily) -> Unit,
-    onQueryChange: (String) -> Unit,
-    onAxesChange: (AcademmuniconsAxes) -> Unit,
-    onOpenLegacyViews: (() -> Unit)?,
-) {
-    FontCatalogExplorer(
-        families = families,
-        selectedFamily = ExplorerFamily.Academmunicons,
-        query = query,
-        label = "Academmunicons",
-        searchHint = "Try orcid",
-        catalog = AcademmuniconsCatalog,
-        font = axes.font,
-        onFamilyChange = onFamilyChange,
-        onQueryChange = onQueryChange,
-        onOpenLegacyViews = onOpenLegacyViews,
-        options = { AcademmuniconsAxesCard(axes, onAxesChange) },
-    )
-}
-
-@Composable
-internal fun FontCatalogExplorer(
-    families: List<ExplorerFamily>,
+internal fun <T> VariableFontCatalogExplorer(
     selectedFamily: ExplorerFamily,
     query: String,
     label: String,
     searchHint: String,
-    catalog: List<DemoIcon>,
+    catalog: List<T>,
+    itemName: (T) -> String,
+    itemCodePoint: (T) -> Int,
     font: SymbolFont,
+    renderFont: SymbolFont = font,
+    fontSettings: SymbolFontSettings = SymbolFontSettings.Default,
+    defaultFontSettings: SymbolFontSettings = fontSettings,
+    onAxisValueChange: ((String, Float) -> Unit)? = null,
+    onAxesReset: (() -> Unit)? = null,
     onFamilyChange: (ExplorerFamily) -> Unit,
     onQueryChange: (String) -> Unit,
     onOpenLegacyViews: (() -> Unit)?,
-    options: @Composable () -> Unit = { StaticFontDescription(label) },
+    staticImageVector: (@Composable (T) -> ImageVector)? = null,
+    options: (@Composable () -> Unit)? = null,
 ) {
-    val fontFamily = rememberSymbolFontFamily(font)
+    // A matching static snapshot avoids loading the font until an axis changes.
+    val fontFamily = if (staticImageVector == null) {
+        rememberSymbolFontFamily(renderFont, fontSettings)
+    } else {
+        null
+    }
 
     ExplorerLayout(
-        families = families,
+        families = ExplorerFamily.entries,
         selectedFamily = selectedFamily,
         query = query,
         label = label,
         searchHint = searchHint,
         items = catalog,
-        itemName = DemoIcon::name,
-        icon = { icon ->
-            SymbolFontIcon(
-                codePoint = icon.codePoint,
-                fontFamily = fontFamily,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurface,
-                size = 26.dp,
-            )
+        itemName = itemName,
+        icon = { item ->
+            if (staticImageVector == null) {
+                SymbolFontIcon(
+                    codePoint = itemCodePoint(item),
+                    fontFamily = checkNotNull(fontFamily),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurface,
+                    size = 26.dp,
+                )
+            } else {
+                Icon(
+                    imageVector = staticImageVector(item),
+                    contentDescription = null,
+                    modifier = Modifier.size(26.dp),
+                    tint = MaterialTheme.colorScheme.onSurface,
+                )
+            }
         },
         onFamilyChange = onFamilyChange,
         onQueryChange = onQueryChange,
         onOpenLegacyViews = onOpenLegacyViews,
-        options = options,
+        options = {
+            FontOptions(
+                font = font,
+                label = label,
+                fontSettings = fontSettings,
+                defaultFontSettings = defaultFontSettings,
+                onAxisValueChange = onAxisValueChange,
+                onAxesReset = onAxesReset,
+                additionalOptions = options,
+            )
+        },
     )
 }
 
@@ -359,104 +271,83 @@ private fun ExplorerHeader(onOpenLegacyViews: (() -> Unit)?) {
 }
 
 @Composable
-private fun MaterialOptions(
+internal fun MaterialOptions(
     style: MaterialStyleOption,
-    axes: MaterialSymbolAxes,
     onStyleChange: (MaterialStyleOption) -> Unit,
-    onAxesChange: (MaterialSymbolAxes) -> Unit,
+) {
+    SecondaryTabRow(
+        selectedTabIndex = style.ordinal,
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        MaterialStyleOption.entries.forEach { candidate ->
+            Tab(
+                selected = style == candidate,
+                onClick = { onStyleChange(candidate) },
+                text = { Text(candidate.label) },
+            )
+        }
+    }
+}
+
+@Composable
+private fun FontOptions(
+    font: SymbolFont,
+    label: String,
+    fontSettings: SymbolFontSettings,
+    defaultFontSettings: SymbolFontSettings,
+    onAxisValueChange: ((String, Float) -> Unit)?,
+    onAxesReset: (() -> Unit)?,
+    additionalOptions: (@Composable () -> Unit)?,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-        SecondaryTabRow(
-            selectedTabIndex = style.ordinal,
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            MaterialStyleOption.entries.forEach { candidate ->
-                Tab(
-                    selected = style == candidate,
-                    onClick = { onStyleChange(candidate) },
-                    text = { Text(candidate.label) },
-                )
+        additionalOptions?.invoke()
+        when (font) {
+            is SymbolFont.Variable -> {
+                if (font.variationAxes.isNotEmpty()) {
+                    VariableAxesCard(
+                        axes = font.variationAxes,
+                        fontSettings = fontSettings,
+                        resetEnabled = fontSettings != defaultFontSettings,
+                        onReset = requireNotNull(onAxesReset) {
+                            "${font.familyName} requires an axis reset handler"
+                        },
+                        onAxisValueChange = requireNotNull(onAxisValueChange) {
+                            "${font.familyName} requires an axis change handler"
+                        },
+                    )
+                } else if (additionalOptions == null) {
+                    InfoCard(
+                        title = "Variable font",
+                        body = "$label does not embed axis metadata, so controls cannot be derived.",
+                    )
+                }
+            }
+
+            is SymbolFont.Regular -> {
+                if (additionalOptions == null) {
+                    InfoCard(
+                        title = "Static font",
+                        body = "$label defines no OpenType variation axes. Its complete bundled " +
+                            "catalog is available below.",
+                    )
+                }
             }
         }
-        MaterialAxesCard(axes, onAxesChange)
-    }
-}
-
-@Composable
-private fun MaterialAxesCard(
-    axes: MaterialSymbolAxes,
-    onAxesChange: (MaterialSymbolAxes) -> Unit,
-) {
-    VariableAxesCard(
-        resetEnabled = axes != MaterialSymbolAxes.Default,
-        onReset = { onAxesChange(MaterialSymbolAxes.Default) },
-    ) {
-        AxisControl(
-            label = "Fill",
-            valueLabel = "${(axes.fill * 100).roundToInt()}%",
-            value = axes.fill,
-            range = MaterialSymbolAxes.MinFill..MaterialSymbolAxes.MaxFill,
-            onValueChange = { onAxesChange(axes.copy(fill = it)) },
-        )
-        AxisControl(
-            label = "Weight",
-            valueLabel = axes.weight.toString(),
-            value = axes.weight.toFloat(),
-            range = MaterialSymbolAxes.MinWeight.toFloat()..
-                MaterialSymbolAxes.MaxWeight.toFloat(),
-            steps = 5,
-            onValueChange = { onAxesChange(axes.copy(weight = it.roundToInt())) },
-        )
-        AxisControl(
-            label = "Grade",
-            valueLabel = axes.grade.roundToInt().toString(),
-            value = axes.grade,
-            range = MaterialSymbolAxes.MinGrade..MaterialSymbolAxes.MaxGrade,
-            onValueChange = { onAxesChange(axes.copy(grade = it)) },
-        )
-        AxisControl(
-            label = "Optical",
-            valueLabel = axes.opticalSize.roundToInt().toString(),
-            value = axes.opticalSize,
-            range = MaterialSymbolAxes.MinOpticalSize..MaterialSymbolAxes.MaxOpticalSize,
-            onValueChange = { onAxesChange(axes.copy(opticalSize = it)) },
-        )
-    }
-}
-
-@Composable
-private fun AcademmuniconsAxesCard(
-    axes: AcademmuniconsAxes,
-    onAxesChange: (AcademmuniconsAxes) -> Unit,
-) {
-    VariableAxesCard(
-        resetEnabled = axes != AcademmuniconsAxes.Default,
-        onReset = { onAxesChange(AcademmuniconsAxes.Default) },
-    ) {
-        AxisControl(
-            label = "Frame",
-            valueLabel = "${(axes.frame * 100).roundToInt()}%",
-            value = axes.frame,
-            range = AcademmuniconsAxes.MinFrame..AcademmuniconsAxes.MaxFrame,
-            onValueChange = { onAxesChange(axes.copy(frame = it)) },
-        )
-        AxisControl(
-            label = "Weight",
-            valueLabel = axes.weight.roundToInt().toString(),
-            value = axes.weight,
-            range = AcademmuniconsAxes.MinWeight..AcademmuniconsAxes.MaxWeight,
-            steps = 13,
-            onValueChange = { onAxesChange(axes.copy(weight = it)) },
-        )
     }
 }
 
 @Composable
 private fun VariableAxesCard(
+    axes: List<SymbolFontAxis>,
+    fontSettings: SymbolFontSettings,
     resetEnabled: Boolean,
     onReset: () -> Unit,
-    content: @Composable ColumnScope.() -> Unit,
+    onAxisValueChange: (String, Float) -> Unit,
 ) {
+    val density = LocalDensity.current
+    val values = fontSettings.variationSettings.settings.associate {
+        it.axisName to it.toVariationValue(density)
+    }
     Card(modifier = Modifier.fillMaxWidth()) {
         Column(
             modifier = Modifier.padding(14.dp),
@@ -475,13 +366,50 @@ private fun VariableAxesCard(
                     Text("Reset")
                 }
             }
-            content()
+            axes.forEach { axis ->
+                val value = values[axis.tag] ?: axis.defaultValue
+                AxisControl(
+                    label = axis.label,
+                    valueLabel = axis.format(value),
+                    value = value,
+                    range = axis.minValue..axis.maxValue,
+                    onValueChange = { onAxisValueChange(axis.tag, it) },
+                )
+            }
         }
     }
 }
 
+internal fun MaterialSymbolAxes.withAxisValue(tag: String, value: Float): MaterialSymbolAxes =
+    when (tag) {
+        "FILL" -> copy(fill = value)
+        "GRAD" -> copy(grade = value)
+        "opsz" -> copy(opticalSize = value)
+        "wght" -> copy(weight = value.roundToInt())
+        else -> error("Unsupported Material Symbols axis: $tag")
+    }
+
+internal fun AcademmuniconsAxes.withAxisValue(tag: String, value: Float): AcademmuniconsAxes =
+    when (tag) {
+        "ital" -> copy(frame = value)
+        "wght" -> copy(weight = value)
+        else -> error("Unsupported Academmunicons axis: $tag")
+    }
+
+internal fun SymbolFontAxis.format(value: Float): String =
+    if (maxValue - minValue <= 1f) {
+        "${(value * 100).roundToInt()}%"
+    } else {
+        val rounded = (value * 10).roundToInt() / 10f
+        if (rounded == rounded.roundToInt().toFloat()) {
+            rounded.roundToInt().toString()
+        } else {
+            rounded.toString()
+        }
+    }
+
 @Composable
-private fun TablerOptions(
+internal fun TablerOptions(
     style: TablerStyle,
     stroke: TablerStroke,
     onStyleChange: (TablerStyle) -> Unit,
@@ -528,15 +456,6 @@ private fun TablerOptions(
             )
         }
     }
-}
-
-@Composable
-private fun StaticFontDescription(label: String) {
-    InfoCard(
-        title = "Static font",
-        body = "$label defines no OpenType variation axes. Its complete bundled catalog " +
-            "is available below.",
-    )
 }
 
 @Composable

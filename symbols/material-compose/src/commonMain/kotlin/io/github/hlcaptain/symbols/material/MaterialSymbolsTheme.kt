@@ -8,30 +8,30 @@ import androidx.compose.runtime.compositionLocalOf
 import io.github.hlcaptain.symbols.font.SymbolsTheme
 
 /** Material Symbols axes inherited by Material font adapters. */
-public val LocalMaterialSymbolAxes: ProvidableCompositionLocal<MaterialSymbolAxes> =
+val LocalMaterialSymbolAxes: ProvidableCompositionLocal<MaterialSymbolAxes> =
     compositionLocalOf { MaterialSymbolAxes.Default }
 
 /** Available styles for theme-selected, fixed-axis Material vectors. */
-public enum class MaterialSymbolStyle {
+enum class MaterialSymbolStyle {
     Outlined,
     Rounded,
     Sharp,
 }
 
 /** Material style inherited by theme-selected Material vector properties. */
-public val LocalMaterialSymbolStyle: ProvidableCompositionLocal<MaterialSymbolStyle> =
+val LocalMaterialSymbolStyle: ProvidableCompositionLocal<MaterialSymbolStyle> =
     compositionLocalOf { MaterialSymbolStyle.Outlined }
 
 /** Access to Material-specific values supplied by [MaterialSymbolsTheme]. */
-public object MaterialSymbolsTheme {
+object MaterialSymbolsTheme {
     /** The Material axes at the current position in the composition. */
-    public val axes: MaterialSymbolAxes
+    val axes: MaterialSymbolAxes
         @Composable
         @ReadOnlyComposable
         get() = LocalMaterialSymbolAxes.current
 
     /** The style used by composable `Icons.Themed.*` vector properties. */
-    public val style: MaterialSymbolStyle
+    val style: MaterialSymbolStyle
         @Composable
         @ReadOnlyComposable
         get() = LocalMaterialSymbolStyle.current
@@ -39,7 +39,7 @@ public object MaterialSymbolsTheme {
 
 /** Supplies [axes] to Material variable-font symbols in [content]. */
 @Composable
-public fun MaterialSymbolsTheme(
+fun MaterialSymbolsTheme(
     axes: MaterialSymbolAxes = MaterialSymbolsTheme.axes,
     content: @Composable () -> Unit,
 ) {
@@ -52,7 +52,7 @@ public fun MaterialSymbolsTheme(
 
 /** Supplies Material [style] and [axes], plus their generic font settings. */
 @Composable
-public fun MaterialSymbolsTheme(
+fun MaterialSymbolsTheme(
     style: MaterialSymbolStyle,
     axes: MaterialSymbolAxes = MaterialSymbolsTheme.axes,
     content: @Composable () -> Unit,

@@ -63,7 +63,7 @@ class SymbolFontContractTest {
     }
 
     @Test
-    fun variableFontsUseVariationSettingsAndUnmarkedFontsAreRejected() {
+    fun variableFontsUseVariationSettingsAndRejectUnsupportedPlatforms() {
         val settings = assertNotNull(
             symbolFontVariationSettings(
                 font = VariableFont,
@@ -72,13 +72,6 @@ class SymbolFontContractTest {
             ),
         )
         assertSame(HeavySettings.variationSettings, settings)
-        assertFailsWith<IllegalArgumentException> {
-            symbolFontVariationSettings(
-                font = UnmarkedFont,
-                fontSettings = HeavySettings,
-                variableFontsSupported = true,
-            )
-        }
         assertFailsWith<UnsupportedOperationException> {
             symbolFontVariationSettings(
                 font = VariableFont,
@@ -109,6 +102,25 @@ class SymbolFontContractTest {
     }
 
     @Test
+    fun variableFontsCanDescribeTheirAxesWithoutChangingCapabilityMarkers() {
+        assertEquals(emptyList(), VariableFont.variationAxes)
+        assertEquals("Weight", DescribedVariableFont.variationAxes.single().label)
+        assertEquals(100f, DescribedVariableFont.variationAxes.single().minValue)
+        assertFailsWith<IllegalArgumentException> {
+            SymbolFontAxis("weight", 100f, 400f, 700f)
+        }
+        assertFailsWith<IllegalArgumentException> {
+            SymbolFontAxis("wght", 500f, 400f, 700f)
+        }
+        assertFailsWith<IllegalArgumentException> {
+            SymbolFontAxis("wght", 100f, Float.NaN, 700f)
+        }
+        assertFailsWith<IllegalArgumentException> {
+            SymbolFontAxis("wght", 100f, 400f, 700f, " ")
+        }
+    }
+
+    @Test
     fun contradictoryCapabilityMarkersAreRejected() {
         assertFailsWith<IllegalArgumentException> {
             symbolFontVariationSettings(
@@ -126,19 +138,28 @@ class SymbolFontContractTest {
         assertFailsWith<IllegalArgumentException> { symbolFontText(0x110000) }
     }
 
-    private object RegularFont : SymbolRegularFont {
+    private object RegularFont : SymbolFont.Regular {
         override val familyName: String = "Regular"
         override val resource: FontResource
             get() = error("The contract test must not load a resource")
     }
 
-    private object VariableFont : SymbolVariableFont {
+    private object VariableFont : SymbolFont.Variable {
         override val familyName: String = "Variable"
         override val resource: FontResource
             get() = error("The contract test must not load a resource")
     }
 
-    private object ReorderedRegularFont : SymbolRegularFont {
+    private object DescribedVariableFont : SymbolFont.Variable {
+        override val familyName: String = "Described variable"
+        override val resource: FontResource
+            get() = error("The contract test must not load a resource")
+        override val variationAxes: List<SymbolFontAxis> = listOf(
+            SymbolFontAxis("wght", 100f, 400f, 700f, "Weight"),
+        )
+    }
+
+    private object ReorderedRegularFont : SymbolFont.Regular {
         override val familyName: String = "Reordered regular"
         override val resource: FontResource
             get() = error("The contract test must not load a resource")
@@ -150,13 +171,7 @@ class SymbolFontContractTest {
         )
     }
 
-    private object UnmarkedFont : SymbolFont {
-        override val familyName: String = "Unmarked"
-        override val resource: FontResource
-            get() = error("The contract test must not load a resource")
-    }
-
-    private object ContradictoryFont : SymbolRegularFont, SymbolVariableFont {
+    private object ContradictoryFont : SymbolFont.Regular, SymbolFont.Variable {
         override val familyName: String = "Contradictory"
         override val resource: FontResource
             get() = error("The contract test must not load a resource")

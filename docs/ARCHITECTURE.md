@@ -59,12 +59,17 @@ convenience constructor for `FontWeight` and `FontStyle`. `SymbolsTheme`
 supplies it through `LocalSymbolFontSettings`, and `rememberSymbolFontFamily`
 constructs the Compose `Font`.
 
-`SymbolVariableFont` states that a resource supports live coordinates.
-`SymbolRegularFont` states that a resource is baked at one immutable
-`fontSettings` point. An unmarked `SymbolFont`, or a font implementing both
-capability interfaces, is rejected. A regular font is loaded without
-`FontVariation.Settings`; requesting settings other than its declared point
-fails.
+`SymbolFont` is the sealed root of the runtime-font hierarchy. Its
+`SymbolFont.Variable` and `SymbolFont.Regular` children remain open interfaces so
+applications can provide descriptors from other modules. Code that implemented
+`SymbolFont` directly must migrate to exactly one child; implementing both
+capability interfaces remains invalid.
+
+`SymbolFont.Variable` states that a resource supports live coordinates and owns
+optional `variationAxes` metadata for UI discovery. `SymbolFont.Regular` states
+that a resource is baked at one immutable `fontSettings` point. A regular font
+is loaded without `FontVariation.Settings`; requesting settings other than its
+declared point fails.
 
 `SymbolFontIcon` renders one Unicode scalar through `BasicText`. Its layout box
 has an explicit square size, the private-use text is cleared from semantics,

@@ -32,11 +32,11 @@ implement this runtime contract.
 Expose it through the explicit variable-font contract:
 
 ```kotlin
-import io.github.hlcaptain.symbols.font.SymbolVariableFont
+import io.github.hlcaptain.symbols.font.SymbolFont
 import my.symbols.generated.resources.Res
 import my.symbols.generated.resources.my_symbols_variable
 
-object MySymbols : SymbolVariableFont {
+object MySymbols : SymbolFont.Variable {
     override val familyName = "My Symbols"
     override val resource = Res.font.my_symbols_variable
 }
@@ -137,17 +137,17 @@ selection used by built-in `Icons.Themed.*` properties.
 
 ## Package a regular font
 
-Use `SymbolRegularFont` for a font baked at one immutable point:
+Use `SymbolFont.Regular` for a font baked at one immutable point:
 
 ```kotlin
 import androidx.compose.ui.text.font.FontWeight
+import io.github.hlcaptain.symbols.font.SymbolFont
 import io.github.hlcaptain.symbols.font.SymbolFontIcon
 import io.github.hlcaptain.symbols.font.SymbolFontSettings
-import io.github.hlcaptain.symbols.font.SymbolRegularFont
 import my.symbols.generated.resources.Res
 import my.symbols.generated.resources.my_symbols_regular
 
-object MyRegularSymbols : SymbolRegularFont {
+object MyRegularSymbols : SymbolFont.Regular {
     override val familyName = "My Symbols"
     override val resource = Res.font.my_symbols_regular
     override val fontSettings = SymbolFontSettings(weight = FontWeight.Bold)
@@ -170,7 +170,7 @@ declared fixed `fontSettings`; pass that value explicitly or provide it through
 TAG=VALUE` can freeze any variable font at build time. Unspecified axes use the
 font's declared defaults, and the output contains no variation tables. A UI can
 select the regular resource at that exact settings value and switch to its
-`SymbolVariableFont` only after an axis changes, as the sample does.
+`SymbolFont.Variable` only after an axis changes, as the sample does.
 
 ## Generate outlines instead of shipping a font
 

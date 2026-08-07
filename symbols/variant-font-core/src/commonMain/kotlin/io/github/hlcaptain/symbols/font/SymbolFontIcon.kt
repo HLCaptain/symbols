@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 
 /** Renders [codePoint] from a regular or variable [font]. */
 @Composable
-public fun SymbolFontIcon(
+fun SymbolFontIcon(
     codePoint: Int,
     font: SymbolFont,
     contentDescription: String?,
@@ -48,7 +48,7 @@ public fun SymbolFontIcon(
 
 /** Renders [codePoint] with a caller-owned [fontFamily]. */
 @Composable
-public fun SymbolFontIcon(
+fun SymbolFontIcon(
     codePoint: Int,
     fontFamily: FontFamily,
     contentDescription: String?,
@@ -93,7 +93,7 @@ public fun SymbolFontIcon(
 }
 
 /** Encodes one Unicode scalar value as symbol-font text. */
-public fun symbolFontText(codePoint: Int): String {
+fun symbolFontText(codePoint: Int): String {
     require(
         codePoint in 0..0x10FFFF &&
             codePoint !in 0xD800..0xDFFF

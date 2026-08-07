@@ -7,13 +7,13 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.compositionLocalOf
 
 /** Settings inherited by regular and variable symbol-font renderers. */
-public val LocalSymbolFontSettings: ProvidableCompositionLocal<SymbolFontSettings> =
+val LocalSymbolFontSettings: ProvidableCompositionLocal<SymbolFontSettings> =
     compositionLocalOf { SymbolFontSettings.Default }
 
 /** Access to generic symbol-font values supplied by [SymbolsTheme]. */
-public object SymbolsTheme {
+object SymbolsTheme {
     /** The font settings at the current position in the composition. */
-    public val fontSettings: SymbolFontSettings
+    val fontSettings: SymbolFontSettings
         @Composable
         @ReadOnlyComposable
         get() = LocalSymbolFontSettings.current
@@ -21,7 +21,7 @@ public object SymbolsTheme {
 
 /** Supplies [fontSettings] to regular and variable symbol fonts in [content]. */
 @Composable
-public fun SymbolsTheme(
+fun SymbolsTheme(
     fontSettings: SymbolFontSettings = SymbolsTheme.fontSettings,
     content: @Composable () -> Unit,
 ) {

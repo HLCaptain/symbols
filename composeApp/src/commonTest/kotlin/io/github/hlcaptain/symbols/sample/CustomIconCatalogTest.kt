@@ -3,9 +3,14 @@ package io.github.hlcaptain.symbols.sample
 import androidx.compose.ui.text.font.FontVariation
 import io.github.hlcaptain.symbols.font.SymbolFontSettings
 import io.github.hlcaptain.symbols.material.MaterialSymbolAxes
+import io.github.hlcaptain.symbols.material.outlined.MaterialSymbolsOutlined
+import io.github.hlcaptain.symbols.material.rounded.MaterialSymbolsRounded
+import io.github.hlcaptain.symbols.material.sharp.MaterialSymbolsSharp
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertFailsWith
+import kotlin.test.assertTrue
 
 class CustomIconCatalogTest {
     @Test
@@ -33,6 +38,10 @@ class CustomIconCatalogTest {
             ),
             TablerStroke.entries.map { it.familyName },
         )
+        TablerStroke.entries.forEach { stroke ->
+            assertEquals(stroke, TablerStyle.Outline.font(stroke))
+            assertEquals(TablerFilled, TablerStyle.Filled.font(stroke))
+        }
     }
 
     @Test
@@ -61,6 +70,32 @@ class CustomIconCatalogTest {
     }
 
     @Test
+    fun fontDescriptorsDriveTheAvailableAxisControls() {
+        listOf(
+            MaterialSymbolsOutlined,
+            MaterialSymbolsRounded,
+            MaterialSymbolsSharp,
+        ).forEach { font ->
+            assertEquals(
+                listOf("FILL", "wght", "GRAD", "opsz"),
+                font.variationAxes.map { it.tag },
+            )
+        }
+        assertEquals(listOf("ital", "wght"), AcademmuniconsVariable.variationAxes.map { it.tag })
+        assertEquals("Frame", AcademmuniconsVariable.variationAxes.first().label)
+        assertEquals(100f, AcademmuniconsVariable.variationAxes.last().defaultValue)
+
+        assertEquals(
+            MaterialSymbolAxes.Default.copy(weight = 550),
+            MaterialSymbolAxes.Default.withAxisValue("wght", 550f),
+        )
+        assertEquals(
+            AcademmuniconsAxes.Default.copy(frame = 0.5f),
+            AcademmuniconsAxes.Default.withAxisValue("ital", 0.5f),
+        )
+    }
+
+    @Test
     fun explorerUsesOneFontSettingsValueForEveryFamily() {
         val materialAxes = MaterialSymbolAxes(fill = 1f, weight = 700)
         val academmuniconsAxes = AcademmuniconsAxes(frame = 0.75f, weight = 650f)
@@ -77,15 +112,48 @@ class CustomIconCatalogTest {
             ).fontSettings,
         )
         listOf(
-            ExplorerSettings(family = ExplorerFamily.FontAwesome),
-            ExplorerSettings(family = ExplorerFamily.Powerline),
+            ExplorerSettings(family = ExplorerFamily.FontAwesome) to
+                FontAwesomeRegular.fontSettings,
+            ExplorerSettings(family = ExplorerFamily.Powerline) to
+                PowerlineRegular.fontSettings,
             ExplorerSettings(
                 family = ExplorerFamily.Tabler,
                 tablerStyle = TablerStyle.Filled,
                 tablerStroke = TablerStroke.Thin,
+            ) to TablerFilled.fontSettings,
+        ).forEach { (settings, expected) ->
+            assertEquals(expected, settings.fontSettings)
+        }
+    }
+
+    @Test
+    fun sealedFamiliesPreserveTabOrderAndLabels() {
+        assertEquals(
+            listOf(
+                ExplorerFamily.Material,
+                ExplorerFamily.FontAwesome,
+                ExplorerFamily.Tabler,
+                ExplorerFamily.Powerline,
+                ExplorerFamily.Academmunicons,
             ),
-        ).forEach { settings ->
-            assertEquals(SymbolFontSettings.Default, settings.fontSettings)
+            ExplorerFamily.entries,
+        )
+        assertEquals(
+            listOf("Material", "Awesome", "Tabler", "Powerline", "Academic"),
+            ExplorerFamily.entries.map { it.tabLabel },
+        )
+    }
+
+    @Test
+    fun materialUsesThemedVectorsOnlyForTheDefaultAxisSnapshot() {
+        assertTrue(usesThemedImageVectors(MaterialSymbolAxes.Default))
+        listOf(
+            MaterialSymbolAxes.Default.copy(fill = 1f),
+            MaterialSymbolAxes.Default.copy(weight = 500),
+            MaterialSymbolAxes.Default.copy(grade = 100f),
+            MaterialSymbolAxes.Default.copy(opticalSize = 48f),
+        ).forEach { axes ->
+            assertFalse(usesThemedImageVectors(axes))
         }
     }
 }

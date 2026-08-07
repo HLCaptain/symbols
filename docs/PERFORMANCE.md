@@ -68,7 +68,7 @@ symbols.forEach { symbol ->
 The reusable family and capability APIs live in
 `io.github.hlcaptain.symbols.font`. `SymbolsRuntime.variableFontsSupported`
 reports whether the current platform can apply variable-font settings; on
-Android API 21–25, use a `SymbolRegularFont` or generated vector/drawable
+Android API 21–25, use a `SymbolFont.Regular` or generated vector/drawable
 instead. Material's `axes.fontSettings` adapts its four axes to the generic
 `SymbolFontSettings` contract. `MaterialSymbolsTheme` supplies those generic
 settings automatically inside its content.

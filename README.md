@@ -297,20 +297,20 @@ must change without regenerating a fixed vector.
 ### Custom runtime fonts
 
 The generic APIs live in `io.github.hlcaptain.symbols.font`. A custom variable
-font implements `SymbolVariableFont`; `SymbolFontSettings` accepts Compose's
+font implements `SymbolFont.Variable`; `SymbolFontSettings` accepts Compose's
 native `FontVariation.Settings`, so each font can use its own four-character
 OpenType axis tags and values:
 
 ```kotlin
 import androidx.compose.ui.text.font.FontVariation
+import io.github.hlcaptain.symbols.font.SymbolFont
 import io.github.hlcaptain.symbols.font.SymbolFontIcon
 import io.github.hlcaptain.symbols.font.SymbolFontSettings
-import io.github.hlcaptain.symbols.font.SymbolVariableFont
 import io.github.hlcaptain.symbols.font.SymbolsTheme
 import my.symbols.generated.resources.Res
 import my.symbols.generated.resources.my_symbols_variable
 
-object MySymbols : SymbolVariableFont {
+object MySymbols : SymbolFont.Variable {
     override val familyName = "My Symbols"
     override val resource = Res.font.my_symbols_variable
 }
@@ -332,9 +332,19 @@ SymbolsTheme(
 }
 ```
 
+`SymbolFont` is the sealed root of the runtime-font contract. Applications
+extend its open `SymbolFont.Variable` or `SymbolFont.Regular` interface rather
+than implementing the root directly; existing direct implementations should
+migrate to the matching interface. A descriptor must not implement both.
+
+`SymbolFont.Variable` can also override `variationAxes` with `SymbolFontAxis`
+values copied from the font's `fvar` table. Common UI can then derive its
+controls without a platform font parser. An empty list means the metadata was
+not embedded and does not change the variable-font capability.
+
 `SymbolFontIcon` removes the private-use glyph from semantics and exposes only a
 supplied, localized description. Use `contentDescription = null` for a
-decorative icon. A `SymbolRegularFont` declares one fixed `fontSettings` point;
+decorative icon. A `SymbolFont.Regular` declares one fixed `fontSettings` point;
 it renders on Android API 21 and rejects other requested settings.
 
 Variable-font APIs start on Android API 26. Check

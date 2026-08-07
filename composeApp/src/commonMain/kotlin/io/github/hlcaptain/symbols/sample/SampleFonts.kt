@@ -4,9 +4,8 @@ package io.github.hlcaptain.symbols.sample
 
 import androidx.compose.ui.text.font.FontVariation
 import io.github.hlcaptain.symbols.font.SymbolFont
+import io.github.hlcaptain.symbols.font.SymbolFontAxis
 import io.github.hlcaptain.symbols.font.SymbolFontSettings
-import io.github.hlcaptain.symbols.font.SymbolRegularFont
-import io.github.hlcaptain.symbols.font.SymbolVariableFont
 import org.jetbrains.compose.resources.FontResource
 import org.jetbrains.compose.resources.InternalResourceApi
 import org.jetbrains.compose.resources.ResourceItem
@@ -20,9 +19,13 @@ private fun sampleFontResource(fileName: String): FontResource = FontResource(
     setOf(ResourceItem(emptySet(), SampleResourceRoot + fileName, -1, -1)),
 )
 
-internal object AcademmuniconsVariable : SymbolVariableFont {
+internal object AcademmuniconsVariable : SymbolFont.Variable {
     override val familyName: String = "Academmunicons"
     override val resource: FontResource = sampleFontResource("academmunicons_variable.ttf")
+    override val variationAxes: List<SymbolFontAxis> = listOf(
+        SymbolFontAxis("ital", 0f, 0f, 1f, "Frame"),
+        SymbolFontAxis("wght", 100f, 100f, 800f, "Weight"),
+    )
 }
 
 internal data class AcademmuniconsAxes(
@@ -58,23 +61,23 @@ internal data class AcademmuniconsAxes(
     }
 }
 
-internal object AcademmuniconsRegular : SymbolRegularFont {
+internal object AcademmuniconsRegular : SymbolFont.Regular {
     override val familyName: String = "Symbols Academic Icons"
     override val resource: FontResource = sampleFontResource("academmunicons_regular.ttf")
     override val fontSettings: SymbolFontSettings = AcademmuniconsAxes.Default.fontSettings
 }
 
-internal object FontAwesomeRegular : SymbolRegularFont {
+internal object FontAwesomeRegular : SymbolFont.Regular {
     override val familyName: String = "Font Awesome Free Solid"
     override val resource: FontResource = sampleFontResource("font_awesome_free_solid.ttf")
 }
 
-internal object PowerlineRegular : SymbolRegularFont {
+internal object PowerlineRegular : SymbolFont.Regular {
     override val familyName: String = "Powerline Symbols"
     override val resource: FontResource = sampleFontResource("powerline_symbols.otf")
 }
 
-internal object TablerFilled : SymbolRegularFont {
+internal object TablerFilled : SymbolFont.Regular {
     override val familyName: String = "Tabler Icons Filled"
     override val resource: FontResource = sampleFontResource("tabler_icons_filled.ttf")
 }
@@ -82,13 +85,19 @@ internal object TablerFilled : SymbolRegularFont {
 internal enum class TablerStyle(val label: String) {
     Outline("Outline"),
     Filled("Filled"),
+    ;
+
+    fun font(stroke: TablerStroke): SymbolFont.Regular = when (this) {
+        Outline -> stroke
+        Filled -> TablerFilled
+    }
 }
 
 internal enum class TablerStroke(
     val value: Float,
     val label: String,
     override val resource: FontResource,
-) : SymbolRegularFont {
+) : SymbolFont.Regular {
     Thin(1f, "1 px", sampleFontResource("tabler_icons_outline_1.ttf")),
     Light(1.5f, "1.5 px", sampleFontResource("tabler_icons_outline_1_5.ttf")),
     Default(2f, "2 px", sampleFontResource("tabler_icons_outline_2.ttf")),

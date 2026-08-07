@@ -9,28 +9,28 @@ import kotlin.jvm.JvmInline
  * Generated properties such as `Symbols.Rounded.Check` retain their visual
  * style in the Kotlin type while exposing the shared [MaterialSymbol].
  */
-public object Symbols {
+object Symbols {
     /** Material Symbols Outlined font glyphs. */
-    public object Outlined
+    object Outlined
 
     /** Material Symbols Rounded font glyphs. */
-    public object Rounded
+    object Rounded
 
     /** Material Symbols Sharp font glyphs. */
-    public object Sharp
+    object Sharp
 }
 
 /** An allocation-free, style-typed Outlined font glyph. */
 @Immutable
 @JvmInline
-public value class OutlinedMaterialSymbol(public val symbol: MaterialSymbol)
+value class OutlinedMaterialSymbol(val symbol: MaterialSymbol)
 
 /** An allocation-free, style-typed Rounded font glyph. */
 @Immutable
 @JvmInline
-public value class RoundedMaterialSymbol(public val symbol: MaterialSymbol)
+value class RoundedMaterialSymbol(val symbol: MaterialSymbol)
 
 /** An allocation-free, style-typed Sharp font glyph. */
 @Immutable
 @JvmInline
-public value class SharpMaterialSymbol(public val symbol: MaterialSymbol)
+value class SharpMaterialSymbol(val symbol: MaterialSymbol)

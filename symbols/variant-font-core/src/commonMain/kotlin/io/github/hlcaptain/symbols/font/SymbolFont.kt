@@ -13,50 +13,84 @@ import org.jetbrains.compose.resources.Font as resourceFont
 
 /** A reusable point in an arbitrary OpenType variable-font design space. */
 @Immutable
-public data class SymbolFontSettings(
-    public val variationSettings: FontVariation.Settings,
+data class SymbolFontSettings(
+    val variationSettings: FontVariation.Settings,
 ) {
     /** Creates settings for Compose's standard weight and style axes. */
-    public constructor(
+    constructor(
         weight: FontWeight = FontWeight.Normal,
         style: FontStyle = FontStyle.Normal,
     ) : this(FontVariation.Settings(weight, style))
 
-    public companion object {
+    companion object {
         /** The normal, upright font instance. */
-        public val Default: SymbolFontSettings = SymbolFontSettings()
+        val Default: SymbolFontSettings = SymbolFontSettings()
     }
 }
 
-/** A symbol font backed by one Compose Multiplatform font resource. */
+/** One user-adjustable OpenType variation axis exposed by a [SymbolFont.Variable]. */
 @Immutable
-public interface SymbolFont {
-    public val familyName: String
-
-    public val resource: FontResource
+data class SymbolFontAxis(
+    val tag: String,
+    val minValue: Float,
+    val defaultValue: Float,
+    val maxValue: Float,
+    val label: String = tag,
+) {
+    init {
+        require(tag.length == 4 && tag.all { it.code in 0x20..0x7E }) {
+            "tag must contain exactly four printable ASCII characters, but was '$tag'"
+        }
+        require(
+            minValue.isFinite() &&
+                defaultValue.isFinite() &&
+                maxValue.isFinite() &&
+                minValue <= defaultValue &&
+                defaultValue <= maxValue,
+        ) {
+            "axis $tag must have finite min <= default <= max values"
+        }
+        require(label.isNotBlank()) { "axis $tag label must not be blank" }
+    }
 }
 
-/** A [SymbolFont] whose OpenType variation coordinates can change at runtime. */
+/**
+ * A symbol font backed by one Compose Multiplatform font resource.
+ *
+ * Implement [SymbolFont.Variable] or [SymbolFont.Regular] to add a font descriptor.
+ */
 @Immutable
-public interface SymbolVariableFont : SymbolFont
+sealed interface SymbolFont {
+    val familyName: String
 
-/** A non-variable [SymbolFont] baked at one fixed [fontSettings] point. */
-@Immutable
-public interface SymbolRegularFont : SymbolFont {
-    public val fontSettings: SymbolFontSettings
-        get() = SymbolFontSettings.Default
+    val resource: FontResource
+
+    /** A [SymbolFont] whose OpenType variation coordinates can change at runtime. */
+    @Immutable
+    interface Variable : SymbolFont {
+        /** Axis metadata embedded for UI discovery; empty when it is unavailable. */
+        val variationAxes: List<SymbolFontAxis>
+            get() = emptyList()
+    }
+
+    /** A non-variable [SymbolFont] baked at one fixed [fontSettings] point. */
+    @Immutable
+    interface Regular : SymbolFont {
+        val fontSettings: SymbolFontSettings
+            get() = SymbolFontSettings.Default
+    }
 }
 
 /** Runtime capabilities relevant to variable symbol fonts. */
-public object SymbolsRuntime {
+object SymbolsRuntime {
     /** Whether this platform can apply OpenType variation settings at runtime. */
-    public val variableFontsSupported: Boolean
+    val variableFontsSupported: Boolean
         get() = platformSupportsVariableFonts()
 }
 
 /** Loads and remembers [font] at [fontSettings]. */
 @Composable
-public fun rememberSymbolFontFamily(
+fun rememberSymbolFontFamily(
     font: SymbolFont,
     fontSettings: SymbolFontSettings = SymbolsTheme.fontSettings,
 ): FontFamily {
@@ -79,30 +113,30 @@ internal fun symbolFontVariationSettings(
     fontSettings: SymbolFontSettings,
     variableFontsSupported: Boolean,
 ): FontVariation.Settings? {
-    require(font is SymbolRegularFont || font is SymbolVariableFont) {
-        "${font.familyName} must implement SymbolRegularFont or SymbolVariableFont"
-    }
-    require(font !is SymbolRegularFont || font !is SymbolVariableFont) {
+    require(font !is SymbolFont.Regular || font !is SymbolFont.Variable) {
         "${font.familyName} cannot be both a regular and a variable font"
     }
 
-    if (font is SymbolRegularFont) {
-        require(fontSettings.isEquivalentTo(font.fontSettings)) {
-            "${font.familyName} is a regular font fixed at ${font.fontSettings}, " +
-                "but $fontSettings was requested"
+    return when (font) {
+        is SymbolFont.Regular -> {
+            require(fontSettings.isEquivalentTo(font.fontSettings)) {
+                "${font.familyName} is a regular font fixed at ${font.fontSettings}, " +
+                    "but $fontSettings was requested"
+            }
+            null
         }
-        return null
-    }
 
-    if (!variableFontsSupported) {
-        throw UnsupportedOperationException(
-            "Variable fonts require Android API 26 or newer. Use a " +
-                "SymbolRegularFont or a generated vector/drawable on Android " +
-                "API 21–25.",
-        )
+        is SymbolFont.Variable -> {
+            if (!variableFontsSupported) {
+                throw UnsupportedOperationException(
+                    "Variable fonts require Android API 26 or newer. Use a " +
+                        "SymbolFont.Regular or a generated vector/drawable on Android " +
+                        "API 21–25.",
+                )
+            }
+            fontSettings.variationSettings
+        }
     }
-
-    return fontSettings.variationSettings
 }
 
 private fun SymbolFontSettings.isEquivalentTo(other: SymbolFontSettings): Boolean =

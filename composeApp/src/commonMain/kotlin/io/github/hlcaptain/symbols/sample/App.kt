@@ -34,6 +34,7 @@ import io.github.hlcaptain.symbols.font.SymbolFontIcon
 import io.github.hlcaptain.symbols.font.SymbolFontSettings
 import io.github.hlcaptain.symbols.font.SymbolsRuntime
 import io.github.hlcaptain.symbols.font.SymbolsTheme
+import io.github.hlcaptain.symbols.material.MaterialSymbol
 import io.github.hlcaptain.symbols.material.MaterialSymbolAxes
 import io.github.hlcaptain.symbols.material.MaterialSymbolStyle
 import io.github.hlcaptain.symbols.material.MaterialSymbols
@@ -43,6 +44,7 @@ import io.github.hlcaptain.symbols.material.outlined.MaterialSymbolsOutlined
 import io.github.hlcaptain.symbols.material.rounded.MaterialSymbolsRounded
 import io.github.hlcaptain.symbols.material.rounded.staticfont.MaterialSymbolsRoundedStatic
 import io.github.hlcaptain.symbols.material.sharp.MaterialSymbolsSharp
+import io.github.hlcaptain.symbols.material.vectors.themed.asThemedImageVector
 import io.github.hlcaptain.symbols.sample.generated.AppIcons
 import io.github.hlcaptain.symbols.sample.generated.fontawesome.FontAwesomeIcons
 import io.github.hlcaptain.symbols.sample.generated.fontawesome.solid.CircleCheck
@@ -53,8 +55,9 @@ import io.github.hlcaptain.symbols.sample.generated.tabler.filled.Alien
 import io.github.hlcaptain.symbols.sample.generated.tabler.outline.Sparkles
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+@Preview(name = "Material themed vectors")
 @Composable
-public fun App() {
+fun App() {
     App(onOpenLegacyViews = null)
 }
 
@@ -104,72 +107,146 @@ private fun SymbolExplorerRoot(
     }
 
     SymbolsTheme(fontSettings = settings.fontSettings) {
-        when (settings.family) {
-            ExplorerFamily.Material -> MaterialSymbolsTheme(
-                style = settings.materialStyle.style,
-                axes = settings.axes,
-            ) {
-                MaterialCatalogExplorer(
-                    families = ExplorerFamily.entries,
-                    query = settings.query,
-                    style = settings.materialStyle,
-                    axes = settings.axes,
-                    onFamilyChange = onFamilyChange,
-                    onQueryChange = onQueryChange,
-                    onStyleChange = { settings = settings.copy(materialStyle = it) },
-                    onAxesChange = { settings = settings.copy(axes = it) },
-                    onOpenLegacyViews = onOpenLegacyViews,
-                )
-            }
+        ExplorerContent(
+            family = settings.family,
+            settings = settings,
+            onSettingsChange = { settings = it },
+            onFamilyChange = onFamilyChange,
+            onQueryChange = onQueryChange,
+            onOpenLegacyViews = onOpenLegacyViews,
+        )
+    }
+}
 
-            ExplorerFamily.FontAwesome -> FontCatalogExplorer(
-                families = ExplorerFamily.entries,
-                selectedFamily = settings.family,
+@Composable
+private fun ExplorerContent(
+    family: ExplorerFamily,
+    settings: ExplorerSettings,
+    onSettingsChange: (ExplorerSettings) -> Unit,
+    onFamilyChange: (ExplorerFamily) -> Unit,
+    onQueryChange: (String) -> Unit,
+    onOpenLegacyViews: (() -> Unit)?,
+) {
+    when (family) {
+        ExplorerFamily.Material -> MaterialSymbolsTheme(
+            style = settings.materialStyleOption.style,
+            axes = settings.axes,
+        ) {
+            VariableFontCatalogExplorer(
+                selectedFamily = family,
                 query = settings.query,
-                label = "Font Awesome",
-                searchHint = "Try face_smile",
-                catalog = FontAwesomeCatalog,
-                font = FontAwesomeRegular,
+                label = family.label,
+                searchHint = "Try account_circle",
+                catalog = MaterialSymbols.all,
+                itemName = MaterialSymbol::name,
+                itemCodePoint = MaterialSymbol::codePoint,
+                font = settings.materialStyleOption.font,
+                fontSettings = settings.axes.fontSettings,
+                defaultFontSettings = MaterialSymbolAxes.Default.fontSettings,
+                onAxisValueChange = { tag, value ->
+                    onSettingsChange(
+                        settings.copy(axes = settings.axes.withAxisValue(tag, value)),
+                    )
+                },
+                onAxesReset = {
+                    onSettingsChange(settings.copy(axes = MaterialSymbolAxes.Default))
+                },
                 onFamilyChange = onFamilyChange,
                 onQueryChange = onQueryChange,
                 onOpenLegacyViews = onOpenLegacyViews,
-            )
-
-            ExplorerFamily.Tabler -> TablerCatalogExplorer(
-                families = ExplorerFamily.entries,
-                query = settings.query,
-                style = settings.tablerStyle,
-                stroke = settings.tablerStroke,
-                onFamilyChange = onFamilyChange,
-                onQueryChange = onQueryChange,
-                onStyleChange = { settings = settings.copy(tablerStyle = it) },
-                onStrokeChange = { settings = settings.copy(tablerStroke = it) },
-                onOpenLegacyViews = onOpenLegacyViews,
-            )
-
-            ExplorerFamily.Powerline -> FontCatalogExplorer(
-                families = ExplorerFamily.entries,
-                selectedFamily = settings.family,
-                query = settings.query,
-                label = "Powerline",
-                searchHint = "Try branch",
-                catalog = PowerlineCatalog,
-                font = PowerlineRegular,
-                onFamilyChange = onFamilyChange,
-                onQueryChange = onQueryChange,
-                onOpenLegacyViews = onOpenLegacyViews,
-            )
-
-            ExplorerFamily.Academmunicons -> AcademmuniconsCatalogExplorer(
-                families = ExplorerFamily.entries,
-                query = settings.query,
-                axes = settings.academmuniconsAxes,
-                onFamilyChange = onFamilyChange,
-                onQueryChange = onQueryChange,
-                onAxesChange = { settings = settings.copy(academmuniconsAxes = it) },
-                onOpenLegacyViews = onOpenLegacyViews,
+                staticImageVector = if (usesThemedImageVectors(settings.axes)) {
+                    { symbol -> symbol.asThemedImageVector() }
+                } else {
+                    null
+                },
+                options = {
+                    MaterialOptions(
+                        style = settings.materialStyleOption,
+                        onStyleChange = {
+                            onSettingsChange(settings.copy(materialStyleOption = it))
+                        },
+                    )
+                },
             )
         }
+
+        ExplorerFamily.Tabler -> {
+            val font = settings.tablerStyle.font(settings.tablerStroke)
+            val catalog = when (settings.tablerStyle) {
+                TablerStyle.Outline -> TablerOutlineCatalog
+                TablerStyle.Filled -> TablerFilledCatalog
+            }
+            VariableFontCatalogExplorer(
+                selectedFamily = family,
+                query = settings.query,
+                label = "Tabler ${settings.tablerStyle.label}",
+                searchHint = "Try sparkles",
+                catalog = catalog,
+                itemName = DemoIcon::name,
+                itemCodePoint = DemoIcon::codePoint,
+                font = font,
+                fontSettings = font.fontSettings,
+                onFamilyChange = onFamilyChange,
+                onQueryChange = onQueryChange,
+                onOpenLegacyViews = onOpenLegacyViews,
+                options = {
+                    TablerOptions(
+                        style = settings.tablerStyle,
+                        stroke = settings.tablerStroke,
+                        onStyleChange = {
+                            onSettingsChange(settings.copy(tablerStyle = it))
+                        },
+                        onStrokeChange = {
+                            onSettingsChange(settings.copy(tablerStroke = it))
+                        },
+                    )
+                },
+            )
+        }
+
+        ExplorerFamily.Academmunicons -> VariableFontCatalogExplorer(
+            selectedFamily = family,
+            query = settings.query,
+            label = family.label,
+            searchHint = "Try orcid",
+            catalog = AcademmuniconsCatalog,
+            itemName = DemoIcon::name,
+            itemCodePoint = DemoIcon::codePoint,
+            font = AcademmuniconsVariable,
+            renderFont = settings.academmuniconsAxes.font,
+            fontSettings = settings.academmuniconsAxes.fontSettings,
+            defaultFontSettings = AcademmuniconsAxes.Default.fontSettings,
+            onAxisValueChange = { tag, value ->
+                onSettingsChange(
+                    settings.copy(
+                        academmuniconsAxes = settings.academmuniconsAxes.withAxisValue(tag, value),
+                    ),
+                )
+            },
+            onAxesReset = {
+                onSettingsChange(
+                    settings.copy(academmuniconsAxes = AcademmuniconsAxes.Default),
+                )
+            },
+            onFamilyChange = onFamilyChange,
+            onQueryChange = onQueryChange,
+            onOpenLegacyViews = onOpenLegacyViews,
+        )
+
+        is ExplorerFamily.RegularCatalog -> VariableFontCatalogExplorer(
+            selectedFamily = family,
+            query = settings.query,
+            label = family.catalogLabel,
+            searchHint = family.searchHint,
+            catalog = family.catalog(),
+            itemName = DemoIcon::name,
+            itemCodePoint = DemoIcon::codePoint,
+            font = family.font,
+            fontSettings = family.font.fontSettings,
+            onFamilyChange = onFamilyChange,
+            onQueryChange = onQueryChange,
+            onOpenLegacyViews = onOpenLegacyViews,
+        )
     }
 }
 
@@ -294,17 +371,66 @@ internal fun LegacyViewsButton(onOpenLegacyViews: (() -> Unit)?) {
     }
 }
 
-internal enum class ExplorerFamily(val label: String, val tabLabel: String) {
-    Material("Material Symbols", "Material"),
-    FontAwesome("Font Awesome", "Awesome"),
-    Tabler("Tabler Icons", "Tabler"),
-    Powerline("Powerline Symbols", "Powerline"),
-    Academmunicons("Academmunicons", "Academic"),
+internal sealed class ExplorerFamily(
+    val label: String,
+    val tabLabel: String,
+) {
+    abstract fun fontSettings(settings: ExplorerSettings): SymbolFontSettings
+
+    data object Material : ExplorerFamily("Material Symbols", "Material") {
+        override fun fontSettings(settings: ExplorerSettings): SymbolFontSettings =
+            settings.axes.fontSettings
+    }
+
+    data object FontAwesome : RegularCatalog(
+        label = "Font Awesome",
+        tabLabel = "Awesome",
+        searchHint = "Try face_smile",
+        catalog = { FontAwesomeCatalog },
+        font = FontAwesomeRegular,
+    )
+
+    data object Tabler : ExplorerFamily("Tabler Icons", "Tabler") {
+        override fun fontSettings(settings: ExplorerSettings): SymbolFontSettings =
+            settings.tablerStyle.font(settings.tablerStroke).fontSettings
+    }
+
+    data object Powerline : RegularCatalog(
+        label = "Powerline Symbols",
+        tabLabel = "Powerline",
+        catalogLabel = "Powerline",
+        searchHint = "Try branch",
+        catalog = { PowerlineCatalog },
+        font = PowerlineRegular,
+    )
+
+    data object Academmunicons : ExplorerFamily("Academmunicons", "Academic") {
+        override fun fontSettings(settings: ExplorerSettings): SymbolFontSettings =
+            settings.academmuniconsAxes.fontSettings
+    }
+
+    sealed class RegularCatalog(
+        label: String,
+        tabLabel: String,
+        val catalogLabel: String = label,
+        val searchHint: String,
+        val catalog: () -> List<DemoIcon>,
+        val font: SymbolFont.Regular,
+    ) : ExplorerFamily(label, tabLabel) {
+        final override fun fontSettings(settings: ExplorerSettings): SymbolFontSettings =
+            font.fontSettings
+    }
+
+    companion object {
+        val entries: List<ExplorerFamily> by lazy {
+            listOf(Material, FontAwesome, Tabler, Powerline, Academmunicons)
+        }
+    }
 }
 
 internal enum class MaterialStyleOption(
     val label: String,
-    val font: SymbolFont,
+    val font: SymbolFont.Variable,
     val style: MaterialSymbolStyle,
 ) {
     Outlined("Outlined", MaterialSymbolsOutlined, MaterialSymbolStyle.Outlined),
@@ -315,19 +441,15 @@ internal enum class MaterialStyleOption(
 internal data class ExplorerSettings(
     val family: ExplorerFamily = ExplorerFamily.Material,
     val query: String = "",
-    val materialStyle: MaterialStyleOption = MaterialStyleOption.Outlined,
+    val materialStyleOption: MaterialStyleOption = MaterialStyleOption.Outlined,
     val axes: MaterialSymbolAxes = MaterialSymbolAxes.Default,
     val tablerStyle: TablerStyle = TablerStyle.Outline,
     val tablerStroke: TablerStroke = TablerStroke.Default,
     val academmuniconsAxes: AcademmuniconsAxes = AcademmuniconsAxes.Default,
 ) {
     val fontSettings: SymbolFontSettings
-        get() = when (family) {
-            ExplorerFamily.Material -> axes.fontSettings
-            ExplorerFamily.Academmunicons -> academmuniconsAxes.fontSettings
-            ExplorerFamily.FontAwesome,
-            ExplorerFamily.Tabler,
-            ExplorerFamily.Powerline,
-            -> SymbolFontSettings.Default
-        }
+        get() = family.fontSettings(this)
 }
+
+internal fun usesThemedImageVectors(axes: MaterialSymbolAxes): Boolean =
+    axes == MaterialSymbolAxes.Default

@@ -16,6 +16,11 @@ artifacts are released.
   keeping `MaterialSymbolsTheme` as the Material axes/style adapter. Reorganized
   the README around migration from `material-icons-extended`, standard Compose
   `Icon`, and Android Views/XML before the advanced font renderer.
+- Sealed the `SymbolFont` root while keeping `SymbolFont.Regular` and
+  `SymbolFont.Variable` open as its nested extension interfaces. Direct root
+  implementations must migrate to exactly one of them; implementing both
+  remains invalid. Variable-font axis metadata now lives on
+  `SymbolFont.Variable`.
 - Font-generation codepoint maps now belong to each style. The Gradle plugin
   generates all entries by default, derives a package name, and discovers fonts
   in conventional Android and Compose resource directories.
@@ -34,10 +39,10 @@ artifacts are released.
   deterministically instantiated at the default axes.
 - Fill, weight, grade, and optical-size axis support plus accessible and
   optionally auto-mirrored font rendering.
-- Reusable `SymbolFont`, `SymbolRegularFont`, `SymbolVariableFont`,
-  `SymbolFontSettings`, `SymbolFontIcon`, `rememberSymbolFontFamily`,
-  `SymbolsTheme`, and `SymbolsRuntime` APIs for arbitrary Compose Multiplatform
-  symbol fonts.
+- Reusable `SymbolFont`, `SymbolFontAxis`, `SymbolFont.Regular`,
+  `SymbolFont.Variable`, `SymbolFontSettings`, `SymbolFontIcon`,
+  `rememberSymbolFontFamily`, `SymbolsTheme`, and `SymbolsRuntime` APIs for
+  arbitrary Compose Multiplatform symbol fonts.
 - Style-typed `Symbols.{Style}.{Name}` font APIs, shared
   `Icons.{Style}.{Name}` vector APIs, and inherited Material axes/style through
   `MaterialSymbolsTheme`.

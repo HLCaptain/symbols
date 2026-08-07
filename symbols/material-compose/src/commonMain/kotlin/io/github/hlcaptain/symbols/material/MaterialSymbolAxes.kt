@@ -2,6 +2,7 @@ package io.github.hlcaptain.symbols.material
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.text.font.FontVariation
+import io.github.hlcaptain.symbols.font.SymbolFontAxis
 import io.github.hlcaptain.symbols.font.SymbolFontSettings
 
 /**
@@ -10,11 +11,11 @@ import io.github.hlcaptain.symbols.font.SymbolFontSettings
  * The ranges come from the bundled Material Symbols 2.874 variable fonts.
  */
 @Immutable
-public data class MaterialSymbolAxes(
-    public val fill: Float = DefaultFill,
-    public val weight: Int = DefaultWeight,
-    public val grade: Float = DefaultGrade,
-    public val opticalSize: Float = DefaultOpticalSize,
+data class MaterialSymbolAxes(
+    val fill: Float = DefaultFill,
+    val weight: Int = DefaultWeight,
+    val grade: Float = DefaultGrade,
+    val opticalSize: Float = DefaultOpticalSize,
 ) {
     init {
         require(fill.isFinite() && fill in MinFill..MaxFill) {
@@ -32,7 +33,7 @@ public data class MaterialSymbolAxes(
     }
 
     /** These Material coordinates as generic symbol-font settings. */
-    public val fontSettings: SymbolFontSettings =
+    val fontSettings: SymbolFontSettings =
         SymbolFontSettings(
             variationSettings = FontVariation.Settings(
                 FontVariation.Setting("FILL", fill),
@@ -42,24 +43,44 @@ public data class MaterialSymbolAxes(
             ),
         )
 
-    public companion object {
+    companion object {
         /** The immutable default point used by Material Symbols fonts and themes. */
-        public val Default: MaterialSymbolAxes = MaterialSymbolAxes()
+        val Default: MaterialSymbolAxes = MaterialSymbolAxes()
 
-        public const val MinFill: Float = 0f
-        public const val DefaultFill: Float = 0f
-        public const val MaxFill: Float = 1f
+        const val MinFill: Float = 0f
+        const val DefaultFill: Float = 0f
+        const val MaxFill: Float = 1f
 
-        public const val MinWeight: Int = 100
-        public const val DefaultWeight: Int = 400
-        public const val MaxWeight: Int = 700
+        const val MinWeight: Int = 100
+        const val DefaultWeight: Int = 400
+        const val MaxWeight: Int = 700
 
-        public const val MinGrade: Float = -50f
-        public const val DefaultGrade: Float = 0f
-        public const val MaxGrade: Float = 200f
+        const val MinGrade: Float = -50f
+        const val DefaultGrade: Float = 0f
+        const val MaxGrade: Float = 200f
 
-        public const val MinOpticalSize: Float = 20f
-        public const val DefaultOpticalSize: Float = 24f
-        public const val MaxOpticalSize: Float = 48f
+        const val MinOpticalSize: Float = 20f
+        const val DefaultOpticalSize: Float = 24f
+        const val MaxOpticalSize: Float = 48f
+
+        /** Axis metadata embedded by every bundled Material variable font. */
+        val VariationAxes: List<SymbolFontAxis> = listOf(
+            SymbolFontAxis("FILL", MinFill, DefaultFill, MaxFill, "Fill"),
+            SymbolFontAxis(
+                "wght",
+                MinWeight.toFloat(),
+                DefaultWeight.toFloat(),
+                MaxWeight.toFloat(),
+                "Weight",
+            ),
+            SymbolFontAxis("GRAD", MinGrade, DefaultGrade, MaxGrade, "Grade"),
+            SymbolFontAxis(
+                "opsz",
+                MinOpticalSize,
+                DefaultOpticalSize,
+                MaxOpticalSize,
+                "Optical",
+            ),
+        )
     }
 }
