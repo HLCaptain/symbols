@@ -170,7 +170,7 @@ jobs:
 
       - name: Compile every library and bundle the web sample
         env:
-          NODE_OPTIONS: --max-old-space-size=6144
+          NODE_OPTIONS: --max-old-space-size=8192
         run: >-
           ./gradlew
           compileKotlinJs
