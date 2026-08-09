@@ -169,6 +169,8 @@ jobs:
           cache-read-only: true
 
       - name: Compile every library and bundle the web sample
+        env:
+          NODE_OPTIONS: --max-old-space-size=6144
         run: >-
           ./gradlew
           compileKotlinJs
