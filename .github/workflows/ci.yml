@@ -177,7 +177,7 @@ jobs:
           compileKotlinWasmJs
           :composeApp:jsBrowserProductionWebpack
           :composeApp:wasmJsBrowserProductionWebpack
-          -Dorg.gradle.jvmargs="-Xmx6144M -Dfile.encoding=UTF-8"
+          -Dorg.gradle.jvmargs="-Xmx8192M -Dfile.encoding=UTF-8"
           -Pkotlin.compiler.execution.strategy=in-process
           --max-workers=1
           --no-daemon
