@@ -24,9 +24,20 @@ artifacts are released.
 - Font-generation codepoint maps now belong to each style. The Gradle plugin
   generates all entries by default, derives a package name, and discovers fonts
   in conventional Android and Compose resource directories.
-- Updated the supported Gradle 8, Kotlin 2.2, Compose 1.9, Android API 21, and
-  JVM 11 dependency lines, and enabled JDK 17 toolchain provisioning in the
-  included tooling build.
+- Runtime font descriptors and visible variable-axis metadata are generated
+  from Compose font resources. Material modules keep Compose's `Res` API
+  internal by default. Configured font roots are packaged through the plugin's
+  single generated Compose resource directory.
+- Split the interactive sample into a Material 3 edge-to-edge launcher, shared
+  API/UI modules and eight focused multiplatform features. Koin collects one
+  metadata-rich `SampleItem` per feature; a sealed navigation-entry hierarchy
+  gives the launcher one renderer, and Android Views now run inline through
+  Compose-View interop. Generated BuildConfig constants expose feature paths.
+- Updated the supported Gradle 8, AGP 8.13, Kotlin 2.3, Compose 1.11, Android
+  API 21, and JVM 11 dependency lines, and enabled JDK 17 toolchain provisioning
+  in the included tooling build. Compose 1.11 removes the iOS x64 target while
+  retaining iOS arm64 device and simulator variants. Launcher previews now use
+  AndroidX Preview annotations and tooling artifacts.
 
 ### Added
 
@@ -54,16 +65,18 @@ artifacts are released.
 - A cacheable Gradle plugin that converts selected regular or variable font
   glyphs into typed `ImageVector`, native Android drawable, and Compose drawable
   output.
-- Runnable complete-catalog Font Awesome, Tabler, and Academmunicons samples,
-  including Tabler Outline/Filled styles, 1/1.5/2 px static strokes, live
-  Academmunicons custom axes with a regular-first default, provider-metadata
-  normalization, and configurable font-outline placement.
-- A common-source Interactive Preview that renders the same live Material and
-  custom fonts and variable-axis controls as the running sample.
+- Focused samples for static and variable Material fonts, regular and variable
+  custom build-time vectors, side-by-side `material-icons-extended` and Android
+  XML migration, generated custom-font painters, independent theme inheritance,
+  and animated live runtime axes with matching sliders.
+- A standard Material 3 common-source sample list, top app bar, and back button
+  shared by the launcher and feature modules.
 - A reproducible Android fixture that verifies typed-vector removal by
   full-mode R8 and unused-resource removal by the Android resource shrinker.
 - Deterministic catalog/namespace/static-font/vector generators, build-time SVG
   stroke-width baking, and strict pinned font and provenance verification.
+- Cacheable runtime catalog generation into the build directory from checked-in
+  manifests, without provider-specific generation scripts.
 - Android, JVM, JS, Wasm, and iOS publication targets, an interactive
   multiplatform sample, CI/release automation, and open-source project
   governance.

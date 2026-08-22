@@ -1,27 +1,27 @@
-# External icon-font samples
+# External icon-font fixtures
 
-These pinned fonts are runtime resources for the sample app's complete,
-searchable catalogs. Font Awesome and Tabler are also build inputs for its
-generated-vector examples.
+This directory retains pinned provider manifests, licenses, and binary
+reference fixtures for generator and provenance review. Font Awesome and Tabler
+binaries remain under provider-specific `composeResources/font` roots, but no
+launcher module depends on them. The runnable Powerline and Academmunicons
+binaries moved to their focused modules under `samples/`; their canonical
+manifests and licenses remain here.
 
 The generator uses one canonical `<snake_case_name> <hex_code_point>` manifest.
 That file shape is not an icon-font standard: each complete manifest below was
 normalized from the upstream project's own metadata.
 
-| Set | Manifest coverage | Upstream mapping | Normalization |
-| --- | ---: | --- | --- |
-| Font Awesome Free Solid 6.7.2 | 1,966 names / 1,402 glyphs | `metadata/icons.yml` | canonical and alias-name hyphens become underscores |
-| Tabler Icons Outline 3.46.0 | 5,193 names / 5,130 glyphs | CSS `content` declarations | class names lose `ti-` and hyphens become underscores |
-| Tabler Icons Filled 3.46.0 | 1,057 names / 1,054 glyphs | CSS `content` declarations | class names lose `ti-` and hyphens become underscores |
-| Powerline Symbols 2.8.4 | 8 names / 8 glyphs | documented assignments and the font `cmap` | descriptive snake-case names |
-| Academmunicons 200415 | 50 semantic icons | recommended PUA `cmap` entries | upstream glyph names are retained |
+| Set | Manifest coverage | Current role |
+| --- | ---: | --- |
+| Font Awesome Free Solid 6.7.2 | 1,966 names / 1,402 glyphs | Complete YAML-normalized provider fixture |
+| Tabler Icons Outline 3.46.0 | 5,193 names / 5,130 glyphs | Complete CSS-normalized provider fixture with three static strokes |
+| Tabler Icons Filled 3.46.0 | 1,057 names / 1,054 glyphs | Complete CSS-normalized provider fixture |
+| Powerline Symbols 2.8.4 | 8 names / 8 glyphs | Canonical manifest/license; runnable copy in `samples/custom-static` |
+| Academmunicons 200415 | 50 semantic icons | Canonical manifest/license and static derivative; runnable variable copy in `samples/custom-variable` |
 
-The sample app calls `include(...)` for only three Font Awesome/Tabler
-generated-vector examples per style. Every complete manifest is rendered lazily
-from its packaged font, avoiding thousands of generated vector builders.
-Academmunicons starts on a regular instance baked at `ital=0,wght=400`; changing
-either coordinate switches to its genuine variable font through the same
-generic settings API as Material Symbols.
+The launcher does not generate complete runtime catalog lists from these
+manifests. The focused custom modules generate a small typed vector surface;
+the generic runtime-catalog task remains covered by tooling tests.
 
 Other common distributions are equivalent in purpose but not syntax:
 [Bootstrap Icons](https://github.com/twbs/icons/blob/v1.13.1/font/bootstrap-icons.json)
@@ -52,10 +52,14 @@ contract stable.
 - Tabler Icons Filled is the unmodified `dist/fonts/tabler-icons-filled.ttf`
   from the official `@tabler/icons-webfont` `3.46.0` npm package, SHA-256
   `e1aa44d701709565e8b33b6ccbf9dc7f78e0b435defb50a47c1c0cb162c1cab6`.
-- Powerline Symbols is the unmodified `font/PowerlineSymbols.otf` from revision
+- Powerline Symbols at
+  `samples/custom-static/src/commonMain/composeResources/font/powerline_symbols.otf`
+  is the unmodified `font/PowerlineSymbols.otf` from revision
   `51570938d4a558578fa3512a4b546584530e23c1` (tag `2.8.4`), SHA-256
   `4a2496a009b1649878ce067a7ec2aed9f79656c90136971e1dba00766515f7a1`.
-- Academmunicons Variable is the unmodified
+- Academmunicons Variable at
+  `samples/custom-variable/src/commonMain/composeResources/font/academmunicons_variable.ttf`
+  is the unmodified
   `fonts/Variable-TT/Academmunicons-VF.ttf`
   from revision `6ae78e1c8831765fb5e6c4a276675a4f4e12ab73` (version `200415`),
   SHA-256
@@ -67,5 +71,6 @@ contract stable.
   SHA-256
   `8c89d561295874ccf575d4d5d128247cd40e25979ae0ae0307a525388edf77cf`.
 
-The corresponding upstream license is retained beside each font. See the
+Canonical provider licenses remain under `fonts/samples`; byte-identical
+Powerline and Academmunicons copies accompany their runnable modules. See the
 repository's `THIRD_PARTY_NOTICES.md` for links and redistribution details.

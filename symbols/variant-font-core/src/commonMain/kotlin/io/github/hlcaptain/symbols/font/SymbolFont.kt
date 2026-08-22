@@ -65,12 +65,37 @@ sealed interface SymbolFont {
 
     val resource: FontResource
 
+    companion object {
+        /** Creates a regular symbol-font descriptor. */
+        fun regular(
+            familyName: String,
+            resource: FontResource,
+            fontSettings: SymbolFontSettings = SymbolFontSettings.Default,
+        ): Regular = RegularSymbolFont(familyName, resource, fontSettings)
+
+        /** Creates a variable symbol-font descriptor from generated axis metadata. */
+        fun variable(
+            familyName: String,
+            resource: FontResource,
+            variationAxes: List<SymbolFontAxis>,
+        ): Variable {
+            require(variationAxes.map(SymbolFontAxis::tag).distinct().size == variationAxes.size) {
+                "$familyName contains duplicate variation-axis tags"
+            }
+            return VariableSymbolFont(familyName, resource, variationAxes.toList())
+        }
+    }
+
     /** A [SymbolFont] whose OpenType variation coordinates can change at runtime. */
     @Immutable
     interface Variable : SymbolFont {
         /** Axis metadata embedded for UI discovery; empty when it is unavailable. */
         val variationAxes: List<SymbolFontAxis>
             get() = emptyList()
+
+        /** Settings at the defaults embedded in this font. */
+        val defaultFontSettings: SymbolFontSettings
+            get() = fontSettings()
     }
 
     /** A non-variable [SymbolFont] baked at one fixed [fontSettings] point. */
@@ -80,6 +105,64 @@ sealed interface SymbolFont {
             get() = SymbolFontSettings.Default
     }
 }
+
+/** Resolves this font at [axisValues], using embedded defaults when omitted. */
+fun SymbolFont.fontSettings(
+    axisValues: Map<String, Float> = emptyMap(),
+): SymbolFontSettings {
+    require(this !is SymbolFont.Regular || this !is SymbolFont.Variable) {
+        "$familyName cannot be both a regular and a variable font"
+    }
+    return when (this) {
+        is SymbolFont.Regular -> {
+            require(axisValues.isEmpty()) {
+                "$familyName is a regular font and defines no variation axes"
+            }
+            fontSettings
+        }
+
+        is SymbolFont.Variable -> {
+            val axesByTag = variationAxes.associateBy(SymbolFontAxis::tag)
+            require(axesByTag.size == variationAxes.size) {
+                "$familyName contains duplicate variation-axis tags"
+            }
+            val unknownTags = axisValues.keys - axesByTag.keys
+            require(unknownTags.isEmpty()) {
+                "$familyName does not define axes: " + unknownTags.sorted().joinToString()
+            }
+            axisValues.forEach { (tag, value) ->
+                val axis = axesByTag.getValue(tag)
+                require(value.isFinite() && value in axis.minValue..axis.maxValue) {
+                    "$tag=$value is outside ${axis.minValue}..${axis.maxValue} in $familyName"
+                }
+            }
+            SymbolFontSettings(
+                FontVariation.Settings(
+                    *variationAxes.map { axis ->
+                        FontVariation.Setting(
+                            axis.tag,
+                            axisValues[axis.tag] ?: axis.defaultValue,
+                        )
+                    }.toTypedArray(),
+                ),
+            )
+        }
+    }
+}
+
+@Immutable
+private data class RegularSymbolFont(
+    override val familyName: String,
+    override val resource: FontResource,
+    override val fontSettings: SymbolFontSettings,
+) : SymbolFont.Regular
+
+@Immutable
+private data class VariableSymbolFont(
+    override val familyName: String,
+    override val resource: FontResource,
+    override val variationAxes: List<SymbolFontAxis>,
+) : SymbolFont.Variable
 
 /** Runtime capabilities relevant to variable symbol fonts. */
 object SymbolsRuntime {

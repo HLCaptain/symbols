@@ -85,10 +85,13 @@ home e9b2
 This is the plugin's canonical interchange format, not an industry standard.
 OpenType's `cmap` identifies code points but does not provide stable semantic
 API names. Providers commonly publish those names in CSS, YAML, or JSON; convert
-that metadata once into a checked-in manifest. The runnable sample provides
-complete normalized Font Awesome and Tabler manifests under
-[`fonts/samples`](../fonts/samples/README.md), while `include(...)` limits the
-generated demo output.
+that metadata once into a checked-in manifest. The repository retains complete
+normalized Font Awesome and Tabler manifests and binaries under
+[`fonts/samples`](../fonts/samples/README.md) as pinned generator/provenance
+fixtures; the launcher does not package their complete catalogs. The focused
+[`custom-static`](../samples/custom-static/build.gradle.kts) and
+[`custom-variable`](../samples/custom-variable/build.gradle.kts) modules
+demonstrate build-time Powerline and Academmunicons vector generation.
 
 Configure one codepoint map per font style:
 
@@ -150,9 +153,12 @@ Optional settings include `packageName`, `rootName`, `fontIndex`,
 unique code points per Kotlin file.
 
 The default outline transform maps one font em into the smaller viewport
-dimension, starts at `originX = 0`, and places the baseline at the viewport
-bottom. Fonts with different ascent, descent, or side-bearing conventions can
-set `emSize`, `originX`, and `baselineY` explicitly:
+dimension, starts at `originX = 0`, and places the font baseline at the viewport
+bottom (`baselineY = viewportHeight`). Normally omit all three values. Skia
+returns baseline-relative, y-down paths, so `baselineY` is the translation that
+puts `y = 0` at the output baseline; it is not a Compose layout baseline and has
+no runtime effect. Set it only when an upstream font's metrics otherwise clip or
+misalign the whole style:
 
 ```kotlin
 style("Regular") {
@@ -167,6 +173,52 @@ style("Regular") {
 These are one transform per style, not automatic per-glyph fitting. Choose a
 consistent upstream font face or split incompatible metrics into separate
 styles.
+
+## Generate runtime font descriptors
+
+The same plugin can inspect packaged Compose font resources and generate
+regular or variable `SymbolFont` descriptors:
+
+```kotlin
+symbolFonts {
+    composeFontResources.from(
+        layout.projectDirectory.dir("src/commonMain/composeResources"),
+    )
+}
+```
+
+Each configured root must contain direct `font/*.ttf`, `*.otf`, or `*.ttc`
+files. Compose keeps its conventional source root; the plugin merges any other
+configured roots into one generated Compose resource directory. Do not register
+the same external root again with `customDirectory`. The cacheable
+`generateSymbolFontDescriptors` task emits
+`Res.symbolFonts.<normalized_file_name>` into common Kotlin. Variable fonts get
+their visible axis ranges and defaults from `fvar`; static fonts become regular
+descriptors. Configuring a root makes Compose generate `Res` even when its
+resources dependency is transitive. Descriptor visibility follows Compose
+Resources' `publicResClass`, whose default is internal.
+
+File names follow Compose's hyphen-to-underscore normalization. Qualifier
+subdirectories are not scanned, and TTC input currently reads face zero.
+
+## Generate runtime catalogs
+
+Runtime font browsers can generate compact name/codepoint data without
+extracting outlines or checking in a large source file:
+
+```kotlin
+symbolFonts {
+    catalogPackageName.set("com.example.sample")
+    catalog("MySymbolsCatalog") {
+        codepoints.set(layout.projectDirectory.file("icons/my-symbols.codepoints"))
+    }
+}
+```
+
+The cacheable `generateSymbolCatalogs` task writes `SymbolCatalogEntry` and the
+named `List<SymbolCatalogEntry>` to `build/generated/symbolFonts/catalogs` and
+wires it into common source. Catalog generation always reads the complete
+manifest and is independent from an icon set's vector `include(...)` selection.
 
 ## Consume the outputs
 
@@ -204,6 +256,33 @@ The plugin wires:
 - native vector XML into every Android variant through the Android Components
   generated-resources API; and
 - Compose XML into a generated `commonMain` custom resource directory.
+
+## Generated output locations
+
+Every file created by a normal Gradle generation task stays below the owning
+module's `build` directory:
+
+| Output | Directory below the module |
+| --- | --- |
+| Typed icon namespace | `build/generated/symbolFonts/<set>/namespace/kotlin` |
+| `ImageVector` sources | `build/generated/symbolFonts/<set>/<style>/kotlin` |
+| Android vector XML | `build/generated/symbolFonts/<set>/<style>/androidRes` |
+| Compose drawable XML | `build/generated/symbolFonts/<set>/<style>/composeResources` |
+| Runtime font descriptors | `build/generated/symbolFonts/fontDescriptors/kotlin` |
+| Runtime catalogs | `build/generated/symbolFonts/catalogs/kotlin` |
+| Merged Compose inputs | `build/generated/symbolFonts/composeResources` |
+
+These directories are task outputs: `clean` removes them, the next relevant
+build recreates them, and they must not be edited or committed. Compose and AGP
+may copy those files into other intermediate paths under `build`; those copies
+remain disposable too.
+
+The checked-in Material vector/source packs and regular font instances are a
+different boundary: they are reviewed publication snapshots produced by an
+explicit maintainer workflow. Normal consumer builds do not regenerate them or
+require Python/FontTools. Their provenance and verification commands are
+documented in [architecture](ARCHITECTURE.md#determinism-and-trust-boundaries)
+and [third-party notices](../THIRD_PARTY_NOTICES.md).
 
 ## Shrinking and size control
 

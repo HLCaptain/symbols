@@ -153,18 +153,27 @@ generated `ImageVector`, Android XML, and Compose XML outputs are fixed snapshot
 at those coordinates and do not read `SymbolsTheme` or `MaterialSymbolsTheme` at
 runtime.
 
+For runtime Compose fonts, the plugin separately scans configured resource
+roots and emits `Res.symbolFonts` descriptors. It reads variable-axis metadata
+at build time, so common code can build controls and validated settings without
+a platform font parser or handwritten per-font axis declarations. A separate
+manifest-only task can emit runtime `SymbolCatalogEntry` lists without loading
+fonts or coupling full catalogs to vector selection.
+
 See [build-time font conversion](GENERATOR.md) for the DSL and resource names.
 
 ## Resource and publication boundaries
 
-Kotlin Multiplatform runtime modules publish Android, JVM, JS, Wasm, iOS x64,
-iOS arm64, and iOS simulator arm64 variants. The native drawable packs are
+Kotlin Multiplatform runtime modules publish Android, JVM, JS, Wasm, iOS arm64,
+and iOS simulator arm64 variants. Compose Multiplatform 1.11 no longer
+publishes Apple x86_64 artifacts. The native drawable packs are
 Android-only AARs. `material-core` contains the catalog and has no Compose
 dependency. `symbols-variant-font-core` contains the generic font contracts,
 settings theme, renderer, and platform capability check; it has no Material
 catalog or bundled font. `material-compose` depends on both and adds the Material
 catalog adapters and Material style/axes theme. Variable and regular style
-modules expose their `FontResource` through those adapters. Fixed vector modules
+modules keep Compose's generated `Res` class internal and expose font resources
+only through the public `MaterialSymbols*` adapters. Fixed vector modules
 depend on `material-core` and Compose UI but not on a font; the themed vector
 module adds Material composition-local style selection over all three packs.
 Drawable AARs contain only generated Android XML resources. Build-time tooling
@@ -178,6 +187,74 @@ without duplicate-entry collisions. Font artifacts retain only their own style
 and variable/regular TTF, so selecting Outlined does not silently bundle Rounded
 or Sharp, and selecting a variable font does not silently add its regular
 instance.
+
+## Build conventions
+
+The `build-logic` included build owns configuration that is identical across
+library modules. Convention plugins are exposed through the main version
+catalog, so module build files compose aliases and keep module-specific settings
+such as namespaces, public dependency surfaces, resource packages, and
+generator inputs.
+
+| Convention | Shared responsibility |
+| --- | --- |
+| `libs.plugins.symbolsKotlinMultiplatformLibrary` | Android/JVM/JS/Wasm/iOS library targets, JDK 17, JVM 11 bytecode, Android SDK levels, hierarchy, and `kotlin-test` |
+| `libs.plugins.symbolsComposeMultiplatformLibrary` | The base multiplatform convention plus Compose Multiplatform and its compiler plugin |
+| `libs.plugins.symbolsKmpPublishing` | Maven publication and the Android release variant for a multiplatform library |
+| `libs.plugins.symbolsMaterialFontLibrary` | Published Compose convention plus the Material Compose API and Compose resources used by all six font artifacts |
+| `libs.plugins.symbolsMaterialVectorLibrary` | Published base convention plus explicit API, Material catalog, and Compose UI used by the three fixed vector packs |
+| `libs.plugins.symbolsPublishedAndroidLibrary` | Android library defaults and a release sources/publication pair for the three drawable packs |
+| `libs.plugins.symbolsSampleFeature` | Compose convention, Android minSdk 23, Koin compiler/dependencies, sample UI/API dependencies, and `SampleBuildConfig.MODULE_PATH` |
+
+Application-only behavior remains local: `composeApp` owns executable web
+targets and iOS frameworks, the shrink benchmark owns its build types, and the
+separate `tooling` included build owns its JVM/plugin setup. Semantic namespaces,
+generator DSL inputs, Compose resource packages, and module-specific API
+dependencies likewise stay visible in the consuming module rather than being
+derived from Gradle paths. The root build script retains repository-wide
+coordinates, POM/signing/legal-archive policy, repositories, and publication
+archive verification.
+
+## Sample modules
+
+`composeApp` is only the multiplatform launcher. Each common feature module
+owns the dependency and input needed for its example and contributes one
+qualified `SampleItem` from an annotated Koin `@Module @Configuration`;
+feature modules have no runtime dependencies on each other:
+
+```text
+composeApp
+├── samples/api
+├── samples/ui/components
+├── samples/material-static
+├── samples/material-variable
+├── samples/custom-static
+├── samples/custom-variable
+├── samples/image-vector-migration
+├── samples/theming
+├── samples/runtime-axes
+└── samples/android-views
+```
+
+The Koin compiler discovers those feature modules for the launcher's typed
+`@KoinApplication`. The API module defines the sealed `SampleEntry` root and
+its `SampleList` and `SampleItem` subclasses. The launcher resolves all items
+with Koin `getAll`, keeps a typed `SampleEntry` back stack, and renders every
+destination through one polymorphic `NavEntry`. The Android Views item has one
+common Compose root; Android embeds the legacy hierarchy through `AndroidView`,
+and other targets show an unavailable message inside the same route. A Material 3
+`Scaffold` owns system-bar insets and its top app bar owns back navigation, so
+content applies the scaffold padding exactly once. The shared UI module has no
+Symbols dependency.
+
+The sample-feature convention layers its feature dependencies and BuildConfig
+field over the shared Compose convention. BuildConfig generates
+`SampleBuildConfig.MODULE_PATH` from `project.path` in each module, keeping
+Gradle paths out of source. Build-created files live only under each module's
+`build/generated` directory. The Koin compiler transforms Kotlin IR and
+therefore emits no visible generated source or resource files.
+See the [sample module map](../samples/README.md) for targets, output paths, and
+run commands.
 
 ## Determinism and trust boundaries
 

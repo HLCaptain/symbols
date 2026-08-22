@@ -1,16 +1,3 @@
 <resources>
     <string name="app_name">Symbols</string>
-    <string name="legacy_views_title">Generated drawables in Android Views</string>
-    <string name="plain_xml_label">Plain XML android:src</string>
-    <string name="context_drawable_label">Context.getDrawable()</string>
-    <string name="view_binding_label">View Binding and setImageResource()</string>
-    <string name="find_view_by_id_label">findViewById()</string>
-    <string name="data_binding_label">Data Binding drawable expression</string>
-    <string name="custom_view_label">Custom ImageView attribute</string>
-    <string name="compound_drawable_label">TextView compound drawable</string>
-    <string name="home_icon_description">Home</string>
-    <string name="search_icon_description">Search</string>
-    <string name="check_icon_description">Check</string>
-    <string name="settings_icon_description">Settings</string>
-    <string name="favorite_icon_description">Favorite</string>
 </resources>

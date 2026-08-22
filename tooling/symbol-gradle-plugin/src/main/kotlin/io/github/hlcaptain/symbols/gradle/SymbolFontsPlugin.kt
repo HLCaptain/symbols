@@ -31,6 +31,24 @@ public class SymbolFontsPlugin : Plugin<Project> {
             "symbolFonts",
             SymbolFontsExtension::class.java,
         )
+        val catalogs = project.registerCatalogsTask(extension)
+        var catalogsWired = false
+        extension.catalogs.all {
+            if (!catalogsWired) {
+                project.wireGeneratedKotlin(
+                    catalogs.flatMap { task -> task.outputDirectory },
+                )
+                catalogsWired = true
+            }
+        }
+        val fontDescriptors = project.registerFontDescriptorsTask(
+            extension = extension,
+            generatorClasspath = generatorClasspath,
+        )
+        project.wireGeneratedKotlin(
+            fontDescriptors.flatMap { task -> task.outputDirectory },
+        )
+        project.wireFontDescriptorResourceSettings(fontDescriptors, extension)
         var androidProject = false
         project.plugins.withId("com.android.application") {
             androidProject = true
@@ -39,21 +57,36 @@ public class SymbolFontsPlugin : Plugin<Project> {
             androidProject = true
         }
         val derivedNames = DerivedNameRegistry()
+        val conventionalComposeResources = project.layout.projectDirectory
+            .dir("src/commonMain/composeResources")
+            .asFile
+            .toPath()
+            .toAbsolutePath()
+            .normalize()
         val composeResources = project.tasks.register(
             "mergeGeneratedSymbolComposeResources",
             MergeSymbolComposeResources::class.java,
         ) { task ->
             task.group = "symbol fonts"
             task.description =
-                "Merges generated symbol drawables into one Compose resource root."
+                "Merges symbol fonts and generated drawables into one Compose resource root."
+            task.inputDirectories.from(
+                project.layout.projectDirectory.dir("src/commonMain/composeResources"),
+            )
+            task.inputDirectories.from(
+                extension.composeFontResources.filter { directory ->
+                    directory.toPath().toAbsolutePath().normalize() !=
+                        conventionalComposeResources
+                },
+            )
             task.outputDirectory.convention(
                 project.layout.buildDirectory.dir(
                     "generated/symbolFonts/composeResources",
                 ),
             )
         }
+        project.wireComposeResources(composeResources)
 
-        var composeResourcesWired = false
         extension.iconSets.all { iconSet ->
             derivedNames.claimNamespace(iconSet.name)
             val namespaceTask = project.registerNamespaceTask(iconSet)
@@ -63,10 +96,6 @@ public class SymbolFontsPlugin : Plugin<Project> {
             iconSet.styles.all { style ->
                 namespaceTask.configure { task ->
                     task.styleNames.add(style.name)
-                }
-                if (!composeResourcesWired) {
-                    project.wireComposeResources(composeResources)
-                    composeResourcesWired = true
                 }
                 derivedNames.claimStyle(iconSet.name, style.name)
                 style.resourcePrefix.convention(
@@ -105,6 +134,92 @@ public class SymbolFontsPlugin : Plugin<Project> {
         }
     }
 }
+
+private fun Project.registerCatalogsTask(
+    extension: SymbolFontsExtension,
+): TaskProvider<GenerateSymbolCatalogsTask> {
+    val task = tasks.register(
+        "generateSymbolCatalogs",
+        GenerateSymbolCatalogsTask::class.java,
+    ) { catalogs ->
+        catalogs.group = "symbol fonts"
+        catalogs.description =
+            "Generates runtime symbol catalogs from codepoint manifests."
+        catalogs.packageName.set(extension.catalogPackageName)
+        catalogs.catalogs.convention(emptyList())
+        catalogs.outputDirectory.convention(
+            layout.buildDirectory.dir("generated/symbolFonts/catalogs/kotlin"),
+        )
+    }
+    extension.catalogs.all { catalog ->
+        task.configure { catalogs ->
+            catalogs.catalogs.add(catalog)
+        }
+    }
+    return task
+}
+
+private fun Project.registerFontDescriptorsTask(
+    extension: SymbolFontsExtension,
+    generatorClasspath: FileCollection,
+): TaskProvider<GenerateSymbolFontDescriptorsTask> = tasks.register(
+    "generateSymbolFontDescriptors",
+    GenerateSymbolFontDescriptorsTask::class.java,
+) { task ->
+    task.group = "symbol fonts"
+    task.description = "Generates typed descriptors for Compose font resources."
+    task.generatorClasspath.from(generatorClasspath)
+    task.resourceRoots.from(extension.composeFontResources)
+    task.resourcePackage.convention(provider(::defaultComposeResourcePackage))
+    task.resourceClassName.convention("Res")
+    task.publicAccessors.convention(false)
+    task.outputDirectory.convention(
+        layout.buildDirectory.dir("generated/symbolFonts/fontDescriptors/kotlin"),
+    )
+}
+
+private fun Project.wireFontDescriptorResourceSettings(
+    task: TaskProvider<GenerateSymbolFontDescriptorsTask>,
+    extension: SymbolFontsExtension,
+) {
+    plugins.withId("org.jetbrains.compose") {
+        val resources = extensions
+            .getByType(ComposeExtension::class.java)
+            .let { compose ->
+                (compose as ExtensionAware)
+                    .extensions
+                    .getByType(ResourcesExtension::class.java)
+            }
+        task.configure { descriptors ->
+            descriptors.resourcePackage.set(
+                provider {
+                    resources.packageOfResClass.ifEmpty {
+                        defaultComposeResourcePackage()
+                    }
+                },
+            )
+            descriptors.resourceClassName.set(provider { resources.nameOfResClass })
+            descriptors.publicAccessors.set(provider { resources.publicResClass })
+        }
+        afterEvaluate {
+            if (!extension.composeFontResources.isEmpty) {
+                resources.generateResClass = resources.always
+            }
+        }
+    }
+}
+
+private fun Project.defaultComposeResourcePackage(): String {
+    val groupName = group.toString().lowercase().composeResourceIdentifier()
+    val moduleName = name.lowercase().composeResourceIdentifier()
+    val id = if (groupName.isNotEmpty()) "$groupName.$moduleName" else moduleName
+    return "$id.generated.resources"
+}
+
+private fun String.composeResourceIdentifier(): String =
+    replace('-', '_').let { value ->
+        if (value.firstOrNull()?.isDigit() == true) "_$value" else value
+    }
 
 private fun Project.createGeneratorClasspath(): FileCollection {
     val runtime = configurations.create(
@@ -262,15 +377,17 @@ private fun Project.wireComposeResources(
     mergeTask: TaskProvider<MergeSymbolComposeResources>,
 ) {
     plugins.withId("org.jetbrains.compose") {
-        val compose = extensions
-            .getByType(ComposeExtension::class.java)
-        (compose as ExtensionAware)
-            .extensions
-            .getByType(ResourcesExtension::class.java)
-            .customDirectory(
-                "commonMain",
-                mergeTask.flatMap { task -> task.outputDirectory },
-            )
+        afterEvaluate {
+            val compose = extensions
+                .getByType(ComposeExtension::class.java)
+            (compose as ExtensionAware)
+                .extensions
+                .getByType(ResourcesExtension::class.java)
+                .customDirectory(
+                    "commonMain",
+                    mergeTask.flatMap { task -> task.outputDirectory },
+                )
+        }
     }
 }
 

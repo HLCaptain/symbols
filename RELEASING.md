@@ -110,9 +110,9 @@ immutable release coordinates.
 
 ## Why publication runs on one host
 
-Kotlin 2.2.21 can publish every target from the self-hosted macOS runner. One
-host prevents multiple jobs from uploading the same multiplatform metadata and
-also covers the Apple publications natively.
+The configured Kotlin version can publish every target from the self-hosted
+macOS runner. One host prevents multiple jobs from uploading the same
+multiplatform metadata and also covers the Apple publications natively.
 
 For a local, non-network publication check:
 

@@ -4,16 +4,33 @@ import javax.inject.Inject
 import org.gradle.api.Action
 import org.gradle.api.Named
 import org.gradle.api.NamedDomainObjectContainer
+import org.gradle.api.file.ConfigurableFileCollection
+import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
-import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.InputFile
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
 
 /** Configures build-time icon generation from regular or variable fonts. */
 public abstract class SymbolFontsExtension @Inject constructor(
     objects: ObjectFactory,
 ) {
+    /** Compose resource roots whose direct `font/` files receive generated descriptors. */
+    public val composeFontResources: ConfigurableFileCollection = objects.fileCollection()
+
+    /** Kotlin package that receives all generated runtime symbol catalogs. */
+    public val catalogPackageName: Property<String> = objects.property(String::class.java)
+
+    /** Named runtime catalogs generated from codepoint manifests. */
+    public val catalogs: NamedDomainObjectContainer<SymbolCatalogSpec> =
+        objects.domainObjectContainer(SymbolCatalogSpec::class.java) { name ->
+            objects.newInstance(SymbolCatalogSpec::class.java, name)
+        }
+
     /** Named generated icon sets in this project. */
     public val iconSets: NamedDomainObjectContainer<SymbolIconSet> =
         objects.domainObjectContainer(SymbolIconSet::class.java) { name ->
@@ -24,6 +41,25 @@ public abstract class SymbolFontsExtension @Inject constructor(
     public fun iconSet(name: String, configure: Action<in SymbolIconSet>) {
         configure.execute(iconSets.maybeCreate(name))
     }
+
+    /** Declares or configures one generated runtime catalog. */
+    public fun catalog(name: String, configure: Action<in SymbolCatalogSpec>) {
+        configure.execute(catalogs.maybeCreate(name))
+    }
+}
+
+/** One named runtime catalog generated from a codepoint manifest. */
+public abstract class SymbolCatalogSpec @Inject constructor(
+    private val catalogName: String,
+    objects: ObjectFactory,
+) : Named {
+    @Input
+    override fun getName(): String = catalogName
+
+    /** Stable `<snake_case_name> <hex_code_point>` map for this catalog. */
+    @get:InputFile
+    @get:PathSensitive(PathSensitivity.NONE)
+    public val codepoints: RegularFileProperty = objects.fileProperty()
 }
 
 /** A generated, strongly typed icon namespace. */

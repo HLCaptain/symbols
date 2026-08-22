@@ -16,6 +16,208 @@ class SymbolFontsPluginFunctionalTest {
     val temporaryFolder: TemporaryFolder = TemporaryFolder()
 
     @Test
+    fun generatesNamedRuntimeCatalogsIncrementally() {
+        val project = fixture(
+            """
+            plugins {
+                id 'io.github.hlcaptain.symbol-fonts'
+            }
+
+            symbolFonts {
+                catalogPackageName.set('com.example.catalogs')
+                catalog('SecondCatalog') {
+                    codepoints.set(file('second.codepoints'))
+                }
+                catalog('FirstCatalog') {
+                    codepoints.set(file('first.codepoints'))
+                }
+            }
+            """,
+            files = mapOf(
+                "first.codepoints" to "beta e002\nalpha e001\n",
+                "second.codepoints" to "gamma 1f600\n",
+            ),
+        )
+
+        val first = buildCachedRunner(project, "generateSymbolCatalogs").build()
+        assertEquals(
+            TaskOutcome.SUCCESS,
+            first.task(":generateSymbolCatalogs")?.outcome,
+        )
+        val generated = project.resolve(
+            "build/generated/symbolFonts/catalogs/kotlin/" +
+                "com/example/catalogs/SymbolCatalogs.generated.kt",
+        ).readText()
+        assertTrue("internal data class SymbolCatalogEntry" in generated)
+        assertTrue("internal val FirstCatalog" in generated)
+        assertTrue("internal val SecondCatalog" in generated)
+        assertTrue(generated.indexOf("FirstCatalog") < generated.indexOf("SecondCatalog"))
+        assertTrue(generated.indexOf("\"alpha\"") < generated.indexOf("\"beta\""))
+        assertTrue("SymbolCatalogEntry(\"gamma\", 0x1F600)" in generated)
+
+        val second = buildCachedRunner(project, "generateSymbolCatalogs").build()
+        assertEquals(
+            TaskOutcome.UP_TO_DATE,
+            second.task(":generateSymbolCatalogs")?.outcome,
+        )
+        assertTrue("Reusing configuration cache." in second.output)
+
+        check(project.resolve("build").deleteRecursively())
+        val restored = buildCachedRunner(project, "generateSymbolCatalogs").build()
+        assertEquals(
+            TaskOutcome.FROM_CACHE,
+            restored.task(":generateSymbolCatalogs")?.outcome,
+        )
+    }
+
+    @Test
+    fun composeMergeIncludesConfiguredFontResources() {
+        val project = fixture(
+            """
+            plugins {
+                id 'io.github.hlcaptain.symbol-fonts'
+            }
+
+            symbolFonts {
+                composeFontResources.from(file('sampleResources'))
+            }
+            """,
+            files = mapOf(
+                "sampleResources/font/sample.ttf" to "font",
+            ),
+        )
+
+        val result = runner(project, "mergeGeneratedSymbolComposeResources").build()
+
+        assertEquals(
+            TaskOutcome.SUCCESS,
+            result.task(":mergeGeneratedSymbolComposeResources")?.outcome,
+        )
+        val output = project.resolve("build/generated/symbolFonts/composeResources")
+        assertEquals("font", output.resolve("font/sample.ttf").readText())
+    }
+
+    @Test
+    fun composeMergeIncludesConventionalAndConfiguredResources() {
+        val project = fixture(
+            """
+            plugins {
+                id 'io.github.hlcaptain.symbol-fonts'
+            }
+
+            symbolFonts {
+                composeFontResources.from(file('externalResources'))
+            }
+            """,
+            files = mapOf(
+                "src/commonMain/composeResources/font/local.ttf" to "local",
+                "externalResources/font/external.ttf" to "external",
+            ),
+        )
+
+        val result = runner(project, "mergeGeneratedSymbolComposeResources").build()
+
+        assertEquals(
+            TaskOutcome.SUCCESS,
+            result.task(":mergeGeneratedSymbolComposeResources")?.outcome,
+        )
+        val output = project.resolve("build/generated/symbolFonts/composeResources/font")
+        assertEquals("local", output.resolve("local.ttf").readText())
+        assertEquals("external", output.resolve("external.ttf").readText())
+    }
+
+    @Test
+    fun descriptorTaskUsesOptInTaskBackedRoots() {
+        val project = fixture(
+            """
+            import io.github.hlcaptain.symbols.gradle.GenerateSymbolFontDescriptorsTask
+
+            plugins {
+                id 'io.github.hlcaptain.symbol-fonts'
+            }
+
+            def prepared = tasks.register('prepareFontResources') {
+                outputs.dir(layout.buildDirectory.dir('preparedResources'))
+            }
+
+            symbolFonts {
+                composeFontResources.from(
+                    prepared.map { it.outputs.files.singleFile }
+                )
+            }
+
+            tasks.register('assertFontDescriptorConfiguration') {
+                doLast {
+                    def descriptors = tasks.named(
+                        'generateSymbolFontDescriptors',
+                        GenerateSymbolFontDescriptorsTask
+                    ).get()
+                    assert descriptors.resourceRoots.singleFile ==
+                        layout.buildDirectory.dir('preparedResources').get().asFile
+                    assert descriptors.resourceRoots.buildDependencies
+                        .getDependencies(descriptors)*.name ==
+                        ['prepareFontResources']
+                    assert descriptors.resourceClassName.get() == 'Res'
+                    assert !descriptors.publicAccessors.get()
+                    assert descriptors.outputDirectory.get().asFile == file(
+                        'build/generated/symbolFonts/fontDescriptors/kotlin'
+                    )
+                    def merge = tasks.named(
+                        'mergeGeneratedSymbolComposeResources'
+                    ).get()
+                    assert merge.inputDirectories.buildDependencies
+                        .getDependencies(merge)*.name ==
+                        ['prepareFontResources']
+                }
+            }
+            """,
+        )
+
+        val result = runner(project, "assertFontDescriptorConfiguration").build()
+
+        assertEquals(
+            TaskOutcome.SUCCESS,
+            result.task(":assertFontDescriptorConfiguration")?.outcome,
+        )
+    }
+
+    @Test
+    fun descriptorTaskCalculatesDefaultResourcePackageLazily() {
+        val project = fixture(
+            """
+            import io.github.hlcaptain.symbols.gradle.GenerateSymbolFontDescriptorsTask
+
+            plugins {
+                id 'io.github.hlcaptain.symbol-fonts'
+            }
+
+            group = 'Com.Example-Group'
+
+            tasks.register('assertFontDescriptorDefaults') {
+                doLast {
+                    def descriptors = tasks.named(
+                        'generateSymbolFontDescriptors',
+                        GenerateSymbolFontDescriptorsTask
+                    ).get()
+                    assert descriptors.resourceRoots.isEmpty()
+                    assert descriptors.resourcePackage.get() ==
+                        'com.example_group.symbol_fonts_plugin_test.generated.resources'
+                    assert descriptors.resourceClassName.get() == 'Res'
+                    assert !descriptors.publicAccessors.get()
+                }
+            }
+            """,
+        )
+
+        val result = runner(project, "assertFontDescriptorDefaults").build()
+
+        assertEquals(
+            TaskOutcome.SUCCESS,
+            result.task(":assertFontDescriptorDefaults")?.outcome,
+        )
+    }
+
+    @Test
     fun happyNamespaceConfigurationIsDeterministicAndIncremental() {
         val project = fixture(
             """
@@ -539,10 +741,19 @@ class SymbolFontsPluginFunctionalTest {
     private fun cachedRunner(project: File, vararg tasks: String): GradleRunner =
         configuredRunner(project, tasks.toList(), "--configuration-cache")
 
+    private fun buildCachedRunner(project: File, vararg tasks: String): GradleRunner =
+        configuredRunner(
+            project,
+            tasks.toList(),
+            "--configuration-cache",
+            "--build-cache",
+        )
+
     private fun configuredRunner(
         project: File,
         tasks: List<String>,
         configurationCacheArgument: String,
+        buildCacheArgument: String = "--no-build-cache",
     ): GradleRunner =
         GradleRunner.create()
             .withProjectDir(project)
@@ -552,7 +763,7 @@ class SymbolFontsPluginFunctionalTest {
                 tasks + listOf(
                     "--offline",
                     configurationCacheArgument,
-                    "--no-build-cache",
+                    buildCacheArgument,
                     "--console=plain",
                     "--stacktrace",
                 ),

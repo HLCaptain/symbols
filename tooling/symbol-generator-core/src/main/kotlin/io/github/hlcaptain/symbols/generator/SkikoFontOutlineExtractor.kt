@@ -1,6 +1,7 @@
 package io.github.hlcaptain.symbols.generator
 
 import java.nio.file.Files
+import java.nio.file.Path
 import kotlin.math.abs
 import kotlin.math.max
 import org.jetbrains.skia.Font
@@ -18,27 +19,7 @@ import org.jetbrains.skia.Typeface
  */
 public class SkikoFontOutlineExtractor : FontOutlineExtractor {
     override fun extract(request: FontExtractionRequest): ExtractedFont {
-        if (!Files.isRegularFile(request.fontFile)) {
-            throw SymbolGenerationException("Font does not exist: ${request.fontFile}")
-        }
-
-        val baseTypeface = try {
-            requireNotNull(
-                FontMgr.default.makeFromFile(
-                    request.fontFile.toAbsolutePath().normalize().toString(),
-                    request.fontIndex,
-                ),
-            ) {
-                "Skia did not recognize the font"
-            }
-        } catch (error: RuntimeException) {
-            throw SymbolGenerationException(
-                "Unable to load font ${request.fontFile} at index ${request.fontIndex}",
-                error,
-            )
-        }
-
-        return baseTypeface.use { base ->
+        return loadSkikoTypeface(request.fontFile, request.fontIndex).use { base ->
             val (typeface, appliedAxes) = configureAxes(base, request)
             if (typeface === base) {
                 extractConfiguredTypeface(typeface, request, appliedAxes)
@@ -262,6 +243,27 @@ public class SkikoFontOutlineExtractor : FontOutlineExtractor {
 
     private companion object {
         private const val MaxConicSubdivisionDepth: Int = 12
+    }
+}
+
+internal fun loadSkikoTypeface(fontFile: Path, fontIndex: Int): Typeface {
+    if (!Files.isRegularFile(fontFile)) {
+        throw SymbolGenerationException("Font does not exist: $fontFile")
+    }
+    return try {
+        requireNotNull(
+            FontMgr.default.makeFromFile(
+                fontFile.toAbsolutePath().normalize().toString(),
+                fontIndex,
+            ),
+        ) {
+            "Skia did not recognize the font"
+        }
+    } catch (error: RuntimeException) {
+        throw SymbolGenerationException(
+            "Unable to load font $fontFile at index $fontIndex",
+            error,
+        )
     }
 }
 

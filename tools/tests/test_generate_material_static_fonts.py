@@ -63,7 +63,8 @@ class GenerateMaterialStaticFontsTest(unittest.TestCase):
     def test_custom_axes_create_a_renamed_regular_font(self) -> None:
         input_path = (
             module.REPOSITORY_ROOT
-            / "fonts/samples/academmunicons/academmunicons-variable.ttf"
+            / "samples/custom-variable/src/commonMain/composeResources/font"
+            / "academmunicons_variable.ttf"
         )
 
         generated = module.instantiate_static_font(
@@ -91,7 +92,8 @@ class GenerateMaterialStaticFontsTest(unittest.TestCase):
     def test_custom_axes_are_validated(self) -> None:
         input_path = (
             module.REPOSITORY_ROOT
-            / "fonts/samples/academmunicons/academmunicons-variable.ttf"
+            / "samples/custom-variable/src/commonMain/composeResources/font"
+            / "academmunicons_variable.ttf"
         )
         with self.assertRaisesRegex(ValueError, "does not define axes: NOPE"):
             module.instantiate_static_font(input_path, {"NOPE": 1.0})

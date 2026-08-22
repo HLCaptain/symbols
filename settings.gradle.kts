@@ -3,6 +3,7 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
     includeBuild("tooling")
+    includeBuild("build-logic")
 
     repositories {
         google {
@@ -52,6 +53,18 @@ nmcpSettings {
 
 include(":composeApp")
 include(":benchmarks:shrinkable-vectors")
+include(
+    ":samples:api",
+    ":samples:ui:components",
+    ":samples:material-static",
+    ":samples:material-variable",
+    ":samples:custom-static",
+    ":samples:custom-variable",
+    ":samples:image-vector-migration",
+    ":samples:android-views",
+    ":samples:theming",
+    ":samples:runtime-axes",
+)
 include(
     ":modules:variant-font-core",
     ":modules:material-core",

@@ -184,12 +184,13 @@ binding.favorite.setImageDrawable(
 )
 ```
 
-The sample includes [plain XML](composeApp/src/androidMain/res/layout/activity_legacy_views.xml),
-[Data Binding](composeApp/src/androidMain/res/layout/data_binding_icon.xml),
-[View Binding and `findViewById`](composeApp/src/androidMain/kotlin/io/github/hlcaptain/symbols/sample/LegacyViewsActivity.kt),
-a [custom `ImageView`](composeApp/src/androidMain/kotlin/io/github/hlcaptain/symbols/sample/GeneratedSymbolView.kt),
-and a `TextView` compound drawable. These are legacy View-system integrations,
-not deprecated Android APIs.
+The focused Android sample includes
+[plain XML](samples/android-views/src/androidMain/res/layout/android_views_content.xml),
+[Data Binding](samples/android-views/src/androidMain/res/layout/data_binding_icon.xml),
+[View Binding inside Compose](samples/android-views/src/androidMain/kotlin/io/github/hlcaptain/symbols/sample/androidviews/AndroidViewsPlatformContent.android.kt),
+and a [custom `ImageView`](samples/android-views/src/androidMain/kotlin/io/github/hlcaptain/symbols/sample/androidviews/GeneratedSymbolView.kt).
+Compose hosts the View hierarchy with `AndroidView`; no second Activity is
+needed. These are Android View-system integrations, not deprecated Android APIs.
 
 ## Generate a custom icon set
 
@@ -254,12 +255,20 @@ Icon(
 )
 ```
 
-The sample also generates typed vectors from Font Awesome Free Solid and Tabler
-Icons Outline/Filled. Their YAML and CSS metadata are normalized under
-[`fonts/samples`](fonts/samples/README.md). Complete searchable catalogs are
-packaged for both, while only three icons per style are generated as vectors.
-The same primary font tabs include the complete Academmunicons catalog, whose
-real `ital` and `wght` axes exercise the generic custom-variable-font path.
+The focused custom samples keep their build files intentionally small.
+[`custom-static`](samples/custom-static/build.gradle.kts) reads Powerline from
+its conventional `composeResources/font` directory, while
+[`custom-variable`](samples/custom-variable/build.gradle.kts) fixes
+Academmunicons at `ital=0,wght=600` before generating typed vectors. Live axis
+changes and a continuously animated weight axis with matching sliders/current
+values are demonstrated separately by
+[`runtime-axes`](samples/runtime-axes/src/commonMain/kotlin/io/github/hlcaptain/symbols/sample/runtimeaxes/RuntimeAxesSample.kt).
+The [`image-vector-migration`](samples/image-vector-migration/src/commonMain/kotlin/io/github/hlcaptain/symbols/sample/imagevectormigration/ImageVectorMigrationSample.kt)
+screen keeps the old Material Icons Extended call beside the generated Symbols
+call, then shows custom Academmunicons `ImageVector` and painter outputs at the
+font's embedded defaults (`ital=0,wght=100`).
+Font Awesome and Tabler remain pinned provider fixtures under
+[`fonts/samples`](fonts/samples/README.md); the launcher does not package them.
 
 For a source-owned SVG directory, the
 [SVG icon font CLI](tools/README.md#svg-icon-font-generation) creates a
@@ -296,37 +305,37 @@ must change without regenerating a fixed vector.
 
 ### Custom runtime fonts
 
-The generic APIs live in `io.github.hlcaptain.symbols.font`. A custom variable
-font implements `SymbolFont.Variable`; `SymbolFontSettings` accepts Compose's
-native `FontVariation.Settings`, so each font can use its own four-character
-OpenType axis tags and values:
+The generic APIs live in `io.github.hlcaptain.symbols.font`. Point the Gradle
+plugin at the Compose resource root to generate typed descriptors and OpenType
+axis metadata from every direct `font/*.ttf`, `*.otf`, or `*.ttc` resource:
 
 ```kotlin
-import androidx.compose.ui.text.font.FontVariation
-import io.github.hlcaptain.symbols.font.SymbolFont
-import io.github.hlcaptain.symbols.font.SymbolFontIcon
-import io.github.hlcaptain.symbols.font.SymbolFontSettings
-import io.github.hlcaptain.symbols.font.SymbolsTheme
-import my.symbols.generated.resources.Res
-import my.symbols.generated.resources.my_symbols_variable
-
-object MySymbols : SymbolFont.Variable {
-    override val familyName = "My Symbols"
-    override val resource = Res.font.my_symbols_variable
+symbolFonts {
+    composeFontResources.from(
+        layout.projectDirectory.dir("src/commonMain/composeResources"),
+    )
 }
+```
+
+Use the generated descriptor through the module's global `Res` class:
+
+```kotlin
+import io.github.hlcaptain.symbols.font.SymbolFontIcon
+import io.github.hlcaptain.symbols.font.SymbolsTheme
+import io.github.hlcaptain.symbols.font.fontSettings
+import my.symbols.generated.resources.Res
+import my.symbols.generated.resources.symbolFonts
+
+val mySymbols = Res.symbolFonts.my_symbols_variable
 
 SymbolsTheme(
-    fontSettings = SymbolFontSettings(
-        variationSettings = FontVariation.Settings(
-            FontVariation.Setting("FILL", 1f),
-            FontVariation.width(110f),
-            FontVariation.weight(500),
-        ),
+    fontSettings = mySymbols.fontSettings(
+        mapOf("FILL" to 1f, "wdth" to 110f, "wght" to 500f),
     ),
 ) {
     SymbolFontIcon(
         codePoint = 0xF0001,
-        font = MySymbols,
+        font = mySymbols,
         contentDescription = "Custom action",
     )
 }
@@ -337,10 +346,11 @@ extend its open `SymbolFont.Variable` or `SymbolFont.Regular` interface rather
 than implementing the root directly; existing direct implementations should
 migrate to the matching interface. A descriptor must not implement both.
 
-`SymbolFont.Variable` can also override `variationAxes` with `SymbolFontAxis`
-values copied from the font's `fvar` table. Common UI can then derive its
-controls without a platform font parser. An empty list means the metadata was
-not embedded and does not change the variable-font capability.
+Generated variable descriptors expose visible `fvar` axes as `variationAxes`.
+Their `fontSettings(...)` helper fills omitted coordinates with the font's
+declared defaults and validates tags and ranges. Manual descriptors can still
+override `variationAxes`; an empty list means metadata was not embedded and
+does not change the variable-font capability.
 
 `SymbolFontIcon` removes the private-use glyph from semantics and exposes only a
 supplied, localized description. Use `contentDescription = null` for a
@@ -453,12 +463,14 @@ combination produces a distinct remembered font family.
 - [Performance and APK-size trade-offs](docs/PERFORMANCE.md)
 - [Build-time generator](docs/GENERATOR.md)
 - [Custom font guidance](docs/CUSTOM_FONTS.md)
+- [Runnable sample modules](samples/README.md)
 - [Release process](RELEASING.md)
 - [Contributing](CONTRIBUTING.md)
 
-Run `./gradlew :composeApp:run` for the interactive sample. Maintainer build,
-generator, font-conformance, and shrink-test commands live in the linked guides
-and CI workflow.
+Run `./gradlew :composeApp:run` for the desktop sample launcher, then select the
+focused module to preview. Use `./gradlew :composeApp:assembleDebug` for the
+Android launcher and its Android Views sample. Maintainer generator,
+font-conformance, and shrink-test commands live in the linked guides and CI.
 
 ## Asset provenance and licensing
 

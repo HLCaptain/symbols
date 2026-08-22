@@ -25,54 +25,46 @@ Place one font in the custom module:
 src/commonMain/composeResources/font/my_symbols_variable.ttf
 ```
 
-Runtime fonts use the generated Compose Multiplatform `FontResource` shown
-below. Android `R.font` resources are supported as generator inputs, but do not
-implement this runtime contract.
-
-Expose it through the explicit variable-font contract:
+Runtime fonts use Compose Multiplatform `FontResource`; Android `R.font`
+resources are supported as outline-generator inputs but do not implement this
+runtime contract. Generate the runtime descriptor and its `fvar` metadata from
+the Compose resource root:
 
 ```kotlin
-import io.github.hlcaptain.symbols.font.SymbolFont
-import my.symbols.generated.resources.Res
-import my.symbols.generated.resources.my_symbols_variable
-
-object MySymbols : SymbolFont.Variable {
-    override val familyName = "My Symbols"
-    override val resource = Res.font.my_symbols_variable
+symbolFonts {
+    composeFontResources.from(
+        layout.projectDirectory.dir("src/commonMain/composeResources"),
+    )
 }
 ```
 
-`SymbolFontSettings` stores one Compose `FontVariation.Settings` value. Its
-convenience constructor converts `FontWeight` and `FontStyle` to the standard
-`wght` and `ital` axes; pass `FontVariation.Settings` directly for arbitrary
-font axes. Supply either form directly or inherit it through the generic
-`SymbolsTheme`:
+The result is available through the module's global `Res` class:
 
 ```kotlin
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontVariation
-import androidx.compose.ui.text.font.FontWeight
+import my.symbols.generated.resources.Res
+import my.symbols.generated.resources.symbolFonts
+
+val mySymbols = Res.symbolFonts.my_symbols_variable
+```
+
+The generated `SymbolFont.Variable` exposes visible axes from the font's `fvar`
+table. Its settings helper fills omitted axes with their declared defaults and
+validates tags and ranges. Supply the result directly or inherit it through the
+generic `SymbolsTheme`:
+
+```kotlin
 import io.github.hlcaptain.symbols.font.SymbolFontIcon
-import io.github.hlcaptain.symbols.font.SymbolFontSettings
 import io.github.hlcaptain.symbols.font.SymbolsTheme
+import io.github.hlcaptain.symbols.font.fontSettings
 
-val standardSettings = SymbolFontSettings(
-    weight = FontWeight.Medium,
-    style = FontStyle.Italic,
-)
-
-val settings = SymbolFontSettings(
-    variationSettings = FontVariation.Settings(
-        FontVariation.Setting("FILL", 1f),
-        FontVariation.Setting("wdth", 110f),
-        FontVariation.weight(500),
-    ),
+val settings = mySymbols.fontSettings(
+    mapOf("FILL" to 1f, "wdth" to 110f, "wght" to 500f),
 )
 
 SymbolsTheme(fontSettings = settings) {
     SymbolFontIcon(
         codePoint = 0xF0001,
-        font = MySymbols,
+        font = mySymbols,
         contentDescription = "Custom action",
     )
 }
@@ -82,15 +74,21 @@ Android can apply variable-font settings from API 26. Check
 `SymbolsRuntime.variableFontsSupported` before selecting this path on an app
 whose minSdk is lower.
 
-The sample keeps its custom-variable-font `@Preview` beside the shared UI in
-`commonMain`. Its Gradle build backports the resource task dependency from
-[CMP-7170](https://youtrack.jetbrains.com/issue/CMP-7170), so Android Studio
-copies generated Compose resources into Android assets before preview packaging.
-After adding or removing a font,
+After adding or removing a runtime font,
 [build or re-import the project](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-resources-usage.html)
 once so `Res` and its accessors are regenerated; changing axis values needs no
-rebuild. The sample Preview starts on an Academmunicons regular font frozen at
-`ital=0,wght=400`; moving either control switches to its variable resource.
+rebuild.
+
+The focused [`custom-variable`](../samples/custom-variable/build.gradle.kts)
+sample instead uses Academmunicons as a build-time outline source. It fixes the
+font at `ital=0,wght=600` and renders a generated typed `ImageVector`; it is not
+a live variable-font preview. The
+[`image-vector-migration`](../samples/image-vector-migration/build.gradle.kts)
+sample omits `axis(...)` deliberately, generating both an `ImageVector` and a
+Compose painter resource from the custom font's embedded
+`ital=0,wght=100` defaults. Live generic axis-map controls and an animated
+weight example are demonstrated separately with Material Rounded in
+[`runtime-axes`](../samples/runtime-axes/src/commonMain/kotlin/io/github/hlcaptain/symbols/sample/runtimeaxes/RuntimeAxesSample.kt).
 
 `symbolFontText(codePoint)` is available for a custom `BasicText` layout. Both
 it and `SymbolFontIcon` reject negative values, surrogate code points, and
@@ -125,7 +123,7 @@ MaterialSymbolsTheme(
 ) {
     SymbolFontIcon(
         codePoint = 0xF0001,
-        font = MySymbols,
+        font = mySymbols,
         contentDescription = "Custom action",
     )
 }
@@ -137,40 +135,45 @@ selection used by built-in `Icons.Themed.*` properties.
 
 ## Package a regular font
 
-Use `SymbolFont.Regular` for a font baked at one immutable point:
+Static resources get a generated `SymbolFont.Regular` descriptor at default
+settings:
 
 ```kotlin
-import androidx.compose.ui.text.font.FontWeight
-import io.github.hlcaptain.symbols.font.SymbolFont
 import io.github.hlcaptain.symbols.font.SymbolFontIcon
-import io.github.hlcaptain.symbols.font.SymbolFontSettings
 import my.symbols.generated.resources.Res
-import my.symbols.generated.resources.my_symbols_regular
-
-object MyRegularSymbols : SymbolFont.Regular {
-    override val familyName = "My Symbols"
-    override val resource = Res.font.my_symbols_regular
-    override val fontSettings = SymbolFontSettings(weight = FontWeight.Bold)
-}
+import my.symbols.generated.resources.symbolFonts
 
 SymbolFontIcon(
     codePoint = 0xF0001,
-    font = MyRegularSymbols,
-    fontSettings = MyRegularSymbols.fontSettings,
+    font = Res.symbolFonts.my_symbols_regular,
     contentDescription = "Custom action",
 )
 ```
 
-The renderer never attaches `FontVariation.Settings` to this resource, so it can
-render on Android API 21. It verifies that the requested settings equal the
-declared fixed `fontSettings`; pass that value explicitly or provide it through
-`SymbolsTheme`.
+If a static file was frozen at a non-default coordinate that its tables no
+longer describe, keep that value explicit:
+
+```kotlin
+import androidx.compose.ui.text.font.FontWeight
+import io.github.hlcaptain.symbols.font.SymbolFont
+import io.github.hlcaptain.symbols.font.SymbolFontSettings
+import my.symbols.generated.resources.Res
+import my.symbols.generated.resources.my_symbols_bold
+
+val myBoldSymbols = SymbolFont.regular(
+    familyName = "My Symbols Bold",
+    resource = Res.font.my_symbols_bold,
+    fontSettings = SymbolFontSettings(weight = FontWeight.Bold),
+)
+```
+
+The renderer never attaches `FontVariation.Settings` to a regular resource, so
+it can render on Android API 21. It verifies that requested settings equal the
+declared fixed value; pass it explicitly or provide it through `SymbolsTheme`.
 
 `tools/generate_material_static_fonts.py --input ... --output ... --axis
 TAG=VALUE` can freeze any variable font at build time. Unspecified axes use the
-font's declared defaults, and the output contains no variation tables. A UI can
-select the regular resource at that exact settings value and switch to its
-`SymbolFont.Variable` only after an axis changes, as the sample does.
+font's declared defaults, and the output contains no variation tables.
 
 ## Generate outlines instead of shipping a font
 
@@ -200,7 +203,9 @@ maps, Font Awesome metadata, IcoMoon/Fontello JSON, and the font's OpenType
 and number conventions. Normalize the chosen source into the plugin's stable
 snake-case/hex manifest rather than making application builds depend on a
 provider-specific parser. The checked-in
-[external font samples](../fonts/samples/README.md) show five such conversions.
+[provider fixtures](../fonts/samples/README.md) show five such conversions. The
+runnable Powerline and Academmunicons modules keep focused copies of their
+canonical manifests beside their own assets.
 
 ## Build a font from SVG sources
 

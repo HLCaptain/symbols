@@ -1,24 +1,10 @@
-import org.gradle.api.publish.maven.MavenPublication
-
 plugins {
-    alias(libs.plugins.androidLibrary)
-    `maven-publish`
+    alias(libs.plugins.symbolsPublishedAndroidLibrary)
     id("io.github.hlcaptain.symbol-fonts")
 }
 
 android {
     namespace = "io.github.hlcaptain.symbols.material.sharp.drawables"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
-
-    defaultConfig {
-        minSdk = 21
-    }
-
-    publishing {
-        singleVariant("release") {
-            withSourcesJar()
-        }
-    }
 }
 
 symbolFonts {
@@ -37,17 +23,6 @@ symbolFonts {
             )
             resourcePrefix.set("material_symbols")
             androidDrawables()
-        }
-    }
-}
-
-afterEvaluate {
-    publishing {
-        publications {
-            create<MavenPublication>("release") {
-                from(components["release"])
-                artifactId = "symbols-${project.name}"
-            }
         }
     }
 }

@@ -1,0 +1,220 @@
+package io.github.hlcaptain.symbols.generator
+
+import java.nio.file.Files
+import java.nio.file.Path
+
+internal data class GeneratedFontAxis(
+    val tag: String,
+    val minValue: Float,
+    val defaultValue: Float,
+    val maxValue: Float,
+    val hidden: Boolean,
+) {
+    init {
+        require(tag.length == 4 && tag.all { it.code in 0x20..0x7E }) {
+            "OpenType axis tags must contain four printable ASCII characters: '$tag'"
+        }
+        require(
+            minValue.isFinite() &&
+                defaultValue.isFinite() &&
+                maxValue.isFinite() &&
+                minValue <= defaultValue &&
+                defaultValue <= maxValue,
+        ) {
+            "Axis $tag must have finite min <= default <= max values"
+        }
+    }
+}
+
+internal data class GeneratedFontDescriptor(
+    val accessorName: String,
+    val familyName: String,
+    val axes: List<GeneratedFontAxis>,
+) {
+    init {
+        SymbolNames.requireTypeIdentifier(accessorName, "Compose font resource accessor")
+        require(familyName.isNotBlank()) { "Font family name must not be blank" }
+        require(axes.map(GeneratedFontAxis::tag).distinct().size == axes.size) {
+            "$familyName contains duplicate variation-axis tags"
+        }
+    }
+}
+
+internal class SkikoFontDescriptorScanner {
+    fun scan(resourceRoots: Collection<Path>): List<GeneratedFontDescriptor> {
+        val fontFiles = resourceRoots
+            .map { root -> root.toAbsolutePath().normalize() }
+            .distinct()
+            .flatMap(::directFontFiles)
+            .distinct()
+        require(fontFiles.isNotEmpty()) {
+            "No direct .ttf, .otf, or .ttc files found under the configured font/ directories"
+        }
+
+        val filesByAccessor = fontFiles.groupBy(::composeAccessorName)
+        val collisions = filesByAccessor.filterValues { files -> files.size > 1 }
+        if (collisions.isNotEmpty()) {
+            val details = collisions.entries
+                .sortedBy(Map.Entry<String, List<Path>>::key)
+                .joinToString("; ") { (accessor, files) ->
+                    "$accessor <- ${files.sorted().joinToString()}"
+                }
+            throw SymbolGenerationException(
+                "Compose font resource accessor collisions: $details",
+            )
+        }
+
+        return filesByAccessor.entries
+            .sortedBy(Map.Entry<String, List<Path>>::key)
+            .map { (accessorName, files) ->
+                loadSkikoTypeface(files.single(), 0).use { typeface ->
+                    GeneratedFontDescriptor(
+                        accessorName = accessorName,
+                        familyName = typeface.familyName,
+                        axes = typeface.variationAxes.orEmpty().map { axis ->
+                            GeneratedFontAxis(
+                                tag = axis.tag,
+                                minValue = axis.minValue,
+                                defaultValue = axis.defaultValue,
+                                maxValue = axis.maxValue,
+                                hidden = axis.isHidden,
+                            )
+                        },
+                    )
+                }
+            }
+    }
+
+    private fun directFontFiles(resourceRoot: Path): List<Path> {
+        require(Files.isDirectory(resourceRoot)) {
+            "Compose font resource root does not exist or is not a directory: $resourceRoot"
+        }
+        val fontDirectory = resourceRoot.resolve("font")
+        if (!Files.isDirectory(fontDirectory)) {
+            return emptyList()
+        }
+        return Files.newDirectoryStream(fontDirectory).use { entries ->
+            entries.asSequence()
+                .filter(Files::isRegularFile)
+                .filter { file ->
+                    file.fileName.toString().substringAfterLast('.', "").lowercase() in
+                        SupportedDescriptorFontExtensions
+                }
+                .map { file -> file.toAbsolutePath().normalize() }
+                .sorted()
+                .toList()
+        }
+    }
+}
+
+internal class KotlinFontDescriptorsRenderer {
+    fun render(
+        packageName: String,
+        resClassName: String,
+        publicAccessors: Boolean,
+        descriptors: List<GeneratedFontDescriptor>,
+    ): RenderedFiles {
+        SymbolNames.requirePackageName(packageName)
+        SymbolNames.requireTypeIdentifier(resClassName, "Compose resource class name")
+        require(descriptors.isNotEmpty()) { "At least one font descriptor is required" }
+        require(
+            descriptors.map(GeneratedFontDescriptor::accessorName).distinct().size ==
+                descriptors.size,
+        ) {
+            "Font descriptor accessor names must be unique"
+        }
+
+        val visibility = if (publicAccessors) "public" else "internal"
+        val contents = buildString {
+            appendLine("// Generated by Symbols. DO NOT EDIT.")
+            appendLine("package $packageName")
+            appendLine()
+            appendLine("import io.github.hlcaptain.symbols.font.SymbolFont")
+            appendLine("import io.github.hlcaptain.symbols.font.SymbolFontAxis")
+            appendLine()
+            appendLine("$visibility object SymbolFonts {")
+            descriptors
+                .sortedBy(GeneratedFontDescriptor::accessorName)
+                .forEachIndexed { index, descriptor ->
+                if (index > 0) {
+                    appendLine()
+                }
+                appendDescriptor(visibility, resClassName, descriptor)
+            }
+            appendLine("}")
+            appendLine()
+            appendLine("$visibility val $resClassName.symbolFonts: SymbolFonts")
+            appendLine("    get() = SymbolFonts")
+        }
+        val path = packageName.replace('.', '/') + "/SymbolFonts.generated.kt"
+        return RenderedFiles(mapOf(path to contents))
+    }
+
+    private fun StringBuilder.appendDescriptor(
+        visibility: String,
+        resClassName: String,
+        descriptor: GeneratedFontDescriptor,
+    ) {
+        val fontType = if (descriptor.axes.isEmpty()) "Regular" else "Variable"
+        appendLine("    $visibility val ${descriptor.accessorName}: SymbolFont.$fontType =")
+        appendLine("        SymbolFont.${fontType.lowercase()}(")
+        appendLine("            familyName = ${kotlinString(descriptor.familyName)},")
+        appendLine("            resource = $resClassName.font.${descriptor.accessorName},")
+        if (descriptor.axes.isNotEmpty()) {
+            val visibleAxes = descriptor.axes.filterNot(GeneratedFontAxis::hidden)
+            if (visibleAxes.isEmpty()) {
+                appendLine("            variationAxes = emptyList(),")
+            } else {
+                appendLine("            variationAxes = listOf(")
+                visibleAxes.forEach { axis ->
+                    appendLine(
+                        "                SymbolFontAxis(" +
+                            "${kotlinString(axis.tag)}, " +
+                            "${floatLiteral(axis.minValue)}, " +
+                            "${floatLiteral(axis.defaultValue)}, " +
+                            "${floatLiteral(axis.maxValue)}),",
+                    )
+                }
+                appendLine("            ),")
+            }
+        }
+        appendLine("        )")
+    }
+}
+
+internal fun composeAccessorName(fontFile: Path): String {
+    val fileName = fontFile.fileName.toString()
+    val baseName = fileName.substringBeforeLast('.', fileName).replace('-', '_')
+    val accessorName = if (baseName.firstOrNull()?.isDigit() == true) {
+        "_$baseName"
+    } else {
+        baseName
+    }
+    SymbolNames.requireTypeIdentifier(accessorName, "Compose font resource accessor")
+    return accessorName
+}
+
+private fun floatLiteral(value: Float): String = "${value}f"
+
+private fun kotlinString(value: String): String = buildString {
+    append('"')
+    value.forEach { character ->
+        when (character) {
+            '"' -> append("\\\"")
+            '\\' -> append("\\\\")
+            '$' -> append("\\$")
+            '\n' -> append("\\n")
+            '\r' -> append("\\r")
+            '\t' -> append("\\t")
+            else -> if (character.code in 0x20..0x7E) {
+                append(character)
+            } else {
+                append("\\u")
+                append(character.code.toString(16).padStart(4, '0'))
+            }
+        }
+    }
+    append('"')
+}
+
+private val SupportedDescriptorFontExtensions: Set<String> = setOf("ttf", "otf", "ttc")

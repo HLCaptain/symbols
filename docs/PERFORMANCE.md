@@ -92,7 +92,8 @@ android {
 ```
 
 This trades a larger APK download for lower font-instantiation heap pressure;
-the sample enables it because its Rounded variable font is 14.6 MB.
+the launcher enables it because the `material-variable` and `runtime-axes`
+samples use the 14.6 MB Rounded variable font.
 
 A vector builder runs on first property access and caches the resulting
 `ImageVector`. Codepoint aliases share that builder and cache. This trades
@@ -104,6 +105,12 @@ cold and warm access.
 The build-time plugin generates every codepoint by default. Call `include(...)`
 when generation time, compiler memory, or unshrunk artifact size matters:
 unselected glyphs produce no Kotlin method and no XML file.
+
+The focused `custom-static` and `custom-variable` modules deliberately put one
+input font in the conventional `composeResources/font` directory to teach
+automatic discovery with a minimal DSL. That also packages the source font as a
+resource. An application that needs only generated vectors should keep the font
+outside Android and Compose resource roots and select it with `font.set(...)`.
 
 Generated `ImageVector` properties call independent per-codepoint builders.
 They emit direct path operations and contain no registry, path table, reflection

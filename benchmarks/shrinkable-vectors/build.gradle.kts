@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId = "io.github.hlcaptain.symbols.benchmark.shrinkablevectors"
-        minSdk = libs.versions.android.minSdk.get().toInt()
+        minSdk = libs.versions.sample.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"

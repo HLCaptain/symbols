@@ -96,7 +96,7 @@ must not retain an upstream Reserved Font Name:
 
 ```shell
 /tmp/symbols-fonttools/bin/python tools/generate_material_static_fonts.py \
-  --input fonts/samples/academmunicons/academmunicons-variable.ttf \
+  --input samples/custom-variable/src/commonMain/composeResources/font/academmunicons_variable.ttf \
   --output fonts/samples/academmunicons/academmunicons-regular.ttf \
   --axis ital=0 --axis wght=400 \
   --family-name "Symbols Academic Icons"

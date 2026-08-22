@@ -121,6 +121,46 @@ class SymbolFontContractTest {
     }
 
     @Test
+    fun variableFontSettingsUseGeneratedDefaultsAndValidateOverrides() {
+        assertEquals(
+            listOf(400f),
+            DescribedVariableFont.defaultFontSettings.variationSettings.settings.map {
+                it.toVariationValue(null)
+            },
+        )
+        assertEquals(
+            listOf(650f),
+            DescribedVariableFont.fontSettings(
+                mapOf("wght" to 650f),
+            ).variationSettings.settings.map { it.toVariationValue(null) },
+        )
+        assertFailsWith<IllegalArgumentException> {
+            DescribedVariableFont.fontSettings(mapOf("NOPE" to 1f))
+        }
+        assertFailsWith<IllegalArgumentException> {
+            DescribedVariableFont.fontSettings(mapOf("wght" to 701f))
+        }
+        assertFailsWith<IllegalArgumentException> {
+            DescribedVariableFont.fontSettings(mapOf("wght" to Float.NaN))
+        }
+    }
+
+    @Test
+    fun genericSettingsDispatchUsesTheSelectedFontCapability() {
+        val selectedVariable: SymbolFont = DescribedVariableFont
+        val selectedRegular: SymbolFont = RegularFont
+
+        assertEquals(
+            DescribedVariableFont.fontSettings(mapOf("wght" to 650f)),
+            selectedVariable.fontSettings(mapOf("wght" to 650f)),
+        )
+        assertEquals(RegularFont.fontSettings, selectedRegular.fontSettings())
+        assertFailsWith<IllegalArgumentException> {
+            selectedRegular.fontSettings(mapOf("wght" to 400f))
+        }
+    }
+
+    @Test
     fun contradictoryCapabilityMarkersAreRejected() {
         assertFailsWith<IllegalArgumentException> {
             symbolFontVariationSettings(
