@@ -97,9 +97,10 @@ class VectorGeneratorTest(unittest.TestCase):
             names_by_code_point=generator.group_names_by_code_point(entries),
         )
 
-        self.assertIn("public val Icons.Outlined.Check: ImageVector", rendered)
-        self.assertIn("public val Icons.Outlined.Grade: ImageVector", rendered)
-        self.assertIn("public val Icons.Outlined.Star: ImageVector", rendered)
+        self.assertIn("val Icons.Outlined.Check: ImageVector", rendered)
+        self.assertIn("val Icons.Outlined.Grade: ImageVector", rendered)
+        self.assertIn("val Icons.Outlined.Star: ImageVector", rendered)
+        self.assertNotIn("public val Icons.Outlined.", rendered)
         self.assertEqual(
             2,
             rendered.count(
@@ -129,19 +130,20 @@ class VectorGeneratorTest(unittest.TestCase):
             names_by_code_point={0xE5CA: ("check",)},
         )
 
-        self.assertNotIn("public object Glyphs", public_api)
+        self.assertNotIn("object Glyphs", public_api)
         self.assertIn(
             "import io.github.hlcaptain.symbols.material.Glyphs",
             icon_file,
         )
-        self.assertIn("public val Glyphs.Outlined.Check", icon_file)
+        self.assertIn("val Glyphs.Outlined.Check", icon_file)
 
     def test_themed_getters_select_direct_style_properties(self) -> None:
         rendered = generator.render_themed_icon_file(
             entries=(("home", 0xE9B2),),
         )
 
-        self.assertIn("public val Icons.Themed.Home: ImageVector", rendered)
+        self.assertIn("val Icons.Themed.Home: ImageVector", rendered)
+        self.assertNotIn("public val Icons.Themed.", rendered)
         self.assertIn(
             "import io.github.hlcaptain.symbols.material.MaterialSymbolsTheme "
             "as SymbolsTheme",
@@ -171,7 +173,9 @@ class VectorGeneratorTest(unittest.TestCase):
             chunk_count=1,
         )
 
-        self.assertIn("public val MaterialSymbol.roundedImageVector", public_api)
+        self.assertIn("val MaterialSymbol.roundedImageVector", public_api)
+        self.assertIn("fun MaterialSymbol.asRoundedImageVector", public_api)
+        self.assertNotIn("public ", public_api)
         self.assertIn("return roundedVectorAt(vectorIndex, autoMirror)", public_api)
         self.assertIn("roundedVectorChunk000(index, autoMirror)", index)
 

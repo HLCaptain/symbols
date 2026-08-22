@@ -16,13 +16,13 @@ import org.gradle.api.tasks.TaskAction
 
 /** Merges independently cacheable style outputs into one Compose resource root. */
 @CacheableTask
-public abstract class MergeSymbolComposeResources : DefaultTask() {
+abstract class MergeSymbolComposeResources : DefaultTask() {
     @get:InputFiles
     @get:PathSensitive(PathSensitivity.RELATIVE)
-    public abstract val inputDirectories: ConfigurableFileCollection
+    abstract val inputDirectories: ConfigurableFileCollection
 
     @get:OutputDirectory
-    public abstract val outputDirectory: DirectoryProperty
+    abstract val outputDirectory: DirectoryProperty
 
     @get:Inject
     protected abstract val fileSystemOperations: FileSystemOperations

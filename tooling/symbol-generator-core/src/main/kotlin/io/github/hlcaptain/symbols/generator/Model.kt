@@ -3,15 +3,15 @@ package io.github.hlcaptain.symbols.generator
 import kotlin.math.min
 
 /** An invalid manifest, font, outline, or generation request. */
-public class SymbolGenerationException(
+class SymbolGenerationException(
     message: String,
     cause: Throwable? = null,
 ) : IllegalArgumentException(message, cause)
 
 /** A semantic name and Unicode scalar in an icon-font manifest. */
-public data class SymbolEntry(
-    public val name: String,
-    public val codePoint: Int,
+data class SymbolEntry(
+    val name: String,
+    val codePoint: Int,
 ) {
     init {
         require(SymbolNames.isCanonicalName(name)) {
@@ -22,8 +22,7 @@ public data class SymbolEntry(
         }
     }
 
-    /** The public simple PascalCase Kotlin property name. */
-    public val kotlinName: String
+    val kotlinName: String
         get() = SymbolNames.kotlinIdentifier(name)
 }
 
@@ -34,23 +33,23 @@ public data class SymbolEntry(
  * address the same code point, but duplicate names and Kotlin-name collisions
  * are rejected.
  */
-public class SymbolCatalog private constructor(
+class SymbolCatalog private constructor(
     entries: List<SymbolEntry>,
 ) {
-    public val entries: List<SymbolEntry> = entries.sortedBy(SymbolEntry::name)
+    val entries: List<SymbolEntry> = entries.sortedBy(SymbolEntry::name)
 
-    public val entriesByCodePoint: Map<Int, List<SymbolEntry>> =
+    val entriesByCodePoint: Map<Int, List<SymbolEntry>> =
         this.entries
             .groupBy(SymbolEntry::codePoint)
             .toSortedMap()
             .mapValues { (_, aliases) -> aliases.sortedBy(SymbolEntry::name) }
 
-    public val uniqueCodePoints: List<Int>
+    val uniqueCodePoints: List<Int>
         get() = entriesByCodePoint.keys.toList()
 
-    public companion object {
+    companion object {
         /** Validates and creates a catalog from [entries]. */
-        public fun of(entries: Iterable<SymbolEntry>): SymbolCatalog {
+        fun of(entries: Iterable<SymbolEntry>): SymbolCatalog {
             val materialized = entries.toList()
             if (materialized.isEmpty()) {
                 throw SymbolGenerationException("A symbol catalog must not be empty")
@@ -90,9 +89,9 @@ public class SymbolCatalog private constructor(
 }
 
 /** A two-dimensional point in the normalized output viewport. */
-public data class VectorPoint(
-    public val x: Float,
-    public val y: Float,
+data class VectorPoint(
+    val x: Float,
+    val y: Float,
 ) {
     init {
         require(x.isFinite() && y.isFinite()) {
@@ -102,29 +101,153 @@ public data class VectorPoint(
 }
 
 /** An engine-neutral vector path command. */
-public sealed interface VectorCommand {
-    public data class MoveTo(public val point: VectorPoint) : VectorCommand
+sealed interface VectorCommand {
+    data class MoveTo(val point: VectorPoint) : VectorCommand
 
-    public data class LineTo(public val point: VectorPoint) : VectorCommand
+    data class LineTo(val point: VectorPoint) : VectorCommand
 
-    public data class QuadraticTo(
-        public val control: VectorPoint,
-        public val end: VectorPoint,
+    data class QuadraticTo(
+        val control: VectorPoint,
+        val end: VectorPoint,
     ) : VectorCommand
 
-    public data class CubicTo(
-        public val control1: VectorPoint,
-        public val control2: VectorPoint,
-        public val end: VectorPoint,
+    data class CubicTo(
+        val control1: VectorPoint,
+        val control2: VectorPoint,
+        val end: VectorPoint,
     ) : VectorCommand
 
-    public data object Close : VectorCommand
+    data object Close : VectorCommand
+}
+
+/** Fill rule for one generated vector path. */
+enum class VectorFillRule {
+    NonZero,
+    EvenOdd,
+}
+
+/** End-cap treatment for one generated stroked path. */
+enum class VectorStrokeCap {
+    Butt,
+    Round,
+    Square,
+}
+
+/** Join treatment for one generated stroked path. */
+enum class VectorStrokeJoin {
+    Miter,
+    Round,
+    Bevel,
+}
+
+/** One monochrome path, retaining fill and stroke information from its source. */
+data class StyledVectorPath(
+    val commands: List<VectorCommand>,
+    val fill: Boolean,
+    val fillAlpha: Float = 1f,
+    val stroke: Boolean,
+    val strokeAlpha: Float = 1f,
+    val strokeWidth: Float = 1f,
+    val strokeCap: VectorStrokeCap = VectorStrokeCap.Butt,
+    val strokeJoin: VectorStrokeJoin = VectorStrokeJoin.Miter,
+    val strokeMiterLimit: Float = 4f,
+    val fillRule: VectorFillRule = VectorFillRule.NonZero,
+) {
+    init {
+        require(commands.isNotEmpty()) { "A styled vector path must not be empty" }
+        require(commands.first() is VectorCommand.MoveTo) {
+            "A styled vector path must begin with MoveTo"
+        }
+        require(fill || stroke) { "A styled vector path must paint a fill or stroke" }
+        require(fillAlpha.isFinite() && fillAlpha in 0f..1f) {
+            "fillAlpha must be finite and in 0..1"
+        }
+        require(strokeAlpha.isFinite() && strokeAlpha in 0f..1f) {
+            "strokeAlpha must be finite and in 0..1"
+        }
+        require(strokeWidth.isFinite() && strokeWidth >= 0f) {
+            "strokeWidth must be finite and non-negative"
+        }
+        require(strokeMiterLimit.isFinite() && strokeMiterLimit >= 0f) {
+            "strokeMiterLimit must be finite and non-negative"
+        }
+    }
+}
+
+/** One SVG-derived icon identified by its semantic file name. */
+data class SvgIcon(
+    val name: String,
+    val paths: List<StyledVectorPath>,
+) {
+    init {
+        require(SymbolNames.isCanonicalName(name)) {
+            "Invalid SVG icon name '$name'; expected lowercase snake_case"
+        }
+        require(paths.isNotEmpty()) { "SVG icon '$name' has no painted paths" }
+    }
+
+    val kotlinName: String
+        get() = SymbolNames.kotlinIdentifier(name)
+}
+
+/** One generated SVG style. */
+data class GeneratedSvgStyle(
+    val name: String,
+    val icons: List<SvgIcon>,
+) {
+    init {
+        SymbolNames.requireTypeIdentifier(name, "style name")
+        require(icons.isNotEmpty()) { "SVG style $name must contain at least one icon" }
+        val duplicateNames = icons
+            .groupingBy(SvgIcon::name)
+            .eachCount()
+            .filterValues { count -> count > 1 }
+            .keys
+        require(duplicateNames.isEmpty()) {
+            "Duplicate SVG icon names: ${duplicateNames.sorted().joinToString()}"
+        }
+        val kotlinCollisions = icons
+            .groupBy(SvgIcon::kotlinName)
+            .filterValues { values -> values.map(SvgIcon::name).distinct().size > 1 }
+        require(kotlinCollisions.isEmpty()) {
+            "SVG Kotlin identifier collisions: " +
+                kotlinCollisions.entries
+                    .sortedBy(Map.Entry<String, List<SvgIcon>>::key)
+                    .joinToString("; ") { (identifier, values) ->
+                        "$identifier <- ${values.map(SvgIcon::name).sorted().joinToString()}"
+                    }
+        }
+    }
+}
+
+/** A generated SVG root namespace containing one or more styles. */
+data class GeneratedSvgIconSet(
+    val packageName: String,
+    val name: String,
+    val styles: List<GeneratedSvgStyle>,
+) {
+    init {
+        SymbolNames.requirePackageName(packageName)
+        SymbolNames.requireTypeIdentifier(name, "icon-set name")
+        require(styles.isNotEmpty()) { "At least one SVG style is required" }
+        val duplicateStyles = styles
+            .groupingBy(GeneratedSvgStyle::name)
+            .eachCount()
+            .filterValues { it > 1 }
+            .keys
+        require(duplicateStyles.isEmpty()) {
+            "Duplicate styles: ${duplicateStyles.sorted().joinToString()}"
+        }
+        SymbolNames.requireDistinctStylePackageSegments(
+            styles.map(GeneratedSvgStyle::name),
+        )
+    }
 }
 
 /** One nonempty, normalized monochrome glyph outline. */
-public data class GlyphOutline(
-    public val codePoint: Int,
-    public val commands: List<VectorCommand>,
+data class GlyphOutline(
+    val codePoint: Int,
+    val commands: List<VectorCommand>,
 ) {
     init {
         require(codePoint.isUnicodeScalar()) {
@@ -140,11 +263,11 @@ public data class GlyphOutline(
 }
 
 /** The result of extracting one font at one static axis location. */
-public data class ExtractedFont(
-    public val familyName: String,
-    public val unitsPerEm: Int,
-    public val appliedAxes: Map<String, Float>,
-    public val outlines: Map<Int, GlyphOutline>,
+data class ExtractedFont(
+    val familyName: String,
+    val unitsPerEm: Int,
+    val appliedAxes: Map<String, Float>,
+    val outlines: Map<Int, GlyphOutline>,
 ) {
     init {
         require(unitsPerEm > 0) { "unitsPerEm must be positive" }
@@ -165,12 +288,12 @@ public data class ExtractedFont(
  * glyph paths in a y-down coordinate system, so the default baseline at the
  * viewport bottom maps a 0..UPEM icon-font square to 0..24.
  */
-public data class OutlineTransform(
-    public val viewportWidth: Float = 24f,
-    public val viewportHeight: Float = 24f,
-    public val emSize: Float = min(viewportWidth, viewportHeight),
-    public val originX: Float = 0f,
-    public val baselineY: Float = viewportHeight,
+data class OutlineTransform(
+    val viewportWidth: Float = 24f,
+    val viewportHeight: Float = 24f,
+    val emSize: Float = min(viewportWidth, viewportHeight),
+    val originX: Float = 0f,
+    val baselineY: Float = viewportHeight,
 ) {
     init {
         require(viewportWidth.isFinite() && viewportWidth > 0f) {
@@ -197,10 +320,10 @@ public data class OutlineTransform(
 }
 
 /** One generated icon style and its validated semantic catalog. */
-public data class GeneratedStyle(
-    public val name: String,
-    public val catalog: SymbolCatalog,
-    public val font: ExtractedFont,
+data class GeneratedStyle(
+    val name: String,
+    val catalog: SymbolCatalog,
+    val font: ExtractedFont,
 ) {
     init {
         SymbolNames.requireTypeIdentifier(name, "style name")
@@ -213,10 +336,10 @@ public data class GeneratedStyle(
 }
 
 /** A generated root namespace containing one or more styles. */
-public data class GeneratedIconSet(
-    public val packageName: String,
-    public val name: String,
-    public val styles: List<GeneratedStyle>,
+data class GeneratedIconSet(
+    val packageName: String,
+    val name: String,
+    val styles: List<GeneratedStyle>,
 ) {
     init {
         SymbolNames.requirePackageName(packageName)

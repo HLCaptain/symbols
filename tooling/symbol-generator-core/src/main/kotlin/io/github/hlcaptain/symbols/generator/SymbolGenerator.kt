@@ -6,10 +6,10 @@ package io.github.hlcaptain.symbols.generator
  * Gradle tasks should declare the request fields as inputs, call [extract], then
  * render one or both output formats into task-owned output directories.
  */
-public class SymbolGenerator(
+class SymbolGenerator(
     private val outlineExtractor: FontOutlineExtractor = SkikoFontOutlineExtractor(),
 ) {
-    public fun extract(
+    fun extract(
         catalog: SymbolCatalog,
         request: FontExtractionRequest,
     ): ExtractedFont {
@@ -17,17 +17,35 @@ public class SymbolGenerator(
         return outlineExtractor.extract(requested)
     }
 
-    public fun imageVectors(
+    /** Extracts every supported SVG file in [request]'s source directory. */
+    fun extract(request: SvgExtractionRequest): List<SvgIcon> =
+        SvgIconExtractor().extract(request)
+
+    fun imageVectors(
         iconSet: GeneratedIconSet,
         options: VectorRenderOptions = VectorRenderOptions(),
         includeNamespace: Boolean = true,
     ): RenderedFiles =
         KotlinImageVectorRenderer(options, includeNamespace).render(iconSet)
 
-    public fun androidVectors(
+    fun imageVectors(
+        iconSet: GeneratedSvgIconSet,
+        options: VectorRenderOptions = VectorRenderOptions(),
+        includeNamespace: Boolean = true,
+    ): RenderedFiles =
+        KotlinImageVectorRenderer(options, includeNamespace).render(iconSet)
+
+    fun androidVectors(
         iconSet: GeneratedIconSet,
         resourcePrefix: String = SymbolNames.androidResourcePrefix(iconSet.name),
         options: VectorRenderOptions = VectorRenderOptions(),
     ): AndroidVectorOutput =
+        AndroidVectorXmlRenderer(options, resourcePrefix).render(iconSet)
+
+    fun androidVectors(
+        iconSet: GeneratedSvgIconSet,
+        resourcePrefix: String = SymbolNames.androidResourcePrefix(iconSet.name),
+        options: VectorRenderOptions = VectorRenderOptions(),
+    ): SvgAndroidVectorOutput =
         AndroidVectorXmlRenderer(options, resourcePrefix).render(iconSet)
 }

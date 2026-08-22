@@ -1,5 +1,22 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
+fun skikoRuntimeTarget(): String {
+    val os = System.getProperty("os.name").lowercase()
+    val architecture = System.getProperty("os.arch").lowercase()
+    val normalizedArchitecture = when (architecture) {
+        "aarch64", "arm64" -> "arm64"
+        "amd64", "x86_64", "x64" -> "x64"
+        else -> error("Unsupported Skiko host architecture: $architecture")
+    }
+    val normalizedOs = when {
+        os.startsWith("mac") || os.startsWith("darwin") -> "macos"
+        os.startsWith("linux") -> "linux"
+        os.startsWith("windows") -> "windows"
+        else -> error("Unsupported Skiko host operating system: $os")
+    }
+    return "$normalizedOs-$normalizedArchitecture"
+}
+
 plugins {
     alias(libs.plugins.kotlinJvm)
     `java-gradle-plugin`
@@ -7,7 +24,6 @@ plugins {
 }
 
 kotlin {
-    explicitApi()
     jvmToolchain(17)
     compilerOptions {
         jvmTarget.set(JvmTarget.JVM_17)
@@ -44,6 +60,10 @@ dependencies {
         "com.android.tools.build:gradle:" +
             libs.versions.agp.get(),
     )
+    testRuntimeOnly(
+        "org.jetbrains.skiko:skiko-awt-runtime-${skikoRuntimeTarget()}:" +
+            libs.versions.skiko.get(),
+    )
 }
 
 gradlePlugin {
@@ -52,10 +72,10 @@ gradlePlugin {
             id = "io.github.hlcaptain.symbol-fonts"
             implementationClass =
                 "io.github.hlcaptain.symbols.gradle.SymbolFontsPlugin"
-            displayName = "Symbols font generator"
+            displayName = "Symbols vector generator"
             description =
                 "Generates shrinkable Compose ImageVectors and Android vector " +
-                    "drawables from regular or variable symbol fonts."
+                    "drawables from SVGs or regular and variable symbol fonts."
         }
     }
 }
@@ -68,4 +88,8 @@ tasks.jar {
 
 tasks.test {
     useJUnit()
+    systemProperty(
+        "symbols.generatorTestClasspath",
+        configurations.testRuntimeClasspath.get().asPath,
+    )
 }

@@ -15,7 +15,7 @@ import io.github.hlcaptain.symbols.material.MaterialSymbol
  * the same lazily built instance. Each unique code point owns one default
  * cache, shared by its typed alias getters.
  */
-public val MaterialSymbol.roundedImageVector: ImageVector
+val MaterialSymbol.roundedImageVector: ImageVector
     get() = asRoundedImageVector()
 
 /**
@@ -24,7 +24,7 @@ public val MaterialSymbol.roundedImageVector: ImageVector
  * [autoMirror] selects a separately cached vector whose renderer mirrors
  * it in right-to-left layout. The source outline itself is unchanged.
  */
-public fun MaterialSymbol.asRoundedImageVector(autoMirror: Boolean = false): ImageVector {
+fun MaterialSymbol.asRoundedImageVector(autoMirror: Boolean = false): ImageVector {
     val vectorIndex = roundedVectorIndex(codePoint)
     require(vectorIndex >= 0) {
         "MaterialSymbol '$name' (U+${codePoint.toString(16).uppercase()}) is not in the Rounded vector snapshot"

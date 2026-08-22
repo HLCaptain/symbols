@@ -8,6 +8,7 @@ kotlin {
         api(libs.compose.foundation)
         api(libs.compose.runtime)
         api(libs.compose.ui)
+        api(libs.compose.ui.tooling.preview)
         implementation(libs.compose.material3)
     }
 }

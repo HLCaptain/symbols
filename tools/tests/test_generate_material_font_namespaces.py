@@ -35,7 +35,7 @@ class FontNamespaceGeneratorTest(unittest.TestCase):
         )
 
         self.assertIn(
-            "public val Symbols.Rounded.Check: RoundedMaterialSymbol",
+            "val Symbols.Rounded.Check: RoundedMaterialSymbol",
             rendered,
         )
         self.assertIn(
@@ -43,7 +43,7 @@ class FontNamespaceGeneratorTest(unittest.TestCase):
             rendered,
         )
         self.assertIn(
-            "public val Symbols.Rounded._3dRotation: RoundedMaterialSymbol",
+            "val Symbols.Rounded._3dRotation: RoundedMaterialSymbol",
             rendered,
         )
 
@@ -61,9 +61,12 @@ class FontNamespaceGeneratorTest(unittest.TestCase):
         self.assertEqual(
             len(generator.STYLES) * len(entries),
             sum(
-                content.count("public val Symbols.")
+                content.count("val Symbols.")
                 for content in outputs.values()
             ),
+        )
+        self.assertTrue(
+            all("public val Symbols." not in content for content in outputs.values())
         )
 
     def test_checked_in_output_is_current(self) -> None:

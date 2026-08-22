@@ -5,13 +5,13 @@ import java.nio.file.Path
 import kotlin.system.exitProcess
 
 /** Compile-time generator for typed Compose symbol-font resource descriptors. */
-public object SymbolFontDescriptorsCli {
+object SymbolFontDescriptorsCli {
     @JvmStatic
-    public fun main(arguments: Array<String>) {
+    fun main(arguments: Array<String>) {
         exitProcess(run(arguments))
     }
 
-    public fun run(
+    fun run(
         arguments: Array<String>,
         standardOut: PrintStream = System.out,
         standardError: PrintStream = System.err,

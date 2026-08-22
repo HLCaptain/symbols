@@ -7,6 +7,7 @@ kotlin {
         implementation(libs.androidx.appcompat)
         implementation(libs.compose.ui)
         implementation(projects.modules.materialDrawablesOutlined)
+        implementation(projects.samples.imageVectorMigration)
     }
 }
 

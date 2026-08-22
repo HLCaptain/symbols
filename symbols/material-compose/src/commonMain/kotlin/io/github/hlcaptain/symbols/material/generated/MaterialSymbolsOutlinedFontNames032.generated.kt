@@ -4,25 +4,25 @@
 package io.github.hlcaptain.symbols.material
 
 /** `zone_person_idle` (U+E77A) as a Outlined font glyph. */
-public val Symbols.Outlined.ZonePersonIdle: OutlinedMaterialSymbol
+val Symbols.Outlined.ZonePersonIdle: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.ZonePersonIdle)
 
 /** `zone_person_urgent` (U+E788) as a Outlined font glyph. */
-public val Symbols.Outlined.ZonePersonUrgent: OutlinedMaterialSymbol
+val Symbols.Outlined.ZonePersonUrgent: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.ZonePersonUrgent)
 
 /** `zoom_in` (U+E8FF) as a Outlined font glyph. */
-public val Symbols.Outlined.ZoomIn: OutlinedMaterialSymbol
+val Symbols.Outlined.ZoomIn: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.ZoomIn)
 
 /** `zoom_in_map` (U+EB2D) as a Outlined font glyph. */
-public val Symbols.Outlined.ZoomInMap: OutlinedMaterialSymbol
+val Symbols.Outlined.ZoomInMap: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.ZoomInMap)
 
 /** `zoom_out` (U+E900) as a Outlined font glyph. */
-public val Symbols.Outlined.ZoomOut: OutlinedMaterialSymbol
+val Symbols.Outlined.ZoomOut: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.ZoomOut)
 
 /** `zoom_out_map` (U+E56B) as a Outlined font glyph. */
-public val Symbols.Outlined.ZoomOutMap: OutlinedMaterialSymbol
+val Symbols.Outlined.ZoomOutMap: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.ZoomOutMap)

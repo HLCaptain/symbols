@@ -4,513 +4,513 @@
 package io.github.hlcaptain.symbols.material
 
 /** `light_off` (U+E9B8) as a Outlined font glyph. */
-public val Symbols.Outlined.LightOff: OutlinedMaterialSymbol
+val Symbols.Outlined.LightOff: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LightOff)
 
 /** `lightbulb` (U+E90F) as a Outlined font glyph. */
-public val Symbols.Outlined.Lightbulb: OutlinedMaterialSymbol
+val Symbols.Outlined.Lightbulb: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.Lightbulb)
 
 /** `lightbulb_2` (U+F3E3) as a Outlined font glyph. */
-public val Symbols.Outlined.Lightbulb2: OutlinedMaterialSymbol
+val Symbols.Outlined.Lightbulb2: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.Lightbulb2)
 
 /** `lightbulb_circle` (U+EBFE) as a Outlined font glyph. */
-public val Symbols.Outlined.LightbulbCircle: OutlinedMaterialSymbol
+val Symbols.Outlined.LightbulbCircle: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LightbulbCircle)
 
 /** `lightbulb_outline` (U+E90F) as a Outlined font glyph. */
-public val Symbols.Outlined.LightbulbOutline: OutlinedMaterialSymbol
+val Symbols.Outlined.LightbulbOutline: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LightbulbOutline)
 
 /** `lightning_stand` (U+EFA4) as a Outlined font glyph. */
-public val Symbols.Outlined.LightningStand: OutlinedMaterialSymbol
+val Symbols.Outlined.LightningStand: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LightningStand)
 
 /** `line_axis` (U+EA9A) as a Outlined font glyph. */
-public val Symbols.Outlined.LineAxis: OutlinedMaterialSymbol
+val Symbols.Outlined.LineAxis: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LineAxis)
 
 /** `line_curve` (U+F757) as a Outlined font glyph. */
-public val Symbols.Outlined.LineCurve: OutlinedMaterialSymbol
+val Symbols.Outlined.LineCurve: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LineCurve)
 
 /** `line_end` (U+F826) as a Outlined font glyph. */
-public val Symbols.Outlined.LineEnd: OutlinedMaterialSymbol
+val Symbols.Outlined.LineEnd: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LineEnd)
 
 /** `line_end_arrow` (U+F81D) as a Outlined font glyph. */
-public val Symbols.Outlined.LineEndArrow: OutlinedMaterialSymbol
+val Symbols.Outlined.LineEndArrow: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LineEndArrow)
 
 /** `line_end_arrow_notch` (U+F81C) as a Outlined font glyph. */
-public val Symbols.Outlined.LineEndArrowNotch: OutlinedMaterialSymbol
+val Symbols.Outlined.LineEndArrowNotch: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LineEndArrowNotch)
 
 /** `line_end_circle` (U+F81B) as a Outlined font glyph. */
-public val Symbols.Outlined.LineEndCircle: OutlinedMaterialSymbol
+val Symbols.Outlined.LineEndCircle: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LineEndCircle)
 
 /** `line_end_diamond` (U+F81A) as a Outlined font glyph. */
-public val Symbols.Outlined.LineEndDiamond: OutlinedMaterialSymbol
+val Symbols.Outlined.LineEndDiamond: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LineEndDiamond)
 
 /** `line_end_square` (U+F819) as a Outlined font glyph. */
-public val Symbols.Outlined.LineEndSquare: OutlinedMaterialSymbol
+val Symbols.Outlined.LineEndSquare: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LineEndSquare)
 
 /** `line_start` (U+F825) as a Outlined font glyph. */
-public val Symbols.Outlined.LineStart: OutlinedMaterialSymbol
+val Symbols.Outlined.LineStart: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LineStart)
 
 /** `line_start_arrow` (U+F818) as a Outlined font glyph. */
-public val Symbols.Outlined.LineStartArrow: OutlinedMaterialSymbol
+val Symbols.Outlined.LineStartArrow: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LineStartArrow)
 
 /** `line_start_arrow_notch` (U+F817) as a Outlined font glyph. */
-public val Symbols.Outlined.LineStartArrowNotch: OutlinedMaterialSymbol
+val Symbols.Outlined.LineStartArrowNotch: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LineStartArrowNotch)
 
 /** `line_start_circle` (U+F816) as a Outlined font glyph. */
-public val Symbols.Outlined.LineStartCircle: OutlinedMaterialSymbol
+val Symbols.Outlined.LineStartCircle: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LineStartCircle)
 
 /** `line_start_diamond` (U+F815) as a Outlined font glyph. */
-public val Symbols.Outlined.LineStartDiamond: OutlinedMaterialSymbol
+val Symbols.Outlined.LineStartDiamond: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LineStartDiamond)
 
 /** `line_start_square` (U+F814) as a Outlined font glyph. */
-public val Symbols.Outlined.LineStartSquare: OutlinedMaterialSymbol
+val Symbols.Outlined.LineStartSquare: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LineStartSquare)
 
 /** `line_style` (U+E919) as a Outlined font glyph. */
-public val Symbols.Outlined.LineStyle: OutlinedMaterialSymbol
+val Symbols.Outlined.LineStyle: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LineStyle)
 
 /** `line_weight` (U+E91A) as a Outlined font glyph. */
-public val Symbols.Outlined.LineWeight: OutlinedMaterialSymbol
+val Symbols.Outlined.LineWeight: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LineWeight)
 
 /** `linear_scale` (U+E260) as a Outlined font glyph. */
-public val Symbols.Outlined.LinearScale: OutlinedMaterialSymbol
+val Symbols.Outlined.LinearScale: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LinearScale)
 
 /** `link` (U+E250) as a Outlined font glyph. */
-public val Symbols.Outlined.Link: OutlinedMaterialSymbol
+val Symbols.Outlined.Link: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.Link)
 
 /** `link_off` (U+E16F) as a Outlined font glyph. */
-public val Symbols.Outlined.LinkOff: OutlinedMaterialSymbol
+val Symbols.Outlined.LinkOff: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LinkOff)
 
 /** `linked_camera` (U+E438) as a Outlined font glyph. */
-public val Symbols.Outlined.LinkedCamera: OutlinedMaterialSymbol
+val Symbols.Outlined.LinkedCamera: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LinkedCamera)
 
 /** `linked_services` (U+F535) as a Outlined font glyph. */
-public val Symbols.Outlined.LinkedServices: OutlinedMaterialSymbol
+val Symbols.Outlined.LinkedServices: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LinkedServices)
 
 /** `liquor` (U+EA60) as a Outlined font glyph. */
-public val Symbols.Outlined.Liquor: OutlinedMaterialSymbol
+val Symbols.Outlined.Liquor: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.Liquor)
 
 /** `list` (U+E896) as a Outlined font glyph. */
-public val Symbols.Outlined.List: OutlinedMaterialSymbol
+val Symbols.Outlined.List: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.List)
 
 /** `list_alt` (U+E0EE) as a Outlined font glyph. */
-public val Symbols.Outlined.ListAlt: OutlinedMaterialSymbol
+val Symbols.Outlined.ListAlt: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.ListAlt)
 
 /** `list_alt_add` (U+F756) as a Outlined font glyph. */
-public val Symbols.Outlined.ListAltAdd: OutlinedMaterialSymbol
+val Symbols.Outlined.ListAltAdd: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.ListAltAdd)
 
 /** `list_alt_check` (U+F3DE) as a Outlined font glyph. */
-public val Symbols.Outlined.ListAltCheck: OutlinedMaterialSymbol
+val Symbols.Outlined.ListAltCheck: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.ListAltCheck)
 
 /** `lists` (U+E9B9) as a Outlined font glyph. */
-public val Symbols.Outlined.Lists: OutlinedMaterialSymbol
+val Symbols.Outlined.Lists: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.Lists)
 
 /** `live_help` (U+E0C6) as a Outlined font glyph. */
-public val Symbols.Outlined.LiveHelp: OutlinedMaterialSymbol
+val Symbols.Outlined.LiveHelp: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LiveHelp)
 
 /** `live_tv` (U+E63A) as a Outlined font glyph. */
-public val Symbols.Outlined.LiveTv: OutlinedMaterialSymbol
+val Symbols.Outlined.LiveTv: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LiveTv)
 
 /** `living` (U+F02B) as a Outlined font glyph. */
-public val Symbols.Outlined.Living: OutlinedMaterialSymbol
+val Symbols.Outlined.Living: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.Living)
 
 /** `local_activity` (U+E553) as a Outlined font glyph. */
-public val Symbols.Outlined.LocalActivity: OutlinedMaterialSymbol
+val Symbols.Outlined.LocalActivity: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocalActivity)
 
 /** `local_airport` (U+E53D) as a Outlined font glyph. */
-public val Symbols.Outlined.LocalAirport: OutlinedMaterialSymbol
+val Symbols.Outlined.LocalAirport: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocalAirport)
 
 /** `local_atm` (U+E53E) as a Outlined font glyph. */
-public val Symbols.Outlined.LocalAtm: OutlinedMaterialSymbol
+val Symbols.Outlined.LocalAtm: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocalAtm)
 
 /** `local_bar` (U+E540) as a Outlined font glyph. */
-public val Symbols.Outlined.LocalBar: OutlinedMaterialSymbol
+val Symbols.Outlined.LocalBar: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocalBar)
 
 /** `local_cafe` (U+EB44) as a Outlined font glyph. */
-public val Symbols.Outlined.LocalCafe: OutlinedMaterialSymbol
+val Symbols.Outlined.LocalCafe: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocalCafe)
 
 /** `local_car_wash` (U+E542) as a Outlined font glyph. */
-public val Symbols.Outlined.LocalCarWash: OutlinedMaterialSymbol
+val Symbols.Outlined.LocalCarWash: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocalCarWash)
 
 /** `local_convenience_store` (U+E543) as a Outlined font glyph. */
-public val Symbols.Outlined.LocalConvenienceStore: OutlinedMaterialSymbol
+val Symbols.Outlined.LocalConvenienceStore: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocalConvenienceStore)
 
 /** `local_dining` (U+E561) as a Outlined font glyph. */
-public val Symbols.Outlined.LocalDining: OutlinedMaterialSymbol
+val Symbols.Outlined.LocalDining: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocalDining)
 
 /** `local_drink` (U+E544) as a Outlined font glyph. */
-public val Symbols.Outlined.LocalDrink: OutlinedMaterialSymbol
+val Symbols.Outlined.LocalDrink: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocalDrink)
 
 /** `local_fire_department` (U+EF55) as a Outlined font glyph. */
-public val Symbols.Outlined.LocalFireDepartment: OutlinedMaterialSymbol
+val Symbols.Outlined.LocalFireDepartment: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocalFireDepartment)
 
 /** `local_florist` (U+E545) as a Outlined font glyph. */
-public val Symbols.Outlined.LocalFlorist: OutlinedMaterialSymbol
+val Symbols.Outlined.LocalFlorist: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocalFlorist)
 
 /** `local_gas_station` (U+E546) as a Outlined font glyph. */
-public val Symbols.Outlined.LocalGasStation: OutlinedMaterialSymbol
+val Symbols.Outlined.LocalGasStation: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocalGasStation)
 
 /** `local_grocery_store` (U+E8CC) as a Outlined font glyph. */
-public val Symbols.Outlined.LocalGroceryStore: OutlinedMaterialSymbol
+val Symbols.Outlined.LocalGroceryStore: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocalGroceryStore)
 
 /** `local_hospital` (U+E548) as a Outlined font glyph. */
-public val Symbols.Outlined.LocalHospital: OutlinedMaterialSymbol
+val Symbols.Outlined.LocalHospital: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocalHospital)
 
 /** `local_hotel` (U+E549) as a Outlined font glyph. */
-public val Symbols.Outlined.LocalHotel: OutlinedMaterialSymbol
+val Symbols.Outlined.LocalHotel: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocalHotel)
 
 /** `local_laundry_service` (U+E54A) as a Outlined font glyph. */
-public val Symbols.Outlined.LocalLaundryService: OutlinedMaterialSymbol
+val Symbols.Outlined.LocalLaundryService: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocalLaundryService)
 
 /** `local_library` (U+E54B) as a Outlined font glyph. */
-public val Symbols.Outlined.LocalLibrary: OutlinedMaterialSymbol
+val Symbols.Outlined.LocalLibrary: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocalLibrary)
 
 /** `local_mall` (U+E54C) as a Outlined font glyph. */
-public val Symbols.Outlined.LocalMall: OutlinedMaterialSymbol
+val Symbols.Outlined.LocalMall: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocalMall)
 
 /** `local_movies` (U+E8DA) as a Outlined font glyph. */
-public val Symbols.Outlined.LocalMovies: OutlinedMaterialSymbol
+val Symbols.Outlined.LocalMovies: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocalMovies)
 
 /** `local_offer` (U+F05B) as a Outlined font glyph. */
-public val Symbols.Outlined.LocalOffer: OutlinedMaterialSymbol
+val Symbols.Outlined.LocalOffer: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocalOffer)
 
 /** `local_parking` (U+E54F) as a Outlined font glyph. */
-public val Symbols.Outlined.LocalParking: OutlinedMaterialSymbol
+val Symbols.Outlined.LocalParking: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocalParking)
 
 /** `local_pharmacy` (U+E550) as a Outlined font glyph. */
-public val Symbols.Outlined.LocalPharmacy: OutlinedMaterialSymbol
+val Symbols.Outlined.LocalPharmacy: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocalPharmacy)
 
 /** `local_phone` (U+F0D4) as a Outlined font glyph. */
-public val Symbols.Outlined.LocalPhone: OutlinedMaterialSymbol
+val Symbols.Outlined.LocalPhone: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocalPhone)
 
 /** `local_pizza` (U+E552) as a Outlined font glyph. */
-public val Symbols.Outlined.LocalPizza: OutlinedMaterialSymbol
+val Symbols.Outlined.LocalPizza: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocalPizza)
 
 /** `local_play` (U+E553) as a Outlined font glyph. */
-public val Symbols.Outlined.LocalPlay: OutlinedMaterialSymbol
+val Symbols.Outlined.LocalPlay: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocalPlay)
 
 /** `local_police` (U+EF56) as a Outlined font glyph. */
-public val Symbols.Outlined.LocalPolice: OutlinedMaterialSymbol
+val Symbols.Outlined.LocalPolice: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocalPolice)
 
 /** `local_post_office` (U+E554) as a Outlined font glyph. */
-public val Symbols.Outlined.LocalPostOffice: OutlinedMaterialSymbol
+val Symbols.Outlined.LocalPostOffice: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocalPostOffice)
 
 /** `local_printshop` (U+E8AD) as a Outlined font glyph. */
-public val Symbols.Outlined.LocalPrintshop: OutlinedMaterialSymbol
+val Symbols.Outlined.LocalPrintshop: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocalPrintshop)
 
 /** `local_see` (U+E557) as a Outlined font glyph. */
-public val Symbols.Outlined.LocalSee: OutlinedMaterialSymbol
+val Symbols.Outlined.LocalSee: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocalSee)
 
 /** `local_shipping` (U+E558) as a Outlined font glyph. */
-public val Symbols.Outlined.LocalShipping: OutlinedMaterialSymbol
+val Symbols.Outlined.LocalShipping: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocalShipping)
 
 /** `local_taxi` (U+E559) as a Outlined font glyph. */
-public val Symbols.Outlined.LocalTaxi: OutlinedMaterialSymbol
+val Symbols.Outlined.LocalTaxi: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocalTaxi)
 
 /** `location_automation` (U+F14F) as a Outlined font glyph. */
-public val Symbols.Outlined.LocationAutomation: OutlinedMaterialSymbol
+val Symbols.Outlined.LocationAutomation: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocationAutomation)
 
 /** `location_away` (U+F150) as a Outlined font glyph. */
-public val Symbols.Outlined.LocationAway: OutlinedMaterialSymbol
+val Symbols.Outlined.LocationAway: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocationAway)
 
 /** `location_chip` (U+F850) as a Outlined font glyph. */
-public val Symbols.Outlined.LocationChip: OutlinedMaterialSymbol
+val Symbols.Outlined.LocationChip: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocationChip)
 
 /** `location_city` (U+E7F1) as a Outlined font glyph. */
-public val Symbols.Outlined.LocationCity: OutlinedMaterialSymbol
+val Symbols.Outlined.LocationCity: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocationCity)
 
 /** `location_disabled` (U+E1B6) as a Outlined font glyph. */
-public val Symbols.Outlined.LocationDisabled: OutlinedMaterialSymbol
+val Symbols.Outlined.LocationDisabled: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocationDisabled)
 
 /** `location_home` (U+F152) as a Outlined font glyph. */
-public val Symbols.Outlined.LocationHome: OutlinedMaterialSymbol
+val Symbols.Outlined.LocationHome: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocationHome)
 
 /** `location_off` (U+E0C7) as a Outlined font glyph. */
-public val Symbols.Outlined.LocationOff: OutlinedMaterialSymbol
+val Symbols.Outlined.LocationOff: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocationOff)
 
 /** `location_on` (U+F1DB) as a Outlined font glyph. */
-public val Symbols.Outlined.LocationOn: OutlinedMaterialSymbol
+val Symbols.Outlined.LocationOn: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocationOn)
 
 /** `location_pin` (U+F1DB) as a Outlined font glyph. */
-public val Symbols.Outlined.LocationPin: OutlinedMaterialSymbol
+val Symbols.Outlined.LocationPin: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocationPin)
 
 /** `location_searching` (U+E1B7) as a Outlined font glyph. */
-public val Symbols.Outlined.LocationSearching: OutlinedMaterialSymbol
+val Symbols.Outlined.LocationSearching: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocationSearching)
 
 /** `locator_tag` (U+F8C1) as a Outlined font glyph. */
-public val Symbols.Outlined.LocatorTag: OutlinedMaterialSymbol
+val Symbols.Outlined.LocatorTag: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LocatorTag)
 
 /** `lock` (U+E899) as a Outlined font glyph. */
-public val Symbols.Outlined.Lock: OutlinedMaterialSymbol
+val Symbols.Outlined.Lock: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.Lock)
 
 /** `lock_clock` (U+EF57) as a Outlined font glyph. */
-public val Symbols.Outlined.LockClock: OutlinedMaterialSymbol
+val Symbols.Outlined.LockClock: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LockClock)
 
 /** `lock_open` (U+E898) as a Outlined font glyph. */
-public val Symbols.Outlined.LockOpen: OutlinedMaterialSymbol
+val Symbols.Outlined.LockOpen: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LockOpen)
 
 /** `lock_open_circle` (U+F361) as a Outlined font glyph. */
-public val Symbols.Outlined.LockOpenCircle: OutlinedMaterialSymbol
+val Symbols.Outlined.LockOpenCircle: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LockOpenCircle)
 
 /** `lock_open_right` (U+F656) as a Outlined font glyph. */
-public val Symbols.Outlined.LockOpenRight: OutlinedMaterialSymbol
+val Symbols.Outlined.LockOpenRight: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LockOpenRight)
 
 /** `lock_outline` (U+E899) as a Outlined font glyph. */
-public val Symbols.Outlined.LockOutline: OutlinedMaterialSymbol
+val Symbols.Outlined.LockOutline: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LockOutline)
 
 /** `lock_person` (U+F8F3) as a Outlined font glyph. */
-public val Symbols.Outlined.LockPerson: OutlinedMaterialSymbol
+val Symbols.Outlined.LockPerson: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LockPerson)
 
 /** `lock_reset` (U+EADE) as a Outlined font glyph. */
-public val Symbols.Outlined.LockReset: OutlinedMaterialSymbol
+val Symbols.Outlined.LockReset: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LockReset)
 
 /** `login` (U+EA77) as a Outlined font glyph. */
-public val Symbols.Outlined.Login: OutlinedMaterialSymbol
+val Symbols.Outlined.Login: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.Login)
 
 /** `logo_dev` (U+EAD6) as a Outlined font glyph. */
-public val Symbols.Outlined.LogoDev: OutlinedMaterialSymbol
+val Symbols.Outlined.LogoDev: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LogoDev)
 
 /** `logout` (U+E9BA) as a Outlined font glyph. */
-public val Symbols.Outlined.Logout: OutlinedMaterialSymbol
+val Symbols.Outlined.Logout: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.Logout)
 
 /** `looks` (U+E3FC) as a Outlined font glyph. */
-public val Symbols.Outlined.Looks: OutlinedMaterialSymbol
+val Symbols.Outlined.Looks: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.Looks)
 
 /** `looks_3` (U+E3FB) as a Outlined font glyph. */
-public val Symbols.Outlined.Looks3: OutlinedMaterialSymbol
+val Symbols.Outlined.Looks3: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.Looks3)
 
 /** `looks_4` (U+E3FD) as a Outlined font glyph. */
-public val Symbols.Outlined.Looks4: OutlinedMaterialSymbol
+val Symbols.Outlined.Looks4: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.Looks4)
 
 /** `looks_5` (U+E3FE) as a Outlined font glyph. */
-public val Symbols.Outlined.Looks5: OutlinedMaterialSymbol
+val Symbols.Outlined.Looks5: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.Looks5)
 
 /** `looks_6` (U+E3FF) as a Outlined font glyph. */
-public val Symbols.Outlined.Looks6: OutlinedMaterialSymbol
+val Symbols.Outlined.Looks6: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.Looks6)
 
 /** `looks_one` (U+E400) as a Outlined font glyph. */
-public val Symbols.Outlined.LooksOne: OutlinedMaterialSymbol
+val Symbols.Outlined.LooksOne: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LooksOne)
 
 /** `looks_two` (U+E401) as a Outlined font glyph. */
-public val Symbols.Outlined.LooksTwo: OutlinedMaterialSymbol
+val Symbols.Outlined.LooksTwo: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LooksTwo)
 
 /** `loop` (U+E863) as a Outlined font glyph. */
-public val Symbols.Outlined.Loop: OutlinedMaterialSymbol
+val Symbols.Outlined.Loop: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.Loop)
 
 /** `loupe` (U+E402) as a Outlined font glyph. */
-public val Symbols.Outlined.Loupe: OutlinedMaterialSymbol
+val Symbols.Outlined.Loupe: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.Loupe)
 
 /** `low_density` (U+F79B) as a Outlined font glyph. */
-public val Symbols.Outlined.LowDensity: OutlinedMaterialSymbol
+val Symbols.Outlined.LowDensity: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LowDensity)
 
 /** `low_priority` (U+E16D) as a Outlined font glyph. */
-public val Symbols.Outlined.LowPriority: OutlinedMaterialSymbol
+val Symbols.Outlined.LowPriority: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LowPriority)
 
 /** `lowercase` (U+F48A) as a Outlined font glyph. */
-public val Symbols.Outlined.Lowercase: OutlinedMaterialSymbol
+val Symbols.Outlined.Lowercase: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.Lowercase)
 
 /** `loyalty` (U+E89A) as a Outlined font glyph. */
-public val Symbols.Outlined.Loyalty: OutlinedMaterialSymbol
+val Symbols.Outlined.Loyalty: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.Loyalty)
 
 /** `lte_mobiledata` (U+F02C) as a Outlined font glyph. */
-public val Symbols.Outlined.LteMobiledata: OutlinedMaterialSymbol
+val Symbols.Outlined.LteMobiledata: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LteMobiledata)
 
 /** `lte_mobiledata_badge` (U+F7D9) as a Outlined font glyph. */
-public val Symbols.Outlined.LteMobiledataBadge: OutlinedMaterialSymbol
+val Symbols.Outlined.LteMobiledataBadge: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LteMobiledataBadge)
 
 /** `lte_plus_mobiledata` (U+F02D) as a Outlined font glyph. */
-public val Symbols.Outlined.LtePlusMobiledata: OutlinedMaterialSymbol
+val Symbols.Outlined.LtePlusMobiledata: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LtePlusMobiledata)
 
 /** `lte_plus_mobiledata_badge` (U+F7D8) as a Outlined font glyph. */
-public val Symbols.Outlined.LtePlusMobiledataBadge: OutlinedMaterialSymbol
+val Symbols.Outlined.LtePlusMobiledataBadge: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LtePlusMobiledataBadge)
 
 /** `luggage` (U+F235) as a Outlined font glyph. */
-public val Symbols.Outlined.Luggage: OutlinedMaterialSymbol
+val Symbols.Outlined.Luggage: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.Luggage)
 
 /** `lunch_dining` (U+EA61) as a Outlined font glyph. */
-public val Symbols.Outlined.LunchDining: OutlinedMaterialSymbol
+val Symbols.Outlined.LunchDining: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.LunchDining)
 
 /** `lyrics` (U+EC0B) as a Outlined font glyph. */
-public val Symbols.Outlined.Lyrics: OutlinedMaterialSymbol
+val Symbols.Outlined.Lyrics: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.Lyrics)
 
 /** `macro_auto` (U+F6F2) as a Outlined font glyph. */
-public val Symbols.Outlined.MacroAuto: OutlinedMaterialSymbol
+val Symbols.Outlined.MacroAuto: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.MacroAuto)
 
 /** `macro_off` (U+F8D2) as a Outlined font glyph. */
-public val Symbols.Outlined.MacroOff: OutlinedMaterialSymbol
+val Symbols.Outlined.MacroOff: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.MacroOff)
 
 /** `magic_button` (U+F136) as a Outlined font glyph. */
-public val Symbols.Outlined.MagicButton: OutlinedMaterialSymbol
+val Symbols.Outlined.MagicButton: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.MagicButton)
 
 /** `magic_exchange` (U+F7F4) as a Outlined font glyph. */
-public val Symbols.Outlined.MagicExchange: OutlinedMaterialSymbol
+val Symbols.Outlined.MagicExchange: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.MagicExchange)
 
 /** `magic_tether` (U+F7D7) as a Outlined font glyph. */
-public val Symbols.Outlined.MagicTether: OutlinedMaterialSymbol
+val Symbols.Outlined.MagicTether: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.MagicTether)
 
 /** `magnification_large` (U+F83D) as a Outlined font glyph. */
-public val Symbols.Outlined.MagnificationLarge: OutlinedMaterialSymbol
+val Symbols.Outlined.MagnificationLarge: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.MagnificationLarge)
 
 /** `magnification_small` (U+F83C) as a Outlined font glyph. */
-public val Symbols.Outlined.MagnificationSmall: OutlinedMaterialSymbol
+val Symbols.Outlined.MagnificationSmall: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.MagnificationSmall)
 
 /** `magnify_docked` (U+F7D6) as a Outlined font glyph. */
-public val Symbols.Outlined.MagnifyDocked: OutlinedMaterialSymbol
+val Symbols.Outlined.MagnifyDocked: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.MagnifyDocked)
 
 /** `magnify_fullscreen` (U+F7D5) as a Outlined font glyph. */
-public val Symbols.Outlined.MagnifyFullscreen: OutlinedMaterialSymbol
+val Symbols.Outlined.MagnifyFullscreen: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.MagnifyFullscreen)
 
 /** `mail` (U+E159) as a Outlined font glyph. */
-public val Symbols.Outlined.Mail: OutlinedMaterialSymbol
+val Symbols.Outlined.Mail: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.Mail)
 
 /** `mail_asterisk` (U+EEF4) as a Outlined font glyph. */
-public val Symbols.Outlined.MailAsterisk: OutlinedMaterialSymbol
+val Symbols.Outlined.MailAsterisk: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.MailAsterisk)
 
 /** `mail_lock` (U+EC0A) as a Outlined font glyph. */
-public val Symbols.Outlined.MailLock: OutlinedMaterialSymbol
+val Symbols.Outlined.MailLock: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.MailLock)
 
 /** `mail_off` (U+F48B) as a Outlined font glyph. */
-public val Symbols.Outlined.MailOff: OutlinedMaterialSymbol
+val Symbols.Outlined.MailOff: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.MailOff)
 
 /** `mail_outline` (U+E159) as a Outlined font glyph. */
-public val Symbols.Outlined.MailOutline: OutlinedMaterialSymbol
+val Symbols.Outlined.MailOutline: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.MailOutline)
 
 /** `mail_shield` (U+F249) as a Outlined font glyph. */
-public val Symbols.Outlined.MailShield: OutlinedMaterialSymbol
+val Symbols.Outlined.MailShield: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.MailShield)
 
 /** `male` (U+E58E) as a Outlined font glyph. */
-public val Symbols.Outlined.Male: OutlinedMaterialSymbol
+val Symbols.Outlined.Male: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.Male)
 
 /** `man` (U+E4EB) as a Outlined font glyph. */
-public val Symbols.Outlined.Man: OutlinedMaterialSymbol
+val Symbols.Outlined.Man: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.Man)
 
 /** `man_2` (U+F8E1) as a Outlined font glyph. */
-public val Symbols.Outlined.Man2: OutlinedMaterialSymbol
+val Symbols.Outlined.Man2: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.Man2)
 
 /** `man_3` (U+F8E2) as a Outlined font glyph. */
-public val Symbols.Outlined.Man3: OutlinedMaterialSymbol
+val Symbols.Outlined.Man3: OutlinedMaterialSymbol
     get() = OutlinedMaterialSymbol(MaterialSymbols.Man3)

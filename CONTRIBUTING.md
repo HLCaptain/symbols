@@ -36,13 +36,18 @@ submitting:
 ./gradlew check
 ```
 
+Visible sample changes also use generated Roborazzi baselines. The focused
+record, verify, compare, output locations, and CI review flow are documented in
+[docs/SCREENSHOT_TESTING.md](docs/SCREENSHOT_TESTING.md).
+
 Use `gradlew.bat` instead on Windows. If a platform toolchain is unavailable,
 state exactly which tasks you ran and which tasks remain unverified in the pull
 request.
 
 ## Change guidelines
 
-- Keep public APIs small, explicit, and documented.
+- Follow the repository's [coding conventions](CONVENTIONS.md).
+- Keep exported APIs small, stable, and documented.
 - Preserve Kotlin Multiplatform behavior; do not add platform-specific behavior
   to common APIs without tests and a documented reason.
 - Add tests for observable behavior, regressions, boundary values, aliases, and

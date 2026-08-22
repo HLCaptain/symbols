@@ -10,13 +10,13 @@ import kotlin.jvm.JvmInline
  * [name] properties.
  */
 @JvmInline
-public value class MaterialSymbol internal constructor(private val catalogIndex: Int) {
+value class MaterialSymbol internal constructor(private val catalogIndex: Int) {
     /** The canonical snake_case name from the Material Symbols codepoints map. */
-    public val name: String
+    val name: String
         get() = MATERIAL_SYMBOL_NAMES[catalogIndex]
 
     /** The Unicode scalar value assigned to this named symbol. */
-    public val codePoint: Int
+    val codePoint: Int
         get() = MATERIAL_SYMBOL_CODE_POINTS[catalogIndex]
 
     /**
@@ -25,7 +25,7 @@ public value class MaterialSymbol internal constructor(private val catalogIndex:
      * Supplementary Unicode scalar values are encoded as a UTF-16 surrogate
      * pair, so this API is not limited to the Basic Multilingual Plane.
      */
-    public val text: String
+    val text: String
         get() = materialSymbolText(codePoint)
 
     override fun toString(): String = name
@@ -38,13 +38,13 @@ public value class MaterialSymbol internal constructor(private val catalogIndex:
  * from the canonical codepoints map. They return an inline catalog handle and
  * do not construct a new symbol object on each access.
  */
-public object MaterialSymbols {
+object MaterialSymbols {
     /** Every named entry in canonical name order, including aliases. */
-    public val all: List<MaterialSymbol>
+    val all: List<MaterialSymbol>
         get() = AllMaterialSymbols
 
     /** Number of named entries, including aliases. */
-    public val size: Int
+    val size: Int
         get() = MATERIAL_SYMBOL_NAMES.size
 
     /**
@@ -52,7 +52,7 @@ public object MaterialSymbols {
      *
      * Names are canonical, case-sensitive snake_case values.
      */
-    public fun fromName(name: String): MaterialSymbol? {
+    fun fromName(name: String): MaterialSymbol? {
         var low = 0
         var high = MATERIAL_SYMBOL_NAMES.lastIndex
         while (low <= high) {
@@ -73,7 +73,7 @@ public object MaterialSymbols {
      * The returned list includes every alias identity and is ordered by
      * canonical name. An unassigned value returns an empty list.
      */
-    public fun aliases(codePoint: Int): List<MaterialSymbol> {
+    fun aliases(codePoint: Int): List<MaterialSymbol> {
         val start = lowerCodePointBound(codePoint)
         if (
             start == MATERIAL_SYMBOL_CODE_POINT_ORDER.size ||
@@ -86,7 +86,7 @@ public object MaterialSymbols {
     }
 
     /** Returns every named entry sharing [symbol]'s code point. */
-    public fun aliases(symbol: MaterialSymbol): List<MaterialSymbol> =
+    fun aliases(symbol: MaterialSymbol): List<MaterialSymbol> =
         aliases(symbol.codePoint)
 
     internal fun symbolAt(index: Int): MaterialSymbol = MaterialSymbol(index)
@@ -163,7 +163,7 @@ private fun checkElementIndex(index: Int, size: Int) {
  * @throws IllegalArgumentException if [codePoint] is outside the Unicode range
  * or is a surrogate code point.
  */
-public fun materialSymbolText(codePoint: Int): String {
+fun materialSymbolText(codePoint: Int): String {
     require(
         codePoint in 0..0x10FFFF &&
             codePoint !in 0xD800..0xDFFF

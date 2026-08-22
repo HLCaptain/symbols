@@ -5,11 +5,11 @@ import java.nio.file.Files
 import java.nio.file.Path
 
 /** Parses the stable `<snake_case_name> <hex_code_point>` manifest format. */
-public object SymbolManifestParser {
+object SymbolManifestParser {
     private val linePattern =
         Regex("^(?<name>[a-z0-9]+(?:_[a-z0-9]+)*)[ \\t]+(?<codePoint>[0-9a-fA-F]{1,6})[ \\t]*$")
 
-    public fun parse(path: Path): SymbolCatalog {
+    fun parse(path: Path): SymbolCatalog {
         if (!Files.isRegularFile(path)) {
             throw SymbolGenerationException("Manifest does not exist: $path")
         }
@@ -18,7 +18,7 @@ public object SymbolManifestParser {
         }
     }
 
-    public fun parse(content: String, sourceName: String = "<manifest>"): SymbolCatalog =
+    fun parse(content: String, sourceName: String = "<manifest>"): SymbolCatalog =
         parse(content.lineSequence().toList(), sourceName)
 
     private fun parse(lines: List<String>, sourceName: String): SymbolCatalog {

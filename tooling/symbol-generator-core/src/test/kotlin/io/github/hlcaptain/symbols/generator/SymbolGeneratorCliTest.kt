@@ -53,7 +53,6 @@ class SymbolGeneratorCliTest {
                         "--package", "com.example.icons",
                         "--set", "AppIcons",
                         "--style", "Regular",
-                        "--include-all",
                         "--kotlin-output", directory.resolve("output").toString(),
                     ),
                     standardError = PrintStream(errors),
@@ -66,7 +65,7 @@ class SymbolGeneratorCliTest {
     }
 
     @Test
-    fun generatesSelectedOutputsAndRemovesOnlyStaleOwnedFiles() {
+    fun generatesAllOutputsAndRemovesOnlyStaleOwnedFiles() {
         val repositoryRoot = Path.of(
             requireNotNull(System.getProperty("symbols.repositoryRoot")),
         )
@@ -103,7 +102,7 @@ class SymbolGeneratorCliTest {
 
             assertEquals(
                 0,
-                SymbolGeneratorCli.run(commonArguments + "--include-all"),
+                SymbolGeneratorCli.run(commonArguments),
             )
             val checkRelativePath =
                 "drawable/app_icons_rounded_check_ue5ca.xml"
@@ -117,10 +116,11 @@ class SymbolGeneratorCliTest {
             )
 
             val secondOutput = ByteArrayOutputStream()
+            manifest.writeText("check e5ca\n")
             assertEquals(
                 0,
                 SymbolGeneratorCli.run(
-                    commonArguments + arrayOf("--include", "check"),
+                    commonArguments,
                     standardOut = PrintStream(secondOutput),
                 ),
             )
@@ -145,6 +145,65 @@ class SymbolGeneratorCliTest {
     }
 
     @Test
+    fun generatesStyledVectorsFromEverySvgFile() {
+        val temporaryRoot = Files.createTempDirectory("symbol-generator-svg-cli-")
+        try {
+            val svgDirectory = Files.createDirectory(temporaryRoot.resolve("svg"))
+            svgDirectory.resolve("home.svg").writeText(
+                """
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 12 L12 3 L21 12" />
+                </svg>
+                """.trimIndent(),
+            )
+            svgDirectory.resolve("settings.svg").writeText(
+                """
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M4 4 H20 V20 H4 Z" />
+                </svg>
+                """.trimIndent(),
+            )
+            val kotlinOutput = temporaryRoot.resolve("kotlin")
+            val androidOutput = temporaryRoot.resolve("android")
+            val composeOutput = temporaryRoot.resolve("compose")
+
+            val output = ByteArrayOutputStream()
+            assertEquals(
+                0,
+                SymbolGeneratorCli.run(
+                    arrayOf(
+                        "--svg-directory", svgDirectory.toString(),
+                        "--package", "com.example.icons",
+                        "--set", "Tabler",
+                        "--style", "Outline",
+                        "--kotlin-output", kotlinOutput.toString(),
+                        "--android-output", androidOutput.toString(),
+                        "--compose-output", composeOutput.toString(),
+                    ),
+                    standardOut = PrintStream(output),
+                ),
+            )
+
+            assertTrue("Generated 2 SVG icons" in output.toString())
+            val homePath = "drawable/tabler_outline_home.xml"
+            val homeXml = androidOutput.resolve(homePath).readText()
+            assertTrue("android:strokeWidth=\"2\"" in homeXml)
+            assertTrue("android:strokeLineCap=\"round\"" in homeXml)
+            assertEquals(homeXml, composeOutput.resolve(homePath).readText())
+            assertTrue(
+                "Tabler.Outline.Settings" in kotlinOutput.resolve(
+                    "com/example/icons/outline/" +
+                        "TablerOutlineIcons000.generated.kt",
+                ).readText(),
+            )
+        } finally {
+            temporaryRoot.toFile().deleteRecursively()
+        }
+    }
+
+    @Test
     fun rejectsMalformedNumbersAndOverlappingOutputs() {
         val commonArguments = arrayOf(
             "--font",
@@ -157,7 +216,6 @@ class SymbolGeneratorCliTest {
             "AppIcons",
             "--style",
             "Rounded",
-            "--include-all",
         )
 
         val malformedError = ByteArrayOutputStream()
@@ -204,5 +262,23 @@ class SymbolGeneratorCliTest {
             ),
         )
         assertTrue("non-overlapping" in nestedOutputError.toString())
+
+        val mixedSourceError = ByteArrayOutputStream()
+        assertEquals(
+            2,
+            SymbolGeneratorCli.run(
+                arrayOf(
+                    "--svg-directory", "svg",
+                    "--font", "font.ttf",
+                    "--manifest", "symbols.codepoints",
+                    "--package", "com.example.icons",
+                    "--set", "AppIcons",
+                    "--style", "Rounded",
+                    "--kotlin-output", "generated/kotlin",
+                ),
+                standardError = PrintStream(mixedSourceError),
+            ),
+        )
+        assertTrue("Use either --svg-directory" in mixedSourceError.toString())
     }
 }

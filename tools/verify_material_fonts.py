@@ -196,8 +196,6 @@ def is_unicode_scalar(code_point: int) -> bool:
 
 
 def kotlin_identifier(name: str) -> str:
-    """Mirror the catalog generator's simple PascalCase conversion."""
-
     identifier = "".join(
         part[0].upper() + part[1:]
         for part in name.split("_")

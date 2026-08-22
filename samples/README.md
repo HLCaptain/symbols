@@ -14,8 +14,8 @@ the shared pages, cards, status messages, list, and axis controls.
 | `:samples:material-variable` | Android 26+, JVM, JS, Wasm, iOS arm64 | Bundled variable Material Symbols at embedded defaults |
 | `:samples:custom-static` | Android, JVM, JS, Wasm, iOS arm64 | Minimal Powerline regular-font-to-`ImageVector` build |
 | `:samples:custom-variable` | Android, JVM, JS, Wasm, iOS arm64 | Academmunicons fixed at `ital=0,wght=600` during generation |
-| `:samples:image-vector-migration` | Android, JVM, JS, Wasm, iOS arm64 | Old Material Icons Extended vs generated Symbols, plus default-axis custom vectors and painters |
-| `:samples:android-views` | Android, JVM, JS, Wasm, iOS arm64 | Compose-View interop on Android and an in-route fallback elsewhere |
+| `:samples:image-vector-migration` | Android, JVM, JS, Wasm, iOS arm64 | Old vs new Material vectors, Academmunicons defaults, and Tabler SVG vectors/resources with shared live weight |
+| `:samples:android-views` | Android, JVM, JS, Wasm, iOS arm64 | Font- and SVG-generated XML/View interop on Android and an in-route fallback elsewhere |
 | `:samples:theming` | Android, JVM, JS, Wasm, iOS arm64 | Independent `MaterialTheme` and `SymbolsTheme` inheritance |
 | `:samples:runtime-axes` | Android 26+, JVM, JS, Wasm, iOS arm64 | Animated variable-font weight with live sliders and values |
 
@@ -47,13 +47,20 @@ JS/Wasm incremental KLIB compilation is temporarily disabled in
 `gradle.properties` for [KT-82395](https://youtrack.jetbrains.com/issue/KT-82395)
 while the compiler plugin emits cross-module hint declarations.
 
-All build-created sources and resources remain below the owning module's
-`build/generated` directory. In particular, symbol outputs use
-`build/generated/symbolFonts`, and BuildConfig uses
+All build-created files remain below the owning module's `build` directory.
+Symbol Kotlin and Compose-resource task outputs use
+`build/generated/symbolFonts`; Android Components places native drawable
+outputs under `build/generated/res`; and BuildConfig uses
 `build/generated/sources/buildConfig`. They are disposable `clean` outputs and
 must not be edited or committed. See the [generator guide](../docs/GENERATOR.md#generated-output-locations)
 for the complete layout. The Koin compiler transforms Kotlin IR and emits no
 visible generated source or resource files.
+
+The image-vector migration module generates every direct SVG in its pinned
+Tabler `v3.46.0` sample directory. Its Roborazzi previews compare font-derived
+and SVG vectors, including the shared `SymbolsTheme` weight behavior. Baselines,
+actuals, diffs, and reports also stay under `build`; see the focused
+[screenshot workflow](../docs/SCREENSHOT_TESTING.md).
 
 Launcher previews use the AndroidX `androidx.compose.ui.tooling.preview.Preview`
 annotation from `org.jetbrains.compose.ui:ui-tooling-preview`; Android debug

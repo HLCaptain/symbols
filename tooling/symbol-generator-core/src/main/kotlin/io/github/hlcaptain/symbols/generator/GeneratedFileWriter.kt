@@ -11,8 +11,8 @@ import java.nio.file.StandardCopyOption
  * owned by another task. A private state file records only paths from the
  * previous invocation of this writer.
  */
-public object GeneratedFileWriter {
-    public fun synchronize(
+object GeneratedFileWriter {
+    fun synchronize(
         outputDirectory: Path,
         renderedFiles: RenderedFiles,
         stateFileName: String = ".symbols-generated-files",
@@ -115,8 +115,8 @@ public object GeneratedFileWriter {
 }
 
 /** File synchronization statistics. */
-public data class WriteResult(
-    public val written: Int,
-    public val unchanged: Int,
-    public val deleted: Int,
+data class WriteResult(
+    val written: Int,
+    val unchanged: Int,
+    val deleted: Int,
 )

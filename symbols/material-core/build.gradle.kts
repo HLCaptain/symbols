@@ -3,10 +3,6 @@ plugins {
     alias(libs.plugins.symbolsKmpPublishing)
 }
 
-kotlin {
-    explicitApi()
-}
-
 android {
     namespace = "io.github.hlcaptain.symbols.material"
 }

@@ -13,18 +13,18 @@ import org.gradle.api.tasks.TaskAction
 
 /** Generates the one root object shared by independently cacheable styles. */
 @CacheableTask
-public abstract class GenerateSymbolNamespaceTask : DefaultTask() {
+abstract class GenerateSymbolNamespaceTask : DefaultTask() {
     @get:Input
-    public abstract val packageName: Property<String>
+    abstract val packageName: Property<String>
 
     @get:Input
-    public abstract val rootName: Property<String>
+    abstract val rootName: Property<String>
 
     @get:Input
-    public abstract val styleNames: SetProperty<String>
+    abstract val styleNames: SetProperty<String>
 
     @get:OutputDirectory
-    public abstract val outputDirectory: DirectoryProperty
+    abstract val outputDirectory: DirectoryProperty
 
     @TaskAction
     protected fun generate() {

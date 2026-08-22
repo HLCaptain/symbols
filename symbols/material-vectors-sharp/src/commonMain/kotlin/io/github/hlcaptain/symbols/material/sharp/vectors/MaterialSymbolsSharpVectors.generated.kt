@@ -15,7 +15,7 @@ import io.github.hlcaptain.symbols.material.MaterialSymbol
  * the same lazily built instance. Each unique code point owns one default
  * cache, shared by its typed alias getters.
  */
-public val MaterialSymbol.sharpImageVector: ImageVector
+val MaterialSymbol.sharpImageVector: ImageVector
     get() = asSharpImageVector()
 
 /**
@@ -24,7 +24,7 @@ public val MaterialSymbol.sharpImageVector: ImageVector
  * [autoMirror] selects a separately cached vector whose renderer mirrors
  * it in right-to-left layout. The source outline itself is unchanged.
  */
-public fun MaterialSymbol.asSharpImageVector(autoMirror: Boolean = false): ImageVector {
+fun MaterialSymbol.asSharpImageVector(autoMirror: Boolean = false): ImageVector {
     val vectorIndex = sharpVectorIndex(codePoint)
     require(vectorIndex >= 0) {
         "MaterialSymbol '$name' (U+${codePoint.toString(16).uppercase()}) is not in the Sharp vector snapshot"

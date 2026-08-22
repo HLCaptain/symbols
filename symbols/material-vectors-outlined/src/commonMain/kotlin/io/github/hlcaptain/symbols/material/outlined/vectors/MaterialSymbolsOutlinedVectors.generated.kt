@@ -15,7 +15,7 @@ import io.github.hlcaptain.symbols.material.MaterialSymbol
  * the same lazily built instance. Each unique code point owns one default
  * cache, shared by its typed alias getters.
  */
-public val MaterialSymbol.outlinedImageVector: ImageVector
+val MaterialSymbol.outlinedImageVector: ImageVector
     get() = asOutlinedImageVector()
 
 /**
@@ -24,7 +24,7 @@ public val MaterialSymbol.outlinedImageVector: ImageVector
  * [autoMirror] selects a separately cached vector whose renderer mirrors
  * it in right-to-left layout. The source outline itself is unchanged.
  */
-public fun MaterialSymbol.asOutlinedImageVector(autoMirror: Boolean = false): ImageVector {
+fun MaterialSymbol.asOutlinedImageVector(autoMirror: Boolean = false): ImageVector {
     val vectorIndex = outlinedVectorIndex(codePoint)
     require(vectorIndex >= 0) {
         "MaterialSymbol '$name' (U+${codePoint.toString(16).uppercase()}) is not in the Outlined vector snapshot"

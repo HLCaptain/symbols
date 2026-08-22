@@ -42,7 +42,7 @@ python3 tools/generate_material_symbols.py \
 
 The generated order is deterministic by canonical symbol name. Generation
 rejects malformed names, duplicate names, non-scalar Unicode values, and any
-two names that would produce the same simple PascalCase Kotlin property.
+two names that would produce the same Kotlin identifier.
 
 An alternate package expects the small catalog runtime from
 `MaterialSymbol.kt` to be present in that package. It is intended for a source

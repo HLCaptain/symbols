@@ -17,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.ui.NavDisplay
 import io.github.hlcaptain.symbols.material.Icons
@@ -25,6 +24,7 @@ import io.github.hlcaptain.symbols.material.rounded.vectors.ArrowBack
 import io.github.hlcaptain.symbols.sample.api.SampleEntry
 import io.github.hlcaptain.symbols.sample.api.SampleItem
 import io.github.hlcaptain.symbols.sample.api.SampleList
+import io.github.hlcaptain.symbols.sample.ui.PreviewSymbolsScreen
 import io.github.hlcaptain.symbols.sample.ui.SampleBrowser
 import org.koin.compose.KoinApplication
 import org.koin.compose.getKoin
@@ -98,14 +98,8 @@ private fun SampleLauncher() {
     }
 }
 
-@Preview(name = "Compact launcher", widthDp = 400, heightDp = 800)
+@PreviewSymbolsScreen
 @Composable
-private fun CompactLauncherPreview() {
-    App()
-}
-
-@Preview(name = "Expanded launcher", widthDp = 1000, heightDp = 700)
-@Composable
-private fun ExpandedLauncherPreview() {
+private fun LauncherPreview() {
     App()
 }

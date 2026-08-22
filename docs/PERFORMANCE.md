@@ -100,11 +100,19 @@ A vector builder runs on first property access and caches the resulting
 first-access work and generated code for independent reachability; measure both
 cold and warm access.
 
+For stroked SVG vectors, `rememberSymbolPainter()` reuses that cached geometry
+and changes only `VectorConfig.StrokeLineWidth` from the current
+`SymbolsTheme.fontSettings` `wght`. Weight 100, 400, and 700 map to 0.5×, 1×,
+and 1.5× the authored width. It does not parse SVG or rebuild paths at runtime.
+Direct `ImageVector` use and generated Android/Compose XML stay at the authored
+1× width.
+
 ## Shrinkability boundaries
 
-The build-time plugin generates every codepoint by default. Call `include(...)`
-when generation time, compiler memory, or unshrunk artifact size matters:
-unselected glyphs produce no Kotlin method and no XML file.
+The build-time plugin generates every manifest entry or direct SVG file. The
+Gradle DSL has no per-icon selection mode. Keep each source directory focused,
+or split a measured large set into separate modules when clean-build time,
+compiler memory, or unshrunk target packaging warrants the extra boundary.
 
 The focused `custom-static` and `custom-variable` modules deliberately put one
 input font in the conventional `composeResources/font` directory to teach
@@ -126,10 +134,10 @@ runtime-selected catalog values. They therefore reference a codepoint index and
 dispatcher and can retain substantially more of a built-in pack. Prefer typed
 properties when the selected icon is known at compile time.
 
-Native Android generation emits one `res/drawable` XML file per unique
-codepoint. Those files can participate in Android resource shrinking when a
-release build enables both code minification and `shrinkResources`. Dynamic
-resource lookup and keep files can retain additional resources. Compose
+Native Android generation emits one `res/drawable` XML file per unique font
+codepoint or SVG file. Those files can participate in Android resource shrinking
+when a release build enables both code minification and `shrinkResources`.
+Dynamic resource lookup and keep files can retain additional resources. Compose
 Multiplatform resource packaging differs by target; do not generalize Android
 resource-shrinker behavior to every Compose output.
 
@@ -140,10 +148,12 @@ subset a font.
 
 ## Evidence boundary
 
-Repository tests establish structural properties: selected generation, direct
-builder calls, alias cache sharing, absence of a generated global registry,
-one-resource-per-codepoint output, and deterministic regeneration. The exact
-font byte counts above are verified from checked-in files.
+Repository tests establish structural properties: complete input generation,
+direct builder calls, alias cache sharing, absence of a generated global
+registry, one-resource-per-font-codepoint/SVG output, secure SVG rejection, and
+deterministic regeneration. The exact font byte counts above are verified from
+checked-in files. Visual font/SVG comparisons use the same-runner
+[Roborazzi workflow](SCREENSHOT_TESTING.md) because pixel output varies by OS.
 
 ### Android R8/resource-shrinker fixture
 
@@ -222,7 +232,7 @@ Compare equivalent release applications rather than library source size alone:
 4. the matching regular-font style at the default axes;
 5. direct built-in vector properties for one, ten, and hundreds of icons;
 6. the legacy dynamic vector bridge for the same visual set;
-7. build-generated `ImageVector` output for an explicit selection;
+7. build-generated font and direct-SVG `ImageVector` output for the same set;
 8. build-generated Android XML with minification/resource shrinking off and on;
 9. Compose drawable resources on each target that matters; and
 10. all three styles only when that reflects a real product.

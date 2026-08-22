@@ -18,25 +18,25 @@ import org.gradle.process.ExecOperations
 
 /** Generates typed symbol-font descriptors for Compose font resources. */
 @CacheableTask
-public abstract class GenerateSymbolFontDescriptorsTask : DefaultTask() {
+abstract class GenerateSymbolFontDescriptorsTask : DefaultTask() {
     @get:Classpath
-    public abstract val generatorClasspath: ConfigurableFileCollection
+    abstract val generatorClasspath: ConfigurableFileCollection
 
     @get:InputFiles
     @get:PathSensitive(PathSensitivity.RELATIVE)
-    public abstract val resourceRoots: ConfigurableFileCollection
+    abstract val resourceRoots: ConfigurableFileCollection
 
     @get:Input
-    public abstract val resourcePackage: Property<String>
+    abstract val resourcePackage: Property<String>
 
     @get:Input
-    public abstract val resourceClassName: Property<String>
+    abstract val resourceClassName: Property<String>
 
     @get:Input
-    public abstract val publicAccessors: Property<Boolean>
+    abstract val publicAccessors: Property<Boolean>
 
     @get:OutputDirectory
-    public abstract val outputDirectory: DirectoryProperty
+    abstract val outputDirectory: DirectoryProperty
 
     @get:Inject
     protected abstract val execOperations: ExecOperations

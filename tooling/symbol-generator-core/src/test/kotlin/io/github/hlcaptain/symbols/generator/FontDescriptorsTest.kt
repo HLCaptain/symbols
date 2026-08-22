@@ -88,21 +88,22 @@ class FontDescriptorsTest {
             descriptors = descriptors,
         ).files.values.single()
 
-        assertTrue("public object SymbolFonts" in publicSource)
-        assertTrue("public val Res.symbolFonts: SymbolFonts" in publicSource)
-        assertTrue("public val regular_font: SymbolFont.Regular" in publicSource)
+        assertTrue("object SymbolFonts" in publicSource)
+        assertTrue("val Res.symbolFonts: SymbolFonts" in publicSource)
+        assertTrue("val regular_font: SymbolFont.Regular" in publicSource)
         assertTrue("SymbolFont.regular(" in publicSource)
         assertTrue("resource = Res.font.regular_font" in publicSource)
-        assertTrue("public val variable_font: SymbolFont.Variable" in publicSource)
+        assertTrue("val variable_font: SymbolFont.Variable" in publicSource)
         assertTrue("SymbolFont.variable(" in publicSource)
         assertTrue("resource = Res.font.variable_font" in publicSource)
         assertTrue("SymbolFontAxis(\"wght\", 100.0f, 400.0f, 900.0f)" in publicSource)
         assertTrue("SymbolFontAxis(\"opsz\", 8.0f, 14.0f, 72.0f)" in publicSource)
         assertTrue(publicSource.indexOf("\"wght\"") < publicSource.indexOf("\"opsz\""))
         assertFalse("\"HIDE\"" in publicSource)
-        assertTrue("public val hidden_only: SymbolFont.Variable" in publicSource)
+        assertTrue("val hidden_only: SymbolFont.Variable" in publicSource)
         assertTrue("variationAxes = emptyList()" in publicSource)
         assertFalse(Regex("\\bval all\\b").containsMatchIn(publicSource))
+        assertFalse(Regex("\\bpublic\\b").containsMatchIn(publicSource))
 
         val internalSource = KotlinFontDescriptorsRenderer().render(
             packageName = "com.example.generated.resources",
@@ -165,7 +166,8 @@ class FontDescriptorsTest {
         val generated = output.resolve(
             "com/example/resources/SymbolFonts.generated.kt",
         ).readText()
-        assertTrue("public val academic_icons: SymbolFont.Regular" in generated)
+        assertTrue("val academic_icons: SymbolFont.Regular" in generated)
+        assertFalse(Regex("\\bpublic\\b").containsMatchIn(generated))
         assertTrue("resource = Res.font.academic_icons" in generated)
 
         val errors = ByteArrayOutputStream()

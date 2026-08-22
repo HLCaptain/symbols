@@ -1,7 +1,7 @@
 package io.github.hlcaptain.symbols.generator
 
 /** Shared naming and validation rules for manifests and generated APIs. */
-public object SymbolNames {
+object SymbolNames {
     private val canonicalName =
         Regex("^[a-z0-9]+(?:_[a-z0-9]+)*$")
     private val packageName =
@@ -39,10 +39,10 @@ public object SymbolNames {
         "while",
     )
 
-    public fun isCanonicalName(value: String): Boolean =
+    fun isCanonicalName(value: String): Boolean =
         canonicalName.matches(value)
 
-    public fun kotlinIdentifier(canonicalName: String): String {
+    fun kotlinIdentifier(canonicalName: String): String {
         require(isCanonicalName(canonicalName)) {
             "Invalid canonical name: $canonicalName"
         }
@@ -54,7 +54,7 @@ public object SymbolNames {
         return if (identifier.first().isDigit()) "_$identifier" else identifier
     }
 
-    public fun packageSegment(typeIdentifier: String): String {
+    fun packageSegment(typeIdentifier: String): String {
         requireTypeIdentifier(typeIdentifier, "type identifier")
         val normalized = buildString(typeIdentifier.length + 4) {
             typeIdentifier.forEachIndexed { index, character ->
@@ -105,7 +105,7 @@ public object SymbolNames {
         }
     }
 
-    public fun requirePackageName(value: String) {
+    fun requirePackageName(value: String) {
         val segments = value.split('.')
         require(
             packageName.matches(value) &&
@@ -115,7 +115,7 @@ public object SymbolNames {
         }
     }
 
-    public fun requireTypeIdentifier(value: String, label: String) {
+    fun requireTypeIdentifier(value: String, label: String) {
         require(
             typeIdentifier.matches(value) &&
                 !value.first().isDigit() &&
@@ -125,7 +125,7 @@ public object SymbolNames {
         }
     }
 
-    public fun androidResourcePrefix(value: String): String {
+    fun androidResourcePrefix(value: String): String {
         val normalized = buildString(value.length + 8) {
             value.forEachIndexed { index, character ->
                 when {

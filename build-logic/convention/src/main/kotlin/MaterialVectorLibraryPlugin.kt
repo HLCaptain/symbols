@@ -8,7 +8,6 @@ class MaterialVectorLibraryPlugin : KotlinMultiplatformLibraryPlugin() {
         pluginManager.apply(KmpPublishingPlugin::class.java)
 
         extensions.configure<KotlinMultiplatformExtension> {
-            explicitApi()
             sourceSets.commonMain.dependencies {
                 api(dependencies.project(mapOf("path" to ":modules:material-core")))
                 api(defaultLibs.findLibrary("compose-ui").get())

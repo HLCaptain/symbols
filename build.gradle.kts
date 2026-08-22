@@ -24,6 +24,7 @@ plugins {
     alias(libs.plugins.composeCompiler) apply false
     alias(libs.plugins.koinCompiler) apply false
     alias(libs.plugins.kotlinMultiplatform) apply false
+    alias(libs.plugins.roborazzi) apply false
 
     // Convention plugins
     alias(libs.plugins.symbolsKotlinMultiplatformLibrary) apply false
@@ -372,17 +373,6 @@ subprojects {
                         developerConnection.set(
                             "scm:git:ssh://git@github.com/HLCaptain/symbols.git",
                         )
-                    }
-                }
-            }
-
-            repositories {
-                maven {
-                    name = "GitHubPackages"
-                    url = uri("https://maven.pkg.github.com/hlcaptain/symbols")
-                    credentials {
-                        username = providers.environmentVariable("GITHUB_ACTOR").orNull
-                        password = providers.environmentVariable("GITHUB_TOKEN").orNull
                     }
                 }
             }

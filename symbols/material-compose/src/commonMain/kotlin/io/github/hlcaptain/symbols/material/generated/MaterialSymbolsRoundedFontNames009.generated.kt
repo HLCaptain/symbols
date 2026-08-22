@@ -4,513 +4,513 @@
 package io.github.hlcaptain.symbols.material
 
 /** `done` (U+E876) as a Rounded font glyph. */
-public val Symbols.Rounded.Done: RoundedMaterialSymbol
+val Symbols.Rounded.Done: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Done)
 
 /** `done_all` (U+E877) as a Rounded font glyph. */
-public val Symbols.Rounded.DoneAll: RoundedMaterialSymbol
+val Symbols.Rounded.DoneAll: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DoneAll)
 
 /** `done_outline` (U+E92F) as a Rounded font glyph. */
-public val Symbols.Rounded.DoneOutline: RoundedMaterialSymbol
+val Symbols.Rounded.DoneOutline: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DoneOutline)
 
 /** `donut_large` (U+E917) as a Rounded font glyph. */
-public val Symbols.Rounded.DonutLarge: RoundedMaterialSymbol
+val Symbols.Rounded.DonutLarge: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DonutLarge)
 
 /** `donut_small` (U+E918) as a Rounded font glyph. */
-public val Symbols.Rounded.DonutSmall: RoundedMaterialSymbol
+val Symbols.Rounded.DonutSmall: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DonutSmall)
 
 /** `door_back` (U+EFFC) as a Rounded font glyph. */
-public val Symbols.Rounded.DoorBack: RoundedMaterialSymbol
+val Symbols.Rounded.DoorBack: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DoorBack)
 
 /** `door_front` (U+EFFD) as a Rounded font glyph. */
-public val Symbols.Rounded.DoorFront: RoundedMaterialSymbol
+val Symbols.Rounded.DoorFront: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DoorFront)
 
 /** `door_open` (U+E77C) as a Rounded font glyph. */
-public val Symbols.Rounded.DoorOpen: RoundedMaterialSymbol
+val Symbols.Rounded.DoorOpen: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DoorOpen)
 
 /** `door_sensor` (U+E28A) as a Rounded font glyph. */
-public val Symbols.Rounded.DoorSensor: RoundedMaterialSymbol
+val Symbols.Rounded.DoorSensor: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DoorSensor)
 
 /** `door_sliding` (U+EFFE) as a Rounded font glyph. */
-public val Symbols.Rounded.DoorSliding: RoundedMaterialSymbol
+val Symbols.Rounded.DoorSliding: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DoorSliding)
 
 /** `doorbell` (U+EFFF) as a Rounded font glyph. */
-public val Symbols.Rounded.Doorbell: RoundedMaterialSymbol
+val Symbols.Rounded.Doorbell: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Doorbell)
 
 /** `doorbell_3p` (U+E1E7) as a Rounded font glyph. */
-public val Symbols.Rounded.Doorbell3p: RoundedMaterialSymbol
+val Symbols.Rounded.Doorbell3p: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Doorbell3p)
 
 /** `doorbell_chime` (U+E1F3) as a Rounded font glyph. */
-public val Symbols.Rounded.DoorbellChime: RoundedMaterialSymbol
+val Symbols.Rounded.DoorbellChime: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DoorbellChime)
 
 /** `double_arrow` (U+EA50) as a Rounded font glyph. */
-public val Symbols.Rounded.DoubleArrow: RoundedMaterialSymbol
+val Symbols.Rounded.DoubleArrow: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DoubleArrow)
 
 /** `downhill_skiing` (U+E509) as a Rounded font glyph. */
-public val Symbols.Rounded.DownhillSkiing: RoundedMaterialSymbol
+val Symbols.Rounded.DownhillSkiing: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DownhillSkiing)
 
 /** `download` (U+F090) as a Rounded font glyph. */
-public val Symbols.Rounded.Download: RoundedMaterialSymbol
+val Symbols.Rounded.Download: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Download)
 
 /** `download_2` (U+F523) as a Rounded font glyph. */
-public val Symbols.Rounded.Download2: RoundedMaterialSymbol
+val Symbols.Rounded.Download2: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Download2)
 
 /** `download_done` (U+F091) as a Rounded font glyph. */
-public val Symbols.Rounded.DownloadDone: RoundedMaterialSymbol
+val Symbols.Rounded.DownloadDone: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DownloadDone)
 
 /** `download_for_offline` (U+F000) as a Rounded font glyph. */
-public val Symbols.Rounded.DownloadForOffline: RoundedMaterialSymbol
+val Symbols.Rounded.DownloadForOffline: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DownloadForOffline)
 
 /** `downloading` (U+F001) as a Rounded font glyph. */
-public val Symbols.Rounded.Downloading: RoundedMaterialSymbol
+val Symbols.Rounded.Downloading: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Downloading)
 
 /** `draft` (U+E66D) as a Rounded font glyph. */
-public val Symbols.Rounded.Draft: RoundedMaterialSymbol
+val Symbols.Rounded.Draft: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Draft)
 
 /** `draft_orders` (U+E7B3) as a Rounded font glyph. */
-public val Symbols.Rounded.DraftOrders: RoundedMaterialSymbol
+val Symbols.Rounded.DraftOrders: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DraftOrders)
 
 /** `drafts` (U+E151) as a Rounded font glyph. */
-public val Symbols.Rounded.Drafts: RoundedMaterialSymbol
+val Symbols.Rounded.Drafts: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Drafts)
 
 /** `drag_click` (U+F71F) as a Rounded font glyph. */
-public val Symbols.Rounded.DragClick: RoundedMaterialSymbol
+val Symbols.Rounded.DragClick: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DragClick)
 
 /** `drag_handle` (U+E25D) as a Rounded font glyph. */
-public val Symbols.Rounded.DragHandle: RoundedMaterialSymbol
+val Symbols.Rounded.DragHandle: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DragHandle)
 
 /** `drag_indicator` (U+E945) as a Rounded font glyph. */
-public val Symbols.Rounded.DragIndicator: RoundedMaterialSymbol
+val Symbols.Rounded.DragIndicator: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DragIndicator)
 
 /** `drag_pan` (U+F71E) as a Rounded font glyph. */
-public val Symbols.Rounded.DragPan: RoundedMaterialSymbol
+val Symbols.Rounded.DragPan: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DragPan)
 
 /** `draw` (U+E746) as a Rounded font glyph. */
-public val Symbols.Rounded.Draw: RoundedMaterialSymbol
+val Symbols.Rounded.Draw: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Draw)
 
 /** `draw_abstract` (U+F7F8) as a Rounded font glyph. */
-public val Symbols.Rounded.DrawAbstract: RoundedMaterialSymbol
+val Symbols.Rounded.DrawAbstract: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DrawAbstract)
 
 /** `draw_collage` (U+F7F7) as a Rounded font glyph. */
-public val Symbols.Rounded.DrawCollage: RoundedMaterialSymbol
+val Symbols.Rounded.DrawCollage: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DrawCollage)
 
 /** `drawing_recognition` (U+EB00) as a Rounded font glyph. */
-public val Symbols.Rounded.DrawingRecognition: RoundedMaterialSymbol
+val Symbols.Rounded.DrawingRecognition: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DrawingRecognition)
 
 /** `dresser` (U+E210) as a Rounded font glyph. */
-public val Symbols.Rounded.Dresser: RoundedMaterialSymbol
+val Symbols.Rounded.Dresser: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Dresser)
 
 /** `drive_eta` (U+EFF7) as a Rounded font glyph. */
-public val Symbols.Rounded.DriveEta: RoundedMaterialSymbol
+val Symbols.Rounded.DriveEta: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DriveEta)
 
 /** `drive_export` (U+F41D) as a Rounded font glyph. */
-public val Symbols.Rounded.DriveExport: RoundedMaterialSymbol
+val Symbols.Rounded.DriveExport: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DriveExport)
 
 /** `drive_file_move` (U+E9A1) as a Rounded font glyph. */
-public val Symbols.Rounded.DriveFileMove: RoundedMaterialSymbol
+val Symbols.Rounded.DriveFileMove: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DriveFileMove)
 
 /** `drive_file_move_outline` (U+E9A1) as a Rounded font glyph. */
-public val Symbols.Rounded.DriveFileMoveOutline: RoundedMaterialSymbol
+val Symbols.Rounded.DriveFileMoveOutline: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DriveFileMoveOutline)
 
 /** `drive_file_move_rtl` (U+E9A1) as a Rounded font glyph. */
-public val Symbols.Rounded.DriveFileMoveRtl: RoundedMaterialSymbol
+val Symbols.Rounded.DriveFileMoveRtl: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DriveFileMoveRtl)
 
 /** `drive_file_rename_outline` (U+E9A2) as a Rounded font glyph. */
-public val Symbols.Rounded.DriveFileRenameOutline: RoundedMaterialSymbol
+val Symbols.Rounded.DriveFileRenameOutline: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DriveFileRenameOutline)
 
 /** `drive_folder_upload` (U+E9A3) as a Rounded font glyph. */
-public val Symbols.Rounded.DriveFolderUpload: RoundedMaterialSymbol
+val Symbols.Rounded.DriveFolderUpload: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DriveFolderUpload)
 
 /** `drive_fusiontable` (U+E678) as a Rounded font glyph. */
-public val Symbols.Rounded.DriveFusiontable: RoundedMaterialSymbol
+val Symbols.Rounded.DriveFusiontable: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DriveFusiontable)
 
 /** `drone` (U+F25A) as a Rounded font glyph. */
-public val Symbols.Rounded.Drone: RoundedMaterialSymbol
+val Symbols.Rounded.Drone: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Drone)
 
 /** `drone_2` (U+F259) as a Rounded font glyph. */
-public val Symbols.Rounded.Drone2: RoundedMaterialSymbol
+val Symbols.Rounded.Drone2: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Drone2)
 
 /** `dropdown` (U+E9A4) as a Rounded font glyph. */
-public val Symbols.Rounded.Dropdown: RoundedMaterialSymbol
+val Symbols.Rounded.Dropdown: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Dropdown)
 
 /** `dropper_eye` (U+F351) as a Rounded font glyph. */
-public val Symbols.Rounded.DropperEye: RoundedMaterialSymbol
+val Symbols.Rounded.DropperEye: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DropperEye)
 
 /** `dry` (U+F1B3) as a Rounded font glyph. */
-public val Symbols.Rounded.Dry: RoundedMaterialSymbol
+val Symbols.Rounded.Dry: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Dry)
 
 /** `dry_cleaning` (U+EA58) as a Rounded font glyph. */
-public val Symbols.Rounded.DryCleaning: RoundedMaterialSymbol
+val Symbols.Rounded.DryCleaning: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DryCleaning)
 
 /** `dual_screen` (U+F6CF) as a Rounded font glyph. */
-public val Symbols.Rounded.DualScreen: RoundedMaterialSymbol
+val Symbols.Rounded.DualScreen: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DualScreen)
 
 /** `duo` (U+E9A5) as a Rounded font glyph. */
-public val Symbols.Rounded.Duo: RoundedMaterialSymbol
+val Symbols.Rounded.Duo: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Duo)
 
 /** `dvr` (U+E1B2) as a Rounded font glyph. */
-public val Symbols.Rounded.Dvr: RoundedMaterialSymbol
+val Symbols.Rounded.Dvr: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Dvr)
 
 /** `dynamic_feed` (U+EA14) as a Rounded font glyph. */
-public val Symbols.Rounded.DynamicFeed: RoundedMaterialSymbol
+val Symbols.Rounded.DynamicFeed: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DynamicFeed)
 
 /** `dynamic_form` (U+F1BF) as a Rounded font glyph. */
-public val Symbols.Rounded.DynamicForm: RoundedMaterialSymbol
+val Symbols.Rounded.DynamicForm: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.DynamicForm)
 
 /** `e911_avatar` (U+F11A) as a Rounded font glyph. */
-public val Symbols.Rounded.E911Avatar: RoundedMaterialSymbol
+val Symbols.Rounded.E911Avatar: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.E911Avatar)
 
 /** `e911_emergency` (U+F119) as a Rounded font glyph. */
-public val Symbols.Rounded.E911Emergency: RoundedMaterialSymbol
+val Symbols.Rounded.E911Emergency: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.E911Emergency)
 
 /** `e_mobiledata` (U+F002) as a Rounded font glyph. */
-public val Symbols.Rounded.EMobiledata: RoundedMaterialSymbol
+val Symbols.Rounded.EMobiledata: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EMobiledata)
 
 /** `e_mobiledata_badge` (U+F7E3) as a Rounded font glyph. */
-public val Symbols.Rounded.EMobiledataBadge: RoundedMaterialSymbol
+val Symbols.Rounded.EMobiledataBadge: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EMobiledataBadge)
 
 /** `ear_sound` (U+F356) as a Rounded font glyph. */
-public val Symbols.Rounded.EarSound: RoundedMaterialSymbol
+val Symbols.Rounded.EarSound: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EarSound)
 
 /** `earbud_case` (U+F327) as a Rounded font glyph. */
-public val Symbols.Rounded.EarbudCase: RoundedMaterialSymbol
+val Symbols.Rounded.EarbudCase: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EarbudCase)
 
 /** `earbud_left` (U+F326) as a Rounded font glyph. */
-public val Symbols.Rounded.EarbudLeft: RoundedMaterialSymbol
+val Symbols.Rounded.EarbudLeft: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EarbudLeft)
 
 /** `earbud_right` (U+F325) as a Rounded font glyph. */
-public val Symbols.Rounded.EarbudRight: RoundedMaterialSymbol
+val Symbols.Rounded.EarbudRight: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EarbudRight)
 
 /** `earbuds` (U+F003) as a Rounded font glyph. */
-public val Symbols.Rounded.Earbuds: RoundedMaterialSymbol
+val Symbols.Rounded.Earbuds: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Earbuds)
 
 /** `earbuds_2` (U+F324) as a Rounded font glyph. */
-public val Symbols.Rounded.Earbuds2: RoundedMaterialSymbol
+val Symbols.Rounded.Earbuds2: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Earbuds2)
 
 /** `earbuds_battery` (U+F004) as a Rounded font glyph. */
-public val Symbols.Rounded.EarbudsBattery: RoundedMaterialSymbol
+val Symbols.Rounded.EarbudsBattery: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EarbudsBattery)
 
 /** `early_on` (U+E2BA) as a Rounded font glyph. */
-public val Symbols.Rounded.EarlyOn: RoundedMaterialSymbol
+val Symbols.Rounded.EarlyOn: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EarlyOn)
 
 /** `earthquake` (U+F64F) as a Rounded font glyph. */
-public val Symbols.Rounded.Earthquake: RoundedMaterialSymbol
+val Symbols.Rounded.Earthquake: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Earthquake)
 
 /** `east` (U+F1DF) as a Rounded font glyph. */
-public val Symbols.Rounded.East: RoundedMaterialSymbol
+val Symbols.Rounded.East: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.East)
 
 /** `ecg` (U+F80F) as a Rounded font glyph. */
-public val Symbols.Rounded.Ecg: RoundedMaterialSymbol
+val Symbols.Rounded.Ecg: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Ecg)
 
 /** `ecg_heart` (U+F6E9) as a Rounded font glyph. */
-public val Symbols.Rounded.EcgHeart: RoundedMaterialSymbol
+val Symbols.Rounded.EcgHeart: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EcgHeart)
 
 /** `eco` (U+EA35) as a Rounded font glyph. */
-public val Symbols.Rounded.Eco: RoundedMaterialSymbol
+val Symbols.Rounded.Eco: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Eco)
 
 /** `eda` (U+F6E8) as a Rounded font glyph. */
-public val Symbols.Rounded.Eda: RoundedMaterialSymbol
+val Symbols.Rounded.Eda: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Eda)
 
 /** `edgesensor_high` (U+F2EF) as a Rounded font glyph. */
-public val Symbols.Rounded.EdgesensorHigh: RoundedMaterialSymbol
+val Symbols.Rounded.EdgesensorHigh: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EdgesensorHigh)
 
 /** `edgesensor_low` (U+F2EE) as a Rounded font glyph. */
-public val Symbols.Rounded.EdgesensorLow: RoundedMaterialSymbol
+val Symbols.Rounded.EdgesensorLow: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EdgesensorLow)
 
 /** `edit` (U+F097) as a Rounded font glyph. */
-public val Symbols.Rounded.Edit: RoundedMaterialSymbol
+val Symbols.Rounded.Edit: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Edit)
 
 /** `edit_arrow_down` (U+F380) as a Rounded font glyph. */
-public val Symbols.Rounded.EditArrowDown: RoundedMaterialSymbol
+val Symbols.Rounded.EditArrowDown: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EditArrowDown)
 
 /** `edit_arrow_up` (U+F37F) as a Rounded font glyph. */
-public val Symbols.Rounded.EditArrowUp: RoundedMaterialSymbol
+val Symbols.Rounded.EditArrowUp: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EditArrowUp)
 
 /** `edit_attributes` (U+E578) as a Rounded font glyph. */
-public val Symbols.Rounded.EditAttributes: RoundedMaterialSymbol
+val Symbols.Rounded.EditAttributes: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EditAttributes)
 
 /** `edit_audio` (U+F42D) as a Rounded font glyph. */
-public val Symbols.Rounded.EditAudio: RoundedMaterialSymbol
+val Symbols.Rounded.EditAudio: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EditAudio)
 
 /** `edit_calendar` (U+E742) as a Rounded font glyph. */
-public val Symbols.Rounded.EditCalendar: RoundedMaterialSymbol
+val Symbols.Rounded.EditCalendar: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EditCalendar)
 
 /** `edit_document` (U+F88C) as a Rounded font glyph. */
-public val Symbols.Rounded.EditDocument: RoundedMaterialSymbol
+val Symbols.Rounded.EditDocument: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EditDocument)
 
 /** `edit_location` (U+E568) as a Rounded font glyph. */
-public val Symbols.Rounded.EditLocation: RoundedMaterialSymbol
+val Symbols.Rounded.EditLocation: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EditLocation)
 
 /** `edit_location_alt` (U+E1C5) as a Rounded font glyph. */
-public val Symbols.Rounded.EditLocationAlt: RoundedMaterialSymbol
+val Symbols.Rounded.EditLocationAlt: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EditLocationAlt)
 
 /** `edit_note` (U+E745) as a Rounded font glyph. */
-public val Symbols.Rounded.EditNote: RoundedMaterialSymbol
+val Symbols.Rounded.EditNote: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EditNote)
 
 /** `edit_notifications` (U+E525) as a Rounded font glyph. */
-public val Symbols.Rounded.EditNotifications: RoundedMaterialSymbol
+val Symbols.Rounded.EditNotifications: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EditNotifications)
 
 /** `edit_off` (U+E950) as a Rounded font glyph. */
-public val Symbols.Rounded.EditOff: RoundedMaterialSymbol
+val Symbols.Rounded.EditOff: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EditOff)
 
 /** `edit_road` (U+EF4D) as a Rounded font glyph. */
-public val Symbols.Rounded.EditRoad: RoundedMaterialSymbol
+val Symbols.Rounded.EditRoad: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EditRoad)
 
 /** `edit_square` (U+F88D) as a Rounded font glyph. */
-public val Symbols.Rounded.EditSquare: RoundedMaterialSymbol
+val Symbols.Rounded.EditSquare: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EditSquare)
 
 /** `editor_choice` (U+F528) as a Rounded font glyph. */
-public val Symbols.Rounded.EditorChoice: RoundedMaterialSymbol
+val Symbols.Rounded.EditorChoice: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EditorChoice)
 
 /** `egg` (U+EACC) as a Rounded font glyph. */
-public val Symbols.Rounded.Egg: RoundedMaterialSymbol
+val Symbols.Rounded.Egg: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Egg)
 
 /** `egg_alt` (U+EAC8) as a Rounded font glyph. */
-public val Symbols.Rounded.EggAlt: RoundedMaterialSymbol
+val Symbols.Rounded.EggAlt: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EggAlt)
 
 /** `eject` (U+E8FB) as a Rounded font glyph. */
-public val Symbols.Rounded.Eject: RoundedMaterialSymbol
+val Symbols.Rounded.Eject: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Eject)
 
 /** `elderly` (U+F21A) as a Rounded font glyph. */
-public val Symbols.Rounded.Elderly: RoundedMaterialSymbol
+val Symbols.Rounded.Elderly: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Elderly)
 
 /** `elderly_woman` (U+EB69) as a Rounded font glyph. */
-public val Symbols.Rounded.ElderlyWoman: RoundedMaterialSymbol
+val Symbols.Rounded.ElderlyWoman: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.ElderlyWoman)
 
 /** `electric_bike` (U+EB1B) as a Rounded font glyph. */
-public val Symbols.Rounded.ElectricBike: RoundedMaterialSymbol
+val Symbols.Rounded.ElectricBike: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.ElectricBike)
 
 /** `electric_bolt` (U+EC1C) as a Rounded font glyph. */
-public val Symbols.Rounded.ElectricBolt: RoundedMaterialSymbol
+val Symbols.Rounded.ElectricBolt: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.ElectricBolt)
 
 /** `electric_car` (U+EB1C) as a Rounded font glyph. */
-public val Symbols.Rounded.ElectricCar: RoundedMaterialSymbol
+val Symbols.Rounded.ElectricCar: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.ElectricCar)
 
 /** `electric_meter` (U+EC1B) as a Rounded font glyph. */
-public val Symbols.Rounded.ElectricMeter: RoundedMaterialSymbol
+val Symbols.Rounded.ElectricMeter: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.ElectricMeter)
 
 /** `electric_moped` (U+EB1D) as a Rounded font glyph. */
-public val Symbols.Rounded.ElectricMoped: RoundedMaterialSymbol
+val Symbols.Rounded.ElectricMoped: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.ElectricMoped)
 
 /** `electric_rickshaw` (U+EB1E) as a Rounded font glyph. */
-public val Symbols.Rounded.ElectricRickshaw: RoundedMaterialSymbol
+val Symbols.Rounded.ElectricRickshaw: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.ElectricRickshaw)
 
 /** `electric_scooter` (U+EB1F) as a Rounded font glyph. */
-public val Symbols.Rounded.ElectricScooter: RoundedMaterialSymbol
+val Symbols.Rounded.ElectricScooter: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.ElectricScooter)
 
 /** `electrical_services` (U+F102) as a Rounded font glyph. */
-public val Symbols.Rounded.ElectricalServices: RoundedMaterialSymbol
+val Symbols.Rounded.ElectricalServices: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.ElectricalServices)
 
 /** `elevation` (U+F6E7) as a Rounded font glyph. */
-public val Symbols.Rounded.Elevation: RoundedMaterialSymbol
+val Symbols.Rounded.Elevation: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Elevation)
 
 /** `elevator` (U+F1A0) as a Rounded font glyph. */
-public val Symbols.Rounded.Elevator: RoundedMaterialSymbol
+val Symbols.Rounded.Elevator: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Elevator)
 
 /** `email` (U+E159) as a Rounded font glyph. */
-public val Symbols.Rounded.Email: RoundedMaterialSymbol
+val Symbols.Rounded.Email: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Email)
 
 /** `emergency` (U+E1EB) as a Rounded font glyph. */
-public val Symbols.Rounded.Emergency: RoundedMaterialSymbol
+val Symbols.Rounded.Emergency: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Emergency)
 
 /** `emergency_heat` (U+F15D) as a Rounded font glyph. */
-public val Symbols.Rounded.EmergencyHeat: RoundedMaterialSymbol
+val Symbols.Rounded.EmergencyHeat: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EmergencyHeat)
 
 /** `emergency_heat_2` (U+F4E5) as a Rounded font glyph. */
-public val Symbols.Rounded.EmergencyHeat2: RoundedMaterialSymbol
+val Symbols.Rounded.EmergencyHeat2: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EmergencyHeat2)
 
 /** `emergency_home` (U+E82A) as a Rounded font glyph. */
-public val Symbols.Rounded.EmergencyHome: RoundedMaterialSymbol
+val Symbols.Rounded.EmergencyHome: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EmergencyHome)
 
 /** `emergency_recording` (U+EBF4) as a Rounded font glyph. */
-public val Symbols.Rounded.EmergencyRecording: RoundedMaterialSymbol
+val Symbols.Rounded.EmergencyRecording: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EmergencyRecording)
 
 /** `emergency_share` (U+EBF6) as a Rounded font glyph. */
-public val Symbols.Rounded.EmergencyShare: RoundedMaterialSymbol
+val Symbols.Rounded.EmergencyShare: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EmergencyShare)
 
 /** `emergency_share_off` (U+F59E) as a Rounded font glyph. */
-public val Symbols.Rounded.EmergencyShareOff: RoundedMaterialSymbol
+val Symbols.Rounded.EmergencyShareOff: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EmergencyShareOff)
 
 /** `emoji_emotions` (U+EA22) as a Rounded font glyph. */
-public val Symbols.Rounded.EmojiEmotions: RoundedMaterialSymbol
+val Symbols.Rounded.EmojiEmotions: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EmojiEmotions)
 
 /** `emoji_events` (U+EA23) as a Rounded font glyph. */
-public val Symbols.Rounded.EmojiEvents: RoundedMaterialSymbol
+val Symbols.Rounded.EmojiEvents: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EmojiEvents)
 
 /** `emoji_flags` (U+F0C6) as a Rounded font glyph. */
-public val Symbols.Rounded.EmojiFlags: RoundedMaterialSymbol
+val Symbols.Rounded.EmojiFlags: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EmojiFlags)
 
 /** `emoji_food_beverage` (U+EA1B) as a Rounded font glyph. */
-public val Symbols.Rounded.EmojiFoodBeverage: RoundedMaterialSymbol
+val Symbols.Rounded.EmojiFoodBeverage: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EmojiFoodBeverage)
 
 /** `emoji_language` (U+F4CD) as a Rounded font glyph. */
-public val Symbols.Rounded.EmojiLanguage: RoundedMaterialSymbol
+val Symbols.Rounded.EmojiLanguage: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EmojiLanguage)
 
 /** `emoji_nature` (U+EA1C) as a Rounded font glyph. */
-public val Symbols.Rounded.EmojiNature: RoundedMaterialSymbol
+val Symbols.Rounded.EmojiNature: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EmojiNature)
 
 /** `emoji_objects` (U+EA24) as a Rounded font glyph. */
-public val Symbols.Rounded.EmojiObjects: RoundedMaterialSymbol
+val Symbols.Rounded.EmojiObjects: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EmojiObjects)
 
 /** `emoji_people` (U+EA1D) as a Rounded font glyph. */
-public val Symbols.Rounded.EmojiPeople: RoundedMaterialSymbol
+val Symbols.Rounded.EmojiPeople: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EmojiPeople)
 
 /** `emoji_symbols` (U+EA1E) as a Rounded font glyph. */
-public val Symbols.Rounded.EmojiSymbols: RoundedMaterialSymbol
+val Symbols.Rounded.EmojiSymbols: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EmojiSymbols)
 
 /** `emoji_transportation` (U+EA1F) as a Rounded font glyph. */
-public val Symbols.Rounded.EmojiTransportation: RoundedMaterialSymbol
+val Symbols.Rounded.EmojiTransportation: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EmojiTransportation)
 
 /** `emoticon` (U+E5F3) as a Rounded font glyph. */
-public val Symbols.Rounded.Emoticon: RoundedMaterialSymbol
+val Symbols.Rounded.Emoticon: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Emoticon)
 
 /** `empty_dashboard` (U+F844) as a Rounded font glyph. */
-public val Symbols.Rounded.EmptyDashboard: RoundedMaterialSymbol
+val Symbols.Rounded.EmptyDashboard: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EmptyDashboard)
 
 /** `enable` (U+F188) as a Rounded font glyph. */
-public val Symbols.Rounded.Enable: RoundedMaterialSymbol
+val Symbols.Rounded.Enable: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Enable)
 
 /** `encrypted` (U+E593) as a Rounded font glyph. */
-public val Symbols.Rounded.Encrypted: RoundedMaterialSymbol
+val Symbols.Rounded.Encrypted: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Encrypted)
 
 /** `encrypted_add` (U+F429) as a Rounded font glyph. */
-public val Symbols.Rounded.EncryptedAdd: RoundedMaterialSymbol
+val Symbols.Rounded.EncryptedAdd: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EncryptedAdd)
 
 /** `encrypted_add_circle` (U+F42A) as a Rounded font glyph. */
-public val Symbols.Rounded.EncryptedAddCircle: RoundedMaterialSymbol
+val Symbols.Rounded.EncryptedAddCircle: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EncryptedAddCircle)
 
 /** `encrypted_minus_circle` (U+F428) as a Rounded font glyph. */
-public val Symbols.Rounded.EncryptedMinusCircle: RoundedMaterialSymbol
+val Symbols.Rounded.EncryptedMinusCircle: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EncryptedMinusCircle)
 
 /** `encrypted_off` (U+F427) as a Rounded font glyph. */
-public val Symbols.Rounded.EncryptedOff: RoundedMaterialSymbol
+val Symbols.Rounded.EncryptedOff: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.EncryptedOff)
 
 /** `endocrinology` (U+E0A9) as a Rounded font glyph. */
-public val Symbols.Rounded.Endocrinology: RoundedMaterialSymbol
+val Symbols.Rounded.Endocrinology: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.Endocrinology)

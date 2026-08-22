@@ -4,7 +4,6 @@ plugins {
 }
 
 kotlin {
-    explicitApi()
     sourceSets.commonMain.dependencies {
         api(projects.modules.materialCompose)
         api(projects.modules.materialVectorsOutlined)

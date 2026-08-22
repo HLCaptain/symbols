@@ -4,513 +4,513 @@
 package io.github.hlcaptain.symbols.material
 
 /** `settings_remote` (U+E8C7) as a Sharp font glyph. */
-public val Symbols.Sharp.SettingsRemote: SharpMaterialSymbol
+val Symbols.Sharp.SettingsRemote: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SettingsRemote)
 
 /** `settings_seating` (U+EF2D) as a Sharp font glyph. */
-public val Symbols.Sharp.SettingsSeating: SharpMaterialSymbol
+val Symbols.Sharp.SettingsSeating: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SettingsSeating)
 
 /** `settings_slow_motion` (U+F623) as a Sharp font glyph. */
-public val Symbols.Sharp.SettingsSlowMotion: SharpMaterialSymbol
+val Symbols.Sharp.SettingsSlowMotion: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SettingsSlowMotion)
 
 /** `settings_suggest` (U+F05E) as a Sharp font glyph. */
-public val Symbols.Sharp.SettingsSuggest: SharpMaterialSymbol
+val Symbols.Sharp.SettingsSuggest: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SettingsSuggest)
 
 /** `settings_system_daydream` (U+E1C3) as a Sharp font glyph. */
-public val Symbols.Sharp.SettingsSystemDaydream: SharpMaterialSymbol
+val Symbols.Sharp.SettingsSystemDaydream: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SettingsSystemDaydream)
 
 /** `settings_timelapse` (U+F622) as a Sharp font glyph. */
-public val Symbols.Sharp.SettingsTimelapse: SharpMaterialSymbol
+val Symbols.Sharp.SettingsTimelapse: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SettingsTimelapse)
 
 /** `settings_video_camera` (U+F621) as a Sharp font glyph. */
-public val Symbols.Sharp.SettingsVideoCamera: SharpMaterialSymbol
+val Symbols.Sharp.SettingsVideoCamera: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SettingsVideoCamera)
 
 /** `settings_voice` (U+E8C8) as a Sharp font glyph. */
-public val Symbols.Sharp.SettingsVoice: SharpMaterialSymbol
+val Symbols.Sharp.SettingsVoice: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SettingsVoice)
 
 /** `settop_component` (U+E2AC) as a Sharp font glyph. */
-public val Symbols.Sharp.SettopComponent: SharpMaterialSymbol
+val Symbols.Sharp.SettopComponent: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SettopComponent)
 
 /** `severe_cold` (U+EBD3) as a Sharp font glyph. */
-public val Symbols.Sharp.SevereCold: SharpMaterialSymbol
+val Symbols.Sharp.SevereCold: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SevereCold)
 
 /** `shadow` (U+E9DF) as a Sharp font glyph. */
-public val Symbols.Sharp.Shadow: SharpMaterialSymbol
+val Symbols.Sharp.Shadow: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Shadow)
 
 /** `shadow_add` (U+F584) as a Sharp font glyph. */
-public val Symbols.Sharp.ShadowAdd: SharpMaterialSymbol
+val Symbols.Sharp.ShadowAdd: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShadowAdd)
 
 /** `shadow_minus` (U+F583) as a Sharp font glyph. */
-public val Symbols.Sharp.ShadowMinus: SharpMaterialSymbol
+val Symbols.Sharp.ShadowMinus: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShadowMinus)
 
 /** `shape_line` (U+F8D3) as a Sharp font glyph. */
-public val Symbols.Sharp.ShapeLine: SharpMaterialSymbol
+val Symbols.Sharp.ShapeLine: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShapeLine)
 
 /** `shape_recognition` (U+EB01) as a Sharp font glyph. */
-public val Symbols.Sharp.ShapeRecognition: SharpMaterialSymbol
+val Symbols.Sharp.ShapeRecognition: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShapeRecognition)
 
 /** `shapes` (U+E602) as a Sharp font glyph. */
-public val Symbols.Sharp.Shapes: SharpMaterialSymbol
+val Symbols.Sharp.Shapes: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Shapes)
 
 /** `share` (U+E80D) as a Sharp font glyph. */
-public val Symbols.Sharp.Share: SharpMaterialSymbol
+val Symbols.Sharp.Share: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Share)
 
 /** `share_eta` (U+E5F7) as a Sharp font glyph. */
-public val Symbols.Sharp.ShareEta: SharpMaterialSymbol
+val Symbols.Sharp.ShareEta: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShareEta)
 
 /** `share_location` (U+F05F) as a Sharp font glyph. */
-public val Symbols.Sharp.ShareLocation: SharpMaterialSymbol
+val Symbols.Sharp.ShareLocation: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShareLocation)
 
 /** `share_off` (U+F6CB) as a Sharp font glyph. */
-public val Symbols.Sharp.ShareOff: SharpMaterialSymbol
+val Symbols.Sharp.ShareOff: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShareOff)
 
 /** `share_reviews` (U+F8A4) as a Sharp font glyph. */
-public val Symbols.Sharp.ShareReviews: SharpMaterialSymbol
+val Symbols.Sharp.ShareReviews: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShareReviews)
 
 /** `share_windows` (U+F613) as a Sharp font glyph. */
-public val Symbols.Sharp.ShareWindows: SharpMaterialSymbol
+val Symbols.Sharp.ShareWindows: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShareWindows)
 
 /** `shaved_ice` (U+F225) as a Sharp font glyph. */
-public val Symbols.Sharp.ShavedIce: SharpMaterialSymbol
+val Symbols.Sharp.ShavedIce: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShavedIce)
 
 /** `sheets_rtl` (U+F823) as a Sharp font glyph. */
-public val Symbols.Sharp.SheetsRtl: SharpMaterialSymbol
+val Symbols.Sharp.SheetsRtl: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SheetsRtl)
 
 /** `shelf_auto_hide` (U+F703) as a Sharp font glyph. */
-public val Symbols.Sharp.ShelfAutoHide: SharpMaterialSymbol
+val Symbols.Sharp.ShelfAutoHide: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShelfAutoHide)
 
 /** `shelf_position` (U+F702) as a Sharp font glyph. */
-public val Symbols.Sharp.ShelfPosition: SharpMaterialSymbol
+val Symbols.Sharp.ShelfPosition: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShelfPosition)
 
 /** `shelves` (U+F86E) as a Sharp font glyph. */
-public val Symbols.Sharp.Shelves: SharpMaterialSymbol
+val Symbols.Sharp.Shelves: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Shelves)
 
 /** `shield` (U+E9E0) as a Sharp font glyph. */
-public val Symbols.Sharp.Shield: SharpMaterialSymbol
+val Symbols.Sharp.Shield: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Shield)
 
 /** `shield_lock` (U+F686) as a Sharp font glyph. */
-public val Symbols.Sharp.ShieldLock: SharpMaterialSymbol
+val Symbols.Sharp.ShieldLock: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShieldLock)
 
 /** `shield_locked` (U+F592) as a Sharp font glyph. */
-public val Symbols.Sharp.ShieldLocked: SharpMaterialSymbol
+val Symbols.Sharp.ShieldLocked: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShieldLocked)
 
 /** `shield_moon` (U+EAA9) as a Sharp font glyph. */
-public val Symbols.Sharp.ShieldMoon: SharpMaterialSymbol
+val Symbols.Sharp.ShieldMoon: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShieldMoon)
 
 /** `shield_person` (U+F650) as a Sharp font glyph. */
-public val Symbols.Sharp.ShieldPerson: SharpMaterialSymbol
+val Symbols.Sharp.ShieldPerson: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShieldPerson)
 
 /** `shield_question` (U+F529) as a Sharp font glyph. */
-public val Symbols.Sharp.ShieldQuestion: SharpMaterialSymbol
+val Symbols.Sharp.ShieldQuestion: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShieldQuestion)
 
 /** `shield_toggle` (U+F2AD) as a Sharp font glyph. */
-public val Symbols.Sharp.ShieldToggle: SharpMaterialSymbol
+val Symbols.Sharp.ShieldToggle: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShieldToggle)
 
 /** `shield_watch` (U+F30F) as a Sharp font glyph. */
-public val Symbols.Sharp.ShieldWatch: SharpMaterialSymbol
+val Symbols.Sharp.ShieldWatch: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShieldWatch)
 
 /** `shield_with_heart` (U+E78F) as a Sharp font glyph. */
-public val Symbols.Sharp.ShieldWithHeart: SharpMaterialSymbol
+val Symbols.Sharp.ShieldWithHeart: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShieldWithHeart)
 
 /** `shield_with_house` (U+E78D) as a Sharp font glyph. */
-public val Symbols.Sharp.ShieldWithHouse: SharpMaterialSymbol
+val Symbols.Sharp.ShieldWithHouse: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShieldWithHouse)
 
 /** `shift` (U+E5F2) as a Sharp font glyph. */
-public val Symbols.Sharp.Shift: SharpMaterialSymbol
+val Symbols.Sharp.Shift: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Shift)
 
 /** `shift_lock` (U+F7AE) as a Sharp font glyph. */
-public val Symbols.Sharp.ShiftLock: SharpMaterialSymbol
+val Symbols.Sharp.ShiftLock: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShiftLock)
 
 /** `shift_lock_off` (U+F483) as a Sharp font glyph. */
-public val Symbols.Sharp.ShiftLockOff: SharpMaterialSymbol
+val Symbols.Sharp.ShiftLockOff: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShiftLockOff)
 
 /** `shop` (U+E8C9) as a Sharp font glyph. */
-public val Symbols.Sharp.Shop: SharpMaterialSymbol
+val Symbols.Sharp.Shop: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Shop)
 
 /** `shop_2` (U+E8CA) as a Sharp font glyph. */
-public val Symbols.Sharp.Shop2: SharpMaterialSymbol
+val Symbols.Sharp.Shop2: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Shop2)
 
 /** `shop_two` (U+E8CA) as a Sharp font glyph. */
-public val Symbols.Sharp.ShopTwo: SharpMaterialSymbol
+val Symbols.Sharp.ShopTwo: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShopTwo)
 
 /** `shopping_bag` (U+F1CC) as a Sharp font glyph. */
-public val Symbols.Sharp.ShoppingBag: SharpMaterialSymbol
+val Symbols.Sharp.ShoppingBag: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShoppingBag)
 
 /** `shopping_bag_speed` (U+F39A) as a Sharp font glyph. */
-public val Symbols.Sharp.ShoppingBagSpeed: SharpMaterialSymbol
+val Symbols.Sharp.ShoppingBagSpeed: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShoppingBagSpeed)
 
 /** `shopping_basket` (U+E8CB) as a Sharp font glyph. */
-public val Symbols.Sharp.ShoppingBasket: SharpMaterialSymbol
+val Symbols.Sharp.ShoppingBasket: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShoppingBasket)
 
 /** `shopping_cart` (U+E8CC) as a Sharp font glyph. */
-public val Symbols.Sharp.ShoppingCart: SharpMaterialSymbol
+val Symbols.Sharp.ShoppingCart: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShoppingCart)
 
 /** `shopping_cart_checkout` (U+EB88) as a Sharp font glyph. */
-public val Symbols.Sharp.ShoppingCartCheckout: SharpMaterialSymbol
+val Symbols.Sharp.ShoppingCartCheckout: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShoppingCartCheckout)
 
 /** `shopping_cart_off` (U+F4F7) as a Sharp font glyph. */
-public val Symbols.Sharp.ShoppingCartOff: SharpMaterialSymbol
+val Symbols.Sharp.ShoppingCartOff: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShoppingCartOff)
 
 /** `shoppingmode` (U+EFB7) as a Sharp font glyph. */
-public val Symbols.Sharp.Shoppingmode: SharpMaterialSymbol
+val Symbols.Sharp.Shoppingmode: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Shoppingmode)
 
 /** `short_stay` (U+E4D0) as a Sharp font glyph. */
-public val Symbols.Sharp.ShortStay: SharpMaterialSymbol
+val Symbols.Sharp.ShortStay: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShortStay)
 
 /** `short_text` (U+E261) as a Sharp font glyph. */
-public val Symbols.Sharp.ShortText: SharpMaterialSymbol
+val Symbols.Sharp.ShortText: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShortText)
 
 /** `shortcut` (U+F57A) as a Sharp font glyph. */
-public val Symbols.Sharp.Shortcut: SharpMaterialSymbol
+val Symbols.Sharp.Shortcut: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Shortcut)
 
 /** `show_chart` (U+E6E1) as a Sharp font glyph. */
-public val Symbols.Sharp.ShowChart: SharpMaterialSymbol
+val Symbols.Sharp.ShowChart: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShowChart)
 
 /** `shower` (U+F061) as a Sharp font glyph. */
-public val Symbols.Sharp.Shower: SharpMaterialSymbol
+val Symbols.Sharp.Shower: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Shower)
 
 /** `shuffle` (U+E043) as a Sharp font glyph. */
-public val Symbols.Sharp.Shuffle: SharpMaterialSymbol
+val Symbols.Sharp.Shuffle: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Shuffle)
 
 /** `shuffle_on` (U+E9E1) as a Sharp font glyph. */
-public val Symbols.Sharp.ShuffleOn: SharpMaterialSymbol
+val Symbols.Sharp.ShuffleOn: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShuffleOn)
 
 /** `shutter_speed` (U+E43D) as a Sharp font glyph. */
-public val Symbols.Sharp.ShutterSpeed: SharpMaterialSymbol
+val Symbols.Sharp.ShutterSpeed: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShutterSpeed)
 
 /** `shutter_speed_add` (U+F57E) as a Sharp font glyph. */
-public val Symbols.Sharp.ShutterSpeedAdd: SharpMaterialSymbol
+val Symbols.Sharp.ShutterSpeedAdd: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShutterSpeedAdd)
 
 /** `shutter_speed_minus` (U+F57D) as a Sharp font glyph. */
-public val Symbols.Sharp.ShutterSpeedMinus: SharpMaterialSymbol
+val Symbols.Sharp.ShutterSpeedMinus: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ShutterSpeedMinus)
 
 /** `sick` (U+F220) as a Sharp font glyph. */
-public val Symbols.Sharp.Sick: SharpMaterialSymbol
+val Symbols.Sharp.Sick: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Sick)
 
 /** `side_navigation` (U+E9E2) as a Sharp font glyph. */
-public val Symbols.Sharp.SideNavigation: SharpMaterialSymbol
+val Symbols.Sharp.SideNavigation: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SideNavigation)
 
 /** `sign_language` (U+EBE5) as a Sharp font glyph. */
-public val Symbols.Sharp.SignLanguage: SharpMaterialSymbol
+val Symbols.Sharp.SignLanguage: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SignLanguage)
 
 /** `sign_language_2` (U+F258) as a Sharp font glyph. */
-public val Symbols.Sharp.SignLanguage2: SharpMaterialSymbol
+val Symbols.Sharp.SignLanguage2: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SignLanguage2)
 
 /** `signal_cellular_0_bar` (U+F0A8) as a Sharp font glyph. */
-public val Symbols.Sharp.SignalCellular0Bar: SharpMaterialSymbol
+val Symbols.Sharp.SignalCellular0Bar: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SignalCellular0Bar)
 
 /** `signal_cellular_1_bar` (U+F0A9) as a Sharp font glyph. */
-public val Symbols.Sharp.SignalCellular1Bar: SharpMaterialSymbol
+val Symbols.Sharp.SignalCellular1Bar: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SignalCellular1Bar)
 
 /** `signal_cellular_2_bar` (U+F0AA) as a Sharp font glyph. */
-public val Symbols.Sharp.SignalCellular2Bar: SharpMaterialSymbol
+val Symbols.Sharp.SignalCellular2Bar: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SignalCellular2Bar)
 
 /** `signal_cellular_3_bar` (U+F0AB) as a Sharp font glyph. */
-public val Symbols.Sharp.SignalCellular3Bar: SharpMaterialSymbol
+val Symbols.Sharp.SignalCellular3Bar: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SignalCellular3Bar)
 
 /** `signal_cellular_4_bar` (U+E1C8) as a Sharp font glyph. */
-public val Symbols.Sharp.SignalCellular4Bar: SharpMaterialSymbol
+val Symbols.Sharp.SignalCellular4Bar: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SignalCellular4Bar)
 
 /** `signal_cellular_add` (U+F7A9) as a Sharp font glyph. */
-public val Symbols.Sharp.SignalCellularAdd: SharpMaterialSymbol
+val Symbols.Sharp.SignalCellularAdd: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SignalCellularAdd)
 
 /** `signal_cellular_alt` (U+E202) as a Sharp font glyph. */
-public val Symbols.Sharp.SignalCellularAlt: SharpMaterialSymbol
+val Symbols.Sharp.SignalCellularAlt: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SignalCellularAlt)
 
 /** `signal_cellular_alt_1_bar` (U+EBDF) as a Sharp font glyph. */
-public val Symbols.Sharp.SignalCellularAlt1Bar: SharpMaterialSymbol
+val Symbols.Sharp.SignalCellularAlt1Bar: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SignalCellularAlt1Bar)
 
 /** `signal_cellular_alt_2_bar` (U+EBE3) as a Sharp font glyph. */
-public val Symbols.Sharp.SignalCellularAlt2Bar: SharpMaterialSymbol
+val Symbols.Sharp.SignalCellularAlt2Bar: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SignalCellularAlt2Bar)
 
 /** `signal_cellular_connected_no_internet_0_bar` (U+F0AC) as a Sharp font glyph. */
-public val Symbols.Sharp.SignalCellularConnectedNoInternet0Bar: SharpMaterialSymbol
+val Symbols.Sharp.SignalCellularConnectedNoInternet0Bar: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SignalCellularConnectedNoInternet0Bar)
 
 /** `signal_cellular_connected_no_internet_4_bar` (U+E1CD) as a Sharp font glyph. */
-public val Symbols.Sharp.SignalCellularConnectedNoInternet4Bar: SharpMaterialSymbol
+val Symbols.Sharp.SignalCellularConnectedNoInternet4Bar: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SignalCellularConnectedNoInternet4Bar)
 
 /** `signal_cellular_no_sim` (U+E1CE) as a Sharp font glyph. */
-public val Symbols.Sharp.SignalCellularNoSim: SharpMaterialSymbol
+val Symbols.Sharp.SignalCellularNoSim: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SignalCellularNoSim)
 
 /** `signal_cellular_nodata` (U+F062) as a Sharp font glyph. */
-public val Symbols.Sharp.SignalCellularNodata: SharpMaterialSymbol
+val Symbols.Sharp.SignalCellularNodata: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SignalCellularNodata)
 
 /** `signal_cellular_null` (U+E1CF) as a Sharp font glyph. */
-public val Symbols.Sharp.SignalCellularNull: SharpMaterialSymbol
+val Symbols.Sharp.SignalCellularNull: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SignalCellularNull)
 
 /** `signal_cellular_off` (U+E1D0) as a Sharp font glyph. */
-public val Symbols.Sharp.SignalCellularOff: SharpMaterialSymbol
+val Symbols.Sharp.SignalCellularOff: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SignalCellularOff)
 
 /** `signal_cellular_pause` (U+F5A7) as a Sharp font glyph. */
-public val Symbols.Sharp.SignalCellularPause: SharpMaterialSymbol
+val Symbols.Sharp.SignalCellularPause: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SignalCellularPause)
 
 /** `signal_disconnected` (U+F239) as a Sharp font glyph. */
-public val Symbols.Sharp.SignalDisconnected: SharpMaterialSymbol
+val Symbols.Sharp.SignalDisconnected: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SignalDisconnected)
 
 /** `signal_wifi_0_bar` (U+F0B0) as a Sharp font glyph. */
-public val Symbols.Sharp.SignalWifi0Bar: SharpMaterialSymbol
+val Symbols.Sharp.SignalWifi0Bar: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SignalWifi0Bar)
 
 /** `signal_wifi_4_bar` (U+F065) as a Sharp font glyph. */
-public val Symbols.Sharp.SignalWifi4Bar: SharpMaterialSymbol
+val Symbols.Sharp.SignalWifi4Bar: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SignalWifi4Bar)
 
 /** `signal_wifi_4_bar_lock` (U+E1E1) as a Sharp font glyph. */
-public val Symbols.Sharp.SignalWifi4BarLock: SharpMaterialSymbol
+val Symbols.Sharp.SignalWifi4BarLock: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SignalWifi4BarLock)
 
 /** `signal_wifi_bad` (U+F064) as a Sharp font glyph. */
-public val Symbols.Sharp.SignalWifiBad: SharpMaterialSymbol
+val Symbols.Sharp.SignalWifiBad: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SignalWifiBad)
 
 /** `signal_wifi_connected_no_internet_4` (U+F064) as a Sharp font glyph. */
-public val Symbols.Sharp.SignalWifiConnectedNoInternet4: SharpMaterialSymbol
+val Symbols.Sharp.SignalWifiConnectedNoInternet4: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SignalWifiConnectedNoInternet4)
 
 /** `signal_wifi_off` (U+E1DA) as a Sharp font glyph. */
-public val Symbols.Sharp.SignalWifiOff: SharpMaterialSymbol
+val Symbols.Sharp.SignalWifiOff: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SignalWifiOff)
 
 /** `signal_wifi_statusbar_4_bar` (U+F065) as a Sharp font glyph. */
-public val Symbols.Sharp.SignalWifiStatusbar4Bar: SharpMaterialSymbol
+val Symbols.Sharp.SignalWifiStatusbar4Bar: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SignalWifiStatusbar4Bar)
 
 /** `signal_wifi_statusbar_not_connected` (U+F0EF) as a Sharp font glyph. */
-public val Symbols.Sharp.SignalWifiStatusbarNotConnected: SharpMaterialSymbol
+val Symbols.Sharp.SignalWifiStatusbarNotConnected: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SignalWifiStatusbarNotConnected)
 
 /** `signal_wifi_statusbar_null` (U+F067) as a Sharp font glyph. */
-public val Symbols.Sharp.SignalWifiStatusbarNull: SharpMaterialSymbol
+val Symbols.Sharp.SignalWifiStatusbarNull: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SignalWifiStatusbarNull)
 
 /** `signature` (U+F74C) as a Sharp font glyph. */
-public val Symbols.Sharp.Signature: SharpMaterialSymbol
+val Symbols.Sharp.Signature: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Signature)
 
 /** `signpost` (U+EB91) as a Sharp font glyph. */
-public val Symbols.Sharp.Signpost: SharpMaterialSymbol
+val Symbols.Sharp.Signpost: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Signpost)
 
 /** `sim_card` (U+E32B) as a Sharp font glyph. */
-public val Symbols.Sharp.SimCard: SharpMaterialSymbol
+val Symbols.Sharp.SimCard: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SimCard)
 
 /** `sim_card_alert` (U+F057) as a Sharp font glyph. */
-public val Symbols.Sharp.SimCardAlert: SharpMaterialSymbol
+val Symbols.Sharp.SimCardAlert: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SimCardAlert)
 
 /** `sim_card_download` (U+F068) as a Sharp font glyph. */
-public val Symbols.Sharp.SimCardDownload: SharpMaterialSymbol
+val Symbols.Sharp.SimCardDownload: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SimCardDownload)
 
 /** `simulation` (U+F3E1) as a Sharp font glyph. */
-public val Symbols.Sharp.Simulation: SharpMaterialSymbol
+val Symbols.Sharp.Simulation: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Simulation)
 
 /** `single_bed` (U+EA48) as a Sharp font glyph. */
-public val Symbols.Sharp.SingleBed: SharpMaterialSymbol
+val Symbols.Sharp.SingleBed: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SingleBed)
 
 /** `sip` (U+F069) as a Sharp font glyph. */
-public val Symbols.Sharp.Sip: SharpMaterialSymbol
+val Symbols.Sharp.Sip: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Sip)
 
 /** `siren` (U+F3A7) as a Sharp font glyph. */
-public val Symbols.Sharp.Siren: SharpMaterialSymbol
+val Symbols.Sharp.Siren: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Siren)
 
 /** `siren_check` (U+F3A6) as a Sharp font glyph. */
-public val Symbols.Sharp.SirenCheck: SharpMaterialSymbol
+val Symbols.Sharp.SirenCheck: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SirenCheck)
 
 /** `siren_open` (U+F3A5) as a Sharp font glyph. */
-public val Symbols.Sharp.SirenOpen: SharpMaterialSymbol
+val Symbols.Sharp.SirenOpen: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SirenOpen)
 
 /** `siren_question` (U+F3A4) as a Sharp font glyph. */
-public val Symbols.Sharp.SirenQuestion: SharpMaterialSymbol
+val Symbols.Sharp.SirenQuestion: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SirenQuestion)
 
 /** `skateboarding` (U+E511) as a Sharp font glyph. */
-public val Symbols.Sharp.Skateboarding: SharpMaterialSymbol
+val Symbols.Sharp.Skateboarding: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Skateboarding)
 
 /** `skeleton` (U+F899) as a Sharp font glyph. */
-public val Symbols.Sharp.Skeleton: SharpMaterialSymbol
+val Symbols.Sharp.Skeleton: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Skeleton)
 
 /** `skillet` (U+F543) as a Sharp font glyph. */
-public val Symbols.Sharp.Skillet: SharpMaterialSymbol
+val Symbols.Sharp.Skillet: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Skillet)
 
 /** `skillet_cooktop` (U+F544) as a Sharp font glyph. */
-public val Symbols.Sharp.SkilletCooktop: SharpMaterialSymbol
+val Symbols.Sharp.SkilletCooktop: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SkilletCooktop)
 
 /** `skip_next` (U+E044) as a Sharp font glyph. */
-public val Symbols.Sharp.SkipNext: SharpMaterialSymbol
+val Symbols.Sharp.SkipNext: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SkipNext)
 
 /** `skip_previous` (U+E045) as a Sharp font glyph. */
-public val Symbols.Sharp.SkipPrevious: SharpMaterialSymbol
+val Symbols.Sharp.SkipPrevious: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SkipPrevious)
 
 /** `skull` (U+F89A) as a Sharp font glyph. */
-public val Symbols.Sharp.Skull: SharpMaterialSymbol
+val Symbols.Sharp.Skull: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Skull)
 
 /** `skull_list` (U+F370) as a Sharp font glyph. */
-public val Symbols.Sharp.SkullList: SharpMaterialSymbol
+val Symbols.Sharp.SkullList: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SkullList)
 
 /** `slab_serif` (U+F4AB) as a Sharp font glyph. */
-public val Symbols.Sharp.SlabSerif: SharpMaterialSymbol
+val Symbols.Sharp.SlabSerif: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SlabSerif)
 
 /** `sledding` (U+E512) as a Sharp font glyph. */
-public val Symbols.Sharp.Sledding: SharpMaterialSymbol
+val Symbols.Sharp.Sledding: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Sledding)
 
 /** `sleep` (U+E213) as a Sharp font glyph. */
-public val Symbols.Sharp.Sleep: SharpMaterialSymbol
+val Symbols.Sharp.Sleep: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Sleep)
 
 /** `sleep_score` (U+F6B7) as a Sharp font glyph. */
-public val Symbols.Sharp.SleepScore: SharpMaterialSymbol
+val Symbols.Sharp.SleepScore: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SleepScore)
 
 /** `slide_library` (U+F822) as a Sharp font glyph. */
-public val Symbols.Sharp.SlideLibrary: SharpMaterialSymbol
+val Symbols.Sharp.SlideLibrary: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SlideLibrary)
 
 /** `sliders` (U+E9E3) as a Sharp font glyph. */
-public val Symbols.Sharp.Sliders: SharpMaterialSymbol
+val Symbols.Sharp.Sliders: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Sliders)
 
 /** `slideshow` (U+E41B) as a Sharp font glyph. */
-public val Symbols.Sharp.Slideshow: SharpMaterialSymbol
+val Symbols.Sharp.Slideshow: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Slideshow)
 
 /** `slow_motion_video` (U+E068) as a Sharp font glyph. */
-public val Symbols.Sharp.SlowMotionVideo: SharpMaterialSymbol
+val Symbols.Sharp.SlowMotionVideo: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SlowMotionVideo)
 
 /** `smart_button` (U+F1C1) as a Sharp font glyph. */
-public val Symbols.Sharp.SmartButton: SharpMaterialSymbol
+val Symbols.Sharp.SmartButton: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SmartButton)
 
 /** `smart_card_reader` (U+F4A5) as a Sharp font glyph. */
-public val Symbols.Sharp.SmartCardReader: SharpMaterialSymbol
+val Symbols.Sharp.SmartCardReader: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SmartCardReader)
 
 /** `smart_card_reader_off` (U+F4A6) as a Sharp font glyph. */
-public val Symbols.Sharp.SmartCardReaderOff: SharpMaterialSymbol
+val Symbols.Sharp.SmartCardReaderOff: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SmartCardReaderOff)
 
 /** `smart_display` (U+F06A) as a Sharp font glyph. */
-public val Symbols.Sharp.SmartDisplay: SharpMaterialSymbol
+val Symbols.Sharp.SmartDisplay: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SmartDisplay)
 
 /** `smart_outlet` (U+E844) as a Sharp font glyph. */
-public val Symbols.Sharp.SmartOutlet: SharpMaterialSymbol
+val Symbols.Sharp.SmartOutlet: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SmartOutlet)
 
 /** `smart_screen` (U+F2D0) as a Sharp font glyph. */
-public val Symbols.Sharp.SmartScreen: SharpMaterialSymbol
+val Symbols.Sharp.SmartScreen: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SmartScreen)
 
 /** `smart_toy` (U+F06C) as a Sharp font glyph. */
-public val Symbols.Sharp.SmartToy: SharpMaterialSymbol
+val Symbols.Sharp.SmartToy: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SmartToy)
 
 /** `smartphone` (U+E7BA) as a Sharp font glyph. */
-public val Symbols.Sharp.Smartphone: SharpMaterialSymbol
+val Symbols.Sharp.Smartphone: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Smartphone)
 
 /** `smartphone_camera` (U+F44E) as a Sharp font glyph. */
-public val Symbols.Sharp.SmartphoneCamera: SharpMaterialSymbol
+val Symbols.Sharp.SmartphoneCamera: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SmartphoneCamera)
 
 /** `smb_share` (U+F74B) as a Sharp font glyph. */
-public val Symbols.Sharp.SmbShare: SharpMaterialSymbol
+val Symbols.Sharp.SmbShare: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.SmbShare)

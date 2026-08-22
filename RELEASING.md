@@ -1,9 +1,8 @@
 # Releasing Symbols
 
-Symbols publishes development snapshots to GitHub Packages. A stable release
-tag also uploads the Kotlin Multiplatform libraries, Android drawable AARs, and
-JVM build tooling to Central Portal. They become available from Maven Central
-after a maintainer releases both staged deployments.
+Symbols publishes stable Kotlin Multiplatform libraries, Android drawable AARs,
+and JVM build tooling to Central Portal from release tags. They become available
+from Maven Central after a maintainer releases both staged deployments.
 
 ## Published artifacts
 
@@ -36,12 +35,7 @@ The native resource packs are Android-only AAR coordinates:
 The tooling build separately publishes `symbol-generator-core`,
 `symbol-gradle-plugin`, and the `io.github.hlcaptain.symbol-fonts` plugin marker.
 
-GitHub Packages requires authentication when resolving Maven packages,
-including public packages. Consumers need a personal access token (classic)
-with `read:packages`, while workflows in authorized repositories can use a
-`GITHUB_TOKEN`.
-
-Stable artifacts released through Maven Central need only `mavenCentral()`.
+Artifacts released through Maven Central need only `mavenCentral()`.
 
 ## Central Portal setup
 
@@ -63,7 +57,7 @@ The NMCP settings plugin reuses the project's existing Maven publications,
 adds checksums, and uploads through the Central Portal API. Runtime and tooling
 are separate Gradle builds, so a release creates two user-managed deployments.
 
-## Snapshot publication
+## Development versions
 
 `gradle.properties` holds the next development version:
 
@@ -71,11 +65,10 @@ are separate Gradle builds, so a release creates two user-managed deployments.
 VERSION_NAME=0.1.0-SNAPSHOT
 ```
 
-Every push to `main` must pass the complete reusable CI workflow before that
-Maven snapshot is published. The same CI workflow also runs directly for pull
-requests and `main`, keeping the Android, JVM, JS, Wasm, Apple, generator, and
-font checks visible as ordinary repository checks. GitHub Packages supports
-Maven `-SNAPSHOT` versions.
+Development snapshots are not uploaded to a remote package registry. Pull
+requests and `main` still run the complete CI workflow, keeping the Android,
+JVM, JS, Wasm, Apple, generator, and font checks visible as ordinary repository
+checks. Use `publishToMavenLocal` for local cross-checkout testing.
 
 ## Stable release
 
@@ -96,8 +89,7 @@ Maven `-SNAPSHOT` versions.
    and requires the tag version to match `VERSION_NAME`. It then reuses the
    complete CI workflow—generated inputs, JVM tests, Android lint/release
    assembly, production JS/Wasm bundles, and Apple compilation/linking—before
-   publishing the exact non-snapshot version to GitHub Packages and staging it
-   in Central Portal.
+   staging the exact non-snapshot version in Central Portal.
 6. In Central Portal, inspect and manually release both the `symbols` and
    `symbols-tooling` deployments. User-managed staging prevents a partial build
    from becoming public automatically.
@@ -119,14 +111,6 @@ For a local, non-network publication check:
 ```shell
 ./gradlew publishToMavenLocal
 ./gradlew -p tooling publishToMavenLocal
-```
-
-For an authenticated manual GitHub Packages publication, set
-`GITHUB_ACTOR` and `GITHUB_TOKEN`, then run:
-
-```shell
-./gradlew publishAllPublicationsToGitHubPackagesRepository
-./gradlew -p tooling publishAllPublicationsToGitHubPackagesRepository
 ```
 
 For a manual Central staging upload, set these environment-backed Gradle

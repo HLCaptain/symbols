@@ -1,14 +1,14 @@
 package io.github.hlcaptain.symbols.generator
 
 /** Renders named manifest catalogs as common Kotlin data. */
-public class KotlinSymbolCatalogsRenderer(
+class KotlinSymbolCatalogsRenderer(
     private val entriesPerChunk: Int = 200,
 ) {
     init {
         require(entriesPerChunk > 0) { "entriesPerChunk must be positive" }
     }
 
-    public fun render(
+    fun render(
         packageName: String,
         catalogs: Map<String, SymbolCatalog>,
     ): RenderedFiles {

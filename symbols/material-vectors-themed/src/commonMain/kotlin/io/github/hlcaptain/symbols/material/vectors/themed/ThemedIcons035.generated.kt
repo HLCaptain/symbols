@@ -203,7 +203,7 @@ import io.github.hlcaptain.symbols.material.outlined.vectors.MobileSound2 as Out
 import io.github.hlcaptain.symbols.material.rounded.vectors.MobileSound2 as RoundedMobileSound2
 import io.github.hlcaptain.symbols.material.sharp.vectors.MobileSound2 as SharpMobileSound2
 
-public val Icons.Themed.MicExternalOff: ImageVector
+val Icons.Themed.MicExternalOff: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -212,7 +212,7 @@ public val Icons.Themed.MicExternalOff: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMicExternalOff
     }
 
-public val Icons.Themed.MicExternalOn: ImageVector
+val Icons.Themed.MicExternalOn: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -221,7 +221,7 @@ public val Icons.Themed.MicExternalOn: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMicExternalOn
     }
 
-public val Icons.Themed.MicNone: ImageVector
+val Icons.Themed.MicNone: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -230,7 +230,7 @@ public val Icons.Themed.MicNone: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMicNone
     }
 
-public val Icons.Themed.MicOff: ImageVector
+val Icons.Themed.MicOff: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -239,7 +239,7 @@ public val Icons.Themed.MicOff: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMicOff
     }
 
-public val Icons.Themed.Microbiology: ImageVector
+val Icons.Themed.Microbiology: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -248,7 +248,7 @@ public val Icons.Themed.Microbiology: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMicrobiology
     }
 
-public val Icons.Themed.Microwave: ImageVector
+val Icons.Themed.Microwave: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -257,7 +257,7 @@ public val Icons.Themed.Microwave: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMicrowave
     }
 
-public val Icons.Themed.MicrowaveGen: ImageVector
+val Icons.Themed.MicrowaveGen: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -266,7 +266,7 @@ public val Icons.Themed.MicrowaveGen: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMicrowaveGen
     }
 
-public val Icons.Themed.MilitaryTech: ImageVector
+val Icons.Themed.MilitaryTech: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -275,7 +275,7 @@ public val Icons.Themed.MilitaryTech: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMilitaryTech
     }
 
-public val Icons.Themed.Mimo: ImageVector
+val Icons.Themed.Mimo: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -284,7 +284,7 @@ public val Icons.Themed.Mimo: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMimo
     }
 
-public val Icons.Themed.MimoDisconnect: ImageVector
+val Icons.Themed.MimoDisconnect: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -293,7 +293,7 @@ public val Icons.Themed.MimoDisconnect: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMimoDisconnect
     }
 
-public val Icons.Themed.Mindfulness: ImageVector
+val Icons.Themed.Mindfulness: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -302,7 +302,7 @@ public val Icons.Themed.Mindfulness: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMindfulness
     }
 
-public val Icons.Themed.Minimize: ImageVector
+val Icons.Themed.Minimize: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -311,7 +311,7 @@ public val Icons.Themed.Minimize: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMinimize
     }
 
-public val Icons.Themed.MinorCrash: ImageVector
+val Icons.Themed.MinorCrash: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -320,7 +320,7 @@ public val Icons.Themed.MinorCrash: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMinorCrash
     }
 
-public val Icons.Themed.Mintmark: ImageVector
+val Icons.Themed.Mintmark: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -329,7 +329,7 @@ public val Icons.Themed.Mintmark: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMintmark
     }
 
-public val Icons.Themed.MissedVideoCall: ImageVector
+val Icons.Themed.MissedVideoCall: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -338,7 +338,7 @@ public val Icons.Themed.MissedVideoCall: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMissedVideoCall
     }
 
-public val Icons.Themed.MissedVideoCallFilled: ImageVector
+val Icons.Themed.MissedVideoCallFilled: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -347,7 +347,7 @@ public val Icons.Themed.MissedVideoCallFilled: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMissedVideoCallFilled
     }
 
-public val Icons.Themed.MissingController: ImageVector
+val Icons.Themed.MissingController: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -356,7 +356,7 @@ public val Icons.Themed.MissingController: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMissingController
     }
 
-public val Icons.Themed.Mist: ImageVector
+val Icons.Themed.Mist: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -365,7 +365,7 @@ public val Icons.Themed.Mist: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMist
     }
 
-public val Icons.Themed.Mitre: ImageVector
+val Icons.Themed.Mitre: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -374,7 +374,7 @@ public val Icons.Themed.Mitre: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMitre
     }
 
-public val Icons.Themed.MixtureMed: ImageVector
+val Icons.Themed.MixtureMed: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -383,7 +383,7 @@ public val Icons.Themed.MixtureMed: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMixtureMed
     }
 
-public val Icons.Themed.Mms: ImageVector
+val Icons.Themed.Mms: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -392,7 +392,7 @@ public val Icons.Themed.Mms: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMms
     }
 
-public val Icons.Themed.Mobile: ImageVector
+val Icons.Themed.Mobile: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -401,7 +401,7 @@ public val Icons.Themed.Mobile: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobile
     }
 
-public val Icons.Themed.Mobile2: ImageVector
+val Icons.Themed.Mobile2: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -410,7 +410,7 @@ public val Icons.Themed.Mobile2: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobile2
     }
 
-public val Icons.Themed.Mobile3: ImageVector
+val Icons.Themed.Mobile3: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -419,7 +419,7 @@ public val Icons.Themed.Mobile3: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobile3
     }
 
-public val Icons.Themed.MobileAlert: ImageVector
+val Icons.Themed.MobileAlert: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -428,7 +428,7 @@ public val Icons.Themed.MobileAlert: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileAlert
     }
 
-public val Icons.Themed.MobileArrowDown: ImageVector
+val Icons.Themed.MobileArrowDown: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -437,7 +437,7 @@ public val Icons.Themed.MobileArrowDown: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileArrowDown
     }
 
-public val Icons.Themed.MobileArrowRight: ImageVector
+val Icons.Themed.MobileArrowRight: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -446,7 +446,7 @@ public val Icons.Themed.MobileArrowRight: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileArrowRight
     }
 
-public val Icons.Themed.MobileArrowUpRight: ImageVector
+val Icons.Themed.MobileArrowUpRight: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -455,7 +455,7 @@ public val Icons.Themed.MobileArrowUpRight: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileArrowUpRight
     }
 
-public val Icons.Themed.MobileBlock: ImageVector
+val Icons.Themed.MobileBlock: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -464,7 +464,7 @@ public val Icons.Themed.MobileBlock: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileBlock
     }
 
-public val Icons.Themed.MobileCamera: ImageVector
+val Icons.Themed.MobileCamera: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -473,7 +473,7 @@ public val Icons.Themed.MobileCamera: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileCamera
     }
 
-public val Icons.Themed.MobileCameraFront: ImageVector
+val Icons.Themed.MobileCameraFront: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -482,7 +482,7 @@ public val Icons.Themed.MobileCameraFront: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileCameraFront
     }
 
-public val Icons.Themed.MobileCameraRear: ImageVector
+val Icons.Themed.MobileCameraRear: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -491,7 +491,7 @@ public val Icons.Themed.MobileCameraRear: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileCameraRear
     }
 
-public val Icons.Themed.MobileCancel: ImageVector
+val Icons.Themed.MobileCancel: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -500,7 +500,7 @@ public val Icons.Themed.MobileCancel: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileCancel
     }
 
-public val Icons.Themed.MobileCast: ImageVector
+val Icons.Themed.MobileCast: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -509,7 +509,7 @@ public val Icons.Themed.MobileCast: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileCast
     }
 
-public val Icons.Themed.MobileCharge: ImageVector
+val Icons.Themed.MobileCharge: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -518,7 +518,7 @@ public val Icons.Themed.MobileCharge: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileCharge
     }
 
-public val Icons.Themed.MobileChat: ImageVector
+val Icons.Themed.MobileChat: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -527,7 +527,7 @@ public val Icons.Themed.MobileChat: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileChat
     }
 
-public val Icons.Themed.MobileCheck: ImageVector
+val Icons.Themed.MobileCheck: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -536,7 +536,7 @@ public val Icons.Themed.MobileCheck: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileCheck
     }
 
-public val Icons.Themed.MobileCode: ImageVector
+val Icons.Themed.MobileCode: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -545,7 +545,7 @@ public val Icons.Themed.MobileCode: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileCode
     }
 
-public val Icons.Themed.MobileDots: ImageVector
+val Icons.Themed.MobileDots: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -554,7 +554,7 @@ public val Icons.Themed.MobileDots: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileDots
     }
 
-public val Icons.Themed.MobileFriendly: ImageVector
+val Icons.Themed.MobileFriendly: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -563,7 +563,7 @@ public val Icons.Themed.MobileFriendly: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileFriendly
     }
 
-public val Icons.Themed.MobileGear: ImageVector
+val Icons.Themed.MobileGear: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -572,7 +572,7 @@ public val Icons.Themed.MobileGear: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileGear
     }
 
-public val Icons.Themed.MobileHand: ImageVector
+val Icons.Themed.MobileHand: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -581,7 +581,7 @@ public val Icons.Themed.MobileHand: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileHand
     }
 
-public val Icons.Themed.MobileHandLeft: ImageVector
+val Icons.Themed.MobileHandLeft: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -590,7 +590,7 @@ public val Icons.Themed.MobileHandLeft: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileHandLeft
     }
 
-public val Icons.Themed.MobileHandLeftOff: ImageVector
+val Icons.Themed.MobileHandLeftOff: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -599,7 +599,7 @@ public val Icons.Themed.MobileHandLeftOff: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileHandLeftOff
     }
 
-public val Icons.Themed.MobileHandOff: ImageVector
+val Icons.Themed.MobileHandOff: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -608,7 +608,7 @@ public val Icons.Themed.MobileHandOff: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileHandOff
     }
 
-public val Icons.Themed.MobileInfo: ImageVector
+val Icons.Themed.MobileInfo: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -617,7 +617,7 @@ public val Icons.Themed.MobileInfo: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileInfo
     }
 
-public val Icons.Themed.MobileLandscape: ImageVector
+val Icons.Themed.MobileLandscape: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -626,7 +626,7 @@ public val Icons.Themed.MobileLandscape: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileLandscape
     }
 
-public val Icons.Themed.MobileLayout: ImageVector
+val Icons.Themed.MobileLayout: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -635,7 +635,7 @@ public val Icons.Themed.MobileLayout: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileLayout
     }
 
-public val Icons.Themed.MobileLockLandscape: ImageVector
+val Icons.Themed.MobileLockLandscape: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -644,7 +644,7 @@ public val Icons.Themed.MobileLockLandscape: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileLockLandscape
     }
 
-public val Icons.Themed.MobileLockPortrait: ImageVector
+val Icons.Themed.MobileLockPortrait: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -653,7 +653,7 @@ public val Icons.Themed.MobileLockPortrait: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileLockPortrait
     }
 
-public val Icons.Themed.MobileLoupe: ImageVector
+val Icons.Themed.MobileLoupe: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -662,7 +662,7 @@ public val Icons.Themed.MobileLoupe: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileLoupe
     }
 
-public val Icons.Themed.MobileMenu: ImageVector
+val Icons.Themed.MobileMenu: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -671,7 +671,7 @@ public val Icons.Themed.MobileMenu: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileMenu
     }
 
-public val Icons.Themed.MobileOff: ImageVector
+val Icons.Themed.MobileOff: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -680,7 +680,7 @@ public val Icons.Themed.MobileOff: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileOff
     }
 
-public val Icons.Themed.MobileQuestion: ImageVector
+val Icons.Themed.MobileQuestion: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -689,7 +689,7 @@ public val Icons.Themed.MobileQuestion: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileQuestion
     }
 
-public val Icons.Themed.MobileRotate: ImageVector
+val Icons.Themed.MobileRotate: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -698,7 +698,7 @@ public val Icons.Themed.MobileRotate: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileRotate
     }
 
-public val Icons.Themed.MobileRotateLock: ImageVector
+val Icons.Themed.MobileRotateLock: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -707,7 +707,7 @@ public val Icons.Themed.MobileRotateLock: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileRotateLock
     }
 
-public val Icons.Themed.MobileScreenShare: ImageVector
+val Icons.Themed.MobileScreenShare: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -716,7 +716,7 @@ public val Icons.Themed.MobileScreenShare: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileScreenShare
     }
 
-public val Icons.Themed.MobileScreensaver: ImageVector
+val Icons.Themed.MobileScreensaver: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -725,7 +725,7 @@ public val Icons.Themed.MobileScreensaver: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileScreensaver
     }
 
-public val Icons.Themed.MobileSensorHi: ImageVector
+val Icons.Themed.MobileSensorHi: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -734,7 +734,7 @@ public val Icons.Themed.MobileSensorHi: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileSensorHi
     }
 
-public val Icons.Themed.MobileSensorLo: ImageVector
+val Icons.Themed.MobileSensorLo: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -743,7 +743,7 @@ public val Icons.Themed.MobileSensorLo: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileSensorLo
     }
 
-public val Icons.Themed.MobileShare: ImageVector
+val Icons.Themed.MobileShare: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -752,7 +752,7 @@ public val Icons.Themed.MobileShare: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileShare
     }
 
-public val Icons.Themed.MobileShareStack: ImageVector
+val Icons.Themed.MobileShareStack: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -761,7 +761,7 @@ public val Icons.Themed.MobileShareStack: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileShareStack
     }
 
-public val Icons.Themed.MobileSound: ImageVector
+val Icons.Themed.MobileSound: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -770,7 +770,7 @@ public val Icons.Themed.MobileSound: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpMobileSound
     }
 
-public val Icons.Themed.MobileSound2: ImageVector
+val Icons.Themed.MobileSound2: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {

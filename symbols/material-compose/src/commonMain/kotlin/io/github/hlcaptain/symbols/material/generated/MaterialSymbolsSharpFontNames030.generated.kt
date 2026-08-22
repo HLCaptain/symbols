@@ -4,513 +4,513 @@
 package io.github.hlcaptain.symbols.material
 
 /** `unfold_less_double` (U+F8CF) as a Sharp font glyph. */
-public val Symbols.Sharp.UnfoldLessDouble: SharpMaterialSymbol
+val Symbols.Sharp.UnfoldLessDouble: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.UnfoldLessDouble)
 
 /** `unfold_more` (U+E5D7) as a Sharp font glyph. */
-public val Symbols.Sharp.UnfoldMore: SharpMaterialSymbol
+val Symbols.Sharp.UnfoldMore: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.UnfoldMore)
 
 /** `unfold_more_double` (U+F8D0) as a Sharp font glyph. */
-public val Symbols.Sharp.UnfoldMoreDouble: SharpMaterialSymbol
+val Symbols.Sharp.UnfoldMoreDouble: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.UnfoldMoreDouble)
 
 /** `ungroup` (U+F731) as a Sharp font glyph. */
-public val Symbols.Sharp.Ungroup: SharpMaterialSymbol
+val Symbols.Sharp.Ungroup: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Ungroup)
 
 /** `universal_currency` (U+E9FA) as a Sharp font glyph. */
-public val Symbols.Sharp.UniversalCurrency: SharpMaterialSymbol
+val Symbols.Sharp.UniversalCurrency: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.UniversalCurrency)
 
 /** `universal_currency_alt` (U+E734) as a Sharp font glyph. */
-public val Symbols.Sharp.UniversalCurrencyAlt: SharpMaterialSymbol
+val Symbols.Sharp.UniversalCurrencyAlt: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.UniversalCurrencyAlt)
 
 /** `universal_local` (U+E9FB) as a Sharp font glyph. */
-public val Symbols.Sharp.UniversalLocal: SharpMaterialSymbol
+val Symbols.Sharp.UniversalLocal: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.UniversalLocal)
 
 /** `unknown_2` (U+F49F) as a Sharp font glyph. */
-public val Symbols.Sharp.Unknown2: SharpMaterialSymbol
+val Symbols.Sharp.Unknown2: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Unknown2)
 
 /** `unknown_5` (U+E6A5) as a Sharp font glyph. */
-public val Symbols.Sharp.Unknown5: SharpMaterialSymbol
+val Symbols.Sharp.Unknown5: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Unknown5)
 
 /** `unknown_7` (U+F49E) as a Sharp font glyph. */
-public val Symbols.Sharp.Unknown7: SharpMaterialSymbol
+val Symbols.Sharp.Unknown7: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Unknown7)
 
 /** `unknown_document` (U+F804) as a Sharp font glyph. */
-public val Symbols.Sharp.UnknownDocument: SharpMaterialSymbol
+val Symbols.Sharp.UnknownDocument: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.UnknownDocument)
 
 /** `unknown_med` (U+EABD) as a Sharp font glyph. */
-public val Symbols.Sharp.UnknownMed: SharpMaterialSymbol
+val Symbols.Sharp.UnknownMed: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.UnknownMed)
 
 /** `unlicense` (U+EB05) as a Sharp font glyph. */
-public val Symbols.Sharp.Unlicense: SharpMaterialSymbol
+val Symbols.Sharp.Unlicense: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Unlicense)
 
 /** `unpaved_road` (U+F46D) as a Sharp font glyph. */
-public val Symbols.Sharp.UnpavedRoad: SharpMaterialSymbol
+val Symbols.Sharp.UnpavedRoad: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.UnpavedRoad)
 
 /** `unpin` (U+E6F9) as a Sharp font glyph. */
-public val Symbols.Sharp.Unpin: SharpMaterialSymbol
+val Symbols.Sharp.Unpin: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Unpin)
 
 /** `unpublished` (U+F236) as a Sharp font glyph. */
-public val Symbols.Sharp.Unpublished: SharpMaterialSymbol
+val Symbols.Sharp.Unpublished: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Unpublished)
 
 /** `unsubscribe` (U+E0EB) as a Sharp font glyph. */
-public val Symbols.Sharp.Unsubscribe: SharpMaterialSymbol
+val Symbols.Sharp.Unsubscribe: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Unsubscribe)
 
 /** `upcoming` (U+F07E) as a Sharp font glyph. */
-public val Symbols.Sharp.Upcoming: SharpMaterialSymbol
+val Symbols.Sharp.Upcoming: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Upcoming)
 
 /** `update` (U+E923) as a Sharp font glyph. */
-public val Symbols.Sharp.Update: SharpMaterialSymbol
+val Symbols.Sharp.Update: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Update)
 
 /** `update_disabled` (U+E075) as a Sharp font glyph. */
-public val Symbols.Sharp.UpdateDisabled: SharpMaterialSymbol
+val Symbols.Sharp.UpdateDisabled: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.UpdateDisabled)
 
 /** `upgrade` (U+F0FB) as a Sharp font glyph. */
-public val Symbols.Sharp.Upgrade: SharpMaterialSymbol
+val Symbols.Sharp.Upgrade: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Upgrade)
 
 /** `upi_pay` (U+F3CF) as a Sharp font glyph. */
-public val Symbols.Sharp.UpiPay: SharpMaterialSymbol
+val Symbols.Sharp.UpiPay: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.UpiPay)
 
 /** `upload` (U+F09B) as a Sharp font glyph. */
-public val Symbols.Sharp.Upload: SharpMaterialSymbol
+val Symbols.Sharp.Upload: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Upload)
 
 /** `upload_2` (U+F521) as a Sharp font glyph. */
-public val Symbols.Sharp.Upload2: SharpMaterialSymbol
+val Symbols.Sharp.Upload2: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Upload2)
 
 /** `upload_file` (U+E9FC) as a Sharp font glyph. */
-public val Symbols.Sharp.UploadFile: SharpMaterialSymbol
+val Symbols.Sharp.UploadFile: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.UploadFile)
 
 /** `uppercase` (U+F488) as a Sharp font glyph. */
-public val Symbols.Sharp.Uppercase: SharpMaterialSymbol
+val Symbols.Sharp.Uppercase: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Uppercase)
 
 /** `urology` (U+E137) as a Sharp font glyph. */
-public val Symbols.Sharp.Urology: SharpMaterialSymbol
+val Symbols.Sharp.Urology: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Urology)
 
 /** `usb` (U+E1E0) as a Sharp font glyph. */
-public val Symbols.Sharp.Usb: SharpMaterialSymbol
+val Symbols.Sharp.Usb: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Usb)
 
 /** `usb_off` (U+E4FA) as a Sharp font glyph. */
-public val Symbols.Sharp.UsbOff: SharpMaterialSymbol
+val Symbols.Sharp.UsbOff: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.UsbOff)
 
 /** `user_attributes` (U+E708) as a Sharp font glyph. */
-public val Symbols.Sharp.UserAttributes: SharpMaterialSymbol
+val Symbols.Sharp.UserAttributes: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.UserAttributes)
 
 /** `vaccines` (U+E138) as a Sharp font glyph. */
-public val Symbols.Sharp.Vaccines: SharpMaterialSymbol
+val Symbols.Sharp.Vaccines: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Vaccines)
 
 /** `vacuum` (U+EFC5) as a Sharp font glyph. */
-public val Symbols.Sharp.Vacuum: SharpMaterialSymbol
+val Symbols.Sharp.Vacuum: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Vacuum)
 
 /** `valve` (U+E224) as a Sharp font glyph. */
-public val Symbols.Sharp.Valve: SharpMaterialSymbol
+val Symbols.Sharp.Valve: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Valve)
 
 /** `vape_free` (U+EBC6) as a Sharp font glyph. */
-public val Symbols.Sharp.VapeFree: SharpMaterialSymbol
+val Symbols.Sharp.VapeFree: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VapeFree)
 
 /** `vaping_rooms` (U+EBCF) as a Sharp font glyph. */
-public val Symbols.Sharp.VapingRooms: SharpMaterialSymbol
+val Symbols.Sharp.VapingRooms: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VapingRooms)
 
 /** `variable_add` (U+F51E) as a Sharp font glyph. */
-public val Symbols.Sharp.VariableAdd: SharpMaterialSymbol
+val Symbols.Sharp.VariableAdd: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VariableAdd)
 
 /** `variable_insert` (U+F51D) as a Sharp font glyph. */
-public val Symbols.Sharp.VariableInsert: SharpMaterialSymbol
+val Symbols.Sharp.VariableInsert: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VariableInsert)
 
 /** `variable_remove` (U+F51C) as a Sharp font glyph. */
-public val Symbols.Sharp.VariableRemove: SharpMaterialSymbol
+val Symbols.Sharp.VariableRemove: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VariableRemove)
 
 /** `variables` (U+F851) as a Sharp font glyph. */
-public val Symbols.Sharp.Variables: SharpMaterialSymbol
+val Symbols.Sharp.Variables: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Variables)
 
 /** `ventilator` (U+E139) as a Sharp font glyph. */
-public val Symbols.Sharp.Ventilator: SharpMaterialSymbol
+val Symbols.Sharp.Ventilator: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Ventilator)
 
 /** `verified` (U+EF76) as a Sharp font glyph. */
-public val Symbols.Sharp.Verified: SharpMaterialSymbol
+val Symbols.Sharp.Verified: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Verified)
 
 /** `verified_off` (U+F30E) as a Sharp font glyph. */
-public val Symbols.Sharp.VerifiedOff: SharpMaterialSymbol
+val Symbols.Sharp.VerifiedOff: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VerifiedOff)
 
 /** `verified_user` (U+F013) as a Sharp font glyph. */
-public val Symbols.Sharp.VerifiedUser: SharpMaterialSymbol
+val Symbols.Sharp.VerifiedUser: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VerifiedUser)
 
 /** `vertical_align_bottom` (U+E258) as a Sharp font glyph. */
-public val Symbols.Sharp.VerticalAlignBottom: SharpMaterialSymbol
+val Symbols.Sharp.VerticalAlignBottom: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VerticalAlignBottom)
 
 /** `vertical_align_center` (U+E259) as a Sharp font glyph. */
-public val Symbols.Sharp.VerticalAlignCenter: SharpMaterialSymbol
+val Symbols.Sharp.VerticalAlignCenter: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VerticalAlignCenter)
 
 /** `vertical_align_top` (U+E25A) as a Sharp font glyph. */
-public val Symbols.Sharp.VerticalAlignTop: SharpMaterialSymbol
+val Symbols.Sharp.VerticalAlignTop: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VerticalAlignTop)
 
 /** `vertical_distribute` (U+E076) as a Sharp font glyph. */
-public val Symbols.Sharp.VerticalDistribute: SharpMaterialSymbol
+val Symbols.Sharp.VerticalDistribute: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VerticalDistribute)
 
 /** `vertical_shades` (U+EC0E) as a Sharp font glyph. */
-public val Symbols.Sharp.VerticalShades: SharpMaterialSymbol
+val Symbols.Sharp.VerticalShades: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VerticalShades)
 
 /** `vertical_shades_closed` (U+EC0D) as a Sharp font glyph. */
-public val Symbols.Sharp.VerticalShadesClosed: SharpMaterialSymbol
+val Symbols.Sharp.VerticalShadesClosed: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VerticalShadesClosed)
 
 /** `vertical_split` (U+E949) as a Sharp font glyph. */
-public val Symbols.Sharp.VerticalSplit: SharpMaterialSymbol
+val Symbols.Sharp.VerticalSplit: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VerticalSplit)
 
 /** `vibration` (U+F2CB) as a Sharp font glyph. */
-public val Symbols.Sharp.Vibration: SharpMaterialSymbol
+val Symbols.Sharp.Vibration: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Vibration)
 
 /** `video_call` (U+E070) as a Sharp font glyph. */
-public val Symbols.Sharp.VideoCall: SharpMaterialSymbol
+val Symbols.Sharp.VideoCall: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VideoCall)
 
 /** `video_camera_back` (U+F07F) as a Sharp font glyph. */
-public val Symbols.Sharp.VideoCameraBack: SharpMaterialSymbol
+val Symbols.Sharp.VideoCameraBack: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VideoCameraBack)
 
 /** `video_camera_back_add` (U+F40C) as a Sharp font glyph. */
-public val Symbols.Sharp.VideoCameraBackAdd: SharpMaterialSymbol
+val Symbols.Sharp.VideoCameraBackAdd: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VideoCameraBackAdd)
 
 /** `video_camera_front` (U+F080) as a Sharp font glyph. */
-public val Symbols.Sharp.VideoCameraFront: SharpMaterialSymbol
+val Symbols.Sharp.VideoCameraFront: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VideoCameraFront)
 
 /** `video_camera_front_off` (U+F83B) as a Sharp font glyph. */
-public val Symbols.Sharp.VideoCameraFrontOff: SharpMaterialSymbol
+val Symbols.Sharp.VideoCameraFrontOff: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VideoCameraFrontOff)
 
 /** `video_chat` (U+F8A0) as a Sharp font glyph. */
-public val Symbols.Sharp.VideoChat: SharpMaterialSymbol
+val Symbols.Sharp.VideoChat: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VideoChat)
 
 /** `video_file` (U+EB87) as a Sharp font glyph. */
-public val Symbols.Sharp.VideoFile: SharpMaterialSymbol
+val Symbols.Sharp.VideoFile: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VideoFile)
 
 /** `video_label` (U+E071) as a Sharp font glyph. */
-public val Symbols.Sharp.VideoLabel: SharpMaterialSymbol
+val Symbols.Sharp.VideoLabel: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VideoLabel)
 
 /** `video_library` (U+E04A) as a Sharp font glyph. */
-public val Symbols.Sharp.VideoLibrary: SharpMaterialSymbol
+val Symbols.Sharp.VideoLibrary: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VideoLibrary)
 
 /** `video_search` (U+EFC6) as a Sharp font glyph. */
-public val Symbols.Sharp.VideoSearch: SharpMaterialSymbol
+val Symbols.Sharp.VideoSearch: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VideoSearch)
 
 /** `video_settings` (U+EA75) as a Sharp font glyph. */
-public val Symbols.Sharp.VideoSettings: SharpMaterialSymbol
+val Symbols.Sharp.VideoSettings: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VideoSettings)
 
 /** `video_stable` (U+F081) as a Sharp font glyph. */
-public val Symbols.Sharp.VideoStable: SharpMaterialSymbol
+val Symbols.Sharp.VideoStable: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VideoStable)
 
 /** `videocam` (U+E04B) as a Sharp font glyph. */
-public val Symbols.Sharp.Videocam: SharpMaterialSymbol
+val Symbols.Sharp.Videocam: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Videocam)
 
 /** `videocam_alert` (U+F390) as a Sharp font glyph. */
-public val Symbols.Sharp.VideocamAlert: SharpMaterialSymbol
+val Symbols.Sharp.VideocamAlert: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VideocamAlert)
 
 /** `videocam_off` (U+E04C) as a Sharp font glyph. */
-public val Symbols.Sharp.VideocamOff: SharpMaterialSymbol
+val Symbols.Sharp.VideocamOff: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VideocamOff)
 
 /** `videogame_asset` (U+E338) as a Sharp font glyph. */
-public val Symbols.Sharp.VideogameAsset: SharpMaterialSymbol
+val Symbols.Sharp.VideogameAsset: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VideogameAsset)
 
 /** `videogame_asset_off` (U+E500) as a Sharp font glyph. */
-public val Symbols.Sharp.VideogameAssetOff: SharpMaterialSymbol
+val Symbols.Sharp.VideogameAssetOff: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VideogameAssetOff)
 
 /** `view_agenda` (U+E8E9) as a Sharp font glyph. */
-public val Symbols.Sharp.ViewAgenda: SharpMaterialSymbol
+val Symbols.Sharp.ViewAgenda: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ViewAgenda)
 
 /** `view_apps` (U+F376) as a Sharp font glyph. */
-public val Symbols.Sharp.ViewApps: SharpMaterialSymbol
+val Symbols.Sharp.ViewApps: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ViewApps)
 
 /** `view_array` (U+E8EA) as a Sharp font glyph. */
-public val Symbols.Sharp.ViewArray: SharpMaterialSymbol
+val Symbols.Sharp.ViewArray: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ViewArray)
 
 /** `view_carousel` (U+E8EB) as a Sharp font glyph. */
-public val Symbols.Sharp.ViewCarousel: SharpMaterialSymbol
+val Symbols.Sharp.ViewCarousel: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ViewCarousel)
 
 /** `view_column` (U+E8EC) as a Sharp font glyph. */
-public val Symbols.Sharp.ViewColumn: SharpMaterialSymbol
+val Symbols.Sharp.ViewColumn: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ViewColumn)
 
 /** `view_column_2` (U+F847) as a Sharp font glyph. */
-public val Symbols.Sharp.ViewColumn2: SharpMaterialSymbol
+val Symbols.Sharp.ViewColumn2: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ViewColumn2)
 
 /** `view_comfy` (U+E42A) as a Sharp font glyph. */
-public val Symbols.Sharp.ViewComfy: SharpMaterialSymbol
+val Symbols.Sharp.ViewComfy: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ViewComfy)
 
 /** `view_comfy_alt` (U+EB73) as a Sharp font glyph. */
-public val Symbols.Sharp.ViewComfyAlt: SharpMaterialSymbol
+val Symbols.Sharp.ViewComfyAlt: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ViewComfyAlt)
 
 /** `view_compact` (U+E42B) as a Sharp font glyph. */
-public val Symbols.Sharp.ViewCompact: SharpMaterialSymbol
+val Symbols.Sharp.ViewCompact: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ViewCompact)
 
 /** `view_compact_alt` (U+EB74) as a Sharp font glyph. */
-public val Symbols.Sharp.ViewCompactAlt: SharpMaterialSymbol
+val Symbols.Sharp.ViewCompactAlt: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ViewCompactAlt)
 
 /** `view_cozy` (U+EB75) as a Sharp font glyph. */
-public val Symbols.Sharp.ViewCozy: SharpMaterialSymbol
+val Symbols.Sharp.ViewCozy: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ViewCozy)
 
 /** `view_day` (U+E8ED) as a Sharp font glyph. */
-public val Symbols.Sharp.ViewDay: SharpMaterialSymbol
+val Symbols.Sharp.ViewDay: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ViewDay)
 
 /** `view_headline` (U+E8EE) as a Sharp font glyph. */
-public val Symbols.Sharp.ViewHeadline: SharpMaterialSymbol
+val Symbols.Sharp.ViewHeadline: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ViewHeadline)
 
 /** `view_in_ar` (U+EFC9) as a Sharp font glyph. */
-public val Symbols.Sharp.ViewInAr: SharpMaterialSymbol
+val Symbols.Sharp.ViewInAr: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ViewInAr)
 
 /** `view_in_ar_new` (U+EFC9) as a Sharp font glyph. */
-public val Symbols.Sharp.ViewInArNew: SharpMaterialSymbol
+val Symbols.Sharp.ViewInArNew: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ViewInArNew)
 
 /** `view_in_ar_off` (U+F61B) as a Sharp font glyph. */
-public val Symbols.Sharp.ViewInArOff: SharpMaterialSymbol
+val Symbols.Sharp.ViewInArOff: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ViewInArOff)
 
 /** `view_kanban` (U+EB7F) as a Sharp font glyph. */
-public val Symbols.Sharp.ViewKanban: SharpMaterialSymbol
+val Symbols.Sharp.ViewKanban: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ViewKanban)
 
 /** `view_list` (U+E8EF) as a Sharp font glyph. */
-public val Symbols.Sharp.ViewList: SharpMaterialSymbol
+val Symbols.Sharp.ViewList: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ViewList)
 
 /** `view_module` (U+E8F0) as a Sharp font glyph. */
-public val Symbols.Sharp.ViewModule: SharpMaterialSymbol
+val Symbols.Sharp.ViewModule: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ViewModule)
 
 /** `view_object_track` (U+F432) as a Sharp font glyph. */
-public val Symbols.Sharp.ViewObjectTrack: SharpMaterialSymbol
+val Symbols.Sharp.ViewObjectTrack: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ViewObjectTrack)
 
 /** `view_quilt` (U+E8F1) as a Sharp font glyph. */
-public val Symbols.Sharp.ViewQuilt: SharpMaterialSymbol
+val Symbols.Sharp.ViewQuilt: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ViewQuilt)
 
 /** `view_real_size` (U+F4C2) as a Sharp font glyph. */
-public val Symbols.Sharp.ViewRealSize: SharpMaterialSymbol
+val Symbols.Sharp.ViewRealSize: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ViewRealSize)
 
 /** `view_sidebar` (U+F114) as a Sharp font glyph. */
-public val Symbols.Sharp.ViewSidebar: SharpMaterialSymbol
+val Symbols.Sharp.ViewSidebar: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ViewSidebar)
 
 /** `view_stream` (U+E8F2) as a Sharp font glyph. */
-public val Symbols.Sharp.ViewStream: SharpMaterialSymbol
+val Symbols.Sharp.ViewStream: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ViewStream)
 
 /** `view_timeline` (U+EB85) as a Sharp font glyph. */
-public val Symbols.Sharp.ViewTimeline: SharpMaterialSymbol
+val Symbols.Sharp.ViewTimeline: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ViewTimeline)
 
 /** `view_week` (U+E8F3) as a Sharp font glyph. */
-public val Symbols.Sharp.ViewWeek: SharpMaterialSymbol
+val Symbols.Sharp.ViewWeek: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.ViewWeek)
 
 /** `vignette` (U+E435) as a Sharp font glyph. */
-public val Symbols.Sharp.Vignette: SharpMaterialSymbol
+val Symbols.Sharp.Vignette: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Vignette)
 
 /** `vignette_2` (U+F2B3) as a Sharp font glyph. */
-public val Symbols.Sharp.Vignette2: SharpMaterialSymbol
+val Symbols.Sharp.Vignette2: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Vignette2)
 
 /** `villa` (U+E586) as a Sharp font glyph. */
-public val Symbols.Sharp.Villa: SharpMaterialSymbol
+val Symbols.Sharp.Villa: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Villa)
 
 /** `visibility` (U+E8F4) as a Sharp font glyph. */
-public val Symbols.Sharp.Visibility: SharpMaterialSymbol
+val Symbols.Sharp.Visibility: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Visibility)
 
 /** `visibility_lock` (U+F653) as a Sharp font glyph. */
-public val Symbols.Sharp.VisibilityLock: SharpMaterialSymbol
+val Symbols.Sharp.VisibilityLock: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VisibilityLock)
 
 /** `visibility_off` (U+E8F5) as a Sharp font glyph. */
-public val Symbols.Sharp.VisibilityOff: SharpMaterialSymbol
+val Symbols.Sharp.VisibilityOff: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VisibilityOff)
 
 /** `vital_signs` (U+E650) as a Sharp font glyph. */
-public val Symbols.Sharp.VitalSigns: SharpMaterialSymbol
+val Symbols.Sharp.VitalSigns: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VitalSigns)
 
 /** `vitals` (U+E13B) as a Sharp font glyph. */
-public val Symbols.Sharp.Vitals: SharpMaterialSymbol
+val Symbols.Sharp.Vitals: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Vitals)
 
 /** `vo2_max` (U+F4AA) as a Sharp font glyph. */
-public val Symbols.Sharp.Vo2Max: SharpMaterialSymbol
+val Symbols.Sharp.Vo2Max: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Vo2Max)
 
 /** `voice_chat` (U+E62E) as a Sharp font glyph. */
-public val Symbols.Sharp.VoiceChat: SharpMaterialSymbol
+val Symbols.Sharp.VoiceChat: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VoiceChat)
 
 /** `voice_over_off` (U+E94A) as a Sharp font glyph. */
-public val Symbols.Sharp.VoiceOverOff: SharpMaterialSymbol
+val Symbols.Sharp.VoiceOverOff: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VoiceOverOff)
 
 /** `voice_selection` (U+F58A) as a Sharp font glyph. */
-public val Symbols.Sharp.VoiceSelection: SharpMaterialSymbol
+val Symbols.Sharp.VoiceSelection: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VoiceSelection)
 
 /** `voice_selection_off` (U+F42C) as a Sharp font glyph. */
-public val Symbols.Sharp.VoiceSelectionOff: SharpMaterialSymbol
+val Symbols.Sharp.VoiceSelectionOff: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VoiceSelectionOff)
 
 /** `voicemail` (U+E0D9) as a Sharp font glyph. */
-public val Symbols.Sharp.Voicemail: SharpMaterialSymbol
+val Symbols.Sharp.Voicemail: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Voicemail)
 
 /** `voicemail_2` (U+F352) as a Sharp font glyph. */
-public val Symbols.Sharp.Voicemail2: SharpMaterialSymbol
+val Symbols.Sharp.Voicemail2: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Voicemail2)
 
 /** `volcano` (U+EBDA) as a Sharp font glyph. */
-public val Symbols.Sharp.Volcano: SharpMaterialSymbol
+val Symbols.Sharp.Volcano: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Volcano)
 
 /** `volume_down` (U+E04D) as a Sharp font glyph. */
-public val Symbols.Sharp.VolumeDown: SharpMaterialSymbol
+val Symbols.Sharp.VolumeDown: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VolumeDown)
 
 /** `volume_down_alt` (U+E79C) as a Sharp font glyph. */
-public val Symbols.Sharp.VolumeDownAlt: SharpMaterialSymbol
+val Symbols.Sharp.VolumeDownAlt: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VolumeDownAlt)
 
 /** `volume_mute` (U+E04E) as a Sharp font glyph. */
-public val Symbols.Sharp.VolumeMute: SharpMaterialSymbol
+val Symbols.Sharp.VolumeMute: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VolumeMute)
 
 /** `volume_off` (U+E04F) as a Sharp font glyph. */
-public val Symbols.Sharp.VolumeOff: SharpMaterialSymbol
+val Symbols.Sharp.VolumeOff: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VolumeOff)
 
 /** `volume_up` (U+E050) as a Sharp font glyph. */
-public val Symbols.Sharp.VolumeUp: SharpMaterialSymbol
+val Symbols.Sharp.VolumeUp: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VolumeUp)
 
 /** `volunteer_activism` (U+EA70) as a Sharp font glyph. */
-public val Symbols.Sharp.VolunteerActivism: SharpMaterialSymbol
+val Symbols.Sharp.VolunteerActivism: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VolunteerActivism)
 
 /** `voting_chip` (U+F852) as a Sharp font glyph. */
-public val Symbols.Sharp.VotingChip: SharpMaterialSymbol
+val Symbols.Sharp.VotingChip: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VotingChip)
 
 /** `vpn_key` (U+E0DA) as a Sharp font glyph. */
-public val Symbols.Sharp.VpnKey: SharpMaterialSymbol
+val Symbols.Sharp.VpnKey: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VpnKey)
 
 /** `vpn_key_alert` (U+F6CC) as a Sharp font glyph. */
-public val Symbols.Sharp.VpnKeyAlert: SharpMaterialSymbol
+val Symbols.Sharp.VpnKeyAlert: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VpnKeyAlert)
 
 /** `vpn_key_off` (U+EB7A) as a Sharp font glyph. */
-public val Symbols.Sharp.VpnKeyOff: SharpMaterialSymbol
+val Symbols.Sharp.VpnKeyOff: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VpnKeyOff)
 
 /** `vpn_lock` (U+E62F) as a Sharp font glyph. */
-public val Symbols.Sharp.VpnLock: SharpMaterialSymbol
+val Symbols.Sharp.VpnLock: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VpnLock)
 
 /** `vpn_lock_2` (U+F350) as a Sharp font glyph. */
-public val Symbols.Sharp.VpnLock2: SharpMaterialSymbol
+val Symbols.Sharp.VpnLock2: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.VpnLock2)
 
 /** `vr180_create2d` (U+EFCA) as a Sharp font glyph. */
-public val Symbols.Sharp.Vr180Create2d: SharpMaterialSymbol
+val Symbols.Sharp.Vr180Create2d: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Vr180Create2d)
 
 /** `vr180_create2d_off` (U+F571) as a Sharp font glyph. */
-public val Symbols.Sharp.Vr180Create2dOff: SharpMaterialSymbol
+val Symbols.Sharp.Vr180Create2dOff: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Vr180Create2dOff)
 
 /** `vrpano` (U+F082) as a Sharp font glyph. */
-public val Symbols.Sharp.Vrpano: SharpMaterialSymbol
+val Symbols.Sharp.Vrpano: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Vrpano)
 
 /** `wall_art` (U+EFCB) as a Sharp font glyph. */
-public val Symbols.Sharp.WallArt: SharpMaterialSymbol
+val Symbols.Sharp.WallArt: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.WallArt)
 
 /** `wall_lamp` (U+E2B4) as a Sharp font glyph. */
-public val Symbols.Sharp.WallLamp: SharpMaterialSymbol
+val Symbols.Sharp.WallLamp: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.WallLamp)
 
 /** `wallet` (U+F8FF) as a Sharp font glyph. */
-public val Symbols.Sharp.Wallet: SharpMaterialSymbol
+val Symbols.Sharp.Wallet: SharpMaterialSymbol
     get() = SharpMaterialSymbol(MaterialSymbols.Wallet)

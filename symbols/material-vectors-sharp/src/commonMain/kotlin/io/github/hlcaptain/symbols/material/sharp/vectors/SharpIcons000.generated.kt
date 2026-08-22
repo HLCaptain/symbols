@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
 import io.github.hlcaptain.symbols.material.Icons
 
-public val Icons.Sharp.AddAlert: ImageVector
+val Icons.Sharp.AddAlert: ImageVector
     get() = SharpVectorE003.value(autoMirror = false)
 
 private object SharpVectorE003 {
@@ -23,7 +23,7 @@ private object SharpVectorE003 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -91,7 +91,7 @@ private object SharpVectorE003 {
     }
 }
 
-public val Icons.Sharp.NotificationImportant: ImageVector
+val Icons.Sharp.NotificationImportant: ImageVector
     get() = SharpVectorE004.value(autoMirror = false)
 
 private object SharpVectorE004 {
@@ -103,7 +103,7 @@ private object SharpVectorE004 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -173,7 +173,7 @@ private object SharpVectorE004 {
     }
 }
 
-public val Icons.Sharp.QrCode2: ImageVector
+val Icons.Sharp.QrCode2: ImageVector
     get() = SharpVectorE00A.value(autoMirror = false)
 
 private object SharpVectorE00A {
@@ -185,7 +185,7 @@ private object SharpVectorE00A {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -314,7 +314,7 @@ private object SharpVectorE00A {
     }
 }
 
-public val Icons.Sharp.FlutterDash: ImageVector
+val Icons.Sharp.FlutterDash: ImageVector
     get() = SharpVectorE00B.value(autoMirror = false)
 
 private object SharpVectorE00B {
@@ -326,7 +326,7 @@ private object SharpVectorE00B {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -544,7 +544,7 @@ private object SharpVectorE00B {
     }
 }
 
-public val Icons.Sharp.AlignVerticalTop: ImageVector
+val Icons.Sharp.AlignVerticalTop: ImageVector
     get() = SharpVectorE00C.value(autoMirror = false)
 
 private object SharpVectorE00C {
@@ -556,7 +556,7 @@ private object SharpVectorE00C {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -590,7 +590,7 @@ private object SharpVectorE00C {
     }
 }
 
-public val Icons.Sharp.AlignHorizontalLeft: ImageVector
+val Icons.Sharp.AlignHorizontalLeft: ImageVector
     get() = SharpVectorE00D.value(autoMirror = false)
 
 private object SharpVectorE00D {
@@ -602,7 +602,7 @@ private object SharpVectorE00D {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -636,7 +636,7 @@ private object SharpVectorE00D {
     }
 }
 
-public val Icons.Sharp.AlignHorizontalCenter: ImageVector
+val Icons.Sharp.AlignHorizontalCenter: ImageVector
     get() = SharpVectorE00F.value(autoMirror = false)
 
 private object SharpVectorE00F {
@@ -648,7 +648,7 @@ private object SharpVectorE00F {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -688,7 +688,7 @@ private object SharpVectorE00F {
     }
 }
 
-public val Icons.Sharp.AlignHorizontalRight: ImageVector
+val Icons.Sharp.AlignHorizontalRight: ImageVector
     get() = SharpVectorE010.value(autoMirror = false)
 
 private object SharpVectorE010 {
@@ -700,7 +700,7 @@ private object SharpVectorE010 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -734,7 +734,7 @@ private object SharpVectorE010 {
     }
 }
 
-public val Icons.Sharp.AlignVerticalCenter: ImageVector
+val Icons.Sharp.AlignVerticalCenter: ImageVector
     get() = SharpVectorE011.value(autoMirror = false)
 
 private object SharpVectorE011 {
@@ -746,7 +746,7 @@ private object SharpVectorE011 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -786,7 +786,7 @@ private object SharpVectorE011 {
     }
 }
 
-public val Icons.Sharp.TeamDashboard: ImageVector
+val Icons.Sharp.TeamDashboard: ImageVector
     get() = SharpVectorE013.value(autoMirror = false)
 
 private object SharpVectorE013 {
@@ -798,7 +798,7 @@ private object SharpVectorE013 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -837,7 +837,7 @@ private object SharpVectorE013 {
     }
 }
 
-public val Icons.Sharp.HorizontalDistribute: ImageVector
+val Icons.Sharp.HorizontalDistribute: ImageVector
     get() = SharpVectorE014.value(autoMirror = false)
 
 private object SharpVectorE014 {
@@ -849,7 +849,7 @@ private object SharpVectorE014 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -883,7 +883,7 @@ private object SharpVectorE014 {
     }
 }
 
-public val Icons.Sharp.AlignVerticalBottom: ImageVector
+val Icons.Sharp.AlignVerticalBottom: ImageVector
     get() = SharpVectorE015.value(autoMirror = false)
 
 private object SharpVectorE015 {
@@ -895,7 +895,7 @@ private object SharpVectorE015 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -929,7 +929,7 @@ private object SharpVectorE015 {
     }
 }
 
-public val Icons.Sharp.BringYourOwnIp: ImageVector
+val Icons.Sharp.BringYourOwnIp: ImageVector
     get() = SharpVectorE016.value(autoMirror = false)
 
 private object SharpVectorE016 {
@@ -941,7 +941,7 @@ private object SharpVectorE016 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1056,7 +1056,7 @@ private object SharpVectorE016 {
     }
 }
 
-public val Icons.Sharp.DiscoverTune: ImageVector
+val Icons.Sharp.DiscoverTune: ImageVector
     get() = SharpVectorE018.value(autoMirror = false)
 
 private object SharpVectorE018 {
@@ -1068,7 +1068,7 @@ private object SharpVectorE018 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1115,7 +1115,7 @@ private object SharpVectorE018 {
     }
 }
 
-public val Icons.Sharp.Album: ImageVector
+val Icons.Sharp.Album: ImageVector
     get() = SharpVectorE019.value(autoMirror = false)
 
 private object SharpVectorE019 {
@@ -1127,7 +1127,7 @@ private object SharpVectorE019 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1204,7 +1204,7 @@ private object SharpVectorE019 {
     }
 }
 
-public val Icons.Sharp.Artist: ImageVector
+val Icons.Sharp.Artist: ImageVector
     get() = SharpVectorE01A.value(autoMirror = false)
 
 private object SharpVectorE01A {
@@ -1216,7 +1216,7 @@ private object SharpVectorE01A {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1310,7 +1310,7 @@ private object SharpVectorE01A {
     }
 }
 
-public val Icons.Sharp.AvTimer: ImageVector
+val Icons.Sharp.AvTimer: ImageVector
     get() = SharpVectorE01B.value(autoMirror = false)
 
 private object SharpVectorE01B {
@@ -1322,7 +1322,7 @@ private object SharpVectorE01B {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1405,7 +1405,7 @@ private object SharpVectorE01B {
     }
 }
 
-public val Icons.Sharp.Equalizer: ImageVector
+val Icons.Sharp.Equalizer: ImageVector
     get() = SharpVectorE01D.value(autoMirror = false)
 
 private object SharpVectorE01D {
@@ -1417,7 +1417,7 @@ private object SharpVectorE01D {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1451,7 +1451,7 @@ private object SharpVectorE01D {
     }
 }
 
-public val Icons.Sharp.Explicit: ImageVector
+val Icons.Sharp.Explicit: ImageVector
     get() = SharpVectorE01E.value(autoMirror = false)
 
 private object SharpVectorE01E {
@@ -1463,7 +1463,7 @@ private object SharpVectorE01E {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1509,7 +1509,7 @@ private object SharpVectorE01E {
     }
 }
 
-public val Icons.Sharp.FastForward: ImageVector
+val Icons.Sharp.FastForward: ImageVector
     get() = SharpVectorE01F.value(autoMirror = false)
 
 private object SharpVectorE01F {
@@ -1521,7 +1521,7 @@ private object SharpVectorE01F {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1560,7 +1560,7 @@ private object SharpVectorE01F {
     }
 }
 
-public val Icons.Sharp.FastRewind: ImageVector
+val Icons.Sharp.FastRewind: ImageVector
     get() = SharpVectorE020.value(autoMirror = false)
 
 private object SharpVectorE020 {
@@ -1572,7 +1572,7 @@ private object SharpVectorE020 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1611,7 +1611,7 @@ private object SharpVectorE020 {
     }
 }
 
-public val Icons.Sharp.Hearing: ImageVector
+val Icons.Sharp.Hearing: ImageVector
     get() = SharpVectorE023.value(autoMirror = false)
 
 private object SharpVectorE023 {
@@ -1623,7 +1623,7 @@ private object SharpVectorE023 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1691,7 +1691,7 @@ private object SharpVectorE023 {
     }
 }
 
-public val Icons.Sharp.HighQuality: ImageVector
+val Icons.Sharp.HighQuality: ImageVector
     get() = SharpVectorE024.value(autoMirror = false)
 
 private object SharpVectorE024 {
@@ -1703,7 +1703,7 @@ private object SharpVectorE024 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1763,7 +1763,7 @@ private object SharpVectorE024 {
     }
 }
 
-public val Icons.Sharp.Ifl: ImageVector
+val Icons.Sharp.Ifl: ImageVector
     get() = SharpVectorE025.value(autoMirror = false)
 
 private object SharpVectorE025 {
@@ -1775,7 +1775,7 @@ private object SharpVectorE025 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1838,7 +1838,7 @@ private object SharpVectorE025 {
     }
 }
 
-public val Icons.Sharp.InstantMix: ImageVector
+val Icons.Sharp.InstantMix: ImageVector
     get() = SharpVectorE026.value(autoMirror = false)
 
 private object SharpVectorE026 {
@@ -1850,7 +1850,7 @@ private object SharpVectorE026 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1911,7 +1911,7 @@ private object SharpVectorE026 {
     }
 }
 
-public val Icons.Sharp.Ios: ImageVector
+val Icons.Sharp.Ios: ImageVector
     get() = SharpVectorE027.value(autoMirror = false)
 
 private object SharpVectorE027 {
@@ -1923,7 +1923,7 @@ private object SharpVectorE027 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1975,7 +1975,7 @@ private object SharpVectorE027 {
     }
 }
 
-public val Icons.Sharp.MicOff: ImageVector
+val Icons.Sharp.MicOff: ImageVector
     get() = SharpVectorE02B.value(autoMirror = false)
 
 private object SharpVectorE02B {
@@ -1987,7 +1987,7 @@ private object SharpVectorE02B {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2057,7 +2057,7 @@ private object SharpVectorE02B {
     }
 }
 
-public val Icons.Sharp.MovieInfo: ImageVector
+val Icons.Sharp.MovieInfo: ImageVector
     get() = SharpVectorE02D.value(autoMirror = false)
 
 private object SharpVectorE02D {
@@ -2069,7 +2069,7 @@ private object SharpVectorE02D {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2156,7 +2156,7 @@ private object SharpVectorE02D {
     }
 }
 
-public val Icons.Sharp.LibraryBooks: ImageVector
+val Icons.Sharp.LibraryBooks: ImageVector
     get() = SharpVectorE02F.value(autoMirror = false)
 
 private object SharpVectorE02F {
@@ -2168,7 +2168,7 @@ private object SharpVectorE02F {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2222,7 +2222,7 @@ private object SharpVectorE02F {
     }
 }
 
-public val Icons.Sharp.LibraryMusic: ImageVector
+val Icons.Sharp.LibraryMusic: ImageVector
     get() = SharpVectorE030.value(autoMirror = false)
 
 private object SharpVectorE030 {
@@ -2234,7 +2234,7 @@ private object SharpVectorE030 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2288,7 +2288,7 @@ private object SharpVectorE030 {
     }
 }
 
-public val Icons.Sharp.News: ImageVector
+val Icons.Sharp.News: ImageVector
     get() = SharpVectorE032.value(autoMirror = false)
 
 private object SharpVectorE032 {
@@ -2300,7 +2300,7 @@ private object SharpVectorE032 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2353,7 +2353,7 @@ private object SharpVectorE032 {
     }
 }
 
-public val Icons.Sharp.Pause: ImageVector
+val Icons.Sharp.Pause: ImageVector
     get() = SharpVectorE034.value(autoMirror = false)
 
 private object SharpVectorE034 {
@@ -2365,7 +2365,7 @@ private object SharpVectorE034 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2410,7 +2410,7 @@ private object SharpVectorE034 {
     }
 }
 
-public val Icons.Sharp.PlayArrow: ImageVector
+val Icons.Sharp.PlayArrow: ImageVector
     get() = SharpVectorE037.value(autoMirror = false)
 
 private object SharpVectorE037 {
@@ -2422,7 +2422,7 @@ private object SharpVectorE037 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2451,7 +2451,7 @@ private object SharpVectorE037 {
     }
 }
 
-public val Icons.Sharp.PlaylistAdd: ImageVector
+val Icons.Sharp.PlaylistAdd: ImageVector
     get() = SharpVectorE03B.value(autoMirror = false)
 
 private object SharpVectorE03B {
@@ -2463,7 +2463,7 @@ private object SharpVectorE03B {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2510,10 +2510,10 @@ private object SharpVectorE03B {
     }
 }
 
-public val Icons.Sharp.LibraryAdd: ImageVector
+val Icons.Sharp.LibraryAdd: ImageVector
     get() = SharpVectorE03C.value(autoMirror = false)
 
-public val Icons.Sharp.Queue: ImageVector
+val Icons.Sharp.Queue: ImageVector
     get() = SharpVectorE03C.value(autoMirror = false)
 
 private object SharpVectorE03C {
@@ -2525,7 +2525,7 @@ private object SharpVectorE03C {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2577,7 +2577,7 @@ private object SharpVectorE03C {
     }
 }
 
-public val Icons.Sharp.QueueMusic: ImageVector
+val Icons.Sharp.QueueMusic: ImageVector
     get() = SharpVectorE03D.value(autoMirror = false)
 
 private object SharpVectorE03D {
@@ -2589,7 +2589,7 @@ private object SharpVectorE03D {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2638,7 +2638,7 @@ private object SharpVectorE03D {
     }
 }
 
-public val Icons.Sharp.Radio: ImageVector
+val Icons.Sharp.Radio: ImageVector
     get() = SharpVectorE03E.value(autoMirror = false)
 
 private object SharpVectorE03E {
@@ -2650,7 +2650,7 @@ private object SharpVectorE03E {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2705,7 +2705,7 @@ private object SharpVectorE03E {
     }
 }
 
-public val Icons.Sharp.RecentActors: ImageVector
+val Icons.Sharp.RecentActors: ImageVector
     get() = SharpVectorE03F.value(autoMirror = false)
 
 private object SharpVectorE03F {
@@ -2717,7 +2717,7 @@ private object SharpVectorE03F {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2802,7 +2802,7 @@ private object SharpVectorE03F {
     }
 }
 
-public val Icons.Sharp.Repeat: ImageVector
+val Icons.Sharp.Repeat: ImageVector
     get() = SharpVectorE040.value(autoMirror = false)
 
 private object SharpVectorE040 {
@@ -2814,7 +2814,7 @@ private object SharpVectorE040 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2857,7 +2857,7 @@ private object SharpVectorE040 {
     }
 }
 
-public val Icons.Sharp.RepeatOne: ImageVector
+val Icons.Sharp.RepeatOne: ImageVector
     get() = SharpVectorE041.value(autoMirror = false)
 
 private object SharpVectorE041 {
@@ -2869,7 +2869,7 @@ private object SharpVectorE041 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2919,7 +2919,7 @@ private object SharpVectorE041 {
     }
 }
 
-public val Icons.Sharp.Replay: ImageVector
+val Icons.Sharp.Replay: ImageVector
     get() = SharpVectorE042.value(autoMirror = false)
 
 private object SharpVectorE042 {
@@ -2931,7 +2931,7 @@ private object SharpVectorE042 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2979,7 +2979,7 @@ private object SharpVectorE042 {
     }
 }
 
-public val Icons.Sharp.Shuffle: ImageVector
+val Icons.Sharp.Shuffle: ImageVector
     get() = SharpVectorE043.value(autoMirror = false)
 
 private object SharpVectorE043 {
@@ -2991,7 +2991,7 @@ private object SharpVectorE043 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3035,7 +3035,7 @@ private object SharpVectorE043 {
     }
 }
 
-public val Icons.Sharp.SkipNext: ImageVector
+val Icons.Sharp.SkipNext: ImageVector
     get() = SharpVectorE044.value(autoMirror = false)
 
 private object SharpVectorE044 {
@@ -3047,7 +3047,7 @@ private object SharpVectorE044 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3081,7 +3081,7 @@ private object SharpVectorE044 {
     }
 }
 
-public val Icons.Sharp.SkipPrevious: ImageVector
+val Icons.Sharp.SkipPrevious: ImageVector
     get() = SharpVectorE045.value(autoMirror = false)
 
 private object SharpVectorE045 {
@@ -3093,7 +3093,7 @@ private object SharpVectorE045 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3127,7 +3127,7 @@ private object SharpVectorE045 {
     }
 }
 
-public val Icons.Sharp.Snooze: ImageVector
+val Icons.Sharp.Snooze: ImageVector
     get() = SharpVectorE046.value(autoMirror = false)
 
 private object SharpVectorE046 {
@@ -3139,7 +3139,7 @@ private object SharpVectorE046 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3217,7 +3217,7 @@ private object SharpVectorE046 {
     }
 }
 
-public val Icons.Sharp.Stop: ImageVector
+val Icons.Sharp.Stop: ImageVector
     get() = SharpVectorE047.value(autoMirror = false)
 
 private object SharpVectorE047 {
@@ -3229,7 +3229,7 @@ private object SharpVectorE047 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3261,7 +3261,7 @@ private object SharpVectorE047 {
     }
 }
 
-public val Icons.Sharp.Subtitles: ImageVector
+val Icons.Sharp.Subtitles: ImageVector
     get() = SharpVectorE048.value(autoMirror = false)
 
 private object SharpVectorE048 {
@@ -3273,7 +3273,7 @@ private object SharpVectorE048 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3326,7 +3326,7 @@ private object SharpVectorE048 {
     }
 }
 
-public val Icons.Sharp.SurroundSound: ImageVector
+val Icons.Sharp.SurroundSound: ImageVector
     get() = SharpVectorE049.value(autoMirror = false)
 
 private object SharpVectorE049 {
@@ -3338,7 +3338,7 @@ private object SharpVectorE049 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3404,7 +3404,7 @@ private object SharpVectorE049 {
     }
 }
 
-public val Icons.Sharp.VideoLibrary: ImageVector
+val Icons.Sharp.VideoLibrary: ImageVector
     get() = SharpVectorE04A.value(autoMirror = false)
 
 private object SharpVectorE04A {
@@ -3416,7 +3416,7 @@ private object SharpVectorE04A {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3459,7 +3459,7 @@ private object SharpVectorE04A {
     }
 }
 
-public val Icons.Sharp.Videocam: ImageVector
+val Icons.Sharp.Videocam: ImageVector
     get() = SharpVectorE04B.value(autoMirror = false)
 
 private object SharpVectorE04B {
@@ -3471,7 +3471,7 @@ private object SharpVectorE04B {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3508,7 +3508,7 @@ private object SharpVectorE04B {
     }
 }
 
-public val Icons.Sharp.VideocamOff: ImageVector
+val Icons.Sharp.VideocamOff: ImageVector
     get() = SharpVectorE04C.value(autoMirror = false)
 
 private object SharpVectorE04C {
@@ -3520,7 +3520,7 @@ private object SharpVectorE04C {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3570,7 +3570,7 @@ private object SharpVectorE04C {
     }
 }
 
-public val Icons.Sharp.VolumeDown: ImageVector
+val Icons.Sharp.VolumeDown: ImageVector
     get() = SharpVectorE04D.value(autoMirror = false)
 
 private object SharpVectorE04D {
@@ -3582,7 +3582,7 @@ private object SharpVectorE04D {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3624,7 +3624,7 @@ private object SharpVectorE04D {
     }
 }
 
-public val Icons.Sharp.VolumeMute: ImageVector
+val Icons.Sharp.VolumeMute: ImageVector
     get() = SharpVectorE04E.value(autoMirror = false)
 
 private object SharpVectorE04E {
@@ -3636,7 +3636,7 @@ private object SharpVectorE04E {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3671,7 +3671,7 @@ private object SharpVectorE04E {
     }
 }
 
-public val Icons.Sharp.VolumeOff: ImageVector
+val Icons.Sharp.VolumeOff: ImageVector
     get() = SharpVectorE04F.value(autoMirror = false)
 
 private object SharpVectorE04F {
@@ -3683,7 +3683,7 @@ private object SharpVectorE04F {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3752,7 +3752,7 @@ private object SharpVectorE04F {
     }
 }
 
-public val Icons.Sharp.VolumeUp: ImageVector
+val Icons.Sharp.VolumeUp: ImageVector
     get() = SharpVectorE050.value(autoMirror = false)
 
 private object SharpVectorE050 {
@@ -3764,7 +3764,7 @@ private object SharpVectorE050 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3818,7 +3818,7 @@ private object SharpVectorE050 {
     }
 }
 
-public val Icons.Sharp.Web: ImageVector
+val Icons.Sharp.Web: ImageVector
     get() = SharpVectorE051.value(autoMirror = false)
 
 private object SharpVectorE051 {
@@ -3830,7 +3830,7 @@ private object SharpVectorE051 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3869,7 +3869,7 @@ private object SharpVectorE051 {
     }
 }
 
-public val Icons.Sharp.Hd: ImageVector
+val Icons.Sharp.Hd: ImageVector
     get() = SharpVectorE052.value(autoMirror = false)
 
 private object SharpVectorE052 {
@@ -3881,7 +3881,7 @@ private object SharpVectorE052 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3939,7 +3939,7 @@ private object SharpVectorE052 {
     }
 }
 
-public val Icons.Sharp.SortByAlpha: ImageVector
+val Icons.Sharp.SortByAlpha: ImageVector
     get() = SharpVectorE053.value(autoMirror = false)
 
 private object SharpVectorE053 {
@@ -3951,7 +3951,7 @@ private object SharpVectorE053 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -4003,7 +4003,7 @@ private object SharpVectorE053 {
     }
 }
 
-public val Icons.Sharp.Airplay: ImageVector
+val Icons.Sharp.Airplay: ImageVector
     get() = SharpVectorE055.value(autoMirror = false)
 
 private object SharpVectorE055 {
@@ -4015,7 +4015,7 @@ private object SharpVectorE055 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -4053,7 +4053,7 @@ private object SharpVectorE055 {
     }
 }
 
-public val Icons.Sharp.Forward10: ImageVector
+val Icons.Sharp.Forward10: ImageVector
     get() = SharpVectorE056.value(autoMirror = false)
 
 private object SharpVectorE056 {
@@ -4065,7 +4065,7 @@ private object SharpVectorE056 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -4130,7 +4130,7 @@ private object SharpVectorE056 {
     }
 }
 
-public val Icons.Sharp.Forward30: ImageVector
+val Icons.Sharp.Forward30: ImageVector
     get() = SharpVectorE057.value(autoMirror = false)
 
 private object SharpVectorE057 {
@@ -4142,7 +4142,7 @@ private object SharpVectorE057 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -4213,7 +4213,7 @@ private object SharpVectorE057 {
     }
 }
 
-public val Icons.Sharp.Forward5: ImageVector
+val Icons.Sharp.Forward5: ImageVector
     get() = SharpVectorE058.value(autoMirror = false)
 
 private object SharpVectorE058 {
@@ -4225,7 +4225,7 @@ private object SharpVectorE058 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -4286,7 +4286,7 @@ private object SharpVectorE058 {
     }
 }
 
-public val Icons.Sharp.Replay10: ImageVector
+val Icons.Sharp.Replay10: ImageVector
     get() = SharpVectorE059.value(autoMirror = false)
 
 private object SharpVectorE059 {
@@ -4298,7 +4298,7 @@ private object SharpVectorE059 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -4363,7 +4363,7 @@ private object SharpVectorE059 {
     }
 }
 
-public val Icons.Sharp.Replay30: ImageVector
+val Icons.Sharp.Replay30: ImageVector
     get() = SharpVectorE05A.value(autoMirror = false)
 
 private object SharpVectorE05A {
@@ -4375,7 +4375,7 @@ private object SharpVectorE05A {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {

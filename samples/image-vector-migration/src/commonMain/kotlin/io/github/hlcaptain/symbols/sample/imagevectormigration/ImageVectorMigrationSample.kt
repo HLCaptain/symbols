@@ -20,10 +20,12 @@ import io.github.hlcaptain.image_vector_migration.generated.resources.academmuni
 import io.github.hlcaptain.symbols.material.Icons as SymbolsIcons
 import io.github.hlcaptain.symbols.material.rounded.vectors.AccountTree as SymbolsAccountTree
 import io.github.hlcaptain.symbols.sample.api.SampleItem
+import io.github.hlcaptain.symbols.sample.imagevectormigration.config.SampleBuildConfig
 import io.github.hlcaptain.symbols.sample.imagevectormigration.generated.Academmunicons
 import io.github.hlcaptain.symbols.sample.imagevectormigration.generated.default.Orcid
-import io.github.hlcaptain.symbols.sample.imagevectormigration.config.SampleBuildConfig
 import io.github.hlcaptain.symbols.sample.ui.ExampleCard
+import io.github.hlcaptain.symbols.sample.ui.PreviewScreenshotBaseline
+import io.github.hlcaptain.symbols.sample.ui.PreviewSymbolsScreen
 import io.github.hlcaptain.symbols.sample.ui.SamplePage
 import org.jetbrains.compose.resources.painterResource
 import org.koin.core.annotation.Configuration
@@ -99,6 +101,8 @@ private fun ImageVectorMigrationContent() {
                 style = MaterialTheme.typography.bodySmall,
             )
         }
+        SvgIconExamples()
+        SharedWeightAxisExample()
     }
 }
 
@@ -118,6 +122,15 @@ private fun VectorExample(
             modifier = Modifier.size(40.dp),
         )
         Text(label, style = MaterialTheme.typography.labelMedium)
+    }
+}
+
+@PreviewScreenshotBaseline
+@PreviewSymbolsScreen
+@Composable
+private fun ImageVectorMigrationPreview() {
+    MaterialTheme {
+        ImageVectorMigrationContent()
     }
 }
 

@@ -7,6 +7,7 @@ import com.android.build.api.variant.VariantBuilder
 import io.github.hlcaptain.symbols.generator.SymbolGeneratorCli
 import io.github.hlcaptain.symbols.generator.SymbolManifestParser
 import io.github.hlcaptain.symbols.generator.SymbolNames
+import io.github.hlcaptain.symbols.generator.SvgIconExtractor
 import java.io.File
 import org.gradle.api.Action
 import org.gradle.api.InvalidUserDataException
@@ -23,8 +24,8 @@ import org.jetbrains.compose.resources.ResourcesExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
-/** Gradle integration for deterministic, typed symbol-font generation. */
-public class SymbolFontsPlugin : Plugin<Project> {
+/** Gradle integration for deterministic typed font and SVG icon generation. */
+class SymbolFontsPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         val generatorClasspath = project.createGeneratorClasspath()
         val extension = project.extensions.create(
@@ -278,13 +279,13 @@ private fun Project.registerGenerationTask(
         task.generatorClasspath.from(generatorClasspath)
         task.manifest.set(style.codepoints)
         task.font.set(style.font)
+        task.svgDirectory.set(style.svgDirectory)
         task.conventionalFontName.set(style.conventionalFontName)
         task.packageName.set(iconSet.packageName)
         task.rootName.set(iconSet.rootName)
         task.styleName.set(style.name)
         task.fontIndex.set(style.fontIndex)
         task.axes.set(style.axes)
-        task.includedNames.set(iconSet.includedNames)
         task.generateImageVectors.set(style.generateImageVectors)
         task.generateAndroidDrawables.set(style.generateAndroidDrawables)
         task.generateComposeDrawables.set(style.generateComposeDrawables)
@@ -309,7 +310,7 @@ private fun Project.registerGenerationTask(
         )
     }
     afterEvaluate {
-        if (!style.font.isPresent) {
+        if (!style.font.isPresent && !style.svgDirectory.isPresent) {
             generationTask.configure { task ->
                 task.conventionalFonts.from(
                     fileTree(layout.projectDirectory.dir("src")) {
@@ -602,13 +603,16 @@ private fun validateConfiguredIconSets(extension: SymbolFontsExtension) {
                 owners = kotlinSourceOwners,
             )
         }
+        iconSet.styles.sortedBy(SymbolFontStyle::getName).forEach { style ->
+            validateStyleSource(style, "$iconSetOwner style '${style.name}'")
+        }
 
         if (resourceStyles.isEmpty()) {
             return@forEach
         }
         resourceStyles.forEach { style ->
             val styleOwner = "$iconSetOwner style '${style.name}'"
-            val selectedEntries = selectedResourceEntries(iconSet, style)
+            val selectedEntries = resourceEntries(style)
             val resourcePrefix = style.resourcePrefix.get()
             require(AndroidResourcePrefix.matches(resourcePrefix)) {
                 "Invalid Android resource prefix '$resourcePrefix' for $styleOwner"
@@ -622,14 +626,25 @@ private fun validateConfiguredIconSets(extension: SymbolFontsExtension) {
                 owners = androidPrefixOwners,
             )
 
-            selectedEntries.forEach { (codePoint, semanticName) ->
-                val resourceName =
-                    "${combinedPrefix}_${semanticName}_" +
-                        "u${codePoint.toString(16).lowercase()}"
+            selectedEntries.forEach { entry ->
+                val resourceName = buildString {
+                    append(combinedPrefix)
+                    append('_')
+                    append(entry.semanticName)
+                    entry.codePoint?.let { codePoint ->
+                        append("_u")
+                        append(codePoint.toString(16).lowercase())
+                    }
+                }
                 claim(
                     kind = "generated Android resource name",
                     key = resourceName,
-                    owner = "$styleOwner U+${codePoint.toString(16).uppercase()}",
+                    owner = if (entry.codePoint != null) {
+                        "$styleOwner U+" +
+                            entry.codePoint.toString(16).uppercase()
+                    } else {
+                        "$styleOwner '${entry.semanticName}'"
+                    },
                     owners = androidResourceOwners,
                 )
             }
@@ -637,29 +652,50 @@ private fun validateConfiguredIconSets(extension: SymbolFontsExtension) {
     }
 }
 
-private fun selectedResourceEntries(
-    iconSet: SymbolIconSet,
+private fun validateStyleSource(
     style: SymbolFontStyle,
-): List<Pair<Int, String>> {
-    val catalog = SymbolManifestParser.parse(style.codepoints.get().asFile.toPath())
-    val includedNames = iconSet.includedNames.get()
-    val selected = if (includedNames.isEmpty()) {
-        catalog.entries
-    } else {
-        val entriesByName = catalog.entries.associateBy { entry -> entry.name }
-        val unknownNames = includedNames - entriesByName.keys
-        require(unknownNames.isEmpty()) {
-            "Unknown included symbol names for ${iconSet.name}.${style.name}: " +
-                unknownNames.sorted().joinToString()
+    owner: String,
+) {
+    if (style.svgDirectory.isPresent) {
+        val fontInputs = buildList {
+            if (style.codepoints.isPresent) add("codepoints")
+            if (style.font.isPresent) add("font")
+            if (style.conventionalFontName.get().isNotEmpty()) add("font(name)")
+            if (style.fontIndex.get() != 0) add("fontIndex")
+            if (style.axes.get().isNotEmpty()) add("axes")
         }
-        includedNames.map(entriesByName::getValue)
+        require(fontInputs.isEmpty()) {
+            "$owner configures svgDirectory together with font-only inputs: " +
+                fontInputs.joinToString()
+        }
+    } else {
+        require(style.codepoints.isPresent) {
+            "$owner must configure svgDirectory or codepoints for a font source"
+        }
     }
-    return selected
+}
+
+private data class ResourceEntry(
+    val semanticName: String,
+    val codePoint: Int?,
+)
+
+private fun resourceEntries(style: SymbolFontStyle): List<ResourceEntry> {
+    if (style.svgDirectory.isPresent) {
+        return SvgIconExtractor.discoverNames(
+            style.svgDirectory.get().asFile.toPath(),
+        ).map { name -> ResourceEntry(name, null) }
+    }
+    val catalog = SymbolManifestParser.parse(style.codepoints.get().asFile.toPath())
+    return catalog.entries
         .groupBy { entry -> entry.codePoint }
         .map { (codePoint, aliases) ->
-            codePoint to aliases.minOf { alias -> alias.name }
+            ResourceEntry(
+                semanticName = aliases.minOf { alias -> alias.name },
+                codePoint = codePoint,
+            )
         }
-        .sortedBy(Pair<Int, String>::first)
+        .sortedBy { entry -> entry.codePoint }
 }
 
 private fun claim(

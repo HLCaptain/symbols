@@ -4,25 +4,25 @@
 package io.github.hlcaptain.symbols.material
 
 /** `zone_person_idle` (U+E77A) as a Rounded font glyph. */
-public val Symbols.Rounded.ZonePersonIdle: RoundedMaterialSymbol
+val Symbols.Rounded.ZonePersonIdle: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.ZonePersonIdle)
 
 /** `zone_person_urgent` (U+E788) as a Rounded font glyph. */
-public val Symbols.Rounded.ZonePersonUrgent: RoundedMaterialSymbol
+val Symbols.Rounded.ZonePersonUrgent: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.ZonePersonUrgent)
 
 /** `zoom_in` (U+E8FF) as a Rounded font glyph. */
-public val Symbols.Rounded.ZoomIn: RoundedMaterialSymbol
+val Symbols.Rounded.ZoomIn: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.ZoomIn)
 
 /** `zoom_in_map` (U+EB2D) as a Rounded font glyph. */
-public val Symbols.Rounded.ZoomInMap: RoundedMaterialSymbol
+val Symbols.Rounded.ZoomInMap: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.ZoomInMap)
 
 /** `zoom_out` (U+E900) as a Rounded font glyph. */
-public val Symbols.Rounded.ZoomOut: RoundedMaterialSymbol
+val Symbols.Rounded.ZoomOut: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.ZoomOut)
 
 /** `zoom_out_map` (U+E56B) as a Rounded font glyph. */
-public val Symbols.Rounded.ZoomOutMap: RoundedMaterialSymbol
+val Symbols.Rounded.ZoomOutMap: RoundedMaterialSymbol
     get() = RoundedMaterialSymbol(MaterialSymbols.ZoomOutMap)

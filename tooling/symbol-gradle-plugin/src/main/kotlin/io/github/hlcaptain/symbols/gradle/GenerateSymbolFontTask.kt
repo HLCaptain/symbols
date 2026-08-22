@@ -9,10 +9,10 @@ import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
-import org.gradle.api.provider.SetProperty
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Classpath
 import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.Optional
@@ -22,87 +22,90 @@ import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
 import org.gradle.process.ExecOperations
 
-/** Cacheable, isolated build-time extraction of one symbol-font style. */
+/** Cacheable, isolated build-time extraction of one font or SVG style. */
 @CacheableTask
-public abstract class GenerateSymbolFontTask : DefaultTask() {
+abstract class GenerateSymbolFontTask : DefaultTask() {
     @get:Classpath
-    public abstract val generatorClasspath: ConfigurableFileCollection
-
-    @get:InputFile
-    @get:PathSensitive(PathSensitivity.NONE)
-    public abstract val manifest: RegularFileProperty
+    abstract val generatorClasspath: ConfigurableFileCollection
 
     @get:InputFile
     @get:Optional
     @get:PathSensitive(PathSensitivity.NONE)
-    public abstract val font: RegularFileProperty
+    abstract val manifest: RegularFileProperty
+
+    @get:InputDirectory
+    @get:Optional
+    @get:PathSensitive(PathSensitivity.RELATIVE)
+    abstract val svgDirectory: DirectoryProperty
+
+    @get:InputFile
+    @get:Optional
+    @get:PathSensitive(PathSensitivity.NONE)
+    abstract val font: RegularFileProperty
 
     @get:InputFiles
     @get:PathSensitive(PathSensitivity.RELATIVE)
-    public abstract val conventionalFonts: ConfigurableFileCollection
+    abstract val conventionalFonts: ConfigurableFileCollection
 
     @get:Input
-    public abstract val conventionalFontName: Property<String>
+    abstract val conventionalFontName: Property<String>
 
     @get:Input
-    public abstract val packageName: Property<String>
+    abstract val packageName: Property<String>
 
     @get:Input
-    public abstract val rootName: Property<String>
+    abstract val rootName: Property<String>
 
     @get:Input
-    public abstract val styleName: Property<String>
+    abstract val styleName: Property<String>
 
     @get:Input
-    public abstract val fontIndex: Property<Int>
+    abstract val fontIndex: Property<Int>
 
     @get:Input
-    public abstract val axes: MapProperty<String, Float>
+    abstract val axes: MapProperty<String, Float>
 
     @get:Input
-    public abstract val includedNames: SetProperty<String>
+    abstract val generateImageVectors: Property<Boolean>
 
     @get:Input
-    public abstract val generateImageVectors: Property<Boolean>
+    abstract val generateAndroidDrawables: Property<Boolean>
 
     @get:Input
-    public abstract val generateAndroidDrawables: Property<Boolean>
+    abstract val generateComposeDrawables: Property<Boolean>
 
     @get:Input
-    public abstract val generateComposeDrawables: Property<Boolean>
+    abstract val resourcePrefix: Property<String>
 
     @get:Input
-    public abstract val resourcePrefix: Property<String>
+    abstract val symbolsPerFile: Property<Int>
 
     @get:Input
-    public abstract val symbolsPerFile: Property<Int>
+    abstract val precision: Property<Int>
 
     @get:Input
-    public abstract val precision: Property<Int>
+    abstract val viewportWidth: Property<Float>
 
     @get:Input
-    public abstract val viewportWidth: Property<Float>
+    abstract val viewportHeight: Property<Float>
 
     @get:Input
-    public abstract val viewportHeight: Property<Float>
+    abstract val emSize: Property<Float>
 
     @get:Input
-    public abstract val emSize: Property<Float>
+    abstract val originX: Property<Float>
 
     @get:Input
-    public abstract val originX: Property<Float>
-
-    @get:Input
-    public abstract val baselineY: Property<Float>
+    abstract val baselineY: Property<Float>
 
     @get:OutputDirectory
-    public abstract val kotlinOutputDirectory: DirectoryProperty
+    abstract val kotlinOutputDirectory: DirectoryProperty
 
     @get:OutputDirectory
-    public abstract val androidOutputDirectory: DirectoryProperty
+    abstract val androidOutputDirectory: DirectoryProperty
 
     @get:OutputDirectory
-    public abstract val composeOutputDirectory: DirectoryProperty
+    abstract val composeOutputDirectory: DirectoryProperty
 
     @get:Inject
     protected abstract val execOperations: ExecOperations
@@ -124,23 +127,35 @@ public abstract class GenerateSymbolFontTask : DefaultTask() {
             "Style ${styleName.get()} has no output. Call imageVectors(), " +
                 "androidDrawables(), and/or composeDrawables()."
         }
-        val resolvedFont = resolveFont()
+        val svgSource = svgDirectory.orNull
+        val resolvedFont = if (svgSource == null) resolveFont() else null
 
         val arguments = buildList {
-            addAll(listOf("--manifest", manifest.get().asFile.absolutePath))
-            addAll(listOf("--font", resolvedFont.absolutePath))
+            if (svgSource != null) {
+                addAll(
+                    listOf(
+                        "--svg-directory",
+                        svgSource.asFile.absolutePath,
+                    ),
+                )
+            } else {
+                addAll(listOf("--manifest", manifest.get().asFile.absolutePath))
+                addAll(listOf("--font", requireNotNull(resolvedFont).absolutePath))
+            }
             addAll(listOf("--package", packageName.get()))
             addAll(listOf("--set", rootName.get()))
             addAll(listOf("--style", styleName.get()))
-            addAll(listOf("--font-index", fontIndex.get().toString()))
             addAll(listOf("--resource-prefix", resourcePrefix.get()))
             addAll(listOf("--symbols-per-file", symbolsPerFile.get().toString()))
             addAll(listOf("--precision", precision.get().toString()))
             addAll(listOf("--viewport-width", viewportWidth.get().toString()))
             addAll(listOf("--viewport-height", viewportHeight.get().toString()))
-            addAll(listOf("--em-size", emSize.get().toString()))
-            addAll(listOf("--origin-x", originX.get().toString()))
-            addAll(listOf("--baseline-y", baselineY.get().toString()))
+            if (svgSource == null) {
+                addAll(listOf("--font-index", fontIndex.get().toString()))
+                addAll(listOf("--em-size", emSize.get().toString()))
+                addAll(listOf("--origin-x", originX.get().toString()))
+                addAll(listOf("--baseline-y", baselineY.get().toString()))
+            }
             if (generateImageVectors.get()) {
                 add("--omit-kotlin-namespace")
                 addAll(
@@ -167,14 +182,9 @@ public abstract class GenerateSymbolFontTask : DefaultTask() {
                 )
             }
 
-            axes.get().toSortedMap().forEach { (tag, value) ->
-                addAll(listOf("--axis", "$tag=$value"))
-            }
-            if (includedNames.get().isEmpty()) {
-                add("--include-all")
-            } else {
-                includedNames.get().sorted().forEach { name ->
-                    addAll(listOf("--include", name))
+            if (svgSource == null) {
+                axes.get().toSortedMap().forEach { (tag, value) ->
+                    addAll(listOf("--axis", "$tag=$value"))
                 }
             }
         }

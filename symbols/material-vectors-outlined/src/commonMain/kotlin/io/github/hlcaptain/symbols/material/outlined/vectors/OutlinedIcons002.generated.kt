@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
 import io.github.hlcaptain.symbols.material.Icons
 
-public val Icons.Outlined.ContactMail: ImageVector
+val Icons.Outlined.ContactMail: ImageVector
     get() = OutlinedVectorE0D0.value(autoMirror = false)
 
 private object OutlinedVectorE0D0 {
@@ -23,7 +23,7 @@ private object OutlinedVectorE0D0 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -127,7 +127,7 @@ private object OutlinedVectorE0D0 {
     }
 }
 
-public val Icons.Outlined.SpeakerPhone: ImageVector
+val Icons.Outlined.SpeakerPhone: ImageVector
     get() = OutlinedVectorE0D2.value(autoMirror = false)
 
 private object OutlinedVectorE0D2 {
@@ -139,7 +139,7 @@ private object OutlinedVectorE0D2 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -220,7 +220,7 @@ private object OutlinedVectorE0D2 {
     }
 }
 
-public val Icons.Outlined.SwapCalls: ImageVector
+val Icons.Outlined.SwapCalls: ImageVector
     get() = OutlinedVectorE0D7.value(autoMirror = false)
 
 private object OutlinedVectorE0D7 {
@@ -232,7 +232,7 @@ private object OutlinedVectorE0D7 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -286,7 +286,7 @@ private object OutlinedVectorE0D7 {
     }
 }
 
-public val Icons.Outlined.Voicemail: ImageVector
+val Icons.Outlined.Voicemail: ImageVector
     get() = OutlinedVectorE0D9.value(autoMirror = false)
 
 private object OutlinedVectorE0D9 {
@@ -298,7 +298,7 @@ private object OutlinedVectorE0D9 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -356,7 +356,7 @@ private object OutlinedVectorE0D9 {
     }
 }
 
-public val Icons.Outlined.VpnKey: ImageVector
+val Icons.Outlined.VpnKey: ImageVector
     get() = OutlinedVectorE0DA.value(autoMirror = false)
 
 private object OutlinedVectorE0DA {
@@ -368,7 +368,7 @@ private object OutlinedVectorE0DA {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -441,7 +441,7 @@ private object OutlinedVectorE0DA {
     }
 }
 
-public val Icons.Outlined.PresentToAll: ImageVector
+val Icons.Outlined.PresentToAll: ImageVector
     get() = OutlinedVectorE0DF.value(autoMirror = false)
 
 private object OutlinedVectorE0DF {
@@ -453,7 +453,7 @@ private object OutlinedVectorE0DF {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -521,7 +521,7 @@ private object OutlinedVectorE0DF {
     }
 }
 
-public val Icons.Outlined.ImportContacts: ImageVector
+val Icons.Outlined.ImportContacts: ImageVector
     get() = OutlinedVectorE0E0.value(autoMirror = false)
 
 private object OutlinedVectorE0E0 {
@@ -533,7 +533,7 @@ private object OutlinedVectorE0E0 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -625,7 +625,7 @@ private object OutlinedVectorE0E0 {
     }
 }
 
-public val Icons.Outlined.ScreenShare: ImageVector
+val Icons.Outlined.ScreenShare: ImageVector
     get() = OutlinedVectorE0E2.value(autoMirror = false)
 
 private object OutlinedVectorE0E2 {
@@ -637,7 +637,7 @@ private object OutlinedVectorE0E2 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -714,7 +714,7 @@ private object OutlinedVectorE0E2 {
     }
 }
 
-public val Icons.Outlined.StopScreenShare: ImageVector
+val Icons.Outlined.StopScreenShare: ImageVector
     get() = OutlinedVectorE0E3.value(autoMirror = false)
 
 private object OutlinedVectorE0E3 {
@@ -726,7 +726,7 @@ private object OutlinedVectorE0E3 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -812,7 +812,7 @@ private object OutlinedVectorE0E3 {
     }
 }
 
-public val Icons.Outlined.CallMissedOutgoing: ImageVector
+val Icons.Outlined.CallMissedOutgoing: ImageVector
     get() = OutlinedVectorE0E4.value(autoMirror = false)
 
 private object OutlinedVectorE0E4 {
@@ -824,7 +824,7 @@ private object OutlinedVectorE0E4 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -855,7 +855,7 @@ private object OutlinedVectorE0E4 {
     }
 }
 
-public val Icons.Outlined.RssFeed: ImageVector
+val Icons.Outlined.RssFeed: ImageVector
     get() = OutlinedVectorE0E5.value(autoMirror = false)
 
 private object OutlinedVectorE0E5 {
@@ -867,7 +867,7 @@ private object OutlinedVectorE0E5 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -918,7 +918,7 @@ private object OutlinedVectorE0E5 {
     }
 }
 
-public val Icons.Outlined.AlternateEmail: ImageVector
+val Icons.Outlined.AlternateEmail: ImageVector
     get() = OutlinedVectorE0E6.value(autoMirror = false)
 
 private object OutlinedVectorE0E6 {
@@ -930,7 +930,7 @@ private object OutlinedVectorE0E6 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1000,7 +1000,7 @@ private object OutlinedVectorE0E6 {
     }
 }
 
-public val Icons.Outlined.CancelPresentation: ImageVector
+val Icons.Outlined.CancelPresentation: ImageVector
     get() = OutlinedVectorE0E9.value(autoMirror = false)
 
 private object OutlinedVectorE0E9 {
@@ -1012,7 +1012,7 @@ private object OutlinedVectorE0E9 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1083,7 +1083,7 @@ private object OutlinedVectorE0E9 {
     }
 }
 
-public val Icons.Outlined.PausePresentation: ImageVector
+val Icons.Outlined.PausePresentation: ImageVector
     get() = OutlinedVectorE0EA.value(autoMirror = false)
 
 private object OutlinedVectorE0EA {
@@ -1095,7 +1095,7 @@ private object OutlinedVectorE0EA {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1163,7 +1163,7 @@ private object OutlinedVectorE0EA {
     }
 }
 
-public val Icons.Outlined.Unsubscribe: ImageVector
+val Icons.Outlined.Unsubscribe: ImageVector
     get() = OutlinedVectorE0EB.value(autoMirror = false)
 
 private object OutlinedVectorE0EB {
@@ -1175,7 +1175,7 @@ private object OutlinedVectorE0EB {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1249,7 +1249,7 @@ private object OutlinedVectorE0EB {
     }
 }
 
-public val Icons.Outlined.CellWifi: ImageVector
+val Icons.Outlined.CellWifi: ImageVector
     get() = OutlinedVectorE0EC.value(autoMirror = false)
 
 private object OutlinedVectorE0EC {
@@ -1261,7 +1261,7 @@ private object OutlinedVectorE0EC {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1323,7 +1323,7 @@ private object OutlinedVectorE0EC {
     }
 }
 
-public val Icons.Outlined.ListAlt: ImageVector
+val Icons.Outlined.ListAlt: ImageVector
     get() = OutlinedVectorE0EE.value(autoMirror = false)
 
 private object OutlinedVectorE0EE {
@@ -1335,7 +1335,7 @@ private object OutlinedVectorE0EE {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1438,7 +1438,7 @@ private object OutlinedVectorE0EE {
     }
 }
 
-public val Icons.Outlined.DomainDisabled: ImageVector
+val Icons.Outlined.DomainDisabled: ImageVector
     get() = OutlinedVectorE0EF.value(autoMirror = false)
 
 private object OutlinedVectorE0EF {
@@ -1450,7 +1450,7 @@ private object OutlinedVectorE0EF {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1524,7 +1524,7 @@ private object OutlinedVectorE0EF {
     }
 }
 
-public val Icons.Outlined.Gastroenterology: ImageVector
+val Icons.Outlined.Gastroenterology: ImageVector
     get() = OutlinedVectorE0F1.value(autoMirror = false)
 
 private object OutlinedVectorE0F1 {
@@ -1536,7 +1536,7 @@ private object OutlinedVectorE0F1 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1631,7 +1631,7 @@ private object OutlinedVectorE0F1 {
     }
 }
 
-public val Icons.Outlined.Genetics: ImageVector
+val Icons.Outlined.Genetics: ImageVector
     get() = OutlinedVectorE0F3.value(autoMirror = false)
 
 private object OutlinedVectorE0F3 {
@@ -1643,7 +1643,7 @@ private object OutlinedVectorE0F3 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1723,7 +1723,7 @@ private object OutlinedVectorE0F3 {
     }
 }
 
-public val Icons.Outlined.Gynecology: ImageVector
+val Icons.Outlined.Gynecology: ImageVector
     get() = OutlinedVectorE0F4.value(autoMirror = false)
 
 private object OutlinedVectorE0F4 {
@@ -1735,7 +1735,7 @@ private object OutlinedVectorE0F4 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1889,7 +1889,7 @@ private object OutlinedVectorE0F4 {
     }
 }
 
-public val Icons.Outlined.Hematology: ImageVector
+val Icons.Outlined.Hematology: ImageVector
     get() = OutlinedVectorE0F6.value(autoMirror = false)
 
 private object OutlinedVectorE0F6 {
@@ -1901,7 +1901,7 @@ private object OutlinedVectorE0F6 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2039,7 +2039,7 @@ private object OutlinedVectorE0F6 {
     }
 }
 
-public val Icons.Outlined.Immunology: ImageVector
+val Icons.Outlined.Immunology: ImageVector
     get() = OutlinedVectorE0FB.value(autoMirror = false)
 
 private object OutlinedVectorE0FB {
@@ -2051,7 +2051,7 @@ private object OutlinedVectorE0FB {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2202,7 +2202,7 @@ private object OutlinedVectorE0FB {
     }
 }
 
-public val Icons.Outlined.InactiveOrder: ImageVector
+val Icons.Outlined.InactiveOrder: ImageVector
     get() = OutlinedVectorE0FC.value(autoMirror = false)
 
 private object OutlinedVectorE0FC {
@@ -2214,7 +2214,7 @@ private object OutlinedVectorE0FC {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2310,7 +2310,7 @@ private object OutlinedVectorE0FC {
     }
 }
 
-public val Icons.Outlined.Inpatient: ImageVector
+val Icons.Outlined.Inpatient: ImageVector
     get() = OutlinedVectorE0FE.value(autoMirror = false)
 
 private object OutlinedVectorE0FE {
@@ -2322,7 +2322,7 @@ private object OutlinedVectorE0FE {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2425,7 +2425,7 @@ private object OutlinedVectorE0FE {
     }
 }
 
-public val Icons.Outlined.LabPanel: ImageVector
+val Icons.Outlined.LabPanel: ImageVector
     get() = OutlinedVectorE103.value(autoMirror = false)
 
 private object OutlinedVectorE103 {
@@ -2437,7 +2437,7 @@ private object OutlinedVectorE103 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2549,7 +2549,7 @@ private object OutlinedVectorE103 {
     }
 }
 
-public val Icons.Outlined.LabProfile: ImageVector
+val Icons.Outlined.LabProfile: ImageVector
     get() = OutlinedVectorE104.value(autoMirror = false)
 
 private object OutlinedVectorE104 {
@@ -2561,7 +2561,7 @@ private object OutlinedVectorE104 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2640,7 +2640,7 @@ private object OutlinedVectorE104 {
     }
 }
 
-public val Icons.Outlined.Labs: ImageVector
+val Icons.Outlined.Labs: ImageVector
     get() = OutlinedVectorE105.value(autoMirror = false)
 
 private object OutlinedVectorE105 {
@@ -2652,7 +2652,7 @@ private object OutlinedVectorE105 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2732,7 +2732,7 @@ private object OutlinedVectorE105 {
     }
 }
 
-public val Icons.Outlined.Lda: ImageVector
+val Icons.Outlined.Lda: ImageVector
     get() = OutlinedVectorE106.value(autoMirror = false)
 
 private object OutlinedVectorE106 {
@@ -2744,7 +2744,7 @@ private object OutlinedVectorE106 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2807,7 +2807,7 @@ private object OutlinedVectorE106 {
     }
 }
 
-public val Icons.Outlined.Metabolism: ImageVector
+val Icons.Outlined.Metabolism: ImageVector
     get() = OutlinedVectorE10B.value(autoMirror = false)
 
 private object OutlinedVectorE10B {
@@ -2819,7 +2819,7 @@ private object OutlinedVectorE10B {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2891,7 +2891,7 @@ private object OutlinedVectorE10B {
     }
 }
 
-public val Icons.Outlined.Microbiology: ImageVector
+val Icons.Outlined.Microbiology: ImageVector
     get() = OutlinedVectorE10C.value(autoMirror = false)
 
 private object OutlinedVectorE10C {
@@ -2903,7 +2903,7 @@ private object OutlinedVectorE10C {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3092,7 +3092,7 @@ private object OutlinedVectorE10C {
     }
 }
 
-public val Icons.Outlined.Nephrology: ImageVector
+val Icons.Outlined.Nephrology: ImageVector
     get() = OutlinedVectorE10D.value(autoMirror = false)
 
 private object OutlinedVectorE10D {
@@ -3104,7 +3104,7 @@ private object OutlinedVectorE10D {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3225,7 +3225,7 @@ private object OutlinedVectorE10D {
     }
 }
 
-public val Icons.Outlined.Neurology: ImageVector
+val Icons.Outlined.Neurology: ImageVector
     get() = OutlinedVectorE10E.value(autoMirror = false)
 
 private object OutlinedVectorE10E {
@@ -3237,7 +3237,7 @@ private object OutlinedVectorE10E {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3462,7 +3462,7 @@ private object OutlinedVectorE10E {
     }
 }
 
-public val Icons.Outlined.Nutrition: ImageVector
+val Icons.Outlined.Nutrition: ImageVector
     get() = OutlinedVectorE110.value(autoMirror = false)
 
 private object OutlinedVectorE110 {
@@ -3474,7 +3474,7 @@ private object OutlinedVectorE110 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3539,7 +3539,7 @@ private object OutlinedVectorE110 {
     }
 }
 
-public val Icons.Outlined.Oncology: ImageVector
+val Icons.Outlined.Oncology: ImageVector
     get() = OutlinedVectorE114.value(autoMirror = false)
 
 private object OutlinedVectorE114 {
@@ -3551,7 +3551,7 @@ private object OutlinedVectorE114 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3673,7 +3673,7 @@ private object OutlinedVectorE114 {
     }
 }
 
-public val Icons.Outlined.Ophthalmology: ImageVector
+val Icons.Outlined.Ophthalmology: ImageVector
     get() = OutlinedVectorE115.value(autoMirror = false)
 
 private object OutlinedVectorE115 {
@@ -3685,7 +3685,7 @@ private object OutlinedVectorE115 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3776,7 +3776,7 @@ private object OutlinedVectorE115 {
     }
 }
 
-public val Icons.Outlined.OralDisease: ImageVector
+val Icons.Outlined.OralDisease: ImageVector
     get() = OutlinedVectorE116.value(autoMirror = false)
 
 private object OutlinedVectorE116 {
@@ -3788,7 +3788,7 @@ private object OutlinedVectorE116 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3862,7 +3862,7 @@ private object OutlinedVectorE116 {
     }
 }
 
-public val Icons.Outlined.Outpatient: ImageVector
+val Icons.Outlined.Outpatient: ImageVector
     get() = OutlinedVectorE118.value(autoMirror = false)
 
 private object OutlinedVectorE118 {
@@ -3874,7 +3874,7 @@ private object OutlinedVectorE118 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3949,7 +3949,7 @@ private object OutlinedVectorE118 {
     }
 }
 
-public val Icons.Outlined.OutpatientMed: ImageVector
+val Icons.Outlined.OutpatientMed: ImageVector
     get() = OutlinedVectorE119.value(autoMirror = false)
 
 private object OutlinedVectorE119 {
@@ -3961,7 +3961,7 @@ private object OutlinedVectorE119 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -4045,7 +4045,7 @@ private object OutlinedVectorE119 {
     }
 }
 
-public val Icons.Outlined.Pediatrics: ImageVector
+val Icons.Outlined.Pediatrics: ImageVector
     get() = OutlinedVectorE11D.value(autoMirror = false)
 
 private object OutlinedVectorE11D {
@@ -4057,7 +4057,7 @@ private object OutlinedVectorE11D {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -4147,7 +4147,7 @@ private object OutlinedVectorE11D {
     }
 }
 
-public val Icons.Outlined.PhysicalTherapy: ImageVector
+val Icons.Outlined.PhysicalTherapy: ImageVector
     get() = OutlinedVectorE11E.value(autoMirror = false)
 
 private object OutlinedVectorE11E {
@@ -4159,7 +4159,7 @@ private object OutlinedVectorE11E {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -4271,7 +4271,7 @@ private object OutlinedVectorE11E {
     }
 }
 
-public val Icons.Outlined.Pill: ImageVector
+val Icons.Outlined.Pill: ImageVector
     get() = OutlinedVectorE11F.value(autoMirror = false)
 
 private object OutlinedVectorE11F {
@@ -4283,7 +4283,7 @@ private object OutlinedVectorE11F {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -4339,7 +4339,7 @@ private object OutlinedVectorE11F {
     }
 }
 
-public val Icons.Outlined.Podiatry: ImageVector
+val Icons.Outlined.Podiatry: ImageVector
     get() = OutlinedVectorE120.value(autoMirror = false)
 
 private object OutlinedVectorE120 {
@@ -4351,7 +4351,7 @@ private object OutlinedVectorE120 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -4434,7 +4434,7 @@ private object OutlinedVectorE120 {
     }
 }
 
-public val Icons.Outlined.Prescriptions: ImageVector
+val Icons.Outlined.Prescriptions: ImageVector
     get() = OutlinedVectorE121.value(autoMirror = false)
 
 private object OutlinedVectorE121 {
@@ -4446,7 +4446,7 @@ private object OutlinedVectorE121 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -4568,7 +4568,7 @@ private object OutlinedVectorE121 {
     }
 }
 
-public val Icons.Outlined.Problem: ImageVector
+val Icons.Outlined.Problem: ImageVector
     get() = OutlinedVectorE122.value(autoMirror = false)
 
 private object OutlinedVectorE122 {
@@ -4580,7 +4580,7 @@ private object OutlinedVectorE122 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -4663,7 +4663,7 @@ private object OutlinedVectorE122 {
     }
 }
 
-public val Icons.Outlined.Psychiatry: ImageVector
+val Icons.Outlined.Psychiatry: ImageVector
     get() = OutlinedVectorE123.value(autoMirror = false)
 
 private object OutlinedVectorE123 {
@@ -4675,7 +4675,7 @@ private object OutlinedVectorE123 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -4758,7 +4758,7 @@ private object OutlinedVectorE123 {
     }
 }
 
-public val Icons.Outlined.Pulmonology: ImageVector
+val Icons.Outlined.Pulmonology: ImageVector
     get() = OutlinedVectorE124.value(autoMirror = false)
 
 private object OutlinedVectorE124 {
@@ -4770,7 +4770,7 @@ private object OutlinedVectorE124 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -4878,7 +4878,7 @@ private object OutlinedVectorE124 {
     }
 }
 
-public val Icons.Outlined.Radiology: ImageVector
+val Icons.Outlined.Radiology: ImageVector
     get() = OutlinedVectorE125.value(autoMirror = false)
 
 private object OutlinedVectorE125 {
@@ -4890,7 +4890,7 @@ private object OutlinedVectorE125 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -5029,7 +5029,7 @@ private object OutlinedVectorE125 {
     }
 }
 
-public val Icons.Outlined.RespiratoryRate: ImageVector
+val Icons.Outlined.RespiratoryRate: ImageVector
     get() = OutlinedVectorE127.value(autoMirror = false)
 
 private object OutlinedVectorE127 {
@@ -5041,7 +5041,7 @@ private object OutlinedVectorE127 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -5180,7 +5180,7 @@ private object OutlinedVectorE127 {
     }
 }
 
-public val Icons.Outlined.Rheumatology: ImageVector
+val Icons.Outlined.Rheumatology: ImageVector
     get() = OutlinedVectorE128.value(autoMirror = false)
 
 private object OutlinedVectorE128 {
@@ -5192,7 +5192,7 @@ private object OutlinedVectorE128 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -5348,7 +5348,7 @@ private object OutlinedVectorE128 {
     }
 }
 
-public val Icons.Outlined.SourceNotes: ImageVector
+val Icons.Outlined.SourceNotes: ImageVector
     get() = OutlinedVectorE12D.value(autoMirror = false)
 
 private object OutlinedVectorE12D {
@@ -5360,7 +5360,7 @@ private object OutlinedVectorE12D {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -5462,7 +5462,7 @@ private object OutlinedVectorE12D {
     }
 }
 
-public val Icons.Outlined.Surgical: ImageVector
+val Icons.Outlined.Surgical: ImageVector
     get() = OutlinedVectorE131.value(autoMirror = false)
 
 private object OutlinedVectorE131 {
@@ -5474,7 +5474,7 @@ private object OutlinedVectorE131 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -5549,7 +5549,7 @@ private object OutlinedVectorE131 {
     }
 }
 
-public val Icons.Outlined.Symptoms: ImageVector
+val Icons.Outlined.Symptoms: ImageVector
     get() = OutlinedVectorE132.value(autoMirror = false)
 
 private object OutlinedVectorE132 {
@@ -5561,7 +5561,7 @@ private object OutlinedVectorE132 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -5678,7 +5678,7 @@ private object OutlinedVectorE132 {
     }
 }
 
-public val Icons.Outlined.Syringe: ImageVector
+val Icons.Outlined.Syringe: ImageVector
     get() = OutlinedVectorE133.value(autoMirror = false)
 
 private object OutlinedVectorE133 {
@@ -5690,7 +5690,7 @@ private object OutlinedVectorE133 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -5777,7 +5777,7 @@ private object OutlinedVectorE133 {
     }
 }
 
-public val Icons.Outlined.Urology: ImageVector
+val Icons.Outlined.Urology: ImageVector
     get() = OutlinedVectorE137.value(autoMirror = false)
 
 private object OutlinedVectorE137 {
@@ -5789,7 +5789,7 @@ private object OutlinedVectorE137 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -5920,7 +5920,7 @@ private object OutlinedVectorE137 {
     }
 }
 
-public val Icons.Outlined.Vaccines: ImageVector
+val Icons.Outlined.Vaccines: ImageVector
     get() = OutlinedVectorE138.value(autoMirror = false)
 
 private object OutlinedVectorE138 {
@@ -5932,7 +5932,7 @@ private object OutlinedVectorE138 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -6060,7 +6060,7 @@ private object OutlinedVectorE138 {
     }
 }
 
-public val Icons.Outlined.Ventilator: ImageVector
+val Icons.Outlined.Ventilator: ImageVector
     get() = OutlinedVectorE139.value(autoMirror = false)
 
 private object OutlinedVectorE139 {
@@ -6072,7 +6072,7 @@ private object OutlinedVectorE139 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -6207,7 +6207,7 @@ private object OutlinedVectorE139 {
     }
 }
 
-public val Icons.Outlined.Vitals: ImageVector
+val Icons.Outlined.Vitals: ImageVector
     get() = OutlinedVectorE13B.value(autoMirror = false)
 
 private object OutlinedVectorE13B {
@@ -6219,7 +6219,7 @@ private object OutlinedVectorE13B {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -6260,7 +6260,7 @@ private object OutlinedVectorE13B {
     }
 }
 
-public val Icons.Outlined.Ward: ImageVector
+val Icons.Outlined.Ward: ImageVector
     get() = OutlinedVectorE13C.value(autoMirror = false)
 
 private object OutlinedVectorE13C {
@@ -6272,7 +6272,7 @@ private object OutlinedVectorE13C {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -6379,7 +6379,7 @@ private object OutlinedVectorE13C {
     }
 }
 
-public val Icons.Outlined.Weight: ImageVector
+val Icons.Outlined.Weight: ImageVector
     get() = OutlinedVectorE13D.value(autoMirror = false)
 
 private object OutlinedVectorE13D {
@@ -6391,7 +6391,7 @@ private object OutlinedVectorE13D {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -6468,7 +6468,7 @@ private object OutlinedVectorE13D {
     }
 }
 
-public val Icons.Outlined.Woman: ImageVector
+val Icons.Outlined.Woman: ImageVector
     get() = OutlinedVectorE13E.value(autoMirror = false)
 
 private object OutlinedVectorE13E {
@@ -6480,7 +6480,7 @@ private object OutlinedVectorE13E {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -6521,7 +6521,7 @@ private object OutlinedVectorE13E {
     }
 }
 
-public val Icons.Outlined.WoundsInjuries: ImageVector
+val Icons.Outlined.WoundsInjuries: ImageVector
     get() = OutlinedVectorE13F.value(autoMirror = false)
 
 private object OutlinedVectorE13F {
@@ -6533,7 +6533,7 @@ private object OutlinedVectorE13F {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -6599,7 +6599,7 @@ private object OutlinedVectorE13F {
     }
 }
 
-public val Icons.Outlined.Add: ImageVector
+val Icons.Outlined.Add: ImageVector
     get() = OutlinedVectorE145.value(autoMirror = false)
 
 private object OutlinedVectorE145 {
@@ -6611,7 +6611,7 @@ private object OutlinedVectorE145 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -6643,7 +6643,7 @@ private object OutlinedVectorE145 {
     }
 }
 
-public val Icons.Outlined.AddBox: ImageVector
+val Icons.Outlined.AddBox: ImageVector
     get() = OutlinedVectorE146.value(autoMirror = false)
 
 private object OutlinedVectorE146 {
@@ -6655,7 +6655,7 @@ private object OutlinedVectorE146 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {

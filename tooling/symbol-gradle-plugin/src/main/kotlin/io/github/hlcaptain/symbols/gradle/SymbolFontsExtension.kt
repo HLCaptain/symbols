@@ -5,51 +5,51 @@ import org.gradle.api.Action
 import org.gradle.api.Named
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.file.ConfigurableFileCollection
+import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
-import org.gradle.api.provider.SetProperty
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 
-/** Configures build-time icon generation from regular or variable fonts. */
-public abstract class SymbolFontsExtension @Inject constructor(
+/** Configures build-time icon generation from fonts or monochrome SVG files. */
+abstract class SymbolFontsExtension @Inject constructor(
     objects: ObjectFactory,
 ) {
     /** Compose resource roots whose direct `font/` files receive generated descriptors. */
-    public val composeFontResources: ConfigurableFileCollection = objects.fileCollection()
+    val composeFontResources: ConfigurableFileCollection = objects.fileCollection()
 
     /** Kotlin package that receives all generated runtime symbol catalogs. */
-    public val catalogPackageName: Property<String> = objects.property(String::class.java)
+    val catalogPackageName: Property<String> = objects.property(String::class.java)
 
     /** Named runtime catalogs generated from codepoint manifests. */
-    public val catalogs: NamedDomainObjectContainer<SymbolCatalogSpec> =
+    val catalogs: NamedDomainObjectContainer<SymbolCatalogSpec> =
         objects.domainObjectContainer(SymbolCatalogSpec::class.java) { name ->
             objects.newInstance(SymbolCatalogSpec::class.java, name)
         }
 
     /** Named generated icon sets in this project. */
-    public val iconSets: NamedDomainObjectContainer<SymbolIconSet> =
+    val iconSets: NamedDomainObjectContainer<SymbolIconSet> =
         objects.domainObjectContainer(SymbolIconSet::class.java) { name ->
             objects.newInstance(SymbolIconSet::class.java, name)
         }
 
     /** Declares or configures a generated icon set. */
-    public fun iconSet(name: String, configure: Action<in SymbolIconSet>) {
+    fun iconSet(name: String, configure: Action<in SymbolIconSet>) {
         configure.execute(iconSets.maybeCreate(name))
     }
 
     /** Declares or configures one generated runtime catalog. */
-    public fun catalog(name: String, configure: Action<in SymbolCatalogSpec>) {
+    fun catalog(name: String, configure: Action<in SymbolCatalogSpec>) {
         configure.execute(catalogs.maybeCreate(name))
     }
 }
 
 /** One named runtime catalog generated from a codepoint manifest. */
-public abstract class SymbolCatalogSpec @Inject constructor(
+abstract class SymbolCatalogSpec @Inject constructor(
     private val catalogName: String,
     objects: ObjectFactory,
 ) : Named {
@@ -59,125 +59,120 @@ public abstract class SymbolCatalogSpec @Inject constructor(
     /** Stable `<snake_case_name> <hex_code_point>` map for this catalog. */
     @get:InputFile
     @get:PathSensitive(PathSensitivity.NONE)
-    public val codepoints: RegularFileProperty = objects.fileProperty()
+    val codepoints: RegularFileProperty = objects.fileProperty()
 }
 
 /** A generated, strongly typed icon namespace. */
-public abstract class SymbolIconSet @Inject constructor(
+abstract class SymbolIconSet @Inject constructor(
     private val setName: String,
     objects: ObjectFactory,
 ) : Named {
     override fun getName(): String = setName
 
     /** Kotlin package that receives the generated API. */
-    public val packageName: Property<String> = objects.property(String::class.java)
+    val packageName: Property<String> = objects.property(String::class.java)
 
     /** Public root object, for example `AppIcons`. Defaults to this set's name. */
-    public val rootName: Property<String> =
+    val rootName: Property<String> =
         objects.property(String::class.java).convention(setName)
 
-    /** Explicitly selected codepoint names. Empty means every name. */
-    public val includedNames: SetProperty<String> =
-        objects.setProperty(String::class.java).convention(emptySet())
-
     /** Named visual/font styles, for example `Rounded`. */
-    public val styles: NamedDomainObjectContainer<SymbolFontStyle> =
+    val styles: NamedDomainObjectContainer<SymbolFontStyle> =
         objects.domainObjectContainer(SymbolFontStyle::class.java) { name ->
             objects.newInstance(SymbolFontStyle::class.java, name)
         }
 
-    /** Generates only these names, adding to any earlier selection. */
-    public fun include(vararg names: String) {
-        includedNames.addAll(names.toList())
-    }
-
-    /** Generates every name. This is already the default. */
-    public fun includeAll() {
-        includedNames.set(emptySet())
-    }
-
     /** Declares or configures a visual/font style. */
-    public fun style(name: String, configure: Action<in SymbolFontStyle>) {
+    fun style(name: String, configure: Action<in SymbolFontStyle>) {
         configure.execute(styles.maybeCreate(name))
     }
 }
 
-/** One regular font or one fixed instance of a variable font. */
-public abstract class SymbolFontStyle @Inject constructor(
+/** One font source or one flat directory of path-based monochrome SVG files. */
+abstract class SymbolFontStyle @Inject constructor(
     private val styleName: String,
     objects: ObjectFactory,
 ) : Named {
     override fun getName(): String = styleName
 
     /** Stable `<snake_case_name> <hex_code_point>` map for this font. */
-    public val codepoints: RegularFileProperty = objects.fileProperty()
+    val codepoints: RegularFileProperty = objects.fileProperty()
 
     /** TTF, OTF, or indexed TTC input. */
-    public val font: RegularFileProperty = objects.fileProperty()
+    val font: RegularFileProperty = objects.fileProperty()
+
+    /** Flat SVG input directory. Mutually exclusive with [font] and [codepoints]. */
+    val svgDirectory: DirectoryProperty = objects.directoryProperty()
 
     internal val conventionalFontName: Property<String> =
         objects.property(String::class.java).convention("")
 
-    /** TTC face index. */
-    public val fontIndex: Property<Int> =
+    /** TTC face index. Ignored when [svgDirectory] is configured. */
+    val fontIndex: Property<Int> =
         objects.property(Int::class.java).convention(0)
 
     /**
      * OpenType variation coordinates. Leave empty for an ordinary font or the
-     * default instance of a variable font.
+     * default instance of a variable font. Ignored for SVG sources.
      */
-    public val axes: MapProperty<String, Float> =
+    val axes: MapProperty<String, Float> =
         objects.mapProperty(String::class.java, Float::class.java)
             .convention(emptyMap())
 
     /** Generates a shrinker-friendly common Compose `ImageVector` API. */
-    public val generateImageVectors: Property<Boolean> =
+    val generateImageVectors: Property<Boolean> =
         objects.property(Boolean::class.java).convention(false)
 
     /** Generates native Android vector drawables under `res/drawable`. */
-    public val generateAndroidDrawables: Property<Boolean> =
+    val generateAndroidDrawables: Property<Boolean> =
         objects.property(Boolean::class.java).convention(false)
 
     /** Generates cross-platform Compose drawable resources. */
-    public val generateComposeDrawables: Property<Boolean> =
+    val generateComposeDrawables: Property<Boolean> =
         objects.property(Boolean::class.java).convention(false)
 
     /** Android/Compose resource prefix. Defaults to the icon-set root name. */
-    public val resourcePrefix: Property<String> =
+    val resourcePrefix: Property<String> =
         objects.property(String::class.java)
 
     /** Number of unique code points grouped into each generated Kotlin file. */
-    public val symbolsPerFile: Property<Int> =
+    val symbolsPerFile: Property<Int> =
         objects.property(Int::class.java).convention(64)
 
     /** Stable decimal precision for path coordinates. */
-    public val precision: Property<Int> =
+    val precision: Property<Int> =
         objects.property(Int::class.java).convention(4)
 
     /** Generated vector viewport width. */
-    public val viewportWidth: Property<Float> =
+    val viewportWidth: Property<Float> =
         objects.property(Float::class.java).convention(24f)
 
     /** Generated vector viewport height. */
-    public val viewportHeight: Property<Float> =
+    val viewportHeight: Property<Float> =
         objects.property(Float::class.java).convention(24f)
 
-    /** Viewport units occupied by one font em. Defaults to the smaller viewport dimension. */
-    public val emSize: Property<Float> =
+    /**
+     * Viewport units occupied by one font em. Defaults to the smaller viewport
+     * dimension and is ignored for SVG sources.
+     */
+    val emSize: Property<Float> =
         objects.property(Float::class.java).convention(
             viewportWidth.zip(viewportHeight, ::minOf),
         )
 
-    /** Horizontal viewport position of the font origin. */
-    public val originX: Property<Float> =
+    /** Horizontal viewport position of the font origin. Ignored for SVG sources. */
+    val originX: Property<Float> =
         objects.property(Float::class.java).convention(0f)
 
-    /** Vertical viewport position of the font baseline. Defaults to the viewport height. */
-    public val baselineY: Property<Float> =
+    /**
+     * Vertical viewport position of the font baseline. Defaults to the
+     * viewport height and is ignored for SVG sources.
+     */
+    val baselineY: Property<Float> =
         objects.property(Float::class.java).convention(viewportHeight)
 
     /** Adds or replaces one OpenType variation coordinate. */
-    public fun axis(tag: String, value: Float) {
+    fun axis(tag: String, value: Float) {
         axes.put(tag, value)
     }
 
@@ -185,7 +180,7 @@ public abstract class SymbolFontStyle @Inject constructor(
      * Selects a font by name from a conventional Android or Compose font
      * directory.
      */
-    public fun font(fileName: String) {
+    fun font(fileName: String) {
         require(
             fileName.isNotBlank() &&
                 '/' !in fileName &&
@@ -199,17 +194,17 @@ public abstract class SymbolFontStyle @Inject constructor(
     }
 
     /** Enables the common Kotlin `ImageVector` output. */
-    public fun imageVectors() {
+    fun imageVectors() {
         generateImageVectors.set(true)
     }
 
     /** Enables native Android `res/drawable` output. */
-    public fun androidDrawables() {
+    fun androidDrawables() {
         generateAndroidDrawables.set(true)
     }
 
     /** Enables Compose Multiplatform drawable-resource output. */
-    public fun composeDrawables() {
+    fun composeDrawables() {
         generateComposeDrawables.set(true)
     }
 }

@@ -1,0 +1,165 @@
+name: Screenshot baselines
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: screenshots-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  roborazzi:
+    name: Roborazzi previews
+    runs-on: [self-hosted, macOS, ARM64]
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out sources
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Java
+        uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5.6.0
+        with:
+          distribution: temurin
+          java-version: |
+            17
+            21
+
+      - name: Configure Android SDK
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          android_sdk="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-$HOME/Library/Android/sdk}}"
+          if [[ ! -d "$android_sdk" ]]; then
+            echo "Android SDK not found at $android_sdk" >&2
+            exit 1
+          fi
+          echo "ANDROID_HOME=$android_sdk" >> "$GITHUB_ENV"
+          echo "ANDROID_SDK_ROOT=$android_sdk" >> "$GITHUB_ENV"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@3f131e8634966bd73d06cc69884922b02e6faf92 # v6.2.0
+        with:
+          cache-disabled: true
+
+      - name: Record branch baselines
+        run: >-
+          ./gradlew
+          :samples:image-vector-migration:recordRoborazziDebug
+          -Proborazzi.cleanupOldScreenshots=true
+          --max-workers=1
+          --no-daemon
+          --stacktrace
+
+      - name: Record base branch baselines on the same runner
+        id: base
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          module_path="samples/image-vector-migration"
+          baseline_path="$module_path/build/roborazzi/baselines"
+          pr_baseline_path="$module_path/build/roborazzi/pr-baselines"
+          base_worktree="$RUNNER_TEMP/symbols-roborazzi-base"
+
+          mkdir -p "$pr_baseline_path"
+          cp -R "$baseline_path"/. "$pr_baseline_path"/
+
+          git worktree prune
+          git worktree add --detach "$base_worktree" "$BASE_SHA"
+          cleanup() {
+            git worktree remove --force "$base_worktree" || true
+          }
+          trap cleanup EXIT
+
+          base_build="$base_worktree/$module_path/build.gradle.kts"
+          if ! grep -q 'libs.plugins.roborazzi' "$base_build"; then
+            echo "Base branch predates screenshot tests; recording the PR baseline only."
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          (
+            cd "$base_worktree"
+            ./gradlew \
+              :samples:image-vector-migration:recordRoborazziDebug \
+              -Proborazzi.cleanupOldScreenshots=true \
+              --max-workers=1 \
+              --no-daemon \
+              --stacktrace
+          )
+
+          base_baseline_path="$base_worktree/$baseline_path"
+          if [[ ! -d "$base_baseline_path" ]]; then
+            echo "Base branch produced no Roborazzi baselines" >&2
+            exit 1
+          fi
+
+          rm -rf "$baseline_path"
+          mkdir -p "$baseline_path"
+          cp -R "$base_baseline_path"/. "$baseline_path"/
+          echo "available=true" >> "$GITHUB_OUTPUT"
+
+      - name: Verify pull request against base branch
+        id: verify
+        if: github.event_name == 'pull_request' && steps.base.outputs.available == 'true'
+        continue-on-error: true
+        run: >-
+          ./gradlew
+          :samples:image-vector-migration:verifyRoborazziDebug
+          --rerun-tasks
+          --max-workers=1
+          --no-daemon
+          --stacktrace
+
+      - name: Report local screenshot output
+        if: always()
+        shell: bash
+        run: |
+          echo "Screenshot output remains on the self-hosted runner only:"
+          echo "$GITHUB_WORKSPACE/samples/image-vector-migration/build"
+          find samples/image-vector-migration/build/outputs/roborazzi \
+            -type f -print 2>/dev/null | sort || true
+
+      - name: Require visual review for screenshot changes
+        if: >-
+          github.event_name == 'pull_request' &&
+          steps.base.outputs.available == 'true' &&
+          steps.verify.outcome == 'failure' &&
+          !contains(github.event.pull_request.labels.*.name, 'ui-review-approved')
+        shell: bash
+        run: |
+          echo "Roborazzi found visual changes. Review the local output on the self-hosted runner, add the ui-review-approved label, and rerun this workflow." >&2
+          exit 1
+
+      - name: Reject non-visual comparison failures
+        if: >-
+          github.event_name == 'pull_request' &&
+          steps.base.outputs.available == 'true' &&
+          steps.verify.outcome == 'failure' &&
+          contains(github.event.pull_request.labels.*.name, 'ui-review-approved')
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if ! find samples/image-vector-migration/build/outputs/roborazzi \
+            -type f \( -name '*_actual.*' -o -name '*_compare.*' \) \
+            -print -quit | grep -q .; then
+            echo "Roborazzi failed without producing a visual diff; the approval label cannot bypass an infrastructure or test failure." >&2
+            exit 1
+          fi
+          echo "Visual changes were approved with ui-review-approved."

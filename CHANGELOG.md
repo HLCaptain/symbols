@@ -22,8 +22,9 @@ artifacts are released.
   remains invalid. Variable-font axis metadata now lives on
   `SymbolFont.Variable`.
 - Font-generation codepoint maps now belong to each style. The Gradle plugin
-  generates all entries by default, derives a package name, and discovers fonts
-  in conventional Android and Compose resource directories.
+  generates all entries implicitly, removes the `include`/`includeAll` DSL,
+  derives a package name, and discovers fonts in conventional Android and
+  Compose resource directories.
 - Runtime font descriptors and visible variable-axis metadata are generated
   from Compose font resources. Material modules keep Compose's `Res` API
   internal by default. Configured font roots are packaged through the plugin's
@@ -62,9 +63,9 @@ artifacts are released.
 - Composable `Icons.Themed.{Name}` vectors selected by a style composition local.
 - Outlined, Rounded, and Sharp Android `R.drawable` AARs plus XML, View Binding,
   Data Binding, custom View, and programmatic View examples.
-- A cacheable Gradle plugin that converts selected regular or variable font
-  glyphs into typed `ImageVector`, native Android drawable, and Compose drawable
-  output.
+- A cacheable Gradle plugin that converts complete regular/variable font
+  manifests or flat monochrome SVG directories into typed `ImageVector`, native
+  Android drawable, and Compose drawable output below `build`.
 - Focused samples for static and variable Material fonts, regular and variable
   custom build-time vectors, side-by-side `material-icons-extended` and Android
   XML migration, generated custom-font painters, independent theme inheritance,
@@ -73,8 +74,14 @@ artifacts are released.
   shared by the launcher and feature modules.
 - A reproducible Android fixture that verifies typed-vector removal by
   full-mode R8 and unused-resource removal by the Android resource shrinker.
-- Deterministic catalog/namespace/static-font/vector generators, build-time SVG
-  stroke-width baking, and strict pinned font and provenance verification.
+- Deterministic catalog/namespace/static-font/vector generators, secure direct
+  SVG parsing with strict unsupported-feature rejection, and pinned font/artwork
+  provenance verification.
+- A theme-aware `rememberSymbolPainter()` that maps the existing
+  `SymbolsTheme` `wght=100/400/700` setting to 0.5×/1×/1.5× authored SVG stroke
+  width while leaving generated Android/Compose XML static.
+- Pinned Tabler Icons `v3.46.0` SVG samples under MIT, legacy Views/XML
+  integration, and same-runner Roborazzi font/SVG screenshot comparisons.
 - Cacheable runtime catalog generation into the build directory from checked-in
   manifests, without provider-specific generation scripts.
 - Android, JVM, JS, Wasm, and iOS publication targets, an interactive

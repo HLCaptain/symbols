@@ -3,13 +3,13 @@ package io.github.hlcaptain.symbols.generator
 import java.nio.file.Path
 
 /** Immutable inputs for extracting monochrome outlines from one font instance. */
-public data class FontExtractionRequest(
-    public val fontFile: Path,
-    public val codePoints: Collection<Int>,
-    public val fontIndex: Int = 0,
-    public val axes: Map<String, Float> = emptyMap(),
-    public val transform: OutlineTransform = OutlineTransform(),
-    public val conicTolerance: Float = 0.002f,
+data class FontExtractionRequest(
+    val fontFile: Path,
+    val codePoints: Collection<Int>,
+    val fontIndex: Int = 0,
+    val axes: Map<String, Float> = emptyMap(),
+    val transform: OutlineTransform = OutlineTransform(),
+    val conicTolerance: Float = 0.002f,
 ) {
     init {
         require(fontIndex >= 0) { "fontIndex must not be negative" }
@@ -32,6 +32,6 @@ public data class FontExtractionRequest(
 }
 
 /** An outline engine used by the deterministic source renderers. */
-public fun interface FontOutlineExtractor {
-    public fun extract(request: FontExtractionRequest): ExtractedFont
+fun interface FontOutlineExtractor {
+    fun extract(request: FontExtractionRequest): ExtractedFont
 }

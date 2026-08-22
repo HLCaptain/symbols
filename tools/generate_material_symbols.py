@@ -58,7 +58,7 @@ def is_unicode_scalar(code_point: int) -> bool:
 
 
 def kotlin_identifier(name: str) -> str:
-    """Convert a canonical snake_case name to the public simple PascalCase API."""
+    """Convert a canonical snake_case name to a Kotlin identifier."""
 
     parts = name.split("_")
     identifier = "".join(part[0].upper() + part[1:] for part in parts)
@@ -198,7 +198,7 @@ def render_kotlin(entries: Sequence[Entry], package_name: str) -> str:
     for index, entry in enumerate(entries):
         lines.extend(
             (
-                f"public val MaterialSymbols.{kotlin_identifier(entry.name)}: MaterialSymbol",
+                f"val MaterialSymbols.{kotlin_identifier(entry.name)}: MaterialSymbol",
                 f"    get() = symbolAt({index})",
                 "",
             )

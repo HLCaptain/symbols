@@ -4,6 +4,7 @@ import java.io.File
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
+import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 import org.gradle.api.InvalidUserDataException
 import org.gradle.testkit.runner.GradleRunner
@@ -228,7 +229,6 @@ class SymbolFontsPluginFunctionalTest {
             symbolFonts {
                 iconSet('AppIcons') {
                     packageName.set('com.example.icons')
-                    include('home')
 
                     style('Rounded') {
                         codepoints.set(file('icons.codepoints'))
@@ -255,8 +255,9 @@ class SymbolFontsPluginFunctionalTest {
                 "com/example/icons/AppIcons.generated.kt",
         )
         val contents = namespace.readText()
-        assertTrue("public object AppIcons" in contents)
-        assertTrue(contents.indexOf("public object Regular") < contents.indexOf("public object Rounded"))
+        assertTrue("object AppIcons" in contents)
+        assertTrue(contents.indexOf("object Regular") < contents.indexOf("object Rounded"))
+        assertFalse(Regex("\\bpublic\\b").containsMatchIn(contents))
 
         val second = runner(project, "generateAppIconsSymbolFontNamespace").build()
         assertEquals(
@@ -266,7 +267,92 @@ class SymbolFontsPluginFunctionalTest {
     }
 
     @Test
-    fun defaultsPackageSelectionAndConventionalFonts() {
+    fun svgDirectoryGeneratesEveryOutputUnderBuild() {
+        val project = fixture(
+            """
+            import io.github.hlcaptain.symbols.gradle.GenerateSymbolFontTask
+
+            plugins {
+                id 'io.github.hlcaptain.symbol-fonts'
+            }
+
+            repositories {
+                mavenCentral()
+            }
+
+            symbolFonts {
+                iconSet('TablerIcons') {
+                    packageName.set('com.example.icons')
+                    style('Outline') {
+                        svgDirectory.set(file('svg'))
+                        imageVectors()
+                        androidDrawables()
+                        composeDrawables()
+                    }
+                }
+            }
+
+            tasks.named(
+                'generateTablerIconsOutlineSymbolFonts',
+                GenerateSymbolFontTask
+            ) {
+                generatorClasspath.setFrom(
+                    files(file('generator-classpath.txt').readLines())
+                )
+            }
+            """,
+            files = mapOf(
+                "svg/arrow-left.svg" to tablerSvg("M19 12h-14m6 6l-6 -6l6 -6"),
+                "svg/badge-check.svg" to tablerSvg("M7 12l3 3l7 -7"),
+                "generator-classpath.txt" to generatorTestClasspath(),
+            ),
+        )
+
+        val taskName = "generateTablerIconsOutlineSymbolFonts"
+        val first = runner(project, taskName).build()
+        assertEquals(TaskOutcome.SUCCESS, first.task(":$taskName")?.outcome)
+
+        val outputRoot = project.resolve(
+            "build/generated/symbolFonts/tabler_icons/outline",
+        )
+        val kotlinSource = outputRoot.resolve(
+            "kotlin/com/example/icons/outline/" +
+                "TablerIconsOutlineIcons000.generated.kt",
+        )
+        assertTrue(kotlinSource.isFile)
+        val kotlinContents = kotlinSource.readText()
+        assertTrue("TablerIcons.Outline.ArrowLeft" in kotlinContents)
+        assertTrue("TablerIcons.Outline.BadgeCheck" in kotlinContents)
+        assertTrue("U+" !in kotlinContents)
+
+        val expectedResources = setOf(
+            "tabler_icons_outline_arrow_left.xml",
+            "tabler_icons_outline_badge_check.xml",
+        )
+        val androidDrawables = outputRoot.resolve("androidRes/drawable")
+        val composeDrawables = outputRoot.resolve("composeResources/drawable")
+        assertEquals(
+            expectedResources,
+            androidDrawables.listFiles().orEmpty().map(File::getName).toSet(),
+        )
+        assertEquals(
+            expectedResources,
+            composeDrawables.listFiles().orEmpty().map(File::getName).toSet(),
+        )
+        expectedResources.forEach { resourceName ->
+            assertEquals(
+                androidDrawables.resolve(resourceName).readText(),
+                composeDrawables.resolve(resourceName).readText(),
+            )
+        }
+        assertTrue(outputRoot.toPath().startsWith(project.resolve("build").toPath()))
+
+        val second = runner(project, taskName).build()
+        assertEquals(TaskOutcome.UP_TO_DATE, second.task(":$taskName")?.outcome)
+    }
+
+    @Test
+    fun defaultsPackageSourcesAndConventionalFonts() {
         val project = fixture(
             """
             import io.github.hlcaptain.symbols.gradle.GenerateSymbolFontTask
@@ -289,11 +375,9 @@ class SymbolFontsPluginFunctionalTest {
                         imageVectors()
                     }
                 }
-                iconSet('SubsetIcons') {
-                    include('home')
+                iconSet('SvgIcons') {
                     style('Regular') {
-                        codepoints.set(file('icons.codepoints'))
-                        font.set(file('font.ttf'))
+                        svgDirectory.set(file('svg'))
                         imageVectors()
                     }
                 }
@@ -307,8 +391,8 @@ class SymbolFontsPluginFunctionalTest {
                     ).get()
                     assert rounded.packageName.get() ==
                         'com.example.symbol_fonts_plugin_test.generated'
-                    assert rounded.includedNames.get().isEmpty()
                     assert rounded.manifest.get().asFile == file('rounded.codepoints')
+                    assert !rounded.svgDirectory.isPresent()
                     assert !rounded.font.isPresent()
                     assert rounded.conventionalFontName.get().isEmpty()
                     assert rounded.conventionalFonts.singleFile ==
@@ -319,17 +403,20 @@ class SymbolFontsPluginFunctionalTest {
                         GenerateSymbolFontTask
                     ).get()
                     assert sharp.manifest.get().asFile == file('sharp.codepoints')
+                    assert !sharp.svgDirectory.isPresent()
                     assert !sharp.font.isPresent()
                     assert sharp.conventionalFontName.get() == 'material-rounded.ttf'
                     assert sharp.conventionalFonts.singleFile ==
                         file('src/commonMain/composeResources/font/material-rounded.ttf')
 
-                    def subset = tasks.named(
-                        'generateSubsetIconsRegularSymbolFonts',
+                    def svg = tasks.named(
+                        'generateSvgIconsRegularSymbolFonts',
                         GenerateSymbolFontTask
                     ).get()
-                    assert subset.includedNames.get() == ['home'] as Set
-                    assert subset.conventionalFonts.isEmpty()
+                    assert !svg.manifest.isPresent()
+                    assert svg.svgDirectory.get().asFile == file('svg')
+                    assert !svg.font.isPresent()
+                    assert svg.conventionalFonts.isEmpty()
                 }
             }
             """,
@@ -338,6 +425,7 @@ class SymbolFontsPluginFunctionalTest {
                 "sharp.codepoints" to "home e101\n",
                 "src/commonMain/composeResources/font/material-rounded.ttf" to
                     "rounded",
+                "svg/home.svg" to tablerSvg("M5 12h14"),
             ),
         )
 
@@ -462,10 +550,12 @@ class SymbolFontsPluginFunctionalTest {
                     packageName.set('com.example.icons')
 
                     style('Defaults') {
+                        codepoints.set(file('icons.codepoints'))
                         viewportWidth.set(30f)
                         viewportHeight.set(18f)
                     }
                     style('Custom') {
+                        codepoints.set(file('icons.codepoints'))
                         emSize.set(15.5f)
                         originX.set(2.25f)
                         baselineY.set(16.75f)
@@ -530,6 +620,56 @@ class SymbolFontsPluginFunctionalTest {
     }
 
     @Test
+    fun rejectsMissingAndMixedStyleSources() {
+        val missing = fixture(
+            """
+            plugins {
+                id 'io.github.hlcaptain.symbol-fonts'
+            }
+
+            symbolFonts {
+                iconSet('AppIcons') {
+                    packageName.set('com.example.icons')
+                    style('Outline') {
+                        imageVectors()
+                    }
+                }
+            }
+            """,
+        )
+        val missingFailure = runner(missing, "help").buildAndFail()
+        assertTrue(
+            "must configure svgDirectory or codepoints" in missingFailure.output,
+        )
+
+        val mixed = fixture(
+            """
+            plugins {
+                id 'io.github.hlcaptain.symbol-fonts'
+            }
+
+            symbolFonts {
+                iconSet('AppIcons') {
+                    packageName.set('com.example.icons')
+                    style('Outline') {
+                        svgDirectory.set(file('svg'))
+                        codepoints.set(file('icons.codepoints'))
+                        font.set(file('font.ttf'))
+                        imageVectors()
+                    }
+                }
+            }
+            """,
+            files = mapOf("svg/home.svg" to tablerSvg("M5 12h14")),
+        )
+        val mixedFailure = runner(mixed, "help").buildAndFail()
+        assertTrue(
+            "svgDirectory together with font-only inputs: codepoints, font" in
+                mixedFailure.output,
+        )
+    }
+
+    @Test
     fun rejectsNormalizedOutputDirectoryCollisionsBeforeRegistration() {
         val project = fixture(
             """
@@ -588,10 +728,12 @@ class SymbolFontsPluginFunctionalTest {
                 iconSet('AppIcons') {
                     packageName.set('com.example.icons')
                     style('A1B') {
+                        codepoints.set(file('icons.codepoints'))
                         font.set(file('font.ttf'))
                         imageVectors()
                     }
                     style('A1b') {
+                        codepoints.set(file('icons.codepoints'))
                         font.set(file('font.ttf'))
                         imageVectors()
                     }
@@ -617,7 +759,6 @@ class SymbolFontsPluginFunctionalTest {
             symbolFonts {
                 iconSet('AppIcons') {
                     packageName.set('com.example.icons')
-                    include('home')
                     style('a1a') {
                         codepoints.set(file('icons.codepoints'))
                         font.set(file('font.ttf'))
@@ -647,7 +788,6 @@ class SymbolFontsPluginFunctionalTest {
             symbolFonts {
                 iconSet('One') {
                     packageName.set('com.example.one')
-                    include('bar_baz')
                     style('Foo') {
                         codepoints.set(file('one.codepoints'))
                         font.set(file('font.ttf'))
@@ -657,7 +797,6 @@ class SymbolFontsPluginFunctionalTest {
                 }
                 iconSet('Two') {
                     packageName.set('com.example.two')
-                    include('baz')
                     style('FooBar') {
                         codepoints.set(file('two.codepoints'))
                         font.set(file('font.ttf'))
@@ -734,6 +873,28 @@ class SymbolFontsPluginFunctionalTest {
         }
         return project
     }
+
+    private fun tablerSvg(pathData: String): String =
+        """
+        <svg xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="$pathData" />
+        </svg>
+        """.trimIndent()
+
+    private fun generatorTestClasspath(): String =
+        requireNotNull(System.getProperty("symbols.generatorTestClasspath"))
+            .split(File.pathSeparator)
+            .joinToString("\n")
 
     private fun runner(project: File, vararg tasks: String): GradleRunner =
         configuredRunner(project, tasks.toList(), "--no-configuration-cache")

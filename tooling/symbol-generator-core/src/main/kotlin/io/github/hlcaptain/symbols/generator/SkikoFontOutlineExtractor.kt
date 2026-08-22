@@ -17,7 +17,7 @@ import org.jetbrains.skia.Typeface
  * Loads TTF, OTF, or TTC fonts with pinned Skiko and extracts one static
  * instance. Variable coordinates are validated against the font's `fvar` axes.
  */
-public class SkikoFontOutlineExtractor : FontOutlineExtractor {
+class SkikoFontOutlineExtractor : FontOutlineExtractor {
     override fun extract(request: FontExtractionRequest): ExtractedFont {
         return loadSkikoTypeface(request.fontFile, request.fontIndex).use { base ->
             val (typeface, appliedAxes) = configureAxes(base, request)
@@ -112,16 +112,23 @@ public class SkikoFontOutlineExtractor : FontOutlineExtractor {
                                 "U+${codePoint.toString(16).uppercase()}",
                         )
                     }
-                    outlines[codePoint] = GlyphOutline(
-                        codePoint = codePoint,
-                        commands = convertPath(
-                            pathSegments = it.iterator(false)
-                                .asSequence()
-                                .filterNotNull(),
-                            unitsPerEm = unitsPerEm,
-                            request = request,
-                        ),
-                    )
+                    it.iterator(false).use { iterator ->
+                        outlines[codePoint] = GlyphOutline(
+                            codePoint = codePoint,
+                            commands = convertSkikoPath(
+                                pathSegments = iterator.asSequence()
+                                    .filterNotNull(),
+                                pointTransform = { point ->
+                                    request.transform.apply(
+                                        point.x,
+                                        point.y,
+                                        unitsPerEm,
+                                    )
+                                },
+                                conicTolerance = request.conicTolerance,
+                            ),
+                        )
+                    }
                 }
             }
         }
@@ -133,117 +140,112 @@ public class SkikoFontOutlineExtractor : FontOutlineExtractor {
             outlines = outlines,
         )
     }
+}
 
-    private fun convertPath(
-        pathSegments: Sequence<PathSegment>,
-        unitsPerEm: Int,
-        request: FontExtractionRequest,
-    ): List<VectorCommand> = buildList {
-        pathSegments.forEach { segment ->
-            fun Point.normalized(): VectorPoint =
-                request.transform.apply(x, y, unitsPerEm)
+internal fun convertSkikoPath(
+    pathSegments: Sequence<PathSegment>,
+    pointTransform: (Point) -> VectorPoint,
+    conicTolerance: Float,
+): List<VectorCommand> = buildList {
+    pathSegments.forEach { segment ->
+        fun Point.normalized(): VectorPoint = pointTransform(this)
 
-            when (segment.verb) {
-                PathVerb.MOVE -> add(
-                    VectorCommand.MoveTo(segment.p0.required("MOVE p0").normalized()),
-                )
-                PathVerb.LINE -> add(
-                    VectorCommand.LineTo(segment.p1.required("LINE p1").normalized()),
-                )
-                PathVerb.QUAD -> add(
-                    VectorCommand.QuadraticTo(
-                        control = segment.p1.required("QUAD p1").normalized(),
-                        end = segment.p2.required("QUAD p2").normalized(),
-                    ),
-                )
-                PathVerb.CONIC -> appendConic(
-                    start = segment.p0.required("CONIC p0").normalized(),
-                    control = segment.p1.required("CONIC p1").normalized(),
-                    end = segment.p2.required("CONIC p2").normalized(),
-                    weight = segment.conicWeight,
-                    tolerance = request.conicTolerance,
-                )
-                PathVerb.CUBIC -> add(
-                    VectorCommand.CubicTo(
-                        control1 = segment.p1.required("CUBIC p1").normalized(),
-                        control2 = segment.p2.required("CUBIC p2").normalized(),
-                        end = segment.p3.required("CUBIC p3").normalized(),
-                    ),
-                )
-                PathVerb.CLOSE -> add(VectorCommand.Close)
-                PathVerb.DONE -> Unit
-            }
-        }
-    }
-
-    private fun MutableList<VectorCommand>.appendConic(
-        start: VectorPoint,
-        control: VectorPoint,
-        end: VectorPoint,
-        weight: Float,
-        tolerance: Float,
-    ) {
-        require(weight.isFinite() && weight > 0f) {
-            "A conic weight must be finite and positive, but was $weight"
-        }
-        if (abs(weight - 1f) <= 1e-6f) {
-            add(VectorCommand.QuadraticTo(control, end))
-            return
-        }
-
-        val curve = RationalQuadratic(start, control, end, weight.toDouble())
-        appendConicInterval(
-            curve = curve,
-            startT = 0.0,
-            endT = 1.0,
-            tolerance = tolerance.toDouble(),
-            depth = 0,
-        )
-    }
-
-    private fun MutableList<VectorCommand>.appendConicInterval(
-        curve: RationalQuadratic,
-        startT: Double,
-        endT: Double,
-        tolerance: Double,
-        depth: Int,
-    ) {
-        val start = curve.point(startT)
-        val end = curve.point(endT)
-        val interval = endT - startT
-        val control1 = start + curve.derivative(startT) * (interval / 3.0)
-        val control2 = end - curve.derivative(endT) * (interval / 3.0)
-
-        val error = listOf(0.25, 0.5, 0.75).maxOf { fraction ->
-            val actual = curve.point(startT + interval * fraction)
-            val approximate = cubicPoint(
-                start,
-                control1,
-                control2,
-                end,
-                fraction,
+        when (segment.verb) {
+            PathVerb.MOVE -> add(
+                VectorCommand.MoveTo(segment.p0.required("MOVE p0").normalized()),
             )
-            max(abs(actual.x - approximate.x), abs(actual.y - approximate.y))
-        }
-        if (error <= tolerance || depth >= MaxConicSubdivisionDepth) {
-            add(
-                VectorCommand.CubicTo(
-                    control1 = control1.toVectorPoint(),
-                    control2 = control2.toVectorPoint(),
-                    end = end.toVectorPoint(),
+            PathVerb.LINE -> add(
+                VectorCommand.LineTo(segment.p1.required("LINE p1").normalized()),
+            )
+            PathVerb.QUAD -> add(
+                VectorCommand.QuadraticTo(
+                    control = segment.p1.required("QUAD p1").normalized(),
+                    end = segment.p2.required("QUAD p2").normalized(),
                 ),
             )
-            return
+            PathVerb.CONIC -> appendConic(
+                start = segment.p0.required("CONIC p0").normalized(),
+                control = segment.p1.required("CONIC p1").normalized(),
+                end = segment.p2.required("CONIC p2").normalized(),
+                weight = segment.conicWeight,
+                tolerance = conicTolerance,
+            )
+            PathVerb.CUBIC -> add(
+                VectorCommand.CubicTo(
+                    control1 = segment.p1.required("CUBIC p1").normalized(),
+                    control2 = segment.p2.required("CUBIC p2").normalized(),
+                    end = segment.p3.required("CUBIC p3").normalized(),
+                ),
+            )
+            PathVerb.CLOSE -> add(VectorCommand.Close)
+            PathVerb.DONE -> Unit
         }
+    }
+}
 
-        val middle = (startT + endT) / 2.0
-        appendConicInterval(curve, startT, middle, tolerance, depth + 1)
-        appendConicInterval(curve, middle, endT, tolerance, depth + 1)
+private fun MutableList<VectorCommand>.appendConic(
+    start: VectorPoint,
+    control: VectorPoint,
+    end: VectorPoint,
+    weight: Float,
+    tolerance: Float,
+) {
+    require(weight.isFinite() && weight > 0f) {
+        "A conic weight must be finite and positive, but was $weight"
+    }
+    if (abs(weight - 1f) <= 1e-6f) {
+        add(VectorCommand.QuadraticTo(control, end))
+        return
     }
 
-    private companion object {
-        private const val MaxConicSubdivisionDepth: Int = 12
+    val curve = RationalQuadratic(start, control, end, weight.toDouble())
+    appendConicInterval(
+        curve = curve,
+        startT = 0.0,
+        endT = 1.0,
+        tolerance = tolerance.toDouble(),
+        depth = 0,
+    )
+}
+
+private fun MutableList<VectorCommand>.appendConicInterval(
+    curve: RationalQuadratic,
+    startT: Double,
+    endT: Double,
+    tolerance: Double,
+    depth: Int,
+) {
+    val start = curve.point(startT)
+    val end = curve.point(endT)
+    val interval = endT - startT
+    val control1 = start + curve.derivative(startT) * (interval / 3.0)
+    val control2 = end - curve.derivative(endT) * (interval / 3.0)
+
+    val error = listOf(0.25, 0.5, 0.75).maxOf { fraction ->
+        val actual = curve.point(startT + interval * fraction)
+        val approximate = cubicPoint(
+            start,
+            control1,
+            control2,
+            end,
+            fraction,
+        )
+        max(abs(actual.x - approximate.x), abs(actual.y - approximate.y))
     }
+    if (error <= tolerance || depth >= MaxConicSubdivisionDepth) {
+        add(
+            VectorCommand.CubicTo(
+                control1 = control1.toVectorPoint(),
+                control2 = control2.toVectorPoint(),
+                end = end.toVectorPoint(),
+            ),
+        )
+        return
+    }
+
+    val middle = (startT + endT) / 2.0
+    appendConicInterval(curve, startT, middle, tolerance, depth + 1)
+    appendConicInterval(curve, middle, endT, tolerance, depth + 1)
 }
 
 internal fun loadSkikoTypeface(fontFile: Path, fontIndex: Int): Typeface {
@@ -266,6 +268,8 @@ internal fun loadSkikoTypeface(fontFile: Path, fontIndex: Int): Typeface {
         )
     }
 }
+
+private const val MaxConicSubdivisionDepth: Int = 12
 
 private data class DoublePoint(
     val x: Double,

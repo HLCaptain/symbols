@@ -13,7 +13,7 @@ import io.github.hlcaptain.symbols.material.sharp.vectors.asSharpImageVector
 /** Returns this symbol's fixed-axis vector in the current Material style. */
 @Composable
 @ReadOnlyComposable
-public fun MaterialSymbol.asThemedImageVector(
+fun MaterialSymbol.asThemedImageVector(
     autoMirror: Boolean = false,
 ): ImageVector = when (MaterialSymbolsTheme.style) {
     MaterialSymbolStyle.Outlined -> asOutlinedImageVector(autoMirror)

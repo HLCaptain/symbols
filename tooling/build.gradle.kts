@@ -54,9 +54,9 @@ subprojects {
                     description.set(
                         when (project.name) {
                             "symbol-generator-core" ->
-                                "Deterministic regular and variable symbol-font " +
-                                    "outline generator for typed Compose vectors " +
-                                    "and Android/Compose drawable XML."
+                                "Deterministic SVG and symbol-font outline " +
+                                    "generator for typed Compose vectors and " +
+                                    "Android/Compose drawable XML."
                             "symbol-gradle-plugin" ->
                                 "Cacheable Gradle integration for generating " +
                                     "shrinkable typed symbol vectors and drawables."
@@ -92,23 +92,6 @@ subprojects {
                         developerConnection.set(
                             "scm:git:ssh://git@github.com/HLCaptain/symbols.git",
                         )
-                    }
-                }
-            }
-
-            repositories {
-                maven {
-                    name = "GitHubPackages"
-                    url = uri(
-                        "https://maven.pkg.github.com/hlcaptain/symbols",
-                    )
-                    credentials {
-                        username = providers
-                            .environmentVariable("GITHUB_ACTOR")
-                            .orNull
-                        password = providers
-                            .environmentVariable("GITHUB_TOKEN")
-                            .orNull
                     }
                 }
             }

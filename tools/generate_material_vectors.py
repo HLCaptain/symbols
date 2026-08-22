@@ -377,7 +377,7 @@ def render_public_api(style: Style) -> str:
             " * the same lazily built instance. Each unique code point owns one default",
             " * cache, shared by its typed alias getters.",
             " */",
-            f"public val MaterialSymbol.{prefix}ImageVector: ImageVector",
+            f"val MaterialSymbol.{prefix}ImageVector: ImageVector",
             f"    get() = as{title}ImageVector()",
             "",
             "/**",
@@ -387,7 +387,7 @@ def render_public_api(style: Style) -> str:
             " * it in right-to-left layout. The source outline itself is unchanged.",
             " */",
             (
-                f"public fun MaterialSymbol.as{title}ImageVector("
+                f"fun MaterialSymbol.as{title}ImageVector("
                 "autoMirror: Boolean = false): ImageVector {"
             ),
             f"    val vectorIndex = {prefix}VectorIndex(codePoint)",
@@ -491,7 +491,7 @@ def render_icon_file(
             identifier = kotlin_identifier(name)
             lines.extend(
                 (
-                    f"public val {style.typed_root}.{title}.{identifier}: ImageVector",
+                    f"val {style.typed_root}.{title}.{identifier}: ImageVector",
                     f"    get() = {object_name}.value(autoMirror = false)",
                     "",
                 )
@@ -511,7 +511,7 @@ def render_icon_file(
                 "        build(autoMirror = true)",
                 "    }",
                 "",
-                "    public fun value(autoMirror: Boolean): ImageVector =",
+                "    fun value(autoMirror: Boolean): ImageVector =",
                 "        if (autoMirror) autoMirrored else default",
                 "",
                 "    private fun build(autoMirror: Boolean): ImageVector {",
@@ -591,7 +591,7 @@ def render_themed_icon_file(
         identifier = kotlin_identifier(name)
         lines.extend(
             (
-                f"public val Icons.Themed.{identifier}: ImageVector",
+                f"val Icons.Themed.{identifier}: ImageVector",
                 "    @Composable",
                 "    @ReadOnlyComposable",
                 "    get() = when (SymbolsTheme.style) {",

@@ -203,7 +203,7 @@ import io.github.hlcaptain.symbols.material.outlined.vectors.Blanket as Outlined
 import io.github.hlcaptain.symbols.material.rounded.vectors.Blanket as RoundedBlanket
 import io.github.hlcaptain.symbols.material.sharp.vectors.Blanket as SharpBlanket
 
-public val Icons.Themed.BatteryAndroidBolt: ImageVector
+val Icons.Themed.BatteryAndroidBolt: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -212,7 +212,7 @@ public val Icons.Themed.BatteryAndroidBolt: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidBolt
     }
 
-public val Icons.Themed.BatteryAndroidFrame1: ImageVector
+val Icons.Themed.BatteryAndroidFrame1: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -221,7 +221,7 @@ public val Icons.Themed.BatteryAndroidFrame1: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidFrame1
     }
 
-public val Icons.Themed.BatteryAndroidFrame2: ImageVector
+val Icons.Themed.BatteryAndroidFrame2: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -230,7 +230,7 @@ public val Icons.Themed.BatteryAndroidFrame2: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidFrame2
     }
 
-public val Icons.Themed.BatteryAndroidFrame3: ImageVector
+val Icons.Themed.BatteryAndroidFrame3: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -239,7 +239,7 @@ public val Icons.Themed.BatteryAndroidFrame3: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidFrame3
     }
 
-public val Icons.Themed.BatteryAndroidFrame4: ImageVector
+val Icons.Themed.BatteryAndroidFrame4: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -248,7 +248,7 @@ public val Icons.Themed.BatteryAndroidFrame4: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidFrame4
     }
 
-public val Icons.Themed.BatteryAndroidFrame5: ImageVector
+val Icons.Themed.BatteryAndroidFrame5: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -257,7 +257,7 @@ public val Icons.Themed.BatteryAndroidFrame5: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidFrame5
     }
 
-public val Icons.Themed.BatteryAndroidFrame6: ImageVector
+val Icons.Themed.BatteryAndroidFrame6: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -266,7 +266,7 @@ public val Icons.Themed.BatteryAndroidFrame6: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidFrame6
     }
 
-public val Icons.Themed.BatteryAndroidFrameAlert: ImageVector
+val Icons.Themed.BatteryAndroidFrameAlert: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -275,7 +275,7 @@ public val Icons.Themed.BatteryAndroidFrameAlert: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidFrameAlert
     }
 
-public val Icons.Themed.BatteryAndroidFrameBolt: ImageVector
+val Icons.Themed.BatteryAndroidFrameBolt: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -284,7 +284,7 @@ public val Icons.Themed.BatteryAndroidFrameBolt: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidFrameBolt
     }
 
-public val Icons.Themed.BatteryAndroidFrameFull: ImageVector
+val Icons.Themed.BatteryAndroidFrameFull: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -293,7 +293,7 @@ public val Icons.Themed.BatteryAndroidFrameFull: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidFrameFull
     }
 
-public val Icons.Themed.BatteryAndroidFramePlus: ImageVector
+val Icons.Themed.BatteryAndroidFramePlus: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -302,7 +302,7 @@ public val Icons.Themed.BatteryAndroidFramePlus: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidFramePlus
     }
 
-public val Icons.Themed.BatteryAndroidFrameQuestion: ImageVector
+val Icons.Themed.BatteryAndroidFrameQuestion: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -311,7 +311,7 @@ public val Icons.Themed.BatteryAndroidFrameQuestion: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidFrameQuestion
     }
 
-public val Icons.Themed.BatteryAndroidFrameShare: ImageVector
+val Icons.Themed.BatteryAndroidFrameShare: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -320,7 +320,7 @@ public val Icons.Themed.BatteryAndroidFrameShare: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidFrameShare
     }
 
-public val Icons.Themed.BatteryAndroidFrameShield: ImageVector
+val Icons.Themed.BatteryAndroidFrameShield: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -329,7 +329,7 @@ public val Icons.Themed.BatteryAndroidFrameShield: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidFrameShield
     }
 
-public val Icons.Themed.BatteryAndroidFull: ImageVector
+val Icons.Themed.BatteryAndroidFull: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -338,7 +338,7 @@ public val Icons.Themed.BatteryAndroidFull: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidFull
     }
 
-public val Icons.Themed.BatteryAndroidPlus: ImageVector
+val Icons.Themed.BatteryAndroidPlus: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -347,7 +347,7 @@ public val Icons.Themed.BatteryAndroidPlus: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidPlus
     }
 
-public val Icons.Themed.BatteryAndroidQuestion: ImageVector
+val Icons.Themed.BatteryAndroidQuestion: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -356,7 +356,7 @@ public val Icons.Themed.BatteryAndroidQuestion: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidQuestion
     }
 
-public val Icons.Themed.BatteryAndroidShare: ImageVector
+val Icons.Themed.BatteryAndroidShare: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -365,7 +365,7 @@ public val Icons.Themed.BatteryAndroidShare: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidShare
     }
 
-public val Icons.Themed.BatteryAndroidShield: ImageVector
+val Icons.Themed.BatteryAndroidShield: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -374,7 +374,7 @@ public val Icons.Themed.BatteryAndroidShield: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryAndroidShield
     }
 
-public val Icons.Themed.BatteryChange: ImageVector
+val Icons.Themed.BatteryChange: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -383,7 +383,7 @@ public val Icons.Themed.BatteryChange: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryChange
     }
 
-public val Icons.Themed.BatteryCharging20: ImageVector
+val Icons.Themed.BatteryCharging20: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -392,7 +392,7 @@ public val Icons.Themed.BatteryCharging20: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryCharging20
     }
 
-public val Icons.Themed.BatteryCharging30: ImageVector
+val Icons.Themed.BatteryCharging30: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -401,7 +401,7 @@ public val Icons.Themed.BatteryCharging30: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryCharging30
     }
 
-public val Icons.Themed.BatteryCharging50: ImageVector
+val Icons.Themed.BatteryCharging50: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -410,7 +410,7 @@ public val Icons.Themed.BatteryCharging50: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryCharging50
     }
 
-public val Icons.Themed.BatteryCharging60: ImageVector
+val Icons.Themed.BatteryCharging60: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -419,7 +419,7 @@ public val Icons.Themed.BatteryCharging60: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryCharging60
     }
 
-public val Icons.Themed.BatteryCharging80: ImageVector
+val Icons.Themed.BatteryCharging80: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -428,7 +428,7 @@ public val Icons.Themed.BatteryCharging80: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryCharging80
     }
 
-public val Icons.Themed.BatteryCharging90: ImageVector
+val Icons.Themed.BatteryCharging90: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -437,7 +437,7 @@ public val Icons.Themed.BatteryCharging90: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryCharging90
     }
 
-public val Icons.Themed.BatteryChargingFull: ImageVector
+val Icons.Themed.BatteryChargingFull: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -446,7 +446,7 @@ public val Icons.Themed.BatteryChargingFull: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryChargingFull
     }
 
-public val Icons.Themed.BatteryError: ImageVector
+val Icons.Themed.BatteryError: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -455,7 +455,7 @@ public val Icons.Themed.BatteryError: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryError
     }
 
-public val Icons.Themed.BatteryFull: ImageVector
+val Icons.Themed.BatteryFull: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -464,7 +464,7 @@ public val Icons.Themed.BatteryFull: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryFull
     }
 
-public val Icons.Themed.BatteryFullAlt: ImageVector
+val Icons.Themed.BatteryFullAlt: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -473,7 +473,7 @@ public val Icons.Themed.BatteryFullAlt: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryFullAlt
     }
 
-public val Icons.Themed.BatteryHoriz000: ImageVector
+val Icons.Themed.BatteryHoriz000: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -482,7 +482,7 @@ public val Icons.Themed.BatteryHoriz000: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryHoriz000
     }
 
-public val Icons.Themed.BatteryHoriz050: ImageVector
+val Icons.Themed.BatteryHoriz050: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -491,7 +491,7 @@ public val Icons.Themed.BatteryHoriz050: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryHoriz050
     }
 
-public val Icons.Themed.BatteryHoriz075: ImageVector
+val Icons.Themed.BatteryHoriz075: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -500,7 +500,7 @@ public val Icons.Themed.BatteryHoriz075: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryHoriz075
     }
 
-public val Icons.Themed.BatteryLow: ImageVector
+val Icons.Themed.BatteryLow: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -509,7 +509,7 @@ public val Icons.Themed.BatteryLow: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryLow
     }
 
-public val Icons.Themed.BatteryPlus: ImageVector
+val Icons.Themed.BatteryPlus: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -518,7 +518,7 @@ public val Icons.Themed.BatteryPlus: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryPlus
     }
 
-public val Icons.Themed.BatteryProfile: ImageVector
+val Icons.Themed.BatteryProfile: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -527,7 +527,7 @@ public val Icons.Themed.BatteryProfile: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryProfile
     }
 
-public val Icons.Themed.BatterySaver: ImageVector
+val Icons.Themed.BatterySaver: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -536,7 +536,7 @@ public val Icons.Themed.BatterySaver: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatterySaver
     }
 
-public val Icons.Themed.BatteryShare: ImageVector
+val Icons.Themed.BatteryShare: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -545,7 +545,7 @@ public val Icons.Themed.BatteryShare: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryShare
     }
 
-public val Icons.Themed.BatteryStatusGood: ImageVector
+val Icons.Themed.BatteryStatusGood: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -554,7 +554,7 @@ public val Icons.Themed.BatteryStatusGood: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryStatusGood
     }
 
-public val Icons.Themed.BatteryStd: ImageVector
+val Icons.Themed.BatteryStd: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -563,7 +563,7 @@ public val Icons.Themed.BatteryStd: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryStd
     }
 
-public val Icons.Themed.BatteryUnknown: ImageVector
+val Icons.Themed.BatteryUnknown: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -572,7 +572,7 @@ public val Icons.Themed.BatteryUnknown: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryUnknown
     }
 
-public val Icons.Themed.BatteryVert005: ImageVector
+val Icons.Themed.BatteryVert005: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -581,7 +581,7 @@ public val Icons.Themed.BatteryVert005: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryVert005
     }
 
-public val Icons.Themed.BatteryVert020: ImageVector
+val Icons.Themed.BatteryVert020: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -590,7 +590,7 @@ public val Icons.Themed.BatteryVert020: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryVert020
     }
 
-public val Icons.Themed.BatteryVert050: ImageVector
+val Icons.Themed.BatteryVert050: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -599,7 +599,7 @@ public val Icons.Themed.BatteryVert050: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryVert050
     }
 
-public val Icons.Themed.BatteryVeryLow: ImageVector
+val Icons.Themed.BatteryVeryLow: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -608,7 +608,7 @@ public val Icons.Themed.BatteryVeryLow: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBatteryVeryLow
     }
 
-public val Icons.Themed.BeachAccess: ImageVector
+val Icons.Themed.BeachAccess: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -617,7 +617,7 @@ public val Icons.Themed.BeachAccess: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBeachAccess
     }
 
-public val Icons.Themed.Bed: ImageVector
+val Icons.Themed.Bed: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -626,7 +626,7 @@ public val Icons.Themed.Bed: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBed
     }
 
-public val Icons.Themed.BedroomBaby: ImageVector
+val Icons.Themed.BedroomBaby: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -635,7 +635,7 @@ public val Icons.Themed.BedroomBaby: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBedroomBaby
     }
 
-public val Icons.Themed.BedroomChild: ImageVector
+val Icons.Themed.BedroomChild: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -644,7 +644,7 @@ public val Icons.Themed.BedroomChild: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBedroomChild
     }
 
-public val Icons.Themed.BedroomParent: ImageVector
+val Icons.Themed.BedroomParent: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -653,7 +653,7 @@ public val Icons.Themed.BedroomParent: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBedroomParent
     }
 
-public val Icons.Themed.Bedtime: ImageVector
+val Icons.Themed.Bedtime: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -662,7 +662,7 @@ public val Icons.Themed.Bedtime: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBedtime
     }
 
-public val Icons.Themed.BedtimeOff: ImageVector
+val Icons.Themed.BedtimeOff: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -671,7 +671,7 @@ public val Icons.Themed.BedtimeOff: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBedtimeOff
     }
 
-public val Icons.Themed.Beenhere: ImageVector
+val Icons.Themed.Beenhere: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -680,7 +680,7 @@ public val Icons.Themed.Beenhere: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBeenhere
     }
 
-public val Icons.Themed.BeerMeal: ImageVector
+val Icons.Themed.BeerMeal: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -689,7 +689,7 @@ public val Icons.Themed.BeerMeal: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBeerMeal
     }
 
-public val Icons.Themed.Bento: ImageVector
+val Icons.Themed.Bento: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -698,7 +698,7 @@ public val Icons.Themed.Bento: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBento
     }
 
-public val Icons.Themed.Bia: ImageVector
+val Icons.Themed.Bia: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -707,7 +707,7 @@ public val Icons.Themed.Bia: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBia
     }
 
-public val Icons.Themed.BidLandscape: ImageVector
+val Icons.Themed.BidLandscape: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -716,7 +716,7 @@ public val Icons.Themed.BidLandscape: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBidLandscape
     }
 
-public val Icons.Themed.BidLandscapeDisabled: ImageVector
+val Icons.Themed.BidLandscapeDisabled: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -725,7 +725,7 @@ public val Icons.Themed.BidLandscapeDisabled: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBidLandscapeDisabled
     }
 
-public val Icons.Themed.BigtopUpdates: ImageVector
+val Icons.Themed.BigtopUpdates: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -734,7 +734,7 @@ public val Icons.Themed.BigtopUpdates: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBigtopUpdates
     }
 
-public val Icons.Themed.BikeDock: ImageVector
+val Icons.Themed.BikeDock: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -743,7 +743,7 @@ public val Icons.Themed.BikeDock: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBikeDock
     }
 
-public val Icons.Themed.BikeLane: ImageVector
+val Icons.Themed.BikeLane: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -752,7 +752,7 @@ public val Icons.Themed.BikeLane: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBikeLane
     }
 
-public val Icons.Themed.BikeScooter: ImageVector
+val Icons.Themed.BikeScooter: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -761,7 +761,7 @@ public val Icons.Themed.BikeScooter: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBikeScooter
     }
 
-public val Icons.Themed.Biotech: ImageVector
+val Icons.Themed.Biotech: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {
@@ -770,7 +770,7 @@ public val Icons.Themed.Biotech: ImageVector
         MaterialSymbolStyle.Sharp -> Icons.Sharp.SharpBiotech
     }
 
-public val Icons.Themed.Blanket: ImageVector
+val Icons.Themed.Blanket: ImageVector
     @Composable
     @ReadOnlyComposable
     get() = when (SymbolsTheme.style) {

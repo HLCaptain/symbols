@@ -4,8 +4,8 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 /** Files rendered relative to a caller-owned generated output directory. */
-public data class RenderedFiles(
-    public val files: Map<String, String>,
+data class RenderedFiles(
+    val files: Map<String, String>,
 ) {
     init {
         require(files.isNotEmpty()) { "At least one generated file is required" }
@@ -23,15 +23,15 @@ public data class RenderedFiles(
 }
 
 /** Shared deterministic vector rendering settings. */
-public data class VectorRenderOptions(
-    public val viewportWidth: Float = 24f,
-    public val viewportHeight: Float = 24f,
-    public val defaultWidthDp: Float = viewportWidth,
-    public val defaultHeightDp: Float = viewportHeight,
-    public val precision: Int = 4,
-    public val symbolsPerFile: Int = 64,
-    public val autoMirror: Boolean = false,
-    public val fillColor: String = "#FF000000",
+data class VectorRenderOptions(
+    val viewportWidth: Float = 24f,
+    val viewportHeight: Float = 24f,
+    val defaultWidthDp: Float = viewportWidth,
+    val defaultHeightDp: Float = viewportHeight,
+    val precision: Int = 4,
+    val symbolsPerFile: Int = 64,
+    val autoMirror: Boolean = false,
+    val fillColor: String = "#FF000000",
 ) {
     init {
         require(viewportWidth.isFinite() && viewportWidth > 0f) {
@@ -63,11 +63,11 @@ public data class VectorRenderOptions(
  * No registry, path table, dispatcher, reflection hook, or all-icons collection
  * is emitted.
  */
-public class KotlinImageVectorRenderer(
+class KotlinImageVectorRenderer(
     private val options: VectorRenderOptions = VectorRenderOptions(),
     private val includeNamespace: Boolean = true,
 ) {
-    public fun render(iconSet: GeneratedIconSet): RenderedFiles {
+    fun render(iconSet: GeneratedIconSet): RenderedFiles {
         val rendered = linkedMapOf<String, String>()
         val baseDirectory = iconSet.packageName.replace('.', '/')
         if (includeNamespace) {
@@ -99,6 +99,39 @@ public class KotlinImageVectorRenderer(
         return RenderedFiles(rendered)
     }
 
+    /** Emits the same typed namespace API for SVG-derived icons. */
+    fun render(iconSet: GeneratedSvgIconSet): RenderedFiles {
+        val rendered = linkedMapOf<String, String>()
+        val baseDirectory = iconSet.packageName.replace('.', '/')
+        if (includeNamespace) {
+            rendered.putAll(
+                KotlinIconNamespaceRenderer().render(
+                    packageName = iconSet.packageName,
+                    iconSetName = iconSet.name,
+                    styleNames = iconSet.styles.map(GeneratedSvgStyle::name),
+                ).files,
+            )
+        }
+
+        iconSet.styles.sortedBy(GeneratedSvgStyle::name).forEach { style ->
+            val styleSegment = SymbolNames.packageSegment(style.name)
+            style.icons.sortedBy(SvgIcon::name)
+                .chunked(options.symbolsPerFile)
+                .forEachIndexed { chunkIndex, icons ->
+                    val fileName = buildString {
+                        append(iconSet.name)
+                        append(style.name)
+                        append("Icons")
+                        append(chunkIndex.toString().padStart(3, '0'))
+                        append(".generated.kt")
+                    }
+                    rendered["$baseDirectory/$styleSegment/$fileName"] =
+                        renderSvgChunk(iconSet, style, icons)
+                }
+        }
+        return RenderedFiles(rendered)
+    }
+
     private fun renderChunk(
         iconSet: GeneratedIconSet,
         style: GeneratedStyle,
@@ -124,6 +157,34 @@ public class KotlinImageVectorRenderer(
         }
     }
 
+    private fun renderSvgChunk(
+        iconSet: GeneratedSvgIconSet,
+        style: GeneratedSvgStyle,
+        icons: List<SvgIcon>,
+    ): String {
+        val styleSegment = SymbolNames.packageSegment(style.name)
+
+        return buildString {
+            appendLine(GeneratedKotlinHeader)
+            appendLine("package ${iconSet.packageName}.$styleSegment")
+            appendLine()
+            appendLine("import androidx.compose.ui.graphics.Color")
+            appendLine("import androidx.compose.ui.graphics.PathFillType")
+            appendLine("import androidx.compose.ui.graphics.SolidColor")
+            appendLine("import androidx.compose.ui.graphics.StrokeCap")
+            appendLine("import androidx.compose.ui.graphics.StrokeJoin")
+            appendLine("import androidx.compose.ui.graphics.vector.ImageVector")
+            appendLine("import androidx.compose.ui.graphics.vector.path")
+            appendLine("import androidx.compose.ui.unit.dp")
+            appendLine("import ${iconSet.packageName}.${iconSet.name}")
+            appendLine()
+
+            icons.forEach { icon ->
+                appendSvgIcon(iconSet, style, icon)
+            }
+        }
+    }
+
     private fun StringBuilder.appendCodePoint(
         iconSet: GeneratedIconSet,
         style: GeneratedStyle,
@@ -141,7 +202,7 @@ public class KotlinImageVectorRenderer(
                 "/** `${alias.name}` (U+${codePoint.toString(16).uppercase()}). */",
             )
             appendLine(
-                "public val ${iconSet.name}.${style.name}.${alias.kotlinName}: ImageVector",
+                "val ${iconSet.name}.${style.name}.${alias.kotlinName}: ImageVector",
             )
             appendLine("    get() = $functionName()")
             appendLine()
@@ -174,6 +235,85 @@ public class KotlinImageVectorRenderer(
         appendLine("}")
         appendLine()
     }
+
+    private fun StringBuilder.appendSvgIcon(
+        iconSet: GeneratedSvgIconSet,
+        style: GeneratedSvgStyle,
+        icon: SvgIcon,
+    ) {
+        val functionName =
+            "${iconSet.name.replaceFirstChar(Char::lowercaseChar)}" +
+                "${style.name}${icon.kotlinName}"
+        val cacheName = "_$functionName"
+
+        appendLine("/** `${icon.name}`. */")
+        appendLine(
+            "val ${iconSet.name}.${style.name}.${icon.kotlinName}: ImageVector",
+        )
+        appendLine("    get() = $functionName()")
+        appendLine()
+        appendLine("private var $cacheName: ImageVector? = null")
+        appendLine()
+        appendLine("private fun $functionName(): ImageVector {")
+        appendLine("    $cacheName?.let { return it }")
+        appendLine("    return ImageVector.Builder(")
+        appendLine(
+            "        name = \"${iconSet.name}.${style.name}.${icon.kotlinName}\",",
+        )
+        appendLine("        defaultWidth = ${decimal(options.defaultWidthDp)}.dp,")
+        appendLine("        defaultHeight = ${decimal(options.defaultHeightDp)}.dp,")
+        appendLine("        viewportWidth = ${floatLiteral(options.viewportWidth)},")
+        appendLine("        viewportHeight = ${floatLiteral(options.viewportHeight)},")
+        appendLine("        autoMirror = ${options.autoMirror},")
+        appendLine("    ).apply {")
+        icon.paths.forEachIndexed { index, path ->
+            appendLine("        path(")
+            appendLine("            name = \"path_$index\",")
+            appendLine(
+                "            fill = ${paintExpression(path.fill)},",
+            )
+            appendLine(
+                "            fillAlpha = ${floatLiteral(path.fillAlpha)},",
+            )
+            appendLine(
+                "            stroke = ${paintExpression(path.stroke)},",
+            )
+            appendLine(
+                "            strokeAlpha = ${floatLiteral(path.strokeAlpha)},",
+            )
+            appendLine(
+                "            strokeLineWidth = ${floatLiteral(path.strokeWidth)},",
+            )
+            appendLine(
+                "            strokeLineCap = StrokeCap.${path.strokeCap},",
+            )
+            appendLine(
+                "            strokeLineJoin = StrokeJoin.${path.strokeJoin},",
+            )
+            appendLine(
+                "            strokeLineMiter = " +
+                    "${floatLiteral(path.strokeMiterLimit)},",
+            )
+            appendLine(
+                "            pathFillType = PathFillType.${path.fillRule},",
+            )
+            appendLine("        ) {")
+            path.commands.forEach { command ->
+                appendKotlinCommand(command)
+            }
+            appendLine("        }")
+        }
+        appendLine("    }.build().also { $cacheName = it }")
+        appendLine("}")
+        appendLine()
+    }
+
+    private fun paintExpression(painted: Boolean): String =
+        if (painted) {
+            "SolidColor(Color(0x${argbHex(options.fillColor)}.toInt()))"
+        } else {
+            "null"
+        }
 
     private fun StringBuilder.appendKotlinCommand(command: VectorCommand) {
         when (command) {
@@ -216,23 +356,35 @@ public class KotlinImageVectorRenderer(
 }
 
 /** Output from [AndroidVectorXmlRenderer], including code-point resource names. */
-public data class AndroidVectorOutput(
-    public val files: RenderedFiles,
-    public val resourceNames: Map<AndroidResourceKey, String>,
+data class AndroidVectorOutput(
+    val files: RenderedFiles,
+    val resourceNames: Map<AndroidResourceKey, String>,
 )
 
 /** Identifies a generated native resource without collapsing styles. */
-public data class AndroidResourceKey(
-    public val styleName: String,
-    public val codePoint: Int,
+data class AndroidResourceKey(
+    val styleName: String,
+    val codePoint: Int,
+)
+
+/** Output from SVG Android-vector rendering, keyed by style and semantic name. */
+data class SvgAndroidVectorOutput(
+    val files: RenderedFiles,
+    val resourceNames: Map<SvgAndroidResourceKey, String>,
+)
+
+/** Identifies one SVG-derived native resource. */
+data class SvgAndroidResourceKey(
+    val styleName: String,
+    val iconName: String,
 )
 
 /**
- * Emits one native Android vector drawable per unique code point. Alias accessors
- * can safely reference the same resource ID, allowing `shrinkResources` to retain
- * only code points that are actually reached.
+ * Emits one native Android vector drawable per unique font code point or SVG
+ * source. Font alias accessors can safely reference the same resource ID,
+ * allowing `shrinkResources` to retain only code points that are reached.
  */
-public class AndroidVectorXmlRenderer(
+class AndroidVectorXmlRenderer(
     private val options: VectorRenderOptions = VectorRenderOptions(),
     private val resourcePrefix: String,
 ) {
@@ -242,7 +394,7 @@ public class AndroidVectorXmlRenderer(
         }
     }
 
-    public fun render(iconSet: GeneratedIconSet): AndroidVectorOutput {
+    fun render(iconSet: GeneratedIconSet): AndroidVectorOutput {
         SymbolNames.requireDistinctStyleAndroidResourcePrefixes(
             iconSet.styles.map(GeneratedStyle::name),
         )
@@ -283,6 +435,41 @@ public class AndroidVectorXmlRenderer(
         )
     }
 
+    /** Emits one native vector drawable per SVG source file. */
+    fun render(iconSet: GeneratedSvgIconSet): SvgAndroidVectorOutput {
+        SymbolNames.requireDistinctStyleAndroidResourcePrefixes(
+            iconSet.styles.map(GeneratedSvgStyle::name),
+        )
+        val formatter = NumberFormatter(options.precision)
+        val rendered = linkedMapOf<String, String>()
+        val resourceNames = linkedMapOf<SvgAndroidResourceKey, String>()
+        val resourceOwners = linkedMapOf<String, SvgAndroidResourceKey>()
+
+        iconSet.styles.sortedBy(GeneratedSvgStyle::name).forEach { style ->
+            val stylePrefix = SymbolNames.androidResourcePrefix(style.name)
+            style.icons.sortedBy(SvgIcon::name).forEach { icon ->
+                val resourceName =
+                    "${resourcePrefix}_${stylePrefix}_${icon.name}"
+                val resourceKey = SvgAndroidResourceKey(style.name, icon.name)
+                val existingOwner = resourceOwners.put(resourceName, resourceKey)
+                if (existingOwner != null && existingOwner != resourceKey) {
+                    throw SymbolGenerationException(
+                        "Android resource name collision '$resourceName': " +
+                            "${existingOwner.styleName}.${existingOwner.iconName} " +
+                            "and ${resourceKey.styleName}.${resourceKey.iconName}",
+                    )
+                }
+                resourceNames[resourceKey] = resourceName
+                rendered["drawable/$resourceName.xml"] =
+                    renderSvgVectorXml(icon, formatter)
+            }
+        }
+        return SvgAndroidVectorOutput(
+            files = RenderedFiles(rendered),
+            resourceNames = resourceNames,
+        )
+    }
+
     private fun renderVectorXml(
         outline: GlyphOutline,
         formatter: NumberFormatter,
@@ -300,6 +487,59 @@ public class AndroidVectorXmlRenderer(
         appendLine("        android:pathData=\"${pathData(outline, formatter)}\" />")
         appendLine("</vector>")
     }
+
+    private fun renderSvgVectorXml(
+        icon: SvgIcon,
+        formatter: NumberFormatter,
+    ): String = buildString {
+        appendLine("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
+        appendLine("<!-- Generated by Symbols. DO NOT EDIT. -->")
+        appendLine("<vector xmlns:android=\"http://schemas.android.com/apk/res/android\"")
+        appendLine("    android:width=\"${formatter.format(options.defaultWidthDp)}dp\"")
+        appendLine("    android:height=\"${formatter.format(options.defaultHeightDp)}dp\"")
+        appendLine("    android:viewportWidth=\"${formatter.format(options.viewportWidth)}\"")
+        appendLine("    android:viewportHeight=\"${formatter.format(options.viewportHeight)}\"")
+        appendLine("    android:autoMirrored=\"${options.autoMirror}\">")
+        icon.paths.forEachIndexed { index, path ->
+            appendLine("    <path")
+            appendLine("        android:name=\"path_$index\"")
+            appendLine(
+                "        android:fillColor=\"${xmlPaint(path.fill)}\"",
+            )
+            appendLine(
+                "        android:fillAlpha=\"${formatter.format(path.fillAlpha)}\"",
+            )
+            appendLine(
+                "        android:strokeColor=\"${xmlPaint(path.stroke)}\"",
+            )
+            appendLine(
+                "        android:strokeAlpha=\"${formatter.format(path.strokeAlpha)}\"",
+            )
+            appendLine(
+                "        android:strokeWidth=\"${formatter.format(path.strokeWidth)}\"",
+            )
+            appendLine(
+                "        android:strokeLineCap=\"${path.strokeCap.xmlValue()}\"",
+            )
+            appendLine(
+                "        android:strokeLineJoin=\"${path.strokeJoin.xmlValue()}\"",
+            )
+            appendLine(
+                "        android:strokeMiterLimit=\"" +
+                    "${formatter.format(path.strokeMiterLimit)}\"",
+            )
+            appendLine(
+                "        android:fillType=\"${path.fillRule.xmlValue()}\"",
+            )
+            appendLine(
+                "        android:pathData=\"${pathData(path.commands, formatter)}\" />",
+            )
+        }
+        appendLine("</vector>")
+    }
+
+    private fun xmlPaint(painted: Boolean): String =
+        if (painted) options.fillColor else "#00000000"
 }
 
 /**
@@ -308,8 +548,8 @@ public class AndroidVectorXmlRenderer(
  * Build integrations can put this tiny output in its own cacheable task while
  * each expensive font extraction task owns only its style-specific builders.
  */
-public class KotlinIconNamespaceRenderer {
-    public fun render(
+class KotlinIconNamespaceRenderer {
+    fun render(
         packageName: String,
         iconSetName: String,
         styleNames: Collection<String>,
@@ -331,10 +571,10 @@ public class KotlinIconNamespaceRenderer {
             appendLine("package $packageName")
             appendLine()
             appendLine("/** Generated icon namespace. */")
-            appendLine("public object $iconSetName {")
+            appendLine("object $iconSetName {")
             sortedStyles.forEach { styleName ->
                 appendLine("    /** $styleName icons. */")
-                appendLine("    public object $styleName")
+                appendLine("    object $styleName")
                 appendLine()
             }
             if (endsWith("\n\n")) {
@@ -367,8 +607,13 @@ internal class NumberFormatter(
 internal fun pathData(
     outline: GlyphOutline,
     formatter: NumberFormatter,
+): String = pathData(outline.commands, formatter)
+
+internal fun pathData(
+    commands: List<VectorCommand>,
+    formatter: NumberFormatter,
 ): String = buildString {
-    outline.commands.forEachIndexed { index, command ->
+    commands.forEachIndexed { index, command ->
         if (index > 0) {
             append(' ')
         }
@@ -412,6 +657,15 @@ internal fun pathData(
             VectorCommand.Close -> append('Z')
         }
     }
+}
+
+private fun VectorStrokeCap.xmlValue(): String = name.lowercase()
+
+private fun VectorStrokeJoin.xmlValue(): String = name.lowercase()
+
+private fun VectorFillRule.xmlValue(): String = when (this) {
+    VectorFillRule.NonZero -> "nonZero"
+    VectorFillRule.EvenOdd -> "evenOdd"
 }
 
 private fun argbHex(color: String): String =

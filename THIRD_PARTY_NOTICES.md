@@ -144,8 +144,18 @@ third-party material; no brand icons are included.
 - Distribution: official [`@tabler/icons-webfont` 3.46.0](https://www.npmjs.com/package/@tabler/icons-webfont/v/3.46.0) package
 - License: MIT, retained beside both sample font families
 
-The binaries and manifests are retained as pinned generator and provenance
-fixtures; no current launcher module depends on them.
+The complete binaries and manifests are retained as pinned generator and
+provenance fixtures; the launcher does not depend on those complete catalogs.
+The image-vector migration sample instead vendors three unchanged outline SVGs
+from the same `v3.46.0` revision under
+`samples/image-vector-migration/src/commonMain/svg/tabler`, with the MIT license
+retained beside them:
+
+| SVG | SHA-256 |
+| --- | --- |
+| `hierarchy-2.svg` | `726ca4eff818363a5679cdb0571af7988040162b123761b2443a66dce2c3fde6` |
+| `home.svg` | `6edebd7f9ac62a73e882f1bad7a4816fd4799e29bab2b27cf626b0f1708a9a20` |
+| `settings.svg` | `d71136dfd83ad19efe1777d01768a5d23d7b295de5dde3b1fccc50806809a423` |
 
 `fonts/samples/tabler-icons-filled/composeResources/font/tabler_icons_filled.ttf`
 is the unmodified
@@ -170,8 +180,10 @@ They are stored under `composeResources/font` as `tabler_icons_outline_1.ttf`,
 The outline manifest contains all 5,193 CSS names for 5,130 encoded glyphs,
 normalized with the same rules as the filled manifest.
 These fonts have no OpenType variation axis. Tabler's website changes the
-`stroke-width` of inline SVG paths instead, so selectable font strokes require
-the separate binaries above.
+`stroke-width` of inline SVG paths instead, so each font binary keeps one fixed
+stroke. The focused SVG sample preserves the authored 2 px width in generated
+XML and lets the Compose painter scale it through the existing theme `wght`
+setting without modifying the upstream SVG files.
 
 ## Powerline Symbols custom sample
 

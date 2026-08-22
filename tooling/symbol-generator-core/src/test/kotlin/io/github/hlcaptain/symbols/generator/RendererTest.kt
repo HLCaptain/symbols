@@ -20,8 +20,8 @@ class RendererTest {
         assertEquals(first, second)
         assertEquals(3, first.files.size)
         val sources = first.files.values.joinToString("\n")
-        assertTrue("public object AppIcons" in sources)
-        assertTrue("public object Rounded" in sources)
+        assertTrue("object AppIcons" in sources)
+        assertTrue("object Rounded" in sources)
         assertTrue("AppIcons.Rounded.Grade" in sources)
         assertTrue("AppIcons.Rounded.Star" in sources)
         assertTrue("get() = appIconsRoundedUF09A()" in sources)
@@ -34,6 +34,7 @@ class RendererTest {
         assertFalse("IntArray" in sources)
         assertFalse("allIcons" in sources)
         assertFalse("when (index" in sources)
+        assertFalse(Regex("\\bpublic\\b").containsMatchIn(sources))
     }
 
     @Test
@@ -74,6 +75,44 @@ class RendererTest {
         assertTrue("android:autoMirrored=\"true\"" in star)
         assertTrue("android:pathData=\"M 0,0 L 4,0 Q 4,2 8,0 C 9,1 11,3 12,4 Z\"" in star)
         assertFalse("-0" in star)
+    }
+
+    @Test
+    fun svgOutputRetainsStyledPathsAndUsesSemanticResourceNames() {
+        val iconSet = testSvgIconSet()
+        val kotlin = KotlinImageVectorRenderer(
+            VectorRenderOptions(fillColor = "#FF123456"),
+        ).render(iconSet)
+        val sources = kotlin.files.values.joinToString("\n")
+
+        assertTrue("Tabler.Outline.Home" in sources)
+        assertTrue("name = \"Tabler.Outline.Home\"" in sources)
+        assertTrue("name = \"path_0\"" in sources)
+        assertTrue("fill = null" in sources)
+        assertTrue("stroke = SolidColor(Color(0xFF123456.toInt()))" in sources)
+        assertTrue("strokeLineWidth = 2f" in sources)
+        assertTrue("strokeLineCap = StrokeCap.Round" in sources)
+        assertTrue("pathFillType = PathFillType.EvenOdd" in sources)
+
+        val android = AndroidVectorXmlRenderer(
+            options = VectorRenderOptions(fillColor = "#FF123456"),
+            resourcePrefix = "tabler",
+        ).render(iconSet)
+        assertEquals(
+            "tabler_outline_home",
+            android.resourceNames.getValue(
+                SvgAndroidResourceKey("Outline", "home"),
+            ),
+        )
+        val xml = android.files.files.getValue(
+            "drawable/tabler_outline_home.xml",
+        )
+        assertTrue("android:name=\"path_0\"" in xml)
+        assertTrue("android:fillColor=\"#00000000\"" in xml)
+        assertTrue("android:strokeColor=\"#FF123456\"" in xml)
+        assertTrue("android:strokeLineJoin=\"round\"" in xml)
+        assertTrue("android:fillType=\"evenOdd\"" in xml)
+        assertFalse("_u" in android.files.files.keys.single())
     }
 
     @Test
@@ -194,4 +233,34 @@ class RendererTest {
             ),
         )
     }
+
+    private fun testSvgIconSet(): GeneratedSvgIconSet = GeneratedSvgIconSet(
+        packageName = "com.example.icons",
+        name = "Tabler",
+        styles = listOf(
+            GeneratedSvgStyle(
+                name = "Outline",
+                icons = listOf(
+                    SvgIcon(
+                        name = "home",
+                        paths = listOf(
+                            StyledVectorPath(
+                                commands = listOf(
+                                    VectorCommand.MoveTo(VectorPoint(2f, 12f)),
+                                    VectorCommand.LineTo(VectorPoint(12f, 2f)),
+                                    VectorCommand.LineTo(VectorPoint(22f, 12f)),
+                                ),
+                                fill = false,
+                                stroke = true,
+                                strokeWidth = 2f,
+                                strokeCap = VectorStrokeCap.Round,
+                                strokeJoin = VectorStrokeJoin.Round,
+                                fillRule = VectorFillRule.EvenOdd,
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        ),
+    )
 }

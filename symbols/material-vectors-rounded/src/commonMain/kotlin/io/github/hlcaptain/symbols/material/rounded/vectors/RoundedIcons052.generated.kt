@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
 import io.github.hlcaptain.symbols.material.Icons
 
-public val Icons.Rounded.StepOver: ImageVector
+val Icons.Rounded.StepOver: ImageVector
     get() = RoundedVectorF6FF.value(autoMirror = false)
 
 private object RoundedVectorF6FF {
@@ -23,7 +23,7 @@ private object RoundedVectorF6FF {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -79,7 +79,7 @@ private object RoundedVectorF6FF {
     }
 }
 
-public val Icons.Rounded.StepOut: ImageVector
+val Icons.Rounded.StepOut: ImageVector
     get() = RoundedVectorF700.value(autoMirror = false)
 
 private object RoundedVectorF700 {
@@ -91,7 +91,7 @@ private object RoundedVectorF700 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -141,7 +141,7 @@ private object RoundedVectorF700 {
     }
 }
 
-public val Icons.Rounded.StepInto: ImageVector
+val Icons.Rounded.StepInto: ImageVector
     get() = RoundedVectorF701.value(autoMirror = false)
 
 private object RoundedVectorF701 {
@@ -153,7 +153,7 @@ private object RoundedVectorF701 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -203,7 +203,7 @@ private object RoundedVectorF701 {
     }
 }
 
-public val Icons.Rounded.ShelfPosition: ImageVector
+val Icons.Rounded.ShelfPosition: ImageVector
     get() = RoundedVectorF702.value(autoMirror = false)
 
 private object RoundedVectorF702 {
@@ -215,7 +215,7 @@ private object RoundedVectorF702 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -275,7 +275,7 @@ private object RoundedVectorF702 {
     }
 }
 
-public val Icons.Rounded.ShelfAutoHide: ImageVector
+val Icons.Rounded.ShelfAutoHide: ImageVector
     get() = RoundedVectorF703.value(autoMirror = false)
 
 private object RoundedVectorF703 {
@@ -287,7 +287,7 @@ private object RoundedVectorF703 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -375,7 +375,7 @@ private object RoundedVectorF703 {
     }
 }
 
-public val Icons.Rounded.RightPanelOpen: ImageVector
+val Icons.Rounded.RightPanelOpen: ImageVector
     get() = RoundedVectorF704.value(autoMirror = false)
 
 private object RoundedVectorF704 {
@@ -387,7 +387,7 @@ private object RoundedVectorF704 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -456,7 +456,7 @@ private object RoundedVectorF704 {
     }
 }
 
-public val Icons.Rounded.RightPanelClose: ImageVector
+val Icons.Rounded.RightPanelClose: ImageVector
     get() = RoundedVectorF705.value(autoMirror = false)
 
 private object RoundedVectorF705 {
@@ -468,7 +468,7 @@ private object RoundedVectorF705 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -536,7 +536,7 @@ private object RoundedVectorF705 {
     }
 }
 
-public val Icons.Rounded.RightClick: ImageVector
+val Icons.Rounded.RightClick: ImageVector
     get() = RoundedVectorF706.value(autoMirror = false)
 
 private object RoundedVectorF706 {
@@ -548,7 +548,7 @@ private object RoundedVectorF706 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -606,7 +606,7 @@ private object RoundedVectorF706 {
     }
 }
 
-public val Icons.Rounded.Resize: ImageVector
+val Icons.Rounded.Resize: ImageVector
     get() = RoundedVectorF707.value(autoMirror = false)
 
 private object RoundedVectorF707 {
@@ -618,7 +618,7 @@ private object RoundedVectorF707 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -773,7 +773,7 @@ private object RoundedVectorF707 {
     }
 }
 
-public val Icons.Rounded.ReopenWindow: ImageVector
+val Icons.Rounded.ReopenWindow: ImageVector
     get() = RoundedVectorF708.value(autoMirror = false)
 
 private object RoundedVectorF708 {
@@ -785,7 +785,7 @@ private object RoundedVectorF708 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -865,7 +865,7 @@ private object RoundedVectorF708 {
     }
 }
 
-public val Icons.Rounded.PositionTopRight: ImageVector
+val Icons.Rounded.PositionTopRight: ImageVector
     get() = RoundedVectorF709.value(autoMirror = false)
 
 private object RoundedVectorF709 {
@@ -877,7 +877,7 @@ private object RoundedVectorF709 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -947,7 +947,7 @@ private object RoundedVectorF709 {
     }
 }
 
-public val Icons.Rounded.PositionBottomRight: ImageVector
+val Icons.Rounded.PositionBottomRight: ImageVector
     get() = RoundedVectorF70A.value(autoMirror = false)
 
 private object RoundedVectorF70A {
@@ -959,7 +959,7 @@ private object RoundedVectorF70A {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1029,7 +1029,7 @@ private object RoundedVectorF70A {
     }
 }
 
-public val Icons.Rounded.PositionBottomLeft: ImageVector
+val Icons.Rounded.PositionBottomLeft: ImageVector
     get() = RoundedVectorF70B.value(autoMirror = false)
 
 private object RoundedVectorF70B {
@@ -1041,7 +1041,7 @@ private object RoundedVectorF70B {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1111,7 +1111,7 @@ private object RoundedVectorF70B {
     }
 }
 
-public val Icons.Rounded.PointScan: ImageVector
+val Icons.Rounded.PointScan: ImageVector
     get() = RoundedVectorF70C.value(autoMirror = false)
 
 private object RoundedVectorF70C {
@@ -1123,7 +1123,7 @@ private object RoundedVectorF70C {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1200,7 +1200,7 @@ private object RoundedVectorF70C {
     }
 }
 
-public val Icons.Rounded.PipExit: ImageVector
+val Icons.Rounded.PipExit: ImageVector
     get() = RoundedVectorF70D.value(autoMirror = false)
 
 private object RoundedVectorF70D {
@@ -1212,7 +1212,7 @@ private object RoundedVectorF70D {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1304,7 +1304,7 @@ private object RoundedVectorF70D {
     }
 }
 
-public val Icons.Rounded.OutputCircle: ImageVector
+val Icons.Rounded.OutputCircle: ImageVector
     get() = RoundedVectorF70E.value(autoMirror = false)
 
 private object RoundedVectorF70E {
@@ -1316,7 +1316,7 @@ private object RoundedVectorF70E {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1386,7 +1386,7 @@ private object RoundedVectorF70E {
     }
 }
 
-public val Icons.Rounded.OpenInNewDown: ImageVector
+val Icons.Rounded.OpenInNewDown: ImageVector
     get() = RoundedVectorF70F.value(autoMirror = false)
 
 private object RoundedVectorF70F {
@@ -1398,7 +1398,7 @@ private object RoundedVectorF70F {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1467,7 +1467,7 @@ private object RoundedVectorF70F {
     }
 }
 
-public val Icons.Rounded.NewWindow: ImageVector
+val Icons.Rounded.NewWindow: ImageVector
     get() = RoundedVectorF710.value(autoMirror = false)
 
 private object RoundedVectorF710 {
@@ -1479,7 +1479,7 @@ private object RoundedVectorF710 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1552,7 +1552,7 @@ private object RoundedVectorF710 {
     }
 }
 
-public val Icons.Rounded.MoveSelectionUp: ImageVector
+val Icons.Rounded.MoveSelectionUp: ImageVector
     get() = RoundedVectorF711.value(autoMirror = false)
 
 private object RoundedVectorF711 {
@@ -1564,7 +1564,7 @@ private object RoundedVectorF711 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1670,7 +1670,7 @@ private object RoundedVectorF711 {
     }
 }
 
-public val Icons.Rounded.MoveSelectionRight: ImageVector
+val Icons.Rounded.MoveSelectionRight: ImageVector
     get() = RoundedVectorF712.value(autoMirror = false)
 
 private object RoundedVectorF712 {
@@ -1682,7 +1682,7 @@ private object RoundedVectorF712 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1788,7 +1788,7 @@ private object RoundedVectorF712 {
     }
 }
 
-public val Icons.Rounded.MoveSelectionLeft: ImageVector
+val Icons.Rounded.MoveSelectionLeft: ImageVector
     get() = RoundedVectorF713.value(autoMirror = false)
 
 private object RoundedVectorF713 {
@@ -1800,7 +1800,7 @@ private object RoundedVectorF713 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -1906,7 +1906,7 @@ private object RoundedVectorF713 {
     }
 }
 
-public val Icons.Rounded.MoveSelectionDown: ImageVector
+val Icons.Rounded.MoveSelectionDown: ImageVector
     get() = RoundedVectorF714.value(autoMirror = false)
 
 private object RoundedVectorF714 {
@@ -1918,7 +1918,7 @@ private object RoundedVectorF714 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2024,7 +2024,7 @@ private object RoundedVectorF714 {
     }
 }
 
-public val Icons.Rounded.MoveGroup: ImageVector
+val Icons.Rounded.MoveGroup: ImageVector
     get() = RoundedVectorF715.value(autoMirror = false)
 
 private object RoundedVectorF715 {
@@ -2036,7 +2036,7 @@ private object RoundedVectorF715 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2124,7 +2124,7 @@ private object RoundedVectorF715 {
     }
 }
 
-public val Icons.Rounded.LeftPanelOpen: ImageVector
+val Icons.Rounded.LeftPanelOpen: ImageVector
     get() = RoundedVectorF716.value(autoMirror = false)
 
 private object RoundedVectorF716 {
@@ -2136,7 +2136,7 @@ private object RoundedVectorF716 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2205,7 +2205,7 @@ private object RoundedVectorF716 {
     }
 }
 
-public val Icons.Rounded.LeftPanelClose: ImageVector
+val Icons.Rounded.LeftPanelClose: ImageVector
     get() = RoundedVectorF717.value(autoMirror = false)
 
 private object RoundedVectorF717 {
@@ -2217,7 +2217,7 @@ private object RoundedVectorF717 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2286,7 +2286,7 @@ private object RoundedVectorF717 {
     }
 }
 
-public val Icons.Rounded.LeftClick: ImageVector
+val Icons.Rounded.LeftClick: ImageVector
     get() = RoundedVectorF718.value(autoMirror = false)
 
 private object RoundedVectorF718 {
@@ -2298,7 +2298,7 @@ private object RoundedVectorF718 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2357,7 +2357,7 @@ private object RoundedVectorF718 {
     }
 }
 
-public val Icons.Rounded.JumpToElement: ImageVector
+val Icons.Rounded.JumpToElement: ImageVector
     get() = RoundedVectorF719.value(autoMirror = false)
 
 private object RoundedVectorF719 {
@@ -2369,7 +2369,7 @@ private object RoundedVectorF719 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2469,7 +2469,7 @@ private object RoundedVectorF719 {
     }
 }
 
-public val Icons.Rounded.InputCircle: ImageVector
+val Icons.Rounded.InputCircle: ImageVector
     get() = RoundedVectorF71A.value(autoMirror = false)
 
 private object RoundedVectorF71A {
@@ -2481,7 +2481,7 @@ private object RoundedVectorF71A {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2551,7 +2551,7 @@ private object RoundedVectorF71A {
     }
 }
 
-public val Icons.Rounded.Iframe: ImageVector
+val Icons.Rounded.Iframe: ImageVector
     get() = RoundedVectorF71B.value(autoMirror = false)
 
 private object RoundedVectorF71B {
@@ -2563,7 +2563,7 @@ private object RoundedVectorF71B {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2623,7 +2623,7 @@ private object RoundedVectorF71B {
     }
 }
 
-public val Icons.Rounded.IframeOff: ImageVector
+val Icons.Rounded.IframeOff: ImageVector
     get() = RoundedVectorF71C.value(autoMirror = false)
 
 private object RoundedVectorF71C {
@@ -2635,7 +2635,7 @@ private object RoundedVectorF71C {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2716,7 +2716,7 @@ private object RoundedVectorF71C {
     }
 }
 
-public val Icons.Rounded.GoToLine: ImageVector
+val Icons.Rounded.GoToLine: ImageVector
     get() = RoundedVectorF71D.value(autoMirror = false)
 
 private object RoundedVectorF71D {
@@ -2728,7 +2728,7 @@ private object RoundedVectorF71D {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2767,7 +2767,7 @@ private object RoundedVectorF71D {
     }
 }
 
-public val Icons.Rounded.DragPan: ImageVector
+val Icons.Rounded.DragPan: ImageVector
     get() = RoundedVectorF71E.value(autoMirror = false)
 
 private object RoundedVectorF71E {
@@ -2779,7 +2779,7 @@ private object RoundedVectorF71E {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2871,7 +2871,7 @@ private object RoundedVectorF71E {
     }
 }
 
-public val Icons.Rounded.DragClick: ImageVector
+val Icons.Rounded.DragClick: ImageVector
     get() = RoundedVectorF71F.value(autoMirror = false)
 
 private object RoundedVectorF71F {
@@ -2883,7 +2883,7 @@ private object RoundedVectorF71F {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -2968,7 +2968,7 @@ private object RoundedVectorF71F {
     }
 }
 
-public val Icons.Rounded.DeployedCode: ImageVector
+val Icons.Rounded.DeployedCode: ImageVector
     get() = RoundedVectorF720.value(autoMirror = false)
 
 private object RoundedVectorF720 {
@@ -2980,7 +2980,7 @@ private object RoundedVectorF720 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3053,7 +3053,7 @@ private object RoundedVectorF720 {
     }
 }
 
-public val Icons.Rounded.ClockLoader90: ImageVector
+val Icons.Rounded.ClockLoader90: ImageVector
     get() = RoundedVectorF721.value(autoMirror = false)
 
 private object RoundedVectorF721 {
@@ -3065,7 +3065,7 @@ private object RoundedVectorF721 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3108,7 +3108,7 @@ private object RoundedVectorF721 {
     }
 }
 
-public val Icons.Rounded.ClockLoader80: ImageVector
+val Icons.Rounded.ClockLoader80: ImageVector
     get() = RoundedVectorF722.value(autoMirror = false)
 
 private object RoundedVectorF722 {
@@ -3120,7 +3120,7 @@ private object RoundedVectorF722 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3163,7 +3163,7 @@ private object RoundedVectorF722 {
     }
 }
 
-public val Icons.Rounded.ClockLoader60: ImageVector
+val Icons.Rounded.ClockLoader60: ImageVector
     get() = RoundedVectorF723.value(autoMirror = false)
 
 private object RoundedVectorF723 {
@@ -3175,7 +3175,7 @@ private object RoundedVectorF723 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3220,7 +3220,7 @@ private object RoundedVectorF723 {
     }
 }
 
-public val Icons.Rounded.ClockLoader40: ImageVector
+val Icons.Rounded.ClockLoader40: ImageVector
     get() = RoundedVectorF724.value(autoMirror = false)
 
 private object RoundedVectorF724 {
@@ -3232,7 +3232,7 @@ private object RoundedVectorF724 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3279,7 +3279,7 @@ private object RoundedVectorF724 {
     }
 }
 
-public val Icons.Rounded.ClockLoader20: ImageVector
+val Icons.Rounded.ClockLoader20: ImageVector
     get() = RoundedVectorF725.value(autoMirror = false)
 
 private object RoundedVectorF725 {
@@ -3291,7 +3291,7 @@ private object RoundedVectorF725 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3338,7 +3338,7 @@ private object RoundedVectorF725 {
     }
 }
 
-public val Icons.Rounded.ClockLoader10: ImageVector
+val Icons.Rounded.ClockLoader10: ImageVector
     get() = RoundedVectorF726.value(autoMirror = false)
 
 private object RoundedVectorF726 {
@@ -3350,7 +3350,7 @@ private object RoundedVectorF726 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3399,7 +3399,7 @@ private object RoundedVectorF726 {
     }
 }
 
-public val Icons.Rounded.Capture: ImageVector
+val Icons.Rounded.Capture: ImageVector
     get() = RoundedVectorF727.value(autoMirror = false)
 
 private object RoundedVectorF727 {
@@ -3411,7 +3411,7 @@ private object RoundedVectorF727 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3483,7 +3483,7 @@ private object RoundedVectorF727 {
     }
 }
 
-public val Icons.Rounded.CaptivePortal: ImageVector
+val Icons.Rounded.CaptivePortal: ImageVector
     get() = RoundedVectorF728.value(autoMirror = false)
 
 private object RoundedVectorF728 {
@@ -3495,7 +3495,7 @@ private object RoundedVectorF728 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3633,7 +3633,7 @@ private object RoundedVectorF728 {
     }
 }
 
-public val Icons.Rounded.BottomPanelOpen: ImageVector
+val Icons.Rounded.BottomPanelOpen: ImageVector
     get() = RoundedVectorF729.value(autoMirror = false)
 
 private object RoundedVectorF729 {
@@ -3645,7 +3645,7 @@ private object RoundedVectorF729 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3714,7 +3714,7 @@ private object RoundedVectorF729 {
     }
 }
 
-public val Icons.Rounded.BottomPanelClose: ImageVector
+val Icons.Rounded.BottomPanelClose: ImageVector
     get() = RoundedVectorF72A.value(autoMirror = false)
 
 private object RoundedVectorF72A {
@@ -3726,7 +3726,7 @@ private object RoundedVectorF72A {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3795,7 +3795,7 @@ private object RoundedVectorF72A {
     }
 }
 
-public val Icons.Rounded.BackToTab: ImageVector
+val Icons.Rounded.BackToTab: ImageVector
     get() = RoundedVectorF72B.value(autoMirror = false)
 
 private object RoundedVectorF72B {
@@ -3807,7 +3807,7 @@ private object RoundedVectorF72B {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3895,7 +3895,7 @@ private object RoundedVectorF72B {
     }
 }
 
-public val Icons.Rounded.ArrowsOutward: ImageVector
+val Icons.Rounded.ArrowsOutward: ImageVector
     get() = RoundedVectorF72C.value(autoMirror = false)
 
 private object RoundedVectorF72C {
@@ -3907,7 +3907,7 @@ private object RoundedVectorF72C {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -3966,7 +3966,7 @@ private object RoundedVectorF72C {
     }
 }
 
-public val Icons.Rounded.ArrowTopRight: ImageVector
+val Icons.Rounded.ArrowTopRight: ImageVector
     get() = RoundedVectorF72D.value(autoMirror = false)
 
 private object RoundedVectorF72D {
@@ -3978,7 +3978,7 @@ private object RoundedVectorF72D {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -4026,7 +4026,7 @@ private object RoundedVectorF72D {
     }
 }
 
-public val Icons.Rounded.ArrowTopLeft: ImageVector
+val Icons.Rounded.ArrowTopLeft: ImageVector
     get() = RoundedVectorF72E.value(autoMirror = false)
 
 private object RoundedVectorF72E {
@@ -4038,7 +4038,7 @@ private object RoundedVectorF72E {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -4086,7 +4086,7 @@ private object RoundedVectorF72E {
     }
 }
 
-public val Icons.Rounded.AppBadging: ImageVector
+val Icons.Rounded.AppBadging: ImageVector
     get() = RoundedVectorF72F.value(autoMirror = false)
 
 private object RoundedVectorF72F {
@@ -4098,7 +4098,7 @@ private object RoundedVectorF72F {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -4177,7 +4177,7 @@ private object RoundedVectorF72F {
     }
 }
 
-public val Icons.Rounded.Width: ImageVector
+val Icons.Rounded.Width: ImageVector
     get() = RoundedVectorF730.value(autoMirror = false)
 
 private object RoundedVectorF730 {
@@ -4189,7 +4189,7 @@ private object RoundedVectorF730 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -4243,7 +4243,7 @@ private object RoundedVectorF730 {
     }
 }
 
-public val Icons.Rounded.Ungroup: ImageVector
+val Icons.Rounded.Ungroup: ImageVector
     get() = RoundedVectorF731.value(autoMirror = false)
 
 private object RoundedVectorF731 {
@@ -4255,7 +4255,7 @@ private object RoundedVectorF731 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -4329,7 +4329,7 @@ private object RoundedVectorF731 {
     }
 }
 
-public val Icons.Rounded.TopPanelOpen: ImageVector
+val Icons.Rounded.TopPanelOpen: ImageVector
     get() = RoundedVectorF732.value(autoMirror = false)
 
 private object RoundedVectorF732 {
@@ -4341,7 +4341,7 @@ private object RoundedVectorF732 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -4410,7 +4410,7 @@ private object RoundedVectorF732 {
     }
 }
 
-public val Icons.Rounded.TopPanelClose: ImageVector
+val Icons.Rounded.TopPanelClose: ImageVector
     get() = RoundedVectorF733.value(autoMirror = false)
 
 private object RoundedVectorF733 {
@@ -4422,7 +4422,7 @@ private object RoundedVectorF733 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -4491,7 +4491,7 @@ private object RoundedVectorF733 {
     }
 }
 
-public val Icons.Rounded.ThumbnailBar: ImageVector
+val Icons.Rounded.ThumbnailBar: ImageVector
     get() = RoundedVectorF734.value(autoMirror = false)
 
 private object RoundedVectorF734 {
@@ -4503,7 +4503,7 @@ private object RoundedVectorF734 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -4571,7 +4571,7 @@ private object RoundedVectorF734 {
     }
 }
 
-public val Icons.Rounded.TextSelectStart: ImageVector
+val Icons.Rounded.TextSelectStart: ImageVector
     get() = RoundedVectorF735.value(autoMirror = false)
 
 private object RoundedVectorF735 {
@@ -4583,7 +4583,7 @@ private object RoundedVectorF735 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -4717,7 +4717,7 @@ private object RoundedVectorF735 {
     }
 }
 
-public val Icons.Rounded.TextSelectMoveUp: ImageVector
+val Icons.Rounded.TextSelectMoveUp: ImageVector
     get() = RoundedVectorF736.value(autoMirror = false)
 
 private object RoundedVectorF736 {
@@ -4729,7 +4729,7 @@ private object RoundedVectorF736 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -4793,7 +4793,7 @@ private object RoundedVectorF736 {
     }
 }
 
-public val Icons.Rounded.TextSelectMoveForwardWord: ImageVector
+val Icons.Rounded.TextSelectMoveForwardWord: ImageVector
     get() = RoundedVectorF737.value(autoMirror = false)
 
 private object RoundedVectorF737 {
@@ -4805,7 +4805,7 @@ private object RoundedVectorF737 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -4944,7 +4944,7 @@ private object RoundedVectorF737 {
     }
 }
 
-public val Icons.Rounded.TextSelectMoveForwardCharacter: ImageVector
+val Icons.Rounded.TextSelectMoveForwardCharacter: ImageVector
     get() = RoundedVectorF738.value(autoMirror = false)
 
 private object RoundedVectorF738 {
@@ -4956,7 +4956,7 @@ private object RoundedVectorF738 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -5081,7 +5081,7 @@ private object RoundedVectorF738 {
     }
 }
 
-public val Icons.Rounded.TextSelectMoveDown: ImageVector
+val Icons.Rounded.TextSelectMoveDown: ImageVector
     get() = RoundedVectorF739.value(autoMirror = false)
 
 private object RoundedVectorF739 {
@@ -5093,7 +5093,7 @@ private object RoundedVectorF739 {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -5156,7 +5156,7 @@ private object RoundedVectorF739 {
     }
 }
 
-public val Icons.Rounded.TextSelectMoveBackWord: ImageVector
+val Icons.Rounded.TextSelectMoveBackWord: ImageVector
     get() = RoundedVectorF73A.value(autoMirror = false)
 
 private object RoundedVectorF73A {
@@ -5168,7 +5168,7 @@ private object RoundedVectorF73A {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -5306,7 +5306,7 @@ private object RoundedVectorF73A {
     }
 }
 
-public val Icons.Rounded.TextSelectMoveBackCharacter: ImageVector
+val Icons.Rounded.TextSelectMoveBackCharacter: ImageVector
     get() = RoundedVectorF73B.value(autoMirror = false)
 
 private object RoundedVectorF73B {
@@ -5318,7 +5318,7 @@ private object RoundedVectorF73B {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -5443,7 +5443,7 @@ private object RoundedVectorF73B {
     }
 }
 
-public val Icons.Rounded.TextSelectJumpToEnd: ImageVector
+val Icons.Rounded.TextSelectJumpToEnd: ImageVector
     get() = RoundedVectorF73C.value(autoMirror = false)
 
 private object RoundedVectorF73C {
@@ -5455,7 +5455,7 @@ private object RoundedVectorF73C {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -5587,7 +5587,7 @@ private object RoundedVectorF73C {
     }
 }
 
-public val Icons.Rounded.TextSelectJumpToBeginning: ImageVector
+val Icons.Rounded.TextSelectJumpToBeginning: ImageVector
     get() = RoundedVectorF73D.value(autoMirror = false)
 
 private object RoundedVectorF73D {
@@ -5599,7 +5599,7 @@ private object RoundedVectorF73D {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {
@@ -5731,7 +5731,7 @@ private object RoundedVectorF73D {
     }
 }
 
-public val Icons.Rounded.TextSelectEnd: ImageVector
+val Icons.Rounded.TextSelectEnd: ImageVector
     get() = RoundedVectorF73E.value(autoMirror = false)
 
 private object RoundedVectorF73E {
@@ -5743,7 +5743,7 @@ private object RoundedVectorF73E {
         build(autoMirror = true)
     }
 
-    public fun value(autoMirror: Boolean): ImageVector =
+    fun value(autoMirror: Boolean): ImageVector =
         if (autoMirror) autoMirrored else default
 
     private fun build(autoMirror: Boolean): ImageVector {

@@ -4,13 +4,13 @@ import java.io.PrintStream
 import java.nio.file.Path
 import kotlin.system.exitProcess
 
-public fun main(arguments: Array<String>) {
+fun main(arguments: Array<String>) {
     exitProcess(SymbolGeneratorCli.run(arguments))
 }
 
 /** Small deterministic CLI intended for Gradle Worker and maintainer use. */
-public object SymbolGeneratorCli {
-    public fun run(
+object SymbolGeneratorCli {
+    fun run(
         arguments: Array<String>,
         standardOut: PrintStream = System.out,
         standardError: PrintStream = System.err,
@@ -35,15 +35,6 @@ public object SymbolGeneratorCli {
     }
 
     private fun generate(options: CliOptions, standardOut: PrintStream) {
-        val fullCatalog = SymbolManifestParser.parse(options.manifest)
-        val catalog = selectCatalog(fullCatalog, options)
-        val transform = OutlineTransform(
-            viewportWidth = options.viewportWidth,
-            viewportHeight = options.viewportHeight,
-            emSize = options.emSize,
-            originX = options.originX,
-            baselineY = options.baselineY,
-        )
         val renderOptions = VectorRenderOptions(
             viewportWidth = options.viewportWidth,
             viewportHeight = options.viewportHeight,
@@ -55,88 +46,124 @@ public object SymbolGeneratorCli {
             fillColor = options.fillColor,
         )
         val generator = SymbolGenerator()
-        val extracted = generator.extract(
-            catalog = catalog,
-            request = FontExtractionRequest(
-                fontFile = options.font,
-                codePoints = catalog.uniqueCodePoints,
-                fontIndex = options.fontIndex,
-                axes = options.axes,
-                transform = transform,
-                conicTolerance = options.conicTolerance,
-            ),
-        )
-        val iconSet = GeneratedIconSet(
-            packageName = options.packageName,
-            name = options.setName,
-            styles = listOf(
-                GeneratedStyle(
-                    name = options.styleName,
-                    catalog = catalog,
-                    font = extracted,
+        val rendered = if (options.svgDirectory != null) {
+            val icons = generator.extract(
+                SvgExtractionRequest(
+                    svgDirectory = options.svgDirectory,
+                    viewportWidth = options.viewportWidth,
+                    viewportHeight = options.viewportHeight,
+                    conicTolerance = options.conicTolerance,
                 ),
-            ),
-        )
-
-        val nativeVectors = if (
-            options.androidOutput != null ||
-            options.composeOutput != null
-        ) {
-            generator.androidVectors(
-                iconSet = iconSet,
-                resourcePrefix = options.resourcePrefix,
-                options = renderOptions,
+            )
+            val iconSet = GeneratedSvgIconSet(
+                packageName = options.packageName,
+                name = options.setName,
+                styles = listOf(GeneratedSvgStyle(options.styleName, icons)),
+            )
+            GenerationResult(
+                imageVectors = options.kotlinOutput?.let {
+                    generator.imageVectors(
+                        iconSet,
+                        renderOptions,
+                        includeNamespace = !options.omitKotlinNamespace,
+                    )
+                },
+                nativeVectors = if (
+                    options.androidOutput != null ||
+                    options.composeOutput != null
+                ) {
+                    generator.androidVectors(
+                        iconSet,
+                        options.resourcePrefix,
+                        renderOptions,
+                    ).files
+                } else {
+                    null
+                },
+                summary = "Generated ${icons.size} SVG icons",
             )
         } else {
-            null
+            val manifest = requireNotNull(options.manifest)
+            val font = requireNotNull(options.font)
+            val catalog = SymbolManifestParser.parse(manifest)
+            val extracted = generator.extract(
+                catalog = catalog,
+                request = FontExtractionRequest(
+                    fontFile = font,
+                    codePoints = catalog.uniqueCodePoints,
+                    fontIndex = options.fontIndex,
+                    axes = options.axes,
+                    transform = OutlineTransform(
+                        viewportWidth = options.viewportWidth,
+                        viewportHeight = options.viewportHeight,
+                        emSize = options.emSize,
+                        originX = options.originX,
+                        baselineY = options.baselineY,
+                    ),
+                    conicTolerance = options.conicTolerance,
+                ),
+            )
+            val iconSet = GeneratedIconSet(
+                packageName = options.packageName,
+                name = options.setName,
+                styles = listOf(
+                    GeneratedStyle(
+                        name = options.styleName,
+                        catalog = catalog,
+                        font = extracted,
+                    ),
+                ),
+            )
+            GenerationResult(
+                imageVectors = options.kotlinOutput?.let {
+                    generator.imageVectors(
+                        iconSet,
+                        renderOptions,
+                        includeNamespace = !options.omitKotlinNamespace,
+                    )
+                },
+                nativeVectors = if (
+                    options.androidOutput != null ||
+                    options.composeOutput != null
+                ) {
+                    generator.androidVectors(
+                        iconSet,
+                        options.resourcePrefix,
+                        renderOptions,
+                    ).files
+                } else {
+                    null
+                },
+                summary =
+                    "Generated ${catalog.entries.size} names / " +
+                        "${catalog.uniqueCodePoints.size} code points from " +
+                        extracted.familyName,
+            )
         }
         val summaries = buildList {
             options.kotlinOutput?.let { output ->
                 val result = GeneratedFileWriter.synchronize(
                     output,
-                    generator.imageVectors(
-                        iconSet = iconSet,
-                        options = renderOptions,
-                        includeNamespace = !options.omitKotlinNamespace,
-                    ),
+                    requireNotNull(rendered.imageVectors),
                 )
                 add("Kotlin: $result")
             }
             options.androidOutput?.let { output ->
                 val result = GeneratedFileWriter.synchronize(
                     output,
-                    requireNotNull(nativeVectors).files,
+                    requireNotNull(rendered.nativeVectors),
                 )
                 add("Android XML: $result")
             }
             options.composeOutput?.let { output ->
                 val result = GeneratedFileWriter.synchronize(
                     output,
-                    requireNotNull(nativeVectors).files,
+                    requireNotNull(rendered.nativeVectors),
                 )
                 add("Compose XML: $result")
             }
         }
-        standardOut.println(
-            "Generated ${catalog.entries.size} names / " +
-                "${catalog.uniqueCodePoints.size} code points from " +
-                "${extracted.familyName}; ${summaries.joinToString()}",
-        )
-    }
-
-    private fun selectCatalog(
-        fullCatalog: SymbolCatalog,
-        options: CliOptions,
-    ): SymbolCatalog {
-        if (options.includeAll) {
-            return fullCatalog
-        }
-        val byName = fullCatalog.entries.associateBy(SymbolEntry::name)
-        val unknown = options.includes - byName.keys
-        require(unknown.isEmpty()) {
-            "Unknown included symbol names: ${unknown.sorted().joinToString()}"
-        }
-        return SymbolCatalog.of(options.includes.sorted().map(byName::getValue))
+        standardOut.println("${rendered.summary}; ${summaries.joinToString()}")
     }
 
     private fun usage(): String =
@@ -144,20 +171,19 @@ public object SymbolGeneratorCli {
         |Usage: symbol-generator-core [options]
         |
         |Required inputs:
-        |  --font PATH                 TTF, OTF, or TTC input
-        |  --manifest PATH             <snake_case_name> <hex_code_point> manifest
         |  --package PACKAGE           Generated Kotlin base package
         |  --set NAME                  Generated root object, for example AppIcons
         |  --style NAME                Generated style object, for example Rounded
+        |
+        |Source (exactly one mode; every icon is generated):
+        |  --svg-directory DIR         Flat directory of path-based monochrome SVGs
+        |  --font PATH                 TTF, OTF, or TTC input; requires --manifest
+        |  --manifest PATH             <snake_case_name> <hex_code_point> manifest
         |
         |Outputs (at least one, directories must not overlap):
         |  --kotlin-output DIR         ImageVector source output directory
         |  --android-output DIR        Android res output directory
         |  --compose-output DIR        Compose resources output directory
-        |
-        |Selection (exactly one mode):
-        |  --include-all               Generate every manifest name
-        |  --include NAME              Generate one manifest name; repeat as needed
         |
         |Other options:
         |  --font-index N              TTC face index (default 0)
@@ -180,17 +206,22 @@ public object SymbolGeneratorCli {
         |""".trimMargin()
 }
 
+private data class GenerationResult(
+    val imageVectors: RenderedFiles?,
+    val nativeVectors: RenderedFiles?,
+    val summary: String,
+)
+
 private data class CliOptions(
-    val font: Path,
-    val manifest: Path,
+    val font: Path?,
+    val manifest: Path?,
+    val svgDirectory: Path?,
     val packageName: String,
     val setName: String,
     val styleName: String,
     val kotlinOutput: Path?,
     val androidOutput: Path?,
     val composeOutput: Path?,
-    val includeAll: Boolean,
-    val includes: Set<String>,
     val fontIndex: Int,
     val axes: Map<String, Float>,
     val viewportWidth: Float,
@@ -212,14 +243,12 @@ private data class CliOptions(
         fun parse(arguments: Array<String>): CliOptions {
             val values = linkedMapOf<String, MutableList<String>>()
             var autoMirror = false
-            var includeAll = false
             var omitKotlinNamespace = false
             var index = 0
             while (index < arguments.size) {
                 val option = arguments[index]
                 if (
                     option == "--auto-mirror" ||
-                    option == "--include-all" ||
                     option == "--omit-kotlin-namespace"
                 ) {
                     when (option) {
@@ -228,12 +257,6 @@ private data class CliOptions(
                                 "--auto-mirror may be supplied only once"
                             }
                             autoMirror = true
-                        }
-                        "--include-all" -> {
-                            require(!includeAll) {
-                                "--include-all may be supplied only once"
-                            }
-                            includeAll = true
                         }
                         else -> {
                             require(!omitKotlinNamespace) {
@@ -256,13 +279,13 @@ private data class CliOptions(
             val known = setOf(
                 "--font",
                 "--manifest",
+                "--svg-directory",
                 "--package",
                 "--set",
                 "--style",
                 "--kotlin-output",
                 "--android-output",
                 "--compose-output",
-                "--include",
                 "--font-index",
                 "--axis",
                 "--viewport-width",
@@ -325,12 +348,22 @@ private data class CliOptions(
             ) {
                 "Output directories must be distinct and non-overlapping"
             }
-            val includeArguments = values["--include"].orEmpty()
-            require(includeAll.xor(includeArguments.isNotEmpty())) {
-                "Use exactly one of --include-all or one or more --include NAME options"
+
+            val font = optional("--font")?.let(Path::of)
+            val manifest = optional("--manifest")?.let(Path::of)
+            val svgDirectory = optional("--svg-directory")?.let(Path::of)
+            require(
+                (svgDirectory != null && font == null && manifest == null) ||
+                    (svgDirectory == null && font != null && manifest != null),
+            ) {
+                "Use either --svg-directory, or both --font and --manifest"
             }
-            require(includeArguments.size == includeArguments.toSet().size) {
-                "Each included symbol name may be supplied only once"
+            if (svgDirectory != null) {
+                val unsupported = FontOnlyOptions.filter(values::containsKey)
+                require(unsupported.isEmpty()) {
+                    "SVG sources do not support font-only options: " +
+                        unsupported.joinToString()
+                }
             }
 
             fun floatValue(name: String, default: Float): Float {
@@ -369,16 +402,15 @@ private data class CliOptions(
             }
 
             return CliOptions(
-                font = Path.of(required("--font")),
-                manifest = Path.of(required("--manifest")),
+                font = font,
+                manifest = manifest,
+                svgDirectory = svgDirectory,
                 packageName = packageName,
                 setName = setName,
                 styleName = styleName,
                 kotlinOutput = kotlinOutput,
                 androidOutput = androidOutput,
                 composeOutput = composeOutput,
-                includeAll = includeAll,
-                includes = includeArguments.toSet(),
                 fontIndex = intValue("--font-index", 0),
                 axes = axes,
                 viewportWidth = viewportWidth,
@@ -410,3 +442,11 @@ private data class CliOptions(
         }
     }
 }
+
+private val FontOnlyOptions: Set<String> = setOf(
+    "--font-index",
+    "--axis",
+    "--em-size",
+    "--origin-x",
+    "--baseline-y",
+)

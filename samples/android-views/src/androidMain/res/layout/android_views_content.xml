@@ -72,13 +72,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:text="@string/svg_plain_xml_label" />
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:contentDescription="@string/tabler_home_icon_description"
+        android:src="@drawable/tabler_outline_home"
+        app:tint="?attr/colorControlNormal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="@string/view_binding_label" />
 
     <ImageView
         android:id="@+id/view_binding_icon"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:contentDescription="@string/check_icon_description" />
+        android:contentDescription="@string/tabler_settings_icon_description"
+        app:tint="?attr/colorControlNormal" />
 
     <FrameLayout
         android:id="@+id/data_binding_host"
@@ -95,6 +109,7 @@
     <io.github.hlcaptain.symbols.sample.androidviews.GeneratedSymbolView
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:contentDescription="@string/settings_icon_description"
-        app:symbolDrawable="@drawable/material_symbols_outlined_settings_ue8b8" />
+        android:contentDescription="@string/tabler_hierarchy_icon_description"
+        app:symbolDrawable="@drawable/tabler_outline_hierarchy_2"
+        app:tint="?attr/colorControlNormal" />
 </LinearLayout>

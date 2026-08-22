@@ -16,16 +16,16 @@ import org.gradle.api.tasks.TaskAction
 
 /** Generates common Kotlin runtime catalogs from codepoint manifests. */
 @CacheableTask
-public abstract class GenerateSymbolCatalogsTask : DefaultTask() {
+abstract class GenerateSymbolCatalogsTask : DefaultTask() {
     @get:Input
     @get:Optional
-    public abstract val packageName: Property<String>
+    abstract val packageName: Property<String>
 
     @get:Nested
-    public abstract val catalogs: ListProperty<SymbolCatalogSpec>
+    abstract val catalogs: ListProperty<SymbolCatalogSpec>
 
     @get:OutputDirectory
-    public abstract val outputDirectory: DirectoryProperty
+    abstract val outputDirectory: DirectoryProperty
 
     @TaskAction
     protected fun generate() {

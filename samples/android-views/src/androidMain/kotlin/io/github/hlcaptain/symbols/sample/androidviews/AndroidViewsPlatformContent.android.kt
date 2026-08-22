@@ -9,19 +9,23 @@ import androidx.compose.ui.viewinterop.AndroidView
 import io.github.hlcaptain.symbols.material.outlined.drawables.R as OutlinedDrawablesR
 import io.github.hlcaptain.symbols.sample.androidviews.databinding.AndroidViewsContentBinding
 import io.github.hlcaptain.symbols.sample.androidviews.databinding.DataBindingIconBinding
+import io.github.hlcaptain.symbols.sample.imagevectormigration.R as SvgDrawablesR
 import io.github.hlcaptain.symbols.sample.ui.ExampleCard
 
 @Composable
 internal actual fun AndroidViewsPlatformContent() {
     ExampleCard(
         title = "Embedded Android View hierarchy",
-        description = "The XML layout keeps View Binding, Data Binding, and a custom ImageView.",
+        description = "The XML layout compares downloaded, font-generated, and SVG-generated drawables.",
     ) {
         AndroidView(
             factory = { context ->
                 AndroidViewsContentBinding.inflate(LayoutInflater.from(context)).apply {
-                    viewBindingIcon.setImageResource(
-                        OutlinedDrawablesR.drawable.material_symbols_outlined_check_ue5ca,
+                    viewBindingIcon.setImageDrawable(
+                        AppCompatResources.getDrawable(
+                            context,
+                            SvgDrawablesR.drawable.tabler_outline_settings,
+                        ),
                     )
                     DataBindingIconBinding.inflate(
                         LayoutInflater.from(context),

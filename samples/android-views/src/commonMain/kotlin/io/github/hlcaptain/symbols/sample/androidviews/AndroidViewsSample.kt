@@ -46,4 +46,4 @@ internal fun AndroidViewsFallback() {
 
 private const val Title = "Android XML Views"
 private const val Description =
-    "Compare downloaded and generated XML drawables through Compose-View interop."
+    "Compare downloaded, font-generated, and SVG-generated drawables through Compose-View interop."

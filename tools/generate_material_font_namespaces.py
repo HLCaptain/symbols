@@ -85,7 +85,7 @@ def render_chunk(
                     f"{style.title} font glyph. */"
                 ),
                 (
-                    f"public val Symbols.{style.title}.{identifier}: "
+                    f"val Symbols.{style.title}.{identifier}: "
                     f"{style.wrapper_type}"
                 ),
                 (
