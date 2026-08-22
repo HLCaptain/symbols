@@ -17,6 +17,38 @@ class SymbolFontsPluginFunctionalTest {
     val temporaryFolder: TemporaryFolder = TemporaryFolder()
 
     @Test
+    fun generatorRuntimeUsesCatalogSkikoVersion() {
+        val expectedVersion = SymbolFontsBuildConfig.SKIKO_VERSION
+        val project = fixture(
+            """
+            plugins {
+                id 'io.github.hlcaptain.symbol-fonts'
+            }
+
+            tasks.register('assertGeneratorRuntimeVersion') {
+                doLast {
+                    def dependencies = configurations
+                        .symbolFontGeneratorRuntimeClasspath
+                        .dependencies
+                    assert dependencies*.version.toSet() == ['$expectedVersion'] as Set
+                    assert dependencies*.name.contains('skiko-awt')
+                    assert dependencies*.name.any {
+                        it.startsWith('skiko-awt-runtime-')
+                    }
+                }
+            }
+            """,
+        )
+
+        val result = runner(project, "assertGeneratorRuntimeVersion").build()
+
+        assertEquals(
+            TaskOutcome.SUCCESS,
+            result.task(":assertGeneratorRuntimeVersion")?.outcome,
+        )
+    }
+
+    @Test
     fun generatesNamedRuntimeCatalogsIncrementally() {
         val project = fixture(
             """

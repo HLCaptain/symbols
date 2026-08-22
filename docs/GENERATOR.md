@@ -326,6 +326,40 @@ build recreates them, and they must not be edited or committed. Compose and AGP
 may copy those files into other intermediate paths under `build`; those copies
 remain disposable too.
 
+## Why generation remains a Gradle task
+
+The production backend deliberately stays outside Kotlin compilation. One
+cacheable task reads each font/SVG input once, writes common Kotlin and both
+resource formats, and lets every Kotlin Multiplatform target consume the same
+outputs. A no-change build skips the task without loading Skiko.
+
+A custom Kotlin compiler plugin is not an equivalent faster backend here. It
+would need to participate in each configured target compilation while the
+existing Gradle tasks still generate and wire Android/Compose resources. It
+would also couple Symbols to an API that Kotlin documents as unstable across
+compiler releases. Its generated declarations require matching IDE compiler
+support. See Kotlin's
+[custom compiler plugin guidance](https://kotlinlang.org/docs/custom-compiler-plugins.html).
+
+KSP is a source-processing API, so it can generate another Kotlin source form
+but cannot replace outline extraction or the resource wiring. Its incremental
+dependency model associates outputs with Kotlin source files, while Symbols'
+primary inputs are external TTF/OTF/TTC, manifest, and SVG files. KSP also
+creates processing tasks for each KMP target where it is configured. See the
+official
+[KSP overview](https://kotlinlang.org/docs/ksp-overview.html),
+[incremental model](https://kotlinlang.org/docs/ksp-incremental.html), and
+[multiplatform setup](https://kotlinlang.org/docs/ksp-multiplatform.html); KSP's
+[external-file input request](https://github.com/google/ksp/issues/2008) is
+closed as not planned.
+
+For those reasons this repository does not ship a Kotlin-only compiler-plugin
+or KSP comparator that silently omits Android and Compose drawables. Add an
+experimental backend only with an equivalent pinned corpus and end-to-end
+measurement showing a material compile-time improvement after the extra
+per-target work. The current measured baseline and commands are in
+[performance](PERFORMANCE.md#build-time-generator-baseline).
+
 The checked-in Material vector/source packs and regular font instances are a
 different boundary: they are reviewed publication snapshots produced by an
 explicit maintainer workflow. Normal consumer builds do not regenerate them or

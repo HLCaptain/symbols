@@ -19,8 +19,16 @@ fun skikoRuntimeTarget(): String {
 
 plugins {
     alias(libs.plugins.kotlinJvm)
+    alias(libs.plugins.buildConfig)
     `java-gradle-plugin`
     `maven-publish`
+}
+
+buildConfig {
+    packageName("io.github.hlcaptain.symbols.gradle")
+    className("SymbolFontsBuildConfig")
+    useKotlinOutput()
+    buildConfigField("SKIKO_VERSION", libs.versions.skiko.get())
 }
 
 kotlin {

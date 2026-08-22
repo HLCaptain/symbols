@@ -222,6 +222,57 @@ remain true. The repository does not yet claim cross-platform render-time or
 runtime-allocation numbers; the fixture measures release build output, not
 on-device frames.
 
+### Build-time generator baseline
+
+On 2026-08-22, the `image-vector-migration` fixture measured the production
+Gradle backend with both representative styles: 50 Academmunicons glyphs from
+one variable font and three Tabler SVGs. Together they produced 59 task files
+and 472,129 bytes below `build/generated/symbolFonts`, plus four Android task
+files and 8,239 bytes below `build/generated/res`. No generated file was
+written into `src`.
+
+The measurement used a Ryzen 9 7950X3D host with 64 GiB RAM, Linux x86-64,
+Corretto 21.0.11, Gradle 8.14.5, one worker, a fresh single-use daemon for each
+invocation, the local configuration cache, and the build cache disabled. Each
+path received one unmeasured warmup. Another Gradle build was active on the
+host, so the raw samples and median are retained rather than presenting the
+fastest run alone.
+
+| Mode | Wall-time samples | Median |
+| --- | --- | ---: |
+| Delete both task outputs, then generate | 2.884 s, 2.780 s, 2.710 s | 2.780 s |
+| No-change task check | 2.322 s, 2.368 s, 2.334 s | 2.334 s |
+
+The approximate median cost above the same Gradle startup/configuration path
+was 0.446 s for both generators. A following normal invocation reported both
+tasks `UP-TO-DATE` and reused the configuration cache. This small mixed fixture
+does not support a throughput claim for the 3,802-icon Material packs; it does
+show that moving extraction into every compiler or KSP target would optimize
+the wrong boundary for the current architecture.
+
+Reproduce the clean-output and no-change paths without a remote build scan,
+artifact upload, or GitHub Actions cache:
+
+```shell
+./gradlew \
+  :samples:image-vector-migration:cleanGenerateAcademmuniconsDefaultSymbolFonts \
+  :samples:image-vector-migration:cleanGenerateTablerOutlineSymbolFonts \
+  :samples:image-vector-migration:generateAcademmuniconsDefaultSymbolFonts \
+  :samples:image-vector-migration:generateTablerOutlineSymbolFonts \
+  --no-daemon --max-workers=1 --no-build-cache
+
+./gradlew \
+  :samples:image-vector-migration:generateAcademmuniconsDefaultSymbolFonts \
+  :samples:image-vector-migration:generateTablerOutlineSymbolFonts \
+  --no-daemon --max-workers=1 --no-build-cache
+```
+
+Python is not on this consumer-build path. It remains a maintainer tool for
+pinned Material publication snapshots, FontTools static-font instancing, and
+independent verification. KSP still emits source, and a compiler plugin would
+not replace those binary-font operations, so neither alternative reduces that
+Python boundary by itself.
+
 ## Reproducible measurement
 
 Compare equivalent release applications rather than library source size alone:

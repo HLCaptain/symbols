@@ -1,7 +1,10 @@
 package io.github.hlcaptain.symbols.gradle
 
-import com.android.build.api.dsl.CommonExtension
+import com.android.build.api.dsl.ApplicationExtension
+import com.android.build.api.dsl.LibraryExtension
 import com.android.build.api.variant.AndroidComponentsExtension
+import com.android.build.api.variant.ApplicationAndroidComponentsExtension
+import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import com.android.build.api.variant.Variant
 import com.android.build.api.variant.VariantBuilder
 import io.github.hlcaptain.symbols.generator.SymbolGeneratorCli
@@ -16,7 +19,6 @@ import org.gradle.api.Project
 import org.gradle.api.attributes.Usage
 import org.gradle.api.file.Directory
 import org.gradle.api.file.FileCollection
-import org.gradle.api.plugins.ExtensionAware
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.TaskProvider
 import org.jetbrains.compose.ComposeExtension
@@ -50,13 +52,6 @@ class SymbolFontsPlugin : Plugin<Project> {
             fontDescriptors.flatMap { task -> task.outputDirectory },
         )
         project.wireFontDescriptorResourceSettings(fontDescriptors, extension)
-        var androidProject = false
-        project.plugins.withId("com.android.application") {
-            androidProject = true
-        }
-        project.plugins.withId("com.android.library") {
-            androidProject = true
-        }
         val derivedNames = DerivedNameRegistry()
         val conventionalComposeResources = project.layout.projectDirectory
             .dir("src/commonMain/composeResources")
@@ -123,11 +118,7 @@ class SymbolFontsPlugin : Plugin<Project> {
             }
         }
         project.afterEvaluate {
-            val defaultPackageName = if (androidProject) {
-                project.androidDefaultPackageName()
-            } else {
-                project.defaultPackageName()
-            }
+            val defaultPackageName = project.androidDefaultPackageName()
             extension.iconSets.forEach { iconSet ->
                 iconSet.packageName.convention(defaultPackageName)
             }
@@ -184,13 +175,7 @@ private fun Project.wireFontDescriptorResourceSettings(
     extension: SymbolFontsExtension,
 ) {
     plugins.withId("org.jetbrains.compose") {
-        val resources = extensions
-            .getByType(ComposeExtension::class.java)
-            .let { compose ->
-                (compose as ExtensionAware)
-                    .extensions
-                    .getByType(ResourcesExtension::class.java)
-            }
+        val resources = composeResourcesExtension()
         task.configure { descriptors ->
             descriptors.resourcePackage.set(
                 provider {
@@ -240,11 +225,12 @@ private fun Project.createGeneratorClasspath(): FileCollection {
     }
     dependencies.add(
         runtime.name,
-        "org.jetbrains.skiko:skiko-awt:$SkikoVersion",
+        "org.jetbrains.skiko:skiko-awt:${SymbolFontsBuildConfig.SKIKO_VERSION}",
     )
     dependencies.add(
         runtime.name,
-        "org.jetbrains.skiko:skiko-awt-runtime-${skikoHost()}:$SkikoVersion",
+        "org.jetbrains.skiko:skiko-awt-runtime-${skikoHost()}:" +
+            SymbolFontsBuildConfig.SKIKO_VERSION,
     )
 
     /*
@@ -379,11 +365,7 @@ private fun Project.wireComposeResources(
 ) {
     plugins.withId("org.jetbrains.compose") {
         afterEvaluate {
-            val compose = extensions
-                .getByType(ComposeExtension::class.java)
-            (compose as ExtensionAware)
-                .extensions
-                .getByType(ResourcesExtension::class.java)
+            composeResourcesExtension()
                 .customDirectory(
                     "commonMain",
                     mergeTask.flatMap { task -> task.outputDirectory },
@@ -395,14 +377,36 @@ private fun Project.wireComposeResources(
 private fun Project.wireAndroidResources(
     task: TaskProvider<GenerateSymbolFontTask>,
 ) {
-    fun wire() {
-        @Suppress("UNCHECKED_CAST")
-        val components = extensions.getByType(
-            AndroidComponentsExtension::class.java,
-        ) as AndroidComponentsExtension<Any, VariantBuilder, Variant>
+    plugins.withId("com.android.application") {
+        wireAndroidResources(
+            extensions.getByType(
+                ApplicationAndroidComponentsExtension::class.java,
+            ),
+            task,
+        )
+    }
+    plugins.withId("com.android.library") {
+        wireAndroidResources(
+            extensions.getByType(
+                LibraryAndroidComponentsExtension::class.java,
+            ),
+            task,
+        )
+    }
+}
+
+private fun <DslExtensionT, VariantBuilderT : VariantBuilder, VariantT : Variant>
+    Project.wireAndroidResources(
+        components: AndroidComponentsExtension<
+            DslExtensionT,
+            VariantBuilderT,
+            VariantT,
+        >,
+        task: TaskProvider<GenerateSymbolFontTask>,
+    ) {
         components.onVariants(
             components.selector().all(),
-            Action { variant ->
+            Action<VariantT> { variant ->
                 variant.sources.res?.addGeneratedSourceDirectory(
                     task,
                     GenerateSymbolFontTask::androidOutputDirectory,
@@ -411,20 +415,23 @@ private fun Project.wireAndroidResources(
         )
     }
 
-    plugins.withId("com.android.application") { wire() }
-    plugins.withId("com.android.library") { wire() }
-}
-
 private fun Project.androidDefaultPackageName(): String {
-    @Suppress("UNCHECKED_CAST")
-    val namespace =
-        (extensions.findByName("android") as?
-            CommonExtension<*, *, *, *, *, *>)
-            ?.namespace
-            ?.takeIf(String::isNotBlank)
+    val namespace = when {
+        plugins.hasPlugin("com.android.application") ->
+            extensions.getByType(ApplicationExtension::class.java).namespace
+        plugins.hasPlugin("com.android.library") ->
+            extensions.getByType(LibraryExtension::class.java).namespace
+        else -> null
+    }?.takeIf(String::isNotBlank)
         ?: return defaultPackageName()
     return "$namespace.generated"
 }
+
+private fun Project.composeResourcesExtension(): ResourcesExtension =
+    extensions
+        .getByType(ComposeExtension::class.java)
+        .extensions
+        .getByType(ResourcesExtension::class.java)
 
 private fun Project.defaultPackageName(): String {
     val projectSegment = androidResourcePrefix(name).let { segment ->
@@ -713,5 +720,3 @@ private fun claim(
 }
 
 private val AndroidResourcePrefix = Regex("^[a-z][a-z0-9_]*$")
-
-private const val SkikoVersion: String = "0.9.22.2"
