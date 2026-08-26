@@ -6,7 +6,6 @@ import com.android.build.api.variant.AndroidComponentsExtension
 import com.android.build.api.variant.ApplicationAndroidComponentsExtension
 import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import com.android.build.api.variant.Variant
-import com.android.build.api.variant.VariantBuilder
 import io.github.hlcaptain.symbols.generator.SymbolGeneratorCli
 import io.github.hlcaptain.symbols.generator.SymbolManifestParser
 import io.github.hlcaptain.symbols.generator.SymbolNames
@@ -59,23 +58,25 @@ class SymbolFontsPlugin : Plugin<Project> {
             .toPath()
             .toAbsolutePath()
             .normalize()
-        val composeResources = project.tasks.register(
+        val composeResources = project.tasks.registerOrConfigure<MergeSymbolComposeResources>(
             "mergeGeneratedSymbolComposeResources",
-            MergeSymbolComposeResources::class.java,
-        ) { task ->
-            task.group = "symbol fonts"
-            task.description =
-                "Merges symbol fonts and generated drawables into one Compose resource root."
-            task.inputDirectories.from(
-                project.layout.projectDirectory.dir("src/commonMain/composeResources"),
+        ) {
+            group = "symbol fonts"
+            description =
+                "Merges symbol fonts and generated drawables into one " +
+                    "Compose resource root."
+            inputDirectories.from(
+                project.layout.projectDirectory.dir(
+                    "src/commonMain/composeResources",
+                ),
             )
-            task.inputDirectories.from(
+            inputDirectories.from(
                 extension.composeFontResources.filter { directory ->
                     directory.toPath().toAbsolutePath().normalize() !=
                         conventionalComposeResources
                 },
             )
-            task.outputDirectory.convention(
+            outputDirectory.convention(
                 project.layout.buildDirectory.dir(
                     "generated/symbolFonts/composeResources",
                 ),
@@ -130,16 +131,15 @@ class SymbolFontsPlugin : Plugin<Project> {
 private fun Project.registerCatalogsTask(
     extension: SymbolFontsExtension,
 ): TaskProvider<GenerateSymbolCatalogsTask> {
-    val task = tasks.register(
+    val task = tasks.registerOrConfigure<GenerateSymbolCatalogsTask>(
         "generateSymbolCatalogs",
-        GenerateSymbolCatalogsTask::class.java,
-    ) { catalogs ->
-        catalogs.group = "symbol fonts"
-        catalogs.description =
+    ) {
+        group = "symbol fonts"
+        description =
             "Generates runtime symbol catalogs from codepoint manifests."
-        catalogs.packageName.set(extension.catalogPackageName)
-        catalogs.catalogs.convention(emptyList())
-        catalogs.outputDirectory.convention(
+        packageName.set(extension.catalogPackageName)
+        catalogs.convention(emptyList())
+        outputDirectory.convention(
             layout.buildDirectory.dir("generated/symbolFonts/catalogs/kotlin"),
         )
     }
@@ -154,21 +154,23 @@ private fun Project.registerCatalogsTask(
 private fun Project.registerFontDescriptorsTask(
     extension: SymbolFontsExtension,
     generatorClasspath: FileCollection,
-): TaskProvider<GenerateSymbolFontDescriptorsTask> = tasks.register(
-    "generateSymbolFontDescriptors",
-    GenerateSymbolFontDescriptorsTask::class.java,
-) { task ->
-    task.group = "symbol fonts"
-    task.description = "Generates typed descriptors for Compose font resources."
-    task.generatorClasspath.from(generatorClasspath)
-    task.resourceRoots.from(extension.composeFontResources)
-    task.resourcePackage.convention(provider(::defaultComposeResourcePackage))
-    task.resourceClassName.convention("Res")
-    task.publicAccessors.convention(false)
-    task.outputDirectory.convention(
-        layout.buildDirectory.dir("generated/symbolFonts/fontDescriptors/kotlin"),
-    )
-}
+): TaskProvider<GenerateSymbolFontDescriptorsTask> =
+    tasks.registerOrConfigure<GenerateSymbolFontDescriptorsTask>(
+        "generateSymbolFontDescriptors",
+    ) {
+        group = "symbol fonts"
+        description = "Generates typed descriptors for Compose font resources."
+        this.generatorClasspath.from(generatorClasspath)
+        resourceRoots.from(extension.composeFontResources)
+        resourcePackage.convention(provider(::defaultComposeResourcePackage))
+        resourceClassName.convention("Res")
+        publicAccessors.convention(false)
+        outputDirectory.convention(
+            layout.buildDirectory.dir(
+                "generated/symbolFonts/fontDescriptors/kotlin",
+            ),
+        )
+    }
 
 private fun Project.wireFontDescriptorResourceSettings(
     task: TaskProvider<GenerateSymbolFontDescriptorsTask>,
@@ -254,44 +256,43 @@ private fun Project.registerGenerationTask(
     style: SymbolFontStyle,
     generatorClasspath: FileCollection,
 ): TaskProvider<GenerateSymbolFontTask> {
-    val generationTask = tasks.register(
+    val generationTask = tasks.registerOrConfigure<GenerateSymbolFontTask>(
         generationTaskName(iconSet.name, style.name),
-        GenerateSymbolFontTask::class.java,
-    ) { task ->
-        task.group = "symbol fonts"
-        task.description =
+    ) {
+        group = "symbol fonts"
+        description =
             "Generates ${iconSet.name}.${style.name} icons."
 
-        task.generatorClasspath.from(generatorClasspath)
-        task.manifest.set(style.codepoints)
-        task.font.set(style.font)
-        task.svgDirectory.set(style.svgDirectory)
-        task.conventionalFontName.set(style.conventionalFontName)
-        task.packageName.set(iconSet.packageName)
-        task.rootName.set(iconSet.rootName)
-        task.styleName.set(style.name)
-        task.fontIndex.set(style.fontIndex)
-        task.axes.set(style.axes)
-        task.generateImageVectors.set(style.generateImageVectors)
-        task.generateAndroidDrawables.set(style.generateAndroidDrawables)
-        task.generateComposeDrawables.set(style.generateComposeDrawables)
-        task.resourcePrefix.set(style.resourcePrefix)
-        task.symbolsPerFile.set(style.symbolsPerFile)
-        task.precision.set(style.precision)
-        task.viewportWidth.set(style.viewportWidth)
-        task.viewportHeight.set(style.viewportHeight)
-        task.emSize.set(style.emSize)
-        task.originX.set(style.originX)
-        task.baselineY.set(style.baselineY)
+        this.generatorClasspath.from(generatorClasspath)
+        manifest.set(style.codepoints)
+        font.set(style.font)
+        svgDirectory.set(style.svgDirectory)
+        conventionalFontName.set(style.conventionalFontName)
+        packageName.set(iconSet.packageName)
+        rootName.set(iconSet.rootName)
+        styleName.set(style.name)
+        fontIndex.set(style.fontIndex)
+        axes.set(style.axes)
+        generateImageVectors.set(style.generateImageVectors)
+        generateAndroidDrawables.set(style.generateAndroidDrawables)
+        generateComposeDrawables.set(style.generateComposeDrawables)
+        resourcePrefix.set(style.resourcePrefix)
+        symbolsPerFile.set(style.symbolsPerFile)
+        precision.set(style.precision)
+        viewportWidth.set(style.viewportWidth)
+        viewportHeight.set(style.viewportHeight)
+        emSize.set(style.emSize)
+        originX.set(style.originX)
+        baselineY.set(style.baselineY)
 
         val outputRoot = generationOutputRoot(iconSet.name, style.name)
-        task.kotlinOutputDirectory.convention(
+        kotlinOutputDirectory.convention(
             layout.buildDirectory.dir("$outputRoot/kotlin"),
         )
-        task.androidOutputDirectory.convention(
+        androidOutputDirectory.convention(
             layout.buildDirectory.dir("$outputRoot/androidRes"),
         )
-        task.composeOutputDirectory.convention(
+        composeOutputDirectory.convention(
             layout.buildDirectory.dir("$outputRoot/composeResources"),
         )
     }
@@ -314,24 +315,22 @@ private fun Project.registerGenerationTask(
 
 private fun Project.registerNamespaceTask(
     iconSet: SymbolIconSet,
-): TaskProvider<GenerateSymbolNamespaceTask> {
-    return tasks.register(
+): TaskProvider<GenerateSymbolNamespaceTask> =
+    tasks.registerOrConfigure<GenerateSymbolNamespaceTask>(
         namespaceTaskName(iconSet.name),
-        GenerateSymbolNamespaceTask::class.java,
-    ) { task ->
-        task.group = "symbol fonts"
-        task.description =
+    ) {
+        group = "symbol fonts"
+        description =
             "Generates the shared ${iconSet.name} typed icon namespace."
-        task.packageName.set(iconSet.packageName)
-        task.rootName.set(iconSet.rootName)
-        task.styleNames.convention(emptySet())
-        task.outputDirectory.convention(
+        packageName.set(iconSet.packageName)
+        rootName.set(iconSet.rootName)
+        styleNames.convention(emptySet())
+        outputDirectory.convention(
             layout.buildDirectory.dir(
                 namespaceOutputDirectory(iconSet.name),
             ),
         )
     }
-}
 
 private fun Project.wireGeneratedKotlin(
     sourceDirectory: Provider<Directory>,
@@ -378,42 +377,35 @@ private fun Project.wireAndroidResources(
     task: TaskProvider<GenerateSymbolFontTask>,
 ) {
     plugins.withId("com.android.application") {
-        wireAndroidResources(
-            extensions.getByType(
+        extensions
+            .getByType(
                 ApplicationAndroidComponentsExtension::class.java,
-            ),
-            task,
-        )
+            )
+            .wireAndroidResources(task)
     }
     plugins.withId("com.android.library") {
-        wireAndroidResources(
-            extensions.getByType(
+        extensions
+            .getByType(
                 LibraryAndroidComponentsExtension::class.java,
-            ),
-            task,
-        )
+            )
+            .wireAndroidResources(task)
     }
 }
 
-private fun <DslExtensionT, VariantBuilderT : VariantBuilder, VariantT : Variant>
-    Project.wireAndroidResources(
-        components: AndroidComponentsExtension<
-            DslExtensionT,
-            VariantBuilderT,
-            VariantT,
-        >,
+private fun <VariantT : Variant> AndroidComponentsExtension<*, *, VariantT>
+    .wireAndroidResources(
         task: TaskProvider<GenerateSymbolFontTask>,
     ) {
-        components.onVariants(
-            components.selector().all(),
-            Action<VariantT> { variant ->
-                variant.sources.res?.addGeneratedSourceDirectory(
-                    task,
-                    GenerateSymbolFontTask::androidOutputDirectory,
-                )
-            },
-        )
-    }
+    onVariants(
+        selector().all(),
+        Action<VariantT> { variant ->
+            variant.sources.res?.addGeneratedSourceDirectory(
+                task,
+                GenerateSymbolFontTask::androidOutputDirectory,
+            )
+        },
+    )
+}
 
 private fun Project.androidDefaultPackageName(): String {
     val namespace = when {

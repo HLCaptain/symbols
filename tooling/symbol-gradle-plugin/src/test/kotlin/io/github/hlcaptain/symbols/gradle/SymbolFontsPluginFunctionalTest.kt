@@ -49,6 +49,65 @@ class SymbolFontsPluginFunctionalTest {
     }
 
     @Test
+    fun configuresACompatiblePreRegisteredTask() {
+        val project = fixture(
+            """
+            import io.github.hlcaptain.symbols.gradle.GenerateSymbolCatalogsTask
+
+            plugins {
+                id 'io.github.hlcaptain.symbol-fonts' apply false
+            }
+
+            tasks.register(
+                'generateSymbolCatalogs',
+                GenerateSymbolCatalogsTask
+            )
+            apply plugin: 'io.github.hlcaptain.symbol-fonts'
+
+            tasks.register('assertPreRegisteredTask') {
+                doLast {
+                    def catalogs = tasks.named(
+                        'generateSymbolCatalogs',
+                        GenerateSymbolCatalogsTask
+                    ).get()
+                    assert catalogs.description ==
+                        'Generates runtime symbol catalogs from codepoint manifests.'
+                    assert catalogs.outputDirectory.get().asFile == file(
+                        'build/generated/symbolFonts/catalogs/kotlin'
+                    )
+                }
+            }
+            """,
+        )
+
+        val result = runner(project, "assertPreRegisteredTask").build()
+
+        assertEquals(
+            TaskOutcome.SUCCESS,
+            result.task(":assertPreRegisteredTask")?.outcome,
+        )
+    }
+
+    @Test
+    fun rejectsAnIncompatiblePreRegisteredTask() {
+        val project = fixture(
+            """
+            plugins {
+                id 'io.github.hlcaptain.symbol-fonts' apply false
+            }
+
+            tasks.register('generateSymbolCatalogs')
+            apply plugin: 'io.github.hlcaptain.symbol-fonts'
+            """,
+        )
+
+        val failure = runner(project, "help").buildAndFail()
+
+        assertTrue("generateSymbolCatalogs" in failure.output)
+        assertTrue("not a subclass of the given type" in failure.output)
+    }
+
+    @Test
     fun generatesNamedRuntimeCatalogsIncrementally() {
         val project = fixture(
             """
