@@ -138,7 +138,7 @@ class KotlinImageVectorRenderer(
                 import androidx.compose.ui.graphics.vector.ImageVector
                 import androidx.compose.ui.graphics.vector.path
                 import androidx.compose.ui.unit.dp
-                import ${iconSet.packageName}.${iconSet.name}
+                import ${iconSet.packageName}.${iconSet.name}${style.name}
                 """.trimIndent(),
             )
             appendLine()
@@ -170,7 +170,7 @@ class KotlinImageVectorRenderer(
                 import androidx.compose.ui.graphics.vector.ImageVector
                 import androidx.compose.ui.graphics.vector.path
                 import androidx.compose.ui.unit.dp
-                import ${iconSet.packageName}.${iconSet.name}
+                import ${iconSet.packageName}.${iconSet.name}${style.name}
                 """.trimIndent(),
             )
             appendLine()
@@ -195,7 +195,7 @@ class KotlinImageVectorRenderer(
             appendLine(
                 """
                 /** `${alias.name}` (U+${codePoint.toString(16).uppercase()}). */
-                val ${iconSet.name}.${style.name}.${alias.kotlinName}: ImageVector
+                val ${iconSet.name}${style.name}.${alias.kotlinName}: ImageVector
                     get() = $functionName()
                 """.trimIndent(),
             )
@@ -243,7 +243,7 @@ class KotlinImageVectorRenderer(
         appendLine(
             """
             /** `${icon.name}`. */
-            val ${iconSet.name}.${style.name}.${icon.kotlinName}: ImageVector
+            val ${iconSet.name}${style.name}.${icon.kotlinName}: ImageVector
                 get() = $functionName()
 
             private var $cacheName: ImageVector? = null
@@ -511,15 +511,22 @@ class KotlinIconNamespaceRenderer {
         }
         sortedStyles.forEach { styleName ->
             SymbolNames.requireTypeIdentifier(styleName, "style name")
+            SymbolNames.requireTypeIdentifier(
+                "$iconSetName$styleName",
+                "generated style namespace",
+            )
         }
         SymbolNames.requireDistinctStylePackageSegments(sortedStyles)
 
         val baseDirectory = packageName.replace('.', '/')
+        val entryPointName = "_${iconSetName}EntryPoint"
         val contents = buildString {
             appendLine(
                 """
                 $GeneratedKotlinHeader
                 package $packageName
+
+                import io.github.hlcaptain.symbols.Symbols
 
                 /** Generated icon namespace. */
                 object $iconSetName {
@@ -528,8 +535,9 @@ class KotlinIconNamespaceRenderer {
             sortedStyles.forEach { styleName ->
                 appendLine(
                     """
-                    |    /** $styleName icons. */
-                    |    object $styleName
+                    |    /** Generated $styleName icon style. */
+                    |    val $styleName: $iconSetName$styleName
+                    |        get() = $iconSetName$styleName
                     """.trimMargin(),
                 )
                 appendLine()
@@ -538,6 +546,21 @@ class KotlinIconNamespaceRenderer {
                 deleteAt(lastIndex)
             }
             appendLine("}")
+            appendLine()
+            sortedStyles.forEach { styleName ->
+                appendLine("/** Generated $iconSetName $styleName icon namespace. */")
+                appendLine("object $iconSetName$styleName")
+                appendLine()
+            }
+            appendLine(
+                """
+                private val $entryPointName: $iconSetName = $iconSetName
+
+                /** Generated $iconSetName icon-set entry point. */
+                val Symbols.$iconSetName: $iconSetName
+                    get() = $entryPointName
+                """.trimIndent(),
+            )
         }
         return RenderedFiles(
             mapOf(

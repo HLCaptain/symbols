@@ -193,7 +193,7 @@ class SymbolGeneratorCliTest {
             assertTrue("android:strokeLineCap=\"round\"" in homeXml)
             assertEquals(homeXml, composeOutput.resolve(homePath).readText())
             assertTrue(
-                "Tabler.Outline.Settings" in kotlinOutput.resolve(
+                "TablerOutline.Settings" in kotlinOutput.resolve(
                     "com/example/icons/outline/" +
                         "TablerOutlineIcons000.generated.kt",
                 ).readText(),

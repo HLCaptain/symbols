@@ -27,13 +27,14 @@ import androidx.compose.ui.text.font.FontVariation
 import androidx.compose.ui.unit.dp
 import io.github.hlcaptain.image_vector_migration.generated.resources.Res
 import io.github.hlcaptain.image_vector_migration.generated.resources.tabler_outline_hierarchy_2
+import io.github.hlcaptain.symbols.Symbols
 import io.github.hlcaptain.symbols.font.SymbolFontIcon
 import io.github.hlcaptain.symbols.font.SymbolFontSettings
 import io.github.hlcaptain.symbols.font.SymbolsRuntime
 import io.github.hlcaptain.symbols.font.SymbolsTheme
 import io.github.hlcaptain.symbols.font.rememberSymbolPainter
 import io.github.hlcaptain.symbols.material.AccountTree
-import io.github.hlcaptain.symbols.material.MaterialSymbols
+import io.github.hlcaptain.symbols.material.Material
 import io.github.hlcaptain.symbols.material.rounded.MaterialSymbolsRounded
 import io.github.hlcaptain.symbols.sample.imagevectormigration.generated.Tabler
 import io.github.hlcaptain.symbols.sample.imagevectormigration.generated.outline.Hierarchy2
@@ -59,8 +60,11 @@ internal fun SvgIconExamples() {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
-            VectorExample("ImageVector", Tabler.Outline.Home)
-            PainterExample("Theme painter", Tabler.Outline.Settings.rememberSymbolPainter())
+            VectorExample("ImageVector", Symbols.Tabler.Outline.Home)
+            PainterExample(
+                "Theme painter",
+                Symbols.Tabler.Outline.Settings.rememberSymbolPainter(),
+            )
             PainterExample(
                 "XML painter",
                 painterResource(Res.drawable.tabler_outline_hierarchy_2),
@@ -112,7 +116,7 @@ internal fun SharedWeightAxisExample() {
                         verticalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
                         SymbolFontIcon(
-                            codePoint = MaterialSymbols.AccountTree.codePoint,
+                            codePoint = Symbols.Material.AccountTree.codePoint,
                             font = MaterialSymbolsRounded,
                             contentDescription = "Material font Account tree",
                             tint = MaterialTheme.colorScheme.primary,
@@ -128,7 +132,7 @@ internal fun SharedWeightAxisExample() {
                 }
                 PainterExample(
                     label = "SVG painter",
-                    painter = Tabler.Outline.Hierarchy2.rememberSymbolPainter(),
+                    painter = Symbols.Tabler.Outline.Hierarchy2.rememberSymbolPainter(),
                 )
             }
             Row(

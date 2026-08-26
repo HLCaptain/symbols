@@ -39,7 +39,7 @@ For one runtime-font icon, use the generic renderer:
 
 ```kotlin
 SymbolFontIcon(
-    codePoint = MaterialSymbols.Home.codePoint,
+    codePoint = Symbols.Material.Home.codePoint,
     font = MaterialSymbolsRounded,
     contentDescription = null,
 )
@@ -75,7 +75,7 @@ settings automatically inside its content.
 
 Keep the `(font, axes.fontSettings)` pair stable across recompositions. A
 regular font has one fixed settings point and never constructs variation
-settings. Searching `MaterialSymbols.all` is suitable for an icon picker; a hot
+settings. Searching `Symbols.Material.all` is suitable for an icon picker; a hot
 application path should retain its filtered result rather than scanning all
 names on every frame.
 
@@ -123,7 +123,8 @@ outside Android and Compose resource roots and select it with `font.set(...)`.
 Generated `ImageVector` properties call independent per-codepoint builders.
 They emit direct path operations and contain no registry, path table, reflection
 hook, dispatcher, or all-icons collection. The built-in direct properties, such
-as `Icons.Outlined.Home`, likewise bypass their pack-wide dynamic dispatcher.
+as `Symbols.Material.Outlined.Home`, likewise bypass their pack-wide dynamic
+dispatcher.
 This structure allows a full-mode code shrinker to analyze unused icon classes
 as unreachable, subject to the consuming application's keep rules.
 
@@ -159,7 +160,7 @@ checked-in files. Visual font/SVG comparisons use the same-runner
 
 [`benchmarks/shrinkable-vectors`](../benchmarks/shrinkable-vectors/README.md)
 is a minimal Android application that references exactly the typed
-`Icons.Outlined.Check` getter. Its `unshrunk` build disables minification and
+`Symbols.Material.Outlined.Check` getter. Its `unshrunk` build disables minification and
 resource shrinking; its otherwise equivalent `shrunk` build enables full-mode
 R8 and `shrinkResources`. A `-keepnames` rule preserves the original names of
 surviving vector backing classes without keeping unreachable classes.

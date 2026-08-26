@@ -19,12 +19,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import io.github.hlcaptain.symbols.Symbols
 import io.github.hlcaptain.symbols.font.SymbolFontAxis
 import io.github.hlcaptain.symbols.font.SymbolFontIcon
 import io.github.hlcaptain.symbols.font.SymbolsRuntime
 import io.github.hlcaptain.symbols.font.SymbolsTheme
 import io.github.hlcaptain.symbols.font.fontSettings
-import io.github.hlcaptain.symbols.material.MaterialSymbols
+import io.github.hlcaptain.symbols.material.Material
 import io.github.hlcaptain.symbols.material.Search
 import io.github.hlcaptain.symbols.material.rounded.MaterialSymbolsRounded
 import io.github.hlcaptain.symbols.sample.api.SampleAvailability
@@ -113,7 +114,7 @@ private fun RuntimeAxesContent() {
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
                     SymbolFontIcon(
-                        codePoint = MaterialSymbols.Search.codePoint,
+                        codePoint = Symbols.Material.Search.codePoint,
                         font = MaterialSymbolsRounded,
                         contentDescription = "Search",
                         tint = MaterialTheme.colorScheme.primary,

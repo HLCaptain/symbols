@@ -11,6 +11,11 @@ artifacts are released.
 
 ### Changed
 
+- Unified built-in and generated entry points under the zero-dependency
+  `Symbols` root, including `Symbols.Material.Search`,
+  `Symbols.Material.Rounded.Search`, and
+  `Symbols.Academmunicons.Semibold.Orcid`. Removed the unused generated
+  Material font-wrapper namespace before the first release.
 - Extracted reusable regular/variable symbol-font Compose APIs into the generic
   `variant-font-core` module under `io.github.hlcaptain.symbols.font`, while
   keeping `MaterialSymbolsTheme` as the Material axes/style adapter. Reorganized
@@ -55,12 +60,12 @@ artifacts are released.
   `SymbolFont.Variable`, `SymbolFontSettings`, `SymbolFontIcon`,
   `rememberSymbolFontFamily`, `SymbolsTheme`, and `SymbolsRuntime` APIs for
   arbitrary Compose Multiplatform symbol fonts.
-- Style-typed `Symbols.{Style}.{Name}` font APIs, shared
-  `Icons.{Style}.{Name}` vector APIs, and inherited Material axes/style through
-  `MaterialSymbolsTheme`.
+- Shared `Symbols.Material.{Style}.{Name}` vector APIs and inherited Material
+  axes/style through `MaterialSymbolsTheme`.
 - Optional shrinker-friendly Outlined, Rounded, and Sharp `ImageVector` packs at
   the default axis position, while preserving dynamic catalog lookup.
-- Composable `Icons.Themed.{Name}` vectors selected by a style composition local.
+- Composable `Symbols.Material.Themed.{Name}` vectors selected by a style
+  composition local.
 - Outlined, Rounded, and Sharp Android `R.drawable` AARs plus XML, View Binding,
   Data Binding, custom View, and programmatic View examples.
 - A cacheable Gradle plugin that converts complete regular/variable font
@@ -74,7 +79,7 @@ artifacts are released.
   shared by the launcher and feature modules.
 - A reproducible Android fixture that verifies typed-vector removal by
   full-mode R8 and unused-resource removal by the Android resource shrinker.
-- Deterministic catalog/namespace/static-font/vector generators, secure direct
+- Deterministic catalog/static-font/vector generators, secure direct
   SVG parsing with strict unsupported-feature rejection, and pinned font/artwork
   provenance verification.
 - A theme-aware `rememberSymbolPainter()` that maps the existing

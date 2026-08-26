@@ -1,7 +1,7 @@
 # Symbols
 
-A migration-friendly alternative to Compose's `material-icons-extended`: keep
-the familiar `Icon(Icons.Rounded.Home, ...)` shape while choosing shrinkable
+A migration-friendly alternative to Compose's `material-icons-extended`: use
+one `Symbols` root while choosing shrinkable
 `ImageVector`s, Android XML drawables, regular fonts, or live variable fonts.
 Use Material Symbols, another icon font, or generate a typed icon set from your
 own font or SVG assets.
@@ -42,12 +42,13 @@ Pick the artifact that matches how the application renders icons:
 
 | Need | Artifact | Runtime payload |
 | --- | --- | --- |
+| Common built-in/generated namespace only | `symbols-core` | Zero-dependency `Symbols` entry point |
 | Material names and code points only | `symbols-material-core` | Typed catalog; no Compose or bundled font |
 | Familiar Compose `Icon(ImageVector, ...)` | `symbols-material-vectors-{outlined|rounded|sharp}` | Fixed vectors for one style; unused typed vectors can be removed by R8 |
 | Runtime style selection in Compose | `symbols-material-vectors-themed` | Fixed vectors for all three styles |
 | Android XML and Views | `symbols-material-drawables-{outlined|rounded|sharp}` | Native `VectorDrawable` resources; unused resources can be removed by Android resource shrinking |
 | Runtime custom regular or variable fonts | `symbols-variant-font-core` | Generic Compose theme and code-point renderer; no bundled font or catalog |
-| Material catalog adapters and theming only | `symbols-material-compose` | Material axes, style theme, and typed font namespaces; no bundled font |
+| Material font axes and theming only | `symbols-material-compose` | Material axes and style theme; no bundled font |
 | Font icons on Android API 21+ | `symbols-material-{outlined|rounded|sharp}-static` | One indivisible regular font at the default axes |
 | Live fill, weight, grade, or optical size | `symbols-material-{outlined|rounded|sharp}` | One indivisible variable font; variable axes require Android API 26+ |
 
@@ -73,11 +74,13 @@ using the standard Compose `Icon` composable:
 
 ```kotlin
 import androidx.compose.material3.Icon
-import io.github.hlcaptain.symbols.material.Icons
+import io.github.hlcaptain.symbols.Symbols
+import io.github.hlcaptain.symbols.material.Material
+import io.github.hlcaptain.symbols.material.Rounded
 import io.github.hlcaptain.symbols.material.rounded.vectors.Home
 
 Icon(
-    imageVector = Icons.Rounded.Home,
+    imageVector = Symbols.Material.Rounded.Home,
     contentDescription = "Home",
 )
 ```
@@ -96,18 +99,19 @@ Use the themed vector artifact when style is selected at runtime:
 
 ```kotlin
 import androidx.compose.material3.Icon
+import io.github.hlcaptain.symbols.Symbols
 import io.github.hlcaptain.symbols.material.*
 import io.github.hlcaptain.symbols.material.vectors.themed.Home
 
 MaterialSymbolsTheme(style = MaterialSymbolStyle.Rounded) {
     Icon(
-        imageVector = Icons.Themed.Home,
+        imageVector = Symbols.Material.Themed.Home,
         contentDescription = "Home",
     )
 }
 ```
 
-`Icons.Themed.*` values are composable read-only properties.
+`Symbols.Material.Themed.*` values are composable read-only properties.
 `MaterialSymbolsTheme` selects their Outlined, Rounded, or Sharp snapshot and
 supplies Material axes to variable and Material-compatible font renderers. Axes
 do not alter fixed vectors or regular fonts.
@@ -128,7 +132,7 @@ catalog bridge:
 import io.github.hlcaptain.symbols.material.outlined.vectors.asOutlinedImageVector
 
 Icon(
-    imageVector = MaterialSymbols.ArrowBack.asOutlinedImageVector(
+    imageVector = Symbols.Material.ArrowBack.asOutlinedImageVector(
         autoMirror = true,
     ),
     contentDescription = "Back",
@@ -136,7 +140,7 @@ Icon(
 ```
 
 Dynamic lookup keeps the pack index and dispatcher reachable. Prefer direct
-`Icons.{Style}.{Name}` properties when minimum APK size matters.
+`Symbols.Material.{Style}.{Name}` properties when minimum APK size matters.
 
 ## Use Android Views and XML
 
@@ -238,7 +242,7 @@ symbolFonts {
 
 Every manifest entry or direct `.svg` file is generated implicitly; the Gradle
 DSL has no `include`/`includeAll` selection mode. SVG filenames become semantic
-names, so `hierarchy-2.svg` produces `Tabler.Outline.Hierarchy2` and
+names, so `hierarchy-2.svg` produces `Symbols.Tabler.Outline.Hierarchy2` and
 `tabler_outline_hierarchy_2`. R8 handles generated Kotlin vectors on Android,
 and Android's resource shrinker handles native drawables. Split a very large
 source set into separate icon sets only when measured build or packaging cost
@@ -264,12 +268,16 @@ Generated vectors use the same familiar call shape:
 ```kotlin
 import com.example.app.generated.AppIcons
 import com.example.app.generated.rounded.Home
+import io.github.hlcaptain.symbols.Symbols
 
 Icon(
-    imageVector = AppIcons.Rounded.Home,
+    imageVector = Symbols.AppIcons.Rounded.Home,
     contentDescription = "Home",
 )
 ```
+
+Generated namespaces require the tiny `symbols-core` runtime dependency. The
+Gradle plugin deliberately does not add application dependencies itself.
 
 The focused custom samples keep their build files intentionally small.
 [`custom-static`](samples/custom-static/build.gradle.kts) reads Powerline from
@@ -305,12 +313,12 @@ The generated Material catalog keeps aliases and raw code points available
 without requiring a rendering artifact:
 
 ```kotlin
-val search = MaterialSymbols.fromName("search")
-val allStarNames = MaterialSymbols.aliases(MaterialSymbols.Star)
-val everyName = MaterialSymbols.all
+val search = Symbols.Material.fromName("search")
+val allStarNames = Symbols.Material.aliases(Symbols.Material.Star)
+val everyName = Symbols.Material.all
 
 check(search?.codePoint == 0xE8B6)
-check(MaterialSymbols.size == 4_102)
+check(Symbols.Material.size == 4_102)
 ```
 
 Aliases remain distinct names even when they share a code point. Unknown names
@@ -390,6 +398,7 @@ API when axes must remain live:
 
 ```kotlin
 import androidx.compose.material3.MaterialTheme
+import io.github.hlcaptain.symbols.Symbols
 import io.github.hlcaptain.symbols.font.SymbolFontIcon
 import io.github.hlcaptain.symbols.material.*
 import io.github.hlcaptain.symbols.material.rounded.MaterialSymbolsRounded
@@ -403,7 +412,7 @@ MaterialSymbolsTheme(
     ),
 ) {
     SymbolFontIcon(
-        codePoint = MaterialSymbols.Home.codePoint,
+        codePoint = Symbols.Material.Home.codePoint,
         font = MaterialSymbolsRounded,
         contentDescription = "Home",
         tint = MaterialTheme.colorScheme.primary,
@@ -420,20 +429,21 @@ the application selects between these paths.
 ```kotlin
 import io.github.hlcaptain.symbols.font.SymbolFontIcon
 import io.github.hlcaptain.symbols.font.SymbolsRuntime
+import io.github.hlcaptain.symbols.Symbols
 import io.github.hlcaptain.symbols.material.Home
-import io.github.hlcaptain.symbols.material.MaterialSymbols
+import io.github.hlcaptain.symbols.material.Material
 import io.github.hlcaptain.symbols.material.rounded.MaterialSymbolsRounded
 import io.github.hlcaptain.symbols.material.rounded.staticfont.MaterialSymbolsRoundedStatic
 
 if (SymbolsRuntime.variableFontsSupported) {
     SymbolFontIcon(
-        MaterialSymbols.Home.codePoint,
+        Symbols.Material.Home.codePoint,
         MaterialSymbolsRounded,
         contentDescription = "Home",
     )
 } else {
     SymbolFontIcon(
-        MaterialSymbols.Home.codePoint,
+        Symbols.Material.Home.codePoint,
         MaterialSymbolsRoundedStatic,
         contentDescription = "Home",
         fontSettings = MaterialSymbolsRoundedStatic.fontSettings,

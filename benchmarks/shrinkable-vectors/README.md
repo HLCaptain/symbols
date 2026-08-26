@@ -1,7 +1,8 @@
 # Shrinkable typed-vector Android benchmark
 
 This fixture measures a full `material-vectors-outlined` Android dependency
-while consuming exactly one typed vector property: `Icons.Outlined.Check`.
+while consuming exactly one typed vector property:
+`Symbols.Material.Outlined.Check`.
 `MainActivity.java` calls the static JVM form of that Kotlin extension getter
 and passes the resulting vector name to `Activity.setTitle`, making the value
 observable to R8.

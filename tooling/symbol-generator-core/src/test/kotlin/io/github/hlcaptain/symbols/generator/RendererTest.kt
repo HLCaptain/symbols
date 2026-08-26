@@ -21,9 +21,12 @@ class RendererTest {
         assertEquals(3, first.files.size)
         val sources = first.files.values.joinToString("\n")
         assertTrue("object AppIcons" in sources)
-        assertTrue("object Rounded" in sources)
-        assertTrue("AppIcons.Rounded.Grade" in sources)
-        assertTrue("AppIcons.Rounded.Star" in sources)
+        assertTrue("val Symbols.AppIcons: AppIcons" in sources)
+        assertTrue("get() = _AppIconsEntryPoint" in sources)
+        assertTrue("object AppIconsRounded" in sources)
+        assertTrue("val Rounded: AppIconsRounded" in sources)
+        assertTrue("AppIconsRounded.Grade" in sources)
+        assertTrue("AppIconsRounded.Star" in sources)
         assertTrue("get() = appIconsRoundedUF09A()" in sources)
         assertEquals(1, Regex("private fun appIconsRoundedUF09A\\(").findAll(sources).count())
         assertTrue("private var _appIconsRoundedUF09A: ImageVector? = null" in sources)
@@ -51,7 +54,7 @@ class RendererTest {
         )
         assertTrue(
             rendered.files.values.single().contains(
-                "AppIcons.Rounded.Home",
+                "AppIconsRounded.Home",
             ),
         )
     }
@@ -135,6 +138,14 @@ class RendererTest {
                 packageName = "com.example.icons",
                 iconSetName = "AppIcons",
                 styleNames = listOf("FooBar", "Foo_Bar"),
+            )
+        }
+
+        assertFailsWith<IllegalArgumentException> {
+            KotlinIconNamespaceRenderer().render(
+                packageName = "com.example.icons",
+                iconSetName = "wh",
+                styleNames = listOf("en"),
             )
         }
     }

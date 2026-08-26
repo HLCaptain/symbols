@@ -11,10 +11,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import io.github.hlcaptain.symbols.Symbols
 import io.github.hlcaptain.symbols.font.SymbolFontIcon
 import io.github.hlcaptain.symbols.font.SymbolsTheme
 import io.github.hlcaptain.symbols.material.Favorite
-import io.github.hlcaptain.symbols.material.MaterialSymbols
+import io.github.hlcaptain.symbols.material.Material
 import io.github.hlcaptain.symbols.material.rounded.staticfont.MaterialSymbolsRoundedStatic
 import io.github.hlcaptain.symbols.sample.api.SampleItem
 import io.github.hlcaptain.symbols.sample.theming.config.SampleBuildConfig
@@ -66,7 +67,7 @@ private fun ThemingContent() {
                             verticalArrangement = Arrangement.spacedBy(12.dp),
                         ) {
                             SymbolFontIcon(
-                                codePoint = MaterialSymbols.Favorite.codePoint,
+                                codePoint = Symbols.Material.Favorite.codePoint,
                                 font = MaterialSymbolsRoundedStatic,
                                 contentDescription = "Favorite",
                                 tint = MaterialTheme.colorScheme.primary,

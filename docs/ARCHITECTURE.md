@@ -5,13 +5,16 @@ generated vectors/resources so consumers pay only for the access modes and
 visual styles they select.
 
 ```text
-variant-font-core ──generic font settings/theme/renderer──┐
+symbols-core ──common Symbols root────────────────────────┐
+                                                          │
+variant-font-core ──generic font settings/theme/renderer──┤
                                                           │
 MaterialSymbols.codepoints ──catalog generator──> material-core
-              │                                      │
-              └──typed namespace generator──────────> material-compose <────┘
-                                                        │
-variable font (one style) ──runtime resource────────────┴──> material-{style}
+                                                     │
+                                                     ├──> Symbols.Material
+                                                     └──> material-compose
+                                                            │
+variable font (one style) ──runtime resource───────────────┴──> material-{style}
         │
         ├──default-axis instancing────────────────────────> material-{style}-static
         │                                                    │
@@ -20,12 +23,13 @@ variable font (one style) ──runtime resource──────────�
         ├──default-axis outline extraction────────────────> material-vectors-{style}
         │                                                    │
         │                                                    └──> material-vectors-themed
-        └──Gradle generator + app manifest────────────────> selected ImageVectors /
+        └──Gradle generator + app manifest────────────────> Symbols.<CustomSet> /
+                                                            selected ImageVectors /
                                                             Android drawables /
                                                             Compose drawables
 ```
 
-The built-in catalog, typed namespaces, regular fonts, and vector packs are
+The built-in catalog, regular fonts, and vector packs are
 checked-in repository outputs. Consumers of those artifacts do not parse a
 codepoint manifest, inspect a TTF, run Python, or execute a generator. The
 drawable AARs are generated from checked-in static fonts when the library is
@@ -37,7 +41,7 @@ does not require Python or FontTools.
 ## Catalog identity
 
 `MaterialSymbol` is an inline index handle into the built-in catalog. Generated
-properties such as `MaterialSymbols.Home` return a constant index, so bare named
+properties such as `Symbols.Material.Home` return a constant index, so bare named
 access does not allocate an object or initialize the name/codepoint lookup data.
 The data holder initializes when an application asks for `name`, `codePoint`,
 `text`, `all`, `fromName`, or `aliases`.
@@ -83,10 +87,9 @@ Outlined/Rounded/Sharp style selection while also providing the mapped generic
 settings to font rendering. Custom fonts with other coordinates use the generic
 theme directly.
 
-`Symbols.Outlined`, `Symbols.Rounded`, and `Symbols.Sharp` provide
-allocation-free style-typed handles over the shared catalog. Runtime rendering
-uses the generic `SymbolFontIcon`; fixed vectors use composable-scoped
-`Icons.Themed.*` properties or `MaterialSymbol.asThemedImageVector()`. Large
+Runtime rendering uses `Symbols.Material.<Name>` with the generic
+`SymbolFontIcon`; fixed vectors use `Symbols.Material.<Style>.<Name>` or
+`MaterialSymbol.asThemedImageVector()`. Large
 collections should remember one family for a `(font, fontSettings)` pair and
 pass that shared family to `SymbolFontIcon`.
 
@@ -101,8 +104,9 @@ targets.
 
 The three `material-{style}-static` modules each carry one font instantiated at
 `FILL=0, GRAD=0, opsz=24, wght=400`. They depend on the API-21-compatible
-renderer and use the same style-typed symbol namespace as the variable modules.
-They contain no variable tables and cannot animate or override axes.
+renderer. Callers select the catalog entry through `Symbols.Material` and pass
+the chosen regular or variable font separately. Regular fonts contain no
+variable tables and cannot animate or override axes.
 
 These TTFs are deterministic, checked-in derivatives of the pinned Google
 variable fonts. They are generated only in an explicit maintainer workflow with
@@ -121,7 +125,7 @@ Every vector has a 24 dp default size and a 24×24 viewport. Paths preserve
 intentional overshoot outside the viewport. A separate cached vector is used for
 `autoMirror = true`; source coordinates are not rewritten.
 
-Direct properties such as `Icons.Outlined.Home` reference an independent
+Direct properties such as `Symbols.Material.Outlined.Home` reference an independent
 per-codepoint builder and cache. They do not reach the pack-wide codepoint index
 or dispatcher, preserving code-shrinker reachability. The legacy dynamic bridge
 from `MaterialSymbol` intentionally uses that index and dispatcher and can retain
@@ -141,8 +145,9 @@ entry or direct SVG file is generated implicitly. The shared generator model
 then emits direct Compose `ImageVector` builders, native Android vector XML,
 Compose drawable XML, or any combination.
 
-Generated Kotlin has style-typed namespaces and per-codepoint nullable caches,
-with no registry, dispatcher, reflection hook, or all-icons collection. Android
+Generated Kotlin contributes `Symbols.<IconSet>.<Style>.<Name>` branches and
+per-codepoint nullable caches, with no registry, dispatcher, reflection hook,
+or all-icons collection. Android
 resources are registered with the Android Components variant API; Compose XML
 is registered as a generated `commonMain` custom resource directory. Tasks
 declare their source files, axes where applicable, rendering options, generator
@@ -169,12 +174,12 @@ See [build-time font conversion](GENERATOR.md) for the DSL and resource names.
 Kotlin Multiplatform runtime modules publish Android, JVM, JS, Wasm, iOS arm64,
 and iOS simulator arm64 variants. Compose Multiplatform 1.11 no longer
 publishes Apple x86_64 artifacts. The native drawable packs are
-Android-only AARs. `material-core` contains the catalog and has no Compose
-dependency. `symbols-variant-font-core` contains the generic font contracts,
-settings theme, renderer, and platform capability check; it has no Material
-catalog or bundled font. `material-compose` depends on both and adds the Material
-catalog adapters and Material style/axes theme. Variable and regular style
-modules keep Compose's generated `Res` class internal and expose font resources
+Android-only AARs. `symbols-core` contains only the common `Symbols` namespace.
+`material-core` contains the catalog and has no Compose dependency.
+`symbols-variant-font-core` contains the generic font contracts, settings theme,
+renderer, and platform capability check; it has no Material catalog or bundled
+font. `material-compose` adds the Material style/axes theme. Variable and regular
+style modules keep Compose's generated `Res` class internal and expose font resources
 only through the public `MaterialSymbols*` adapters. Fixed vector modules
 depend on `material-core` and Compose UI but not on a font; the themed vector
 module adds Material composition-local style selection over all three packs.
@@ -266,7 +271,7 @@ The canonical inputs are:
 - the three versioned variable fonts; and
 - pinned invariants and checksums in `tools/verify_material_fonts.py`.
 
-The catalog and typed namespace generators use only the Python standard library.
+The catalog generator uses only the Python standard library.
 Static font instancing, built-in vector extraction, and font inspection use a
 pinned FontTools release in an isolated maintainer/CI environment. The verifier
 checks the unmodified upstream inputs; separate generator `--check` modes

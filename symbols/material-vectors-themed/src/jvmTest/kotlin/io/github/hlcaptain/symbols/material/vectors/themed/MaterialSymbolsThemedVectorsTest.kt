@@ -4,11 +4,15 @@ import androidx.compose.runtime.AbstractApplier
 import androidx.compose.runtime.Composition
 import androidx.compose.runtime.Recomposer
 import androidx.compose.ui.graphics.vector.ImageVector
-import io.github.hlcaptain.symbols.material.Icons
+import io.github.hlcaptain.symbols.Symbols
 import io.github.hlcaptain.symbols.material.Home
+import io.github.hlcaptain.symbols.material.Material
 import io.github.hlcaptain.symbols.material.MaterialSymbolStyle
-import io.github.hlcaptain.symbols.material.MaterialSymbols
 import io.github.hlcaptain.symbols.material.MaterialSymbolsTheme
+import io.github.hlcaptain.symbols.material.Outlined
+import io.github.hlcaptain.symbols.material.Rounded
+import io.github.hlcaptain.symbols.material.Sharp
+import io.github.hlcaptain.symbols.material.Themed
 import io.github.hlcaptain.symbols.material.outlined.vectors.Home as OutlinedHome
 import io.github.hlcaptain.symbols.material.rounded.vectors.Home as RoundedHome
 import io.github.hlcaptain.symbols.material.sharp.vectors.Home as SharpHome
@@ -20,24 +24,24 @@ class MaterialSymbolsThemedVectorsTest {
     @Test
     fun themedPropertySelectsTheCurrentStyle() {
         assertSame(
-            Icons.Outlined.OutlinedHome,
+            Symbols.Material.Outlined.OutlinedHome,
             themedHome(MaterialSymbolStyle.Outlined),
         )
         assertSame(
-            Icons.Rounded.RoundedHome,
+            Symbols.Material.Rounded.RoundedHome,
             themedHome(MaterialSymbolStyle.Rounded),
         )
         assertSame(
-            Icons.Sharp.SharpHome,
+            Symbols.Material.Sharp.SharpHome,
             themedHome(MaterialSymbolStyle.Sharp),
         )
     }
 
     @Test
     fun symbolSelectsTheCurrentStyle() {
-        assertSame(Icons.Outlined.OutlinedHome, themedSymbol(MaterialSymbolStyle.Outlined))
-        assertSame(Icons.Rounded.RoundedHome, themedSymbol(MaterialSymbolStyle.Rounded))
-        assertSame(Icons.Sharp.SharpHome, themedSymbol(MaterialSymbolStyle.Sharp))
+        assertSame(Symbols.Material.Outlined.OutlinedHome, themedSymbol(MaterialSymbolStyle.Outlined))
+        assertSame(Symbols.Material.Rounded.RoundedHome, themedSymbol(MaterialSymbolStyle.Rounded))
+        assertSame(Symbols.Material.Sharp.SharpHome, themedSymbol(MaterialSymbolStyle.Sharp))
     }
 
     private fun themedHome(style: MaterialSymbolStyle): ImageVector {
@@ -47,7 +51,7 @@ class MaterialSymbolsThemedVectorsTest {
         try {
             composition.setContent {
                 MaterialSymbolsTheme(style = style) {
-                    vector = Icons.Themed.Home
+                    vector = Symbols.Material.Themed.Home
                 }
             }
             return requireNotNull(vector)
@@ -64,7 +68,7 @@ class MaterialSymbolsThemedVectorsTest {
         try {
             composition.setContent {
                 MaterialSymbolsTheme(style = style) {
-                    vector = MaterialSymbols.Home.asThemedImageVector()
+                    vector = Symbols.Material.Home.asThemedImageVector()
                 }
             }
             return requireNotNull(vector)

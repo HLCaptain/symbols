@@ -42,7 +42,7 @@
                 android:layout_height="48dp"
                 android:contentDescription="@string/downloaded_home_icon_description"
                 android:src="@drawable/google_home_f0_w400_g0_opsz24"
-                app:tint="?attr/colorControlNormal" />
+                android:tint="?attr/colorControlNormal" />
         </LinearLayout>
 
         <LinearLayout
@@ -64,7 +64,7 @@
                 android:layout_height="48dp"
                 android:contentDescription="@string/generated_home_icon_description"
                 android:src="@drawable/material_symbols_outlined_home_ue9b2"
-                app:tint="?attr/colorControlNormal" />
+                android:tint="?attr/colorControlNormal" />
         </LinearLayout>
     </LinearLayout>
 
@@ -79,7 +79,7 @@
         android:layout_height="48dp"
         android:contentDescription="@string/tabler_home_icon_description"
         android:src="@drawable/tabler_outline_home"
-        app:tint="?attr/colorControlNormal" />
+        android:tint="?attr/colorControlNormal" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -92,7 +92,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:contentDescription="@string/tabler_settings_icon_description"
-        app:tint="?attr/colorControlNormal" />
+        android:tint="?attr/colorControlNormal" />
 
     <FrameLayout
         android:id="@+id/data_binding_host"

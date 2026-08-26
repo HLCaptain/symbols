@@ -4,6 +4,7 @@ plugins {
 
 kotlin {
     sourceSets.commonMain.dependencies {
+        api(projects.modules.symbolsCore)
         api(libs.compose.runtime)
     }
 }

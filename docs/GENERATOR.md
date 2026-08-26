@@ -56,6 +56,10 @@ pluginManagement {
 plugins {
     id("io.github.hlcaptain.symbol-fonts")
 }
+
+dependencies {
+    implementation("io.github.hlcaptain:symbols-core:0.1.0")
+}
 ```
 
 The runtime library artifacts and build plugin have independent dependency
@@ -261,12 +265,18 @@ strongly typed namespace:
 ```kotlin
 import com.example.app.generated.AppIcons
 import com.example.app.generated.rounded.Home
+import io.github.hlcaptain.symbols.Symbols
 
 Icon(
-    imageVector = AppIcons.Rounded.Home,
+    imageVector = Symbols.AppIcons.Rounded.Home,
     contentDescription = "Home",
 )
 ```
+
+Each generated icon set contributes one extension branch to the shared
+`Symbols` object. Keep `rootName` globally distinctive across imported
+dependencies; Kotlin cannot disambiguate two same-named extension branches from
+different packages without an import alias.
 
 Aliases in the manifest get separate semantic properties and share the same
 per-codepoint builder and nullable cache. Each codepoint builder is directly
@@ -285,7 +295,7 @@ segment and every alias converges on that one file.
 
 SVG properties follow the same Kotlin namespace without a codepoint. For
 example, `hierarchy-2.svg` in the `Tabler`/`Outline` declaration produces
-`Tabler.Outline.Hierarchy2`, whose stable `ImageVector.name` is
+`Symbols.Tabler.Outline.Hierarchy2`, whose stable `ImageVector.name` remains
 `Tabler.Outline.Hierarchy2`. Its Android and Compose resource name is
 `tabler_outline_hierarchy_2`, with no U+ suffix.
 

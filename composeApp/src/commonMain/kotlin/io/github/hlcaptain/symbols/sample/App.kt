@@ -19,7 +19,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.ui.NavDisplay
-import io.github.hlcaptain.symbols.material.Icons
+import io.github.hlcaptain.symbols.Symbols
+import io.github.hlcaptain.symbols.material.Material
+import io.github.hlcaptain.symbols.material.Rounded
 import io.github.hlcaptain.symbols.material.rounded.vectors.ArrowBack
 import io.github.hlcaptain.symbols.sample.api.SampleEntry
 import io.github.hlcaptain.symbols.sample.api.SampleItem
@@ -70,7 +72,7 @@ private fun SampleLauncher() {
                         if (canNavigateBack) {
                             IconButton(onClick = { backStack.removeLastOrNull() }) {
                                 Icon(
-                                    imageVector = Icons.Rounded.ArrowBack,
+                                    imageVector = Symbols.Material.Rounded.ArrowBack,
                                     contentDescription = "Back",
                                 )
                             }

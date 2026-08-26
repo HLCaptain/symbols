@@ -347,7 +347,12 @@ class SymbolFontsPluginFunctionalTest {
         )
         val contents = namespace.readText()
         assertTrue("object AppIcons" in contents)
-        assertTrue(contents.indexOf("object Regular") < contents.indexOf("object Rounded"))
+        assertTrue("val Symbols.AppIcons: AppIcons" in contents)
+        assertTrue("get() = _AppIconsEntryPoint" in contents)
+        assertTrue(
+            contents.indexOf("object AppIconsRegular") <
+                contents.indexOf("object AppIconsRounded"),
+        )
         assertFalse(Regex("\\bpublic\\b").containsMatchIn(contents))
 
         val second = runner(project, "generateAppIconsSymbolFontNamespace").build()
@@ -805,8 +810,80 @@ class SymbolFontsPluginFunctionalTest {
         )
         val rootFailure = runner(rootCollision, "help").buildAndFail()
         assertTrue(
-            "generated Kotlin root collision 'com.example.icons.Shared'" in
+            "generated Kotlin namespace collision 'com.example.icons.Shared'" in
                 rootFailure.output,
+        )
+
+        val entryPointCollision = fixture(
+            """
+            plugins {
+                id 'io.github.hlcaptain.symbol-fonts'
+            }
+
+            symbolFonts {
+                iconSet('One') {
+                    packageName.set('com.example.one')
+                    rootName.set('Shared')
+                }
+                iconSet('Two') {
+                    packageName.set('com.example.two')
+                    rootName.set('Shared')
+                }
+            }
+            """,
+        )
+        val entryPointFailure = runner(entryPointCollision, "help").buildAndFail()
+        assertTrue(
+            "generated Symbols entry point collision 'Shared'" in
+                entryPointFailure.output,
+        )
+
+        val keywordCollision = fixture(
+            """
+            plugins {
+                id 'io.github.hlcaptain.symbol-fonts'
+            }
+
+            symbolFonts {
+                iconSet('Keyword') {
+                    rootName.set('wh')
+                    style('en') {
+                        codepoints.set(file('icons.codepoints'))
+                        font.set(file('font.ttf'))
+                        imageVectors()
+                    }
+                }
+            }
+            """,
+        )
+        val keywordFailure = runner(keywordCollision, "help").buildAndFail()
+        assertTrue("Invalid generated style namespace: when" in keywordFailure.output)
+
+        val namespaceCollision = fixture(
+            """
+            plugins {
+                id 'io.github.hlcaptain.symbol-fonts'
+            }
+
+            symbolFonts {
+                iconSet('A') {
+                    packageName.set('com.example.icons')
+                    style('B') {
+                        codepoints.set(file('icons.codepoints'))
+                        font.set(file('font.ttf'))
+                        imageVectors()
+                    }
+                }
+                iconSet('AB') {
+                    packageName.set('com.example.icons')
+                }
+            }
+            """,
+        )
+        val namespaceFailure = runner(namespaceCollision, "help").buildAndFail()
+        assertTrue(
+            "generated Kotlin namespace collision 'com.example.icons.AB'" in
+                namespaceFailure.output,
         )
 
         val packageCollision = fixture(

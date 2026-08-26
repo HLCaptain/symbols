@@ -6,6 +6,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import io.github.hlcaptain.symbols.Symbols
 import io.github.hlcaptain.symbols.sample.api.SampleItem
 import io.github.hlcaptain.symbols.sample.customvariable.generated.Academmunicons
 import io.github.hlcaptain.symbols.sample.customvariable.generated.semibold.Orcid
@@ -42,7 +43,7 @@ private fun CustomVariableContent() {
                 "axis(...) selects the instance before the typed ImageVector is generated.",
         ) {
             Icon(
-                imageVector = Academmunicons.Semibold.Orcid,
+                imageVector = Symbols.Academmunicons.Semibold.Orcid,
                 contentDescription = "ORCID",
                 tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.size(48.dp),

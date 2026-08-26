@@ -23,6 +23,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:contentDescription="@string/favorite_icon_description"
-            android:src="@{icon}" />
+            android:src="@{icon}"
+            android:tint="?attr/colorControlNormal" />
     </LinearLayout>
 </layout>

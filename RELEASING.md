@@ -9,6 +9,7 @@ from Maven Central after a maintainer releases both staged deployments.
 The Kotlin Multiplatform libraries have umbrella coordinates under
 `io.github.hlcaptain`:
 
+- `symbols-core`
 - `symbols-variant-font-core`
 - `symbols-material-core`
 - `symbols-material-compose`

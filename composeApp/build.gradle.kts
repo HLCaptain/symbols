@@ -87,6 +87,9 @@ android {
         versionCode = 1
         versionName = "0.1.0"
     }
+    buildFeatures {
+        dataBinding = true
+    }
     androidResources {
         // Typeface.Builder can mmap uncompressed font assets; compressed variable fonts are
         // inflated into a full-size buffer for every variation, exhausting small heaps quickly.

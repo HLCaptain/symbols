@@ -10,11 +10,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import io.github.hlcaptain.symbols.Symbols
 import io.github.hlcaptain.symbols.font.SymbolFontIcon
 import io.github.hlcaptain.symbols.material.Favorite
 import io.github.hlcaptain.symbols.material.Home
+import io.github.hlcaptain.symbols.material.Material
 import io.github.hlcaptain.symbols.material.MaterialSymbol
-import io.github.hlcaptain.symbols.material.MaterialSymbols
 import io.github.hlcaptain.symbols.material.Search
 import io.github.hlcaptain.symbols.material.rounded.staticfont.MaterialSymbolsRoundedStatic
 import io.github.hlcaptain.symbols.sample.api.SampleItem
@@ -52,9 +53,9 @@ private fun MaterialStaticContent() {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly,
             ) {
-                StaticSymbol("Home", MaterialSymbols.Home)
-                StaticSymbol("Search", MaterialSymbols.Search)
-                StaticSymbol("Favorite", MaterialSymbols.Favorite)
+                StaticSymbol("Home", Symbols.Material.Home)
+                StaticSymbol("Search", Symbols.Material.Search)
+                StaticSymbol("Favorite", Symbols.Material.Favorite)
             }
         }
     }

@@ -1,11 +1,10 @@
 # Maintainer generation
 
-The checked-in Material Symbols artifacts have four generation stages:
+The checked-in Material Symbols artifacts have three generation stages:
 
 1. the upstream codepoint manifest produces the catalog;
-2. the catalog produces style-typed font namespaces;
-3. the upstream variable fonts produce default-axis regular fonts; and
-4. the manifest plus variable fonts produce built-in typed vector packs.
+2. the upstream variable fonts produce default-axis regular fonts; and
+3. the manifest plus variable fonts produce built-in typed vector packs.
 
 Normal consumers of the published runtime artifacts do not execute these
 scripts. The separate Gradle font converter for application-owned icons is
@@ -47,22 +46,6 @@ two names that would produce the same Kotlin identifier.
 An alternate package expects the small catalog runtime from
 `MaterialSymbol.kt` to be present in that package. It is intended for a source
 fork/custom catalog module, not as code injection into an arbitrary consumer.
-
-## Typed font namespace generation
-
-`generate_material_font_namespaces.py` creates the allocation-free
-`Symbols.Outlined`, `Symbols.Rounded`, and `Symbols.Sharp` getters in
-`:modules:material-compose`. It uses the catalog as the single source of
-semantic names and code points and uses only the Python standard library.
-
-```shell
-python3 tools/generate_material_font_namespaces.py
-python3 tools/generate_material_font_namespaces.py --check
-```
-
-The output is split into deterministic 128-name files per style. Do not hand
-edit it; regenerate whenever the manifest, catalog name conversion, wrapper
-types, or chunking changes.
 
 ## Static font generation
 
@@ -146,7 +129,8 @@ this manifest/font contract without owning a second compiler.
 `FILL=0, GRAD=0, opsz=24, wght=400` and generates the three optional
 `ImageVector` packs. It reads every unique manifest code point, preserves aliases
 through shared per-codepoint builders/caches, and writes direct Compose path
-operations in stable chunks. It also writes the composable `Icons.Themed.*`
+operations in stable chunks. It also writes the composable
+`Symbols.Material.Themed.*`
 getters that select direct Outlined, Rounded, or Sharp properties from the
 theme's style composition local.
 
@@ -209,11 +193,10 @@ Run the complete maintainer test suite:
 python3 -m unittest discover -s tools/tests -p "test_*.py"
 ```
 
-CI runs that suite and all four relevant `--check` modes:
+CI runs that suite and all three relevant `--check` modes:
 
 ```shell
 python3 tools/generate_material_symbols.py --check
-python3 tools/generate_material_font_namespaces.py --check
 /tmp/symbols-fonttools/bin/python tools/generate_material_static_fonts.py --check
 /tmp/symbols-fonttools/bin/python tools/generate_material_vectors.py --check
 ```

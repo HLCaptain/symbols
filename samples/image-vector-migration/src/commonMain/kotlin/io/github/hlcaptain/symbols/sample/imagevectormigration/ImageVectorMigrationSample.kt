@@ -17,7 +17,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import io.github.hlcaptain.image_vector_migration.generated.resources.Res
 import io.github.hlcaptain.image_vector_migration.generated.resources.academmunicons_default_orcid_uf04f
-import io.github.hlcaptain.symbols.material.Icons as SymbolsIcons
+import io.github.hlcaptain.symbols.Symbols
+import io.github.hlcaptain.symbols.material.Material
+import io.github.hlcaptain.symbols.material.Rounded
 import io.github.hlcaptain.symbols.material.rounded.vectors.AccountTree as SymbolsAccountTree
 import io.github.hlcaptain.symbols.sample.api.SampleItem
 import io.github.hlcaptain.symbols.sample.imagevectormigration.config.SampleBuildConfig
@@ -60,11 +62,11 @@ private fun ImageVectorMigrationContent() {
                 horizontalArrangement = Arrangement.SpaceEvenly,
             ) {
                 VectorExample("Old · Extended", MaterialIcons.Rounded.MaterialAccountTree)
-                VectorExample("New · Symbols", SymbolsIcons.Rounded.SymbolsAccountTree)
+                VectorExample("New · Symbols", Symbols.Material.Rounded.SymbolsAccountTree)
             }
             Text(
                 text = "Old: MaterialIcons.Rounded.AccountTree\n" +
-                    "New: SymbolsIcons.Rounded.AccountTree",
+                    "New: Symbols.Material.Rounded.AccountTree",
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 style = MaterialTheme.typography.bodySmall,
             )
@@ -78,7 +80,7 @@ private fun ImageVectorMigrationContent() {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly,
             ) {
-                VectorExample("ImageVector", Academmunicons.Default.Orcid)
+                VectorExample("ImageVector", Symbols.Academmunicons.Default.Orcid)
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(8.dp),

@@ -52,8 +52,7 @@ out-of-range coordinates, and non-variable inputs.
 4. Install the pinned verifier dependency in an isolated environment.
 5. Run `tools/verify_material_fonts.py` and inspect every expected mismatch.
 6. Update verifier pins only after independently confirming the new facts.
-7. Regenerate the regular fonts, catalog, typed font namespaces, and all vector
-   styles.
+7. Regenerate the regular fonts, catalog, and all vector styles.
 8. Run every generator in `--check` mode and the full multiplatform test suite.
 9. Update version, hashes, paths, and modification status in the third-party
    notice and changelog.

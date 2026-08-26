@@ -558,7 +558,8 @@ private class DerivedNameRegistry {
 }
 
 private fun validateConfiguredIconSets(extension: SymbolFontsExtension) {
-    val kotlinRootOwners = linkedMapOf<String, String>()
+    val symbolsEntryPointOwners = linkedMapOf<String, String>()
+    val kotlinNamespaceOwners = linkedMapOf<String, String>()
     val kotlinSourceOwners = linkedMapOf<String, String>()
     val androidPrefixOwners = linkedMapOf<String, String>()
     val androidResourceOwners = linkedMapOf<String, String>()
@@ -570,10 +571,16 @@ private fun validateConfiguredIconSets(extension: SymbolFontsExtension) {
         SymbolNames.requirePackageName(packageName)
         SymbolNames.requireTypeIdentifier(rootName, "icon-set name")
         claim(
-            kind = "generated Kotlin root",
+            kind = "generated Kotlin namespace",
             key = "$packageName.$rootName",
             owner = iconSetOwner,
-            owners = kotlinRootOwners,
+            owners = kotlinNamespaceOwners,
+        )
+        claim(
+            kind = "generated Symbols entry point",
+            key = rootName,
+            owner = iconSetOwner,
+            owners = symbolsEntryPointOwners,
         )
 
         val stylePackageOwners = linkedMapOf<String, String>()
@@ -587,12 +594,22 @@ private fun validateConfiguredIconSets(extension: SymbolFontsExtension) {
         iconSet.styles.sortedBy(SymbolFontStyle::getName).forEach { style ->
             val styleOwner = "$iconSetOwner style '${style.name}'"
             SymbolNames.requireTypeIdentifier(style.name, "style name")
+            SymbolNames.requireTypeIdentifier(
+                "$rootName${style.name}",
+                "generated style namespace",
+            )
             val packageSegment = SymbolNames.packageSegment(style.name)
             claim(
                 kind = "generated style package segment",
                 key = packageSegment,
                 owner = styleOwner,
                 owners = stylePackageOwners,
+            )
+            claim(
+                kind = "generated Kotlin namespace",
+                key = "$packageName.$rootName${style.name}",
+                owner = styleOwner,
+                owners = kotlinNamespaceOwners,
             )
             claim(
                 kind = "generated Kotlin source facade",

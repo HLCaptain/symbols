@@ -1,5 +1,6 @@
 package io.github.hlcaptain.symbols.material
 
+import io.github.hlcaptain.symbols.Symbols
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -9,6 +10,16 @@ import kotlin.test.assertSame
 import kotlin.test.assertTrue
 
 class MaterialSymbolsTest {
+    @Test
+    fun commonRootExposesTheCatalogAndVectorStyles() {
+        assertSame(MaterialSymbols, Symbols.Material)
+        assertEquals(MaterialSymbols.Search, Symbols.Material.Search)
+        assertSame(Icons.Outlined, Symbols.Material.Outlined)
+        assertSame(Icons.Rounded, Symbols.Material.Rounded)
+        assertSame(Icons.Sharp, Symbols.Material.Sharp)
+        assertSame(Icons.Themed, Symbols.Material.Themed)
+    }
+
     @Test
     fun catalogPreservesEveryCanonicalNameAndAliasIdentity() {
         assertEquals(4102, MaterialSymbols.size)

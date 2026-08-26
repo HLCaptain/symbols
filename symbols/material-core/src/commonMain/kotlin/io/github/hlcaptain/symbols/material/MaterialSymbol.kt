@@ -34,9 +34,10 @@ value class MaterialSymbol internal constructor(private val catalogIndex: Int) {
 /**
  * Namespace and lookup API for the generated Material Symbols catalog.
  *
- * Named extension properties such as `MaterialSymbols.Home` are generated
- * from the canonical codepoints map. They return an inline catalog handle and
- * do not construct a new symbol object on each access.
+ * Named extension properties are generated from the canonical codepoints map
+ * and exposed through entry points such as `Symbols.Material.Home`. They
+ * return an inline catalog handle and do not construct a new symbol object on
+ * each access.
  */
 object MaterialSymbols {
     /** Every named entry in canonical name order, including aliases. */

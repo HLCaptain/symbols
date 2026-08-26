@@ -30,7 +30,7 @@ object MaterialSymbolsTheme {
         @ReadOnlyComposable
         get() = LocalMaterialSymbolAxes.current
 
-    /** The style used by composable `Icons.Themed.*` vector properties. */
+    /** The style used by composable `Symbols.Material.Themed.*` vectors. */
     val style: MaterialSymbolStyle
         @Composable
         @ReadOnlyComposable

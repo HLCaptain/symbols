@@ -6,6 +6,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import io.github.hlcaptain.symbols.Symbols
 import io.github.hlcaptain.symbols.sample.api.SampleItem
 import io.github.hlcaptain.symbols.sample.customstatic.generated.PowerlineIcons
 import io.github.hlcaptain.symbols.sample.customstatic.generated.regular.Branch
@@ -41,7 +42,7 @@ private fun CustomStaticContent() {
             description = "The Gradle plugin generates direct, typed properties.",
         ) {
             Icon(
-                imageVector = PowerlineIcons.Regular.Branch,
+                imageVector = Symbols.PowerlineIcons.Regular.Branch,
                 contentDescription = "Branch",
                 tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.size(48.dp),

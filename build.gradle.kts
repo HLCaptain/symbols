@@ -196,6 +196,9 @@ subprojects {
             "material-sharp-static",
         )
         val publicationDescription = when (project.name) {
+            "symbols-core" ->
+                "Common Symbols namespace for built-in and generated Kotlin " +
+                    "Multiplatform symbol-set entry points."
             "variant-font-core" ->
                 "Generic regular/variable symbol-font contracts, Compose theme, " +
                     "runtime capability checks, and accessible glyph rendering."
@@ -203,8 +206,8 @@ subprojects {
                 "Typed Material Symbols catalog, aliases, and code points for " +
                     "Kotlin Multiplatform; no Compose or bundled font."
             "material-compose" ->
-                "Typed font namespaces and Material-specific axes and style theming " +
-                    "for Material Symbols in Compose Multiplatform; no bundled font."
+                "Material-specific axes and style theming for Material Symbols " +
+                    "in Compose Multiplatform; no bundled font."
             "material-outlined" ->
                 "Outlined Material Symbols variable font and Compose adapter for " +
                     "Compose Multiplatform."

@@ -55,9 +55,6 @@ jobs:
       - name: Check generated symbol catalog
         run: python tools/generate_material_symbols.py --check
 
-      - name: Check generated typed font namespaces
-        run: python tools/generate_material_font_namespaces.py --check
-
       - name: Check generated API 21 static fonts
         run: python tools/generate_material_static_fonts.py --check
 

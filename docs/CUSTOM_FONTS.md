@@ -134,7 +134,7 @@ MaterialSymbolsTheme(
 
 Use the generic `SymbolsTheme` instead when the custom font has different tags
 or ranges. `MaterialSymbolsTheme` also owns the Outlined, Rounded, and Sharp
-selection used by built-in `Icons.Themed.*` properties.
+selection used by built-in `Symbols.Material.Themed.*` properties.
 
 ## Package a regular font
 
@@ -229,7 +229,7 @@ symbolFonts {
 ```
 
 Names come from filenames: `hierarchy-2.svg` becomes the Kotlin property
-`Tabler.Outline.Hierarchy2`, stable `ImageVector.name`
+`Symbols.Tabler.Outline.Hierarchy2`, stable `ImageVector.name`
 `Tabler.Outline.Hierarchy2`, and Android/Compose resource
 `tabler_outline_hierarchy_2`. A font, codepoint allocation, and runtime SVG
 parser are unnecessary.
@@ -238,9 +238,13 @@ For a theme-aware Compose painter, use the existing weight setting rather than
 a second stroke API:
 
 ```kotlin
+import io.github.hlcaptain.symbols.Symbols
+import my.icons.generated.Tabler
+import my.icons.generated.outline.Hierarchy2
+
 SymbolsTheme(fontSettings = settings) {
     Icon(
-        painter = Tabler.Outline.Hierarchy2.rememberSymbolPainter(),
+        painter = Symbols.Tabler.Outline.Hierarchy2.rememberSymbolPainter(),
         contentDescription = "Hierarchy",
     )
 }

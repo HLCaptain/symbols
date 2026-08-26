@@ -90,7 +90,6 @@ The maintainer checks for generated sources and fonts are:
 
 ```shell
 python3 tools/generate_material_symbols.py --check
-python3 tools/generate_material_font_namespaces.py --check
 python3 -m unittest discover -s tools/tests -p "test_*.py"
 
 /tmp/symbols-fonttools/bin/python tools/verify_material_fonts.py

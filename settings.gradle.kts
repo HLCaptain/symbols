@@ -66,6 +66,7 @@ include(
     ":samples:runtime-axes",
 )
 include(
+    ":modules:symbols-core",
     ":modules:variant-font-core",
     ":modules:material-core",
     ":modules:material-compose",
@@ -84,6 +85,7 @@ include(
     ":modules:material-vectors-themed",
 )
 
+project(":modules:symbols-core").projectDir = file("symbols/symbols-core")
 project(":modules:variant-font-core").projectDir = file("symbols/variant-font-core")
 project(":modules:material-core").projectDir = file("symbols/material-core")
 project(":modules:material-compose").projectDir = file("symbols/material-compose")
