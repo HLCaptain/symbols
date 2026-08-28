@@ -643,15 +643,10 @@ private fun validateConfiguredIconSets(extension: SymbolFontsExtension) {
             )
 
             selectedEntries.forEach { entry ->
-                val resourceName = buildString {
-                    append(combinedPrefix)
-                    append('_')
-                    append(entry.semanticName)
-                    entry.codePoint?.let { codePoint ->
-                        append("_u")
-                        append(codePoint.toString(16).lowercase())
-                    }
-                }
+                val codePointSuffix = entry.codePoint
+                    ?.let { "_u${it.toString(16).lowercase()}" }
+                    .orEmpty()
+                val resourceName = "${combinedPrefix}_${entry.semanticName}$codePointSuffix"
                 claim(
                     kind = "generated Android resource name",
                     key = resourceName,

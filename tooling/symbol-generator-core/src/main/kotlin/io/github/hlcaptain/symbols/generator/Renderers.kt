@@ -592,49 +592,22 @@ internal fun pathData(
 internal fun pathData(
     commands: List<VectorCommand>,
     formatter: NumberFormatter,
-): String = buildString {
-    commands.forEachIndexed { index, command ->
-        if (index > 0) {
-            append(' ')
-        }
+): String {
+    val format = formatter::format
+    return commands.joinToString(" ") { command ->
         when (command) {
-            is VectorCommand.MoveTo -> {
-                append("M ")
-                append(formatter.format(command.point.x))
-                append(',')
-                append(formatter.format(command.point.y))
-            }
-            is VectorCommand.LineTo -> {
-                append("L ")
-                append(formatter.format(command.point.x))
-                append(',')
-                append(formatter.format(command.point.y))
-            }
-            is VectorCommand.QuadraticTo -> {
-                append("Q ")
-                append(formatter.format(command.control.x))
-                append(',')
-                append(formatter.format(command.control.y))
-                append(' ')
-                append(formatter.format(command.end.x))
-                append(',')
-                append(formatter.format(command.end.y))
-            }
-            is VectorCommand.CubicTo -> {
-                append("C ")
-                append(formatter.format(command.control1.x))
-                append(',')
-                append(formatter.format(command.control1.y))
-                append(' ')
-                append(formatter.format(command.control2.x))
-                append(',')
-                append(formatter.format(command.control2.y))
-                append(' ')
-                append(formatter.format(command.end.x))
-                append(',')
-                append(formatter.format(command.end.y))
-            }
-            VectorCommand.Close -> append('Z')
+            is VectorCommand.MoveTo ->
+                "M ${format(command.point.x)},${format(command.point.y)}"
+            is VectorCommand.LineTo ->
+                "L ${format(command.point.x)},${format(command.point.y)}"
+            is VectorCommand.QuadraticTo ->
+                "Q ${format(command.control.x)},${format(command.control.y)} " +
+                    "${format(command.end.x)},${format(command.end.y)}"
+            is VectorCommand.CubicTo ->
+                "C ${format(command.control1.x)},${format(command.control1.y)} " +
+                    "${format(command.control2.x)},${format(command.control2.y)} " +
+                    "${format(command.end.x)},${format(command.end.y)}"
+            VectorCommand.Close -> "Z"
         }
     }
 }
