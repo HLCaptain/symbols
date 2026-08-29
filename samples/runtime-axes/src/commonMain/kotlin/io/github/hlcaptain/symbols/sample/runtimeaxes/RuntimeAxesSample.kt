@@ -1,21 +1,13 @@
 package io.github.hlcaptain.symbols.sample.runtimeaxes
 
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -62,12 +54,14 @@ class RuntimeAxesNavigationModule {
 
 @Composable
 private fun RuntimeAxesContent() {
-    var axisValues by remember { mutableStateOf(emptyMap<String, Float>()) }
-    var isAnimating by remember { mutableStateOf(false) }
-    val animatedAxis = MaterialSymbolsRounded.variationAxes.first { it.tag == "wght" }
-    val animatedValue = axisValues[animatedAxis.tag] ?: animatedAxis.defaultValue
-    val axes = MaterialSymbolsRounded.variationAxes.map { axis ->
-        val value = axisValues[axis.tag] ?: axis.defaultValue
+    val fontAxes = MaterialSymbolsRounded.variationAxes
+    val axisValues = remember {
+        fontAxes.associateTo(mutableStateMapOf()) { axis ->
+            axis.tag to axis.defaultValue
+        }
+    }
+    val axes = fontAxes.map { axis ->
+        val value = axisValues.getValue(axis.tag)
         AxisUiModel(
             tag = axis.tag,
             label = axis.label,
@@ -75,88 +69,60 @@ private fun RuntimeAxesContent() {
             minValue = axis.minValue,
             maxValue = axis.maxValue,
             valueLabel = axis.format(value),
+            steps = 0,
         )
-    }
-
-    LaunchedEffect(isAnimating) {
-        if (!isAnimating) return@LaunchedEffect
-
-        val value = Animatable(animatedValue)
-        var target = if (value.value < animatedAxis.maxValue) {
-            animatedAxis.maxValue
-        } else {
-            animatedAxis.minValue
-        }
-        while (true) {
-            value.animateTo(
-                targetValue = target,
-                animationSpec = tween(durationMillis = AnimationDurationMillis, easing = LinearEasing),
-            ) {
-                axisValues = axisValues + (animatedAxis.tag to this.value)
-            }
-            target = if (target == animatedAxis.maxValue) {
-                animatedAxis.minValue
-            } else {
-                animatedAxis.maxValue
-            }
-        }
     }
 
     SamplePage(description = Description) {
-        SymbolsTheme(fontSettings = MaterialSymbolsRounded.fontSettings(axisValues)) {
-            ExampleCard(
-                title = "Live variable font",
-                description = "Every slider updates the same generic Map<String, Float>.",
-            ) {
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                ) {
-                    SymbolFontIcon(
-                        codePoint = Symbols.Material.Search.codePoint,
-                        font = MaterialSymbolsRounded,
-                        contentDescription = "Search",
-                        tint = MaterialTheme.colorScheme.primary,
-                        size = 72.dp,
-                    )
-                    Text(
-                        text = if (axisValues.isEmpty()) {
-                            "Overrides: defaults"
-                        } else {
-                            axisValues.entries.joinToString(prefix = "Overrides: ") {
-                                (tag, _) -> "$tag=${axes.first { it.tag == tag }.valueLabel}"
-                            }
-                        },
-                        style = MaterialTheme.typography.bodySmall,
-                    )
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        Button(onClick = { isAnimating = !isAnimating }) {
-                            Text(if (isAnimating) "Stop animation" else "Animate weight")
-                        }
-                        Text(
-                            text = "${animatedAxis.label}: ${animatedAxis.format(animatedValue)}",
-                            style = MaterialTheme.typography.labelLarge,
-                        )
-                    }
-                }
-            }
-        }
+        RuntimeMaterialFontPreview(axisValues)
         AxisControls(
             axes = axes,
-            onValueChange = { tag, value ->
-                isAnimating = false
-                axisValues = axisValues + (tag to value)
-            },
+            onValueChange = { tag, value -> axisValues[tag] = value },
             onReset = {
-                isAnimating = false
-                axisValues = emptyMap()
+                fontAxes.forEach { axis -> axisValues[axis.tag] = axis.defaultValue }
             },
-            resetEnabled = isAnimating || axisValues.isNotEmpty(),
+            resetEnabled = fontAxes.any { axis ->
+                axisValues[axis.tag] != axis.defaultValue
+            },
+            title = "Runtime Material font axes",
         )
+    }
+}
+
+@Composable
+private fun RuntimeMaterialFontPreview(axisValues: Map<String, Float>) {
+    val overrides = MaterialSymbolsRounded.variationAxes.filter { axis ->
+        axisValues[axis.tag] != axis.defaultValue
+    }
+    SymbolsTheme(fontSettings = MaterialSymbolsRounded.fontSettings(axisValues)) {
+        ExampleCard(
+            title = "Live Material variable font",
+            description = "Each control updates its matching Material Symbols axis live.",
+        ) {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                SymbolFontIcon(
+                    codePoint = Symbols.Material.Search.codePoint,
+                    font = MaterialSymbolsRounded,
+                    contentDescription = "Search",
+                    tint = MaterialTheme.colorScheme.primary,
+                    size = 72.dp,
+                )
+                Text(
+                    text = if (overrides.isEmpty()) {
+                        "Overrides: defaults"
+                    } else {
+                        overrides.joinToString(prefix = "Overrides: ") { axis ->
+                            "${axis.tag}=${axis.format(axisValues.getValue(axis.tag))}"
+                        }
+                    },
+                    style = MaterialTheme.typography.bodySmall,
+                )
+            }
+        }
     }
 }
 
@@ -165,9 +131,8 @@ private fun SymbolFontAxis.format(value: Float): String = when (tag) {
     else -> value.roundToInt().toString()
 }
 
-private const val Title = "Runtime variable-font axes"
+private const val Title = "Runtime Material variable-font axes"
 private const val Description =
-    "Animate a variable font in real time or drag its sliders while reading each current value."
+    "Animate or drag each Material Symbols axis at runtime and read its live value."
 private const val UnsupportedMessage =
     "Android requires API 26 or newer for runtime font variations."
-private const val AnimationDurationMillis = 1_500

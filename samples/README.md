@@ -13,11 +13,11 @@ the shared pages, cards, status messages, list, and axis controls.
 | `:samples:material-static` | Android, JVM, JS, Wasm, iOS arm64 | Default-axis regular Material Symbols |
 | `:samples:material-variable` | Android 26+, JVM, JS, Wasm, iOS arm64 | Bundled variable Material Symbols at embedded defaults |
 | `:samples:custom-static` | Android, JVM, JS, Wasm, iOS arm64 | Minimal Powerline regular-font-to-`ImageVector` build |
-| `:samples:custom-variable` | Android, JVM, JS, Wasm, iOS arm64 | Academmunicons fixed at `ital=0,wght=600` during generation |
-| `:samples:image-vector-migration` | Android, JVM, JS, Wasm, iOS arm64 | Old vs new Material vectors, Academmunicons defaults, and Tabler SVG vectors/resources with shared live weight |
+| `:samples:custom-variable` | Android, JVM, JS, Wasm, iOS arm64 | Custom Academmunicons fixed during generation beside the same font's live runtime axes |
+| `:samples:image-vector-migration` | Android, JVM, JS, Wasm, iOS arm64 | Old vs new Material vectors, fixed Academmunicons snapshots, and Tabler SVG vectors/resources with shared live weight |
 | `:samples:android-views` | Android, JVM, JS, Wasm, iOS arm64 | Font- and SVG-generated XML/View interop on Android and an in-route fallback elsewhere |
 | `:samples:theming` | Android, JVM, JS, Wasm, iOS arm64 | Independent `MaterialTheme` and `SymbolsTheme` inheritance |
-| `:samples:runtime-axes` | Android 26+, JVM, JS, Wasm, iOS arm64 | Animated variable-font weight with live sliders and values |
+| `:samples:runtime-axes` | Android 26+, JVM, JS, Wasm, iOS arm64 | Continuous Material sliders with per-axis animation controls and live values |
 
 `libs.plugins.symbolsSampleFeature` builds on the shared Compose Multiplatform
 convention, adds Koin and sample dependencies, and generates each feature's

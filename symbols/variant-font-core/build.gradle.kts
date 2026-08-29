@@ -11,6 +11,9 @@ kotlin {
         api(libs.compose.runtime)
         api(libs.compose.ui)
     }
+    sourceSets.jvmTest.dependencies {
+        runtimeOnly(compose.desktop.currentOs)
+    }
 }
 
 android {

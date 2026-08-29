@@ -1,5 +1,9 @@
 package io.github.hlcaptain.symbols.sample.ui
 
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -7,20 +11,35 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.IconToggleButton
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import io.github.hlcaptain.symbols.sample.api.SampleAvailability
 import kotlin.math.roundToInt
@@ -114,13 +133,44 @@ fun AxisControls(
     resetEnabled: Boolean = true,
     title: String = "Variable font axes",
 ) {
+    var animatingTag by remember { mutableStateOf<String?>(null) }
+    val animatedAxis = axes.firstOrNull { it.tag == animatingTag }
+    val currentOnValueChange by rememberUpdatedState(onValueChange)
+    LaunchedEffect(animatedAxis?.tag) {
+        val axis = animatedAxis ?: return@LaunchedEffect
+        if (axis.minValue == axis.maxValue) {
+            animatingTag = null
+            return@LaunchedEffect
+        }
+
+        val value = Animatable(axis.value)
+        var target = if (value.value < axis.maxValue) axis.maxValue else axis.minValue
+        while (true) {
+            value.animateTo(
+                targetValue = target,
+                animationSpec = tween(DefaultAnimationDurationMillis, easing = LinearEasing),
+            ) {
+                if (animatingTag == axis.tag) {
+                    currentOnValueChange(axis.tag, this.value)
+                }
+            }
+            target = if (target == axis.maxValue) axis.minValue else axis.maxValue
+        }
+    }
+
     ExampleCard(title = title, modifier = modifier) {
         if (onReset != null) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.End,
             ) {
-                TextButton(onClick = onReset, enabled = resetEnabled) {
+                TextButton(
+                    onClick = {
+                        animatingTag = null
+                        onReset()
+                    },
+                    enabled = resetEnabled || animatingTag != null,
+                ) {
                     Text("Reset")
                 }
             }
@@ -129,7 +179,17 @@ fun AxisControls(
             StatusMessage("This font exposes no adjustable axes.")
         } else {
             axes.forEach { axis ->
-                AxisControl(axis, onValueChange)
+                AxisControl(
+                    axis = axis,
+                    isAnimating = animatingTag == axis.tag,
+                    onValueChange = { tag, value ->
+                        if (animatingTag == tag) animatingTag = null
+                        onValueChange(tag, value)
+                    },
+                    onAnimatingChange = { checked ->
+                        animatingTag = axis.tag.takeIf { checked }
+                    },
+                )
             }
         }
     }
@@ -138,7 +198,9 @@ fun AxisControls(
 @Composable
 private fun AxisControl(
     axis: AxisUiModel,
+    isAnimating: Boolean,
     onValueChange: (tag: String, value: Float) -> Unit,
+    onAnimatingChange: (Boolean) -> Unit,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
         Row(
@@ -156,14 +218,30 @@ private fun AxisControl(
                 onValueChange = { onValueChange(axis.tag, it) },
                 modifier = Modifier
                     .weight(1f)
-                    .semantics { contentDescription = axis.label },
+                    .semantics {
+                        contentDescription = axis.label
+                        stateDescription = axis.valueLabel
+                    },
                 valueRange = axis.minValue..axis.maxValue,
                 steps = axis.steps,
             )
+            IconToggleButton(
+                checked = isAnimating,
+                onCheckedChange = onAnimatingChange,
+                enabled = axis.minValue < axis.maxValue,
+                modifier = Modifier.semantics {
+                    contentDescription = "${axis.label} animation"
+                    stateDescription = if (isAnimating) "Running" else "Stopped"
+                },
+            ) {
+                AnimationToggleIcon(isAnimating)
+            }
             Text(
                 text = axis.valueLabel,
                 modifier = Modifier.width(48.dp),
+                maxLines = 1,
                 style = MaterialTheme.typography.labelMedium,
+                textAlign = TextAlign.End,
             )
         }
         Text(
@@ -172,6 +250,34 @@ private fun AxisControl(
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             style = MaterialTheme.typography.labelSmall,
         )
+    }
+}
+
+@Composable
+private fun AnimationToggleIcon(isAnimating: Boolean) {
+    val color = LocalContentColor.current
+    Canvas(
+        modifier = Modifier
+            .size(24.dp)
+            .clearAndSetSemantics {},
+    ) {
+        if (isAnimating) {
+            drawRect(
+                color = color,
+                topLeft = Offset(size.width * 0.25f, size.height * 0.25f),
+                size = Size(size.width * 0.5f, size.height * 0.5f),
+            )
+        } else {
+            drawPath(
+                path = Path().apply {
+                    moveTo(size.width * 0.3f, size.height * 0.2f)
+                    lineTo(size.width * 0.8f, size.height * 0.5f)
+                    lineTo(size.width * 0.3f, size.height * 0.8f)
+                    close()
+                },
+                color = color,
+            )
+        }
     }
 }
 
@@ -240,3 +346,5 @@ private fun formatAxisValue(value: Float): String {
         rounded.toString()
     }
 }
+
+private const val DefaultAnimationDurationMillis = 1_500

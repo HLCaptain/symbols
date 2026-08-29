@@ -73,11 +73,11 @@ instead. Material's `axes.fontSettings` adapts its four axes to the generic
 `SymbolFontSettings` contract. `MaterialSymbolsTheme` supplies those generic
 settings automatically inside its content.
 
-Keep the `(font, axes.fontSettings)` pair stable across recompositions. A
-regular font has one fixed settings point and never constructs variation
-settings. Searching `Symbols.Material.all` is suitable for an icon picker; a hot
-application path should retain its filtered result rather than scanning all
-names on every frame.
+Keep the font descriptor stable and reuse settings while their values are
+unchanged. A regular font has one fixed settings point and never constructs
+variation settings. Searching `Symbols.Material.all` is suitable for an icon
+picker; a hot application path should retain its filtered result rather than
+scanning all names on every frame.
 
 On Android, repeated instances of a large compressed variable TTF can require a
 separate inflated heap buffer. Apps that hit allocation failures while changing
@@ -95,6 +95,14 @@ This trades a larger APK download for lower font-instantiation heap pressure;
 the launcher enables it because the `material-variable` and `runtime-axes`
 samples use the 14.6 MB Rounded variable font.
 
+Sample controls use continuous Material sliders (`steps = 0`) and let each axis
+start or stop its example animation. An animated variable-font glyph follows
+the normal Compose text path on every changed setting: its `FontFamily` changes,
+the font is resolved, and `BasicText` is remeasured, laid out, and redrawn. The
+runtime adds no custom variation cache; Compose and the platform font stack own
+their normal reuse. This is deliberate sample simplicity, so profile a product's
+real icon count and animation before choosing its update rate.
+
 A vector builder runs on first property access and caches the resulting
 `ImageVector`. Codepoint aliases share that builder and cache. This trades
 first-access work and generated code for independent reachability; measure both
@@ -103,9 +111,13 @@ cold and warm access.
 For stroked SVG vectors, `rememberSymbolPainter()` reuses that cached geometry
 and changes only `VectorConfig.StrokeLineWidth` from the current
 `SymbolsTheme.fontSettings` `wght`. Weight 100, 400, and 700 map to 0.5×, 1×,
-and 1.5× the authored width. It does not parse SVG or rebuild paths at runtime.
-Direct `ImageVector` use and generated Android/Compose XML stay at the authored
-1× width.
+and 1.5× the authored width. The settings-producer overload moves its snapshot
+read into the painter's vector child composition, which can keep the caller
+stable when it does not otherwise read that state. A stroke change still
+updates the vector child composition and rasterizes it again; this is scope
+isolation, not zero recomposition. It does not parse SVG or rebuild paths at
+runtime. Direct `ImageVector` use and generated Android/Compose XML stay at the
+authored 1× width.
 
 ## Shrinkability boundaries
 
@@ -114,11 +126,13 @@ Gradle DSL has no per-icon selection mode. Keep each source directory focused,
 or split a measured large set into separate modules when clean-build time,
 compiler memory, or unshrunk target packaging warrants the extra boundary.
 
-The focused `custom-static` and `custom-variable` modules deliberately put one
-input font in the conventional `composeResources/font` directory to teach
-automatic discovery with a minimal DSL. That also packages the source font as a
-resource. An application that needs only generated vectors should keep the font
-outside Android and Compose resource roots and select it with `font.set(...)`.
+The focused `custom-static` module deliberately puts its input font in the
+conventional `composeResources/font` directory to teach automatic discovery
+with a minimal DSL. The `custom-variable` module packages Academmunicons
+deliberately so it can compare fixed build-time vectors with the original live
+runtime font. An application that needs only generated vectors should keep the
+font outside Android and Compose resource roots and select it with
+`font.set(...)`.
 
 Generated `ImageVector` properties call independent per-codepoint builders.
 They emit direct path operations and contain no registry, path table, reflection

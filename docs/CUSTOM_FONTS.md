@@ -81,16 +81,18 @@ once so `Res` and its accessors are regenerated; changing axis values needs no
 rebuild.
 
 The focused [`custom-variable`](../samples/custom-variable/build.gradle.kts)
-sample instead uses Academmunicons as a build-time outline source. It fixes the
-font at `ital=0,wght=600` and renders a generated typed `ImageVector`; it is not
-a live variable-font preview. The
+sample shows both paths from one custom Academmunicons source. Its build-time
+path fixes `ital=0,wght=600` before generating a typed `ImageVector`; those
+coordinates cannot change afterward. Its runtime path uses the generated
+`Res.symbolFonts.academmunicons_variable` descriptor and applies the original
+font's `ital` and `wght` axes live without regenerating symbols. The
 [`image-vector-migration`](../samples/image-vector-migration/build.gradle.kts)
 sample omits `axis(...)` deliberately, generating both an `ImageVector` and a
 Compose painter resource from the custom font's embedded
 `ital=0,wght=100` defaults. It also generates Tabler SVG vectors/resources and
-uses the same animated `wght` setting for a variable font and an adjustable SVG
-painter. Live generic axis-map controls are demonstrated separately with
-Material Rounded in
+uses the same optionally animated `wght` setting for a variable font and an
+adjustable SVG painter. Live generic controls with an independent animation
+toggle beside every axis are demonstrated with Material Rounded in
 [`runtime-axes`](../samples/runtime-axes/src/commonMain/kotlin/io/github/hlcaptain/symbols/sample/runtimeaxes/RuntimeAxesSample.kt).
 
 `symbolFontText(codePoint)` is available for a custom `BasicText` layout. Both
@@ -254,7 +256,12 @@ SymbolsTheme(fontSettings = settings) {
 `0.5×/1×/1.5×` the authored stroke width and clamps values outside that range.
 Settings without `wght` preserve the source. The generated Android and Compose
 XML drawables stay static at the authored 1× width, which keeps legacy Views
-predictable. A future per-symbol override map can use each stable
+predictable. For state-driven animation,
+`rememberSymbolPainter { settingsState.value }` reads the snapshot state in the
+internal vector child composition instead of the caller. Stroke changes still
+update and rasterize that vector subtree; the overload does not make drawing
+static. Its producer is non-composable, so use the no-argument overload to read
+the current `SymbolsTheme`. A future per-symbol override map can use each stable
 `ImageVector.name` as its key; that map API is intentionally not implemented
 until a concrete theming use case requires it.
 

@@ -252,8 +252,12 @@ The `axis(...)` values are applied while generating font outlines. Those font
 vectors and all XML resources are fixed snapshots. A stroked SVG `ImageVector`
 also keeps its authored width when passed directly to `Icon`; pass it to
 `rememberSymbolPainter()` to reuse the current `SymbolsTheme` `wght` setting at
-draw time. Weight 100, 400, and 700 map to 0.5×, 1×, and 1.5× the authored
-stroke width. Legacy Android and Compose XML remain fixed at 1×.
+render time. Weight 100, 400, and 700 map to 0.5×, 1×, and 1.5× the authored
+stroke width. The `rememberSymbolPainter { settingsState.value }` overload
+keeps that snapshot read inside the painter's vector child composition, so the
+calling composition does not need to observe it. A changed stroke still updates
+and rasterizes the vector subtree. Legacy Android and Compose XML remain fixed
+at 1×.
 
 `font("rounded-variable.ttf")` searches `src/main/res/font` and
 `src/commonMain/composeResources/font`. Omit it when those directories contain
@@ -282,16 +286,17 @@ Gradle plugin deliberately does not add application dependencies itself.
 The focused custom samples keep their build files intentionally small.
 [`custom-static`](samples/custom-static/build.gradle.kts) reads Powerline from
 its conventional `composeResources/font` directory, while
-[`custom-variable`](samples/custom-variable/build.gradle.kts) fixes
-Academmunicons at `ital=0,wght=600` before generating typed vectors. Live axis
-changes and a continuously animated weight axis with matching sliders/current
-values are demonstrated separately by
+[`custom-variable`](samples/custom-variable/build.gradle.kts) compares
+Academmunicons fixed at `ital=0,wght=600` before vector generation with the same
+custom variable font adjusted live through a generated runtime descriptor.
+Continuous Material sliders (`steps = 0`) with a start/stop control for every
+axis are demonstrated by
 [`runtime-axes`](samples/runtime-axes/src/commonMain/kotlin/io/github/hlcaptain/symbols/sample/runtimeaxes/RuntimeAxesSample.kt).
 The [`image-vector-migration`](samples/image-vector-migration/src/commonMain/kotlin/io/github/hlcaptain/symbols/sample/imagevectormigration/ImageVectorMigrationSample.kt)
 screen keeps the old Material Icons Extended call beside the generated Symbols
 call, then shows Academmunicons defaults and three pinned Tabler `v3.46.0` SVGs
 as a typed vector, theme-aware painter, Compose drawable, and legacy Android
-XML resource. Its animated slider applies one `SymbolsTheme` `wght` value to a
+XML resource. Its slider can animate one `SymbolsTheme` `wght` value for both a
 variable font and the SVG painter. Roborazzi covers the font/SVG visual contract;
 see [screenshot testing](docs/SCREENSHOT_TESTING.md).
 

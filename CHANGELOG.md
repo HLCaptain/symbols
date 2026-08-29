@@ -34,6 +34,10 @@ artifacts are released.
   from Compose font resources. Material modules keep Compose's `Res` API
   internal by default. Configured font roots are packaged through the plugin's
   single generated Compose resource directory.
+- Runtime-axis samples now provide a start/stop toggle beside each continuous
+  Material slider (`steps = 0`). The custom
+  Academmunicons sample compares fixed build-time generation with live runtime
+  axes from the same packaged font.
 - Split the interactive sample into a Material 3 edge-to-edge launcher, shared
   API/UI modules and eight focused multiplatform features. Koin collects one
   metadata-rich `SampleItem` per feature; a sealed navigation-entry hierarchy
@@ -84,7 +88,9 @@ artifacts are released.
   provenance verification.
 - A theme-aware `rememberSymbolPainter()` that maps the existing
   `SymbolsTheme` `wght=100/400/700` setting to 0.5×/1×/1.5× authored SVG stroke
-  width while leaving generated Android/Compose XML static.
+  width while leaving generated Android/Compose XML static. Its settings
+  producer overload can isolate snapshot reads to the vector child composition;
+  stroke changes still update and rasterize that vector subtree.
 - Pinned Tabler Icons `v3.46.0` SVG samples under MIT, legacy Views/XML
   integration, and same-runner Roborazzi font/SVG screenshot comparisons.
 - Cacheable runtime catalog generation into the build directory from checked-in

@@ -1,6 +1,7 @@
 package io.github.hlcaptain.symbols.font
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.graphics.painter.Painter
@@ -23,8 +24,25 @@ fun ImageVector.rememberSymbolPainter(): Painter =
  * half width. Values outside that range are clamped; settings without `wght` preserve the source.
  */
 @Composable
-fun ImageVector.rememberSymbolPainter(fontSettings: SymbolFontSettings): Painter {
-    val strokeScale = rememberUpdatedState(fontSettings.symbolStrokeScale())
+fun ImageVector.rememberSymbolPainter(fontSettings: SymbolFontSettings): Painter =
+    rememberSymbolPainter { fontSettings }
+
+/**
+ * Remembers this vector with stroke widths supplied by [fontSettings]. The producer may read
+ * snapshot state, keeping that read in the vector painter's child composition instead of the
+ * caller's composition. Updating the settings still updates and redraws the vector.
+ *
+ * [fontSettings] is not composable. Use [rememberSymbolPainter] without arguments to read the
+ * current [SymbolsTheme].
+ */
+@Composable
+fun ImageVector.rememberSymbolPainter(
+    fontSettings: () -> SymbolFontSettings,
+): Painter {
+    val currentFontSettings = rememberUpdatedState(fontSettings)
+    val strokeScale = remember {
+        derivedStateOf { currentFontSettings.value().symbolStrokeScale() }
+    }
     val config = remember {
         SymbolWeightVectorConfig { strokeScale.value }
     }

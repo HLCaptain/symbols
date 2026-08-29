@@ -86,7 +86,9 @@ normalized Font Awesome and Tabler manifests and binaries under
 fixtures; the launcher does not package their complete catalogs. The focused
 [`custom-static`](../samples/custom-static/build.gradle.kts) and
 [`custom-variable`](../samples/custom-variable/build.gradle.kts) modules
-demonstrate build-time Powerline and Academmunicons vector generation.
+demonstrate build-time Powerline and Academmunicons vector generation. The
+Academmunicons module also generates a runtime descriptor from the packaged
+source font so the fixed and live paths can be compared directly.
 
 Configure one codepoint map per font style:
 
@@ -303,10 +305,12 @@ Passing an SVG vector directly to `Icon(imageVector = ...)` preserves its
 authored stroke. `rememberSymbolPainter()` instead reads the existing
 `SymbolsTheme.fontSettings` `wght` value and scales every authored stroke: 100,
 400, and 700 map to 0.5×, 1×, and 1.5×. It changes paint configuration without
-re-parsing the SVG or rebuilding geometry. Generated Android and Compose XML
-remain static at the authored 1× width. A future per-symbol theme can key an
-override map by the stable `ImageVector.name`; no such map API is implemented
-yet.
+re-parsing the SVG or rebuilding geometry. For state-driven values,
+`rememberSymbolPainter { settingsState.value }` isolates the snapshot read to
+the vector child composition, although a stroke change still updates and
+rasterizes that subtree. Generated Android and Compose XML remain static at the
+authored 1× width. A future per-symbol theme can key an override map by the
+stable `ImageVector.name`; no such map API is implemented yet.
 
 The plugin wires:
 

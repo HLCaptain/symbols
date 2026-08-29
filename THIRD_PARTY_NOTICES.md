@@ -219,8 +219,9 @@ upstream `fonts/Variable-TT/Academmunicons-VF.ttf`, SHA-256
 It exposes `ital` 0–1 and `wght` 100–800. The canonical manifest at
 `fonts/samples/academmunicons/Academmunicons.codepoints` contains all 50
 semantic icons in the upstream recommended PUA range; its snake-case names come
-directly from the font's `cmap` glyph names. The runnable module uses a
-byte-identical copy.
+directly from the font's `cmap` glyph names. The runnable module uses that
+byte-identical copy for fixed build-time vector generation and live runtime
+variation.
 
 `fonts/samples/academmunicons/academmunicons-regular.ttf` is a modified static
 instance generated with FontTools 4.60.2 at `ital=0,wght=400`. Its variation

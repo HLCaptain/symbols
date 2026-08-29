@@ -1,22 +1,16 @@
 package io.github.hlcaptain.symbols.sample.imagevectormigration
 
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -76,34 +70,37 @@ internal fun SvgIconExamples() {
 @Composable
 internal fun SharedWeightAxisExample() {
     var weight by remember { mutableFloatStateOf(DefaultWeight) }
-    var isAnimating by remember { mutableStateOf(false) }
 
-    LaunchedEffect(isAnimating) {
-        if (!isAnimating) return@LaunchedEffect
+    SharedWeightPreview(weight)
+    AxisControls(
+        axes = listOf(
+            AxisUiModel(
+                tag = "wght",
+                label = "Weight",
+                value = weight,
+                minValue = MinWeight,
+                maxValue = MaxWeight,
+                valueLabel = weight.roundToInt().toString(),
+                steps = 0,
+            ),
+        ),
+        onValueChange = { _, value -> weight = value },
+        onReset = { weight = DefaultWeight },
+        resetEnabled = weight != DefaultWeight,
+        title = "Runtime weight / stroke",
+    )
+}
 
-        val animatedWeight = Animatable(weight)
-        var target = if (weight < MaxWeight) MaxWeight else MinWeight
-        while (true) {
-            animatedWeight.animateTo(
-                targetValue = target,
-                animationSpec = tween(AnimationDurationMillis, easing = LinearEasing),
-            ) {
-                weight = value
-            }
-            target = if (target == MaxWeight) MinWeight else MaxWeight
-        }
-    }
-
-    val fontSettings = remember(weight.roundToInt()) {
-        SymbolFontSettings(
-            FontVariation.Settings(FontVariation.weight(weight.roundToInt())),
-        )
-    }
+@Composable
+private fun SharedWeightPreview(weight: Float) {
+    val fontSettings = SymbolFontSettings(
+        FontVariation.Settings(FontVariation.Setting("wght", weight)),
+    )
     SymbolsTheme(fontSettings = fontSettings) {
         ExampleCard(
-            title = "One weight API",
-            description = "The same SymbolsTheme wght value updates a variable font and " +
-                "the SVG painter's stroke width.",
+            title = "Runtime Material font + SVG stroke",
+            description = "One live SymbolsTheme wght value updates the variable font and " +
+                "the generated SVG painter.",
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -135,43 +132,12 @@ internal fun SharedWeightAxisExample() {
                     painter = Symbols.Tabler.Outline.Hierarchy2.rememberSymbolPainter(),
                 )
             }
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Button(onClick = { isAnimating = !isAnimating }) {
-                    Text(if (isAnimating) "Stop" else "Animate")
-                }
-                Text(
-                    text = "wght=${weight.roundToInt()} · SVG stroke=${strokeWidth(weight)}",
-                    style = MaterialTheme.typography.labelLarge,
-                )
-            }
+            Text(
+                text = "wght=${weight.roundToInt()} · SVG stroke=${strokeWidth(weight)}",
+                style = MaterialTheme.typography.labelLarge,
+            )
         }
     }
-    AxisControls(
-        axes = listOf(
-            AxisUiModel(
-                tag = "wght",
-                label = "Weight",
-                value = weight,
-                minValue = MinWeight,
-                maxValue = MaxWeight,
-                valueLabel = weight.roundToInt().toString(),
-            ),
-        ),
-        onValueChange = { _, value ->
-            isAnimating = false
-            weight = value
-        },
-        onReset = {
-            isAnimating = false
-            weight = DefaultWeight
-        },
-        resetEnabled = isAnimating || weight != DefaultWeight,
-        title = "Shared weight / stroke control",
-    )
 }
 
 @Composable
@@ -231,4 +197,3 @@ private fun SvgIconExamplesPreview() {
 private const val MinWeight = 100f
 private const val DefaultWeight = 400f
 private const val MaxWeight = 700f
-private const val AnimationDurationMillis = 1_500

@@ -72,9 +72,9 @@ private fun ImageVectorMigrationContent() {
             )
         }
         ExampleCard(
-            title = "Custom font vectors and painters",
-            description = "With no axis(...) calls, the variable font uses its embedded " +
-                "defaults: ital=0 and wght=100.",
+            title = "Custom symbols generated at build time",
+            description = "This custom variable font is sampled at its embedded ital=0 and " +
+                "wght=100 defaults during generation.",
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -97,8 +97,8 @@ private fun ImageVectorMigrationContent() {
                 }
             }
             Text(
-                text = "Both are build-time snapshots, so SymbolsTheme axis changes do not " +
-                    "reshape them. MaterialTheme tint still updates normally.",
+                text = "The generated ImageVector and painter are fixed snapshots, so runtime " +
+                    "SymbolsTheme axes do not reshape them. MaterialTheme tint still updates.",
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 style = MaterialTheme.typography.bodySmall,
             )
