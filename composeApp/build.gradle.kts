@@ -10,6 +10,38 @@ plugins {
     alias(libs.plugins.koinCompiler)
 }
 
+val featureSampleProfiles = listOf(
+    "material-static",
+    "material-variable",
+    "custom-static",
+    "custom-variable",
+    "image-vector-migration",
+    "android-views",
+    "theming",
+    "runtime-axes",
+)
+val symbolsSampleProfile = providers
+    .gradleProperty("symbolsSampleProfile")
+    .orElse("all")
+    .get()
+require(
+    symbolsSampleProfile == "shell" ||
+        symbolsSampleProfile == "all" ||
+        symbolsSampleProfile in featureSampleProfiles,
+) {
+    "symbolsSampleProfile must be shell, all, or one of: " +
+        featureSampleProfiles.joinToString()
+}
+val enabledSampleProfiles = when (symbolsSampleProfile) {
+    "shell" -> emptySet()
+    "all" -> featureSampleProfiles.toSet()
+    else -> setOf(symbolsSampleProfile)
+}
+val compressSymbolFonts = providers
+    .gradleProperty("compressSymbolFonts")
+    .map(String::toBoolean)
+    .orElse(false)
+
 kotlin {
     androidTarget {
         compilerOptions {
@@ -43,18 +75,35 @@ kotlin {
     sourceSets {
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)
+            implementation(libs.androidx.appcompat)
         }
         commonMain.dependencies {
             implementation(projects.samples.api)
             implementation(projects.samples.ui.components)
-            implementation(projects.samples.materialStatic)
-            implementation(projects.samples.materialVariable)
-            implementation(projects.samples.customStatic)
-            implementation(projects.samples.customVariable)
-            implementation(projects.samples.imageVectorMigration)
-            implementation(projects.samples.theming)
-            implementation(projects.samples.runtimeAxes)
-            implementation(projects.samples.androidViews)
+            if ("material-static" in enabledSampleProfiles) {
+                implementation(projects.samples.materialStatic)
+            }
+            if ("material-variable" in enabledSampleProfiles) {
+                implementation(projects.samples.materialVariable)
+            }
+            if ("custom-static" in enabledSampleProfiles) {
+                implementation(projects.samples.customStatic)
+            }
+            if ("custom-variable" in enabledSampleProfiles) {
+                implementation(projects.samples.customVariable)
+            }
+            if ("image-vector-migration" in enabledSampleProfiles) {
+                implementation(projects.samples.imageVectorMigration)
+            }
+            if ("android-views" in enabledSampleProfiles) {
+                implementation(projects.samples.androidViews)
+            }
+            if ("theming" in enabledSampleProfiles) {
+                implementation(projects.samples.theming)
+            }
+            if ("runtime-axes" in enabledSampleProfiles) {
+                implementation(projects.samples.runtimeAxes)
+            }
             implementation(projects.modules.materialVectorsRounded)
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
@@ -93,7 +142,9 @@ android {
     androidResources {
         // Typeface.Builder can mmap uncompressed font assets; compressed variable fonts are
         // inflated into a full-size buffer for every variation, exhausting small heaps quickly.
-        noCompress += "ttf"
+        if (!compressSymbolFonts.get()) {
+            noCompress += "ttf"
+        }
     }
     packaging {
         resources {
@@ -101,8 +152,17 @@ android {
         }
     }
     buildTypes {
-        getByName("release") {
+        val release = getByName("release") {
             isMinifyEnabled = false
+        }
+        create("shrunk") {
+            initWith(release)
+            matchingFallbacks += listOf("release")
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+            )
         }
     }
     compileOptions {

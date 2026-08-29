@@ -1,7 +1,7 @@
 package io.github.hlcaptain.symbols.sample.customvariable
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
@@ -9,10 +9,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import io.github.hlcaptain.custom_variable.generated.resources.Res
+import io.github.hlcaptain.custom_variable.generated.resources.academmunicons_semibold_orcid_uf04f
 import io.github.hlcaptain.custom_variable.generated.resources.symbolFonts
 import io.github.hlcaptain.symbols.Symbols
 import io.github.hlcaptain.symbols.font.SymbolFont
@@ -35,6 +35,7 @@ import org.koin.core.annotation.Configuration
 import org.koin.core.annotation.Module
 import org.koin.core.annotation.Qualifier
 import org.koin.core.annotation.Single
+import org.jetbrains.compose.resources.painterResource
 
 @Module
 @Configuration
@@ -76,14 +77,27 @@ private fun CustomVariableContent() {
         ExampleCard(
             title = "Custom symbol generated at build time",
             description = "The Gradle axis(...) settings select ital=0 and wght=600 before " +
-                "generating this fixed, typed ImageVector. It has no live runtime axes.",
+                "generating the fixed ImageVector and Res.drawable painter.",
         ) {
-            Icon(
-                imageVector = Symbols.Academmunicons.Semibold.Orcid,
-                contentDescription = "ORCID",
-                tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.size(48.dp),
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+            ) {
+                Icon(
+                    imageVector = Symbols.Academmunicons.Semibold.Orcid,
+                    contentDescription = "ORCID ImageVector",
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.size(48.dp),
+                )
+                Icon(
+                    painter = painterResource(
+                        Res.drawable.academmunicons_semibold_orcid_uf04f,
+                    ),
+                    contentDescription = "ORCID Compose drawable",
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.size(48.dp),
+                )
+            }
         }
         if (SymbolsRuntime.variableFontsSupported) {
             RuntimeAcademmuniconsPreview(font, axisValues)
@@ -117,13 +131,12 @@ private fun RuntimeAcademmuniconsPreview(
     SymbolsTheme(fontSettings = font.fontSettings(axisValues)) {
         ExampleCard(
             title = "Custom runtime variable font",
-            description = "The original custom font stays variable; Compose applies its " +
-                "round-to-square shape (ital) and weight live without regenerating symbols.",
+            description = "The original font follows the live shape and weight controls without " +
+                "regenerating the fixed resources above.",
         ) {
-            Column(
+            Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.Center,
             ) {
                 SymbolFontIcon(
                     codePoint = OrcidCodePoint,

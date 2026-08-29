@@ -39,7 +39,9 @@ symbolFonts {
 }
 ```
 
-The result is available through the module's global `Res` class:
+Compose Resources exposes each configured file through its standard
+`Res.font.<name>` accessor. Symbols uses that accessor to add a typed descriptor
+through the module's global `Res` class:
 
 ```kotlin
 import my.symbols.generated.resources.Res
@@ -190,6 +192,10 @@ validates the source and can emit:
 - native Android vector drawables; and
 - Compose Multiplatform drawable resources.
 
+`composeDrawables()` keeps its generated XML below `build/` and exposes each
+resource through the normal `Res.drawable.<name>` accessor for
+`painterResource`.
+
 Every manifest entry or direct SVG file is generated; the Gradle DSL has no
 `include`/`includeAll` selection mode. A font selected from `src/main/res/font`
 or `src/commonMain/composeResources/font` is also a runtime resource; use an
@@ -210,7 +216,8 @@ snake-case/hex manifest rather than making application builds depend on a
 provider-specific parser. The checked-in
 [provider fixtures](../fonts/samples/README.md) show five such conversions. The
 runnable Powerline and Academmunicons modules keep focused copies of their
-canonical manifests beside their own assets.
+canonical manifests beside their own assets and show typed vectors beside
+generated `Res.drawable` painters.
 
 ## Generate directly from SVG sources
 

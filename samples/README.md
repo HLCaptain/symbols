@@ -12,8 +12,8 @@ the shared pages, cards, status messages, list, and axis controls.
 | `:samples:ui:components` | Android, JVM, JS, Wasm, iOS arm64 | Shared Material 3 components |
 | `:samples:material-static` | Android, JVM, JS, Wasm, iOS arm64 | Default-axis regular Material Symbols |
 | `:samples:material-variable` | Android 26+, JVM, JS, Wasm, iOS arm64 | Bundled variable Material Symbols at embedded defaults |
-| `:samples:custom-static` | Android, JVM, JS, Wasm, iOS arm64 | Minimal Powerline regular-font-to-`ImageVector` build |
-| `:samples:custom-variable` | Android, JVM, JS, Wasm, iOS arm64 | Custom Academmunicons fixed during generation beside the same font's live runtime axes |
+| `:samples:custom-static` | Android, JVM, JS, Wasm, iOS arm64 | Powerline as a typed `ImageVector` and standard `Res.drawable` painter |
+| `:samples:custom-variable` | Android, JVM, JS, Wasm, iOS arm64 | Fixed Academmunicons resources beside the same font's live runtime axes |
 | `:samples:image-vector-migration` | Android, JVM, JS, Wasm, iOS arm64 | Old vs new Material vectors, fixed Academmunicons snapshots, and Tabler SVG vectors/resources with shared live weight |
 | `:samples:android-views` | Android, JVM, JS, Wasm, iOS arm64 | Font- and SVG-generated XML/View interop on Android and an in-route fallback elsewhere |
 | `:samples:theming` | Android, JVM, JS, Wasm, iOS arm64 | Independent `MaterialTheme` and `SymbolsTheme` inheritance |

@@ -248,6 +248,10 @@ and Android's resource shrinker handles native drawables. Split a very large
 source set into separate icon sets only when measured build or packaging cost
 requires that boundary.
 
+`composeDrawables()` writes XML below `build/` and registers ordinary Compose
+Multiplatform resources, so callers use the generated `Res.drawable.<name>`
+with `painterResource`.
+
 The `axis(...)` values are applied while generating font outlines. Those font
 vectors and all XML resources are fixed snapshots. A stroked SVG `ImageVector`
 also keeps its authored width when passed directly to `Icon`; pass it to
@@ -285,10 +289,12 @@ Gradle plugin deliberately does not add application dependencies itself.
 
 The focused custom samples keep their build files intentionally small.
 [`custom-static`](samples/custom-static/build.gradle.kts) reads Powerline from
-its conventional `composeResources/font` directory, while
+its conventional `composeResources/font` directory and shows its typed vector
+beside the generated `Res.drawable` painter, while
 [`custom-variable`](samples/custom-variable/build.gradle.kts) compares
 Academmunicons fixed at `ital=0,wght=600` before vector generation with the same
-custom variable font adjusted live through a generated runtime descriptor.
+custom variable font adjusted live through a generated runtime descriptor and
+the fixed Compose drawable.
 Continuous Material sliders (`steps = 0`) with a start/stop control for every
 axis are demonstrated by
 [`runtime-axes`](samples/runtime-axes/src/commonMain/kotlin/io/github/hlcaptain/symbols/sample/runtimeaxes/RuntimeAxesSample.kt).
@@ -349,6 +355,10 @@ symbolFonts {
     )
 }
 ```
+
+Configured conventional and task-backed roots use the standard `font/`
+directory. Compose Resources generates `Res.font.<name>`, while Symbols adds the typed
+`Res.symbolFonts.<name>` descriptor and embedded axis metadata.
 
 Use the generated descriptor through the module's global `Res` class:
 

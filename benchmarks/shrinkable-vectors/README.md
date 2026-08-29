@@ -44,8 +44,9 @@ python3 benchmarks/shrinkable-vectors/verify.py
 - confirms the unrelated Home backing class `OutlinedVectorE9B2` is in the
   unshrunk APK but absent from every shrunk DEX;
 - corroborates that result with R8's mapping and usage reports; and
-- confirms the fixture's unused resource marker is removed and reported
-  unreachable by the resource shrinker.
+- confirms the fixture's unused resource marker is removed from the APK and
+  absent from the optimized resource shrinker's nonempty report, which must
+  still contain the reachable app name.
 
 An analysis exits nonzero unless every retention/removal assertion holds.
 

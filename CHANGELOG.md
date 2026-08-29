@@ -38,6 +38,12 @@ artifacts are released.
   Material slider (`steps = 0`). The custom
   Academmunicons sample compares fixed build-time generation with live runtime
   axes from the same packaged font.
+- Custom Powerline and Academmunicons samples now generate standard Compose
+  Multiplatform `Res.drawable` resources below `build/` alongside their typed
+  `ImageVector` APIs. Font binaries remain standard `Res.font` resources, with
+  `Res.symbolFonts` providing typed metadata without another packaged copy.
+- Added reproducible per-sample release/shrunk APK profiles and local-only size
+  and build-time analysis under `benchmarks/sample-app`.
 - Split the interactive sample into a Material 3 edge-to-edge launcher, shared
   API/UI modules and eight focused multiplatform features. Koin collects one
   metadata-rich `SampleItem` per feature; a sealed navigation-entry hierarchy

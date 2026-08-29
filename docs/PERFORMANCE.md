@@ -170,6 +170,155 @@ deterministic regeneration. The exact font byte counts above are verified from
 checked-in files. Visual font/SVG comparisons use the same-runner
 [Roborazzi workflow](SCREENSHOT_TESTING.md) because pixel output varies by OS.
 
+### Full sample APK matrix
+
+[`benchmarks/sample-app`](../benchmarks/sample-app/README.md) builds the same
+launcher shell with either one sample feature or all eight features. This avoids
+comparing unrelated application scaffolds: every profile retains Material 3,
+Navigation 3, Koin, AppCompat, the shared sample API/UI, and the Rounded
+navigation vector. `release` is unsigned and unminified; `shrunk` is the same
+release configuration with full-mode R8 and optimized Android resource
+shrinking.
+
+The following universal APKs were measured on 2026-08-29. The marginal columns
+subtract the matching shell APK; they are not additive because features share
+fonts and dependencies and R8 optimizes the final graph as a whole.
+
+| Profile | Sample usage | Release bytes | Shrunk bytes | Release − shell | Shrunk − shell |
+| --- | --- | ---: | ---: | ---: | ---: |
+| `shell` | Launcher only | 14,155,317 | 1,495,397 | 0 | 0 |
+| `custom-static` | 8 Powerline vectors, Compose drawables, packaged OTF | 14,244,621 | 1,551,929 | 89,304 | 56,532 |
+| `custom-variable` | 50 fixed Academmunicons resources plus 97 KB live font | 14,514,447 | 1,772,603 | 359,130 | 277,206 |
+| `material-static` | Rounded regular font | 15,954,394 | 3,245,318 | 1,799,077 | 1,749,921 |
+| `theming` | Rounded regular font with theme inheritance | 15,954,394 | 3,245,318 | 1,799,077 | 1,749,921 |
+| `material-variable` | Rounded variable font at defaults | 28,840,612 | 16,131,536 | 14,685,295 | 14,636,139 |
+| `runtime-axes` | Rounded variable font with live controls | 28,840,612 | 16,164,304 | 14,685,295 | 14,668,907 |
+| `image-vector-migration` | Variable font, vectors, 53 Compose XML assets, 3 native XML icons | 33,531,119 | 16,299,006 | 19,375,802 | 14,803,609 |
+| `android-views` | Migration payload plus AppCompat/data binding and 3,802 native drawables | 37,136,232 | 16,473,460 | 22,980,915 | 14,978,063 |
+| `all` | All eight samples | 39,104,951 | 18,474,947 | 24,949,634 | 16,979,550 |
+
+The complete app shrank by 20,630,004 bytes (52.7555%). Its payload explains
+where that reduction stops:
+
+| Full-app payload | Release compressed bytes | Shrunk compressed bytes | Shrunk raw bytes/count |
+| --- | ---: | ---: | ---: |
+| DEX | 17,922,744 | 1,111,108 | 2,209,664 bytes / 2,675 classes |
+| Font assets | 16,385,751 | 16,385,751 | 16,386,688 bytes / 4 files |
+| Compose drawable assets | 133,821 | 133,821 | 330,619 bytes / 111 files |
+| Android `res/` plus `resources.arsc` | 4,080,983 | 643,775 | 718,553 bytes / 296 files |
+| Native libraries | 37,392 | 37,392 | 37,392 bytes / 4 ABI entries |
+
+The focused vector verifier below proves that R8 removes unreferenced backing
+classes. For scale, the Rounded vector runtime `classes.jar` is 35,687,897
+bytes, while the complete shrunk application's raw DEX totals 2,209,664 bytes;
+those cross-format sizes are only a coarse bound, not byte attribution to the
+vector module. Android's resource report retains only the generated Outlined
+Home and Favorite drawables plus all three reached Tabler drawables. By contrast, Compose
+resources are Android assets, so all 8 Powerline, 50 fixed Academmunicons, 50
+migration Academmunicons, and 3 Tabler XML files remain byte-for-byte in both
+variants. `composeDrawables()` is therefore appropriate for focused sets, but a
+full Material Compose-drawable pack would not gain Android resource shrinking.
+
+Fonts are also indivisible. The four full-app font assets account for 88.6917%
+of the shrunk APK. The regular and variable Material profiles demonstrate the
+fixed cost directly: 1,749,921 and 14,636,139 shrunk bytes above the shell,
+respectively, regardless of how many glyphs the sample renders. This favors a
+font for a large icon vocabulary or live axes and favors independently
+reachable vectors/drawables for a small fixed set.
+
+The launcher normally stores TTFs without ZIP compression so Android can
+memory-map them. A benchmark-only configuration measured the opposite tradeoff:
+
+| Rounded variable-font packaging | Release bytes | Shrunk bytes | Font entry |
+| --- | ---: | ---: | ---: |
+| Stored (`noCompress += "ttf"`) | 28,840,612 | 16,131,536 | 14,586,584 |
+| Deflated | 20,598,304 | 7,889,224 | 6,344,274 |
+| Difference | -8,242,308 | -8,242,312 | -8,242,310 |
+
+Deflation saves 28.5788% of the unminified APK and 51.0944% of the shrunk APK,
+but repeated variable-font instances then require inflated buffers instead of
+the mmap-friendly stored asset. The default remains uncompressed because the
+runtime-axis samples intentionally exercise many changing font instances.
+
+Generated build output also scales with the selected representation. This is a
+workspace snapshot taken after the all-profile study; the analyzer does not tie
+these trees to an individual APK. Counts include per-task outputs and the merged
+Compose copy, so they describe build work rather than unique final APK entries:
+
+| Producer | Generated files | Generated bytes |
+| --- | ---: | ---: |
+| Powerline custom sample | 22 | 25,500 |
+| Academmunicons custom-variable sample | 108 | 709,127 |
+| Academmunicons/Tabler migration sample | 162 | 690,967 |
+| Full Outlined native drawable pack | 3,803 | 5,426,528 |
+
+The build study used a Ryzen 9 7950X3D (16 cores/32 threads), 64 GiB RAM,
+Linux 7.2 x86-64, Azul JDK 21.0.12.1, Gradle 8.14.5, AGP 8.13.2, Kotlin 2.3.21,
+Compose Multiplatform 1.11.1, one Gradle worker, and a fresh single-use daemon
+per invocation. Another Gradle project was active, so these are contended local
+observations rather than clean comparative benchmarks. Normal cached profile
+builds also set `kotlin.incremental=false` and compile in-process to force Koin
+to recollect the selected dependency graph; they do not represent the default
+incremental developer configuration.
+
+| Build path | Samples | Median wall time |
+| --- | --- | ---: |
+| Full release, caches disabled and all tasks rerun | 96.154 s, 96.908 s, 94.108 s | 96.154 s |
+| Full shrunk, caches disabled and all tasks rerun | 110.559 s, 111.763 s, 110.132 s | 110.559 s |
+| Shell release, warm no-change | 4.788 s, 4.713 s, 4.745 s | 4.745 s |
+| Shell shrunk, warm no-change | 4.739 s, 4.527 s, 4.752 s | 4.739 s |
+| Full release, warm no-change | 6.637 s, 6.386 s, 6.492 s | 6.492 s |
+| Full shrunk, warm no-change | 6.575 s, 6.347 s, 6.184 s | 6.347 s |
+
+The forced full-execution medians differed by 14.405 seconds and the observed
+full-versus-shell no-change medians differed by roughly 1.7 seconds. Host
+contention prevents attributing either difference to R8 or the sample graph.
+The table remains useful as a reproducible order-of-magnitude observation;
+generator tasks were up-to-date in the no-change path and the configuration
+cache was reused. The one-pass profile timings and exact task commands remain
+in `build/reports/apk-study`; they are deliberately not promoted to comparative
+medians.
+
+The practical result is:
+
+- keep `composeDrawables()` opt-in and use it for focused cross-platform sets;
+- prefer typed `ImageVector` properties for a few compile-time-known icons when
+  a minified release is guaranteed;
+- prefer native Android drawables when Android resource shrinking is valuable;
+- prefer the regular font for a large fixed vocabulary and the variable font
+  only when runtime axes justify its much larger indivisible payload; and
+- keep generated or task-produced fonts under standard `font/` resources so
+  Compose owns `Res.font`, with `Res.symbolFonts` remaining a typed metadata
+  layer rather than another packaged copy.
+
+Reproduce the local-only study without a build scan, upload, Actions cache, or
+artifact storage:
+
+```shell
+JAVA_HOME=/path/to/jdk21 \
+  python3 benchmarks/sample-app/build.py --label isolated-matrix
+JAVA_HOME=/path/to/jdk21 \
+  python3 benchmarks/sample-app/build.py \
+    --profile shell --profile all \
+    --variant release --variant shrunk \
+    --repeat 4 --label warm
+JAVA_HOME=/path/to/jdk21 \
+  python3 benchmarks/sample-app/build.py \
+    --profile all --variant release --variant shrunk \
+    --repeat 3 --execution-cold --label execution-cold
+JAVA_HOME=/path/to/jdk21 \
+  python3 benchmarks/sample-app/build.py \
+    --profile material-variable --variant release --variant shrunk \
+    --compress-fonts --label compressed-fonts
+python3 benchmarks/sample-app/analyze.py
+```
+
+The APKs are unsigned universal install artifacts, not Play-delivered download
+estimates. The study was based on commit `a8a96f7` plus the resource/profile
+changes under test; the exact commands, Git status, SHA-256 values, DEX headers,
+font entries, namespaces, and raw/compressed ZIP metrics are retained under
+`build/reports/apk-study`.
+
 ### Android R8/resource-shrinker fixture
 
 [`benchmarks/shrinkable-vectors`](../benchmarks/shrinkable-vectors/README.md)

@@ -15,6 +15,7 @@ symbolFonts {
         style("Regular") {
             codepoints.set(layout.projectDirectory.file("PowerlineSymbols.codepoints"))
             imageVectors()
+            composeDrawables()
         }
     }
 }

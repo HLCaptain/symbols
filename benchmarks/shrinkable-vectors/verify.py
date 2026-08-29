@@ -174,9 +174,11 @@ def main() -> int:
         "r8_usage_reports_unused_home_backing_class": (
             UNUSED_HOME_CLASS_NAME in usage
         ),
-        "resource_shrinker_marks_unused_marker_unreachable": (
-            "string/unused_resource_marker : reachable=false"
-            in resource_report
+        "optimized_resource_report_omits_unused_marker": (
+            "unused_resource_marker" not in resource_report
+        ),
+        "optimized_resource_report_contains_app_name": (
+            "string:app_name" in resource_report
         ),
     }
     expected = {
@@ -189,7 +191,8 @@ def main() -> int:
         "r8_mapping_retains_check_backing_class": True,
         "r8_mapping_retains_unused_home_backing_class": False,
         "r8_usage_reports_unused_home_backing_class": True,
-        "resource_shrinker_marks_unused_marker_unreachable": True,
+        "optimized_resource_report_omits_unused_marker": True,
+        "optimized_resource_report_contains_app_name": True,
     }
 
     result = {

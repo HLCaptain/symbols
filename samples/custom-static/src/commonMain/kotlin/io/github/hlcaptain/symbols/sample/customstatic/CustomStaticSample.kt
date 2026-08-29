@@ -1,11 +1,16 @@
 package io.github.hlcaptain.symbols.sample.customstatic
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import io.github.hlcaptain.custom_static.generated.resources.Res
+import io.github.hlcaptain.custom_static.generated.resources.powerline_icons_regular_branch_ue0a0
 import io.github.hlcaptain.symbols.Symbols
 import io.github.hlcaptain.symbols.sample.api.SampleItem
 import io.github.hlcaptain.symbols.sample.customstatic.generated.PowerlineIcons
@@ -17,6 +22,7 @@ import org.koin.core.annotation.Configuration
 import org.koin.core.annotation.Module
 import org.koin.core.annotation.Qualifier
 import org.koin.core.annotation.Single
+import org.jetbrains.compose.resources.painterResource
 
 @Module
 @Configuration
@@ -38,15 +44,29 @@ private fun CustomStaticContent() {
         description = Description,
     ) {
         ExampleCard(
-            title = "Generated ImageVectors",
-            description = "The Gradle plugin generates direct, typed properties.",
+            title = "Typed vector and Compose resource",
+            description = "The ImageVector is on the left; its standard Res.drawable painter " +
+                "is on the right.",
         ) {
-            Icon(
-                imageVector = Symbols.PowerlineIcons.Regular.Branch,
-                contentDescription = "Branch",
-                tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.size(48.dp),
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+            ) {
+                Icon(
+                    imageVector = Symbols.PowerlineIcons.Regular.Branch,
+                    contentDescription = "Branch ImageVector",
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.size(48.dp),
+                )
+                Icon(
+                    painter = painterResource(
+                        Res.drawable.powerline_icons_regular_branch_ue0a0,
+                    ),
+                    contentDescription = "Branch Compose drawable",
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.size(48.dp),
+                )
+            }
         }
     }
 }

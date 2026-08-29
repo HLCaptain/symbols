@@ -86,9 +86,10 @@ normalized Font Awesome and Tabler manifests and binaries under
 fixtures; the launcher does not package their complete catalogs. The focused
 [`custom-static`](../samples/custom-static/build.gradle.kts) and
 [`custom-variable`](../samples/custom-variable/build.gradle.kts) modules
-demonstrate build-time Powerline and Academmunicons vector generation. The
-Academmunicons module also generates a runtime descriptor from the packaged
-source font so the fixed and live paths can be compared directly.
+demonstrate build-time Powerline and Academmunicons vector and Compose drawable
+generation. The Academmunicons module also generates a runtime descriptor from
+the packaged source font so fixed resources and live axes can be compared
+directly.
 
 Configure one codepoint map per font style:
 
@@ -141,6 +142,10 @@ must enable at least one output. An empty `axes` map reads an ordinary font
 as-is, or uses the default instance of a variable font. Repeated
 `axis(tag, value)` calls select a fixed variable-font instance at generation
 time; the result is not variable at runtime.
+
+`composeDrawables()` registers the generated XML from `build/` as standard
+Compose Multiplatform resources. Compose therefore generates
+`Res.drawable.<resource_name>` accessors consumable with `painterResource`.
 
 Optional settings include `packageName`, `rootName`, `fontIndex`,
 `resourcePrefix`, `symbolsPerFile`, `precision`, `viewportWidth`, and
@@ -227,7 +232,9 @@ symbolFonts {
 ```
 
 Each configured root must contain direct `font/*.ttf`, `*.otf`, or `*.ttc`
-files. Compose keeps its conventional source root; the plugin merges any other
+files. Roots may be conventional source directories or task-backed providers;
+Compose generates the standard `Res.font.<normalized_file_name>` accessor for
+either. Compose keeps its conventional source root; the plugin merges any other
 configured roots into one generated Compose resource directory. Do not register
 the same external root again with `customDirectory`. The cacheable
 `generateSymbolFontDescriptors` task emits

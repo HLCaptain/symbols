@@ -21,6 +21,7 @@ symbolFonts {
             axis("ital", 0f)
             axis("wght", 600f)
             imageVectors()
+            composeDrawables()
         }
     }
 }
