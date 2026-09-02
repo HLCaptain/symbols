@@ -4,13 +4,13 @@
     <string name="downloaded_drawable_label">OLD · downloaded XML</string>
     <string name="generated_drawable_label">NEW · generated XML</string>
     <string name="svg_plain_xml_label">SVG-generated drawable in plain XML</string>
-    <string name="view_binding_label">View Binding and AppCompatResources (SVG)</string>
+    <string name="view_binding_label">View Binding and AppCompatResources (local font)</string>
     <string name="data_binding_label">Data Binding drawable expression</string>
     <string name="custom_view_label">Custom ImageView attribute (SVG)</string>
     <string name="downloaded_home_icon_description">Home from downloaded Google XML</string>
     <string name="generated_home_icon_description">Home generated from the bundled font</string>
     <string name="tabler_home_icon_description">Home generated from a Tabler SVG</string>
-    <string name="tabler_settings_icon_description">Settings generated from a Tabler SVG</string>
+    <string name="tabler_settings_icon_description">Branch generated from the local Powerline font</string>
     <string name="tabler_hierarchy_icon_description">Hierarchy generated from a Tabler SVG</string>
     <string name="favorite_icon_description">Favorite</string>
 </resources>

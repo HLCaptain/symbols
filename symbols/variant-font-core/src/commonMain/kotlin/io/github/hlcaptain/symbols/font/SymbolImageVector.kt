@@ -13,27 +13,63 @@ import androidx.compose.ui.graphics.vector.VectorPath
 import androidx.compose.ui.graphics.vector.VectorProperty
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 
-/** Remembers this vector with stroked paths weighted by the current [SymbolsTheme]. */
+/**
+ * Remembers a painter whose stroked paths follow the current [SymbolsTheme] weight.
+ *
+ * Only the `wght` setting affects this painter. Weight 100 draws strokes at half their authored
+ * width, 400 preserves the authored width, and 700 draws them at one and a half times that width.
+ * Intermediate values are scaled evenly, values outside the range are clamped, and settings
+ * without `wght` preserve the source. Filled paths and other settings are unchanged.
+ *
+ * The vector geometry and painter configuration are remembered. A theme change still recomposes
+ * the caller, updates the vector subtree, and draws that subtree again; it does not rebuild the
+ * vector paths. Use the settings-producer overload when state changes should be observed only by
+ * the painter's child composition.
+ *
+ * @return a painter remembered for this vector and composition
+ * @throws IllegalArgumentException when the `wght` value is not finite
+ */
 @Composable
 fun ImageVector.rememberSymbolPainter(): Painter =
     rememberSymbolPainter(SymbolsTheme.fontSettings)
 
 /**
- * Remembers this vector with its authored stroke widths scaled by the `wght` axis in
- * [fontSettings]. Weight 100 is half width, 400 preserves the authored width, and 700 is one and a
- * half width. Values outside that range are clamped; settings without `wght` preserve the source.
+ * Remembers a painter whose stroked paths use the weight in [fontSettings].
+ *
+ * Weight 100 draws strokes at half their authored width, 400 preserves the authored width, and 700
+ * draws them at one and a half times that width. Intermediate values are scaled evenly, values
+ * outside the range are clamped, and settings without `wght` preserve the source. Filled paths and
+ * other settings are unchanged.
+ *
+ * This overload does not read [SymbolsTheme]. When the caller supplies a new value during
+ * recomposition, the remembered painter updates and draws the vector subtree again without
+ * rebuilding its paths. If the argument is derived from snapshot state, that state is observed by
+ * the caller; use the settings-producer overload to move that observation into the painter.
+ *
+ * @param fontSettings settings whose `wght` value controls stroke width
+ * @return a painter remembered for this vector and composition
+ * @throws IllegalArgumentException when the `wght` value is not finite
  */
 @Composable
 fun ImageVector.rememberSymbolPainter(fontSettings: SymbolFontSettings): Painter =
     rememberSymbolPainter { fontSettings }
 
 /**
- * Remembers this vector with stroke widths supplied by [fontSettings]. The producer may read
- * snapshot state, keeping that read in the vector painter's child composition instead of the
- * caller's composition. Updating the settings still updates and redraws the vector.
+ * Remembers a painter whose stroked paths use settings returned by [fontSettings].
  *
- * [fontSettings] is not composable. Use [rememberSymbolPainter] without arguments to read the
- * current [SymbolsTheme].
+ * The producer may read snapshot state. That state is then observed by the vector painter's child
+ * composition instead of the caller's composition, so changing it need not recompose the caller.
+ * The vector child still updates and draws again. Its cached paths are not rebuilt.
+ *
+ * The producer is not composable, may be called more than once, and should be cheap and free of
+ * side effects. Use [rememberSymbolPainter] without arguments to read the current [SymbolsTheme].
+ * Only `wght` is used: values 100, 400, and 700 produce `0.5x`, `1x`, and `1.5x` authored stroke
+ * widths, with intermediate values scaled evenly and values outside that range clamped. Filled
+ * paths and other settings are unchanged.
+ *
+ * @param fontSettings non-composable producer for the latest symbol-font settings
+ * @return a painter remembered for this vector and composition
+ * @throws IllegalArgumentException when the produced `wght` value is not finite
  */
 @Composable
 fun ImageVector.rememberSymbolPainter(

@@ -4,6 +4,7 @@ plugins {
 
 kotlin {
     sourceSets.commonMain.dependencies {
+        implementation(projects.modules.materialComposeDrawablesRounded)
         implementation(projects.modules.materialRoundedStatic)
     }
 }

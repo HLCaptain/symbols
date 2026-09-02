@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.symbolsSampleFeature)
+    id("io.github.hlcaptain.symbol-fonts")
 }
 
 kotlin {
@@ -15,5 +16,18 @@ android {
     buildFeatures {
         viewBinding = true
         dataBinding = true
+    }
+}
+
+symbolFonts {
+    iconSet("AndroidViewIcons") {
+        style("Regular") {
+            codepoints.set(
+                layout.projectDirectory.file(
+                    "src/androidMain/PowerlineSymbols.codepoints",
+                ),
+            )
+            androidDrawables()
+        }
     }
 }

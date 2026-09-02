@@ -37,7 +37,20 @@ object MaterialSymbolsTheme {
         get() = LocalMaterialSymbolStyle.current
 }
 
-/** Supplies [axes] to Material variable-font symbols in [content]. */
+/**
+ * Supplies Material symbol [axes] to [content] while keeping the current symbol style.
+ *
+ * This value is limited to the composable subtree and does not change global state. It also
+ * supplies [MaterialSymbolAxes.fontSettings] through the generic `SymbolsTheme`, so generic
+ * symbol-font renderers can read the same settings.
+ *
+ * Changing [axes] updates descendants that read them. Runtime font glyphs may be measured, laid
+ * out, and drawn again. Generated Material vectors are fixed at their documented default axes and
+ * do not change shape when [axes] changes.
+ *
+ * @param axes Material font appearance inherited by [content]
+ * @param content composable content that should receive the axes
+ */
 @Composable
 fun MaterialSymbolsTheme(
     axes: MaterialSymbolAxes = MaterialSymbolsTheme.axes,
@@ -50,7 +63,21 @@ fun MaterialSymbolsTheme(
     )
 }
 
-/** Supplies Material [style] and [axes], plus their generic font settings. */
+/**
+ * Supplies a Material symbol [style] and [axes] to [content].
+ *
+ * The values are limited to this composable subtree and do not change global state. [axes] are also
+ * supplied through the generic `SymbolsTheme`. Changing [style] recomposes themed-vector readers
+ * and selects the corresponding cached Outlined, Rounded, or Sharp vector. Changing [axes] updates
+ * runtime font renderers and may cause their text to be measured, laid out, and drawn again.
+ *
+ * Generated vectors remain fixed at their default axes; only their style changes. Runtime variable
+ * fonts use all supplied axes.
+ *
+ * @param style Outlined, Rounded, or Sharp style used by theme-selected vectors
+ * @param axes Material font appearance inherited by [content]
+ * @param content composable content that should receive the style and axes
+ */
 @Composable
 fun MaterialSymbolsTheme(
     style: MaterialSymbolStyle,

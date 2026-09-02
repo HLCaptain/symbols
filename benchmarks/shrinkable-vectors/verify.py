@@ -28,6 +28,9 @@ UNUSED_HOME_CLASS = (
 )
 UNUSED_HOME_CLASS_NAME = UNUSED_HOME_CLASS.decode().replace("/", ".")
 UNUSED_RESOURCE = b"unused_resource_marker"
+USED_NATIVE_DRAWABLE = b"native_benchmark_icons_regular_branch_ue0a0"
+UNUSED_NATIVE_DRAWABLE = b"native_benchmark_icons_regular_full_block_u2588"
+FONT_RESOURCE = b"powerline_symbols"
 
 
 def sha256(path: Path) -> str:
@@ -123,6 +126,11 @@ def analyze_apk(path: Path) -> tuple[dict[str, Any], bytes, bytes]:
         )
 
 
+def contains_exact_payload(path: Path, payload: bytes) -> bool:
+    with zipfile.ZipFile(path) as apk:
+        return any(apk.read(entry) == payload for entry in apk.infolist())
+
+
 def find_apk(build_dir: Path, variant: str) -> Path:
     candidates = sorted((build_dir / "outputs" / "apk" / variant).glob("*.apk"))
     if len(candidates) != 1:
@@ -145,6 +153,10 @@ def main() -> int:
     shrunk_path = find_apk(args.build_dir, "shrunk")
     unshrunk, unshrunk_dex, unshrunk_resources = analyze_apk(unshrunk_path)
     shrunk, shrunk_dex, shrunk_resources = analyze_apk(shrunk_path)
+    font_payload = (
+        Path(__file__).resolve().parent
+        / "src/main/res/font/powerline_symbols.otf"
+    ).read_bytes()
     mapping_dir = args.build_dir / "outputs" / "mapping" / "shrunk"
     mapping = (mapping_dir / "mapping.txt").read_text()
     usage = (mapping_dir / "usage.txt").read_text()
@@ -180,6 +192,35 @@ def main() -> int:
         "optimized_resource_report_contains_app_name": (
             "string:app_name" in resource_report
         ),
+        "unshrunk_contains_input_font_payload": contains_exact_payload(
+            unshrunk_path,
+            font_payload,
+        ),
+        "shrunk_contains_input_font_payload": contains_exact_payload(
+            shrunk_path,
+            font_payload,
+        ),
+        "unshrunk_contains_used_native_drawable_name": (
+            USED_NATIVE_DRAWABLE in unshrunk_resources
+        ),
+        "unshrunk_contains_unused_native_drawable_name": (
+            UNUSED_NATIVE_DRAWABLE in unshrunk_resources
+        ),
+        "shrunk_contains_used_native_drawable_name": (
+            USED_NATIVE_DRAWABLE in shrunk_resources
+        ),
+        "shrunk_contains_unused_native_drawable_name": (
+            UNUSED_NATIVE_DRAWABLE in shrunk_resources
+        ),
+        "optimized_resource_report_contains_used_native_drawable": (
+            "drawable:" + USED_NATIVE_DRAWABLE.decode() in resource_report
+        ),
+        "optimized_resource_report_omits_unused_native_drawable": (
+            "drawable:" + UNUSED_NATIVE_DRAWABLE.decode() not in resource_report
+        ),
+        "optimized_resource_report_omits_input_font": (
+            "font:" + FONT_RESOURCE.decode() not in resource_report
+        ),
     }
     expected = {
         "unshrunk_contains_check_backing_class": True,
@@ -193,6 +234,15 @@ def main() -> int:
         "r8_usage_reports_unused_home_backing_class": True,
         "optimized_resource_report_omits_unused_marker": True,
         "optimized_resource_report_contains_app_name": True,
+        "unshrunk_contains_input_font_payload": True,
+        "shrunk_contains_input_font_payload": False,
+        "unshrunk_contains_used_native_drawable_name": True,
+        "unshrunk_contains_unused_native_drawable_name": True,
+        "shrunk_contains_used_native_drawable_name": True,
+        "shrunk_contains_unused_native_drawable_name": False,
+        "optimized_resource_report_contains_used_native_drawable": True,
+        "optimized_resource_report_omits_unused_native_drawable": True,
+        "optimized_resource_report_omits_input_font": True,
     }
 
     result = {

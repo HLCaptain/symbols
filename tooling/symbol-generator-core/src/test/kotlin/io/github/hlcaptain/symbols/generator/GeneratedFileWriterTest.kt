@@ -43,6 +43,13 @@ class GeneratedFileWriterTest {
             assertEquals("owned by consumer", directory.resolve("user.txt").readText())
             assertFalse(Files.exists(directory.resolve("kotlin/Old.kt")))
             assertTrue(Files.isRegularFile(directory.resolve("kotlin/Two.kt")))
+
+            val cleared = GeneratedFileWriter.clear(directory)
+
+            assertEquals(WriteResult(written = 0, unchanged = 0, deleted = 2), cleared)
+            assertEquals("owned by consumer", directory.resolve("user.txt").readText())
+            assertFalse(Files.exists(one))
+            assertFalse(Files.exists(directory.resolve("kotlin/Two.kt")))
         } finally {
             directory.toFile().deleteRecursively()
         }

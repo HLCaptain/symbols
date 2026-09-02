@@ -197,9 +197,10 @@ resource through the normal `Res.drawable.<name>` accessor for
 `painterResource`.
 
 Every manifest entry or direct SVG file is generated; the Gradle DSL has no
-`include`/`includeAll` selection mode. A font selected from `src/main/res/font`
-or `src/commonMain/composeResources/font` is also a runtime resource; use an
-explicit file outside those directories when it should remain build-only. See
+`include`/`includeAll` selection mode. A font selected from `src/main/res/font`,
+`src/androidMain/res/font`, or `src/commonMain/composeResources/font` is also a
+runtime resource; use an explicit file outside those directories when it should
+remain build-only. See
 [build-time font and SVG conversion](GENERATOR.md) for the complete DSL,
 generated API, supported SVG subset, and shrinker boundaries.
 

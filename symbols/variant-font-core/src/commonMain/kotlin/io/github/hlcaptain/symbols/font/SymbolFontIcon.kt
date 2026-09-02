@@ -22,7 +22,34 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 
-/** Renders [codePoint] from a regular or variable [font]. */
+/**
+ * Renders one glyph from a regular or variable symbol font.
+ *
+ * This overload resolves and remembers the [font] at [fontSettings]. Changing the settings can
+ * resolve a new font family and cause the glyph to be measured, laid out, and drawn again. When
+ * many icons use the same family, call [rememberSymbolFontFamily] once and use the [FontFamily]
+ * overload instead.
+ *
+ * The icon occupies a square of [size]. Its tint defaults to black rather than a Material theme
+ * color. [autoMirror] flips the glyph horizontally only in a right-to-left layout.
+ *
+ * The glyph text is not exposed to accessibility services. A non-null
+ * [contentDescription] is exposed as the description of an image; `null` makes the icon
+ * decorative.
+ *
+ * @param codePoint Unicode scalar value assigned to the glyph
+ * @param font font descriptor and Compose resource to render
+ * @param contentDescription localized description, or `null` for a decorative icon
+ * @param modifier modifier applied to the icon's square container
+ * @param fontSettings settings applied to [font]; defaults to the current [SymbolsTheme]
+ * @param tint glyph color; defaults to [Color.Black]
+ * @param size width and height of the icon
+ * @param autoMirror whether to mirror the glyph in right-to-left layouts
+ * @throws IllegalArgumentException if [codePoint] is not a Unicode scalar value, [size] is
+ * negative or unspecified, [font] is both regular and variable, or a regular
+ * font receives different settings
+ * @throws UnsupportedOperationException if a variable font is used on an unsupported platform
+ */
 @Composable
 fun SymbolFontIcon(
     codePoint: Int,
@@ -46,7 +73,30 @@ fun SymbolFontIcon(
     )
 }
 
-/** Renders [codePoint] with a caller-owned [fontFamily]. */
+/**
+ * Renders one glyph with a [fontFamily] prepared by the caller.
+ *
+ * Use this overload when several icons share the result of [rememberSymbolFontFamily]. It does not
+ * read [SymbolsTheme], load a [SymbolFont], or apply variation settings; the supplied family fully
+ * determines the font appearance.
+ *
+ * The icon occupies a square of [size]. Its tint defaults to black rather than a Material theme
+ * color. [autoMirror] flips the glyph horizontally only in a right-to-left layout.
+ *
+ * The glyph text is not exposed to accessibility services. A non-null
+ * [contentDescription] is exposed as the description of an image; `null` makes the icon
+ * decorative.
+ *
+ * @param codePoint Unicode scalar value assigned to the glyph
+ * @param fontFamily caller-owned family containing the symbol font
+ * @param contentDescription localized description, or `null` for a decorative icon
+ * @param modifier modifier applied to the icon's square container
+ * @param tint glyph color; defaults to [Color.Black]
+ * @param size width and height of the icon
+ * @param autoMirror whether to mirror the glyph in right-to-left layouts
+ * @throws IllegalArgumentException if [codePoint] is not a Unicode scalar value
+ * or [size] is negative or unspecified
+ */
 @Composable
 fun SymbolFontIcon(
     codePoint: Int,
@@ -92,7 +142,18 @@ fun SymbolFontIcon(
     }
 }
 
-/** Encodes one Unicode scalar value as symbol-font text. */
+/**
+ * Encodes one Unicode scalar value as text that can be rendered by a symbol font.
+ *
+ * Values in the Basic Multilingual Plane produce one UTF-16 character. Supplementary values
+ * produce a surrogate pair. This function does not load a font or check whether a font contains
+ * the requested glyph.
+ *
+ * @param codePoint Unicode scalar value to encode, including private-use values
+ * @return a one-code-point string suitable for a text renderer
+ * @throws IllegalArgumentException if [codePoint] is outside the Unicode range or is a surrogate
+ * code point
+ */
 fun symbolFontText(codePoint: Int): String {
     require(
         codePoint in 0..0x10FFFF &&

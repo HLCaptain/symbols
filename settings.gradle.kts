@@ -76,6 +76,9 @@ include(
     ":modules:material-outlined-static",
     ":modules:material-rounded-static",
     ":modules:material-sharp-static",
+    ":modules:material-compose-drawables-outlined",
+    ":modules:material-compose-drawables-rounded",
+    ":modules:material-compose-drawables-sharp",
     ":modules:material-drawables-outlined",
     ":modules:material-drawables-rounded",
     ":modules:material-drawables-sharp",
@@ -98,6 +101,12 @@ project(":modules:material-rounded-static").projectDir =
     file("symbols/material-rounded-static")
 project(":modules:material-sharp-static").projectDir =
     file("symbols/material-sharp-static")
+project(":modules:material-compose-drawables-outlined").projectDir =
+    file("symbols/material-compose-drawables-outlined")
+project(":modules:material-compose-drawables-rounded").projectDir =
+    file("symbols/material-compose-drawables-rounded")
+project(":modules:material-compose-drawables-sharp").projectDir =
+    file("symbols/material-compose-drawables-sharp")
 project(":modules:material-drawables-outlined").projectDir =
     file("symbols/material-drawables-outlined")
 project(":modules:material-drawables-rounded").projectDir =

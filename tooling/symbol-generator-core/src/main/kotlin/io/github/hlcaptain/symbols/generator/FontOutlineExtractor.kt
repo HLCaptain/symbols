@@ -33,5 +33,18 @@ data class FontExtractionRequest(
 
 /** An outline engine used by the deterministic source renderers. */
 fun interface FontOutlineExtractor {
+    /**
+     * Extracts the requested glyphs from one configured font instance.
+     *
+     * Implementations return normalized vector commands for every requested
+     * code point. They may read [FontExtractionRequest.fontFile], but extraction
+     * does not require callers to create or manage generated output files.
+     *
+     * @param request font file, face index, code points, variable-axis values,
+     * and coordinate settings to use.
+     * @return the font metadata, applied axis values, and extracted outlines.
+     * @throws SymbolGenerationException if the font cannot supply a requested
+     * glyph or cannot be converted with the requested settings.
+     */
     fun extract(request: FontExtractionRequest): ExtractedFont
 }

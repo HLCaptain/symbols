@@ -23,6 +23,10 @@ same release configuration and adds R8 full-mode minification plus optimized
 Android resource shrinking. Both variants package the same universal ABI and
 density set, so their APKs are directly comparable.
 
+The `material-static` profile intentionally packages the complete Rounded
+Compose drawable resource pack beside its regular font. This measures the
+standard public `Res.drawable` DevEx without Android asset pruning.
+
 ## Build
 
 Run the complete matrix locally:

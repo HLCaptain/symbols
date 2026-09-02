@@ -122,13 +122,15 @@ symbolFonts {
 }
 ```
 
-The plugin searches `src/main/res/font` and
+The plugin searches `src/main/res/font`, `src/androidMain/res/font`, and
 `src/commonMain/composeResources/font` (the Android and Compose directory names
 are both singular). If exactly one supported TTF, OTF, or TTC exists, omit
 `font(...)`; if several exist, select one by exact file name. `font.set(...)`
 accepts a file from any other location and avoids packaging a build-only font
-as an app resource. Variant-specific directories are not searched because one
-style generates shared output for every variant.
+as an app resource. Keep an Android-only font in `src/main/res/font` for a
+regular Android module or `src/androidMain/res/font` for a KMP module, then call
+`androidDrawables()` without an argument. One shared task generates the same
+native resources for every variant.
 
 Android projects default `packageName` to `<android namespace>.generated`.
 Other projects use `<group>.<project>.generated` when `group` is a valid Kotlin
@@ -146,6 +148,75 @@ time; the result is not variable at runtime.
 `composeDrawables()` registers the generated XML from `build/` as standard
 Compose Multiplatform resources. Compose therefore generates
 `Res.drawable.<resource_name>` accessors consumable with `painterResource`.
+
+## Variant-aware Android font resources
+
+Use Android resource-overlay mode only when a build type, product flavor, or
+full variant intentionally replaces the font. The overload is the per-style
+opt-in toggle; no global Gradle property or different plugin is required. It
+requires `com.android.application` or `com.android.library`; otherwise the
+plugin warns that no variant native drawables can be generated.
+
+```kotlin
+symbolFonts {
+    iconSet("AppIcons") {
+        style("Rounded") {
+            codepoints.set(
+                layout.projectDirectory.file("icons/app-icons.codepoints"),
+            )
+            androidDrawables(fontResource = "app_icons.ttf")
+        }
+    }
+}
+```
+
+Keep the same lowercase Android resource filename in every overlay:
+
+```text
+src/main/res/font/app_icons.ttf
+src/debug/res/font/app_icons.ttf
+src/free/res/font/app_icons.ttf
+src/freeDebug/res/font/app_icons.ttf
+```
+
+The plugin resolves the first `font/app_icons.ttf` from AGP's ordered static
+resource layers and registers one cacheable generation task per Android
+variant. A missing file or two matches at the same priority fail with the
+variant and searched roots. The generated XML is attached through AGP's public
+generated-resource API, remains below `build/`, and belongs to the module's
+normal Android namespace. Do not set `packageName` merely to use `R.drawable`.
+Only local static resource directories participate; dependency AARs and
+task-generated resource directories are not font inputs.
+
+Creating or removing an overlay invalidates the current Gradle configuration
+cache entry once so AGP can rebuild its source graph; subsequent unchanged
+builds reuse the new entry. Together with one generator task per variant, this
+is the development-cost reason the mode is explicit rather than automatic.
+
+`androidDrawables()` clears this mode and returns to shared Android source-set
+behavior. Prefer that no-argument form unless overlays are intentional: it has
+one generation task instead of one per variant and keeps every variant on the
+same source of truth. The runnable Android Views sample uses this default. The
+[`shrinkable-vectors`](../benchmarks/shrinkable-vectors/build.gradle.kts)
+fixture is the focused `androidDrawables(fontResource = ...)` example.
+
+Mixed output modes remain supported. Native Android drawables follow variant
+overlays, while `imageVectors()` and `composeDrawables()` continue to use the
+configured shared `font.set(...)`, `font(...)`, or conventional main font. The
+plugin warns because incompatible glyph maps could make the representations
+diverge and enabling both native and Compose drawables packages both forms.
+`svgDirectory` remains the source for every output and causes the font-resource
+argument to be ignored with a warning.
+
+The source font is still an ordinary `R.font` resource. An Android application
+with code minification and `shrinkResources` can remove the entire font when it
+is unreferenced after generation, along with unused generated drawables. The
+plugin does not enable shrinking or subset font files, and an AAR may retain
+resources until its consuming application is shrunk. Compose Multiplatform
+`Res.drawable` assets are a separate representation and do not become native
+Android resources through this mode. In a KMP module, native `R.drawable`
+access therefore stays in Android source sets; common code continues to use
+`composeDrawables()` and `Res.drawable`.
 
 Optional settings include `packageName`, `rootName`, `fontIndex`,
 `resourcePrefix`, `symbolsPerFile`, `precision`, `viewportWidth`, and

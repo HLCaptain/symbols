@@ -16,7 +16,7 @@ normalized from the upstream project's own metadata.
 | Font Awesome Free Solid 6.7.2 | 1,966 names / 1,402 glyphs | Complete YAML-normalized provider fixture |
 | Tabler Icons Outline 3.46.0 | 5,193 names / 5,130 glyphs | Complete CSS-normalized provider fixture with three static strokes |
 | Tabler Icons Filled 3.46.0 | 1,057 names / 1,054 glyphs | Complete CSS-normalized provider fixture |
-| Powerline Symbols 2.8.4 | 8 names / 8 glyphs | Canonical manifest/license; runnable copy in `samples/custom-static` |
+| Powerline Symbols 2.8.4 | 8 names / 8 glyphs | Canonical manifest/license; runnable copies in the custom and Android Views samples plus the shrinker fixture |
 | Academmunicons 200415 | 50 semantic icons | Canonical manifest/license and static derivative; runnable variable copy in `samples/custom-variable` |
 
 The launcher does not generate complete runtime catalog lists from these
@@ -52,9 +52,9 @@ contract stable.
 - Tabler Icons Filled is the unmodified `dist/fonts/tabler-icons-filled.ttf`
   from the official `@tabler/icons-webfont` `3.46.0` npm package, SHA-256
   `e1aa44d701709565e8b33b6ccbf9dc7f78e0b435defb50a47c1c0cb162c1cab6`.
-- Powerline Symbols at
-  `samples/custom-static/src/commonMain/composeResources/font/powerline_symbols.otf`
-  is the unmodified `font/PowerlineSymbols.otf` from revision
+- The byte-identical Powerline Symbols copies listed in
+  [`THIRD_PARTY_NOTICES.md`](../../THIRD_PARTY_NOTICES.md#powerline-symbols-custom-sample)
+  are the unmodified `font/PowerlineSymbols.otf` from revision
   `51570938d4a558578fa3512a4b546584530e23c1` (tag `2.8.4`), SHA-256
   `4a2496a009b1649878ce067a7ec2aed9f79656c90136971e1dba00766515f7a1`.
 - Academmunicons Variable at

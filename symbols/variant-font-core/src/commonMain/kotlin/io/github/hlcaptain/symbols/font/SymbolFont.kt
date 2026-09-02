@@ -11,12 +11,27 @@ import androidx.compose.ui.text.font.FontWeight
 import org.jetbrains.compose.resources.FontResource
 import org.jetbrains.compose.resources.Font as resourceFont
 
-/** A reusable point in an arbitrary OpenType variable-font design space. */
+/**
+ * Font settings that can be shared by symbol-font renderers.
+ *
+ * Create this type directly when a font uses custom settings, or use the `weight` and `style`
+ * constructor for Compose's standard weight and style controls. Creating settings does not load a
+ * font or check whether a particular font supports them. Use
+ * [SymbolFont.fontSettings] when values should be checked against a descriptor's declared axes;
+ * directly supplied settings are otherwise passed to a variable font unchanged.
+ *
+ * @property variationSettings settings passed to Compose when a variable font is rendered
+ */
 @Immutable
 data class SymbolFontSettings(
     val variationSettings: FontVariation.Settings,
 ) {
-    /** Creates settings for Compose's standard weight and style axes. */
+    /**
+     * Creates settings from Compose's standard weight and style controls.
+     *
+     * @param weight requested font weight
+     * @param style requested upright or italic style
+     */
     constructor(
         weight: FontWeight = FontWeight.Normal,
         style: FontStyle = FontStyle.Normal,
@@ -28,7 +43,21 @@ data class SymbolFontSettings(
     }
 }
 
-/** One user-adjustable OpenType variation axis exposed by a [SymbolFont.Variable]. */
+/**
+ * Describes one value that callers can adjust on a [SymbolFont.Variable].
+ *
+ * This is metadata for validation and user-interface controls. It does not inspect or change the
+ * font file. Values passed to [SymbolFont.fontSettings] must be within [minValue] and [maxValue];
+ * an omitted value uses [defaultValue].
+ *
+ * @property tag four-character name stored in the font, such as `wght`
+ * @property minValue smallest accepted value
+ * @property defaultValue value used when the caller does not provide one
+ * @property maxValue largest accepted value
+ * @property label human-readable name suitable for a control label
+ * @throws IllegalArgumentException if [tag] is not four printable ASCII characters, a numeric
+ * value is not finite, the values are not ordered as minimum, default, maximum, or [label] is blank
+ */
 @Immutable
 data class SymbolFontAxis(
     val tag: String,
@@ -66,14 +95,38 @@ sealed interface SymbolFont {
     val resource: FontResource
 
     companion object {
-        /** Creates a regular symbol-font descriptor. */
+        /**
+         * Creates a descriptor for a font baked at one fixed setting.
+         *
+         * This function only stores the resource and metadata. The font is loaded later by
+         * [rememberSymbolFontFamily] or [SymbolFontIcon]. A regular font can only be rendered with
+         * the same [fontSettings]; requesting other settings fails instead of silently changing
+         * its appearance.
+         *
+         * @param familyName name used in diagnostics and developer tools
+         * @param resource Compose Multiplatform font resource to load when rendered
+         * @param fontSettings fixed settings already baked into the font file
+         * @return a reusable regular-font descriptor
+         */
         fun regular(
             familyName: String,
             resource: FontResource,
             fontSettings: SymbolFontSettings = SymbolFontSettings.Default,
         ): Regular = RegularSymbolFont(familyName, resource, fontSettings)
 
-        /** Creates a variable symbol-font descriptor from generated axis metadata. */
+        /**
+         * Creates a descriptor for a font whose settings can change at runtime.
+         *
+         * The supplied [variationAxes] are copied and used by [SymbolFont.fontSettings] to fill in
+         * defaults and validate caller values. This function does not load the resource or compare
+         * the metadata with the axes actually stored in the font file.
+         *
+         * @param familyName name used in diagnostics and developer tools
+         * @param resource Compose Multiplatform font resource to load when rendered
+         * @param variationAxes adjustable values exposed to callers, in the order passed to Compose
+         * @return a reusable variable-font descriptor
+         * @throws IllegalArgumentException if more than one axis uses the same tag
+         */
         fun variable(
             familyName: String,
             resource: FontResource,
@@ -106,7 +159,22 @@ sealed interface SymbolFont {
     }
 }
 
-/** Resolves this font at [axisValues], using embedded defaults when omitted. */
+/**
+ * Creates settings for this font from values selected by the caller.
+ *
+ * For a variable font, omitted values use the defaults in [SymbolFont.Variable.variationAxes].
+ * Every supplied tag must be known and every value must be finite and within its declared range.
+ * For a regular font, [axisValues] must be empty and the font's fixed settings are returned.
+ *
+ * This function only creates settings. It does not load the font or check whether the current
+ * platform can render variable fonts.
+ *
+ * @param axisValues values keyed by their four-character font tag
+ * @return settings containing every declared variable axis, or the fixed regular-font settings
+ * @throws IllegalArgumentException if the descriptor is both regular and variable, a regular font
+ * receives an axis value, variable-axis metadata contains duplicate tags, a tag is unknown, or a
+ * value is not finite or is outside its declared range
+ */
 fun SymbolFont.fontSettings(
     axisValues: Map<String, Float> = emptyMap(),
 ): SymbolFontSettings {
@@ -171,7 +239,30 @@ object SymbolsRuntime {
         get() = platformSupportsVariableFonts()
 }
 
-/** Loads and remembers [font] at [fontSettings]. */
+/**
+ * Requests [font] through Compose Resources and remembers a [FontFamily] for [fontSettings].
+ *
+ * Call this inside a composition when several icons should share one family, such as icons in a
+ * list or grid. Android creates the packaged font synchronously. On non-Android targets, Compose
+ * Resources may initially return a fallback while the resource loads, then recompose with the
+ * requested font; a symbol glyph can therefore briefly appear missing. The family is reused while
+ * Compose returns the same font. When loading completes or [fontSettings] changes, text using the
+ * returned family can be measured, laid out, and drawn again. This runtime adds no separate cache
+ * for past setting values.
+ *
+ * The default settings come from [SymbolsTheme.fontSettings]. A regular font accepts only the
+ * settings baked into its descriptor. Variable fonts require Android API 26 or newer; use
+ * [SymbolsRuntime.variableFontsSupported] to select a regular font or generated vector on older
+ * Android versions.
+ *
+ * @param font regular or variable symbol-font descriptor to load
+ * @param fontSettings settings to apply; defaults to the value supplied by [SymbolsTheme]
+ * @return a remembered family containing the currently resolved font, which may be a temporary
+ * fallback while a non-Android resource loads
+ * @throws IllegalArgumentException if [font] is both regular and variable, or a regular font is
+ * requested with settings other than its fixed settings
+ * @throws UnsupportedOperationException if a variable font is requested on an unsupported platform
+ */
 @Composable
 fun rememberSymbolFontFamily(
     font: SymbolFont,

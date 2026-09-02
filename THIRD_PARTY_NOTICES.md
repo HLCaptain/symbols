@@ -65,12 +65,13 @@ raw source URLs are formed from the revision and upstream filenames:
 - [`MaterialSymbolsSharp[FILL,GRAD,opsz,wght].ttf`](https://raw.githubusercontent.com/google/material-design-icons/bb04090f930e272697f2a1f0d7b352d92dfeee43/variablefont/MaterialSymbolsSharp%5BFILL%2CGRAD%2Copsz%2Cwght%5D.ttf)
 - [`MaterialSymbolsOutlined[FILL,GRAD,opsz,wght].codepoints`](https://raw.githubusercontent.com/google/material-design-icons/bb04090f930e272697f2a1f0d7b352d92dfeee43/variablefont/MaterialSymbolsOutlined%5BFILL%2CGRAD%2Copsz%2Cwght%5D.codepoints)
 
-Generated Kotlin vector operations under `symbols/material-vectors-outlined`,
-`symbols/material-vectors-rounded`, and `symbols/material-vectors-sharp` are a
-deterministic default-axis conversion of outlines from those fonts. Those
-operations are derivative third-party material and remain subject to the
-upstream Apache License 2.0 and Google LLC copyright; they are not represented
-as project-original icon artwork.
+Generated Kotlin vector operations under `symbols/material-vectors-*` and
+generated Android or Compose XML under `symbols/material-drawables-*` and
+`symbols/material-compose-drawables-*` are deterministic default-axis
+conversions of outlines from those fonts. These outputs are derivative
+third-party material and remain subject to the upstream Apache License 2.0 and
+Google LLC copyright; they are not represented as project-original icon
+artwork.
 
 The Android Views migration sample also checks in Google's downloaded
 `home` VectorDrawable at
@@ -198,10 +199,13 @@ The font at
 is the unmodified upstream font,
 SHA-256
 `4a2496a009b1649878ce067a7ec2aed9f79656c90136971e1dba00766515f7a1`.
+The Android Views sample and shrinker fixture retain byte-identical copies at
+`samples/android-views/src/androidMain/res/font/powerline_symbols.otf` and
+`benchmarks/shrinkable-vectors/src/main/res/font/powerline_symbols.otf`.
 The canonical manifest at `fonts/samples/powerline/PowerlineSymbols.codepoints`
 covers all eight Unicode mappings in the font: U+2588 and the documented
 Powerline assignments U+E0A0–U+E0A2 and U+E0B0–U+E0B3. The runnable module uses
-a byte-identical copy.
+byte-identical focused copies.
 
 ## Academmunicons custom sample and fixture
 

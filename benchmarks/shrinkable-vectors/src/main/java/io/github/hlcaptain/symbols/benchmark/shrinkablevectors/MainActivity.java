@@ -2,6 +2,7 @@ package io.github.hlcaptain.symbols.benchmark.shrinkablevectors;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import androidx.compose.ui.graphics.vector.ImageVector;
 import io.github.hlcaptain.symbols.Symbols;
 import io.github.hlcaptain.symbols.material.IconsKt;
@@ -22,5 +23,9 @@ public final class MainActivity extends Activity {
                 OutlinedIcons011_generatedKt.getCheck(
                         IconsKt.getOutlined(IconsKt.getMaterial(Symbols.INSTANCE)));
         setTitle(check.getName());
+        ImageView icon = new ImageView(this);
+        icon.setImageResource(
+                R.drawable.native_benchmark_icons_regular_branch_ue0a0);
+        setContentView(icon);
     }
 }

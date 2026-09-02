@@ -7,6 +7,13 @@ while consuming exactly one typed vector property:
 and passes the resulting vector name to `Activity.setTitle`, making the value
 observable to R8.
 
+The same application uses the generator's variant-aware Android font-resource
+mode. Powerline lives under `src/main/res/font`, one generated drawable is
+referenced through `R.drawable`, the other seven are unused, and the source
+`R.font` is never referenced at runtime. This makes the fixture an executable
+example of `androidDrawables(fontResource = "powerline_symbols.otf")` as well as
+a shrinker test.
+
 The `unshrunk` and `shrunk` build types both inherit the same release build
 type, use the same source, manifest, dependencies, SDK levels, and compiler
 settings, and are unsigned. They differ only as follows:
@@ -43,12 +50,42 @@ python3 benchmarks/shrinkable-vectors/verify.py
 - confirms the Check backing class `OutlinedVectorE5CA` is in both APKs;
 - confirms the unrelated Home backing class `OutlinedVectorE9B2` is in the
   unshrunk APK but absent from every shrunk DEX;
-- corroborates that result with R8's mapping and usage reports; and
+- corroborates that result with R8's mapping and usage reports;
 - confirms the fixture's unused resource marker is removed from the APK and
   absent from the optimized resource shrinker's nonempty report, which must
-  still contain the reachable app name.
+  still contain the reachable app name;
+- finds the exact 2,264-byte source-font payload in the unshrunk APK and proves
+  it is absent from the shrunk APK; and
+- proves the shrunk APK retains the referenced generated drawable name and
+  omits the unused one, corroborated by the resource report, which also omits
+  the source font.
 
 An analysis exits nonzero unless every retention/removal assertion holds.
+
+## Recorded resource-overlay result: 2026-09-02
+
+The paired APKs were built locally with Gradle 8.14.5, Android Gradle Plugin
+8.13.2, JDK 21, compile SDK 36, one worker, and configuration cache disabled.
+The verifier passed every code, font, and drawable assertion:
+
+| APK metric | Unshrunk | Shrunk | Shrunk − unshrunk |
+| --- | ---: | ---: | ---: |
+| APK bytes | 8,009,164 | 220,213 | -7,788,951 (-97.2505%) |
+| DEX files | 4 | 1 | -3 |
+| DEX compressed bytes in APK | 7,691,930 | 68,436 | -7,623,494 |
+| DEX uncompressed bytes | 25,808,876 | 137,392 | -25,671,484 |
+| DEX class definitions | 20,363 | 183 | -20,180 |
+| Class-definition table bytes | 651,616 | 5,856 | -645,760 |
+| DEX field IDs | 32,100 | 406 | -31,694 |
+| DEX method IDs | 137,199 | 1,151 | -136,048 |
+| Android resource bytes, uncompressed | 171,859 | 8,868 | -162,991 |
+| Android resource bytes, compressed | 156,998 | 8,251 | -148,747 |
+| Native-library bytes, uncompressed | 37,392 | 37,392 | 0 |
+
+The exact font payload is stored as a 2,264-byte `res` entry in the unshrunk
+APK and has no matching entry in the shrunk APK. These whole-APK deltas include
+R8 removal of transitive code and unrelated Android resources; they are not the
+isolated cost of the font or one drawable.
 
 ## Timing and memory method
 

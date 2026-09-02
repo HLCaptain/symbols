@@ -27,6 +27,15 @@ GENERATED_OUTPUTS = {
         ROOT / "samples/image-vector-migration/build/generated/symbolFonts",
         ROOT / "samples/image-vector-migration/build/generated/res",
     ),
+    "material-compose-drawables-outlined": (
+        ROOT / "symbols/material-compose-drawables-outlined/build/generated",
+    ),
+    "material-compose-drawables-rounded": (
+        ROOT / "symbols/material-compose-drawables-rounded/build/generated",
+    ),
+    "material-compose-drawables-sharp": (
+        ROOT / "symbols/material-compose-drawables-sharp/build/generated",
+    ),
     "material-drawables-outlined": (
         ROOT / "symbols/material-drawables-outlined/build/generated",
     ),

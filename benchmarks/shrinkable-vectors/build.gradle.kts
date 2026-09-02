@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.androidApplication)
+    id("io.github.hlcaptain.symbol-fonts")
 }
 
 android {
@@ -42,4 +43,15 @@ android {
 
 dependencies {
     implementation(project(":modules:material-vectors-outlined"))
+}
+
+symbolFonts {
+    iconSet("NativeBenchmarkIcons") {
+        style("Regular") {
+            codepoints.set(
+                layout.projectDirectory.file("PowerlineSymbols.codepoints"),
+            )
+            androidDrawables(fontResource = "powerline_symbols.otf")
+        }
+    }
 }

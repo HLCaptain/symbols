@@ -4,12 +4,37 @@ import java.io.PrintStream
 import java.nio.file.Path
 import kotlin.system.exitProcess
 
+/**
+ * Runs the command-line symbol generator and ends the current process with its
+ * result code.
+ *
+ * Use [SymbolGeneratorCli.run] instead when calling the generator from another
+ * JVM process, such as a Gradle worker or a test, because that function returns
+ * the result code without ending the process.
+ *
+ * @param arguments command-line options described by `--help`.
+ */
 fun main(arguments: Array<String>) {
     exitProcess(SymbolGeneratorCli.run(arguments))
 }
 
 /** Small deterministic CLI intended for Gradle Worker and maintainer use. */
 object SymbolGeneratorCli {
+    /**
+     * Generates Kotlin vectors, Android vector drawables, or Compose drawable
+     * resources from the supplied command-line options.
+     *
+     * Font and SVG inputs are read from disk. Generated files are written to
+     * the requested output directories, and stale files recorded by an earlier
+     * run are removed. The supplied streams are written to but are not closed.
+     * Unlike [main], this function does not end the current process.
+     *
+     * @param arguments command-line options described by `--help`.
+     * @param standardOut receives help text and a successful generation summary.
+     * @param standardError receives validation and generation errors.
+     * @return `0` for help or successful generation, `2` for invalid options or
+     * rejected input, and `1` for another generation failure.
+     */
     fun run(
         arguments: Array<String>,
         standardOut: PrintStream = System.out,

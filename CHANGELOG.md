@@ -57,6 +57,14 @@ artifacts are released.
 
 ### Added
 
+- Variant-aware Android font resources through
+  `androidDrawables(fontResource = "app_icons.ttf")`, using AGP resource-overlay
+  precedence and one generated-resource task per variant. Mixed shared outputs
+  remain supported with a divergence warning; the no-argument main-source-set
+  mode remains the default.
+- Public Outlined, Rounded, and Sharp Compose Multiplatform drawable-resource
+  packs for standard `painterResource(Res.drawable...)` usage on Android, JVM,
+  JS, Wasm, and iOS.
 - Typed catalog access for all 4,102 Material Symbols 2.874 names, including
   runtime lookup, alias preservation, full Unicode scalar encoding, and custom
   codepoint rendering.

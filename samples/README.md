@@ -10,12 +10,12 @@ the shared pages, cards, status messages, list, and axis controls.
 | --- | --- | --- |
 | `:samples:api` | Android, JVM, JS, Wasm, iOS arm64 | Sealed navigation entries and sample metadata |
 | `:samples:ui:components` | Android, JVM, JS, Wasm, iOS arm64 | Shared Material 3 components |
-| `:samples:material-static` | Android, JVM, JS, Wasm, iOS arm64 | Default-axis regular Material Symbols |
+| `:samples:material-static` | Android, JVM, JS, Wasm, iOS arm64 | Default-axis regular font beside a public Material `Res.drawable` painter |
 | `:samples:material-variable` | Android 26+, JVM, JS, Wasm, iOS arm64 | Bundled variable Material Symbols at embedded defaults |
 | `:samples:custom-static` | Android, JVM, JS, Wasm, iOS arm64 | Powerline as a typed `ImageVector` and standard `Res.drawable` painter |
 | `:samples:custom-variable` | Android, JVM, JS, Wasm, iOS arm64 | Fixed Academmunicons resources beside the same font's live runtime axes |
 | `:samples:image-vector-migration` | Android, JVM, JS, Wasm, iOS arm64 | Old vs new Material vectors, fixed Academmunicons snapshots, and Tabler SVG vectors/resources with shared live weight |
-| `:samples:android-views` | Android, JVM, JS, Wasm, iOS arm64 | Font- and SVG-generated XML/View interop on Android and an in-route fallback elsewhere |
+| `:samples:android-views` | Android, JVM, JS, Wasm, iOS arm64 | Android-source-set font and SVG-generated XML/View interop on Android, with an in-route fallback elsewhere |
 | `:samples:theming` | Android, JVM, JS, Wasm, iOS arm64 | Independent `MaterialTheme` and `SymbolsTheme` inheritance |
 | `:samples:runtime-axes` | Android 26+, JVM, JS, Wasm, iOS arm64 | Continuous Material sliders with per-axis animation controls and live values |
 
@@ -61,6 +61,12 @@ Tabler `v3.46.0` sample directory. Its Roborazzi previews compare font-derived
 and SVG vectors, including the shared `SymbolsTheme` weight behavior. Baselines,
 actuals, diffs, and reports also stay under `build`; see the focused
 [screenshot workflow](../docs/SCREENSHOT_TESTING.md).
+
+The Android Views module keeps its manifest under `src/androidMain` and
+Powerline under `src/androidMain/res/font`, then uses the recommended
+no-argument `androidDrawables()` mode. The generator guide links the paired APK
+fixture that opts into variant-aware Android font resources with
+`androidDrawables(fontResource = "powerline_symbols.otf")`.
 
 Launcher previews use the AndroidX `androidx.compose.ui.tooling.preview.Preview`
 annotation from `org.jetbrains.compose.ui:ui-tooling-preview`; Android debug

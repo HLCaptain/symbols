@@ -5,6 +5,7 @@ import com.android.build.api.dsl.LibraryExtension
 import com.android.build.api.variant.AndroidComponentsExtension
 import com.android.build.api.variant.ApplicationAndroidComponentsExtension
 import com.android.build.api.variant.LibraryAndroidComponentsExtension
+import com.android.build.api.variant.SourceDirectories
 import com.android.build.api.variant.Variant
 import io.github.hlcaptain.symbols.generator.SymbolGeneratorCli
 import io.github.hlcaptain.symbols.generator.SymbolManifestParser
@@ -18,6 +19,7 @@ import org.gradle.api.Project
 import org.gradle.api.attributes.Usage
 import org.gradle.api.file.Directory
 import org.gradle.api.file.FileCollection
+import org.gradle.api.file.RegularFile
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.TaskProvider
 import org.jetbrains.compose.ComposeExtension
@@ -91,9 +93,6 @@ class SymbolFontsPlugin : Plugin<Project> {
                 namespaceTask.flatMap { task -> task.outputDirectory },
             )
             iconSet.styles.all { style ->
-                namespaceTask.configure { task ->
-                    task.styleNames.add(style.name)
-                }
                 derivedNames.claimStyle(iconSet.name, style.name)
                 style.resourcePrefix.convention(
                     iconSet.rootName.map(::androidResourcePrefix),
@@ -115,7 +114,12 @@ class SymbolFontsPlugin : Plugin<Project> {
                         generated.kotlinOutputDirectory
                     },
                 )
-                project.wireAndroidResources(task)
+                project.wireAndroidResources(
+                    iconSet = iconSet,
+                    style = style,
+                    sharedTask = task,
+                    generatorClasspath = generatorClasspath,
+                )
             }
         }
         project.afterEvaluate {
@@ -123,6 +127,7 @@ class SymbolFontsPlugin : Plugin<Project> {
             extension.iconSets.forEach { iconSet ->
                 iconSet.packageName.convention(defaultPackageName)
             }
+            project.warnAboutVariantAwareMixedOutputs(extension)
             validateConfiguredIconSets(extension)
         }
     }
@@ -262,28 +267,29 @@ private fun Project.registerGenerationTask(
         group = "symbol fonts"
         description =
             "Generates ${iconSet.name}.${style.name} icons."
-
-        this.generatorClasspath.from(generatorClasspath)
-        manifest.set(style.codepoints)
-        font.set(style.font)
-        svgDirectory.set(style.svgDirectory)
-        conventionalFontName.set(style.conventionalFontName)
-        packageName.set(iconSet.packageName)
-        rootName.set(iconSet.rootName)
-        styleName.set(style.name)
-        fontIndex.set(style.fontIndex)
-        axes.set(style.axes)
+        configureGenerationInputs(
+            iconSet = iconSet,
+            style = style,
+            generatorClasspath = generatorClasspath,
+        )
         generateImageVectors.set(style.generateImageVectors)
-        generateAndroidDrawables.set(style.generateAndroidDrawables)
+        generateAndroidDrawables.set(
+            provider {
+                style.generateAndroidDrawables.get() &&
+                    (
+                        style.androidFontResourceName.get().isEmpty() ||
+                            style.svgDirectory.isPresent
+                    )
+            },
+        )
         generateComposeDrawables.set(style.generateComposeDrawables)
-        resourcePrefix.set(style.resourcePrefix)
-        symbolsPerFile.set(style.symbolsPerFile)
-        precision.set(style.precision)
-        viewportWidth.set(style.viewportWidth)
-        viewportHeight.set(style.viewportHeight)
-        emSize.set(style.emSize)
-        originX.set(style.originX)
-        baselineY.set(style.baselineY)
+        generatesAndroidDrawablesByVariant.set(
+            provider {
+                style.generateAndroidDrawables.get() &&
+                    style.androidFontResourceName.get().isNotEmpty() &&
+                    !style.svgDirectory.isPresent
+            },
+        )
 
         val outputRoot = generationOutputRoot(iconSet.name, style.name)
         kotlinOutputDirectory.convention(
@@ -303,6 +309,7 @@ private fun Project.registerGenerationTask(
                     fileTree(layout.projectDirectory.dir("src")) {
                         it.include(
                             "main/res/font/*",
+                            "androidMain/res/font/*",
                             "commonMain/composeResources/font/*",
                         )
                     },
@@ -311,6 +318,39 @@ private fun Project.registerGenerationTask(
         }
     }
     return generationTask
+}
+
+private fun GenerateSymbolFontTask.configureGenerationInputs(
+    iconSet: SymbolIconSet,
+    style: SymbolFontStyle,
+    generatorClasspath: FileCollection,
+) {
+    this.generatorClasspath.from(generatorClasspath)
+    manifest.set(style.codepoints)
+    font.set(style.font)
+    svgDirectory.set(style.svgDirectory)
+    conventionalFontName.set(
+        style.conventionalFontName.zip(
+            style.androidFontResourceName,
+        ) { conventionalName, androidResourceName ->
+            conventionalName.ifEmpty {
+                androidResourceName
+            }
+        },
+    )
+    packageName.set(iconSet.packageName)
+    rootName.set(iconSet.rootName)
+    styleName.set(style.name)
+    fontIndex.set(style.fontIndex)
+    axes.set(style.axes)
+    resourcePrefix.set(style.resourcePrefix)
+    symbolsPerFile.set(style.symbolsPerFile)
+    precision.set(style.precision)
+    viewportWidth.set(style.viewportWidth)
+    viewportHeight.set(style.viewportHeight)
+    emSize.set(style.emSize)
+    originX.set(style.originX)
+    baselineY.set(style.baselineY)
 }
 
 private fun Project.registerNamespaceTask(
@@ -329,6 +369,14 @@ private fun Project.registerNamespaceTask(
             layout.buildDirectory.dir(
                 namespaceOutputDirectory(iconSet.name),
             ),
+        )
+        styleNames.set(
+            provider {
+                iconSet.styles
+                    .filter { style -> style.generateImageVectors.get() }
+                    .map(SymbolFontStyle::getName)
+                    .toSet()
+            },
         )
     }
 
@@ -374,36 +422,161 @@ private fun Project.wireComposeResources(
 }
 
 private fun Project.wireAndroidResources(
-    task: TaskProvider<GenerateSymbolFontTask>,
+    iconSet: SymbolIconSet,
+    style: SymbolFontStyle,
+    sharedTask: TaskProvider<GenerateSymbolFontTask>,
+    generatorClasspath: FileCollection,
 ) {
     plugins.withId("com.android.application") {
         extensions
             .getByType(
                 ApplicationAndroidComponentsExtension::class.java,
             )
-            .wireAndroidResources(task)
+            .wireAndroidResources(
+                project = this,
+                iconSet = iconSet,
+                style = style,
+                sharedTask = sharedTask,
+                generatorClasspath = generatorClasspath,
+            )
     }
     plugins.withId("com.android.library") {
         extensions
             .getByType(
                 LibraryAndroidComponentsExtension::class.java,
             )
-            .wireAndroidResources(task)
+            .wireAndroidResources(
+                project = this,
+                iconSet = iconSet,
+                style = style,
+                sharedTask = sharedTask,
+                generatorClasspath = generatorClasspath,
+            )
     }
 }
 
 private fun <VariantT : Variant> AndroidComponentsExtension<*, *, VariantT>
     .wireAndroidResources(
-        task: TaskProvider<GenerateSymbolFontTask>,
+        project: Project,
+        iconSet: SymbolIconSet,
+        style: SymbolFontStyle,
+        sharedTask: TaskProvider<GenerateSymbolFontTask>,
+        generatorClasspath: FileCollection,
     ) {
     onVariants(
         selector().all(),
         Action<VariantT> { variant ->
-            variant.sources.res?.addGeneratedSourceDirectory(
+            if (!style.generateAndroidDrawables.get()) {
+                return@Action
+            }
+            val resources = variant.sources.res ?: return@Action
+            val fontResource = style.androidFontResourceName.get()
+            val task = if (
+                fontResource.isNotEmpty() &&
+                !style.svgDirectory.isPresent
+            ) {
+                project.registerVariantAndroidDrawablesTask(
+                    iconSet = iconSet,
+                    style = style,
+                    variantName = variant.name,
+                    fontResource = fontResource,
+                    resources = resources,
+                    generatorClasspath = generatorClasspath,
+                )
+            } else {
+                sharedTask
+            }
+            resources.addGeneratedSourceDirectory(
                 task,
                 GenerateSymbolFontTask::androidOutputDirectory,
             )
         },
+    )
+}
+
+private fun Project.registerVariantAndroidDrawablesTask(
+    iconSet: SymbolIconSet,
+    style: SymbolFontStyle,
+    variantName: String,
+    fontResource: String,
+    resources: SourceDirectories.Layered,
+    generatorClasspath: FileCollection,
+): TaskProvider<GenerateSymbolFontTask> =
+    tasks.registerOrConfigure<GenerateSymbolFontTask>(
+        variantAndroidDrawablesTaskName(
+            iconSetName = iconSet.name,
+            styleName = style.name,
+            variantName = variantName,
+        ),
+    ) {
+        group = "symbol fonts"
+        description =
+            "Generates ${iconSet.name}.${style.name} Android drawables for " +
+                "the $variantName variant."
+        configureGenerationInputs(
+            iconSet = iconSet,
+            style = style,
+            generatorClasspath = generatorClasspath,
+        )
+        font.set(
+            resources.static.map { layers ->
+                selectAndroidVariantFont(
+                    iconSetName = iconSet.name,
+                    styleName = style.name,
+                    variantName = variantName,
+                    fontResource = fontResource,
+                    layers = layers,
+                )
+            },
+        )
+        conventionalFontName.set("")
+        generateImageVectors.set(false)
+        generateAndroidDrawables.set(true)
+        generateComposeDrawables.set(false)
+
+        val outputRoot = generationOutputRoot(iconSet.name, style.name) +
+            "/androidVariants/${fileSegment(variantName)}"
+        kotlinOutputDirectory.convention(
+            layout.buildDirectory.dir("$outputRoot/kotlin"),
+        )
+        androidOutputDirectory.convention(
+            layout.buildDirectory.dir("$outputRoot/androidRes"),
+        )
+        composeOutputDirectory.convention(
+            layout.buildDirectory.dir("$outputRoot/composeResources"),
+        )
+    }
+
+internal fun selectAndroidVariantFont(
+    iconSetName: String,
+    styleName: String,
+    variantName: String,
+    fontResource: String,
+    layers: List<Collection<Directory>>,
+): RegularFile {
+    val searched = mutableListOf<File>()
+    layers.forEach { layer ->
+        val candidates = layer.map { directory ->
+            directory.file("font/$fontResource")
+        }
+        searched += candidates.map { candidate -> candidate.asFile }
+        val matches = candidates.filter { candidate -> candidate.asFile.isFile }
+        if (matches.size == 1) {
+            return matches.single()
+        }
+        if (matches.size > 1) {
+            throw InvalidUserDataException(
+                "Multiple '$fontResource' font resources have equal priority " +
+                    "for $variantName and icon set '$iconSetName' style " +
+                    "'$styleName': " +
+                    matches.joinToString { match -> match.asFile.absolutePath },
+            )
+        }
+    }
+    throw InvalidUserDataException(
+        "Cannot find 'font/$fontResource' for $variantName and icon set " +
+            "'$iconSetName' style '$styleName'. Searched: " +
+            searched.joinToString { file -> file.absolutePath }.ifEmpty { "none" },
     )
 }
 
@@ -508,6 +681,14 @@ private fun generationTaskName(
 ): String =
     "generate${taskSegment(iconSetName)}${taskSegment(styleName)}SymbolFonts"
 
+private fun variantAndroidDrawablesTaskName(
+    iconSetName: String,
+    styleName: String,
+    variantName: String,
+): String =
+    generationTaskName(iconSetName, styleName) +
+        "For${taskSegment(variantName)}AndroidDrawables"
+
 private fun namespaceOutputDirectory(iconSetName: String): String =
     "generated/symbolFonts/${fileSegment(iconSetName)}/namespace/kotlin"
 
@@ -557,6 +738,72 @@ private class DerivedNameRegistry {
     }
 }
 
+private fun Project.warnAboutVariantAwareMixedOutputs(
+    extension: SymbolFontsExtension,
+) {
+    extension.iconSets.forEach { iconSet ->
+        iconSet.styles.forEach styleLoop@{ style ->
+            val fontResource = style.androidFontResourceName.get()
+            if (
+                fontResource.isEmpty() ||
+                !style.generateAndroidDrawables.get()
+            ) {
+                return@styleLoop
+            }
+            val owner = "${iconSet.name}.${style.name}"
+            if (
+                !plugins.hasPlugin("com.android.application") &&
+                !plugins.hasPlugin("com.android.library")
+            ) {
+                logger.warn(
+                    "[symbol-fonts] $owner configures variant-aware Android " +
+                        "font resources, but this project has no Android " +
+                        "application or library plugin. No variant native " +
+                        "drawables will be generated.",
+                )
+            }
+            if (style.svgDirectory.isPresent) {
+                logger.warn(
+                    "[symbol-fonts] $owner configures " +
+                        "androidDrawables(fontResource = \"$fontResource\") " +
+                        "with svgDirectory. The font resource is ignored and " +
+                        "native Android drawables use the shared SVG source.",
+                )
+                return@styleLoop
+            }
+
+            val sharedOutputs = buildList {
+                if (style.generateImageVectors.get()) add("ImageVector")
+                if (style.generateComposeDrawables.get()) add("Compose drawable")
+            }
+            val sharedSource = when {
+                style.font.isPresent -> "font.set(...)"
+                style.conventionalFontName.get().isNotEmpty() -> "font(...)"
+                else -> null
+            }
+            if (sharedOutputs.isNotEmpty()) {
+                logger.warn(
+                    "[symbol-fonts] $owner combines " +
+                        "androidDrawables(fontResource = \"$fontResource\") " +
+                        "with ${sharedOutputs.joinToString()} output. Native " +
+                        "Android drawables follow each variant's res/font " +
+                        "overlays; shared outputs use " +
+                        (sharedSource ?: "the main source-set font") +
+                        ". Variant overrides do not change shared outputs. " +
+                        "Keep the sources glyph-compatible or split the style.",
+                )
+            } else if (sharedSource != null) {
+                logger.warn(
+                    "[symbol-fonts] $owner configures $sharedSource together " +
+                        "with androidDrawables(fontResource = " +
+                        "\"$fontResource\"). Native Android drawables use the " +
+                        "variant resource, so the shared font source is unused.",
+                )
+            }
+        }
+    }
+}
+
 private fun validateConfiguredIconSets(extension: SymbolFontsExtension) {
     val symbolsEntryPointOwners = linkedMapOf<String, String>()
     val kotlinNamespaceOwners = linkedMapOf<String, String>()
@@ -570,18 +817,23 @@ private fun validateConfiguredIconSets(extension: SymbolFontsExtension) {
         val iconSetOwner = "icon set '${iconSet.name}'"
         SymbolNames.requirePackageName(packageName)
         SymbolNames.requireTypeIdentifier(rootName, "icon-set name")
-        claim(
-            kind = "generated Kotlin namespace",
-            key = "$packageName.$rootName",
-            owner = iconSetOwner,
-            owners = kotlinNamespaceOwners,
-        )
-        claim(
-            kind = "generated Symbols entry point",
-            key = rootName,
-            owner = iconSetOwner,
-            owners = symbolsEntryPointOwners,
-        )
+        val vectorStyles = iconSet.styles
+            .sortedBy(SymbolFontStyle::getName)
+            .filter { style -> style.generateImageVectors.get() }
+        if (vectorStyles.isNotEmpty()) {
+            claim(
+                kind = "generated Kotlin namespace",
+                key = "$packageName.$rootName",
+                owner = iconSetOwner,
+                owners = kotlinNamespaceOwners,
+            )
+            claim(
+                kind = "generated Symbols entry point",
+                key = rootName,
+                owner = iconSetOwner,
+                owners = symbolsEntryPointOwners,
+            )
+        }
 
         val stylePackageOwners = linkedMapOf<String, String>()
         val resourceStyles = iconSet.styles
@@ -598,26 +850,28 @@ private fun validateConfiguredIconSets(extension: SymbolFontsExtension) {
                 "$rootName${style.name}",
                 "generated style namespace",
             )
-            val packageSegment = SymbolNames.packageSegment(style.name)
-            claim(
-                kind = "generated style package segment",
-                key = packageSegment,
-                owner = styleOwner,
-                owners = stylePackageOwners,
-            )
-            claim(
-                kind = "generated Kotlin namespace",
-                key = "$packageName.$rootName${style.name}",
-                owner = styleOwner,
-                owners = kotlinNamespaceOwners,
-            )
-            claim(
-                kind = "generated Kotlin source facade",
-                key = "$packageName.$packageSegment." +
-                    "$rootName${style.name}Icons",
-                owner = styleOwner,
-                owners = kotlinSourceOwners,
-            )
+            if (style.generateImageVectors.get()) {
+                val packageSegment = SymbolNames.packageSegment(style.name)
+                claim(
+                    kind = "generated style package segment",
+                    key = packageSegment,
+                    owner = styleOwner,
+                    owners = stylePackageOwners,
+                )
+                claim(
+                    kind = "generated Kotlin namespace",
+                    key = "$packageName.$rootName${style.name}",
+                    owner = styleOwner,
+                    owners = kotlinNamespaceOwners,
+                )
+                claim(
+                    kind = "generated Kotlin source facade",
+                    key = "$packageName.$packageSegment." +
+                        "$rootName${style.name}Icons",
+                    owner = styleOwner,
+                    owners = kotlinSourceOwners,
+                )
+            }
         }
         iconSet.styles.sortedBy(SymbolFontStyle::getName).forEach { style ->
             validateStyleSource(style, "$iconSetOwner style '${style.name}'")

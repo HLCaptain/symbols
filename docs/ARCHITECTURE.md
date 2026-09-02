@@ -18,8 +18,10 @@ variable font (one style) ──runtime resource──────────�
         │
         ├──default-axis instancing────────────────────────> material-{style}-static
         │                                                    │
-        │                                                    └──Android XML generation
-        │                                                       └──> material-drawables-{style}
+        │                                                    ├──Android XML generation
+        │                                                    │  └──> material-drawables-{style}
+        │                                                    └──Compose XML generation
+        │                                                       └──> material-compose-drawables-{style}
         ├──default-axis outline extraction────────────────> material-vectors-{style}
         │                                                    │
         │                                                    └──> material-vectors-themed
@@ -32,8 +34,9 @@ variable font (one style) ──runtime resource──────────�
 The built-in catalog, regular fonts, and vector packs are
 checked-in repository outputs. Consumers of those artifacts do not parse a
 codepoint manifest, inspect a TTF, run Python, or execute a generator. The
-drawable AARs are generated from checked-in static fonts when the library is
-built; their consumers receive ordinary Android resources. The
+drawable AARs and Compose drawable packs are generated from checked-in static
+fonts when the libraries are built; their consumers receive ordinary Android or
+Compose Multiplatform resources, respectively. The
 separate Gradle plugin is an opt-in application-build path for custom fonts or
 smaller selected icon sets; it inspects the declared font in an isolated JVM and
 does not require Python or FontTools.
@@ -173,8 +176,10 @@ See [build-time font conversion](GENERATOR.md) for the DSL and resource names.
 
 Kotlin Multiplatform runtime modules publish Android, JVM, JS, Wasm, iOS arm64,
 and iOS simulator arm64 variants. Compose Multiplatform 1.11 no longer
-publishes Apple x86_64 artifacts. The native drawable packs are
-Android-only AARs. `symbols-core` contains only the common `Symbols` namespace.
+publishes Apple x86_64 artifacts. The native drawable packs are Android-only
+AARs; the Compose drawable packs publish public `Res.drawable` accessors and
+resource variants for every supported target. `symbols-core` contains only the
+common `Symbols` namespace.
 `material-core` contains the catalog and has no Compose dependency.
 `symbols-variant-font-core` contains the generic font contracts, settings theme,
 renderer, and platform capability check; it has no Material catalog or bundled
@@ -183,8 +188,11 @@ style modules keep Compose's generated `Res` class internal and expose font reso
 only through the public `MaterialSymbols*` adapters. Fixed vector modules
 depend on `material-core` and Compose UI but not on a font; the themed vector
 module adds Material composition-local style selection over all three packs.
-Drawable AARs contain only generated Android XML resources. Build-time tooling
-is a JVM/Gradle concern and does not become a runtime dependency.
+Drawable AARs contain only generated Android XML resources. Compose drawable
+packs contain the 3,802 unique-codepoint resources for one complete fixed style
+and no font; aliases sharing a code point share a canonical resource. Their
+resource filenames and public accessors are published API. Build-time tooling is
+a JVM/Gradle concern and does not become a runtime dependency.
 
 Every runtime and JVM tooling archive packages the project license and
 third-party notice at

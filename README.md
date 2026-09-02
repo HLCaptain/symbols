@@ -46,6 +46,7 @@ Pick the artifact that matches how the application renders icons:
 | Material names and code points only | `symbols-material-core` | Typed catalog; no Compose or bundled font |
 | Familiar Compose `Icon(ImageVector, ...)` | `symbols-material-vectors-{outlined|rounded|sharp}` | Fixed vectors for one style; unused typed vectors can be removed by R8 |
 | Runtime style selection in Compose | `symbols-material-vectors-themed` | Fixed vectors for all three styles |
+| Standard Compose `painterResource(Res.drawable...)` | `symbols-material-compose-drawables-{outlined|rounded|sharp}` | Fixed Compose Multiplatform XML resources for one complete style |
 | Android XML and Views | `symbols-material-drawables-{outlined|rounded|sharp}` | Native `VectorDrawable` resources; unused resources can be removed by Android resource shrinking |
 | Runtime custom regular or variable fonts | `symbols-variant-font-core` | Generic Compose theme and code-point renderer; no bundled font or catalog |
 | Material font axes and theming only | `symbols-material-compose` | Material axes and style theme; no bundled font |
@@ -141,6 +142,45 @@ Icon(
 
 Dynamic lookup keeps the pack index and dispatcher reachable. Prefer direct
 `Symbols.Material.{Style}.{Name}` properties when minimum APK size matters.
+
+## Use Compose Multiplatform drawable resources
+
+Choose one style when standard `Res.drawable` and `painterResource` integration
+is more convenient than an `ImageVector`:
+
+```kotlin
+kotlin {
+    sourceSets.commonMain.dependencies {
+        implementation(
+            "io.github.hlcaptain:symbols-material-compose-drawables-rounded:0.1.0-SNAPSHOT",
+        )
+    }
+}
+```
+
+The generated `Res` class and drawable accessors are public:
+
+```kotlin
+import androidx.compose.material3.Icon
+import io.github.hlcaptain.symbols.material.rounded.compose.drawables.resources.Res
+import io.github.hlcaptain.symbols.material.rounded.compose.drawables.resources.material_symbols_rounded_home_ue9b2
+import org.jetbrains.compose.resources.painterResource
+
+Icon(
+    painter = painterResource(
+        Res.drawable.material_symbols_rounded_home_ue9b2,
+    ),
+    contentDescription = "Home",
+)
+```
+
+Each artifact publishes one complete default-axis style on Android, JVM, JS,
+Wasm, and iOS. The 4,102 semantic names resolve to 3,802 unique-codepoint
+resources per style; aliases sharing a code point share the canonical generated
+resource name. Compose packages these resources as assets on Android, so the
+Android resource shrinker does not remove unused files from this representation.
+Use a typed `ImageVector` pack when per-icon R8 reachability and minimum Android
+APK size are the primary concerns.
 
 ## Use Android Views and XML
 
@@ -263,13 +303,21 @@ calling composition does not need to observe it. A changed stroke still updates
 and rasterizes the vector subtree. Legacy Android and Compose XML remain fixed
 at 1×.
 
-`font("rounded-variable.ttf")` searches `src/main/res/font` and
-`src/commonMain/composeResources/font`. Omit it when those directories contain
-only one supported font, or use `font.set(...)` for another path. Android
+`font("rounded-variable.ttf")` searches `src/main/res/font`,
+`src/androidMain/res/font`, and `src/commonMain/composeResources/font`. Omit it
+when those directories contain only one supported font, or use `font.set(...)`
+for another path. Android
 projects default to `<android namespace>.generated` for generated Kotlin.
 Fonts inside resource directories are also packaged at runtime. When a font is
 only a generator input, keep it elsewhere and use `font.set(...)` so the app
 does not ship both the font and its generated vectors or drawables.
+
+Keep `androidDrawables()` argument-free when every Android variant uses the
+main source-set font. Projects with intentional `res/font` build-type or flavor
+overlays can opt into
+[`androidDrawables(fontResource = "app_icons.ttf")`](docs/GENERATOR.md#variant-aware-android-font-resources).
+That variant-aware mode uses normal Android namespaces and generated `R.drawable`
+resources; it needs neither another package nor another plugin.
 
 Generated vectors use the same familiar call shape:
 

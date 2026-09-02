@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,11 +19,14 @@ import io.github.hlcaptain.symbols.material.Home
 import io.github.hlcaptain.symbols.material.Material
 import io.github.hlcaptain.symbols.material.MaterialSymbol
 import io.github.hlcaptain.symbols.material.Search
+import io.github.hlcaptain.symbols.material.rounded.compose.drawables.resources.Res as RoundedDrawablesRes
+import io.github.hlcaptain.symbols.material.rounded.compose.drawables.resources.material_symbols_rounded_home_ue9b2
 import io.github.hlcaptain.symbols.material.rounded.staticfont.MaterialSymbolsRoundedStatic
 import io.github.hlcaptain.symbols.sample.api.SampleItem
 import io.github.hlcaptain.symbols.sample.materialstatic.config.SampleBuildConfig
 import io.github.hlcaptain.symbols.sample.ui.ExampleCard
 import io.github.hlcaptain.symbols.sample.ui.SamplePage
+import org.jetbrains.compose.resources.painterResource
 import org.koin.core.annotation.Configuration
 import org.koin.core.annotation.Module
 import org.koin.core.annotation.Qualifier
@@ -58,6 +63,31 @@ private fun MaterialStaticContent() {
                 StaticSymbol("Favorite", Symbols.Material.Favorite)
             }
         }
+        ExampleCard(
+            title = "Compose drawable resource",
+            description = "The complete Rounded pack exposes standard public Res.drawable " +
+                "accessors on every Compose Multiplatform target.",
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                Icon(
+                    painter = painterResource(
+                        RoundedDrawablesRes.drawable.material_symbols_rounded_home_ue9b2,
+                    ),
+                    contentDescription = "Home Compose drawable",
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.size(44.dp),
+                )
+                Text("Res.drawable", style = MaterialTheme.typography.labelMedium)
+            }
+            Text(
+                text = "painterResource(Res.drawable.material_symbols_rounded_home_ue9b2)",
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                style = MaterialTheme.typography.bodySmall,
+            )
+        }
     }
 }
 
@@ -81,4 +111,4 @@ private fun StaticSymbol(label: String, symbol: MaterialSymbol) {
 
 private const val Title = "Static Material Symbols"
 private const val Description =
-    "Render the regular Material Symbols font on Android API 21 and newer."
+    "Compare a regular Material Symbols font with a standard Compose drawable resource."

@@ -19,10 +19,21 @@ val MaterialSymbol.roundedImageVector: ImageVector
     get() = asRoundedImageVector()
 
 /**
- * Returns the cached Rounded ImageVector snapshot for this symbol.
+ * Returns the Rounded [ImageVector] for this symbol at the fixed
+ * default axes (`FILL=0`, `GRAD=0`, `opsz=24`, `wght=400`).
  *
- * [autoMirror] selects a separately cached vector whose renderer mirrors
- * it in right-to-left layout. The source outline itself is unchanged.
+ * Use this function when the symbol is chosen at runtime. If the icon is
+ * known in source code, prefer that icon's generated property so code
+ * shrinking can remove more unused vectors. The first request builds the
+ * vector; later requests for the same code point and mirror setting reuse it.
+ * Aliases with the same code point share the same cache.
+ *
+ * @param autoMirror whether Compose should mirror the vector when the layout
+ * direction is right to left. This selects a separate cached vector and does
+ * not change the source outline.
+ * @return the cached Rounded vector for this symbol.
+ * @throws IllegalArgumentException if this symbol's code point is not included
+ * in the generated Rounded vectors.
  */
 fun MaterialSymbol.asRoundedImageVector(autoMirror: Boolean = false): ImageVector {
     val vectorIndex = roundedVectorIndex(codePoint)

@@ -12,10 +12,74 @@ import java.nio.file.StandardCopyOption
  * previous invocation of this writer.
  */
 object GeneratedFileWriter {
+    /**
+     * Makes [outputDirectory] contain the files in [renderedFiles] that belong
+     * to this writer.
+     *
+     * Missing directories are created. Changed files are replaced atomically
+     * where the file system supports it, unchanged files are left untouched,
+     * and stale files listed in the previous state file are deleted. Files not
+     * listed in that state file are never deleted. An updated state file is
+     * written into [outputDirectory].
+     *
+     * @param outputDirectory dedicated generated output directory to update.
+     * @param renderedFiles relative paths and UTF-8 text to synchronize.
+     * @param stateFileName filename placed directly inside [outputDirectory] to
+     * track files owned by this writer. Path separators are not accepted; use a
+     * normal nonblank filename and a distinct name when generators share a
+     * directory.
+     * @return counts of generated files written, left unchanged, and deleted.
+     * Updating the ownership state file is not included in these counts.
+     * @throws IllegalArgumentException if [stateFileName] contains a path
+     * separator.
+     * @throws SymbolGenerationException if a generated path would escape
+     * [outputDirectory].
+     * @throws java.io.IOException if a file cannot be read, written, moved, or
+     * deleted.
+     */
     fun synchronize(
         outputDirectory: Path,
         renderedFiles: RenderedFiles,
         stateFileName: String = ".symbols-generated-files",
+    ): WriteResult = synchronize(
+        outputDirectory = outputDirectory,
+        files = renderedFiles.files,
+        stateFileName = stateFileName,
+    )
+
+    /**
+     * Deletes files owned by an earlier synchronization while preserving every
+     * untracked file in [outputDirectory].
+     *
+     * The directory is created if necessary and the state file is updated to
+     * record an empty generated set. Empty directories left by removed tracked
+     * files are pruned up to, but not including, [outputDirectory].
+     *
+     * @param outputDirectory generated output directory to clear.
+     * @param stateFileName filename placed directly inside [outputDirectory] by
+     * the matching [synchronize] calls. Path separators are not accepted; use a
+     * normal nonblank filename.
+     * @return counts of deleted generated files; `written` and `unchanged` are
+     * zero. Updating the ownership state file is not included.
+     * @throws IllegalArgumentException if [stateFileName] contains a path
+     * separator.
+     * @throws SymbolGenerationException if a path recorded in the state file
+     * would escape [outputDirectory].
+     * @throws java.io.IOException if a file cannot be read, written, or deleted.
+     */
+    fun clear(
+        outputDirectory: Path,
+        stateFileName: String = ".symbols-generated-files",
+    ): WriteResult = synchronize(
+        outputDirectory = outputDirectory,
+        files = emptyMap(),
+        stateFileName = stateFileName,
+    )
+
+    private fun synchronize(
+        outputDirectory: Path,
+        files: Map<String, String>,
+        stateFileName: String,
     ): WriteResult {
         require('/' !in stateFileName && '\\' !in stateFileName) {
             "stateFileName must be a simple filename"
@@ -31,7 +95,7 @@ object GeneratedFileWriter {
         } else {
             emptySet()
         }
-        val expected = renderedFiles.files.keys.toSortedSet()
+        val expected = files.keys.toSortedSet()
 
         var deleted = 0
         (previous - expected).sortedDescending().forEach { relativePath ->
@@ -44,7 +108,7 @@ object GeneratedFileWriter {
 
         var written = 0
         var unchanged = 0
-        renderedFiles.files.toSortedMap().forEach { (relativePath, content) ->
+        files.toSortedMap().forEach { (relativePath, content) ->
             val target = safeResolve(root, relativePath)
             val bytes = content.toByteArray(StandardCharsets.UTF_8)
             if (Files.isRegularFile(target) && Files.readAllBytes(target).contentEquals(bytes)) {

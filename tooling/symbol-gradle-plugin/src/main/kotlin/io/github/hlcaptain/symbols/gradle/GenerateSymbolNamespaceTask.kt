@@ -28,12 +28,18 @@ abstract class GenerateSymbolNamespaceTask : DefaultTask() {
 
     @TaskAction
     protected fun generate() {
+        val outputDirectory = outputDirectory.get().asFile.toPath()
+        val styleNames = styleNames.get()
+        if (styleNames.isEmpty()) {
+            GeneratedFileWriter.clear(outputDirectory)
+            return
+        }
         GeneratedFileWriter.synchronize(
-            outputDirectory = outputDirectory.get().asFile.toPath(),
+            outputDirectory = outputDirectory,
             renderedFiles = KotlinIconNamespaceRenderer().render(
                 packageName = packageName.get(),
                 iconSetName = rootName.get(),
-                styleNames = styleNames.get(),
+                styleNames = styleNames,
             ),
         )
     }

@@ -9,6 +9,19 @@ object SymbolManifestParser {
     private val linePattern =
         Regex("^(?<name>[a-z0-9]+(?:_[a-z0-9]+)*)[ \\t]+(?<codePoint>[0-9a-fA-F]{1,6})[ \\t]*$")
 
+    /**
+     * Reads a UTF-8 manifest from [path] and creates a validated catalog.
+     *
+     * Each nonblank line must contain a lowercase snake-case name followed by a
+     * hexadecimal Unicode code point. The file is opened only for this call and
+     * is closed before the function returns. No files are changed.
+     *
+     * @param path manifest file to read.
+     * @return entries sorted and indexed by [SymbolCatalog].
+     * @throws SymbolGenerationException if the file is missing or empty, a line
+     * is malformed, or names and generated Kotlin identifiers collide.
+     * @throws java.io.IOException if the manifest cannot be read.
+     */
     fun parse(path: Path): SymbolCatalog {
         if (!Files.isRegularFile(path)) {
             throw SymbolGenerationException("Manifest does not exist: $path")
@@ -18,6 +31,20 @@ object SymbolManifestParser {
         }
     }
 
+    /**
+     * Parses manifest [content] without reading or writing files.
+     *
+     * Blank lines are ignored. Every other line must contain a lowercase
+     * snake-case name followed by a hexadecimal Unicode code point.
+     * [sourceName] is included in error messages and does not need to name a
+     * real file.
+     *
+     * @param content complete manifest text.
+     * @param sourceName label shown with line numbers when validation fails.
+     * @return entries sorted and indexed by [SymbolCatalog].
+     * @throws SymbolGenerationException if the content is empty, a line is
+     * malformed, or names and generated Kotlin identifiers collide.
+     */
     fun parse(content: String, sourceName: String = "<manifest>"): SymbolCatalog =
         parse(content.lineSequence().toList(), sourceName)
 

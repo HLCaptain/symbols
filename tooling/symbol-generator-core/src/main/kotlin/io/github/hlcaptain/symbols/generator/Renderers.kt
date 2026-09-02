@@ -57,16 +57,35 @@ data class VectorRenderOptions(
 }
 
 /**
- * Emits a Compose-idiomatic namespace plus one independently shrinkable source
- * methods per unique code point. Alias properties share one nullable cache.
+ * Emits a Compose-style namespace plus independently shrinkable source methods.
+ * Within each style, alias properties for one code point share one nullable
+ * cache.
  *
  * No registry, path table, dispatcher, reflection hook, or all-icons collection
  * is emitted.
+ *
+ * @param options sizes, precision, file grouping, color, and mirroring written
+ * into generated vectors
+ * @param includeNamespace whether [render] also emits the shared icon-set and
+ * style entry points
  */
 class KotlinImageVectorRenderer(
     private val options: VectorRenderOptions = VectorRenderOptions(),
     private val includeNamespace: Boolean = true,
 ) {
+    /**
+     * Renders a font-derived icon set as Kotlin `ImageVector` source text.
+     *
+     * Within each style, one builder is emitted for each unique code point, so
+     * aliases in that style reuse the same lazily cached vector at runtime. When
+     * this renderer was created with
+     * `includeNamespace = true`, the root and style entry points are included
+     * as well. This function only builds text in memory; use
+     * [GeneratedFileWriter.synchronize] to write it to disk.
+     *
+     * @param iconSet validated styles, names, and extracted font outlines.
+     * @return relative Kotlin source paths and their complete contents.
+     */
     fun render(iconSet: GeneratedIconSet): RenderedFiles {
         val rendered = linkedMapOf<String, String>()
         val baseDirectory = iconSet.packageName.replace('.', '/')
@@ -93,7 +112,17 @@ class KotlinImageVectorRenderer(
         return RenderedFiles(rendered)
     }
 
-    /** Emits the same typed namespace API for SVG-derived icons. */
+    /**
+     * Renders an SVG-derived icon set as Kotlin `ImageVector` source text.
+     *
+     * Within each style, each icon receives a separate lazy, cached vector
+     * getter. When this renderer was created with `includeNamespace = true`, the
+     * root and style entry points are included as well. This function reads and
+     * writes no files; [iconSet] must already contain extracted SVG paths.
+     *
+     * @param iconSet validated styles, icon names, and SVG path commands.
+     * @return relative Kotlin source paths and their complete contents.
+     */
     fun render(iconSet: GeneratedSvgIconSet): RenderedFiles {
         val rendered = linkedMapOf<String, String>()
         val baseDirectory = iconSet.packageName.replace('.', '/')
@@ -343,9 +372,15 @@ data class SvgAndroidResourceKey(
 )
 
 /**
- * Emits one native Android vector drawable per unique font code point or SVG
- * source. Font alias accessors can safely reference the same resource ID,
+ * Emits native Android vector drawables from font or SVG styles. Within each
+ * style, font alias accessors can safely reference the same resource ID,
  * allowing `shrinkResources` to retain only code points that are reached.
+ *
+ * @param options sizes, precision, color, and mirroring written into generated
+ * vector XML
+ * @param resourcePrefix lowercase ASCII prefix added to every resource name
+ * @throws IllegalArgumentException if [resourcePrefix] is not a valid Android
+ * resource prefix
  */
 class AndroidVectorXmlRenderer(
     private val options: VectorRenderOptions = VectorRenderOptions(),
@@ -357,6 +392,21 @@ class AndroidVectorXmlRenderer(
         }
     }
 
+    /**
+     * Renders a font-derived icon set as native Android vector drawable XML.
+     *
+     * Within each style, a single drawable is produced for each unique code
+     * point. Manifest aliases in that style therefore map to the same resource
+     * name. The returned lookup map can be used when generating typed resource
+     * accessors. This function creates XML text in memory and does not modify an
+     * Android `res` directory.
+     *
+     * @param iconSet validated styles, catalogs, and extracted font outlines.
+     * @return drawable files and the Android resource name for every style and
+     * code point.
+     * @throws SymbolGenerationException if two inputs would produce the same
+     * Android resource name.
+     */
     fun render(iconSet: GeneratedIconSet): AndroidVectorOutput {
         SymbolNames.requireDistinctStyleAndroidResourcePrefixes(
             iconSet.styles.map(GeneratedStyle::name),
@@ -396,7 +446,19 @@ class AndroidVectorXmlRenderer(
         )
     }
 
-    /** Emits one native vector drawable per SVG source file. */
+    /**
+     * Renders an SVG-derived icon set as native Android vector drawable XML.
+     *
+     * Within each style, a drawable is produced for every SVG source. The
+     * returned lookup map uses each style and icon name as its key. This function
+     * only builds XML text in memory; it does not write into an Android `res`
+     * directory.
+     *
+     * @param iconSet validated styles, icon names, and SVG path commands.
+     * @return drawable files and the Android resource name for every SVG icon.
+     * @throws SymbolGenerationException if two inputs would produce the same
+     * Android resource name.
+     */
     fun render(iconSet: GeneratedSvgIconSet): SvgAndroidVectorOutput {
         SymbolNames.requireDistinctStyleAndroidResourcePrefixes(
             iconSet.styles.map(GeneratedSvgStyle::name),
@@ -498,6 +560,21 @@ class AndroidVectorXmlRenderer(
  * each expensive font extraction task owns only its style-specific builders.
  */
 class KotlinIconNamespaceRenderer {
+    /**
+     * Renders the small Kotlin namespace shared by independently generated icon
+     * styles.
+     *
+     * The result contains the icon-set object, one object for each style, and a
+     * `Symbols` entry point. Style names are sorted so the generated text is
+     * stable regardless of collection order. No files are read or written.
+     *
+     * @param packageName Kotlin package for the generated source.
+     * @param iconSetName name of the generated root object.
+     * @param styleNames unique generated style-object names.
+     * @return one relative Kotlin source path and its complete contents.
+     * @throws IllegalArgumentException if a name is invalid, a style is
+     * duplicated, or style names collapse to the same package segment.
+     */
     fun render(
         packageName: String,
         iconSetName: String,

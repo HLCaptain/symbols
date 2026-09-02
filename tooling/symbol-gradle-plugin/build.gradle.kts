@@ -100,4 +100,17 @@ tasks.test {
         "symbols.generatorTestClasspath",
         configurations.testRuntimeClasspath.get().asPath,
     )
+    systemProperty(
+        "symbols.powerlineTestFont",
+        rootProject.layout.projectDirectory.file(
+            "../samples/custom-static/src/commonMain/composeResources/font/" +
+                "powerline_symbols.otf",
+        ).asFile.absolutePath,
+    )
+    systemProperty(
+        "symbols.academmuniconsTestFont",
+        rootProject.layout.projectDirectory.file(
+            "../fonts/samples/academmunicons/academmunicons-regular.ttf",
+        ).asFile.absolutePath,
+    )
 }

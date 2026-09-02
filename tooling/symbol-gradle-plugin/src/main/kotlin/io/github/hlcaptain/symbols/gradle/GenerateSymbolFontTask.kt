@@ -75,6 +75,9 @@ abstract class GenerateSymbolFontTask : DefaultTask() {
     abstract val generateComposeDrawables: Property<Boolean>
 
     @get:Input
+    abstract val generatesAndroidDrawablesByVariant: Property<Boolean>
+
+    @get:Input
     abstract val resourcePrefix: Property<String>
 
     @get:Input
@@ -110,6 +113,10 @@ abstract class GenerateSymbolFontTask : DefaultTask() {
     @get:Inject
     protected abstract val execOperations: ExecOperations
 
+    init {
+        generatesAndroidDrawablesByVariant.convention(false)
+    }
+
     @TaskAction
     protected fun generate() {
         val outputKinds = buildList {
@@ -123,9 +130,13 @@ abstract class GenerateSymbolFontTask : DefaultTask() {
                 add("Compose drawables")
             }
         }
-        require(outputKinds.isNotEmpty()) {
-            "Style ${styleName.get()} has no output. Call imageVectors(), " +
-                "androidDrawables(), and/or composeDrawables()."
+        if (outputKinds.isEmpty()) {
+            require(generatesAndroidDrawablesByVariant.get()) {
+                "Style ${styleName.get()} has no output. Call imageVectors(), " +
+                    "androidDrawables(), and/or composeDrawables()."
+            }
+            clearDisabledOutputs()
+            return
         }
         val svgSource = svgDirectory.orNull
         val resolvedFont = if (svgSource == null) resolveFont() else null
@@ -259,7 +270,8 @@ internal fun selectConventionalFont(
     }
 
     val searched =
-        "src/main/res/font and src/commonMain/composeResources/font"
+        "src/main/res/font, src/androidMain/res/font, and " +
+            "src/commonMain/composeResources/font"
     val available = supported.joinToString(transform = File::getAbsolutePath)
         .ifEmpty { "none" }
     throw InvalidUserDataException(

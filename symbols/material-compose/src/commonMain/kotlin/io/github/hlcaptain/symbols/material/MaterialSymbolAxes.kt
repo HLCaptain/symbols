@@ -6,9 +6,21 @@ import io.github.hlcaptain.symbols.font.SymbolFontAxis
 import io.github.hlcaptain.symbols.font.SymbolFontSettings
 
 /**
- * A point in the four-axis Material Symbols design space.
+ * Selects the appearance of a Material Symbols variable font.
  *
- * The ranges come from the bundled Material Symbols 2.874 variable fonts.
+ * [fill] moves between an outline and a filled symbol. [weight] controls stroke thickness, [grade]
+ * provides a smaller visual adjustment separate from weight, and [opticalSize] selects the amount
+ * of detail intended for the rendered size. The accepted ranges come from the bundled Material
+ * Symbols 2.874 variable fonts.
+ *
+ * Construction validates the values and creates matching [fontSettings]. It does not load or
+ * render a font.
+ *
+ * @property fill outline-to-filled value from [MinFill] to [MaxFill]
+ * @property weight stroke weight from [MinWeight] to [MaxWeight]
+ * @property grade fine weight adjustment from [MinGrade] to [MaxGrade]
+ * @property opticalSize intended symbol size from [MinOpticalSize] to [MaxOpticalSize]
+ * @throws IllegalArgumentException if a value is not finite or is outside its accepted range
  */
 @Immutable
 data class MaterialSymbolAxes(

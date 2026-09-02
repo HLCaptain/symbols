@@ -34,6 +34,23 @@ data class SvgExtractionRequest(
 
 /** Securely parses a flat directory of path-based, monochrome SVG icons. */
 class SvgIconExtractor {
+    /**
+     * Reads and converts every supported SVG file directly inside the requested
+     * directory.
+     *
+     * Files are processed in a stable icon-name order. XML is parsed with external
+     * entities disabled, and SVG paths are converted with Skiko into the target
+     * viewport. Subdirectories are ignored. This call reads source files and
+     * uses native Skiko code, but it does not write or change any files.
+     *
+     * @param request source directory, target viewport, and curve tolerance.
+     * @return one validated [SvgIcon] for each discovered SVG file.
+     * @throws SymbolGenerationException if a file has unsupported XML, SVG
+     * elements, attributes, paint, path data, or geometry.
+     * @throws IllegalArgumentException if the directory is missing, empty, or
+     * contains invalid or colliding filenames.
+     * @throws java.io.IOException if the source directory cannot be listed.
+     */
     fun extract(request: SvgExtractionRequest): List<SvgIcon> {
         val sources = discoverSvgFiles(request.svgDirectory)
         val documentBuilder = secureDocumentBuilderFactory().newDocumentBuilder().apply {
@@ -55,7 +72,20 @@ class SvgIconExtractor {
     }
 
     companion object {
-        /** Returns every generated semantic name in deterministic order. */
+        /**
+         * Discovers the icon names that would be generated from a flat SVG
+         * directory without parsing the SVG contents.
+         *
+         * Lowercase `.svg` files are scanned directly inside [svgDirectory]. A
+         * hyphen in a filename is normalized to an underscore. Subdirectories
+         * are ignored, and no files are changed.
+         *
+         * @param svgDirectory directory whose immediate SVG files to inspect.
+         * @return normalized names in deterministic order.
+         * @throws IllegalArgumentException if the directory is missing, has no
+         * SVG files, or contains invalid or colliding names.
+         * @throws java.io.IOException if the directory cannot be read.
+         */
         fun discoverNames(svgDirectory: Path): List<String> =
             discoverSvgFiles(svgDirectory).map(SvgSourceFile::name)
     }

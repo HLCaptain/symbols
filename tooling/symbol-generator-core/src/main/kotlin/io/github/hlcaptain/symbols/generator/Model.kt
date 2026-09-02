@@ -48,7 +48,20 @@ class SymbolCatalog private constructor(
         get() = entriesByCodePoint.keys.toList()
 
     companion object {
-        /** Validates and creates a catalog from [entries]. */
+        /**
+         * Creates a catalog from semantic symbol [entries].
+         *
+         * The iterable is read once and copied. The resulting catalog sorts
+         * entries by name, groups aliases that share a code point, and does not
+         * modify the supplied collection. Multiple names may share a code
+         * point, but names and their generated Kotlin identifiers must remain
+         * unique.
+         *
+         * @param entries one or more validated symbol names and code points.
+         * @return an immutable, deterministically ordered catalog.
+         * @throws SymbolGenerationException if [entries] is empty, contains a
+         * duplicate name, or produces colliding Kotlin identifiers.
+         */
         fun of(entries: Iterable<SymbolEntry>): SymbolCatalog {
             val materialized = entries.toList()
             if (materialized.isEmpty()) {

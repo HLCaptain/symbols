@@ -19,7 +19,19 @@ object SymbolsTheme {
         get() = LocalSymbolFontSettings.current
 }
 
-/** Supplies [fontSettings] to regular and variable symbol fonts in [content]. */
+/**
+ * Supplies symbol-font settings to [content].
+ *
+ * Renderers such as [SymbolFontIcon] and [rememberSymbolFontFamily] use this value when callers do
+ * not pass settings directly. The value is limited to this composable subtree; it does not change
+ * global state. A nested call that omits [fontSettings] inherits the value already in effect.
+ *
+ * Changing [fontSettings] updates descendants that read it. Runtime font text may then be measured,
+ * laid out, and drawn again, while a symbol vector painter updates its affected vector subtree.
+ *
+ * @param fontSettings settings inherited by symbol renderers in [content]
+ * @param content composable content that should receive the settings
+ */
 @Composable
 fun SymbolsTheme(
     fontSettings: SymbolFontSettings = SymbolsTheme.fontSettings,

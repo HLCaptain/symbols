@@ -1,6 +1,7 @@
 package io.github.hlcaptain.symbols.gradle
 
 import java.io.File
+import java.util.Properties
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -9,12 +10,120 @@ import kotlin.test.assertTrue
 import org.gradle.api.InvalidUserDataException
 import org.gradle.testkit.runner.GradleRunner
 import org.gradle.testkit.runner.TaskOutcome
+import org.gradle.testfixtures.ProjectBuilder
 import org.junit.Rule
 import org.junit.rules.TemporaryFolder
 
 class SymbolFontsPluginFunctionalTest {
     @get:Rule
     val temporaryFolder: TemporaryFolder = TemporaryFolder()
+
+    @Test
+    fun androidDrawablesOverloadIsAnExplicitModeToggle() {
+        val project = ProjectBuilder.builder()
+            .withProjectDir(temporaryFolder.newFolder())
+            .build()
+        val extension = project.extensions.create(
+            "symbolFonts",
+            SymbolFontsExtension::class.java,
+        )
+        val style = extension.iconSets.create("AppIcons").styles.create("Rounded")
+
+        style.androidDrawables("app_icons.ttf")
+
+        assertTrue(style.generateAndroidDrawables.get())
+        assertEquals("app_icons.ttf", style.androidFontResourceName.get())
+
+        style.androidDrawables()
+
+        assertTrue(style.generateAndroidDrawables.get())
+        assertTrue(style.androidFontResourceName.get().isEmpty())
+        assertFailsWith<IllegalArgumentException> {
+            style.androidDrawables("App-icons.ttf")
+        }
+    }
+
+    @Test
+    fun androidVariantFontUsesTheHighestPriorityResourceLayer() {
+        val projectDirectory = temporaryFolder.newFolder()
+        val project = ProjectBuilder.builder()
+            .withProjectDir(projectDirectory)
+            .build()
+        val main = project.layout.projectDirectory.dir("src/main/res")
+        val debug = project.layout.projectDirectory.dir("src/debug/res")
+        main.file("font/app_icons.ttf").asFile.apply {
+            parentFile.mkdirs()
+            writeText("main")
+        }
+        debug.file("font/app_icons.ttf").asFile.apply {
+            parentFile.mkdirs()
+            writeText("debug")
+        }
+
+        val selected = selectAndroidVariantFont(
+            iconSetName = "AppIcons",
+            styleName = "Rounded",
+            variantName = "debug",
+            fontResource = "app_icons.ttf",
+            layers = listOf(listOf(debug), listOf(main)),
+        )
+
+        assertEquals(debug.file("font/app_icons.ttf").asFile, selected.asFile)
+    }
+
+    @Test
+    fun androidVariantFontRejectsEqualPriorityDuplicates() {
+        val projectDirectory = temporaryFolder.newFolder()
+        val project = ProjectBuilder.builder()
+            .withProjectDir(projectDirectory)
+            .build()
+        val first = project.layout.projectDirectory.dir("src/first/res")
+        val second = project.layout.projectDirectory.dir("src/second/res")
+        listOf(first, second).forEach { directory ->
+            directory.file("font/app_icons.ttf").asFile.apply {
+                parentFile.mkdirs()
+                writeText("font")
+            }
+        }
+
+        val failure = assertFailsWith<InvalidUserDataException> {
+            selectAndroidVariantFont(
+                iconSetName = "AppIcons",
+                styleName = "Rounded",
+                variantName = "debug",
+                fontResource = "app_icons.ttf",
+                layers = listOf(listOf(first, second)),
+            )
+        }
+
+        assertTrue("equal priority" in failure.message.orEmpty())
+        assertTrue(first.asFile.absolutePath in failure.message.orEmpty())
+        assertTrue(second.asFile.absolutePath in failure.message.orEmpty())
+    }
+
+    @Test
+    fun androidVariantFontReportsEverySearchedResourceRoot() {
+        val projectDirectory = temporaryFolder.newFolder()
+        val project = ProjectBuilder.builder()
+            .withProjectDir(projectDirectory)
+            .build()
+        val debug = project.layout.projectDirectory.dir("src/debug/res")
+        val main = project.layout.projectDirectory.dir("src/main/res")
+
+        val failure = assertFailsWith<InvalidUserDataException> {
+            selectAndroidVariantFont(
+                iconSetName = "AppIcons",
+                styleName = "Rounded",
+                variantName = "debug",
+                fontResource = "missing.ttf",
+                layers = listOf(listOf(debug), listOf(main)),
+            )
+        }
+
+        assertTrue("font/missing.ttf" in failure.message.orEmpty())
+        assertTrue(debug.asFile.absolutePath in failure.message.orEmpty())
+        assertTrue(main.asFile.absolutePath in failure.message.orEmpty())
+    }
 
     @Test
     fun generatorRuntimeUsesCatalogSkikoVersion() {
@@ -46,6 +155,190 @@ class SymbolFontsPluginFunctionalTest {
             TaskOutcome.SUCCESS,
             result.task(":assertGeneratorRuntimeVersion")?.outcome,
         )
+    }
+
+    @Test
+    fun variantAwareAndroidFontResourcesWarnAboutSharedOutputs() {
+        val project = fixture(
+            """
+            plugins {
+                id 'io.github.hlcaptain.symbol-fonts'
+            }
+
+            symbolFonts {
+                iconSet('AppIcons') {
+                    style('Rounded') {
+                        codepoints.set(file('icons.codepoints'))
+                        font.set(file('font.ttf'))
+                        imageVectors()
+                        composeDrawables()
+                        androidDrawables('app_icons.ttf')
+                    }
+                }
+            }
+            """,
+        )
+
+        val result = runner(project, "help").build()
+
+        assertTrue(
+            "AppIcons.Rounded combines androidDrawables" in result.output,
+        )
+        assertTrue("variant's res/font overlays" in result.output)
+        assertTrue("Variant overrides do not change shared outputs" in result.output)
+    }
+
+    @Test
+    fun androidVariantsUseMainFontThenObserveResourceOverlays() {
+        val project = fixture(
+            """
+            plugins {
+                id 'com.android.library'
+                id 'io.github.hlcaptain.symbol-fonts'
+            }
+
+            android {
+                namespace 'com.example.icons'
+                compileSdk 36
+            }
+
+            symbolFonts {
+                iconSet('AppIcons') {
+                    style('Rounded') {
+                        codepoints.set(file('icons.codepoints'))
+                        androidDrawables('app_icons.ttf')
+                    }
+                }
+            }
+
+            tasks.register('assertAndroidVariantFontTasks') {
+                dependsOn('generateDebugResValues', 'generateReleaseResValues')
+                doLast {
+                    def shared = tasks.named(
+                        'generateAppIconsRoundedSymbolFonts'
+                    ).get()
+                    def debug = tasks.named(
+                        'generateAppIconsRoundedSymbolFontsForDebugAndroidDrawables'
+                    ).get()
+                    def release = tasks.named(
+                        'generateAppIconsRoundedSymbolFontsForReleaseAndroidDrawables'
+                    ).get()
+                    def mainFont = file('src/main/res/font/app_icons.ttf')
+                    def debugFont = file('src/debug/res/font/app_icons.ttf')
+                    assert shared.packageName.get() == 'com.example.icons.generated'
+                    assert !shared.generateAndroidDrawables.get()
+                    assert shared.generatesAndroidDrawablesByVariant.get()
+                    assert debug.font.get().asFile ==
+                        (debugFont.isFile() ? debugFont : mainFont)
+                    assert release.font.get().asFile == mainFont
+                    assert debug.generateAndroidDrawables.get()
+                    assert !debug.generateImageVectors.get()
+                    assert !debug.generateComposeDrawables.get()
+                    println('DEBUG_FONT=' + debug.font.get().asFile.name + ':' +
+                        debug.font.get().asFile.text)
+                }
+            }
+            """,
+            files = mapOf(
+                "src/main/res/font/app_icons.ttf" to "main",
+            ),
+        )
+        configureAndroidSdk(project)
+
+        val first = androidRunner(
+            project,
+            "assertAndroidVariantFontTasks",
+        ).build()
+        assertTrue("DEBUG_FONT=app_icons.ttf:main" in first.output)
+
+        project.resolve("src/debug/res/font/app_icons.ttf").apply {
+            parentFile.mkdirs()
+            writeText("debug")
+        }
+        val second = androidRunner(
+            project,
+            "assertAndroidVariantFontTasks",
+        ).build()
+
+        assertTrue("DEBUG_FONT=app_icons.ttf:debug" in second.output)
+    }
+
+    @Test
+    fun androidVariantTaskInvalidatesConfigurationCacheForNewOverlay() {
+        val project = fixture(
+            """
+            import io.github.hlcaptain.symbols.gradle.GenerateSymbolFontTask
+
+            plugins {
+                id 'com.android.library'
+                id 'io.github.hlcaptain.symbol-fonts'
+            }
+
+            android {
+                namespace 'com.example.icons'
+                compileSdk 36
+            }
+
+            symbolFonts {
+                iconSet('AppIcons') {
+                    style('Rounded') {
+                        codepoints.set(file('icons.codepoints'))
+                        androidDrawables('app_icons.otf')
+                    }
+                }
+            }
+
+            configurations.named('symbolFontGeneratorRuntimeClasspath') {
+                dependencies.clear()
+            }
+            tasks.withType(GenerateSymbolFontTask).configureEach {
+                generatorClasspath.setFrom(
+                    files(file('generator-classpath.txt').readLines())
+                )
+            }
+            """,
+            files = mapOf(
+                "generator-classpath.txt" to generatorTestClasspath(),
+                "icons.codepoints" to "branch e0a0\nfull_block 2588\n",
+            ),
+        )
+        configureAndroidSdk(project)
+        val mainFont = project.resolve("src/main/res/font/app_icons.otf")
+        mainFont.parentFile.mkdirs()
+        File(requireNotNull(System.getProperty("symbols.powerlineTestFont")))
+            .copyTo(mainFont)
+        val taskName =
+            "generateAppIconsRoundedSymbolFontsForDebugAndroidDrawables"
+
+        val first = androidCachedRunner(project, taskName).build()
+
+        assertEquals(TaskOutcome.SUCCESS, first.task(":$taskName")?.outcome)
+        assertTrue(
+            project.resolve(
+                "build/generated/res/$taskName/drawable/" +
+                    "app_icons_rounded_branch_ue0a0.xml",
+            ).isFile,
+        )
+
+        val debugFont = project.resolve("src/debug/res/font/app_icons.otf")
+        debugFont.parentFile.mkdirs()
+        File(
+            requireNotNull(
+                System.getProperty("symbols.academmuniconsTestFont"),
+            ),
+        ).copyTo(debugFont)
+
+        val second = androidCachedRunner(project, taskName).buildAndFail()
+        val invalidationReason =
+            "configuration cache cannot be reused because the file system " +
+                "entry 'src/debug/res/font/app_icons.otf' has been created"
+
+        assertTrue(
+            actual = invalidationReason in second.output,
+            message = second.output,
+        )
+        assertEquals(TaskOutcome.FAILED, second.task(":$taskName")?.outcome)
+        assertTrue(debugFont.absolutePath in second.output)
     }
 
     @Test
@@ -363,6 +656,38 @@ class SymbolFontsPluginFunctionalTest {
     }
 
     @Test
+    fun resourceOnlyStyleDoesNotGenerateKotlinNamespace() {
+        val project = fixture(
+            """
+            plugins {
+                id 'io.github.hlcaptain.symbol-fonts'
+            }
+
+            symbolFonts {
+                iconSet('ResourceIcons') {
+                    packageName.set('com.example.resources')
+                    style('Regular') {
+                        codepoints.set(file('icons.codepoints'))
+                        font.set(file('font.ttf'))
+                        composeDrawables()
+                    }
+                }
+            }
+            """,
+        )
+
+        val taskName = "generateResourceIconsSymbolFontNamespace"
+        val result = runner(project, taskName).build()
+
+        assertEquals(TaskOutcome.SUCCESS, result.task(":$taskName")?.outcome)
+        assertTrue(
+            project.resolve("build/generated/symbolFonts/resource_icons/namespace/kotlin")
+                .walkTopDown()
+                .none { file -> file.extension == "kt" },
+        )
+    }
+
+    @Test
     fun svgDirectoryGeneratesEveryOutputUnderBuild() {
         val project = fixture(
             """
@@ -583,7 +908,7 @@ class SymbolFontsPluginFunctionalTest {
             }
             """,
             files = mapOf(
-                "src/main/res/font/app-icons.otf" to "icons",
+                "src/androidMain/res/font/app-icons.otf" to "icons",
             ),
         )
 
@@ -800,10 +1125,20 @@ class SymbolFontsPluginFunctionalTest {
                 iconSet('One') {
                     packageName.set('com.example.icons')
                     rootName.set('Shared')
+                    style('Regular') {
+                        codepoints.set(file('icons.codepoints'))
+                        font.set(file('font.ttf'))
+                        imageVectors()
+                    }
                 }
                 iconSet('Two') {
                     packageName.set('com.example.icons')
                     rootName.set('Shared')
+                    style('Regular') {
+                        codepoints.set(file('icons.codepoints'))
+                        font.set(file('font.ttf'))
+                        imageVectors()
+                    }
                 }
             }
             """,
@@ -824,10 +1159,20 @@ class SymbolFontsPluginFunctionalTest {
                 iconSet('One') {
                     packageName.set('com.example.one')
                     rootName.set('Shared')
+                    style('Regular') {
+                        codepoints.set(file('icons.codepoints'))
+                        font.set(file('font.ttf'))
+                        imageVectors()
+                    }
                 }
                 iconSet('Two') {
                     packageName.set('com.example.two')
                     rootName.set('Shared')
+                    style('Regular') {
+                        codepoints.set(file('icons.codepoints'))
+                        font.set(file('font.ttf'))
+                        imageVectors()
+                    }
                 }
             }
             """,
@@ -876,6 +1221,11 @@ class SymbolFontsPluginFunctionalTest {
                 }
                 iconSet('AB') {
                     packageName.set('com.example.icons')
+                    style('Regular') {
+                        codepoints.set(file('icons.codepoints'))
+                        font.set(file('font.ttf'))
+                        imageVectors()
+                    }
                 }
             }
             """,
@@ -1042,6 +1392,22 @@ class SymbolFontsPluginFunctionalTest {
         return project
     }
 
+    private fun configureAndroidSdk(project: File) {
+        val sdk = sequenceOf(
+            System.getenv("ANDROID_HOME"),
+            System.getenv("ANDROID_SDK_ROOT"),
+            File(System.getProperty("user.home"), "Android/Sdk").absolutePath,
+            File(System.getProperty("user.home"), "Library/Android/sdk").absolutePath,
+        )
+            .filterNotNull()
+            .map(::File)
+            .firstOrNull(File::isDirectory)
+            ?: error("Android SDK is required for the Android plugin fixture")
+        project.resolve("local.properties").writeText(
+            "sdk.dir=${sdk.absolutePath.replace("\\", "\\\\")}\n",
+        )
+    }
+
     private fun tablerSvg(pathData: String): String =
         """
         <svg xmlns="http://www.w3.org/2000/svg"
@@ -1077,6 +1443,65 @@ class SymbolFontsPluginFunctionalTest {
             "--configuration-cache",
             "--build-cache",
         )
+
+    private fun androidRunner(
+        project: File,
+        vararg tasks: String,
+    ): GradleRunner = configuredAndroidRunner(
+        project = project,
+        tasks = tasks.toList(),
+        configurationCacheArgument = "--no-configuration-cache",
+    )
+
+    private fun androidCachedRunner(
+        project: File,
+        vararg tasks: String,
+    ): GradleRunner = configuredAndroidRunner(
+        project = project,
+        tasks = tasks.toList(),
+        configurationCacheArgument = "--configuration-cache",
+    )
+
+    private fun configuredAndroidRunner(
+        project: File,
+        tasks: List<String>,
+        configurationCacheArgument: String,
+    ): GradleRunner =
+        GradleRunner.create()
+            .withProjectDir(project)
+            .withTestKitDir(project.resolve(".test-kit"))
+            .withPluginClasspath(androidPluginClasspath())
+            .withArguments(
+                tasks.toList() + listOf(
+                    "--offline",
+                    configurationCacheArgument,
+                    "--no-build-cache",
+                    "--console=plain",
+                    "--stacktrace",
+                ),
+            )
+
+    private fun androidPluginClasspath(): List<File> {
+        val metadata = Properties().apply {
+            val resource = requireNotNull(
+                this@SymbolFontsPluginFunctionalTest.javaClass.classLoader
+                    .getResourceAsStream(
+                        "plugin-under-test-metadata.properties",
+                    ),
+            )
+            resource.use(::load)
+        }
+        val implementation = metadata
+            .getProperty("implementation-classpath")
+            .split(File.pathSeparator)
+        val testRuntime = requireNotNull(
+            System.getProperty("symbols.generatorTestClasspath"),
+        ).split(File.pathSeparator)
+        return (implementation + testRuntime)
+            .filter(String::isNotBlank)
+            .map(::File)
+            .distinctBy(File::getAbsolutePath)
+    }
 
     private fun configuredRunner(
         project: File,

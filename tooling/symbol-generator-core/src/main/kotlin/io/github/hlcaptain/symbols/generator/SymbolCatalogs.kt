@@ -1,6 +1,12 @@
 package io.github.hlcaptain.symbols.generator
 
-/** Renders named manifest catalogs as common Kotlin data. */
+/**
+ * Renders named manifest catalogs as common Kotlin data.
+ *
+ * @param entriesPerChunk maximum number of catalog entries placed in one
+ * generated helper before another helper is started
+ * @throws IllegalArgumentException if [entriesPerChunk] is not positive
+ */
 class KotlinSymbolCatalogsRenderer(
     private val entriesPerChunk: Int = 200,
 ) {
@@ -8,6 +14,21 @@ class KotlinSymbolCatalogsRenderer(
         require(entriesPerChunk > 0) { "entriesPerChunk must be positive" }
     }
 
+    /**
+     * Renders one or more symbol catalogs as common Kotlin source text.
+     *
+     * Catalogs and entries are sorted before rendering, and large catalogs are
+     * divided according to the renderer's configured chunk size. The generated
+     * declarations are internal to their target module. This function builds
+     * text in memory and does not read or write files.
+     *
+     * @param packageName Kotlin package for the generated source.
+     * @param catalogs generated declaration name to validated catalog.
+     * @return one relative Kotlin source path and its complete contents.
+     * @throws IllegalArgumentException if [catalogs] is empty, a package or
+     * catalog name is invalid, or two catalog names compile to the same getter
+     * name.
+     */
     fun render(
         packageName: String,
         catalogs: Map<String, SymbolCatalog>,

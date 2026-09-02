@@ -175,6 +175,9 @@ class VectorGeneratorTest(unittest.TestCase):
 
         self.assertIn("val MaterialSymbol.roundedImageVector", public_api)
         self.assertIn("fun MaterialSymbol.asRoundedImageVector", public_api)
+        self.assertIn("Use this function when the symbol is chosen at runtime", public_api)
+        self.assertIn("@param autoMirror", public_api)
+        self.assertIn("@throws IllegalArgumentException", public_api)
         self.assertNotIn("public ", public_api)
         self.assertIn("return roundedVectorAt(vectorIndex, autoMirror)", public_api)
         self.assertIn("roundedVectorChunk000(index, autoMirror)", index)

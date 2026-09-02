@@ -9,7 +9,6 @@ import androidx.compose.ui.viewinterop.AndroidView
 import io.github.hlcaptain.symbols.material.outlined.drawables.R as OutlinedDrawablesR
 import io.github.hlcaptain.symbols.sample.androidviews.databinding.AndroidViewsContentBinding
 import io.github.hlcaptain.symbols.sample.androidviews.databinding.DataBindingIconBinding
-import io.github.hlcaptain.symbols.sample.imagevectormigration.R as SvgDrawablesR
 import io.github.hlcaptain.symbols.sample.ui.ExampleCard
 
 @Composable
@@ -24,7 +23,7 @@ internal actual fun AndroidViewsPlatformContent() {
                     viewBindingIcon.setImageDrawable(
                         AppCompatResources.getDrawable(
                             context,
-                            SvgDrawablesR.drawable.tabler_outline_settings,
+                            R.drawable.android_view_icons_regular_branch_ue0a0,
                         ),
                     )
                     DataBindingIconBinding.inflate(

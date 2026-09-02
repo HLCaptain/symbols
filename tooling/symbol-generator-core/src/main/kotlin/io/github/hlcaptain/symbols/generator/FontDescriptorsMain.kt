@@ -6,11 +6,35 @@ import kotlin.system.exitProcess
 
 /** Compile-time generator for typed Compose symbol-font resource descriptors. */
 object SymbolFontDescriptorsCli {
+    /**
+     * Runs the font-descriptor command and ends the current process with its
+     * result code.
+     *
+     * Use [run] when invoking this command from an existing JVM process because
+     * it returns the result code instead of ending that process.
+     *
+     * @param arguments command-line options described by `--help`.
+     */
     @JvmStatic
     fun main(arguments: Array<String>) {
         exitProcess(run(arguments))
     }
 
+    /**
+     * Scans Compose font resources and writes typed descriptors for the fonts
+     * found directly in each configured `font` directory.
+     *
+     * Resource directories and font files are read from disk. Generated Kotlin
+     * is synchronized with the output directory, so previously recorded files
+     * that are no longer produced are deleted. The supplied streams are written
+     * to but are not closed. This function does not end the current process.
+     *
+     * @param arguments command-line options described by `--help`.
+     * @param standardOut receives help text and a successful generation summary.
+     * @param standardError receives validation and generation errors.
+     * @return `0` for help or successful generation, `2` for invalid options or
+     * rejected input, and `1` for another scanning or writing failure.
+     */
     fun run(
         arguments: Array<String>,
         standardOut: PrintStream = System.out,

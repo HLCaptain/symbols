@@ -180,51 +180,73 @@ navigation vector. `release` is unsigned and unminified; `shrunk` is the same
 release configuration with full-mode R8 and optimized Android resource
 shrinking.
 
-The following universal APKs were measured on 2026-08-29. The marginal columns
-subtract the matching shell APK; they are not additive because features share
-fonts and dependencies and R8 optimizes the final graph as a whole.
+The following universal APKs were measured on 2026-08-29. The `material-static`
+and `all` profiles were rebuilt on 2026-09-01 after adding the public Rounded
+Compose drawable pack. The marginal columns subtract the matching shell APK;
+they are not additive because features share fonts and dependencies and R8
+optimizes the final graph as a whole.
 
 | Profile | Sample usage | Release bytes | Shrunk bytes | Release − shell | Shrunk − shell |
 | --- | --- | ---: | ---: | ---: | ---: |
 | `shell` | Launcher only | 14,155,317 | 1,495,397 | 0 | 0 |
 | `custom-static` | 8 Powerline vectors, Compose drawables, packaged OTF | 14,244,621 | 1,551,929 | 89,304 | 56,532 |
 | `custom-variable` | 50 fixed Academmunicons resources plus 97 KB live font | 14,514,447 | 1,772,603 | 359,130 | 277,206 |
-| `material-static` | Rounded regular font | 15,954,394 | 3,245,318 | 1,799,077 | 1,749,921 |
+| `material-static` | Rounded regular font and full Compose drawable pack | 21,141,932 | 7,711,960 | 6,986,615 | 6,216,563 |
 | `theming` | Rounded regular font with theme inheritance | 15,954,394 | 3,245,318 | 1,799,077 | 1,749,921 |
 | `material-variable` | Rounded variable font at defaults | 28,840,612 | 16,131,536 | 14,685,295 | 14,636,139 |
 | `runtime-axes` | Rounded variable font with live controls | 28,840,612 | 16,164,304 | 14,685,295 | 14,668,907 |
 | `image-vector-migration` | Variable font, vectors, 53 Compose XML assets, 3 native XML icons | 33,531,119 | 16,299,006 | 19,375,802 | 14,803,609 |
 | `android-views` | Migration payload plus AppCompat/data binding and 3,802 native drawables | 37,136,232 | 16,473,460 | 22,980,915 | 14,978,063 |
-| `all` | All eight samples | 39,104,951 | 18,474,947 | 24,949,634 | 16,979,550 |
+| `all` | All eight samples | 44,210,627 | 22,908,821 | 30,055,310 | 21,413,424 |
 
-The complete app shrank by 20,630,004 bytes (52.7555%). Its payload explains
+The complete app shrank by 21,301,806 bytes (48.1825%). Its payload explains
 where that reduction stops:
 
-| Full-app payload | Release compressed bytes | Shrunk compressed bytes | Shrunk raw bytes/count |
-| --- | ---: | ---: | ---: |
-| DEX | 17,922,744 | 1,111,108 | 2,209,664 bytes / 2,675 classes |
-| Font assets | 16,385,751 | 16,385,751 | 16,386,688 bytes / 4 files |
-| Compose drawable assets | 133,821 | 133,821 | 330,619 bytes / 111 files |
-| Android `res/` plus `resources.arsc` | 4,080,983 | 643,775 | 718,553 bytes / 296 files |
-| Native libraries | 37,392 | 37,392 | 37,392 bytes / 4 ABI entries |
+| Full-app payload | Release bytes | Shrunk bytes | Removed | Change | Shrunk raw/count |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| APK | 44,210,627 | 22,908,821 | 21,301,806 | -48.1825% | — |
+| ZIP entry payload | 42,251,526 | 21,335,658 | 20,915,868 | -49.5032% | 27,062,310 bytes |
+| DEX | 18,586,066 | 1,116,169 | 17,469,897 | -93.9946% | 2,238,028 bytes / 2,680 classes |
+| Font assets | 16,385,751 | 16,385,751 | 0 | 0% | 16,386,688 bytes / 4 files |
+| Compose drawable assets | 3,112,891 | 3,112,891 | 0 | 0% | 7,561,301 bytes / 3,913 files |
+| Android `res/` plus `resources.arsc` | 4,080,983 | 643,775 | 3,437,208 | -84.2250% | 718,553 bytes / 296 files |
+| Native libraries | 37,392 | 37,392 | 0 | 0% | 37,392 bytes / 4 ABI entries |
+
+The APK row includes ZIP directory and header overhead. Other category rows are
+compressed entry payload bytes.
+
+The compressed entry mix shifts from 43.99% to 5.23% DEX, 38.78% to
+76.80% fonts, 7.37% to 14.59% Compose assets, and 9.66% to 3.02% Android
+resources. ZIP entries fall from 8,213 to 4,321 (-47.39%); the 3,802 Rounded
+Compose XML entries remain in both variants.
+
+Raw DEX falls from 68,474,812 to 2,238,028 bytes (-96.7316%). Class definitions
+fall from 45,310 to 2,680 (-94.0852%), method IDs from 248,774 to 15,270
+(-93.8619%), and string IDs from 282,900 to 10,738 (-96.2043%).
 
 The focused vector verifier below proves that R8 removes unreferenced backing
 classes. For scale, the Rounded vector runtime `classes.jar` is 35,687,897
-bytes, while the complete shrunk application's raw DEX totals 2,209,664 bytes;
+bytes, while the complete shrunk application's raw DEX totals 2,238,028 bytes;
 those cross-format sizes are only a coarse bound, not byte attribution to the
 vector module. Android's resource report retains only the generated Outlined
-Home and Favorite drawables plus all three reached Tabler drawables. By contrast, Compose
-resources are Android assets, so all 8 Powerline, 50 fixed Academmunicons, 50
-migration Academmunicons, and 3 Tabler XML files remain byte-for-byte in both
-variants. `composeDrawables()` is therefore appropriate for focused sets, but a
-full Material Compose-drawable pack would not gain Android resource shrinking.
+Home and Favorite drawables plus all three reached Tabler drawables. By contrast,
+Compose resources are Android assets, so all 8 Powerline, 50 fixed
+Academmunicons, 50 migration Academmunicons, 3 Tabler, and 3,802 Rounded Material
+XML files remain byte-for-byte in both variants. The full public Rounded pack
+contributes 2,979,070 bytes of compressed asset-entry payload. The measured
+`material-static` integration grows by 5,187,538 release bytes and 4,466,642
+shrunk bytes versus its previous profile; that delta also includes the sample
+card, DEX, ZIP names, and container overhead. This is the deliberate current
+tradeoff for standard `painterResource(Res.drawable...)` DevEx; no Android asset
+pruning is applied.
 
-Fonts are also indivisible. The four full-app font assets account for 88.6917%
-of the shrunk APK. The regular and variable Material profiles demonstrate the
-fixed cost directly: 1,749,921 and 14,636,139 shrunk bytes above the shell,
-respectively, regardless of how many glyphs the sample renders. This favors a
-font for a large icon vocabulary or live axes and favors independently
-reachable vectors/drawables for a small fixed set.
+Fonts are also indivisible. The four full-app font assets account for 71.5259%
+of the shrunk APK, while Compose drawable assets account for another 13.5882%.
+The variable Material profile remains 14,636,139 shrunk bytes above the shell
+regardless of how many glyphs it renders. This favors a font for a large icon
+vocabulary or live axes, a complete Compose drawable pack when standard resource
+DevEx is paramount, and independently reachable vectors/native drawables for a
+small fixed set.
 
 The launcher normally stores TTFs without ZIP compression so Android can
 memory-map them. A benchmark-only configuration measured the opposite tradeoff:
@@ -250,9 +272,22 @@ Compose copy, so they describe build work rather than unique final APK entries:
 | Powerline custom sample | 22 | 25,500 |
 | Academmunicons custom-variable sample | 108 | 709,127 |
 | Academmunicons/Tabler migration sample | 162 | 690,967 |
+| Full Outlined Compose drawable pack | 34,267 | 48,894,692 |
+| Full Rounded Compose drawable pack | 34,267 | 67,104,161 |
+| Full Sharp Compose drawable pack | 34,267 | 43,854,509 |
 | Full Outlined native drawable pack | 3,803 | 5,426,528 |
 
-The build study used a Ryzen 9 7950X3D (16 cores/32 threads), 64 GiB RAM,
+The Compose pack counts above include nine generated or target-specific copies
+of each XML. Each runtime resource archive shown below contains 3,802 unique
+resources and no font:
+
+| Pack | Android AAR | JVM JAR | KMP resource ZIP |
+| --- | ---: | ---: | ---: |
+| Outlined | 4,451,042 | 4,421,321 | 3,695,854 |
+| Rounded | 5,146,101 | 5,116,406 | 4,391,132 |
+| Sharp | 4,194,943 | 4,165,949 | 3,442,375 |
+
+The pre-Compose-pack timing baseline used a Ryzen 9 7950X3D (16 cores/32 threads), 64 GiB RAM,
 Linux 7.2 x86-64, Azul JDK 21.0.12.1, Gradle 8.14.5, AGP 8.13.2, Kotlin 2.3.21,
 Compose Multiplatform 1.11.1, one Gradle worker, and a fresh single-use daemon
 per invocation. Another Gradle project was active, so these are contended local
@@ -261,7 +296,7 @@ builds also set `kotlin.incremental=false` and compile in-process to force Koin
 to recollect the selected dependency graph; they do not represent the default
 incremental developer configuration.
 
-| Build path | Samples | Median wall time |
+| Pre-pack build path | Samples | Median wall time |
 | --- | --- | ---: |
 | Full release, caches disabled and all tasks rerun | 96.154 s, 96.908 s, 94.108 s | 96.154 s |
 | Full shrunk, caches disabled and all tasks rerun | 110.559 s, 111.763 s, 110.132 s | 110.559 s |
@@ -270,6 +305,8 @@ incremental developer configuration.
 | Full release, warm no-change | 6.637 s, 6.386 s, 6.492 s | 6.492 s |
 | Full shrunk, warm no-change | 6.575 s, 6.347 s, 6.184 s | 6.347 s |
 
+These medians predate the full Compose drawable artifacts and are retained only
+as historical baseline data; they do not measure the current generator graph.
 The forced full-execution medians differed by 14.405 seconds and the observed
 full-versus-shell no-change medians differed by roughly 1.7 seconds. Host
 contention prevents attributing either difference to R8 or the sample graph.
@@ -281,7 +318,9 @@ medians.
 
 The practical result is:
 
-- keep `composeDrawables()` opt-in and use it for focused cross-platform sets;
+- keep custom `composeDrawables()` output opt-in and use it for focused sets;
+- choose a published full Compose drawable pack only when standard public
+  `Res.drawable` DevEx outweighs its indivisible asset payload;
 - prefer typed `ImageVector` properties for a few compile-time-known icons when
   a minified release is guaranteed;
 - prefer native Android drawables when Android resource shrinking is valuable;
@@ -314,8 +353,9 @@ python3 benchmarks/sample-app/analyze.py
 ```
 
 The APKs are unsigned universal install artifacts, not Play-delivered download
-estimates. The study was based on commit `a8a96f7` plus the resource/profile
-changes under test; the exact commands, Git status, SHA-256 values, DEX headers,
+estimates. The original matrix was based on commit `a8a96f7`; the refreshed
+`material-static` and `all` profiles were measured from commit `6a22238` plus
+the changes under test. Exact commands, Git status, SHA-256 values, DEX headers,
 font entries, namespaces, and raw/compressed ZIP metrics are retained under
 `build/reports/apk-study`.
 
@@ -323,38 +363,45 @@ font entries, namespaces, and raw/compressed ZIP metrics are retained under
 
 [`benchmarks/shrinkable-vectors`](../benchmarks/shrinkable-vectors/README.md)
 is a minimal Android application that references exactly the typed
-`Symbols.Material.Outlined.Check` getter. Its `unshrunk` build disables minification and
-resource shrinking; its otherwise equivalent `shrunk` build enables full-mode
-R8 and `shrinkResources`. A `-keepnames` rule preserves the original names of
-surviving vector backing classes without keeping unreachable classes.
+`Symbols.Material.Outlined.Check` getter and one generated native Powerline
+drawable. Powerline is also the variant-aware `res/font` generator input, but
+the application never references its `R.font`. The `unshrunk` build disables
+minification and resource shrinking; its otherwise equivalent `shrunk` build
+enables full-mode R8 and `shrinkResources`. A `-keepnames` rule preserves the
+original names of surviving vector backing classes without keeping unreachable
+classes.
 
-The fixture produced these local release artifacts on 2026-07-29:
+The expanded fixture produced these local release artifacts on 2026-09-02:
 
 | Metric | Unshrunk | Shrunk | Delta |
 | --- | ---: | ---: | ---: |
-| APK bytes | 7,100,067 | 143,028 | -6,957,039 (-97.9855%) |
-| Uncompressed DEX bytes | 24,478,384 | 134,712 | -24,343,672 |
-| DEX class definitions | 19,277 | 176 | -19,101 |
-| Uncompressed Android resource bytes | 157,599 | 7,056 | -150,543 |
+| APK bytes | 8,009,164 | 220,213 | -7,788,951 (-97.2505%) |
+| Uncompressed DEX bytes | 25,808,876 | 137,392 | -25,671,484 |
+| DEX class definitions | 20,363 | 183 | -20,180 |
+| Uncompressed Android resource bytes | 171,859 | 8,868 | -162,991 |
 
 The byte-level verifier confirms that:
 
 - the referenced `OutlinedVectorE5CA` (`Check`) backing class survives;
 - the unreferenced `OutlinedVectorE9B2` (`Home`) class is present without R8
-  and absent after R8; and
+  and absent after R8;
 - an unreferenced `unused_resource_marker` is present without resource
-  shrinking and absent after resource shrinking.
+  shrinking and absent after resource shrinking;
+- the exact 2,264-byte font input is present without resource shrinking and
+  absent after resource shrinking; and
+- the referenced generated drawable remains in the shrunk APK while another is
+  absent, corroborated by the optimized resource report.
 
 This proves the intended code/resource reachability for the fixture. The
-97.9855% APK delta is **not** a claim that one icon always saves that percentage:
+97.2505% APK delta is **not** a claim that one icon always saves that percentage:
 R8 also removes unused transitive Android/Compose code and the resource shrinker
 removes unrelated fixture resources. Product dependency graphs, keep rules, and
 usage determine a different result.
 
-The measured environment was a 10-core Apple M4 Mac mini with 16 GB RAM, macOS
-26.5.2, Temurin JDK 17.0.19, Gradle 8.14.3, AGP 8.13.0, R8 8.13.6, Kotlin
-2.2.20, Compose Multiplatform 1.9.0, and Android compile/target SDK 36 with
-minSdk 21.
+The historical build-time environment was a 10-core Apple M4 Mac mini with
+16 GB RAM, macOS 26.5.2, Temurin JDK 17.0.19, Gradle 8.14.3, AGP 8.13.0,
+R8 8.13.6, Kotlin 2.2.20, Compose Multiplatform 1.9.0, and Android
+compile/target SDK 36 with minSdk 21.
 
 The same machine measured one invocation that builds both fixture variants:
 

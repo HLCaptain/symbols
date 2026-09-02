@@ -19,6 +19,9 @@ The Kotlin Multiplatform libraries have umbrella coordinates under
 - `symbols-material-outlined-static`
 - `symbols-material-rounded-static`
 - `symbols-material-sharp-static`
+- `symbols-material-compose-drawables-outlined`
+- `symbols-material-compose-drawables-rounded`
+- `symbols-material-compose-drawables-sharp`
 - `symbols-material-vectors-outlined`
 - `symbols-material-vectors-rounded`
 - `symbols-material-vectors-sharp`

@@ -53,8 +53,15 @@ abstract class VerifyPublishedArchives : DefaultTask() {
     @get:PathSensitive(PathSensitivity.RELATIVE)
     abstract val namespacedLegalArchives: ConfigurableFileCollection
 
+    @get:InputFiles
+    @get:PathSensitive(PathSensitivity.RELATIVE)
+    abstract val composeDrawableArchives: ConfigurableFileCollection
+
     @get:Input
     abstract val legalNamespaceByArchivePath: MapProperty<String, String>
+
+    @get:Input
+    abstract val composeDrawableStyleByArchivePath: MapProperty<String, String>
 
     @TaskAction
     fun verifyArchives() {
@@ -62,6 +69,9 @@ abstract class VerifyPublishedArchives : DefaultTask() {
             .map { it.toPath().toAbsolutePath().normalize() }
             .toSet()
         val namespacedLegalArchivePaths = namespacedLegalArchives.files
+            .map { it.toPath().toAbsolutePath().normalize() }
+            .toSet()
+        val composeDrawableArchivePaths = composeDrawableArchives.files
             .map { it.toPath().toAbsolutePath().normalize() }
             .toSet()
         val expectedLegalDocuments = legalDocuments.files.associate {
@@ -80,6 +90,17 @@ abstract class VerifyPublishedArchives : DefaultTask() {
                     legalNamespaceByArchivePath.get()[archivePath.toString()],
                 ) {
                     "Missing legal namespace metadata for $archive"
+                }
+            } else {
+                null
+            }
+            val expectedComposeDrawableStyle = if (
+                archivePath in composeDrawableArchivePaths
+            ) {
+                checkNotNull(
+                    composeDrawableStyleByArchivePath.get()[archivePath.toString()],
+                ) {
+                    "Missing Compose drawable metadata for $archive"
                 }
             } else {
                 null
@@ -130,6 +151,26 @@ abstract class VerifyPublishedArchives : DefaultTask() {
                         "$archive must not contain a TTF font; found ${fonts.size}: $fonts"
                     }
                 }
+                if (expectedComposeDrawableStyle != null) {
+                    val drawablePrefix =
+                        "material_symbols_${expectedComposeDrawableStyle}_"
+                    val drawables = entries.filter { entry ->
+                        "/drawable/$drawablePrefix" in entry && entry.endsWith(".xml")
+                    }
+                    check(drawables.size == MaterialComposeDrawableCount) {
+                        "$archive must contain $MaterialComposeDrawableCount " +
+                            "$expectedComposeDrawableStyle Compose drawables; found " +
+                            drawables.size
+                    }
+                    check(
+                        drawables.any { entry ->
+                            entry.endsWith("${drawablePrefix}home_ue9b2.xml")
+                        },
+                    ) {
+                        "$archive is missing the expected $expectedComposeDrawableStyle " +
+                            "Home drawable"
+                    }
+                }
             }
         }
 
@@ -138,6 +179,10 @@ abstract class VerifyPublishedArchives : DefaultTask() {
                 "(${namespacedLegalArchives.files.size} module-namespaced) and the " +
                 "single-font invariant in ${singleFontArchives.files.size} archives.",
         )
+    }
+
+    private companion object {
+        const val MaterialComposeDrawableCount = 3_802
     }
 }
 
@@ -195,6 +240,11 @@ subprojects {
             "material-rounded-static",
             "material-sharp-static",
         )
+        val composeDrawableStyles = mapOf(
+            "material-compose-drawables-outlined" to "outlined",
+            "material-compose-drawables-rounded" to "rounded",
+            "material-compose-drawables-sharp" to "sharp",
+        )
         val publicationDescription = when (project.name) {
             "symbols-core" ->
                 "Common Symbols namespace for built-in and generated Kotlin " +
@@ -226,6 +276,15 @@ subprojects {
             "material-sharp-static" ->
                 "Default-axis static Sharp Material Symbols font and Compose " +
                     "adapter for Android API 21 and Compose Multiplatform."
+            "material-compose-drawables-outlined" ->
+                "Default-axis Outlined Material Symbols drawable resources for " +
+                    "Compose Multiplatform; no bundled font."
+            "material-compose-drawables-rounded" ->
+                "Default-axis Rounded Material Symbols drawable resources for " +
+                    "Compose Multiplatform; no bundled font."
+            "material-compose-drawables-sharp" ->
+                "Default-axis Sharp Material Symbols drawable resources for " +
+                    "Compose Multiplatform; no bundled font."
             "material-drawables-outlined" ->
                 "Default-axis Outlined Material Symbols Android vector drawable " +
                     "pack; no bundled font."
@@ -320,6 +379,12 @@ subprojects {
                             name == "bundleReleaseAar" ||
                             name.endsWith("ZipMultiplatformResourcesForPublication")
                     )
+                val expectedComposeDrawableStyle = composeDrawableStyles[project.name]
+                    ?.takeIf {
+                        name == "jvmJar" ||
+                            name == "bundleReleaseAar" ||
+                            name.endsWith("ZipMultiplatformResourcesForPublication")
+                    }
 
                 verifyPublishedArchives.configure {
                     dependsOn(archiveTask)
@@ -333,6 +398,13 @@ subprojects {
                     legalNamespaceByArchivePath.put(archivePath, legalNamespace)
                     if (expectsSingleFont) {
                         singleFontArchives.from(archiveTask.archiveFile)
+                    }
+                    if (expectedComposeDrawableStyle != null) {
+                        composeDrawableArchives.from(archiveTask.archiveFile)
+                        composeDrawableStyleByArchivePath.put(
+                            archivePath,
+                            expectedComposeDrawableStyle,
+                        )
                     }
                 }
             }

@@ -18,6 +18,22 @@ import org.jetbrains.skia.Typeface
  * instance. Variable coordinates are validated against the font's `fvar` axes.
  */
 class SkikoFontOutlineExtractor : FontOutlineExtractor {
+    /**
+     * Reads a TTF, OTF, or TTC file with Skiko and extracts the requested glyph
+     * outlines at one fixed set of variable-axis values.
+     *
+     * Axes omitted from [FontExtractionRequest.axes] use the defaults stored in
+     * the font. Font and native Skiko resources opened by this call are closed
+     * before it returns. The source font is never changed and no output files
+     * are written.
+     *
+     * @param request font face, code points, axis values, coordinate mapping,
+     * and curve-conversion tolerance to use.
+     * @return normalized outlines plus the family name and axis values that were
+     * actually applied.
+     * @throws SymbolGenerationException if the file cannot be opened, the face
+     * or axis settings are invalid, or a requested glyph has no usable outline.
+     */
     override fun extract(request: FontExtractionRequest): ExtractedFont {
         return loadSkikoTypeface(request.fontFile, request.fontIndex).use { base ->
             val (typeface, appliedAxes) = configureAxes(base, request)

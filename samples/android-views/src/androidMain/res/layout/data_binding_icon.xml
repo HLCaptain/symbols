@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -24,6 +25,6 @@
             android:layout_height="48dp"
             android:contentDescription="@string/favorite_icon_description"
             android:src="@{icon}"
-            android:tint="?attr/colorControlNormal" />
+            app:tint="?attr/colorControlNormal" />
     </LinearLayout>
 </layout>
