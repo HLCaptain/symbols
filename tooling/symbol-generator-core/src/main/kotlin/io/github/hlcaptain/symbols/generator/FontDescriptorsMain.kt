@@ -21,8 +21,9 @@ object SymbolFontDescriptorsCli {
     }
 
     /**
-     * Scans Compose font resources and writes typed descriptors for the fonts
-     * found directly in each configured `font` directory.
+     * Scans Compose font resources and writes typed descriptors plus public
+     * `Symbols` extension properties for the fonts found directly in each
+     * configured `font` directory.
      *
      * Resource directories and font files are read from disk. Generated Kotlin
      * is synchronized with the output directory, so previously recorded files
@@ -55,6 +56,7 @@ object SymbolFontDescriptorsCli {
                     resClassName = options.resClassName,
                     publicAccessors = options.publicAccessors,
                     descriptors = descriptors,
+                    fontAccessors = options.fontAccessors,
                 ),
             )
             standardOut.println("Generated ${descriptors.size} font descriptors; $result")
@@ -80,7 +82,9 @@ object SymbolFontDescriptorsCli {
         |  --output DIR                Generated Kotlin output directory
         |
         |Optional:
-        |  --public                    Emit public accessors instead of internal accessors
+        |  --public                    Make Res.symbolFonts declarations public
+        |  --font-accessor RESOURCE RECEIVER PROPERTY PACKAGE COMPONENT AXIS_COUNT [TAG VALUE]...
+        |                              Override one default public receiver extension; repeatable
         |  --help                      Show this message
         |""".trimMargin()
 }
@@ -91,10 +95,12 @@ private data class FontDescriptorCliOptions(
     val resClassName: String,
     val output: Path,
     val publicAccessors: Boolean,
+    val fontAccessors: List<GeneratedFontAccessor>,
 ) {
     companion object {
         fun parse(arguments: Array<String>): FontDescriptorCliOptions {
             val values = linkedMapOf<String, MutableList<String>>()
+            val fontAccessors = mutableListOf<GeneratedFontAccessor>()
             var publicAccessors = false
             var index = 0
             while (index < arguments.size) {
@@ -103,6 +109,54 @@ private data class FontDescriptorCliOptions(
                     require(!publicAccessors) { "--public may be supplied only once" }
                     publicAccessors = true
                     index += 1
+                    continue
+                }
+                if (option == "--font-accessor") {
+                    require(index + FontAccessorRequiredValues < arguments.size) {
+                        "Incomplete --font-accessor declaration"
+                    }
+                    val resourceAccessor = arguments[index + 1]
+                    val receiver = arguments[index + 2]
+                    val propertyName = arguments[index + 3]
+                    val packageName = arguments[index + 4]
+                    val componentIndex = arguments[index + 5]
+                        .takeIf(String::isNotEmpty)
+                        ?.toIntOrNull()
+                        ?: run {
+                            require(arguments[index + 5].isEmpty()) {
+                                "Font accessor component index must be an integer"
+                            }
+                            null
+                        }
+                    val axisCount = arguments[index + 6].toIntOrNull()
+                    require(axisCount != null && axisCount >= 0) {
+                        "Font accessor axis count must be a non-negative integer"
+                    }
+                    val axisValuesStart = index + FontAccessorRequiredValues + 1
+                    require(axisCount <= (arguments.size - axisValuesStart) / 2) {
+                        "Incomplete fixed axes for --font-accessor $resourceAccessor"
+                    }
+                    val fixedAxisValues = linkedMapOf<String, Float>()
+                    repeat(axisCount) { axisIndex ->
+                        val tagIndex = axisValuesStart + axisIndex * 2
+                        val tag = arguments[tagIndex]
+                        val value = arguments[tagIndex + 1].toFloatOrNull()
+                            ?: throw IllegalArgumentException(
+                                "Fixed axis $tag must have a numeric value",
+                            )
+                        require(fixedAxisValues.put(tag, value) == null) {
+                            "Duplicate fixed axis tag: $tag"
+                        }
+                    }
+                    fontAccessors += GeneratedFontAccessor(
+                        resourceAccessorName = resourceAccessor,
+                        receiver = receiver,
+                        propertyName = propertyName,
+                        packageName = packageName,
+                        componentIndex = componentIndex,
+                        fixedAxisValues = fixedAxisValues,
+                    )
+                    index = axisValuesStart + axisCount * 2
                     continue
                 }
                 require(option.startsWith("--")) { "Unexpected argument: $option" }
@@ -135,7 +189,10 @@ private data class FontDescriptorCliOptions(
                 resClassName = resClassName,
                 output = Path.of(required("--output")),
                 publicAccessors = publicAccessors,
+                fontAccessors = fontAccessors,
             )
         }
+
+        private const val FontAccessorRequiredValues: Int = 6
     }
 }

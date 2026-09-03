@@ -40,7 +40,7 @@ For one runtime-font icon, use the generic renderer:
 ```kotlin
 SymbolFontIcon(
     codePoint = Symbols.Material.Home.codePoint,
-    font = MaterialSymbolsRounded,
+    font = Symbols.Material.Rounded.font,
     contentDescription = null,
 )
 ```
@@ -49,11 +49,12 @@ For a large collection rendered from one runtime font, share a family:
 
 ```kotlin
 import io.github.hlcaptain.symbols.font.rememberSymbolFontFamily
+import io.github.hlcaptain.symbols.font.fontSettings
 
-val axes = MaterialSymbolAxes(weight = 500)
+val font = Symbols.Material.Rounded.font
 val family = rememberSymbolFontFamily(
-    font = MaterialSymbolsRounded,
-    fontSettings = axes.fontSettings,
+    font = font,
+    fontSettings = font.fontSettings(mapOf("wght" to 500f)),
 )
 
 symbols.forEach { symbol ->
@@ -69,9 +70,9 @@ The reusable family and capability APIs live in
 `io.github.hlcaptain.symbols.font`. `SymbolsRuntime.variableFontsSupported`
 reports whether the current platform can apply variable-font settings; on
 Android API 21–25, use a `SymbolFont.Regular` or generated vector/drawable
-instead. Material's `axes.fontSettings` adapts its four axes to the generic
-`SymbolFontSettings` contract. `MaterialSymbolsTheme` supplies those generic
-settings automatically inside its content.
+instead. Material descriptors use the same `variationAxes` and
+`SymbolFontSettings` contract as custom fonts. `MaterialSymbolsTheme` can
+supply generic settings while selecting a theme-aware vector style.
 
 Keep the font descriptor stable and reuse settings while their values are
 unchanged. A regular font has one fixed settings point and never constructs

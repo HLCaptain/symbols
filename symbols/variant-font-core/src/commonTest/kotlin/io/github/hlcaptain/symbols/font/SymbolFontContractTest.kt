@@ -3,6 +3,8 @@ package io.github.hlcaptain.symbols.font
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontVariation
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Density
+import androidx.compose.ui.unit.sp
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -18,7 +20,7 @@ class SymbolFontContractTest {
             variationSettings = FontVariation.Settings(
                 FontVariation.Setting("FILL", 1f),
                 FontVariation.Setting("wdth", 110f),
-                FontVariation.weight(500),
+                FontVariation.Setting("wght", 500f),
             ),
         )
 
@@ -35,6 +37,28 @@ class SymbolFontContractTest {
 
         assertEquals(listOf("wght", "ital"), settings.map { it.axisName })
         assertEquals(listOf(500f, 1f), settings.map { it.toVariationValue(null) })
+        assertEquals(FontVariation.Setting("wght", 500f), settings.first())
+    }
+
+    @Test
+    fun variationsReplaceByAxisAndKeepOtherSettings() {
+        val original = SymbolFontSettings(
+            FontVariation.Settings(
+                FontVariation.Setting("FILL", 0f),
+                FontVariation.Setting("wght", 400f),
+            ),
+        )
+
+        assertSame(original, original.withVariations())
+
+        val modified = original.withVariations(
+            FontVariation.Setting("wght", 500f),
+            FontVariation.Setting("wdth", 80f),
+            FontVariation.Setting("wght", 600f),
+        ).variationSettings.settings
+
+        assertEquals(listOf("FILL", "wght", "wdth"), modified.map { it.axisName })
+        assertEquals(listOf(0f, 600f, 80f), modified.map { it.toVariationValue(null) })
     }
 
     @Test
@@ -44,6 +68,7 @@ class SymbolFontContractTest {
                 font = RegularFont,
                 fontSettings = RegularFont.fontSettings,
                 variableFontsSupported = false,
+                density = TestDensity,
             ),
         )
         assertFailsWith<IllegalArgumentException> {
@@ -51,6 +76,7 @@ class SymbolFontContractTest {
                 font = RegularFont,
                 fontSettings = HeavySettings,
                 variableFontsSupported = true,
+                density = TestDensity,
             )
         }
         assertNull(
@@ -58,6 +84,23 @@ class SymbolFontContractTest {
                 font = ReorderedRegularFont,
                 fontSettings = ReorderedSettings,
                 variableFontsSupported = false,
+                density = TestDensity,
+            ),
+        )
+        assertNull(
+            symbolFontVariationSettings(
+                font = ComposeSettingsRegularFont,
+                fontSettings = FloatSettings,
+                variableFontsSupported = false,
+                density = TestDensity,
+            ),
+        )
+        assertNull(
+            symbolFontVariationSettings(
+                font = DensityAwareRegularFont,
+                fontSettings = ResolvedOpticalSizeSettings,
+                variableFontsSupported = false,
+                density = ScaledDensity,
             ),
         )
     }
@@ -69,6 +112,7 @@ class SymbolFontContractTest {
                 font = VariableFont,
                 fontSettings = HeavySettings,
                 variableFontsSupported = true,
+                density = TestDensity,
             ),
         )
         assertSame(HeavySettings.variationSettings, settings)
@@ -77,6 +121,7 @@ class SymbolFontContractTest {
                 font = VariableFont,
                 fontSettings = SymbolFontSettings.Default,
                 variableFontsSupported = false,
+                density = TestDensity,
             )
         }
     }
@@ -95,6 +140,7 @@ class SymbolFontContractTest {
                 font = VariableFont,
                 fontSettings = arbitrarySettings,
                 variableFontsSupported = true,
+                density = TestDensity,
             ),
         )
 
@@ -167,6 +213,7 @@ class SymbolFontContractTest {
                 font = ContradictoryFont,
                 fontSettings = SymbolFontSettings.Default,
                 variableFontsSupported = true,
+                density = TestDensity,
             )
         }
     }
@@ -211,6 +258,29 @@ class SymbolFontContractTest {
         )
     }
 
+    private object ComposeSettingsRegularFont : SymbolFont.Regular {
+        override val familyName: String = "Compose settings regular"
+        override val resource: FontResource
+            get() = error("The contract test must not load a resource")
+        override val fontSettings: SymbolFontSettings = SymbolFontSettings(
+            variationSettings = FontVariation.Settings(
+                FontWeight.Normal,
+                FontStyle.Normal,
+            ),
+        )
+    }
+
+    private object DensityAwareRegularFont : SymbolFont.Regular {
+        override val familyName: String = "Density-aware regular"
+        override val resource: FontResource
+            get() = error("The contract test must not load a resource")
+        override val fontSettings: SymbolFontSettings = SymbolFontSettings(
+            variationSettings = FontVariation.Settings(
+                FontVariation.opticalSizing(16.sp),
+            ),
+        )
+    }
+
     private object ContradictoryFont : SymbolFont.Regular, SymbolFont.Variable {
         override val familyName: String = "Contradictory"
         override val resource: FontResource
@@ -228,5 +298,21 @@ class SymbolFontContractTest {
                 FontVariation.Setting("FILL", 1f),
             ),
         )
+
+        val FloatSettings: SymbolFontSettings = SymbolFontSettings(
+            variationSettings = FontVariation.Settings(
+                FontVariation.Setting("ital", 0f),
+                FontVariation.Setting("wght", 400f),
+            ),
+        )
+
+        val ResolvedOpticalSizeSettings: SymbolFontSettings = SymbolFontSettings(
+            variationSettings = FontVariation.Settings(
+                FontVariation.Setting("opsz", 24f),
+            ),
+        )
+
+        val TestDensity: Density = Density(1f)
+        val ScaledDensity: Density = Density(1f, fontScale = 1.5f)
     }
 }

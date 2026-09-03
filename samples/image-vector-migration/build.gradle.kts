@@ -5,7 +5,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.symbolsSampleFeature)
     alias(libs.plugins.roborazzi)
-    id("io.github.hlcaptain.symbol-fonts")
+    alias(libs.plugins.symbolFonts)
 }
 
 kotlin {

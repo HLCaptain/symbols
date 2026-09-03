@@ -5,11 +5,8 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.compositionLocalOf
+import io.github.hlcaptain.symbols.font.SymbolFontSettings
 import io.github.hlcaptain.symbols.font.SymbolsTheme
-
-/** Material Symbols axes inherited by Material font adapters. */
-val LocalMaterialSymbolAxes: ProvidableCompositionLocal<MaterialSymbolAxes> =
-    compositionLocalOf { MaterialSymbolAxes.Default }
 
 /** Available styles for theme-selected, fixed-axis Material vectors. */
 enum class MaterialSymbolStyle {
@@ -22,14 +19,8 @@ enum class MaterialSymbolStyle {
 val LocalMaterialSymbolStyle: ProvidableCompositionLocal<MaterialSymbolStyle> =
     compositionLocalOf { MaterialSymbolStyle.Outlined }
 
-/** Access to Material-specific values supplied by [MaterialSymbolsTheme]. */
+/** Access to the Material style supplied by [MaterialSymbolsTheme]. */
 object MaterialSymbolsTheme {
-    /** The Material axes at the current position in the composition. */
-    val axes: MaterialSymbolAxes
-        @Composable
-        @ReadOnlyComposable
-        get() = LocalMaterialSymbolAxes.current
-
     /** The style used by composable `Symbols.Material.Themed.*` vectors. */
     val style: MaterialSymbolStyle
         @Composable
@@ -38,55 +29,33 @@ object MaterialSymbolsTheme {
 }
 
 /**
- * Supplies Material symbol [axes] to [content] while keeping the current symbol style.
+ * Supplies a Material symbol [style] and generic [fontSettings] to [content].
  *
- * This value is limited to the composable subtree and does not change global state. It also
- * supplies [MaterialSymbolAxes.fontSettings] through the generic `SymbolsTheme`, so generic
- * symbol-font renderers can read the same settings.
+ * Both values are limited to this composable subtree and do not change global state. The style
+ * selects Outlined, Rounded, or Sharp theme-aware vectors. The font settings are forwarded to
+ * [SymbolsTheme] for regular and variable symbol fonts.
  *
- * Changing [axes] updates descendants that read them. Runtime font glyphs may be measured, laid
- * out, and drawn again. Generated Material vectors are fixed at their documented default axes and
- * do not change shape when [axes] changes.
+ * Changing [style] recomposes themed-vector readers and selects the corresponding cached vector.
+ * Changing [fontSettings] updates runtime font renderers and may cause their text to be measured,
+ * laid out, and drawn again. Generated vectors remain fixed at their default font settings; only
+ * their style changes. A regular font rejects settings other than the fixed values declared by its
+ * descriptor.
  *
- * @param axes Material font appearance inherited by [content]
- * @param content composable content that should receive the axes
- */
-@Composable
-fun MaterialSymbolsTheme(
-    axes: MaterialSymbolAxes = MaterialSymbolsTheme.axes,
-    content: @Composable () -> Unit,
-) {
-    MaterialSymbolsTheme(
-        style = MaterialSymbolsTheme.style,
-        axes = axes,
-        content = content,
-    )
-}
-
-/**
- * Supplies a Material symbol [style] and [axes] to [content].
- *
- * The values are limited to this composable subtree and do not change global state. [axes] are also
- * supplied through the generic `SymbolsTheme`. Changing [style] recomposes themed-vector readers
- * and selects the corresponding cached Outlined, Rounded, or Sharp vector. Changing [axes] updates
- * runtime font renderers and may cause their text to be measured, laid out, and drawn again.
- *
- * Generated vectors remain fixed at their default axes; only their style changes. Runtime variable
- * fonts use all supplied axes.
+ * Omitting either value inherits the one already in effect, which makes nested themes useful for
+ * changing only the style or only the font settings.
  *
  * @param style Outlined, Rounded, or Sharp style used by theme-selected vectors
- * @param axes Material font appearance inherited by [content]
- * @param content composable content that should receive the style and axes
+ * @param fontSettings settings inherited by symbol-font renderers
+ * @param content composable content that should receive the style and settings
  */
 @Composable
 fun MaterialSymbolsTheme(
-    style: MaterialSymbolStyle,
-    axes: MaterialSymbolAxes = MaterialSymbolsTheme.axes,
+    style: MaterialSymbolStyle = MaterialSymbolsTheme.style,
+    fontSettings: SymbolFontSettings = SymbolsTheme.fontSettings,
     content: @Composable () -> Unit,
 ) {
-    SymbolsTheme(fontSettings = axes.fontSettings) {
+    SymbolsTheme(fontSettings = fontSettings) {
         CompositionLocalProvider(
-            LocalMaterialSymbolAxes provides axes,
             LocalMaterialSymbolStyle provides style,
             content = content,
         )

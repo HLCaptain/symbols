@@ -44,6 +44,26 @@ class SymbolFontsPluginFunctionalTest {
     }
 
     @Test
+    fun fontAccessorUsesResourceBasedDefaults() {
+        val project = ProjectBuilder.builder()
+            .withProjectDir(temporaryFolder.newFolder())
+            .build()
+        val extension = project.extensions.create(
+            "symbolFonts",
+            SymbolFontsExtension::class.java,
+        )
+
+        extension.fontAccessor("app_icons")
+
+        val accessor = extension.fontAccessors.getByName("app_icons")
+        assertEquals("io.github.hlcaptain.symbols.Symbols", accessor.receiver.get())
+        assertEquals("AppIcons", accessor.propertyName.get())
+        assertFalse(accessor.packageName.isPresent)
+        assertFalse(accessor.componentIndex.isPresent)
+        assertTrue(accessor.fixedAxisValues.get().isEmpty())
+    }
+
+    @Test
     fun androidVariantFontUsesTheHighestPriorityResourceLayer() {
         val projectDirectory = temporaryFolder.newFolder()
         val project = ProjectBuilder.builder()
@@ -512,6 +532,215 @@ class SymbolFontsPluginFunctionalTest {
     }
 
     @Test
+    fun composeMergeIncludesGeneralTaskBackedResources() {
+        val project = fixture(
+            """
+            plugins {
+                id 'io.github.hlcaptain.symbol-fonts'
+            }
+
+            def prepared = tasks.register('prepareComposeResources') {
+                outputs.dir(layout.buildDirectory.dir('preparedResources'))
+            }
+
+            symbolFonts {
+                composeResourceRoots.from(
+                    prepared.map { it.outputs.files.singleFile }
+                )
+            }
+
+            tasks.register('assertComposeResourceMerge') {
+                doLast {
+                    def merge = tasks.named(
+                        'mergeGeneratedSymbolComposeResources'
+                    ).get()
+                    assert merge.inputDirectories.buildDependencies
+                        .getDependencies(merge)*.name ==
+                        ['prepareComposeResources']
+                    def descriptors = tasks.named(
+                        'generateSymbolFontDescriptors'
+                    ).get()
+                    assert descriptors.resourceRoots.isEmpty()
+                }
+            }
+            """,
+        )
+
+        val result = runner(project, "assertComposeResourceMerge").build()
+
+        assertEquals(
+            TaskOutcome.SUCCESS,
+            result.task(":assertComposeResourceMerge")?.outcome,
+        )
+    }
+
+    @Test
+    fun composeMergeDependsOnlyOnComposeDrawableStyles() {
+        val project = fixture(
+            """
+            plugins {
+                id 'io.github.hlcaptain.symbol-fonts'
+            }
+
+            symbolFonts {
+                iconSet('AppIcons') {
+                    packageName.set('com.example.icons')
+                    style('KotlinOnly') {
+                        codepoints.set(file('icons.codepoints'))
+                        font.set(file('font.ttf'))
+                        imageVectors()
+                    }
+                    style('Compose') {
+                        codepoints.set(file('icons.codepoints'))
+                        font.set(file('font.ttf'))
+                        composeDrawables()
+                    }
+                }
+            }
+
+            tasks.register('assertComposeStyleDependencies') {
+                doLast {
+                    def merge = tasks.named(
+                        'mergeGeneratedSymbolComposeResources'
+                    ).get()
+                    assert merge.inputDirectories.buildDependencies
+                        .getDependencies(merge)*.name ==
+                        ['generateAppIconsComposeSymbolFonts']
+                }
+            }
+            """,
+        )
+
+        val result = runner(project, "assertComposeStyleDependencies").build()
+
+        assertEquals(
+            TaskOutcome.SUCCESS,
+            result.task(":assertComposeStyleDependencies")?.outcome,
+        )
+    }
+
+    @Test
+    fun composePluginKeepsExistingCustomDirectoryWhenMergeIsUnused() {
+        val project = fixture(
+            """
+            plugins {
+                id 'org.jetbrains.kotlin.multiplatform'
+                id 'org.jetbrains.kotlin.plugin.compose'
+                id 'org.jetbrains.compose'
+                id 'io.github.hlcaptain.symbol-fonts'
+            }
+
+            kotlin {
+                jvm()
+            }
+
+            compose.resources {
+                customDirectory(
+                    'commonMain',
+                    layout.dir(providers.provider {
+                        file('existingResources')
+                    })
+                )
+            }
+            """,
+            files = mapOf(
+                "existingResources/drawable/existing.xml" to "<vector />\n",
+            ),
+        )
+
+        val result = composeRunner(
+            project,
+            "copyNonXmlValueResourcesForCommonMain",
+        ).build()
+
+        assertEquals(
+            TaskOutcome.SUCCESS,
+            result.task(":copyNonXmlValueResourcesForCommonMain")?.outcome,
+        )
+        assertEquals(null, result.task(":mergeGeneratedSymbolComposeResources"))
+        assertTrue(
+            project.resolve(
+                "build/generated/compose/resourceGenerator/preparedResources/" +
+                    "commonMain/composeResources/drawable/existing.xml",
+            ).isFile,
+        )
+    }
+
+    @Test
+    fun composeResourceRootsAggregateExistingAndConventionalResources() {
+        val project = fixture(
+            """
+            plugins {
+                id 'org.jetbrains.kotlin.multiplatform'
+                id 'org.jetbrains.kotlin.plugin.compose'
+                id 'org.jetbrains.compose'
+                id 'io.github.hlcaptain.symbol-fonts'
+            }
+
+            kotlin {
+                jvm()
+            }
+
+            def existing = tasks.register('prepareExistingResources') {
+                def output = layout.buildDirectory.dir('existingResources')
+                outputs.dir(output)
+                doLast {
+                    def drawable = output.get().file(
+                        'drawable/existing.xml'
+                    ).asFile
+                    drawable.parentFile.mkdirs()
+                    drawable.text = '<vector />\n'
+                }
+            }
+            def existingDirectory = existing.map {
+                layout.buildDirectory.dir('existingResources').get()
+            }
+
+            compose.resources {
+                customDirectory('commonMain', existingDirectory)
+            }
+            symbolFonts {
+                composeResourceRoots.from(existingDirectory)
+            }
+            """,
+            files = mapOf(
+                "src/commonMain/composeResources/drawable/conventional.xml" to
+                    "<vector />\n",
+            ),
+        )
+
+        val result = composeCachedRunner(
+            project,
+            "copyNonXmlValueResourcesForCommonMain",
+        ).build()
+
+        assertEquals(
+            TaskOutcome.SUCCESS,
+            result.task(":prepareExistingResources")?.outcome,
+        )
+        assertEquals(
+            TaskOutcome.SUCCESS,
+            result.task(":mergeGeneratedSymbolComposeResources")?.outcome,
+        )
+        val prepared = project.resolve(
+            "build/generated/compose/resourceGenerator/preparedResources/" +
+                "commonMain/composeResources/drawable",
+        )
+        assertTrue(prepared.resolve("existing.xml").isFile)
+        assertTrue(prepared.resolve("conventional.xml").isFile)
+
+        val second = composeCachedRunner(
+            project,
+            "copyNonXmlValueResourcesForCommonMain",
+        ).build()
+        assertTrue("Reusing configuration cache." in second.output)
+        assertEquals(
+            TaskOutcome.UP_TO_DATE,
+            second.task(":mergeGeneratedSymbolComposeResources")?.outcome,
+        )
+    }
+
+    @Test
     fun descriptorTaskUsesOptInTaskBackedRoots() {
         val project = fixture(
             """
@@ -599,6 +828,104 @@ class SymbolFontsPluginFunctionalTest {
         assertEquals(
             TaskOutcome.SUCCESS,
             result.task(":assertFontDescriptorDefaults")?.outcome,
+        )
+    }
+
+    @Test
+    fun descriptorTaskGeneratesConfiguredPublicFontAccessor() {
+        val project = fixture(
+            """
+            import io.github.hlcaptain.symbols.gradle.GenerateSymbolFontDescriptorsTask
+
+            plugins {
+                id 'org.jetbrains.kotlin.multiplatform'
+                id 'org.jetbrains.kotlin.plugin.compose'
+                id 'org.jetbrains.compose'
+                id 'io.github.hlcaptain.symbol-fonts'
+            }
+
+            kotlin {
+                jvm()
+            }
+
+            compose.resources {
+                packageOfResClass = 'com.example.resources'
+                nameOfResClass = 'SymbolFont'
+            }
+
+            symbolFonts {
+                composeFontResources.from(file('resources'))
+                fontAccessor('academic_icons') {
+                    receiver.set('com.example.Icons.Rounded')
+                    propertyName.set('staticFont')
+                    packageName.set('com.example.api')
+                    componentIndex.set(2)
+                    fixedAxisValues.put('wght', 400f)
+                }
+            }
+
+            configurations.named('symbolFontGeneratorRuntimeClasspath') {
+                dependencies.clear()
+            }
+            tasks.withType(GenerateSymbolFontDescriptorsTask).configureEach {
+                generatorClasspath.setFrom(
+                    files(file('generator-classpath.txt').readLines())
+                )
+            }
+            """,
+            files = mapOf(
+                "generator-classpath.txt" to generatorTestClasspath(),
+            ),
+        )
+        val font = project.resolve("resources/font/academic_icons.ttf")
+        font.parentFile.mkdirs()
+        File(requireNotNull(System.getProperty("symbols.academmuniconsTestFont")))
+            .copyTo(font)
+        font.copyTo(project.resolve("resources/font/other_icons.ttf"))
+
+        val result = composeRunner(project, "generateSymbolFontDescriptors").build()
+
+        assertEquals(
+            TaskOutcome.SUCCESS,
+            result.task(":generateSymbolFontDescriptors")?.outcome,
+        )
+        val root = project.resolve("build/generated/symbolFonts/fontDescriptors/kotlin")
+        val descriptor = root.resolve(
+            "com/example/resources/SymbolFonts.generated.kt",
+        ).readText()
+        assertTrue("internal object SymbolFonts" in descriptor)
+        assertTrue(
+            "import com.example.resources.SymbolFont as _SymbolsResourceClass" in descriptor,
+        )
+        assertTrue("resource = _SymbolsResourceClass.font.academic_icons" in descriptor)
+        assertTrue("FontVariation.Setting(\"wght\", 400.0f)" in descriptor)
+        val accessor = root.resolve(
+            "com/example/api/FontAccessor_academic_icons.generated.kt",
+        ).readText()
+        assertTrue(
+            "import com.example.resources.SymbolFont as _SymbolsResourceClass" in accessor,
+        )
+        assertTrue("val com.example.Icons.Rounded.staticFont" in accessor)
+        assertTrue(
+            "get() = _SymbolsResourceClass._symbolsFontDescriptors.academic_icons" in accessor,
+        )
+        assertTrue("component2()" in accessor)
+        assertFalse(Regex("\\bpublic\\b").containsMatchIn(accessor))
+        val automaticAccessor = root.resolve(
+            "com/example/resources/FontAccessor_other_icons.generated.kt",
+        ).readText()
+        assertTrue(
+            "val io.github.hlcaptain.symbols.Symbols.OtherIcons: SymbolFont.Regular" in
+                automaticAccessor,
+        )
+        assertTrue(
+            "get() = _SymbolsResourceClass._symbolsFontDescriptors.other_icons" in
+                automaticAccessor,
+        )
+        assertFalse(
+            root.resolve(
+                "com/example/resources/FontAccessor_academic_icons.generated.kt",
+            ).exists(),
         )
     }
 
@@ -1454,6 +1781,24 @@ class SymbolFontsPluginFunctionalTest {
     )
 
     private fun androidCachedRunner(
+        project: File,
+        vararg tasks: String,
+    ): GradleRunner = configuredAndroidRunner(
+        project = project,
+        tasks = tasks.toList(),
+        configurationCacheArgument = "--configuration-cache",
+    )
+
+    private fun composeRunner(
+        project: File,
+        vararg tasks: String,
+    ): GradleRunner = configuredAndroidRunner(
+        project = project,
+        tasks = tasks.toList(),
+        configurationCacheArgument = "--no-configuration-cache",
+    )
+
+    private fun composeCachedRunner(
         project: File,
         vararg tasks: String,
     ): GradleRunner = configuredAndroidRunner(

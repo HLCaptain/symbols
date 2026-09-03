@@ -11,9 +11,9 @@ import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import io.github.hlcaptain.custom_variable.generated.resources.AcademmuniconsVariable
 import io.github.hlcaptain.custom_variable.generated.resources.Res
 import io.github.hlcaptain.custom_variable.generated.resources.academmunicons_semibold_orcid_uf04f
-import io.github.hlcaptain.custom_variable.generated.resources.symbolFonts
 import io.github.hlcaptain.symbols.Symbols
 import io.github.hlcaptain.symbols.font.SymbolFont
 import io.github.hlcaptain.symbols.font.SymbolFontAxis
@@ -53,7 +53,7 @@ class CustomVariableNavigationModule {
 
 @Composable
 private fun CustomVariableContent() {
-    val font = Res.symbolFonts.academmunicons_variable
+    val font = Symbols.AcademmuniconsVariable
     val axisValues = remember(font) {
         font.variationAxes.associateTo(mutableStateMapOf()) { axis ->
             axis.tag to axis.defaultValue

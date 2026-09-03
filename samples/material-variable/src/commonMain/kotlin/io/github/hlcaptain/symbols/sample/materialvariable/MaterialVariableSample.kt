@@ -11,8 +11,9 @@ import io.github.hlcaptain.symbols.Symbols
 import io.github.hlcaptain.symbols.font.SymbolFontIcon
 import io.github.hlcaptain.symbols.font.SymbolsRuntime
 import io.github.hlcaptain.symbols.material.Material
+import io.github.hlcaptain.symbols.material.Rounded
 import io.github.hlcaptain.symbols.material.Search
-import io.github.hlcaptain.symbols.material.rounded.MaterialSymbolsRounded
+import io.github.hlcaptain.symbols.material.font
 import io.github.hlcaptain.symbols.sample.api.SampleAvailability
 import io.github.hlcaptain.symbols.sample.api.SampleItem
 import io.github.hlcaptain.symbols.sample.materialvariable.config.SampleBuildConfig
@@ -44,10 +45,11 @@ class MaterialVariableNavigationModule {
 
 @Composable
 private fun MaterialVariableContent() {
+    val font = Symbols.Material.Rounded.font
     SamplePage(description = Description) {
         ExampleCard(
             title = "Default variable instance",
-            description = MaterialSymbolsRounded.variationAxes.joinToString { axis ->
+            description = font.variationAxes.joinToString { axis ->
                 "${axis.tag}=${axis.defaultValue}"
             },
         ) {
@@ -57,14 +59,14 @@ private fun MaterialVariableContent() {
             ) {
                 SymbolFontIcon(
                     codePoint = Symbols.Material.Search.codePoint,
-                    font = MaterialSymbolsRounded,
-                    fontSettings = MaterialSymbolsRounded.defaultFontSettings,
+                    font = font,
+                    fontSettings = font.defaultFontSettings,
                     contentDescription = "Search",
                     tint = MaterialTheme.colorScheme.primary,
                     size = 56.dp,
                 )
                 Text(
-                    text = MaterialSymbolsRounded.familyName,
+                    text = font.familyName,
                     style = MaterialTheme.typography.labelLarge,
                 )
             }

@@ -52,12 +52,16 @@ roborazzi = { module = "io.github.takahirom.roborazzi:roborazzi", version.ref = 
 roborazzi-compose = { module = "io.github.takahirom.roborazzi:roborazzi-compose", version.ref = "roborazzi" }
 roborazzi-composePreviewScannerSupport = { module = "io.github.takahirom.roborazzi:roborazzi-compose-preview-scanner-support", version.ref = "roborazzi" }
 skiko-awt = { module = "org.jetbrains.skiko:skiko-awt", version.ref = "skiko" }
+android-gradleApi = { module = "com.android.tools.build:gradle-api", version.ref = "agp" }
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 buildconfig-gradlePlugin = { module = "com.github.gmazzo.buildconfig:plugin", version.ref = "buildconfig" }
+compose-gradlePlugin = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "composeMultiplatform" }
 composeCompiler-gradlePlugin = { module = "org.jetbrains.kotlin:compose-compiler-gradle-plugin", version.ref = "kotlin" }
 composeMultiplatform-gradlePlugin = { module = "org.jetbrains.compose:org.jetbrains.compose.gradle.plugin", version.ref = "composeMultiplatform" }
+kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlinMultiplatform-gradlePlugin = { module = "org.jetbrains.kotlin.multiplatform:org.jetbrains.kotlin.multiplatform.gradle.plugin", version.ref = "kotlin" }
 koinCompiler-gradlePlugin = { module = "io.insert-koin:koin-compiler-gradle-plugin", version.ref = "koin-compiler" }
+symbols-gradlePlugin = { module = "io.github.hlcaptain:symbol-gradle-plugin" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -69,6 +73,7 @@ kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref =
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 koinCompiler = { id = "io.insert-koin.compiler.plugin", version.ref = "koin-compiler" }
 roborazzi = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }
+symbolFonts = { id = "io.github.hlcaptain.symbol-fonts" }
 symbolsKotlinMultiplatformLibrary = { id = "io.github.hlcaptain.symbols.kotlin-multiplatform-library" }
 symbolsComposeMultiplatformLibrary = { id = "io.github.hlcaptain.symbols.compose-multiplatform-library" }
 symbolsKmpPublishing = { id = "io.github.hlcaptain.symbols.kmp-publishing" }

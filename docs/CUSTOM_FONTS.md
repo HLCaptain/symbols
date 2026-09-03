@@ -41,13 +41,15 @@ symbolFonts {
 
 Compose Resources exposes each configured file through its standard
 `Res.font.<name>` accessor. Symbols uses that accessor to add a typed descriptor
-through the module's global `Res` class:
+through the module's global `Res` class and automatically exposes a public
+property on `Symbols`, using the resource name as an UpperCamelCase property by
+default:
 
 ```kotlin
-import my.symbols.generated.resources.Res
-import my.symbols.generated.resources.symbolFonts
+import io.github.hlcaptain.symbols.Symbols
+import my.symbols.generated.resources.MySymbolsVariable
 
-val mySymbols = Res.symbolFonts.my_symbols_variable
+val mySymbols = Symbols.MySymbolsVariable
 ```
 
 The generated `SymbolFont.Variable` exposes visible axes from the font's `fvar`
@@ -73,6 +75,11 @@ SymbolsTheme(fontSettings = settings) {
 }
 ```
 
+When settings already exist, `settings.withVariations(...)` can replace raw
+Compose `FontVariation.Setting` values by axis name without rebuilding the
+other entries. It does not know the font's ranges, so use the descriptor's
+`fontSettings(...)` helper for validated user input.
+
 Android can apply variable-font settings from API 26. Check
 `SymbolsRuntime.variableFontsSupported` before selecting this path on an app
 whose minSdk is lower.
@@ -85,8 +92,8 @@ rebuild.
 The focused [`custom-variable`](../samples/custom-variable/build.gradle.kts)
 sample shows both paths from one custom Academmunicons source. Its build-time
 path fixes `ital=0,wght=600` before generating a typed `ImageVector`; those
-coordinates cannot change afterward. Its runtime path uses the generated
-`Res.symbolFonts.academmunicons_variable` descriptor and applies the original
+coordinates cannot change afterward. Its runtime path uses the automatically
+generated `Symbols.AcademmuniconsVariable` descriptor and applies the original
 font's `ital` and `wght` axes live without regenerating symbols. The
 [`image-vector-migration`](../samples/image-vector-migration/build.gradle.kts)
 sample omits `axis(...)` deliberately, generating both an `ImageVector` and a
@@ -101,10 +108,10 @@ toggle beside every axis are demonstrated with Material Rounded in
 it and `SymbolFontIcon` reject negative values, surrogate code points, and
 values above `U+10FFFF`.
 
-## Material-compatible custom fonts
+## Combine a custom font with Material vector theming
 
-Add the Material adapter when this module does not already depend on a bundled
-Material font artifact:
+Add the Material Compose artifact only when a custom font should share the
+Outlined, Rounded, or Sharp selection used by theme-aware Material vectors:
 
 ```kotlin
 implementation(
@@ -112,21 +119,23 @@ implementation(
 )
 ```
 
-`MaterialSymbolAxes` remains a validated adapter for the bundled `FILL`,
-`wght`, `GRAD`, and `opsz` ranges. Its `fontSettings` property exposes the
-equivalent generic settings. `MaterialSymbolsTheme` provides both its Material
-style/axes locals and those generic font settings, so a custom font with the
-same axis contract can inherit them:
+Material fonts and custom fonts use the same generated axis metadata. Create
+settings through the font descriptor so its own tags and ranges are validated.
+`MaterialSymbolsTheme` can provide those generic settings while also selecting
+the style used by built-in theme-aware vectors:
 
 ```kotlin
 import io.github.hlcaptain.symbols.font.SymbolFontIcon
-import io.github.hlcaptain.symbols.material.MaterialSymbolAxes
+import io.github.hlcaptain.symbols.font.fontSettings
 import io.github.hlcaptain.symbols.material.MaterialSymbolStyle
 import io.github.hlcaptain.symbols.material.MaterialSymbolsTheme
 
+val settings = mySymbols.fontSettings(
+    mapOf("FILL" to 1f, "wght" to 500f),
+)
 MaterialSymbolsTheme(
     style = MaterialSymbolStyle.Rounded,
-    axes = MaterialSymbolAxes(fill = 1f, weight = 500),
+    fontSettings = settings,
 ) {
     SymbolFontIcon(
         codePoint = 0xF0001,
@@ -136,9 +145,10 @@ MaterialSymbolsTheme(
 }
 ```
 
-Use the generic `SymbolsTheme` instead when the custom font has different tags
-or ranges. `MaterialSymbolsTheme` also owns the Outlined, Rounded, and Sharp
-selection used by built-in `Symbols.Material.Themed.*` properties.
+Use `SymbolsTheme` when no Material vector-style selection is needed.
+`MaterialSymbolsTheme` owns only the Outlined, Rounded, and Sharp selection used
+by built-in `Symbols.Material.Themed.*` properties; it does not define a second
+axis model.
 
 ## Package a regular font
 
@@ -146,32 +156,26 @@ Static resources get a generated `SymbolFont.Regular` descriptor at default
 settings:
 
 ```kotlin
+import io.github.hlcaptain.symbols.Symbols
 import io.github.hlcaptain.symbols.font.SymbolFontIcon
-import my.symbols.generated.resources.Res
-import my.symbols.generated.resources.symbolFonts
+import my.symbols.generated.resources.MySymbolsRegular
 
 SymbolFontIcon(
     codePoint = 0xF0001,
-    font = Res.symbolFonts.my_symbols_regular,
+    font = Symbols.MySymbolsRegular,
     contentDescription = "Custom action",
 )
 ```
 
 If a static file was frozen at a non-default coordinate that its tables no
-longer describe, keep that value explicit:
+longer describe, configure those float values for its generated descriptor:
 
 ```kotlin
-import androidx.compose.ui.text.font.FontWeight
-import io.github.hlcaptain.symbols.font.SymbolFont
-import io.github.hlcaptain.symbols.font.SymbolFontSettings
-import my.symbols.generated.resources.Res
-import my.symbols.generated.resources.my_symbols_bold
-
-val myBoldSymbols = SymbolFont.regular(
-    familyName = "My Symbols Bold",
-    resource = Res.font.my_symbols_bold,
-    fontSettings = SymbolFontSettings(weight = FontWeight.Bold),
-)
+symbolFonts {
+    fontAccessor("my_symbols_bold") {
+        fixedAxisValues.put("wght", 700f)
+    }
+}
 ```
 
 The renderer never attaches `FontVariation.Settings` to a regular resource, so

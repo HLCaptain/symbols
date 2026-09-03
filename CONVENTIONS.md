@@ -9,6 +9,14 @@ Write `internal`, `protected`, or `private` when an API needs narrower
 visibility. This convention applies equally to handwritten code, generator
 templates, and checked-in generated Kotlin sources.
 
+## Gradle references
+
+Use `libs`, `libs.plugins`, and generated `projects` accessors in the
+repository's Kotlin Gradle scripts. Do not repeat plugin IDs, dependency
+coordinates, or catalog-backed versions as strings. Keep string notation only
+when Gradle has no static accessor, such as a host-derived artifact name or a
+settings-plugin declaration.
+
 ## Compose previews
 
 Keep previews beside the composable they exercise. Use `@PreviewSymbolsScreen`

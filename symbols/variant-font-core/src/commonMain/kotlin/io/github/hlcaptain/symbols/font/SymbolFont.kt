@@ -3,11 +3,13 @@ package io.github.hlcaptain.symbols.font
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontVariation
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Density
 import org.jetbrains.compose.resources.FontResource
 import org.jetbrains.compose.resources.Font as resourceFont
 
@@ -35,10 +37,39 @@ data class SymbolFontSettings(
     constructor(
         weight: FontWeight = FontWeight.Normal,
         style: FontStyle = FontStyle.Normal,
-    ) : this(FontVariation.Settings(weight, style))
+    ) : this(
+        FontVariation.Settings(
+            FontVariation.Setting("wght", weight.weight.toFloat()),
+            FontVariation.italic(style.value.toFloat()),
+        ),
+    )
+
+    /**
+     * Returns a copy with the supplied font variations applied.
+     *
+     * A variation replaces an existing setting with the same four-character axis name. Settings
+     * for other axes remain unchanged, and new axes are appended. When the same axis appears more
+     * than once in [variations], the last value wins. This function does not check whether a font
+     * supports the axes or values; use [SymbolFont.fontSettings] for descriptor-aware validation.
+     * Calling it without variations returns this instance.
+     *
+     * @param variations settings to add or replace
+     * @return these settings with [variations] applied
+     */
+    fun withVariations(
+        vararg variations: FontVariation.Setting,
+    ): SymbolFontSettings {
+        if (variations.isEmpty()) return this
+
+        val merged = (variationSettings.settings + variations)
+            .associateBy(FontVariation.Setting::axisName)
+            .values
+            .toTypedArray()
+        return SymbolFontSettings(FontVariation.Settings(*merged))
+    }
 
     companion object {
-        /** The normal, upright font instance. */
+        /** Settings for normal weight and upright style. */
         val Default: SymbolFontSettings = SymbolFontSettings()
     }
 }
@@ -268,10 +299,12 @@ fun rememberSymbolFontFamily(
     font: SymbolFont,
     fontSettings: SymbolFontSettings = SymbolsTheme.fontSettings,
 ): FontFamily {
+    val density = LocalDensity.current
     val variationSettings = symbolFontVariationSettings(
         font = font,
         fontSettings = fontSettings,
         variableFontsSupported = SymbolsRuntime.variableFontsSupported,
+        density = density,
     )
     val loadedFont: Font = resourceFont(
         resource = font.resource,
@@ -286,6 +319,7 @@ internal fun symbolFontVariationSettings(
     font: SymbolFont,
     fontSettings: SymbolFontSettings,
     variableFontsSupported: Boolean,
+    density: Density,
 ): FontVariation.Settings? {
     require(font !is SymbolFont.Regular || font !is SymbolFont.Variable) {
         "${font.familyName} cannot be both a regular and a variable font"
@@ -293,7 +327,7 @@ internal fun symbolFontVariationSettings(
 
     return when (font) {
         is SymbolFont.Regular -> {
-            require(fontSettings.isEquivalentTo(font.fontSettings)) {
+            require(fontSettings.isEquivalentTo(font.fontSettings, density)) {
                 "${font.familyName} is a regular font fixed at ${font.fontSettings}, " +
                     "but $fontSettings was requested"
             }
@@ -313,8 +347,18 @@ internal fun symbolFontVariationSettings(
     }
 }
 
-private fun SymbolFontSettings.isEquivalentTo(other: SymbolFontSettings): Boolean =
-    variationSettings.settings.associateBy { it.axisName } ==
-        other.variationSettings.settings.associateBy { it.axisName }
+private fun SymbolFontSettings.isEquivalentTo(
+    other: SymbolFontSettings,
+    density: Density,
+): Boolean {
+    val settingsByAxis = variationSettings.settings.associateBy(FontVariation.Setting::axisName)
+    val otherSettingsByAxis =
+        other.variationSettings.settings.associateBy(FontVariation.Setting::axisName)
+    return settingsByAxis.keys == otherSettingsByAxis.keys &&
+        settingsByAxis.all { (axisName, setting) ->
+            setting.toVariationValue(density) ==
+                otherSettingsByAxis.getValue(axisName).toVariationValue(density)
+        }
+}
 
 internal expect fun platformSupportsVariableFonts(): Boolean

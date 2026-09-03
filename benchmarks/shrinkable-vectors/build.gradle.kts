@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.androidApplication)
-    id("io.github.hlcaptain.symbol-fonts")
+    alias(libs.plugins.symbolFonts)
 }
 
 android {
@@ -42,7 +42,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":modules:material-vectors-outlined"))
+    implementation(projects.modules.materialVectorsOutlined)
 }
 
 symbolFonts {

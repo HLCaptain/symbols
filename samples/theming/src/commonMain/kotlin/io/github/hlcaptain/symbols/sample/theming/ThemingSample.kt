@@ -16,7 +16,8 @@ import io.github.hlcaptain.symbols.font.SymbolFontIcon
 import io.github.hlcaptain.symbols.font.SymbolsTheme
 import io.github.hlcaptain.symbols.material.Favorite
 import io.github.hlcaptain.symbols.material.Material
-import io.github.hlcaptain.symbols.material.rounded.staticfont.MaterialSymbolsRoundedStatic
+import io.github.hlcaptain.symbols.material.Rounded
+import io.github.hlcaptain.symbols.material.staticFont
 import io.github.hlcaptain.symbols.sample.api.SampleItem
 import io.github.hlcaptain.symbols.sample.theming.config.SampleBuildConfig
 import io.github.hlcaptain.symbols.sample.ui.ExampleCard
@@ -42,6 +43,7 @@ class ThemingNavigationModule {
 
 @Composable
 private fun ThemingContent() {
+    val font = Symbols.Material.Rounded.staticFont
     val colors = MaterialTheme.colorScheme.copy(
         primary = Color(0xFF6D28D9),
         primaryContainer = Color(0xFFEDE9FE),
@@ -49,7 +51,7 @@ private fun ThemingContent() {
     )
 
     MaterialTheme(colorScheme = colors) {
-        SymbolsTheme(fontSettings = MaterialSymbolsRoundedStatic.fontSettings) {
+        SymbolsTheme(fontSettings = font.fontSettings) {
             SamplePage(description = Description) {
                 ExampleCard(
                     title = "Two themes, one component tree",
@@ -68,7 +70,7 @@ private fun ThemingContent() {
                         ) {
                             SymbolFontIcon(
                                 codePoint = Symbols.Material.Favorite.codePoint,
-                                font = MaterialSymbolsRoundedStatic,
+                                font = font,
                                 contentDescription = "Favorite",
                                 tint = MaterialTheme.colorScheme.primary,
                                 size = 52.dp,

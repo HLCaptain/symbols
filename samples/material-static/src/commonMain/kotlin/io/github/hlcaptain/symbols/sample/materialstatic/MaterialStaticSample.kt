@@ -18,10 +18,11 @@ import io.github.hlcaptain.symbols.material.Favorite
 import io.github.hlcaptain.symbols.material.Home
 import io.github.hlcaptain.symbols.material.Material
 import io.github.hlcaptain.symbols.material.MaterialSymbol
+import io.github.hlcaptain.symbols.material.Rounded
 import io.github.hlcaptain.symbols.material.Search
 import io.github.hlcaptain.symbols.material.rounded.compose.drawables.resources.Res as RoundedDrawablesRes
 import io.github.hlcaptain.symbols.material.rounded.compose.drawables.resources.material_symbols_rounded_home_ue9b2
-import io.github.hlcaptain.symbols.material.rounded.staticfont.MaterialSymbolsRoundedStatic
+import io.github.hlcaptain.symbols.material.staticFont
 import io.github.hlcaptain.symbols.sample.api.SampleItem
 import io.github.hlcaptain.symbols.sample.materialstatic.config.SampleBuildConfig
 import io.github.hlcaptain.symbols.sample.ui.ExampleCard
@@ -93,14 +94,15 @@ private fun MaterialStaticContent() {
 
 @Composable
 private fun StaticSymbol(label: String, symbol: MaterialSymbol) {
+    val font = Symbols.Material.Rounded.staticFont
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         SymbolFontIcon(
             codePoint = symbol.codePoint,
-            font = MaterialSymbolsRoundedStatic,
-            fontSettings = MaterialSymbolsRoundedStatic.fontSettings,
+            font = font,
+            fontSettings = font.fontSettings,
             contentDescription = label,
             tint = MaterialTheme.colorScheme.primary,
             size = 44.dp,

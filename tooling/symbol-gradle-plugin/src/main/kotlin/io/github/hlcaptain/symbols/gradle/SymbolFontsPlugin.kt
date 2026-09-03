@@ -60,6 +60,13 @@ class SymbolFontsPlugin : Plugin<Project> {
             .toPath()
             .toAbsolutePath()
             .normalize()
+        val externalComposeResources = project.files(
+            extension.composeResourceRoots,
+            extension.composeFontResources,
+        ).filter { directory ->
+            directory.toPath().toAbsolutePath().normalize() !=
+                conventionalComposeResources
+        }
         val composeResources = project.tasks.registerOrConfigure<MergeSymbolComposeResources>(
             "mergeGeneratedSymbolComposeResources",
         ) {
@@ -72,19 +79,18 @@ class SymbolFontsPlugin : Plugin<Project> {
                     "src/commonMain/composeResources",
                 ),
             )
-            inputDirectories.from(
-                extension.composeFontResources.filter { directory ->
-                    directory.toPath().toAbsolutePath().normalize() !=
-                        conventionalComposeResources
-                },
-            )
+            inputDirectories.from(externalComposeResources)
             outputDirectory.convention(
                 project.layout.buildDirectory.dir(
                     "generated/symbolFonts/composeResources",
                 ),
             )
         }
-        project.wireComposeResources(composeResources)
+        project.wireComposeResources(
+            mergeTask = composeResources,
+            extension = extension,
+            externalResources = externalComposeResources,
+        )
 
         extension.iconSets.all { iconSet ->
             derivedNames.claimNamespace(iconSet.name)
@@ -102,12 +108,16 @@ class SymbolFontsPlugin : Plugin<Project> {
                     style = style,
                     generatorClasspath = generatorClasspath,
                 )
-                composeResources.configure {
-                    it.inputDirectories.from(
-                        task.flatMap { generated ->
-                            generated.composeOutputDirectory
-                        },
-                    )
+                project.afterEvaluate {
+                    if (style.generateComposeDrawables.get()) {
+                        composeResources.configure {
+                            it.inputDirectories.from(
+                                task.flatMap { generated ->
+                                    generated.composeOutputDirectory
+                                },
+                            )
+                        }
+                    }
                 }
                 project.wireGeneratedKotlin(
                     task.flatMap { generated ->
@@ -159,23 +169,31 @@ private fun Project.registerCatalogsTask(
 private fun Project.registerFontDescriptorsTask(
     extension: SymbolFontsExtension,
     generatorClasspath: FileCollection,
-): TaskProvider<GenerateSymbolFontDescriptorsTask> =
-    tasks.registerOrConfigure<GenerateSymbolFontDescriptorsTask>(
+): TaskProvider<GenerateSymbolFontDescriptorsTask> {
+    val task = tasks.registerOrConfigure<GenerateSymbolFontDescriptorsTask>(
         "generateSymbolFontDescriptors",
     ) {
         group = "symbol fonts"
-        description = "Generates typed descriptors for Compose font resources."
+        description = "Generates typed descriptors and public accessors for Compose fonts."
         this.generatorClasspath.from(generatorClasspath)
         resourceRoots.from(extension.composeFontResources)
         resourcePackage.convention(provider(::defaultComposeResourcePackage))
         resourceClassName.convention("Res")
         publicAccessors.convention(false)
+        fontAccessors.convention(emptyList())
         outputDirectory.convention(
             layout.buildDirectory.dir(
                 "generated/symbolFonts/fontDescriptors/kotlin",
             ),
         )
     }
+    extension.fontAccessors.all { accessor ->
+        task.configure { descriptors ->
+            descriptors.fontAccessors.add(accessor)
+        }
+    }
+    return task
+}
 
 private fun Project.wireFontDescriptorResourceSettings(
     task: TaskProvider<GenerateSymbolFontDescriptorsTask>,
@@ -409,14 +427,20 @@ private fun Project.wireGeneratedKotlin(
 
 private fun Project.wireComposeResources(
     mergeTask: TaskProvider<MergeSymbolComposeResources>,
+    extension: SymbolFontsExtension,
+    externalResources: FileCollection,
 ) {
     plugins.withId("org.jetbrains.compose") {
         afterEvaluate {
-            composeResourcesExtension()
-                .customDirectory(
+            val generatesComposeDrawables = extension.iconSets.any { iconSet ->
+                iconSet.styles.any { style -> style.generateComposeDrawables.get() }
+            }
+            if (generatesComposeDrawables || !externalResources.isEmpty) {
+                composeResourcesExtension().customDirectory(
                     "commonMain",
                     mergeTask.flatMap { task -> task.outputDirectory },
                 )
+            }
         }
     }
 }

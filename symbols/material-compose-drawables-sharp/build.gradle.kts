@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.symbolsComposeMultiplatformLibrary)
     alias(libs.plugins.symbolsKmpPublishing)
-    id("io.github.hlcaptain.symbol-fonts")
+    alias(libs.plugins.symbolFonts)
 }
 
 kotlin {

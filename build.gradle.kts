@@ -256,7 +256,7 @@ subprojects {
                 "Typed Material Symbols catalog, aliases, and code points for " +
                     "Kotlin Multiplatform; no Compose or bundled font."
             "material-compose" ->
-                "Material-specific axes and style theming for Material Symbols " +
+                "Material vector-style and generic font-settings theming " +
                     "in Compose Multiplatform; no bundled font."
             "material-outlined" ->
                 "Outlined Material Symbols variable font and Compose adapter for " +

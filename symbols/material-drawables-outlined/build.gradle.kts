@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.symbolsPublishedAndroidLibrary)
-    id("io.github.hlcaptain.symbol-fonts")
+    alias(libs.plugins.symbolFonts)
 }
 
 android {

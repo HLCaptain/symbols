@@ -18,9 +18,10 @@ artifacts are released.
   Material font-wrapper namespace before the first release.
 - Extracted reusable regular/variable symbol-font Compose APIs into the generic
   `variant-font-core` module under `io.github.hlcaptain.symbols.font`, while
-  keeping `MaterialSymbolsTheme` as the Material axes/style adapter. Reorganized
-  the README around migration from `material-icons-extended`, standard Compose
-  `Icon`, and Android Views/XML before the advanced font renderer.
+  keeping `MaterialSymbolsTheme` as the Material style and generic-settings
+  adapter. Reorganized the README around migration from
+  `material-icons-extended`, standard Compose `Icon`, and Android Views/XML
+  before the advanced font renderer.
 - Sealed the `SymbolFont` root while keeping `SymbolFont.Regular` and
   `SymbolFont.Variable` open as its nested extension interfaces. Direct root
   implementations must migrate to exactly one of them; implementing both
@@ -32,8 +33,11 @@ artifacts are released.
   Compose resource directories.
 - Runtime font descriptors and visible variable-axis metadata are generated
   from Compose font resources. Material modules keep Compose's `Res` API
-  internal by default. Configured font roots are packaged through the plugin's
-  single generated Compose resource directory.
+  internal by default. Fonts automatically receive public `Symbols` accessors;
+  the Material convention refines them to generated
+  `Symbols.Material.<Style>.font` and `.staticFont` properties. Configured roots
+  are packaged through the plugin's single generated Compose resource directory;
+  other task-backed generators can join it through `composeResourceRoots`.
 - Runtime-axis samples now provide a start/stop toggle beside each continuous
   Material slider (`steps = 0`). The custom
   Academmunicons sample compares fixed build-time generation with live runtime
@@ -77,9 +81,10 @@ artifacts are released.
 - Reusable `SymbolFont`, `SymbolFontAxis`, `SymbolFont.Regular`,
   `SymbolFont.Variable`, `SymbolFontSettings`, `SymbolFontIcon`,
   `rememberSymbolFontFamily`, `SymbolsTheme`, and `SymbolsRuntime` APIs for
-  arbitrary Compose Multiplatform symbol fonts.
-- Shared `Symbols.Material.{Style}.{Name}` vector APIs and inherited Material
-  axes/style through `MaterialSymbolsTheme`.
+  arbitrary Compose Multiplatform symbol fonts. `withVariations` overlays raw
+  Compose settings by axis name.
+- Shared `Symbols.Material.{Style}.{Name}` vector APIs and inherited style plus
+  generic font settings through `MaterialSymbolsTheme`.
 - Optional shrinker-friendly Outlined, Rounded, and Sharp `ImageVector` packs at
   the default axis position, while preserving dynamic catalog lookup.
 - Composable `Symbols.Material.Themed.{Name}` vectors selected by a style

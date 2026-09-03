@@ -18,8 +18,9 @@ import io.github.hlcaptain.symbols.font.SymbolsRuntime
 import io.github.hlcaptain.symbols.font.SymbolsTheme
 import io.github.hlcaptain.symbols.font.fontSettings
 import io.github.hlcaptain.symbols.material.Material
+import io.github.hlcaptain.symbols.material.Rounded
 import io.github.hlcaptain.symbols.material.Search
-import io.github.hlcaptain.symbols.material.rounded.MaterialSymbolsRounded
+import io.github.hlcaptain.symbols.material.font
 import io.github.hlcaptain.symbols.sample.api.SampleAvailability
 import io.github.hlcaptain.symbols.sample.api.SampleItem
 import io.github.hlcaptain.symbols.sample.runtimeaxes.config.SampleBuildConfig
@@ -54,7 +55,7 @@ class RuntimeAxesNavigationModule {
 
 @Composable
 private fun RuntimeAxesContent() {
-    val fontAxes = MaterialSymbolsRounded.variationAxes
+    val fontAxes = Symbols.Material.Rounded.font.variationAxes
     val axisValues = remember {
         fontAxes.associateTo(mutableStateMapOf()) { axis ->
             axis.tag to axis.defaultValue
@@ -91,10 +92,11 @@ private fun RuntimeAxesContent() {
 
 @Composable
 private fun RuntimeMaterialFontPreview(axisValues: Map<String, Float>) {
-    val overrides = MaterialSymbolsRounded.variationAxes.filter { axis ->
+    val font = Symbols.Material.Rounded.font
+    val overrides = font.variationAxes.filter { axis ->
         axisValues[axis.tag] != axis.defaultValue
     }
-    SymbolsTheme(fontSettings = MaterialSymbolsRounded.fontSettings(axisValues)) {
+    SymbolsTheme(fontSettings = font.fontSettings(axisValues)) {
         ExampleCard(
             title = "Live Material variable font",
             description = "Each control updates its matching Material Symbols axis live.",
@@ -106,7 +108,7 @@ private fun RuntimeMaterialFontPreview(axisValues: Map<String, Float>) {
             ) {
                 SymbolFontIcon(
                     codePoint = Symbols.Material.Search.codePoint,
-                    font = MaterialSymbolsRounded,
+                    font = font,
                     contentDescription = "Search",
                     tint = MaterialTheme.colorScheme.primary,
                     size = 72.dp,

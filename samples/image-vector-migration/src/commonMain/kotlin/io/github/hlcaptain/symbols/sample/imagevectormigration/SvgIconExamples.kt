@@ -23,13 +23,13 @@ import io.github.hlcaptain.image_vector_migration.generated.resources.Res
 import io.github.hlcaptain.image_vector_migration.generated.resources.tabler_outline_hierarchy_2
 import io.github.hlcaptain.symbols.Symbols
 import io.github.hlcaptain.symbols.font.SymbolFontIcon
-import io.github.hlcaptain.symbols.font.SymbolFontSettings
 import io.github.hlcaptain.symbols.font.SymbolsRuntime
 import io.github.hlcaptain.symbols.font.SymbolsTheme
 import io.github.hlcaptain.symbols.font.rememberSymbolPainter
 import io.github.hlcaptain.symbols.material.AccountTree
 import io.github.hlcaptain.symbols.material.Material
-import io.github.hlcaptain.symbols.material.rounded.MaterialSymbolsRounded
+import io.github.hlcaptain.symbols.material.Rounded
+import io.github.hlcaptain.symbols.material.font
 import io.github.hlcaptain.symbols.sample.imagevectormigration.generated.Tabler
 import io.github.hlcaptain.symbols.sample.imagevectormigration.generated.outline.Hierarchy2
 import io.github.hlcaptain.symbols.sample.imagevectormigration.generated.outline.Home
@@ -93,8 +93,9 @@ internal fun SharedWeightAxisExample() {
 
 @Composable
 private fun SharedWeightPreview(weight: Float) {
-    val fontSettings = SymbolFontSettings(
-        FontVariation.Settings(FontVariation.Setting("wght", weight)),
+    val font = Symbols.Material.Rounded.font
+    val fontSettings = font.defaultFontSettings.withVariations(
+        FontVariation.Setting("wght", weight),
     )
     SymbolsTheme(fontSettings = fontSettings) {
         ExampleCard(
@@ -114,7 +115,7 @@ private fun SharedWeightPreview(weight: Float) {
                     ) {
                         SymbolFontIcon(
                             codePoint = Symbols.Material.AccountTree.codePoint,
-                            font = MaterialSymbolsRounded,
+                            font = font,
                             contentDescription = "Material font Account tree",
                             tint = MaterialTheme.colorScheme.primary,
                             size = 64.dp,

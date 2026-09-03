@@ -39,35 +39,18 @@ kotlin {
 }
 
 dependencies {
-    implementation(project(":symbol-generator-core"))
+    implementation(projects.symbolGeneratorCore)
 
-    compileOnly(
-        "org.jetbrains.kotlin:kotlin-gradle-plugin:" +
-            libs.versions.kotlin.get(),
-    )
-    compileOnly(
-        "org.jetbrains.compose:compose-gradle-plugin:" +
-            libs.versions.composeMultiplatform.get(),
-    )
-    compileOnly(
-        "com.android.tools.build:gradle-api:" +
-            libs.versions.agp.get(),
-    )
+    compileOnly(libs.kotlin.gradlePlugin)
+    compileOnly(libs.compose.gradlePlugin)
+    compileOnly(libs.android.gradleApi)
 
     testImplementation(kotlin("test-junit"))
     testImplementation(gradleTestKit())
-    testImplementation(
-        "org.jetbrains.kotlin:kotlin-gradle-plugin:" +
-            libs.versions.kotlin.get(),
-    )
-    testImplementation(
-        "org.jetbrains.compose:compose-gradle-plugin:" +
-            libs.versions.composeMultiplatform.get(),
-    )
-    testImplementation(
-        "com.android.tools.build:gradle:" +
-            libs.versions.agp.get(),
-    )
+    testImplementation(libs.kotlin.gradlePlugin)
+    testImplementation(libs.compose.gradlePlugin)
+    testImplementation(libs.composeCompiler.gradlePlugin)
+    testImplementation(libs.android.gradlePlugin)
     testRuntimeOnly(
         "org.jetbrains.skiko:skiko-awt-runtime-${skikoRuntimeTarget()}:" +
             libs.versions.skiko.get(),

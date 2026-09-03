@@ -306,14 +306,52 @@ Each configured root must contain direct `font/*.ttf`, `*.otf`, or `*.ttc`
 files. Roots may be conventional source directories or task-backed providers;
 Compose generates the standard `Res.font.<normalized_file_name>` accessor for
 either. Compose keeps its conventional source root; the plugin merges any other
-configured roots into one generated Compose resource directory. Do not register
-the same external root again with `customDirectory`. The cacheable
+configured roots into one generated Compose resource directory. The cacheable
 `generateSymbolFontDescriptors` task emits
 `Res.symbolFonts.<normalized_file_name>` into common Kotlin. Variable fonts get
 their visible axis ranges and defaults from `fvar`; static fonts become regular
 descriptors. Configuring a root makes Compose generate `Res` even when its
 resources dependency is transitive. Descriptor visibility follows Compose
 Resources' `publicResClass`, whose default is internal.
+
+Every detected font also receives a public extension such as
+`Symbols.MySymbolsVariable`. Its defaults are the global `Symbols` receiver, an
+UpperCamelCase property derived from the resource name, the module's Compose
+resource package, no destructuring component, and no explicit fixed axes. Use
+`fontAccessor` only to override the values a shared namespace needs:
+
+```kotlin
+fontAccessor("my_symbols_regular") {
+    packageName.set("com.example.icons")
+    receiver.set("com.example.icons.AppIcons.Rounded")
+    propertyName.set("staticFont")
+    componentIndex.set(2)
+    fixedAxisValues.putAll(mapOf("wght" to 400f, "opsz" to 24f))
+}
+```
+
+Generated public properties delegate to the module-internal `Res.symbolFonts`
+descriptor. Duplicate property or `componentN` signatures fail generation.
+All generated Kotlin stays under `build`, is compiled into the library, and is
+included in its source publication; consumers do not run the generator.
+
+Compose exposes one custom resource directory per source set. When another
+generator also contributes `commonMain` resources, register its task-backed
+provider with Symbols instead of making a second `customDirectory` call:
+
+```kotlin
+symbolFonts {
+    composeResourceRoots.from(
+        otherGenerator.flatMap { task -> task.outputDirectory },
+    )
+}
+```
+
+Symbols combines those roots with conventional resources, font roots, and
+generated Compose drawables. Identical roots are deduplicated; different roots
+that contain the same relative resource path fail rather than silently choosing
+one. ImageVector-only and Android-only generation leave Compose resource
+configuration untouched.
 
 File names follow Compose's hyphen-to-underscore normalization. Qualifier
 subdirectories are not scanned, and TTC input currently reads face zero.

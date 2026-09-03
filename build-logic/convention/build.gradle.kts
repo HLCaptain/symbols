@@ -51,4 +51,7 @@ dependencies {
     implementation(libs.composeMultiplatform.gradlePlugin)
     implementation(libs.kotlinMultiplatform.gradlePlugin)
     implementation(libs.koinCompiler.gradlePlugin)
+    implementation(libs.symbols.gradlePlugin)
+
+    testImplementation(kotlin("test-junit"))
 }
