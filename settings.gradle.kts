@@ -53,6 +53,7 @@ nmcpSettings {
 
 include(":composeApp")
 include(":benchmarks:shrinkable-vectors")
+include(":benchmarks:animated-font-app", ":benchmarks:animated-font")
 include(
     ":samples:api",
     ":samples:ui:components",

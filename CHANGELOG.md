@@ -11,6 +11,13 @@ artifacts are released.
 
 ### Changed
 
+- `SymbolFontIcon` descriptor overloads now share a native rendering core on
+  Android and Skia-backed targets. Animated font settings and tint can be read
+  during drawing, while component-owned `graphicsLayer` effects default to
+  `ModulateAlpha` without requiring caller compositing configuration.
+- Runtime-axis examples use the native renderer and include combined animated
+  icon effects. Android benchmark scenarios now share effect calculations and
+  separate normal frame timing from detailed diagnostic tracing.
 - Unified built-in and generated entry points under the zero-dependency
   `Symbols` root, including `Symbols.Material.Search`,
   `Symbols.Material.Rounded.Search`, and
@@ -61,6 +68,10 @@ artifacts are released.
 
 ### Added
 
+- Settings/tint producer overloads and an optional standard `GraphicsLayerScope`
+  block for `SymbolFontIcon`, plus rendering regressions and reproducible Android
+  frame, geometry, and combined-effects benchmarks. Generated measurements,
+  screenshots, and raw traces remain local.
 - Variant-aware Android font resources through
   `androidDrawables(fontResource = "app_icons.ttf")`, using AGP resource-overlay
   precedence and one generated-resource task per variant. Mixed shared outputs

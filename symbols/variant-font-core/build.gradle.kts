@@ -4,6 +4,16 @@ plugins {
 }
 
 kotlin {
+    applyDefaultHierarchyTemplate {
+        common {
+            group("skiko") {
+                withJvm()
+                withIos()
+                withJs()
+                withWasmJs()
+            }
+        }
+    }
     sourceSets.commonMain.dependencies {
         api(projects.modules.symbolsCore)
         api(libs.compose.resources)
@@ -13,6 +23,12 @@ kotlin {
     }
     sourceSets.jvmTest.dependencies {
         runtimeOnly(compose.desktop.currentOs)
+    }
+    sourceSets.named("skikoMain") {
+        dependencies { implementation(libs.skiko) }
+    }
+    sourceSets.jvmTest {
+        resources.srcDir(rootProject.file("fonts/material/outlined/composeResources"))
     }
 }
 

@@ -17,7 +17,7 @@ the shared pages, cards, status messages, list, and axis controls.
 | `:samples:image-vector-migration` | Android, JVM, JS, Wasm, iOS arm64 | Old vs new Material vectors, fixed Academmunicons snapshots, and Tabler SVG vectors/resources with shared live weight |
 | `:samples:android-views` | Android, JVM, JS, Wasm, iOS arm64 | Android-source-set font and SVG-generated XML/View interop on Android, with an in-route fallback elsewhere |
 | `:samples:theming` | Android, JVM, JS, Wasm, iOS arm64 | Independent `MaterialTheme` and `SymbolsTheme` inheritance |
-| `:samples:runtime-axes` | Android 26+, JVM, JS, Wasm, iOS arm64 | Continuous Material sliders with per-axis animation controls and live values |
+| `:samples:runtime-axes` | Android 26+, JVM, JS, Wasm, iOS arm64 | Continuous axis controls and a Run/Stop grid combining font, color, size, and transform animations |
 
 `libs.plugins.symbolsSampleFeature` builds on the shared Compose Multiplatform
 convention, adds Koin and sample dependencies, and generates each feature's

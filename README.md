@@ -462,6 +462,56 @@ Variable-font APIs start on Android API 26. Check
 use a regular font or generated vector/drawable as the Android API 21–25
 fallback.
 
+For animated axes, pass a settings producer to the same `SymbolFontIcon` API:
+
+```kotlin
+import androidx.compose.animation.core.animateFloatAsState
+
+val weight = animateFloatAsState(
+    targetValue = if (emphasized) 700f else 100f,
+    label = "Symbol weight",
+)
+SymbolFontIcon(
+    codePoint = 0xF0001,
+    font = mySymbols,
+    contentDescription = "Custom action",
+    fontSettings = { mySymbols.fontSettings(mapOf("wght" to weight.value)) },
+)
+```
+
+Read animation state inside the non-composable producer. Symbols reads it while
+drawing, so changing an axis redraws the glyph without recomposing or laying out
+the fixed icon square. The native font still applies the new variation and
+shapes/rasterizes the glyph. Value and producer calls using a `SymbolFont` share
+the same native core; the `FontFamily` overload remains a Compose text adapter.
+See [rendering performance](docs/PERFORMANCE.md)
+for the implementation and measurement boundaries.
+
+For animated color too, pass `tint = { animatedColor.value }` to the native
+settings-producer overload. This uses Compose's `ColorProducer` and reads color
+during drawing. Keep `size` fixed and use the component's `graphicsLayer = { ... }`
+block for animated visual scale, opacity, rotation and translation. It uses the
+standard `GraphicsLayerScope` and defaults to efficient per-draw alpha compositing:
+
+```kotlin
+SymbolFontIcon(
+    codePoint = icon.codePoint,
+    font = mySymbols,
+    contentDescription = null,
+    fontSettings = { animatedSettings.value },
+    tint = { animatedColor.value },
+    graphicsLayer = {
+        alpha = opacity.value
+        scaleX = scale.value
+        scaleY = scale.value
+        rotationZ = rotation.value
+    },
+)
+```
+
+Existing value calls remain supported and use the same renderer. The component
+owns the layer's default compositing strategy; callers do not have to select it.
+
 ### Material Symbols font renderer
 
 Each Material font exposes the same generic descriptor API as a custom font.

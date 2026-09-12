@@ -45,7 +45,10 @@ SymbolFontIcon(
 )
 ```
 
-For a large collection rendered from one runtime font, share a family:
+All `SymbolFont` descriptor calls share a native rendering core, including the
+value overload. The base font is shared automatically. The `FontFamily` overload
+is retained for interoperability with callers that already own a Compose text
+family; when using that adapter for many icons, share the family:
 
 ```kotlin
 import io.github.hlcaptain.symbols.font.rememberSymbolFontFamily
@@ -96,13 +99,92 @@ This trades a larger APK download for lower font-instantiation heap pressure;
 the launcher enables it because the `material-variable` and `runtime-axes`
 samples use the 14.6 MB Rounded variable font.
 
-Sample controls use continuous Material sliders (`steps = 0`) and let each axis
-start or stop its example animation. An animated variable-font glyph follows
-the normal Compose text path on every changed setting: its `FontFamily` changes,
-the font is resolved, and `BasicText` is remeasured, laid out, and redrawn. The
-runtime adds no custom variation cache; Compose and the platform font stack own
-their normal reuse. This is deliberate sample simplicity, so profile a product's
-real icon count and animation before choosing its update rate.
+### Animated font axes
+
+See the [Pixel 6a frame and geometry comparison](../benchmarks/animated-font/PIXEL6A_RESULTS.md)
+and [emulator results](../benchmarks/animated-font/RESULTS.md) for the current
+implementation's benefits and limitations.
+
+The settings-producer overload of `SymbolFontIcon` reads state during drawing:
+
+```kotlin
+val weight = animateFloatAsState(
+    targetValue = if (emphasized) 700f else 100f,
+    label = "Symbol weight",
+)
+SymbolFontIcon(
+    codePoint = Symbols.Material.Home.codePoint,
+    font = Symbols.Material.Rounded.font,
+    contentDescription = null,
+    fontSettings = {
+        Symbols.Material.Rounded.font.fontSettings(mapOf("wght" to weight.value))
+    },
+)
+```
+
+The producer is non-composable and must be free of side effects. Read changing
+state inside it; a value read before the call still invalidates that caller's
+composition. Capture `SymbolsTheme.fontSettings` outside the producer if an
+animation should overlay the current theme's settings.
+
+With `size` unchanged, font-axis animation keeps the icon's square fixed. Size,
+tint, mirroring, accessibility, and font-setting validation retain their existing
+contract. Its native renderer loads the base font
+independently of variation changes. Android shares up to 16 recently used varied
+typefaces between mounted icons using the same font. This bounded cache supports
+independently redrawn icons with different styles and is released with the font's
+last renderer. Skia-backed targets keep full native
+shaping while reusing the platform font manager. Changed coordinates update native
+font state and glyph shaping, and unchanged coordinates reuse the current
+native result. This avoids Compose text measurement and placement on every
+animation frame; it does not eliminate native shaping, rasterization, or all
+allocations. There is no unbounded cache of past animation values.
+
+To defer color reads too, use `tint = { animatedColor.value }` with the native
+settings producer. This overload uses Compose's standard
+[`ColorProducer`](https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/ColorProducer)
+and reads both producers during drawing. Existing `tint = Color(...)` calls still
+work. Keep `size` fixed and read transforms in `SymbolFontIcon`'s
+`graphicsLayer = { ... }` block
+to animate axes, tint, opacity, scale, rotation and translation without
+animation-driven composition or layout. The benchmark's `scenario=draw` checks
+these phase counts and verifies visible color changes; see the
+[fixed-size measurements](../benchmarks/animated-font/DRAW_RESULTS.md).
+The [component-owned layer results](../benchmarks/animated-font/OWNED_LAYER_RESULTS.md)
+cover the current shared native core and the quieter benchmark.
+
+Animating a `tint` value read in composition still recomposes its caller, and
+animating the actual `size` also requests measurement and placement. The
+[combined-effects stress scenario](../benchmarks/animated-font/README.md#combined-effects-stress-scenario)
+exercises these value arguments together and reports their real costs; see the
+[Pixel 6a stress measurements](../benchmarks/animated-font/STRESS_RESULTS.md). The runtime-axes
+sample includes a stopped-by-default **Combined effects** card with Run/Stop.
+
+On asynchronous targets, the fixed square stays empty until the font is ready.
+Variable fonts retain the Android API 26 minimum; use a regular font or generated
+vector on API 21–25. This renderer draws a single symbol codepoint, not arbitrary
+paragraph text or independently animated characters.
+
+The component owns that layer and defaults to `CompositingStrategy.ModulateAlpha`,
+avoiding the automatic opacity buffer for a single glyph. The optional block uses
+standard `GraphicsLayerScope` properties and wraps the entire modified icon; no
+block means no added layer. An explicit strategy override is supported when a
+caller adds overlapping drawing that needs group-opacity semantics. Independent
+layers supplied through `modifier` retain their own behavior.
+
+Passing a `SymbolFontSettings` value uses this same native core. The caller still
+recomposes if it reads changing state before the call, but it does not switch to
+Compose paragraph layout. Use producers to defer those reads as well.
+
+The [Android animated-font benchmark](../benchmarks/animated-font/README.md)
+compares explicit per-icon/shared Compose text references, the native value
+overload, and native producers with the
+same font, axis sweep, and icon count. It measures actual frame timing and text
+layout trace sections, and checks fixed outer bounds separately from visible
+glyph ink. Its normal mode retains correctness counters but omits per-icon custom
+trace sections; `diagnostics=true` enables detailed phase tracing separately.
+Run it on the device and workload that matter before treating lower
+Compose phase counts as a frame-time improvement.
 
 A vector builder runs on first property access and caches the resulting
 `ImageVector`. Codepoint aliases share that builder and cache. This trades
