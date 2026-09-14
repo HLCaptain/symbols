@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Generate deterministic Compose ImageVector packs from Material Symbols fonts.
 
-This is a maintainer-only source generator. Consumer builds compile the checked-in
-Kotlin snapshots and never invoke Python or FontTools.
+Source builds generate Kotlin under each vector module's build directory.
+Published library consumers never invoke Python or FontTools.
 
 Run with the repository's pinned FontTools environment:
 
@@ -27,7 +27,7 @@ PACKAGE_ROOT = "io/github/hlcaptain/symbols/material"
 THEMED_PACKAGE = "io.github.hlcaptain.symbols.material.vectors.themed"
 THEMED_SOURCE_DIRECTORY = (
     REPOSITORY_ROOT
-    / "symbols/material-vectors-themed/src/commonMain/kotlin"
+    / "symbols/material-vectors-themed/build/generated/materialVectors/commonMain/kotlin"
     / THEMED_PACKAGE.replace(".", "/")
 )
 PINNED_FONTTOOLS_VERSION = "4.60.2"
@@ -73,6 +73,7 @@ class Style:
     name: str
     title: str
     typed_root: str = "Icons"
+    output_directory: Path | None = None
 
     @property
     def font_path(self) -> Path:
@@ -85,8 +86,10 @@ class Style:
     @property
     def source_directory(self) -> Path:
         return (
-            REPOSITORY_ROOT
-            / f"symbols/material-vectors-{self.name}/src/commonMain/kotlin"
+            (self.output_directory or (
+                REPOSITORY_ROOT
+                / f"symbols/material-vectors-{self.name}/build/generated/materialVectors/commonMain/kotlin"
+            ))
             / PACKAGE_ROOT
             / self.name
             / "vectors"
@@ -122,7 +125,7 @@ def import_fonttools() -> tuple[Any, Any, Any, str]:
         from fontTools.ttLib import TTFont
     except ImportError as error:
         raise GenerationError(
-            "FontTools is required for maintainer generation. Run this script with "
+            "FontTools is required for Material vector source builds. Run this script with "
             "/tmp/symbols-fonttools/bin/python or install the pinned "
             f"fonttools=={PINNED_FONTTOOLS_VERSION}."
         ) from error
@@ -625,9 +628,12 @@ def render_themed_icon_file(
     return "\n".join(lines)
 
 
-def render_themed(entries: Sequence[tuple[str, int]]) -> dict[Path, str]:
+def render_themed(
+    entries: Sequence[tuple[str, int]],
+    source_directory: Path = THEMED_SOURCE_DIRECTORY,
+) -> dict[Path, str]:
     return {
-        THEMED_SOURCE_DIRECTORY / f"ThemedIcons{chunk_index:03d}.generated.kt":
+        source_directory / f"ThemedIcons{chunk_index:03d}.generated.kt":
             render_themed_icon_file(
                 entries[start : start + ICONS_PER_FILE]
             )
@@ -681,19 +687,17 @@ def render_style(
 
 def synchronize_generated(
     rendered: dict[Path, str],
-    styles: Sequence[Style],
+    source_directories: Sequence[Path],
     *,
     check: bool,
 ) -> tuple[int, int]:
     expected = set(rendered)
     existing = {
         path
-        for style in styles
-        if style.source_directory.is_dir()
-        for path in style.source_directory.glob("*.generated.kt")
+        for directory in source_directories
+        if directory.is_dir()
+        for path in directory.glob("*.generated.kt")
     }
-    if THEMED_SOURCE_DIRECTORY.is_dir():
-        existing.update(THEMED_SOURCE_DIRECTORY.glob("*.generated.kt"))
     stale = sorted(existing - expected)
     changed = [
         path
@@ -703,8 +707,8 @@ def synchronize_generated(
 
     if check and (changed or stale):
         details = [
-            *(f"missing or stale: {path.relative_to(REPOSITORY_ROOT)}" for path in changed),
-            *(f"unexpected generated file: {path.relative_to(REPOSITORY_ROOT)}" for path in stale),
+            *(f"missing or stale: {path}" for path in changed),
+            *(f"unexpected generated file: {path}" for path in stale),
         ]
         raise GenerationError(
             "Generated vector sources are stale:\n  "
@@ -714,7 +718,9 @@ def synchronize_generated(
 
     if not check:
         for path in stale:
-            if not path.read_text(encoding="utf-8").startswith(GENERATED_HEADER):
+            if not path.read_text(encoding="utf-8").startswith(
+                GENERATED_HEADER.splitlines()[0] + "\n"
+            ):
                 raise GenerationError(f"Refusing to remove unrecognized file: {path}")
             path.unlink()
         for path in changed:
@@ -731,8 +737,13 @@ def create_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--style",
         action="append",
-        choices=[style.name for style in STYLES],
+        choices=[style.name for style in STYLES] + ["themed"],
         help="Generate/check only this style; repeat for multiple styles (default: all).",
+    )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        help="Kotlin source root for one selected style (default: owning module's build directory).",
     )
     parser.add_argument(
         "--check",
@@ -744,15 +755,24 @@ def create_parser() -> argparse.ArgumentParser:
 
 def main(argv: Sequence[str] | None = None) -> int:
     arguments = create_parser().parse_args(argv)
-    selected_names = set(arguments.style or ())
+    selected_names = set(arguments.style or [s.name for s in STYLES] + ["themed"])
+    if arguments.output is not None and len(selected_names) != 1:
+        create_parser().error("--output requires exactly one --style")
     selected_styles = tuple(
-        style for style in STYLES if not selected_names or style.name in selected_names
+        Style(style.name, style.title, output_directory=arguments.output)
+        for style in STYLES if style.name in selected_names
+    )
+    themed_directory = (
+        arguments.output / THEMED_PACKAGE.replace(".", "/")
+        if arguments.output is not None else THEMED_SOURCE_DIRECTORY
     )
 
     try:
         entries = parse_codepoints(CODEPOINTS_PATH)
         code_points = tuple(sorted({code_point for _, code_point in entries}))
-        tt_font, svg_path_pen, transform_pen, fonttools_version = import_fonttools()
+        fonttools_version = "not required"
+        if selected_styles:
+            tt_font, svg_path_pen, transform_pen, fonttools_version = import_fonttools()
         rendered: dict[Path, str] = {}
         for style in selected_styles:
             paths = extract_paths(
@@ -763,10 +783,13 @@ def main(argv: Sequence[str] | None = None) -> int:
                 transform_pen,
             )
             rendered.update(render_style(style, entries, code_points, paths))
-        rendered.update(render_themed(entries))
+        directories = [style.source_directory for style in selected_styles]
+        if "themed" in selected_names:
+            rendered.update(render_themed(entries, themed_directory))
+            directories.append(themed_directory)
         changed, total_bytes = synchronize_generated(
             rendered,
-            selected_styles,
+            directories,
             check=arguments.check,
         )
     except GenerationError as error:
@@ -774,7 +797,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 1
 
     state = "up to date" if changed == 0 else f"{changed} files updated"
-    style_names = ", ".join(style.name for style in selected_styles)
+    style_names = ", ".join(sorted(selected_names))
     print(
         f"{state}; {style_names}; {len(entries):,} names / "
         f"{len(code_points):,} code points; {total_bytes:,} source bytes; "

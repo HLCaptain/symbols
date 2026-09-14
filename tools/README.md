@@ -134,12 +134,24 @@ operations in stable chunks. It also writes the composable
 getters that select direct Outlined, Rounded, or Sharp properties from the
 theme's style composition local.
 
-Regenerate every style or verify that checked-in output is current:
+The four library modules invoke this emitter through cacheable Gradle
+`generateMaterialVectors` tasks. Kotlin is written under each module's
+`build/generated/materialVectors/commonMain/kotlin`, included in source archives,
+and prepared during IDE import. Configure the interpreter as described in
+[Contributing](../CONTRIBUTING.md#development-environment).
+
+Generate every style, then verify the generated output is current:
 
 ```shell
 /tmp/symbols-fonttools/bin/python tools/generate_material_vectors.py
 /tmp/symbols-fonttools/bin/python tools/generate_material_vectors.py --check
 ```
+
+Use `--style outlined`, `rounded`, `sharp`, or `themed` to generate only that
+module (repeat `--style` to select several). `--output /path/to/kotlin` redirects
+one selected style's source root; Gradle uses it to honor `layout.buildDirectory`.
+Themed generation uses the standard library and does not inspect fonts. Stale
+files bearing the generator's header are removed only from selected output packages.
 
 The generated APIs use 24×24 viewports, retain up to four decimal places, and
 preserve intentional outline overshoot. Typed access uses the shared
@@ -190,14 +202,16 @@ and intentional-update procedure.
 Run the complete maintainer test suite:
 
 ```shell
-python3 -m unittest discover -s tools/tests -p "test_*.py"
+/tmp/symbols-fonttools/bin/python -m unittest discover -s tools/tests -p "test_*.py"
 ```
 
-CI runs that suite and all three relevant `--check` modes:
+CI runs that suite, generates disposable vectors, and runs all three relevant
+`--check` modes:
 
 ```shell
 python3 tools/generate_material_symbols.py --check
 /tmp/symbols-fonttools/bin/python tools/generate_material_static_fonts.py --check
+/tmp/symbols-fonttools/bin/python tools/generate_material_vectors.py
 /tmp/symbols-fonttools/bin/python tools/generate_material_vectors.py --check
 ```
 

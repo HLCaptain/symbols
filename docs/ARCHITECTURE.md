@@ -31,8 +31,9 @@ variable font (one style) ──runtime resource──────────�
                                                             Compose drawables
 ```
 
-The built-in catalog, regular fonts, and vector packs are
-checked-in repository outputs. Consumers of those artifacts do not parse a
+The built-in catalog and regular fonts are checked-in repository outputs.
+The four vector packs generate their Kotlin during the library build into each
+module's `build/generated/materialVectors/commonMain/kotlin` directory. Consumers of those artifacts do not parse a
 codepoint manifest, inspect a TTF, run Python, or execute a generator. The
 drawable AARs and Compose drawable packs are generated from checked-in static
 fonts when the libraries are built; their consumers receive ordinary Android or
@@ -223,7 +224,8 @@ the style, resource root/package, namespace, accessor role, and static defaults.
 | `libs.plugins.symbolsComposeMultiplatformLibrary` | The base multiplatform convention plus Compose Multiplatform and its compiler plugin |
 | `libs.plugins.symbolsKmpPublishing` | Maven publication and the Android release variant for a multiplatform library |
 | `libs.plugins.symbolsMaterialFontLibrary` | Published Compose and symbol-generation conventions plus the derived resources, namespace, accessor, and static settings for the six allowlisted Material font projects |
-| `libs.plugins.symbolsMaterialVectorLibrary` | Published base convention plus explicit API, Material catalog, and Compose UI used by the three fixed vector packs |
+| `libs.plugins.symbolsMaterialVectorLibrary` | Published base convention plus Material vector generation, explicit API, Material catalog, and Compose UI used by the three fixed vector packs |
+| `libs.plugins.symbolsMaterialVectorSources` | Cacheable built-in vector generation and IDE/source-archive wiring, shared with the themed pack |
 | `libs.plugins.symbolsPublishedAndroidLibrary` | Android library defaults and a release sources/publication pair for the three drawable packs |
 | `libs.plugins.symbolsSampleFeature` | Compose convention, Android minSdk 23, Koin compiler/dependencies, sample UI/API dependencies, and `SampleBuildConfig.MODULE_PATH` |
 
@@ -288,7 +290,7 @@ The canonical inputs are:
 
 The catalog generator uses only the Python standard library.
 Static font instancing, built-in vector extraction, and font inspection use a
-pinned FontTools release in an isolated maintainer/CI environment. The verifier
+pinned FontTools release in an isolated source-build/CI environment. The verifier
 checks the unmodified upstream inputs; separate generator `--check` modes
 byte-compare the derived regular fonts and source outputs.
 

@@ -11,6 +11,10 @@ artifacts are released.
 
 ### Changed
 
+- Generate the four Material vector packs during the library build instead of
+  tracking their Kotlin snapshots. Icon APIs and source attachments are preserved;
+  source contributors need the pinned Python/FontTools environment.
+
 - `SymbolFontIcon` descriptor overloads now share a native rendering core on
   Android and Skia-backed targets. Animated font settings and tint can be read
   during drawing, while component-owned `graphicsLayer` effects default to

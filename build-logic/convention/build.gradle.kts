@@ -28,6 +28,10 @@ gradlePlugin {
             id = "io.github.hlcaptain.symbols.material-font-library"
             implementationClass = "MaterialFontLibraryPlugin"
         }
+        register("materialVectorSources") {
+            id = "io.github.hlcaptain.symbols.material-vector-sources"
+            implementationClass = "MaterialVectorSourcesPlugin"
+        }
         register("materialVectorLibrary") {
             id = "io.github.hlcaptain.symbols.material-vector-library"
             implementationClass = "MaterialVectorLibraryPlugin"

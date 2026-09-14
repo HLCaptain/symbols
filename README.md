@@ -27,6 +27,8 @@ repositories {
 }
 ```
 
+When building or publishing from source, configure the [Python/FontTools environment](CONTRIBUTING.md#development-environment) first.
+
 Development snapshots are intentionally not uploaded to a remote package
 registry. To consume the current source from another checkout, publish it to
 the local Maven repository:
@@ -622,6 +624,10 @@ produces a distinct remembered font family.
 - [Runnable sample modules](samples/README.md)
 - [Release process](RELEASING.md)
 - [Contributing](CONTRIBUTING.md)
+
+For source builds, first configure the pinned Python/FontTools environment in
+[Contributing](CONTRIBUTING.md#development-environment); built-in vector sources are
+generated under `build/`. Published artifact consumers need no Python.
 
 Run `./gradlew :composeApp:run` for the desktop sample launcher, then select the
 focused module to preview. Use `./gradlew :composeApp:assembleDebug` for the

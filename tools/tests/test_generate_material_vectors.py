@@ -3,6 +3,8 @@ from __future__ import annotations
 import importlib.util
 import sys
 import unittest
+from tempfile import TemporaryDirectory
+from unittest.mock import patch
 from pathlib import Path
 
 
@@ -33,6 +35,24 @@ class VectorGeneratorTest(unittest.TestCase):
             ),
             grouped[0xF09A],
         )
+
+    def test_themed_output_is_isolated_and_cleans_only_owned_stale_files(self) -> None:
+        with TemporaryDirectory() as temporary, patch.object(
+            generator, "import_fonttools", side_effect=AssertionError("themed needs no font")
+        ):
+            output = Path(temporary)
+            args = ["--style", "themed", "--output", str(output)]
+            self.assertEqual(0, generator.main(args))
+            directory = output / generator.THEMED_PACKAGE.replace(".", "/")
+            stale = directory / "ThemedIcons999.generated.kt"
+            stale.write_text(generator.GENERATED_HEADER.replace("2.874", "older-version") + "// stale\n")
+            handwritten = directory / "notes.txt"
+            handwritten.write_text("keep")
+            self.assertEqual(0, generator.main(args))
+            self.assertFalse(stale.exists())
+            self.assertEqual("keep", handwritten.read_text())
+            self.assertEqual(65, len(list(directory.glob("*.generated.kt"))))
+            self.assertEqual(0, generator.main([*args, "--check"]))
 
     def test_simple_pascal_case_and_digit_prefix(self) -> None:
         self.assertEqual(
@@ -67,13 +87,13 @@ class VectorGeneratorTest(unittest.TestCase):
         self,
     ) -> None:
         entries = generator.parse_codepoints(generator.CODEPOINTS_PATH)
-        code_points = tuple(sorted({code_point for _, code_point in entries}))
-        vector_index = code_points.index(0xF8DA)
-        chunk_index = vector_index // generator.ICONS_PER_FILE
-        source = (
-            generator.STYLES[0].source_directory
-            / f"OutlinedIcons{chunk_index:03d}.generated.kt"
-        ).read_text(encoding="utf-8")
+        style = generator.STYLES[0]
+        tt_font, svg_pen, transform_pen, _ = generator.import_fonttools()
+        paths = generator.extract_paths(style, (0xF8DA,), tt_font, svg_pen, transform_pen)
+        source = generator.render_icon_file(
+            style=style, chunk_index=0, start=0, code_points=(0xF8DA,),
+            paths=paths, names_by_code_point=generator.group_names_by_code_point(entries),
+        )
         body = source.split("private object OutlinedVectorF8DA {", 1)[1]
         body = body.split("\nprivate object ", 1)[0]
 

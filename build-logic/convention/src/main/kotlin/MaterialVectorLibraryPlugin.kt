@@ -5,6 +5,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 class MaterialVectorLibraryPlugin : KotlinMultiplatformLibraryPlugin() {
     override fun apply(target: Project) = with(target) {
         super.apply(target)
+        pluginManager.apply(MaterialVectorSourcesPlugin::class.java)
         pluginManager.apply(KmpPublishingPlugin::class.java)
 
         extensions.configure<KotlinMultiplatformExtension> {

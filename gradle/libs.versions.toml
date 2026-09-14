@@ -88,6 +88,7 @@ symbolsKotlinMultiplatformLibrary = { id = "io.github.hlcaptain.symbols.kotlin-m
 symbolsComposeMultiplatformLibrary = { id = "io.github.hlcaptain.symbols.compose-multiplatform-library" }
 symbolsKmpPublishing = { id = "io.github.hlcaptain.symbols.kmp-publishing" }
 symbolsMaterialFontLibrary = { id = "io.github.hlcaptain.symbols.material-font-library" }
+symbolsMaterialVectorSources = { id = "io.github.hlcaptain.symbols.material-vector-sources" }
 symbolsMaterialVectorLibrary = { id = "io.github.hlcaptain.symbols.material-vector-library" }
 symbolsPublishedAndroidLibrary = { id = "io.github.hlcaptain.symbols.published-android-library" }
 symbolsSampleFeature = { id = "io.github.hlcaptain.symbols.sample-feature" }

@@ -1,4 +1,5 @@
 plugins {
+    alias(libs.plugins.symbolsMaterialVectorSources)
     alias(libs.plugins.symbolsComposeMultiplatformLibrary)
     alias(libs.plugins.symbolsKmpPublishing)
 }

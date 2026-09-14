@@ -490,10 +490,12 @@ measurement showing a material compile-time improvement after the extra
 per-target work. The current measured baseline and commands are in
 [performance](PERFORMANCE.md#build-time-generator-baseline).
 
-The checked-in Material vector/source packs and regular font instances are a
-different boundary: they are reviewed publication snapshots produced by an
-explicit maintainer workflow. Normal consumer builds do not regenerate them or
-require Python/FontTools. Their provenance and verification commands are
+Built-in Material vectors use the pinned Python/FontTools emitter through the
+library's cacheable `generateMaterialVectors` tasks. Their Kotlin lives under each
+module's `build/` directory and is included in compiled artifacts and source JARs.
+Regular font instances remain checked-in maintainer outputs. Published-dependency
+consumers do not regenerate either or require Python/FontTools; repository source
+builders configure Python as described in [Contributing](../CONTRIBUTING.md#development-environment). Their provenance and verification commands are
 documented in [architecture](ARCHITECTURE.md#determinism-and-trust-boundaries)
 and [third-party notices](../THIRD_PARTY_NOTICES.md).
 
