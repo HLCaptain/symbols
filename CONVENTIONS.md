@@ -26,6 +26,8 @@ baseline packages or duplicate production UI in screenshot-only composables.
 
 ## CI resource use
 
-Use the configured self-hosted runners. Do not upload Actions artifacts or
-enable GitHub Actions dependency caches; generated reports stay in each
-workflow's local build directory.
+Use the configured standard GitHub-hosted runners. Do not add self-hosted runner
+labels, upload Actions artifacts, or enable GitHub Actions dependency caches.
+Generated reports remain in the ephemeral job workspace. Keep PR tokens read-only
+and preserve the manual screenshot review gate; reproduce visual output locally
+when review is needed.

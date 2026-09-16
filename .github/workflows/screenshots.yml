@@ -17,8 +17,11 @@ concurrency:
 jobs:
   roborazzi:
     name: Roborazzi previews
-    runs-on: [self-hosted, macOS, ARM64]
-    timeout-minutes: 30
+    runs-on: macos-15-intel
+    timeout-minutes: 90
+    permissions:
+      contents: read
+      pull-requests: read
 
     steps:
       - name: Check out sources
@@ -39,22 +42,10 @@ jobs:
             21
 
       - name: Configure Android SDK
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          android_sdk="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-$HOME/Library/Android/sdk}}"
-          if [[ ! -d "$android_sdk" ]]; then
-            echo "Android SDK not found at $android_sdk" >&2
-            exit 1
-          fi
-          echo "ANDROID_HOME=$android_sdk" >> "$GITHUB_ENV"
-          echo "ANDROID_SDK_ROOT=$android_sdk" >> "$GITHUB_ENV"
+        uses: ./.github/actions/setup-ci-android
 
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@3f131e8634966bd73d06cc69884922b02e6faf92 # v6.2.0
-        with:
-          cache-disabled: true
+        uses: ./.github/actions/setup-ci-gradle
 
       - name: Record branch baselines
         run: >-
@@ -133,20 +124,36 @@ jobs:
         if: always()
         shell: bash
         run: |
-          echo "Screenshot output remains on the self-hosted runner only:"
+          echo "Screenshot output is temporary and expires with this hosted job. Reproduce locally using docs/SCREENSHOT_TESTING.md:"
           echo "$GITHUB_WORKSPACE/samples/image-vector-migration/build"
           find samples/image-vector-migration/build/outputs/roborazzi \
             -type f -print 2>/dev/null | sort || true
+
+      - name: Read current visual approval
+        id: review
+        if: >-
+          github.event_name == 'pull_request' &&
+          steps.base.outputs.available == 'true' &&
+          steps.verify.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          approved="$(gh pr view "$PR_NUMBER" --json labels --jq 'any(.labels[]; .name == "ui-review-approved")')"
+          echo "approved=$approved" >> "$GITHUB_OUTPUT"
 
       - name: Require visual review for screenshot changes
         if: >-
           github.event_name == 'pull_request' &&
           steps.base.outputs.available == 'true' &&
           steps.verify.outcome == 'failure' &&
-          !contains(github.event.pull_request.labels.*.name, 'ui-review-approved')
+          steps.review.outputs.approved != 'true'
         shell: bash
         run: |
-          echo "Roborazzi found visual changes. Review the local output on the self-hosted runner, add the ui-review-approved label, and rerun this workflow." >&2
+          echo "Roborazzi found visual changes. Reproduce and review the base/head comparison locally (docs/SCREENSHOT_TESTING.md), add ui-review-approved, and rerun this workflow." >&2
           exit 1
 
       - name: Reject non-visual comparison failures
@@ -154,7 +161,7 @@ jobs:
           github.event_name == 'pull_request' &&
           steps.base.outputs.available == 'true' &&
           steps.verify.outcome == 'failure' &&
-          contains(github.event.pull_request.labels.*.name, 'ui-review-approved')
+          steps.review.outputs.approved == 'true'
         shell: bash
         run: |
           set -euo pipefail
