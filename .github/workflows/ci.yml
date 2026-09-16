@@ -7,6 +7,11 @@ on:
   pull_request:
   workflow_call:
     inputs:
+      ref:
+        description: Exact commit to verify for a release
+        required: false
+        default: ''
+        type: string
       invocation:
         description: Distinguishes reusable invocations from direct CI runs
         required: false
@@ -18,8 +23,8 @@ permissions:
   contents: read
 
 concurrency:
-  group: ci-${{ github.workflow }}-${{ github.ref }}-${{ inputs.invocation || 'direct' }}
-  cancel-in-progress: true
+  group: ci-${{ github.workflow }}-${{ inputs.ref || github.ref }}-${{ inputs.invocation || 'direct' }}
+  cancel-in-progress: ${{ !startsWith(inputs.invocation, 'package-publish-') }}
 
 jobs:
   generated-sources-and-fonts:
@@ -31,6 +36,7 @@ jobs:
       - name: Check out sources
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          ref: ${{ inputs.ref || github.sha }}
           persist-credentials: false
 
       - name: Set up vector generation dependencies
@@ -62,6 +68,7 @@ jobs:
       - name: Check out sources
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          ref: ${{ inputs.ref || github.sha }}
           persist-credentials: false
 
       - name: Set up vector generation dependencies
@@ -147,6 +154,7 @@ jobs:
       - name: Check out sources
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          ref: ${{ inputs.ref || github.sha }}
           persist-credentials: false
 
       - name: Set up vector generation dependencies
@@ -189,6 +197,7 @@ jobs:
       - name: Check out sources
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          ref: ${{ inputs.ref || github.sha }}
           persist-credentials: false
 
       - name: Set up vector generation dependencies

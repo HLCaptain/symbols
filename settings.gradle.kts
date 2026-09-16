@@ -44,10 +44,11 @@ nmcpSettings {
         password = providers.gradleProperty("mavenCentralPassword")
             .orElse("")
             .get()
-        publishingType = "USER_MANAGED"
+        publishingType = "AUTOMATIC"
         publicationName = "symbols:" +
             providers.gradleProperty("VERSION_NAME").orElse("unspecified").get()
-        publishingTimeout = java.time.Duration.ZERO
+        validationTimeout = java.time.Duration.ofMinutes(30)
+        publishingTimeout = java.time.Duration.ofMinutes(30)
     }
 }
 

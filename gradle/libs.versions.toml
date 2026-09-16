@@ -1,4 +1,5 @@
 [versions]
+pluginPublish = "2.1.1"
 agp = "8.13.2"
 android-compileSdk = "36"
 android-minSdk = "21"
@@ -72,6 +73,7 @@ koinCompiler-gradlePlugin = { module = "io.insert-koin:koin-compiler-gradle-plug
 symbols-gradlePlugin = { module = "io.github.hlcaptain:symbol-gradle-plugin" }
 
 [plugins]
+gradlePluginPublish = { id = "com.gradle.plugin-publish", version.ref = "pluginPublish" }
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidTest = { id = "com.android.test", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
