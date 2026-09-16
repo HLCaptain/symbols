@@ -33,6 +33,11 @@ class ReleaseTest(unittest.TestCase):
             git("update-ref", "refs/remotes/origin/main", commit)
             git("tag", "v1.0.0")
             self.assertEqual(commit, release.release_commit("v1.0.0"))
+            with patch.dict(os.environ, {"GITHUB_EVENT_NAME": "workflow_dispatch", "GITHUB_SHA": "wrong"}):
+                with self.assertRaisesRegex(ValueError, "Manual retries must run from the tag"):
+                    release.release_commit("v1.0.0")
+            with patch.dict(os.environ, {"GITHUB_EVENT_NAME": "workflow_dispatch", "GITHUB_SHA": commit}):
+                self.assertEqual(commit, release.release_commit("v1.0.0"))
             git("commit", "--allow-empty", "-m", "not on origin/main")
             git("tag", "v1.0.1")
             with self.assertRaises(subprocess.CalledProcessError):

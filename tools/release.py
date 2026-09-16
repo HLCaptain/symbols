@@ -38,6 +38,9 @@ def release_commit(tag):
     version_from_tag(tag)
     commit = git("rev-parse", "--verify", f"refs/tags/{tag}^{{commit}}")
     subprocess.run(["git", "merge-base", "--is-ancestor", commit, "refs/remotes/origin/main"], check=True)
+    if (os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch"
+            and os.environ.get("GITHUB_SHA") != commit):
+        raise ValueError("Manual retries must run from the tag: gh workflow run publish.yml --ref TAG -f tag=TAG")
     if os.environ.get("GITHUB_EVENT_NAME") == "push":
         event = json.loads(Path(os.environ["GITHUB_EVENT_PATH"]).read_text())
         if event.get("deleted") or event.get("forced"):

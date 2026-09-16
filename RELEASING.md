@@ -105,7 +105,14 @@ version for subsequent releases; registry versions are immutable. Update
 ## Retries and partial failures
 
 Prefer **Re-run failed jobs**. The manual workflow trigger also accepts an existing
-tag, allowing recovery if the final GitHub Release step failed. Tag and release
+tag, allowing recovery if the final GitHub Release step failed. Run it from the
+same tag ref so GitHub's publication checks remain attached to the released commit:
+
+```shell
+gh workflow run publish.yml --ref v0.1.0 -f tag=v0.1.0
+```
+
+A manual run from a different commit is rejected. Tag and release
 events for the same version are serialized, with active publication never cancelled.
 Successful publication jobs on the same commit and tag prevent duplicate uploads,
 including a Portal submission still awaiting its first review. Public coordinates
