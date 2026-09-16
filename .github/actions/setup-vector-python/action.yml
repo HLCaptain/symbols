@@ -1,14 +1,18 @@
 name: Set up Material vector Python
-description: Provision the pinned FontTools environment for source builds on the self-hosted runners.
+description: Provision the pinned FontTools environment for source builds on GitHub-hosted runners.
 runs:
   using: composite
   steps:
+    - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+      with:
+        python-version: '3.13'
+        # No pip cache: the repository does not depend on Actions storage.
     - shell: bash
       run: |
         set -euo pipefail
         python_venv="$RUNNER_TEMP/material-symbols-python"
-        python3.13 -m venv "$python_venv"
-        "$python_venv/bin/python" -m pip install --disable-pip-version-check \
+        python -m venv "$python_venv"
+        "$python_venv/bin/python" -m pip install --no-cache-dir --disable-pip-version-check \
           -r tools/requirements-font-verification.txt
         echo "$python_venv/bin" >> "$GITHUB_PATH"
         echo "SYMBOLS_PYTHON=$python_venv/bin/python" >> "$GITHUB_ENV"
