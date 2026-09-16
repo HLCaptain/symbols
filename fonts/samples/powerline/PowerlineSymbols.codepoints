@@ -1,0 +1,8 @@
+branch e0a0
+full_block 2588
+left_hard_divider e0b0
+left_soft_divider e0b1
+line_number e0a1
+read_only e0a2
+right_hard_divider e0b2
+right_soft_divider e0b3

@@ -10,13 +10,13 @@ import kotlin.jvm.JvmInline
  * [name] properties.
  */
 @JvmInline
-public value class MaterialSymbol internal constructor(private val catalogIndex: Int) {
+value class MaterialSymbol internal constructor(private val catalogIndex: Int) {
     /** The canonical snake_case name from the Material Symbols codepoints map. */
-    public val name: String
+    val name: String
         get() = MATERIAL_SYMBOL_NAMES[catalogIndex]
 
     /** The Unicode scalar value assigned to this named symbol. */
-    public val codePoint: Int
+    val codePoint: Int
         get() = MATERIAL_SYMBOL_CODE_POINTS[catalogIndex]
 
     /**
@@ -25,34 +25,40 @@ public value class MaterialSymbol internal constructor(private val catalogIndex:
      * Supplementary Unicode scalar values are encoded as a UTF-16 surrogate
      * pair, so this API is not limited to the Basic Multilingual Plane.
      */
-    public val text: String
+    val text: String
         get() = materialSymbolText(codePoint)
 
+    /** Returns the exact snake_case [name] of this catalog entry. */
     override fun toString(): String = name
 }
 
 /**
  * Namespace and lookup API for the generated Material Symbols catalog.
  *
- * Named extension properties such as `MaterialSymbols.Home` are generated
- * from the canonical codepoints map. They return an inline catalog handle and
- * do not construct a new symbol object on each access.
+ * Named extension properties are generated from the canonical codepoints map
+ * and exposed through entry points such as `Symbols.Material.Home`. They
+ * return an inline catalog handle and do not construct a new symbol object on
+ * each access.
  */
-public object MaterialSymbols {
+object MaterialSymbols {
     /** Every named entry in canonical name order, including aliases. */
-    public val all: List<MaterialSymbol>
+    val all: List<MaterialSymbol>
         get() = AllMaterialSymbols
 
     /** Number of named entries, including aliases. */
-    public val size: Int
+    val size: Int
         get() = MATERIAL_SYMBOL_NAMES.size
 
     /**
      * Returns the exact named catalog entry, or `null` if [name] is unknown.
      *
-     * Names are canonical, case-sensitive snake_case values.
+     * Use this for a name read from storage, navigation, or other runtime input. Names are
+     * case-sensitive snake_case values; this function does not trim, normalize, or change case.
+     *
+     * @param name exact snake_case catalog name to find
+     * @return the matching named entry, or `null` when no exact match exists
      */
-    public fun fromName(name: String): MaterialSymbol? {
+    fun fromName(name: String): MaterialSymbol? {
         var low = 0
         var high = MATERIAL_SYMBOL_NAMES.lastIndex
         while (low <= high) {
@@ -70,10 +76,14 @@ public object MaterialSymbols {
     /**
      * Returns all named entries assigned to [codePoint].
      *
-     * The returned list includes every alias identity and is ordered by
-     * canonical name. An unassigned value returns an empty list.
+     * Several names can identify the same glyph. The read-only result preserves each distinct name
+     * and is ordered by name. An unassigned value, including an integer that is not a
+     * valid Unicode scalar value, returns an empty list rather than throwing.
+     *
+     * @param codePoint Unicode value whose named entries should be returned
+     * @return every matching catalog entry, or an empty list when the value is unassigned
      */
-    public fun aliases(codePoint: Int): List<MaterialSymbol> {
+    fun aliases(codePoint: Int): List<MaterialSymbol> {
         val start = lowerCodePointBound(codePoint)
         if (
             start == MATERIAL_SYMBOL_CODE_POINT_ORDER.size ||
@@ -85,8 +95,16 @@ public object MaterialSymbols {
         return MaterialSymbolAliases(start, end)
     }
 
-    /** Returns every named entry sharing [symbol]'s code point. */
-    public fun aliases(symbol: MaterialSymbol): List<MaterialSymbol> =
+    /**
+     * Returns every named entry sharing [symbol]'s code point.
+     *
+     * The read-only result includes [symbol] and any differently named aliases, ordered by
+     * name.
+     *
+     * @param symbol catalog entry whose aliases should be returned
+     * @return all entries that use the same code point
+     */
+    fun aliases(symbol: MaterialSymbol): List<MaterialSymbol> =
         aliases(symbol.codePoint)
 
     internal fun symbolAt(index: Int): MaterialSymbol = MaterialSymbol(index)
@@ -158,12 +176,15 @@ private fun checkElementIndex(index: Int, size: Int) {
  *
  * This is useful for custom/private-use code points that are not part of the
  * generated [MaterialSymbols] catalog. Supplementary scalar values are
- * returned as a UTF-16 surrogate pair.
+ * returned as a UTF-16 surrogate pair. This function does not search the
+ * catalog, load a font, or check whether a font contains the requested glyph.
  *
+ * @param codePoint Unicode scalar value to encode
+ * @return a one-code-point string suitable for a text renderer
  * @throws IllegalArgumentException if [codePoint] is outside the Unicode range
  * or is a surrogate code point.
  */
-public fun materialSymbolText(codePoint: Int): String {
+fun materialSymbolText(codePoint: Int): String {
     require(
         codePoint in 0..0x10FFFF &&
             codePoint !in 0xD800..0xDFFF

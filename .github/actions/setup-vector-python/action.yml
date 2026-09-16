@@ -1,0 +1,14 @@
+name: Set up Material vector Python
+description: Provision the pinned FontTools environment for source builds on the self-hosted runners.
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        set -euo pipefail
+        python_venv="$RUNNER_TEMP/material-symbols-python"
+        python3.13 -m venv "$python_venv"
+        "$python_venv/bin/python" -m pip install --disable-pip-version-check \
+          -r tools/requirements-font-verification.txt
+        echo "$python_venv/bin" >> "$GITHUB_PATH"
+        echo "SYMBOLS_PYTHON=$python_venv/bin/python" >> "$GITHUB_ENV"

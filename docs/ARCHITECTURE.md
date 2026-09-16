@@ -1,25 +1,51 @@
 # Architecture
 
 Symbols separates catalog identity, Compose rendering, binary font assets, and
-static vectors so consumers pay only for the access modes and visual styles they
-select.
+generated vectors/resources so consumers pay only for the access modes and
+visual styles they select.
 
 ```text
-MaterialSymbols.codepoints ──generator──> material-core
-                                           │
-                                           ├──> material-compose
-variable font (one style) ──resource───────┴──> material-{style}
+symbols-core ──common Symbols root────────────────────────┐
+                                                          │
+variant-font-core ──generic font settings/theme/renderer──┤
+                                                          │
+MaterialSymbols.codepoints ──catalog generator──> material-core
+                                                     │
+                                                     ├──> Symbols.Material
+                                                     └──> material-compose
+                                                            │
+variable font (one style) ──runtime resource───────────────┴──> material-{style}
         │
-        └──default-axis extraction────────────> material-vectors-{style}
+        ├──default-axis instancing────────────────────────> material-{style}-static
+        │                                                    │
+        │                                                    ├──Android XML generation
+        │                                                    │  └──> material-drawables-{style}
+        │                                                    └──Compose XML generation
+        │                                                       └──> material-compose-drawables-{style}
+        ├──default-axis outline extraction────────────────> material-vectors-{style}
+        │                                                    │
+        │                                                    └──> material-vectors-themed
+        └──Gradle generator + app manifest────────────────> Symbols.<CustomSet> /
+                                                            selected ImageVectors /
+                                                            Android drawables /
+                                                            Compose drawables
 ```
 
-The generated sources are repository outputs. Consumer builds do not parse a
-codepoint manifest, inspect a TTF, run Python, or execute the generators.
+The built-in catalog and regular fonts are checked-in repository outputs.
+The four vector packs generate their Kotlin during the library build into each
+module's `build/generated/materialVectors/commonMain/kotlin` directory. Consumers of those artifacts do not parse a
+codepoint manifest, inspect a TTF, run Python, or execute a generator. The
+drawable AARs and Compose drawable packs are generated from checked-in static
+fonts when the libraries are built; their consumers receive ordinary Android or
+Compose Multiplatform resources, respectively. The
+separate Gradle plugin is an opt-in application-build path for custom fonts or
+smaller selected icon sets; it inspects the declared font in an isolated JVM and
+does not require Python or FontTools.
 
 ## Catalog identity
 
 `MaterialSymbol` is an inline index handle into the built-in catalog. Generated
-properties such as `MaterialSymbols.Home` return a constant index, so bare named
+properties such as `Symbols.Material.Home` return a constant index, so bare named
 access does not allocate an object or initialize the name/codepoint lookup data.
 The data holder initializes when an application asks for `name`, `codePoint`,
 `text`, `all`, `fromName`, or `aliases`.
@@ -35,47 +61,224 @@ the cached `ImageVector`.
 
 ## Variable-font rendering
 
-Each style module contains exactly one TTF under Compose Multiplatform resources.
-`MaterialSymbolAxes` validates the four font axes, and
-`rememberMaterialSymbolFontFamily` constructs the Compose `Font` with those
-variation settings.
+`symbols-variant-font-core` is independent of the Material catalog. Its
+`SymbolFontSettings` stores one Compose `FontVariation.Settings` value, with a
+convenience constructor for `FontWeight` and `FontStyle`. `SymbolsTheme`
+supplies it through `LocalSymbolFontSettings`, and `rememberSymbolFontFamily`
+constructs the Compose `Font`.
 
-`MaterialSymbolIcon` renders one Unicode scalar through `BasicText`. Its layout
-box has an explicit square size, the private-use text is cleared from semantics,
+`SymbolFont` is the sealed root of the runtime-font hierarchy. Its
+`SymbolFont.Variable` and `SymbolFont.Regular` children remain open interfaces so
+applications can provide descriptors from other modules. Code that implemented
+`SymbolFont` directly must migrate to exactly one child; implementing both
+capability interfaces remains invalid.
+
+`SymbolFont.Variable` states that a resource supports live coordinates and owns
+optional `variationAxes` metadata for UI discovery. `SymbolFont.Regular` states
+that a resource is baked at one immutable `fontSettings` point. A regular font
+is loaded without `FontVariation.Settings`; requesting settings other than its
+declared point fails.
+
+`SymbolFontIcon` renders one Unicode scalar through `BasicText`. Its layout box
+has an explicit square size, the private-use text is cleared from semantics,
 and an optional localized description is exposed with image semantics. Optional
 RTL mirroring transforms the glyph inside the box.
 
-The convenient overload that accepts `MaterialSymbolFont` remembers a family per
-call site. Large collections should remember one family for a `(font, axes)` pair
-and pass that shared family to the lower-level overload.
+Material fonts use the same generated descriptor contract as custom fonts.
+Their `variationAxes` come from each bundled font's `fvar` table, and
+`fontSettings(...)` validates generic float values against those definitions.
+`MaterialSymbolsTheme` combines generic `SymbolFontSettings` with the
+Outlined/Rounded/Sharp selection used by theme-aware fixed vectors; it does not
+maintain a separate Material axis model.
 
-Android variable-font settings require API 26. The same Compose resource API is
-used on iOS, JVM, JavaScript, and Wasm.
+Runtime rendering uses `Symbols.Material.<Style>.font` with the generic
+`SymbolFontIcon`; regular fallbacks use `.staticFont`, and fixed vectors use
+`Symbols.Material.<Style>.<Name>` or `MaterialSymbol.asThemedImageVector()`. Large
+collections should remember one family for a `(font, fontSettings)` pair and
+pass that shared family to `SymbolFontIcon`.
+
+Android variable-font settings require API 26.
+`SymbolsRuntime.variableFontsSupported` exposes that boundary so API
+21–25 applications can choose a regular-font or vector/drawable fallback before
+rendering. Variable style AARs themselves have minSdk 21 so both paths can be
+present in one application. The capability is true on supported non-Android
+targets.
+
+## Regular fonts
+
+The three `material-{style}-static` modules each carry one font instantiated at
+`FILL=0, GRAD=0, opsz=24, wght=400`. They depend on the API-21-compatible
+renderer. The six Material font modules have no checked-in production Kotlin;
+Gradle generates their descriptors and `Symbols.Material.<Style>.font` or
+`.staticFont` accessors below `build`. Published consumers receive compiled
+accessors and do not run the generator. Regular fonts contain no variable
+tables and cannot animate or override axes.
+
+These TTFs are deterministic, checked-in derivatives of the pinned Google
+variable fonts. They are generated only in an explicit maintainer workflow with
+FontTools 4.60.2; normal Gradle builds package the already generated result.
+Their modification status, hashes, and exact commands are recorded in
+[`THIRD_PARTY_NOTICES.md`](../THIRD_PARTY_NOTICES.md).
 
 ## Static vectors
 
-The vector generator instantiates every variable font at the documented default
-axes, converts each unique codepoint outline into a 24×24 SVG-style path, and
-writes deterministic Kotlin chunks. Runtime code parses and caches only vectors
-that are requested.
+The built-in vector generator instantiates every variable font at the documented
+default axes, converts each unique codepoint outline into direct 24×24 Compose
+path operations, and writes deterministic Kotlin chunks. No path string is
+parsed at runtime.
 
 Every vector has a 24 dp default size and a 24×24 viewport. Paths preserve
 intentional overshoot outside the viewport. A separate cached vector is used for
 `autoMirror = true`; source coordinates are not rewritten.
 
+Direct properties such as `Symbols.Material.Outlined.Home` reference an independent
+per-codepoint builder and cache. They do not reach the pack-wide codepoint index
+or dispatcher, preserving code-shrinker reachability. The legacy dynamic bridge
+from `MaterialSymbol` intentionally uses that index and dispatcher and can retain
+more of the pack. Aliases share their per-codepoint backing object and cache.
+
 Static vectors cannot represent variable axes. Each vector module is therefore
 an explicit optional alternative, not a transitive dependency of a font style.
+Neither `SymbolsTheme` nor `MaterialSymbolsTheme` changes a built-in vector;
+theme-selected vectors switch only among fixed Outlined, Rounded, and Sharp
+snapshots.
+
+## Build-time generated vectors and drawables
+
+The `io.github.hlcaptain.symbol-fonts` plugin consumes either a codepoint map and
+font or one flat directory of monochrome SVG files per style. Every manifest
+entry or direct SVG file is generated implicitly. The shared generator model
+then emits direct Compose `ImageVector` builders, native Android vector XML,
+Compose drawable XML, or any combination.
+
+Generated Kotlin contributes `Symbols.<IconSet>.<Style>.<Name>` branches and
+per-codepoint nullable caches, with no registry, dispatcher, reflection hook,
+or all-icons collection. Android
+resources are registered with the Android Components variant API; Compose XML
+is combined with every resource root registered through Symbols and then
+registered as one generated `commonMain` custom resource directory. Tasks
+declare their source files, axes where applicable, rendering options, generator
+classpath, and outputs and are cacheable.
+
+Each Gradle style's `axis(...)` declarations are build-time coordinates. All
+generated geometry and XML outputs are fixed snapshots at those coordinates.
+Compose callers can render stroked `ImageVector` paths through
+`rememberSymbolPainter()` so the existing `SymbolsTheme` `wght` setting scales
+their authored stroke width; this does not regenerate or reshape path geometry.
+Legacy XML remains fixed at the authored width.
+
+For runtime Compose fonts, the plugin separately scans configured resource
+roots and emits `Res.symbolFonts` descriptors plus public properties on
+`Symbols` or another configured receiver. It reads variable-axis metadata at
+build time, so common code can build controls and validated settings without a
+platform font parser or handwritten per-font axis declarations. A separate
+manifest-only task can emit runtime `SymbolCatalogEntry` lists without loading
+fonts or coupling full catalogs to vector generation.
+
+See [build-time font conversion](GENERATOR.md) for the DSL and resource names.
 
 ## Resource and publication boundaries
 
-All public modules publish Android, JVM, JS, Wasm, iOS x64, iOS arm64, and iOS
-simulator arm64 variants. `material-core` has no Compose dependency. Style
-modules expose their `FontResource` and depend on the small Compose adapter.
-Vector modules depend on `material-core` and Compose UI but not on a font.
+Kotlin Multiplatform runtime modules publish Android, JVM, JS, Wasm, iOS arm64,
+and iOS simulator arm64 variants. Compose Multiplatform 1.11 no longer
+publishes Apple x86_64 artifacts. The native drawable packs are Android-only
+AARs; the Compose drawable packs publish public `Res.drawable` accessors and
+resource variants for every supported target. `symbols-core` contains only the
+common `Symbols` namespace.
+`material-core` contains the catalog and has no Compose dependency.
+`symbols-variant-font-core` contains the generic font contracts, settings theme,
+renderer, and platform capability check; it has no Material catalog or bundled
+font. `material-compose` adds Material vector-style selection with generic font
+settings. Variable and regular style modules keep Compose's generated `Res`
+class internal and expose font resources through generated
+`Symbols.Material.<Style>.font` and `.staticFont` properties. Fixed vector modules
+depend on `material-core` and Compose UI but not on a font; the themed vector
+module adds Material composition-local style selection over all three packs.
+Drawable AARs contain only generated Android XML resources. Compose drawable
+packs contain the 3,802 unique-codepoint resources for one complete fixed style
+and no font; aliases sharing a code point share a canonical resource. Their
+resource filenames and public accessors are published API. Build-time tooling is
+a JVM/Gradle concern and does not become a runtime dependency.
 
-Every publication packages the project license and third-party notice under
-`META-INF`. Font artifacts retain only their own style TTF, so selecting Outlined
-does not silently bundle Rounded or Sharp.
+Every runtime and JVM tooling archive packages the project license and
+third-party notice at
+`META-INF/<project.name>/{LICENSE,THIRD_PARTY_NOTICES.md}`. The project-name
+namespace lets several Symbols dependencies coexist in one Android package
+without duplicate-entry collisions. Font artifacts retain only their own style
+and variable/regular TTF, so selecting Outlined does not silently bundle Rounded
+or Sharp, and selecting a variable font does not silently add its regular
+instance.
+
+## Build conventions
+
+The `build-logic` included build owns configuration that is identical across
+library modules. Convention plugins are exposed through the main version
+catalog, so most module build files compose aliases and keep genuinely
+module-specific settings visible. The six built-in Material font projects are
+an intentional exception: their exact project names let one convention derive
+the style, resource root/package, namespace, accessor role, and static defaults.
+
+| Convention | Shared responsibility |
+| --- | --- |
+| `libs.plugins.symbolsKotlinMultiplatformLibrary` | Android/JVM/JS/Wasm/iOS library targets, JDK 17, JVM 11 bytecode, Android SDK levels, hierarchy, and `kotlin-test` |
+| `libs.plugins.symbolsComposeMultiplatformLibrary` | The base multiplatform convention plus Compose Multiplatform and its compiler plugin |
+| `libs.plugins.symbolsKmpPublishing` | Maven publication and the Android release variant for a multiplatform library |
+| `libs.plugins.symbolsMaterialFontLibrary` | Published Compose and symbol-generation conventions plus the derived resources, namespace, accessor, and static settings for the six allowlisted Material font projects |
+| `libs.plugins.symbolsMaterialVectorLibrary` | Published base convention plus Material vector generation, explicit API, Material catalog, and Compose UI used by the three fixed vector packs |
+| `libs.plugins.symbolsMaterialVectorSources` | Cacheable built-in vector generation and IDE/source-archive wiring, shared with the themed pack |
+| `libs.plugins.symbolsPublishedAndroidLibrary` | Android library defaults and a release sources/publication pair for the three drawable packs |
+| `libs.plugins.symbolsSampleFeature` | Compose convention, Android minSdk 23, Koin compiler/dependencies, sample UI/API dependencies, and `SampleBuildConfig.MODULE_PATH` |
+
+Application-only behavior remains local: `composeApp` owns executable web
+targets and iOS frameworks, the shrink benchmark owns its build types, and the
+separate `tooling` included build owns its JVM/plugin setup. Semantic namespaces,
+generator DSL inputs, Compose resource packages, and module-specific API
+dependencies likewise stay visible in the consuming module rather than being
+derived from Gradle paths, except for the exact Material font convention above.
+The root build script retains repository-wide
+coordinates, POM/signing/legal-archive policy, repositories, and publication
+archive verification.
+
+## Sample modules
+
+`composeApp` is only the multiplatform launcher. Each common feature module
+owns the dependency and input needed for its example and contributes one
+qualified `SampleItem` from an annotated Koin `@Module @Configuration`;
+feature modules have no runtime dependencies on each other:
+
+```text
+composeApp
+├── samples/api
+├── samples/ui/components
+├── samples/material-static
+├── samples/material-variable
+├── samples/custom-static
+├── samples/custom-variable
+├── samples/image-vector-migration
+├── samples/theming
+├── samples/runtime-axes
+└── samples/android-views
+```
+
+The Koin compiler discovers those feature modules for the launcher's typed
+`@KoinApplication`. The API module defines the sealed `SampleEntry` root and
+its `SampleList` and `SampleItem` subclasses. The launcher resolves all items
+with Koin `getAll`, keeps a typed `SampleEntry` back stack, and renders every
+destination through one polymorphic `NavEntry`. The Android Views item has one
+common Compose root; Android embeds the legacy hierarchy through `AndroidView`,
+and other targets show an unavailable message inside the same route. A Material 3
+`Scaffold` owns system-bar insets and its top app bar owns back navigation, so
+content applies the scaffold padding exactly once. The shared UI module has no
+Symbols dependency.
+
+The sample-feature convention layers its feature dependencies and BuildConfig
+field over the shared Compose convention. BuildConfig generates
+`SampleBuildConfig.MODULE_PATH` from `project.path` in each module, keeping
+Gradle paths out of source. Build-created files live only under each module's
+`build` directory. The Koin compiler transforms Kotlin IR and
+therefore emits no visible generated source or resource files.
+See the [sample module map](../samples/README.md) for targets, output paths, and
+run commands.
 
 ## Determinism and trust boundaries
 
@@ -85,10 +288,15 @@ The canonical inputs are:
 - the three versioned variable fonts; and
 - pinned invariants and checksums in `tools/verify_material_fonts.py`.
 
-The catalog generator uses only the Python standard library. Font inspection and
-vector extraction use a pinned FontTools release in an isolated maintainer/CI
-environment. The verifier checks whole-file and font-table hashes, axes,
-coverage, alias facts, outlines, manifest syntax, and one-font-per-style layout.
+The catalog generator uses only the Python standard library.
+Static font instancing, built-in vector extraction, and font inspection use a
+pinned FontTools release in an isolated source-build/CI environment. The verifier
+checks the unmodified upstream inputs; separate generator `--check` modes
+byte-compare the derived regular fonts and source outputs.
+
+The opt-in Gradle generator uses an engine-neutral outline model with Skiko as
+its font and SVG-path reader. It validates manifests, SVG structure, axes,
+glyph coverage, and output paths before synchronizing only files it owns.
 
 See [custom fonts](CUSTOM_FONTS.md) for derivative assets and
-[performance](PERFORMANCE.md) for the cost model.
+[performance](PERFORMANCE.md) for the cost model and shrinker evidence boundary.

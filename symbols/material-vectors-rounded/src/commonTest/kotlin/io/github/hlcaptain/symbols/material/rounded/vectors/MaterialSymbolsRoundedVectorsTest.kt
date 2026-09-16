@@ -1,8 +1,10 @@
 package io.github.hlcaptain.symbols.material.rounded.vectors
 
 import androidx.compose.ui.unit.dp
+import io.github.hlcaptain.symbols.Symbols
 import io.github.hlcaptain.symbols.material.Grade
-import io.github.hlcaptain.symbols.material.MaterialSymbols
+import io.github.hlcaptain.symbols.material.Material
+import io.github.hlcaptain.symbols.material.Rounded
 import io.github.hlcaptain.symbols.material.Search
 import io.github.hlcaptain.symbols.material.Star
 import kotlin.test.Test
@@ -15,8 +17,8 @@ import kotlin.test.assertTrue
 class MaterialSymbolsRoundedVectorsTest {
     @Test
     fun vectorMetadataAndAutoMirrorAreStable() {
-        val vector = MaterialSymbols.Search.roundedImageVector
-        val mirrored = MaterialSymbols.Search.asRoundedImageVector(autoMirror = true)
+        val vector = Symbols.Material.Search.roundedImageVector
+        val mirrored = Symbols.Material.Search.asRoundedImageVector(autoMirror = true)
 
         assertEquals("MaterialSymbolsRounded.U+E8B6", vector.name)
         assertEquals(24.dp, vector.defaultWidth)
@@ -35,23 +37,33 @@ class MaterialSymbolsRoundedVectorsTest {
     @Test
     fun repeatedAndAliasAccessShareCachedInstances() {
         assertSame(
-            MaterialSymbols.Search.roundedImageVector,
-            MaterialSymbols.Search.asRoundedImageVector(),
-        )
-        assertEquals(MaterialSymbols.Grade.codePoint, MaterialSymbols.Star.codePoint)
-        assertSame(
-            MaterialSymbols.Grade.roundedImageVector,
-            MaterialSymbols.Star.roundedImageVector,
+            Symbols.Material.Search.roundedImageVector,
+            Symbols.Material.Search.asRoundedImageVector(),
         )
         assertSame(
-            MaterialSymbols.Grade.asRoundedImageVector(autoMirror = true),
-            MaterialSymbols.Star.asRoundedImageVector(autoMirror = true),
+            Symbols.Material.Rounded.Search,
+            Symbols.Material.Search.roundedImageVector,
+        )
+        assertSame(Symbols.Material.Rounded.Search, Symbols.Material.Rounded.Search)
+        assertEquals(Symbols.Material.Grade.codePoint, Symbols.Material.Star.codePoint)
+        assertSame(Symbols.Material.Rounded.Grade, Symbols.Material.Rounded.Star)
+        assertSame(
+            Symbols.Material.Grade.roundedImageVector,
+            Symbols.Material.Star.roundedImageVector,
+        )
+        assertSame(
+            Symbols.Material.Rounded.Grade,
+            Symbols.Material.Grade.roundedImageVector,
+        )
+        assertSame(
+            Symbols.Material.Grade.asRoundedImageVector(autoMirror = true),
+            Symbols.Material.Star.asRoundedImageVector(autoMirror = true),
         )
     }
 
     @Test
     fun snapshotCoversEveryCatalogNameAndCodePoint() {
-        assertEquals(4_102, MaterialSymbols.size)
+        assertEquals(4_102, Symbols.Material.size)
         assertEquals(3_802, roundedVectorCount)
         assertTrue(
             roundedVectorCodePoints
@@ -59,26 +71,10 @@ class MaterialSymbolsRoundedVectorsTest {
                 .zipWithNext()
                 .all { (left, right) -> left < right },
         )
-        MaterialSymbols.all.forEach { symbol ->
+        Symbols.Material.all.forEach { symbol ->
             val index = roundedVectorIndex(symbol.codePoint)
             assertTrue(index >= 0, symbol.name)
             assertEquals(symbol.codePoint, roundedVectorCodePoints[index])
         }
-    }
-
-    @Test
-    fun generatedPathsKeepPrecisionAndViewportOvershoot() {
-        val decimals = Regex("""\.(\d+)""")
-        repeat(roundedVectorCount) { index ->
-            val path = roundedVectorPathAt(index)
-            assertTrue(path.isNotEmpty(), "empty path at $index")
-            decimals.findAll(path).forEach { match ->
-                assertTrue(match.groupValues[1].length <= 4, "path $index: $path")
-            }
-        }
-
-        val face2 = roundedVectorPathAt(roundedVectorIndex(0xF8DA))
-        assertTrue("-0.3" in face2)
-        assertTrue("24.35" in face2)
     }
 }

@@ -62,6 +62,7 @@ class GeneratorTest(unittest.TestCase):
         rendered = generator.render_kotlin(entries, "example.symbols")
         self.assertIn("0x1F600, 0x10FFFF", rendered)
         self.assertLess(rendered.index("MaterialSymbols.AFirst"), rendered.index("MaterialSymbols.ZLast"))
+        self.assertNotIn("public val MaterialSymbols.", rendered)
 
     def test_duplicate_name_is_rejected(self) -> None:
         with self.assertRaisesRegex(generator.CatalogError, "duplicate name"):

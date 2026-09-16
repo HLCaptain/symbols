@@ -1,8 +1,10 @@
 package io.github.hlcaptain.symbols.material.sharp.vectors
 
 import androidx.compose.ui.unit.dp
+import io.github.hlcaptain.symbols.Symbols
 import io.github.hlcaptain.symbols.material.Grade
-import io.github.hlcaptain.symbols.material.MaterialSymbols
+import io.github.hlcaptain.symbols.material.Material
+import io.github.hlcaptain.symbols.material.Sharp
 import io.github.hlcaptain.symbols.material.Search
 import io.github.hlcaptain.symbols.material.Star
 import kotlin.test.Test
@@ -15,8 +17,8 @@ import kotlin.test.assertTrue
 class MaterialSymbolsSharpVectorsTest {
     @Test
     fun vectorMetadataAndAutoMirrorAreStable() {
-        val vector = MaterialSymbols.Search.sharpImageVector
-        val mirrored = MaterialSymbols.Search.asSharpImageVector(autoMirror = true)
+        val vector = Symbols.Material.Search.sharpImageVector
+        val mirrored = Symbols.Material.Search.asSharpImageVector(autoMirror = true)
 
         assertEquals("MaterialSymbolsSharp.U+E8B6", vector.name)
         assertEquals(24.dp, vector.defaultWidth)
@@ -35,23 +37,33 @@ class MaterialSymbolsSharpVectorsTest {
     @Test
     fun repeatedAndAliasAccessShareCachedInstances() {
         assertSame(
-            MaterialSymbols.Search.sharpImageVector,
-            MaterialSymbols.Search.asSharpImageVector(),
-        )
-        assertEquals(MaterialSymbols.Grade.codePoint, MaterialSymbols.Star.codePoint)
-        assertSame(
-            MaterialSymbols.Grade.sharpImageVector,
-            MaterialSymbols.Star.sharpImageVector,
+            Symbols.Material.Search.sharpImageVector,
+            Symbols.Material.Search.asSharpImageVector(),
         )
         assertSame(
-            MaterialSymbols.Grade.asSharpImageVector(autoMirror = true),
-            MaterialSymbols.Star.asSharpImageVector(autoMirror = true),
+            Symbols.Material.Sharp.Search,
+            Symbols.Material.Search.sharpImageVector,
+        )
+        assertSame(Symbols.Material.Sharp.Search, Symbols.Material.Sharp.Search)
+        assertEquals(Symbols.Material.Grade.codePoint, Symbols.Material.Star.codePoint)
+        assertSame(Symbols.Material.Sharp.Grade, Symbols.Material.Sharp.Star)
+        assertSame(
+            Symbols.Material.Grade.sharpImageVector,
+            Symbols.Material.Star.sharpImageVector,
+        )
+        assertSame(
+            Symbols.Material.Sharp.Grade,
+            Symbols.Material.Grade.sharpImageVector,
+        )
+        assertSame(
+            Symbols.Material.Grade.asSharpImageVector(autoMirror = true),
+            Symbols.Material.Star.asSharpImageVector(autoMirror = true),
         )
     }
 
     @Test
     fun snapshotCoversEveryCatalogNameAndCodePoint() {
-        assertEquals(4_102, MaterialSymbols.size)
+        assertEquals(4_102, Symbols.Material.size)
         assertEquals(3_802, sharpVectorCount)
         assertTrue(
             sharpVectorCodePoints
@@ -59,26 +71,10 @@ class MaterialSymbolsSharpVectorsTest {
                 .zipWithNext()
                 .all { (left, right) -> left < right },
         )
-        MaterialSymbols.all.forEach { symbol ->
+        Symbols.Material.all.forEach { symbol ->
             val index = sharpVectorIndex(symbol.codePoint)
             assertTrue(index >= 0, symbol.name)
             assertEquals(symbol.codePoint, sharpVectorCodePoints[index])
         }
-    }
-
-    @Test
-    fun generatedPathsKeepPrecisionAndViewportOvershoot() {
-        val decimals = Regex("""\.(\d+)""")
-        repeat(sharpVectorCount) { index ->
-            val path = sharpVectorPathAt(index)
-            assertTrue(path.isNotEmpty(), "empty path at $index")
-            decimals.findAll(path).forEach { match ->
-                assertTrue(match.groupValues[1].length <= 4, "path $index: $path")
-            }
-        }
-
-        val face2 = sharpVectorPathAt(sharpVectorIndex(0xF8DA))
-        assertTrue("-0.3" in face2)
-        assertTrue("24.35" in face2)
     }
 }

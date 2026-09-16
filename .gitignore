@@ -34,3 +34,7 @@ venv/
 *.pem
 *.key
 *.mobileprovision
+
+# Local benchmark captures and generated measurement data
+/benchmarks/animated-font/results/
+*.perfetto-trace

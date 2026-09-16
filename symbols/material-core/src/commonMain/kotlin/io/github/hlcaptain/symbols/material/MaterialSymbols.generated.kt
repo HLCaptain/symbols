@@ -4819,12308 +4819,12308 @@ internal val MATERIAL_SYMBOL_CODE_POINTS: IntArray
 internal val MATERIAL_SYMBOL_CODE_POINT_ORDER: IntArray
     get() = MaterialSymbolsData.codePointOrder
 
-public val MaterialSymbols._10k: MaterialSymbol
+val MaterialSymbols._10k: MaterialSymbol
     get() = symbolAt(0)
 
-public val MaterialSymbols._10mp: MaterialSymbol
+val MaterialSymbols._10mp: MaterialSymbol
     get() = symbolAt(1)
 
-public val MaterialSymbols._11mp: MaterialSymbol
+val MaterialSymbols._11mp: MaterialSymbol
     get() = symbolAt(2)
 
-public val MaterialSymbols._123: MaterialSymbol
+val MaterialSymbols._123: MaterialSymbol
     get() = symbolAt(3)
 
-public val MaterialSymbols._12mp: MaterialSymbol
+val MaterialSymbols._12mp: MaterialSymbol
     get() = symbolAt(4)
 
-public val MaterialSymbols._13mp: MaterialSymbol
+val MaterialSymbols._13mp: MaterialSymbol
     get() = symbolAt(5)
 
-public val MaterialSymbols._14mp: MaterialSymbol
+val MaterialSymbols._14mp: MaterialSymbol
     get() = symbolAt(6)
 
-public val MaterialSymbols._15mp: MaterialSymbol
+val MaterialSymbols._15mp: MaterialSymbol
     get() = symbolAt(7)
 
-public val MaterialSymbols._16mp: MaterialSymbol
+val MaterialSymbols._16mp: MaterialSymbol
     get() = symbolAt(8)
 
-public val MaterialSymbols._17mp: MaterialSymbol
+val MaterialSymbols._17mp: MaterialSymbol
     get() = symbolAt(9)
 
-public val MaterialSymbols._18UpRating: MaterialSymbol
+val MaterialSymbols._18UpRating: MaterialSymbol
     get() = symbolAt(10)
 
-public val MaterialSymbols._18mp: MaterialSymbol
+val MaterialSymbols._18mp: MaterialSymbol
     get() = symbolAt(11)
 
-public val MaterialSymbols._19mp: MaterialSymbol
+val MaterialSymbols._19mp: MaterialSymbol
     get() = symbolAt(12)
 
-public val MaterialSymbols._1k: MaterialSymbol
+val MaterialSymbols._1k: MaterialSymbol
     get() = symbolAt(13)
 
-public val MaterialSymbols._1kPlus: MaterialSymbol
+val MaterialSymbols._1kPlus: MaterialSymbol
     get() = symbolAt(14)
 
-public val MaterialSymbols._1xMobiledata: MaterialSymbol
+val MaterialSymbols._1xMobiledata: MaterialSymbol
     get() = symbolAt(15)
 
-public val MaterialSymbols._1xMobiledataBadge: MaterialSymbol
+val MaterialSymbols._1xMobiledataBadge: MaterialSymbol
     get() = symbolAt(16)
 
-public val MaterialSymbols._20mp: MaterialSymbol
+val MaterialSymbols._20mp: MaterialSymbol
     get() = symbolAt(17)
 
-public val MaterialSymbols._21mp: MaterialSymbol
+val MaterialSymbols._21mp: MaterialSymbol
     get() = symbolAt(18)
 
-public val MaterialSymbols._22mp: MaterialSymbol
+val MaterialSymbols._22mp: MaterialSymbol
     get() = symbolAt(19)
 
-public val MaterialSymbols._23mp: MaterialSymbol
+val MaterialSymbols._23mp: MaterialSymbol
     get() = symbolAt(20)
 
-public val MaterialSymbols._24fpsSelect: MaterialSymbol
+val MaterialSymbols._24fpsSelect: MaterialSymbol
     get() = symbolAt(21)
 
-public val MaterialSymbols._24mp: MaterialSymbol
+val MaterialSymbols._24mp: MaterialSymbol
     get() = symbolAt(22)
 
-public val MaterialSymbols._2d: MaterialSymbol
+val MaterialSymbols._2d: MaterialSymbol
     get() = symbolAt(23)
 
-public val MaterialSymbols._2k: MaterialSymbol
+val MaterialSymbols._2k: MaterialSymbol
     get() = symbolAt(24)
 
-public val MaterialSymbols._2kPlus: MaterialSymbol
+val MaterialSymbols._2kPlus: MaterialSymbol
     get() = symbolAt(25)
 
-public val MaterialSymbols._2mp: MaterialSymbol
+val MaterialSymbols._2mp: MaterialSymbol
     get() = symbolAt(26)
 
-public val MaterialSymbols._30fps: MaterialSymbol
+val MaterialSymbols._30fps: MaterialSymbol
     get() = symbolAt(27)
 
-public val MaterialSymbols._30fpsSelect: MaterialSymbol
+val MaterialSymbols._30fpsSelect: MaterialSymbol
     get() = symbolAt(28)
 
-public val MaterialSymbols._360: MaterialSymbol
+val MaterialSymbols._360: MaterialSymbol
     get() = symbolAt(29)
 
-public val MaterialSymbols._3d: MaterialSymbol
+val MaterialSymbols._3d: MaterialSymbol
     get() = symbolAt(30)
 
-public val MaterialSymbols._3dRotation: MaterialSymbol
+val MaterialSymbols._3dRotation: MaterialSymbol
     get() = symbolAt(31)
 
-public val MaterialSymbols._3gMobiledata: MaterialSymbol
+val MaterialSymbols._3gMobiledata: MaterialSymbol
     get() = symbolAt(32)
 
-public val MaterialSymbols._3gMobiledataBadge: MaterialSymbol
+val MaterialSymbols._3gMobiledataBadge: MaterialSymbol
     get() = symbolAt(33)
 
-public val MaterialSymbols._3k: MaterialSymbol
+val MaterialSymbols._3k: MaterialSymbol
     get() = symbolAt(34)
 
-public val MaterialSymbols._3kPlus: MaterialSymbol
+val MaterialSymbols._3kPlus: MaterialSymbol
     get() = symbolAt(35)
 
-public val MaterialSymbols._3mp: MaterialSymbol
+val MaterialSymbols._3mp: MaterialSymbol
     get() = symbolAt(36)
 
-public val MaterialSymbols._3p: MaterialSymbol
+val MaterialSymbols._3p: MaterialSymbol
     get() = symbolAt(37)
 
-public val MaterialSymbols._4gMobiledata: MaterialSymbol
+val MaterialSymbols._4gMobiledata: MaterialSymbol
     get() = symbolAt(38)
 
-public val MaterialSymbols._4gMobiledataBadge: MaterialSymbol
+val MaterialSymbols._4gMobiledataBadge: MaterialSymbol
     get() = symbolAt(39)
 
-public val MaterialSymbols._4gPlusMobiledata: MaterialSymbol
+val MaterialSymbols._4gPlusMobiledata: MaterialSymbol
     get() = symbolAt(40)
 
-public val MaterialSymbols._4k: MaterialSymbol
+val MaterialSymbols._4k: MaterialSymbol
     get() = symbolAt(41)
 
-public val MaterialSymbols._4kPlus: MaterialSymbol
+val MaterialSymbols._4kPlus: MaterialSymbol
     get() = symbolAt(42)
 
-public val MaterialSymbols._4mp: MaterialSymbol
+val MaterialSymbols._4mp: MaterialSymbol
     get() = symbolAt(43)
 
-public val MaterialSymbols._50mp: MaterialSymbol
+val MaterialSymbols._50mp: MaterialSymbol
     get() = symbolAt(44)
 
-public val MaterialSymbols._5g: MaterialSymbol
+val MaterialSymbols._5g: MaterialSymbol
     get() = symbolAt(45)
 
-public val MaterialSymbols._5gMobiledataBadge: MaterialSymbol
+val MaterialSymbols._5gMobiledataBadge: MaterialSymbol
     get() = symbolAt(46)
 
-public val MaterialSymbols._5k: MaterialSymbol
+val MaterialSymbols._5k: MaterialSymbol
     get() = symbolAt(47)
 
-public val MaterialSymbols._5kPlus: MaterialSymbol
+val MaterialSymbols._5kPlus: MaterialSymbol
     get() = symbolAt(48)
 
-public val MaterialSymbols._5mp: MaterialSymbol
+val MaterialSymbols._5mp: MaterialSymbol
     get() = symbolAt(49)
 
-public val MaterialSymbols._60fps: MaterialSymbol
+val MaterialSymbols._60fps: MaterialSymbol
     get() = symbolAt(50)
 
-public val MaterialSymbols._60fpsSelect: MaterialSymbol
+val MaterialSymbols._60fpsSelect: MaterialSymbol
     get() = symbolAt(51)
 
-public val MaterialSymbols._6FtApart: MaterialSymbol
+val MaterialSymbols._6FtApart: MaterialSymbol
     get() = symbolAt(52)
 
-public val MaterialSymbols._6k: MaterialSymbol
+val MaterialSymbols._6k: MaterialSymbol
     get() = symbolAt(53)
 
-public val MaterialSymbols._6kPlus: MaterialSymbol
+val MaterialSymbols._6kPlus: MaterialSymbol
     get() = symbolAt(54)
 
-public val MaterialSymbols._6mp: MaterialSymbol
+val MaterialSymbols._6mp: MaterialSymbol
     get() = symbolAt(55)
 
-public val MaterialSymbols._7k: MaterialSymbol
+val MaterialSymbols._7k: MaterialSymbol
     get() = symbolAt(56)
 
-public val MaterialSymbols._7kPlus: MaterialSymbol
+val MaterialSymbols._7kPlus: MaterialSymbol
     get() = symbolAt(57)
 
-public val MaterialSymbols._7mp: MaterialSymbol
+val MaterialSymbols._7mp: MaterialSymbol
     get() = symbolAt(58)
 
-public val MaterialSymbols._8k: MaterialSymbol
+val MaterialSymbols._8k: MaterialSymbol
     get() = symbolAt(59)
 
-public val MaterialSymbols._8kPlus: MaterialSymbol
+val MaterialSymbols._8kPlus: MaterialSymbol
     get() = symbolAt(60)
 
-public val MaterialSymbols._8mp: MaterialSymbol
+val MaterialSymbols._8mp: MaterialSymbol
     get() = symbolAt(61)
 
-public val MaterialSymbols._9k: MaterialSymbol
+val MaterialSymbols._9k: MaterialSymbol
     get() = symbolAt(62)
 
-public val MaterialSymbols._9kPlus: MaterialSymbol
+val MaterialSymbols._9kPlus: MaterialSymbol
     get() = symbolAt(63)
 
-public val MaterialSymbols._9mp: MaterialSymbol
+val MaterialSymbols._9mp: MaterialSymbol
     get() = symbolAt(64)
 
-public val MaterialSymbols.Abc: MaterialSymbol
+val MaterialSymbols.Abc: MaterialSymbol
     get() = symbolAt(65)
 
-public val MaterialSymbols.AcUnit: MaterialSymbol
+val MaterialSymbols.AcUnit: MaterialSymbol
     get() = symbolAt(66)
 
-public val MaterialSymbols.AccessAlarm: MaterialSymbol
+val MaterialSymbols.AccessAlarm: MaterialSymbol
     get() = symbolAt(67)
 
-public val MaterialSymbols.AccessAlarms: MaterialSymbol
+val MaterialSymbols.AccessAlarms: MaterialSymbol
     get() = symbolAt(68)
 
-public val MaterialSymbols.AccessTime: MaterialSymbol
+val MaterialSymbols.AccessTime: MaterialSymbol
     get() = symbolAt(69)
 
-public val MaterialSymbols.AccessTimeFilled: MaterialSymbol
+val MaterialSymbols.AccessTimeFilled: MaterialSymbol
     get() = symbolAt(70)
 
-public val MaterialSymbols.Accessibility: MaterialSymbol
+val MaterialSymbols.Accessibility: MaterialSymbol
     get() = symbolAt(71)
 
-public val MaterialSymbols.AccessibilityNew: MaterialSymbol
+val MaterialSymbols.AccessibilityNew: MaterialSymbol
     get() = symbolAt(72)
 
-public val MaterialSymbols.Accessible: MaterialSymbol
+val MaterialSymbols.Accessible: MaterialSymbol
     get() = symbolAt(73)
 
-public val MaterialSymbols.AccessibleForward: MaterialSymbol
+val MaterialSymbols.AccessibleForward: MaterialSymbol
     get() = symbolAt(74)
 
-public val MaterialSymbols.AccessibleMenu: MaterialSymbol
+val MaterialSymbols.AccessibleMenu: MaterialSymbol
     get() = symbolAt(75)
 
-public val MaterialSymbols.AccountBalance: MaterialSymbol
+val MaterialSymbols.AccountBalance: MaterialSymbol
     get() = symbolAt(76)
 
-public val MaterialSymbols.AccountBalanceWallet: MaterialSymbol
+val MaterialSymbols.AccountBalanceWallet: MaterialSymbol
     get() = symbolAt(77)
 
-public val MaterialSymbols.AccountBox: MaterialSymbol
+val MaterialSymbols.AccountBox: MaterialSymbol
     get() = symbolAt(78)
 
-public val MaterialSymbols.AccountChild: MaterialSymbol
+val MaterialSymbols.AccountChild: MaterialSymbol
     get() = symbolAt(79)
 
-public val MaterialSymbols.AccountChildInvert: MaterialSymbol
+val MaterialSymbols.AccountChildInvert: MaterialSymbol
     get() = symbolAt(80)
 
-public val MaterialSymbols.AccountCircle: MaterialSymbol
+val MaterialSymbols.AccountCircle: MaterialSymbol
     get() = symbolAt(81)
 
-public val MaterialSymbols.AccountCircleFilled: MaterialSymbol
+val MaterialSymbols.AccountCircleFilled: MaterialSymbol
     get() = symbolAt(82)
 
-public val MaterialSymbols.AccountCircleOff: MaterialSymbol
+val MaterialSymbols.AccountCircleOff: MaterialSymbol
     get() = symbolAt(83)
 
-public val MaterialSymbols.AccountTree: MaterialSymbol
+val MaterialSymbols.AccountTree: MaterialSymbol
     get() = symbolAt(84)
 
-public val MaterialSymbols.ActionKey: MaterialSymbol
+val MaterialSymbols.ActionKey: MaterialSymbol
     get() = symbolAt(85)
 
-public val MaterialSymbols.ActivityZone: MaterialSymbol
+val MaterialSymbols.ActivityZone: MaterialSymbol
     get() = symbolAt(86)
 
-public val MaterialSymbols.Acupuncture: MaterialSymbol
+val MaterialSymbols.Acupuncture: MaterialSymbol
     get() = symbolAt(87)
 
-public val MaterialSymbols.Acute: MaterialSymbol
+val MaterialSymbols.Acute: MaterialSymbol
     get() = symbolAt(88)
 
-public val MaterialSymbols.Ad: MaterialSymbol
+val MaterialSymbols.Ad: MaterialSymbol
     get() = symbolAt(89)
 
-public val MaterialSymbols.AdGroup: MaterialSymbol
+val MaterialSymbols.AdGroup: MaterialSymbol
     get() = symbolAt(90)
 
-public val MaterialSymbols.AdGroupOff: MaterialSymbol
+val MaterialSymbols.AdGroupOff: MaterialSymbol
     get() = symbolAt(91)
 
-public val MaterialSymbols.AdOff: MaterialSymbol
+val MaterialSymbols.AdOff: MaterialSymbol
     get() = symbolAt(92)
 
-public val MaterialSymbols.AdUnits: MaterialSymbol
+val MaterialSymbols.AdUnits: MaterialSymbol
     get() = symbolAt(93)
 
-public val MaterialSymbols.AdaptiveAudioMic: MaterialSymbol
+val MaterialSymbols.AdaptiveAudioMic: MaterialSymbol
     get() = symbolAt(94)
 
-public val MaterialSymbols.AdaptiveAudioMicOff: MaterialSymbol
+val MaterialSymbols.AdaptiveAudioMicOff: MaterialSymbol
     get() = symbolAt(95)
 
-public val MaterialSymbols.Adb: MaterialSymbol
+val MaterialSymbols.Adb: MaterialSymbol
     get() = symbolAt(96)
 
-public val MaterialSymbols.Add: MaterialSymbol
+val MaterialSymbols.Add: MaterialSymbol
     get() = symbolAt(97)
 
-public val MaterialSymbols.Add2: MaterialSymbol
+val MaterialSymbols.Add2: MaterialSymbol
     get() = symbolAt(98)
 
-public val MaterialSymbols.AddAPhoto: MaterialSymbol
+val MaterialSymbols.AddAPhoto: MaterialSymbol
     get() = symbolAt(99)
 
-public val MaterialSymbols.AddAd: MaterialSymbol
+val MaterialSymbols.AddAd: MaterialSymbol
     get() = symbolAt(100)
 
-public val MaterialSymbols.AddAlarm: MaterialSymbol
+val MaterialSymbols.AddAlarm: MaterialSymbol
     get() = symbolAt(101)
 
-public val MaterialSymbols.AddAlert: MaterialSymbol
+val MaterialSymbols.AddAlert: MaterialSymbol
     get() = symbolAt(102)
 
-public val MaterialSymbols.AddBox: MaterialSymbol
+val MaterialSymbols.AddBox: MaterialSymbol
     get() = symbolAt(103)
 
-public val MaterialSymbols.AddBusiness: MaterialSymbol
+val MaterialSymbols.AddBusiness: MaterialSymbol
     get() = symbolAt(104)
 
-public val MaterialSymbols.AddCall: MaterialSymbol
+val MaterialSymbols.AddCall: MaterialSymbol
     get() = symbolAt(105)
 
-public val MaterialSymbols.AddCard: MaterialSymbol
+val MaterialSymbols.AddCard: MaterialSymbol
     get() = symbolAt(106)
 
-public val MaterialSymbols.AddChart: MaterialSymbol
+val MaterialSymbols.AddChart: MaterialSymbol
     get() = symbolAt(107)
 
-public val MaterialSymbols.AddCircle: MaterialSymbol
+val MaterialSymbols.AddCircle: MaterialSymbol
     get() = symbolAt(108)
 
-public val MaterialSymbols.AddCircleOutline: MaterialSymbol
+val MaterialSymbols.AddCircleOutline: MaterialSymbol
     get() = symbolAt(109)
 
-public val MaterialSymbols.AddColumnLeft: MaterialSymbol
+val MaterialSymbols.AddColumnLeft: MaterialSymbol
     get() = symbolAt(110)
 
-public val MaterialSymbols.AddColumnRight: MaterialSymbol
+val MaterialSymbols.AddColumnRight: MaterialSymbol
     get() = symbolAt(111)
 
-public val MaterialSymbols.AddComment: MaterialSymbol
+val MaterialSymbols.AddComment: MaterialSymbol
     get() = symbolAt(112)
 
-public val MaterialSymbols.AddDiamond: MaterialSymbol
+val MaterialSymbols.AddDiamond: MaterialSymbol
     get() = symbolAt(113)
 
-public val MaterialSymbols.AddHome: MaterialSymbol
+val MaterialSymbols.AddHome: MaterialSymbol
     get() = symbolAt(114)
 
-public val MaterialSymbols.AddHomeWork: MaterialSymbol
+val MaterialSymbols.AddHomeWork: MaterialSymbol
     get() = symbolAt(115)
 
-public val MaterialSymbols.AddIcCall: MaterialSymbol
+val MaterialSymbols.AddIcCall: MaterialSymbol
     get() = symbolAt(116)
 
-public val MaterialSymbols.AddLink: MaterialSymbol
+val MaterialSymbols.AddLink: MaterialSymbol
     get() = symbolAt(117)
 
-public val MaterialSymbols.AddLocation: MaterialSymbol
+val MaterialSymbols.AddLocation: MaterialSymbol
     get() = symbolAt(118)
 
-public val MaterialSymbols.AddLocationAlt: MaterialSymbol
+val MaterialSymbols.AddLocationAlt: MaterialSymbol
     get() = symbolAt(119)
 
-public val MaterialSymbols.AddModerator: MaterialSymbol
+val MaterialSymbols.AddModerator: MaterialSymbol
     get() = symbolAt(120)
 
-public val MaterialSymbols.AddNotes: MaterialSymbol
+val MaterialSymbols.AddNotes: MaterialSymbol
     get() = symbolAt(121)
 
-public val MaterialSymbols.AddPhotoAlternate: MaterialSymbol
+val MaterialSymbols.AddPhotoAlternate: MaterialSymbol
     get() = symbolAt(122)
 
-public val MaterialSymbols.AddReaction: MaterialSymbol
+val MaterialSymbols.AddReaction: MaterialSymbol
     get() = symbolAt(123)
 
-public val MaterialSymbols.AddRoad: MaterialSymbol
+val MaterialSymbols.AddRoad: MaterialSymbol
     get() = symbolAt(124)
 
-public val MaterialSymbols.AddRowAbove: MaterialSymbol
+val MaterialSymbols.AddRowAbove: MaterialSymbol
     get() = symbolAt(125)
 
-public val MaterialSymbols.AddRowBelow: MaterialSymbol
+val MaterialSymbols.AddRowBelow: MaterialSymbol
     get() = symbolAt(126)
 
-public val MaterialSymbols.AddShoppingCart: MaterialSymbol
+val MaterialSymbols.AddShoppingCart: MaterialSymbol
     get() = symbolAt(127)
 
-public val MaterialSymbols.AddTask: MaterialSymbol
+val MaterialSymbols.AddTask: MaterialSymbol
     get() = symbolAt(128)
 
-public val MaterialSymbols.AddToDrive: MaterialSymbol
+val MaterialSymbols.AddToDrive: MaterialSymbol
     get() = symbolAt(129)
 
-public val MaterialSymbols.AddToHomeScreen: MaterialSymbol
+val MaterialSymbols.AddToHomeScreen: MaterialSymbol
     get() = symbolAt(130)
 
-public val MaterialSymbols.AddToPhotos: MaterialSymbol
+val MaterialSymbols.AddToPhotos: MaterialSymbol
     get() = symbolAt(131)
 
-public val MaterialSymbols.AddToQueue: MaterialSymbol
+val MaterialSymbols.AddToQueue: MaterialSymbol
     get() = symbolAt(132)
 
-public val MaterialSymbols.AddTriangle: MaterialSymbol
+val MaterialSymbols.AddTriangle: MaterialSymbol
     get() = symbolAt(133)
 
-public val MaterialSymbols.Addchart: MaterialSymbol
+val MaterialSymbols.Addchart: MaterialSymbol
     get() = symbolAt(134)
 
-public val MaterialSymbols.AdfScanner: MaterialSymbol
+val MaterialSymbols.AdfScanner: MaterialSymbol
     get() = symbolAt(135)
 
-public val MaterialSymbols.Adjust: MaterialSymbol
+val MaterialSymbols.Adjust: MaterialSymbol
     get() = symbolAt(136)
 
-public val MaterialSymbols.AdminMeds: MaterialSymbol
+val MaterialSymbols.AdminMeds: MaterialSymbol
     get() = symbolAt(137)
 
-public val MaterialSymbols.AdminPanelSettings: MaterialSymbol
+val MaterialSymbols.AdminPanelSettings: MaterialSymbol
     get() = symbolAt(138)
 
-public val MaterialSymbols.AdsClick: MaterialSymbol
+val MaterialSymbols.AdsClick: MaterialSymbol
     get() = symbolAt(139)
 
-public val MaterialSymbols.Agender: MaterialSymbol
+val MaterialSymbols.Agender: MaterialSymbol
     get() = symbolAt(140)
 
-public val MaterialSymbols.Agriculture: MaterialSymbol
+val MaterialSymbols.Agriculture: MaterialSymbol
     get() = symbolAt(141)
 
-public val MaterialSymbols.Air: MaterialSymbol
+val MaterialSymbols.Air: MaterialSymbol
     get() = symbolAt(142)
 
-public val MaterialSymbols.AirFreshener: MaterialSymbol
+val MaterialSymbols.AirFreshener: MaterialSymbol
     get() = symbolAt(143)
 
-public val MaterialSymbols.AirPurifier: MaterialSymbol
+val MaterialSymbols.AirPurifier: MaterialSymbol
     get() = symbolAt(144)
 
-public val MaterialSymbols.AirPurifierGen: MaterialSymbol
+val MaterialSymbols.AirPurifierGen: MaterialSymbol
     get() = symbolAt(145)
 
-public val MaterialSymbols.AirlineSeatFlat: MaterialSymbol
+val MaterialSymbols.AirlineSeatFlat: MaterialSymbol
     get() = symbolAt(146)
 
-public val MaterialSymbols.AirlineSeatFlatAngled: MaterialSymbol
+val MaterialSymbols.AirlineSeatFlatAngled: MaterialSymbol
     get() = symbolAt(147)
 
-public val MaterialSymbols.AirlineSeatIndividualSuite: MaterialSymbol
+val MaterialSymbols.AirlineSeatIndividualSuite: MaterialSymbol
     get() = symbolAt(148)
 
-public val MaterialSymbols.AirlineSeatLegroomExtra: MaterialSymbol
+val MaterialSymbols.AirlineSeatLegroomExtra: MaterialSymbol
     get() = symbolAt(149)
 
-public val MaterialSymbols.AirlineSeatLegroomNormal: MaterialSymbol
+val MaterialSymbols.AirlineSeatLegroomNormal: MaterialSymbol
     get() = symbolAt(150)
 
-public val MaterialSymbols.AirlineSeatLegroomReduced: MaterialSymbol
+val MaterialSymbols.AirlineSeatLegroomReduced: MaterialSymbol
     get() = symbolAt(151)
 
-public val MaterialSymbols.AirlineSeatReclineExtra: MaterialSymbol
+val MaterialSymbols.AirlineSeatReclineExtra: MaterialSymbol
     get() = symbolAt(152)
 
-public val MaterialSymbols.AirlineSeatReclineNormal: MaterialSymbol
+val MaterialSymbols.AirlineSeatReclineNormal: MaterialSymbol
     get() = symbolAt(153)
 
-public val MaterialSymbols.AirlineStops: MaterialSymbol
+val MaterialSymbols.AirlineStops: MaterialSymbol
     get() = symbolAt(154)
 
-public val MaterialSymbols.Airlines: MaterialSymbol
+val MaterialSymbols.Airlines: MaterialSymbol
     get() = symbolAt(155)
 
-public val MaterialSymbols.AirplaneTicket: MaterialSymbol
+val MaterialSymbols.AirplaneTicket: MaterialSymbol
     get() = symbolAt(156)
 
-public val MaterialSymbols.AirplanemodeActive: MaterialSymbol
+val MaterialSymbols.AirplanemodeActive: MaterialSymbol
     get() = symbolAt(157)
 
-public val MaterialSymbols.AirplanemodeInactive: MaterialSymbol
+val MaterialSymbols.AirplanemodeInactive: MaterialSymbol
     get() = symbolAt(158)
 
-public val MaterialSymbols.Airplay: MaterialSymbol
+val MaterialSymbols.Airplay: MaterialSymbol
     get() = symbolAt(159)
 
-public val MaterialSymbols.AirportShuttle: MaterialSymbol
+val MaterialSymbols.AirportShuttle: MaterialSymbol
     get() = symbolAt(160)
 
-public val MaterialSymbols.Airware: MaterialSymbol
+val MaterialSymbols.Airware: MaterialSymbol
     get() = symbolAt(161)
 
-public val MaterialSymbols.Airwave: MaterialSymbol
+val MaterialSymbols.Airwave: MaterialSymbol
     get() = symbolAt(162)
 
-public val MaterialSymbols.Alarm: MaterialSymbol
+val MaterialSymbols.Alarm: MaterialSymbol
     get() = symbolAt(163)
 
-public val MaterialSymbols.AlarmAdd: MaterialSymbol
+val MaterialSymbols.AlarmAdd: MaterialSymbol
     get() = symbolAt(164)
 
-public val MaterialSymbols.AlarmOff: MaterialSymbol
+val MaterialSymbols.AlarmOff: MaterialSymbol
     get() = symbolAt(165)
 
-public val MaterialSymbols.AlarmOn: MaterialSymbol
+val MaterialSymbols.AlarmOn: MaterialSymbol
     get() = symbolAt(166)
 
-public val MaterialSymbols.AlarmPause: MaterialSymbol
+val MaterialSymbols.AlarmPause: MaterialSymbol
     get() = symbolAt(167)
 
-public val MaterialSymbols.AlarmSmartWake: MaterialSymbol
+val MaterialSymbols.AlarmSmartWake: MaterialSymbol
     get() = symbolAt(168)
 
-public val MaterialSymbols.Album: MaterialSymbol
+val MaterialSymbols.Album: MaterialSymbol
     get() = symbolAt(169)
 
-public val MaterialSymbols.AlignCenter: MaterialSymbol
+val MaterialSymbols.AlignCenter: MaterialSymbol
     get() = symbolAt(170)
 
-public val MaterialSymbols.AlignEnd: MaterialSymbol
+val MaterialSymbols.AlignEnd: MaterialSymbol
     get() = symbolAt(171)
 
-public val MaterialSymbols.AlignFlexCenter: MaterialSymbol
+val MaterialSymbols.AlignFlexCenter: MaterialSymbol
     get() = symbolAt(172)
 
-public val MaterialSymbols.AlignFlexEnd: MaterialSymbol
+val MaterialSymbols.AlignFlexEnd: MaterialSymbol
     get() = symbolAt(173)
 
-public val MaterialSymbols.AlignFlexStart: MaterialSymbol
+val MaterialSymbols.AlignFlexStart: MaterialSymbol
     get() = symbolAt(174)
 
-public val MaterialSymbols.AlignHorizontalCenter: MaterialSymbol
+val MaterialSymbols.AlignHorizontalCenter: MaterialSymbol
     get() = symbolAt(175)
 
-public val MaterialSymbols.AlignHorizontalLeft: MaterialSymbol
+val MaterialSymbols.AlignHorizontalLeft: MaterialSymbol
     get() = symbolAt(176)
 
-public val MaterialSymbols.AlignHorizontalRight: MaterialSymbol
+val MaterialSymbols.AlignHorizontalRight: MaterialSymbol
     get() = symbolAt(177)
 
-public val MaterialSymbols.AlignItemsStretch: MaterialSymbol
+val MaterialSymbols.AlignItemsStretch: MaterialSymbol
     get() = symbolAt(178)
 
-public val MaterialSymbols.AlignJustifyCenter: MaterialSymbol
+val MaterialSymbols.AlignJustifyCenter: MaterialSymbol
     get() = symbolAt(179)
 
-public val MaterialSymbols.AlignJustifyFlexEnd: MaterialSymbol
+val MaterialSymbols.AlignJustifyFlexEnd: MaterialSymbol
     get() = symbolAt(180)
 
-public val MaterialSymbols.AlignJustifyFlexStart: MaterialSymbol
+val MaterialSymbols.AlignJustifyFlexStart: MaterialSymbol
     get() = symbolAt(181)
 
-public val MaterialSymbols.AlignJustifySpaceAround: MaterialSymbol
+val MaterialSymbols.AlignJustifySpaceAround: MaterialSymbol
     get() = symbolAt(182)
 
-public val MaterialSymbols.AlignJustifySpaceBetween: MaterialSymbol
+val MaterialSymbols.AlignJustifySpaceBetween: MaterialSymbol
     get() = symbolAt(183)
 
-public val MaterialSymbols.AlignJustifySpaceEven: MaterialSymbol
+val MaterialSymbols.AlignJustifySpaceEven: MaterialSymbol
     get() = symbolAt(184)
 
-public val MaterialSymbols.AlignJustifyStretch: MaterialSymbol
+val MaterialSymbols.AlignJustifyStretch: MaterialSymbol
     get() = symbolAt(185)
 
-public val MaterialSymbols.AlignSelfStretch: MaterialSymbol
+val MaterialSymbols.AlignSelfStretch: MaterialSymbol
     get() = symbolAt(186)
 
-public val MaterialSymbols.AlignSpaceAround: MaterialSymbol
+val MaterialSymbols.AlignSpaceAround: MaterialSymbol
     get() = symbolAt(187)
 
-public val MaterialSymbols.AlignSpaceBetween: MaterialSymbol
+val MaterialSymbols.AlignSpaceBetween: MaterialSymbol
     get() = symbolAt(188)
 
-public val MaterialSymbols.AlignSpaceEven: MaterialSymbol
+val MaterialSymbols.AlignSpaceEven: MaterialSymbol
     get() = symbolAt(189)
 
-public val MaterialSymbols.AlignStart: MaterialSymbol
+val MaterialSymbols.AlignStart: MaterialSymbol
     get() = symbolAt(190)
 
-public val MaterialSymbols.AlignStretch: MaterialSymbol
+val MaterialSymbols.AlignStretch: MaterialSymbol
     get() = symbolAt(191)
 
-public val MaterialSymbols.AlignVerticalBottom: MaterialSymbol
+val MaterialSymbols.AlignVerticalBottom: MaterialSymbol
     get() = symbolAt(192)
 
-public val MaterialSymbols.AlignVerticalCenter: MaterialSymbol
+val MaterialSymbols.AlignVerticalCenter: MaterialSymbol
     get() = symbolAt(193)
 
-public val MaterialSymbols.AlignVerticalTop: MaterialSymbol
+val MaterialSymbols.AlignVerticalTop: MaterialSymbol
     get() = symbolAt(194)
 
-public val MaterialSymbols.AllInbox: MaterialSymbol
+val MaterialSymbols.AllInbox: MaterialSymbol
     get() = symbolAt(195)
 
-public val MaterialSymbols.AllInclusive: MaterialSymbol
+val MaterialSymbols.AllInclusive: MaterialSymbol
     get() = symbolAt(196)
 
-public val MaterialSymbols.AllMatch: MaterialSymbol
+val MaterialSymbols.AllMatch: MaterialSymbol
     get() = symbolAt(197)
 
-public val MaterialSymbols.AllOut: MaterialSymbol
+val MaterialSymbols.AllOut: MaterialSymbol
     get() = symbolAt(198)
 
-public val MaterialSymbols.Allergies: MaterialSymbol
+val MaterialSymbols.Allergies: MaterialSymbol
     get() = symbolAt(199)
 
-public val MaterialSymbols.Allergy: MaterialSymbol
+val MaterialSymbols.Allergy: MaterialSymbol
     get() = symbolAt(200)
 
-public val MaterialSymbols.AltRoute: MaterialSymbol
+val MaterialSymbols.AltRoute: MaterialSymbol
     get() = symbolAt(201)
 
-public val MaterialSymbols.AlternateEmail: MaterialSymbol
+val MaterialSymbols.AlternateEmail: MaterialSymbol
     get() = symbolAt(202)
 
-public val MaterialSymbols.Altitude: MaterialSymbol
+val MaterialSymbols.Altitude: MaterialSymbol
     get() = symbolAt(203)
 
-public val MaterialSymbols.AmbientScreen: MaterialSymbol
+val MaterialSymbols.AmbientScreen: MaterialSymbol
     get() = symbolAt(204)
 
-public val MaterialSymbols.Ambulance: MaterialSymbol
+val MaterialSymbols.Ambulance: MaterialSymbol
     get() = symbolAt(205)
 
-public val MaterialSymbols.Amend: MaterialSymbol
+val MaterialSymbols.Amend: MaterialSymbol
     get() = symbolAt(206)
 
-public val MaterialSymbols.AmpStories: MaterialSymbol
+val MaterialSymbols.AmpStories: MaterialSymbol
     get() = symbolAt(207)
 
-public val MaterialSymbols.Analytics: MaterialSymbol
+val MaterialSymbols.Analytics: MaterialSymbol
     get() = symbolAt(208)
 
-public val MaterialSymbols.Anchor: MaterialSymbol
+val MaterialSymbols.Anchor: MaterialSymbol
     get() = symbolAt(209)
 
-public val MaterialSymbols.Android: MaterialSymbol
+val MaterialSymbols.Android: MaterialSymbol
     get() = symbolAt(210)
 
-public val MaterialSymbols.AndroidCell4Bar: MaterialSymbol
+val MaterialSymbols.AndroidCell4Bar: MaterialSymbol
     get() = symbolAt(211)
 
-public val MaterialSymbols.AndroidCell4BarAlert: MaterialSymbol
+val MaterialSymbols.AndroidCell4BarAlert: MaterialSymbol
     get() = symbolAt(212)
 
-public val MaterialSymbols.AndroidCell4BarOff: MaterialSymbol
+val MaterialSymbols.AndroidCell4BarOff: MaterialSymbol
     get() = symbolAt(213)
 
-public val MaterialSymbols.AndroidCell4BarPlus: MaterialSymbol
+val MaterialSymbols.AndroidCell4BarPlus: MaterialSymbol
     get() = symbolAt(214)
 
-public val MaterialSymbols.AndroidCell5Bar: MaterialSymbol
+val MaterialSymbols.AndroidCell5Bar: MaterialSymbol
     get() = symbolAt(215)
 
-public val MaterialSymbols.AndroidCell5BarAlert: MaterialSymbol
+val MaterialSymbols.AndroidCell5BarAlert: MaterialSymbol
     get() = symbolAt(216)
 
-public val MaterialSymbols.AndroidCell5BarOff: MaterialSymbol
+val MaterialSymbols.AndroidCell5BarOff: MaterialSymbol
     get() = symbolAt(217)
 
-public val MaterialSymbols.AndroidCell5BarPlus: MaterialSymbol
+val MaterialSymbols.AndroidCell5BarPlus: MaterialSymbol
     get() = symbolAt(218)
 
-public val MaterialSymbols.AndroidCellDual4Bar: MaterialSymbol
+val MaterialSymbols.AndroidCellDual4Bar: MaterialSymbol
     get() = symbolAt(219)
 
-public val MaterialSymbols.AndroidCellDual4BarAlert: MaterialSymbol
+val MaterialSymbols.AndroidCellDual4BarAlert: MaterialSymbol
     get() = symbolAt(220)
 
-public val MaterialSymbols.AndroidCellDual4BarPlus: MaterialSymbol
+val MaterialSymbols.AndroidCellDual4BarPlus: MaterialSymbol
     get() = symbolAt(221)
 
-public val MaterialSymbols.AndroidCellDual5Bar: MaterialSymbol
+val MaterialSymbols.AndroidCellDual5Bar: MaterialSymbol
     get() = symbolAt(222)
 
-public val MaterialSymbols.AndroidCellDual5BarAlert: MaterialSymbol
+val MaterialSymbols.AndroidCellDual5BarAlert: MaterialSymbol
     get() = symbolAt(223)
 
-public val MaterialSymbols.AndroidCellDual5BarPlus: MaterialSymbol
+val MaterialSymbols.AndroidCellDual5BarPlus: MaterialSymbol
     get() = symbolAt(224)
 
-public val MaterialSymbols.AndroidWifi3Bar: MaterialSymbol
+val MaterialSymbols.AndroidWifi3Bar: MaterialSymbol
     get() = symbolAt(225)
 
-public val MaterialSymbols.AndroidWifi3BarAlert: MaterialSymbol
+val MaterialSymbols.AndroidWifi3BarAlert: MaterialSymbol
     get() = symbolAt(226)
 
-public val MaterialSymbols.AndroidWifi3BarLock: MaterialSymbol
+val MaterialSymbols.AndroidWifi3BarLock: MaterialSymbol
     get() = symbolAt(227)
 
-public val MaterialSymbols.AndroidWifi3BarOff: MaterialSymbol
+val MaterialSymbols.AndroidWifi3BarOff: MaterialSymbol
     get() = symbolAt(228)
 
-public val MaterialSymbols.AndroidWifi3BarPlus: MaterialSymbol
+val MaterialSymbols.AndroidWifi3BarPlus: MaterialSymbol
     get() = symbolAt(229)
 
-public val MaterialSymbols.AndroidWifi3BarQuestion: MaterialSymbol
+val MaterialSymbols.AndroidWifi3BarQuestion: MaterialSymbol
     get() = symbolAt(230)
 
-public val MaterialSymbols.AndroidWifi4Bar: MaterialSymbol
+val MaterialSymbols.AndroidWifi4Bar: MaterialSymbol
     get() = symbolAt(231)
 
-public val MaterialSymbols.AndroidWifi4BarAlert: MaterialSymbol
+val MaterialSymbols.AndroidWifi4BarAlert: MaterialSymbol
     get() = symbolAt(232)
 
-public val MaterialSymbols.AndroidWifi4BarLock: MaterialSymbol
+val MaterialSymbols.AndroidWifi4BarLock: MaterialSymbol
     get() = symbolAt(233)
 
-public val MaterialSymbols.AndroidWifi4BarOff: MaterialSymbol
+val MaterialSymbols.AndroidWifi4BarOff: MaterialSymbol
     get() = symbolAt(234)
 
-public val MaterialSymbols.AndroidWifi4BarPlus: MaterialSymbol
+val MaterialSymbols.AndroidWifi4BarPlus: MaterialSymbol
     get() = symbolAt(235)
 
-public val MaterialSymbols.AndroidWifi4BarQuestion: MaterialSymbol
+val MaterialSymbols.AndroidWifi4BarQuestion: MaterialSymbol
     get() = symbolAt(236)
 
-public val MaterialSymbols.AnimatedImages: MaterialSymbol
+val MaterialSymbols.AnimatedImages: MaterialSymbol
     get() = symbolAt(237)
 
-public val MaterialSymbols.Animation: MaterialSymbol
+val MaterialSymbols.Animation: MaterialSymbol
     get() = symbolAt(238)
 
-public val MaterialSymbols.Announcement: MaterialSymbol
+val MaterialSymbols.Announcement: MaterialSymbol
     get() = symbolAt(239)
 
-public val MaterialSymbols.Aod: MaterialSymbol
+val MaterialSymbols.Aod: MaterialSymbol
     get() = symbolAt(240)
 
-public val MaterialSymbols.AodTablet: MaterialSymbol
+val MaterialSymbols.AodTablet: MaterialSymbol
     get() = symbolAt(241)
 
-public val MaterialSymbols.AodWatch: MaterialSymbol
+val MaterialSymbols.AodWatch: MaterialSymbol
     get() = symbolAt(242)
 
-public val MaterialSymbols.Apartment: MaterialSymbol
+val MaterialSymbols.Apartment: MaterialSymbol
     get() = symbolAt(243)
 
-public val MaterialSymbols.Api: MaterialSymbol
+val MaterialSymbols.Api: MaterialSymbol
     get() = symbolAt(244)
 
-public val MaterialSymbols.ApkDocument: MaterialSymbol
+val MaterialSymbols.ApkDocument: MaterialSymbol
     get() = symbolAt(245)
 
-public val MaterialSymbols.ApkInstall: MaterialSymbol
+val MaterialSymbols.ApkInstall: MaterialSymbol
     get() = symbolAt(246)
 
-public val MaterialSymbols.AppBadging: MaterialSymbol
+val MaterialSymbols.AppBadging: MaterialSymbol
     get() = symbolAt(247)
 
-public val MaterialSymbols.AppBlocking: MaterialSymbol
+val MaterialSymbols.AppBlocking: MaterialSymbol
     get() = symbolAt(248)
 
-public val MaterialSymbols.AppPromo: MaterialSymbol
+val MaterialSymbols.AppPromo: MaterialSymbol
     get() = symbolAt(249)
 
-public val MaterialSymbols.AppRegistration: MaterialSymbol
+val MaterialSymbols.AppRegistration: MaterialSymbol
     get() = symbolAt(250)
 
-public val MaterialSymbols.AppSettingsAlt: MaterialSymbol
+val MaterialSymbols.AppSettingsAlt: MaterialSymbol
     get() = symbolAt(251)
 
-public val MaterialSymbols.AppShortcut: MaterialSymbol
+val MaterialSymbols.AppShortcut: MaterialSymbol
     get() = symbolAt(252)
 
-public val MaterialSymbols.Apparel: MaterialSymbol
+val MaterialSymbols.Apparel: MaterialSymbol
     get() = symbolAt(253)
 
-public val MaterialSymbols.Approval: MaterialSymbol
+val MaterialSymbols.Approval: MaterialSymbol
     get() = symbolAt(254)
 
-public val MaterialSymbols.ApprovalDelegation: MaterialSymbol
+val MaterialSymbols.ApprovalDelegation: MaterialSymbol
     get() = symbolAt(255)
 
-public val MaterialSymbols.ApprovalDelegationOff: MaterialSymbol
+val MaterialSymbols.ApprovalDelegationOff: MaterialSymbol
     get() = symbolAt(256)
 
-public val MaterialSymbols.Apps: MaterialSymbol
+val MaterialSymbols.Apps: MaterialSymbol
     get() = symbolAt(257)
 
-public val MaterialSymbols.AppsOutage: MaterialSymbol
+val MaterialSymbols.AppsOutage: MaterialSymbol
     get() = symbolAt(258)
 
-public val MaterialSymbols.Aq: MaterialSymbol
+val MaterialSymbols.Aq: MaterialSymbol
     get() = symbolAt(259)
 
-public val MaterialSymbols.AqIndoor: MaterialSymbol
+val MaterialSymbols.AqIndoor: MaterialSymbol
     get() = symbolAt(260)
 
-public val MaterialSymbols.ArOnYou: MaterialSymbol
+val MaterialSymbols.ArOnYou: MaterialSymbol
     get() = symbolAt(261)
 
-public val MaterialSymbols.ArStickers: MaterialSymbol
+val MaterialSymbols.ArStickers: MaterialSymbol
     get() = symbolAt(262)
 
-public val MaterialSymbols.Architecture: MaterialSymbol
+val MaterialSymbols.Architecture: MaterialSymbol
     get() = symbolAt(263)
 
-public val MaterialSymbols.Archive: MaterialSymbol
+val MaterialSymbols.Archive: MaterialSymbol
     get() = symbolAt(264)
 
-public val MaterialSymbols.AreaChart: MaterialSymbol
+val MaterialSymbols.AreaChart: MaterialSymbol
     get() = symbolAt(265)
 
-public val MaterialSymbols.ArmingCountdown: MaterialSymbol
+val MaterialSymbols.ArmingCountdown: MaterialSymbol
     get() = symbolAt(266)
 
-public val MaterialSymbols.ArrowAndEdge: MaterialSymbol
+val MaterialSymbols.ArrowAndEdge: MaterialSymbol
     get() = symbolAt(267)
 
-public val MaterialSymbols.ArrowBack: MaterialSymbol
+val MaterialSymbols.ArrowBack: MaterialSymbol
     get() = symbolAt(268)
 
-public val MaterialSymbols.ArrowBack2: MaterialSymbol
+val MaterialSymbols.ArrowBack2: MaterialSymbol
     get() = symbolAt(269)
 
-public val MaterialSymbols.ArrowBackIos: MaterialSymbol
+val MaterialSymbols.ArrowBackIos: MaterialSymbol
     get() = symbolAt(270)
 
-public val MaterialSymbols.ArrowBackIosNew: MaterialSymbol
+val MaterialSymbols.ArrowBackIosNew: MaterialSymbol
     get() = symbolAt(271)
 
-public val MaterialSymbols.ArrowCircleDown: MaterialSymbol
+val MaterialSymbols.ArrowCircleDown: MaterialSymbol
     get() = symbolAt(272)
 
-public val MaterialSymbols.ArrowCircleLeft: MaterialSymbol
+val MaterialSymbols.ArrowCircleLeft: MaterialSymbol
     get() = symbolAt(273)
 
-public val MaterialSymbols.ArrowCircleRight: MaterialSymbol
+val MaterialSymbols.ArrowCircleRight: MaterialSymbol
     get() = symbolAt(274)
 
-public val MaterialSymbols.ArrowCircleUp: MaterialSymbol
+val MaterialSymbols.ArrowCircleUp: MaterialSymbol
     get() = symbolAt(275)
 
-public val MaterialSymbols.ArrowCoolDown: MaterialSymbol
+val MaterialSymbols.ArrowCoolDown: MaterialSymbol
     get() = symbolAt(276)
 
-public val MaterialSymbols.ArrowDownward: MaterialSymbol
+val MaterialSymbols.ArrowDownward: MaterialSymbol
     get() = symbolAt(277)
 
-public val MaterialSymbols.ArrowDownwardAlt: MaterialSymbol
+val MaterialSymbols.ArrowDownwardAlt: MaterialSymbol
     get() = symbolAt(278)
 
-public val MaterialSymbols.ArrowDropDown: MaterialSymbol
+val MaterialSymbols.ArrowDropDown: MaterialSymbol
     get() = symbolAt(279)
 
-public val MaterialSymbols.ArrowDropDownCircle: MaterialSymbol
+val MaterialSymbols.ArrowDropDownCircle: MaterialSymbol
     get() = symbolAt(280)
 
-public val MaterialSymbols.ArrowDropUp: MaterialSymbol
+val MaterialSymbols.ArrowDropUp: MaterialSymbol
     get() = symbolAt(281)
 
-public val MaterialSymbols.ArrowForward: MaterialSymbol
+val MaterialSymbols.ArrowForward: MaterialSymbol
     get() = symbolAt(282)
 
-public val MaterialSymbols.ArrowForwardIos: MaterialSymbol
+val MaterialSymbols.ArrowForwardIos: MaterialSymbol
     get() = symbolAt(283)
 
-public val MaterialSymbols.ArrowInsert: MaterialSymbol
+val MaterialSymbols.ArrowInsert: MaterialSymbol
     get() = symbolAt(284)
 
-public val MaterialSymbols.ArrowLeft: MaterialSymbol
+val MaterialSymbols.ArrowLeft: MaterialSymbol
     get() = symbolAt(285)
 
-public val MaterialSymbols.ArrowLeftAlt: MaterialSymbol
+val MaterialSymbols.ArrowLeftAlt: MaterialSymbol
     get() = symbolAt(286)
 
-public val MaterialSymbols.ArrowMenuClose: MaterialSymbol
+val MaterialSymbols.ArrowMenuClose: MaterialSymbol
     get() = symbolAt(287)
 
-public val MaterialSymbols.ArrowMenuOpen: MaterialSymbol
+val MaterialSymbols.ArrowMenuOpen: MaterialSymbol
     get() = symbolAt(288)
 
-public val MaterialSymbols.ArrowOrEdge: MaterialSymbol
+val MaterialSymbols.ArrowOrEdge: MaterialSymbol
     get() = symbolAt(289)
 
-public val MaterialSymbols.ArrowOutward: MaterialSymbol
+val MaterialSymbols.ArrowOutward: MaterialSymbol
     get() = symbolAt(290)
 
-public val MaterialSymbols.ArrowRange: MaterialSymbol
+val MaterialSymbols.ArrowRange: MaterialSymbol
     get() = symbolAt(291)
 
-public val MaterialSymbols.ArrowRight: MaterialSymbol
+val MaterialSymbols.ArrowRight: MaterialSymbol
     get() = symbolAt(292)
 
-public val MaterialSymbols.ArrowRightAlt: MaterialSymbol
+val MaterialSymbols.ArrowRightAlt: MaterialSymbol
     get() = symbolAt(293)
 
-public val MaterialSymbols.ArrowSelectorTool: MaterialSymbol
+val MaterialSymbols.ArrowSelectorTool: MaterialSymbol
     get() = symbolAt(294)
 
-public val MaterialSymbols.ArrowShapeUp: MaterialSymbol
+val MaterialSymbols.ArrowShapeUp: MaterialSymbol
     get() = symbolAt(295)
 
-public val MaterialSymbols.ArrowShapeUpStack: MaterialSymbol
+val MaterialSymbols.ArrowShapeUpStack: MaterialSymbol
     get() = symbolAt(296)
 
-public val MaterialSymbols.ArrowShapeUpStack2: MaterialSymbol
+val MaterialSymbols.ArrowShapeUpStack2: MaterialSymbol
     get() = symbolAt(297)
 
-public val MaterialSymbols.ArrowSplit: MaterialSymbol
+val MaterialSymbols.ArrowSplit: MaterialSymbol
     get() = symbolAt(298)
 
-public val MaterialSymbols.ArrowTopLeft: MaterialSymbol
+val MaterialSymbols.ArrowTopLeft: MaterialSymbol
     get() = symbolAt(299)
 
-public val MaterialSymbols.ArrowTopRight: MaterialSymbol
+val MaterialSymbols.ArrowTopRight: MaterialSymbol
     get() = symbolAt(300)
 
-public val MaterialSymbols.ArrowUploadProgress: MaterialSymbol
+val MaterialSymbols.ArrowUploadProgress: MaterialSymbol
     get() = symbolAt(301)
 
-public val MaterialSymbols.ArrowUploadReady: MaterialSymbol
+val MaterialSymbols.ArrowUploadReady: MaterialSymbol
     get() = symbolAt(302)
 
-public val MaterialSymbols.ArrowUpward: MaterialSymbol
+val MaterialSymbols.ArrowUpward: MaterialSymbol
     get() = symbolAt(303)
 
-public val MaterialSymbols.ArrowUpwardAlt: MaterialSymbol
+val MaterialSymbols.ArrowUpwardAlt: MaterialSymbol
     get() = symbolAt(304)
 
-public val MaterialSymbols.ArrowWarmUp: MaterialSymbol
+val MaterialSymbols.ArrowWarmUp: MaterialSymbol
     get() = symbolAt(305)
 
-public val MaterialSymbols.ArrowsInput: MaterialSymbol
+val MaterialSymbols.ArrowsInput: MaterialSymbol
     get() = symbolAt(306)
 
-public val MaterialSymbols.ArrowsMoreDown: MaterialSymbol
+val MaterialSymbols.ArrowsMoreDown: MaterialSymbol
     get() = symbolAt(307)
 
-public val MaterialSymbols.ArrowsMoreUp: MaterialSymbol
+val MaterialSymbols.ArrowsMoreUp: MaterialSymbol
     get() = symbolAt(308)
 
-public val MaterialSymbols.ArrowsOutput: MaterialSymbol
+val MaterialSymbols.ArrowsOutput: MaterialSymbol
     get() = symbolAt(309)
 
-public val MaterialSymbols.ArrowsOutward: MaterialSymbol
+val MaterialSymbols.ArrowsOutward: MaterialSymbol
     get() = symbolAt(310)
 
-public val MaterialSymbols.ArtTrack: MaterialSymbol
+val MaterialSymbols.ArtTrack: MaterialSymbol
     get() = symbolAt(311)
 
-public val MaterialSymbols.Article: MaterialSymbol
+val MaterialSymbols.Article: MaterialSymbol
     get() = symbolAt(312)
 
-public val MaterialSymbols.ArticlePerson: MaterialSymbol
+val MaterialSymbols.ArticlePerson: MaterialSymbol
     get() = symbolAt(313)
 
-public val MaterialSymbols.ArticleShortcut: MaterialSymbol
+val MaterialSymbols.ArticleShortcut: MaterialSymbol
     get() = symbolAt(314)
 
-public val MaterialSymbols.Artist: MaterialSymbol
+val MaterialSymbols.Artist: MaterialSymbol
     get() = symbolAt(315)
 
-public val MaterialSymbols.AspectRatio: MaterialSymbol
+val MaterialSymbols.AspectRatio: MaterialSymbol
     get() = symbolAt(316)
 
-public val MaterialSymbols.Assessment: MaterialSymbol
+val MaterialSymbols.Assessment: MaterialSymbol
     get() = symbolAt(317)
 
-public val MaterialSymbols.Assignment: MaterialSymbol
+val MaterialSymbols.Assignment: MaterialSymbol
     get() = symbolAt(318)
 
-public val MaterialSymbols.AssignmentAdd: MaterialSymbol
+val MaterialSymbols.AssignmentAdd: MaterialSymbol
     get() = symbolAt(319)
 
-public val MaterialSymbols.AssignmentGlobe: MaterialSymbol
+val MaterialSymbols.AssignmentGlobe: MaterialSymbol
     get() = symbolAt(320)
 
-public val MaterialSymbols.AssignmentInd: MaterialSymbol
+val MaterialSymbols.AssignmentInd: MaterialSymbol
     get() = symbolAt(321)
 
-public val MaterialSymbols.AssignmentLate: MaterialSymbol
+val MaterialSymbols.AssignmentLate: MaterialSymbol
     get() = symbolAt(322)
 
-public val MaterialSymbols.AssignmentReturn: MaterialSymbol
+val MaterialSymbols.AssignmentReturn: MaterialSymbol
     get() = symbolAt(323)
 
-public val MaterialSymbols.AssignmentReturned: MaterialSymbol
+val MaterialSymbols.AssignmentReturned: MaterialSymbol
     get() = symbolAt(324)
 
-public val MaterialSymbols.AssignmentTurnedIn: MaterialSymbol
+val MaterialSymbols.AssignmentTurnedIn: MaterialSymbol
     get() = symbolAt(325)
 
-public val MaterialSymbols.AssistWalker: MaterialSymbol
+val MaterialSymbols.AssistWalker: MaterialSymbol
     get() = symbolAt(326)
 
-public val MaterialSymbols.Assistant: MaterialSymbol
+val MaterialSymbols.Assistant: MaterialSymbol
     get() = symbolAt(327)
 
-public val MaterialSymbols.AssistantDevice: MaterialSymbol
+val MaterialSymbols.AssistantDevice: MaterialSymbol
     get() = symbolAt(328)
 
-public val MaterialSymbols.AssistantDirection: MaterialSymbol
+val MaterialSymbols.AssistantDirection: MaterialSymbol
     get() = symbolAt(329)
 
-public val MaterialSymbols.AssistantNavigation: MaterialSymbol
+val MaterialSymbols.AssistantNavigation: MaterialSymbol
     get() = symbolAt(330)
 
-public val MaterialSymbols.AssistantOnHub: MaterialSymbol
+val MaterialSymbols.AssistantOnHub: MaterialSymbol
     get() = symbolAt(331)
 
-public val MaterialSymbols.AssistantPhoto: MaterialSymbol
+val MaterialSymbols.AssistantPhoto: MaterialSymbol
     get() = symbolAt(332)
 
-public val MaterialSymbols.AssuredWorkload: MaterialSymbol
+val MaterialSymbols.AssuredWorkload: MaterialSymbol
     get() = symbolAt(333)
 
-public val MaterialSymbols.Asterisk: MaterialSymbol
+val MaterialSymbols.Asterisk: MaterialSymbol
     get() = symbolAt(334)
 
-public val MaterialSymbols.AstrophotographyAuto: MaterialSymbol
+val MaterialSymbols.AstrophotographyAuto: MaterialSymbol
     get() = symbolAt(335)
 
-public val MaterialSymbols.AstrophotographyOff: MaterialSymbol
+val MaterialSymbols.AstrophotographyOff: MaterialSymbol
     get() = symbolAt(336)
 
-public val MaterialSymbols.Atm: MaterialSymbol
+val MaterialSymbols.Atm: MaterialSymbol
     get() = symbolAt(337)
 
-public val MaterialSymbols.Atr: MaterialSymbol
+val MaterialSymbols.Atr: MaterialSymbol
     get() = symbolAt(338)
 
-public val MaterialSymbols.AttachEmail: MaterialSymbol
+val MaterialSymbols.AttachEmail: MaterialSymbol
     get() = symbolAt(339)
 
-public val MaterialSymbols.AttachFile: MaterialSymbol
+val MaterialSymbols.AttachFile: MaterialSymbol
     get() = symbolAt(340)
 
-public val MaterialSymbols.AttachFileAdd: MaterialSymbol
+val MaterialSymbols.AttachFileAdd: MaterialSymbol
     get() = symbolAt(341)
 
-public val MaterialSymbols.AttachFileOff: MaterialSymbol
+val MaterialSymbols.AttachFileOff: MaterialSymbol
     get() = symbolAt(342)
 
-public val MaterialSymbols.AttachMoney: MaterialSymbol
+val MaterialSymbols.AttachMoney: MaterialSymbol
     get() = symbolAt(343)
 
-public val MaterialSymbols.Attachment: MaterialSymbol
+val MaterialSymbols.Attachment: MaterialSymbol
     get() = symbolAt(344)
 
-public val MaterialSymbols.Attractions: MaterialSymbol
+val MaterialSymbols.Attractions: MaterialSymbol
     get() = symbolAt(345)
 
-public val MaterialSymbols.Attribution: MaterialSymbol
+val MaterialSymbols.Attribution: MaterialSymbol
     get() = symbolAt(346)
 
-public val MaterialSymbols.AudioDescription: MaterialSymbol
+val MaterialSymbols.AudioDescription: MaterialSymbol
     get() = symbolAt(347)
 
-public val MaterialSymbols.AudioFile: MaterialSymbol
+val MaterialSymbols.AudioFile: MaterialSymbol
     get() = symbolAt(348)
 
-public val MaterialSymbols.AudioVideoReceiver: MaterialSymbol
+val MaterialSymbols.AudioVideoReceiver: MaterialSymbol
     get() = symbolAt(349)
 
-public val MaterialSymbols.Audiotrack: MaterialSymbol
+val MaterialSymbols.Audiotrack: MaterialSymbol
     get() = symbolAt(350)
 
-public val MaterialSymbols.AutoActivityZone: MaterialSymbol
+val MaterialSymbols.AutoActivityZone: MaterialSymbol
     get() = symbolAt(351)
 
-public val MaterialSymbols.AutoAwesome: MaterialSymbol
+val MaterialSymbols.AutoAwesome: MaterialSymbol
     get() = symbolAt(352)
 
-public val MaterialSymbols.AutoAwesomeMosaic: MaterialSymbol
+val MaterialSymbols.AutoAwesomeMosaic: MaterialSymbol
     get() = symbolAt(353)
 
-public val MaterialSymbols.AutoAwesomeMotion: MaterialSymbol
+val MaterialSymbols.AutoAwesomeMotion: MaterialSymbol
     get() = symbolAt(354)
 
-public val MaterialSymbols.AutoDelete: MaterialSymbol
+val MaterialSymbols.AutoDelete: MaterialSymbol
     get() = symbolAt(355)
 
-public val MaterialSymbols.AutoDetectVoice: MaterialSymbol
+val MaterialSymbols.AutoDetectVoice: MaterialSymbol
     get() = symbolAt(356)
 
-public val MaterialSymbols.AutoDrawSolid: MaterialSymbol
+val MaterialSymbols.AutoDrawSolid: MaterialSymbol
     get() = symbolAt(357)
 
-public val MaterialSymbols.AutoFix: MaterialSymbol
+val MaterialSymbols.AutoFix: MaterialSymbol
     get() = symbolAt(358)
 
-public val MaterialSymbols.AutoFixHigh: MaterialSymbol
+val MaterialSymbols.AutoFixHigh: MaterialSymbol
     get() = symbolAt(359)
 
-public val MaterialSymbols.AutoFixNormal: MaterialSymbol
+val MaterialSymbols.AutoFixNormal: MaterialSymbol
     get() = symbolAt(360)
 
-public val MaterialSymbols.AutoFixOff: MaterialSymbol
+val MaterialSymbols.AutoFixOff: MaterialSymbol
     get() = symbolAt(361)
 
-public val MaterialSymbols.AutoGraph: MaterialSymbol
+val MaterialSymbols.AutoGraph: MaterialSymbol
     get() = symbolAt(362)
 
-public val MaterialSymbols.AutoLabel: MaterialSymbol
+val MaterialSymbols.AutoLabel: MaterialSymbol
     get() = symbolAt(363)
 
-public val MaterialSymbols.AutoMeetingRoom: MaterialSymbol
+val MaterialSymbols.AutoMeetingRoom: MaterialSymbol
     get() = symbolAt(364)
 
-public val MaterialSymbols.AutoMode: MaterialSymbol
+val MaterialSymbols.AutoMode: MaterialSymbol
     get() = symbolAt(365)
 
-public val MaterialSymbols.AutoReadPause: MaterialSymbol
+val MaterialSymbols.AutoReadPause: MaterialSymbol
     get() = symbolAt(366)
 
-public val MaterialSymbols.AutoReadPlay: MaterialSymbol
+val MaterialSymbols.AutoReadPlay: MaterialSymbol
     get() = symbolAt(367)
 
-public val MaterialSymbols.AutoSchedule: MaterialSymbol
+val MaterialSymbols.AutoSchedule: MaterialSymbol
     get() = symbolAt(368)
 
-public val MaterialSymbols.AutoStories: MaterialSymbol
+val MaterialSymbols.AutoStories: MaterialSymbol
     get() = symbolAt(369)
 
-public val MaterialSymbols.AutoStoriesOff: MaterialSymbol
+val MaterialSymbols.AutoStoriesOff: MaterialSymbol
     get() = symbolAt(370)
 
-public val MaterialSymbols.AutoTimer: MaterialSymbol
+val MaterialSymbols.AutoTimer: MaterialSymbol
     get() = symbolAt(371)
 
-public val MaterialSymbols.AutoTowing: MaterialSymbol
+val MaterialSymbols.AutoTowing: MaterialSymbol
     get() = symbolAt(372)
 
-public val MaterialSymbols.AutoTransmission: MaterialSymbol
+val MaterialSymbols.AutoTransmission: MaterialSymbol
     get() = symbolAt(373)
 
-public val MaterialSymbols.AutoVideocam: MaterialSymbol
+val MaterialSymbols.AutoVideocam: MaterialSymbol
     get() = symbolAt(374)
 
-public val MaterialSymbols.AutofpsSelect: MaterialSymbol
+val MaterialSymbols.AutofpsSelect: MaterialSymbol
     get() = symbolAt(375)
 
-public val MaterialSymbols.Automation: MaterialSymbol
+val MaterialSymbols.Automation: MaterialSymbol
     get() = symbolAt(376)
 
-public val MaterialSymbols.Autopause: MaterialSymbol
+val MaterialSymbols.Autopause: MaterialSymbol
     get() = symbolAt(377)
 
-public val MaterialSymbols.Autopay: MaterialSymbol
+val MaterialSymbols.Autopay: MaterialSymbol
     get() = symbolAt(378)
 
-public val MaterialSymbols.Autoplay: MaterialSymbol
+val MaterialSymbols.Autoplay: MaterialSymbol
     get() = symbolAt(379)
 
-public val MaterialSymbols.Autorenew: MaterialSymbol
+val MaterialSymbols.Autorenew: MaterialSymbol
     get() = symbolAt(380)
 
-public val MaterialSymbols.Autostop: MaterialSymbol
+val MaterialSymbols.Autostop: MaterialSymbol
     get() = symbolAt(381)
 
-public val MaterialSymbols.Av1: MaterialSymbol
+val MaterialSymbols.Av1: MaterialSymbol
     get() = symbolAt(382)
 
-public val MaterialSymbols.AvTimer: MaterialSymbol
+val MaterialSymbols.AvTimer: MaterialSymbol
     get() = symbolAt(383)
 
-public val MaterialSymbols.Avc: MaterialSymbol
+val MaterialSymbols.Avc: MaterialSymbol
     get() = symbolAt(384)
 
-public val MaterialSymbols.AvgPace: MaterialSymbol
+val MaterialSymbols.AvgPace: MaterialSymbol
     get() = symbolAt(385)
 
-public val MaterialSymbols.AvgTime: MaterialSymbol
+val MaterialSymbols.AvgTime: MaterialSymbol
     get() = symbolAt(386)
 
-public val MaterialSymbols.AwardMeal: MaterialSymbol
+val MaterialSymbols.AwardMeal: MaterialSymbol
     get() = symbolAt(387)
 
-public val MaterialSymbols.AwardStar: MaterialSymbol
+val MaterialSymbols.AwardStar: MaterialSymbol
     get() = symbolAt(388)
 
-public val MaterialSymbols.Azm: MaterialSymbol
+val MaterialSymbols.Azm: MaterialSymbol
     get() = symbolAt(389)
 
-public val MaterialSymbols.BabyChangingStation: MaterialSymbol
+val MaterialSymbols.BabyChangingStation: MaterialSymbol
     get() = symbolAt(390)
 
-public val MaterialSymbols.BackHand: MaterialSymbol
+val MaterialSymbols.BackHand: MaterialSymbol
     get() = symbolAt(391)
 
-public val MaterialSymbols.BackToTab: MaterialSymbol
+val MaterialSymbols.BackToTab: MaterialSymbol
     get() = symbolAt(392)
 
-public val MaterialSymbols.BackgroundDotLarge: MaterialSymbol
+val MaterialSymbols.BackgroundDotLarge: MaterialSymbol
     get() = symbolAt(393)
 
-public val MaterialSymbols.BackgroundDotSmall: MaterialSymbol
+val MaterialSymbols.BackgroundDotSmall: MaterialSymbol
     get() = symbolAt(394)
 
-public val MaterialSymbols.BackgroundGridSmall: MaterialSymbol
+val MaterialSymbols.BackgroundGridSmall: MaterialSymbol
     get() = symbolAt(395)
 
-public val MaterialSymbols.BackgroundReplace: MaterialSymbol
+val MaterialSymbols.BackgroundReplace: MaterialSymbol
     get() = symbolAt(396)
 
-public val MaterialSymbols.BacklightHigh: MaterialSymbol
+val MaterialSymbols.BacklightHigh: MaterialSymbol
     get() = symbolAt(397)
 
-public val MaterialSymbols.BacklightHighOff: MaterialSymbol
+val MaterialSymbols.BacklightHighOff: MaterialSymbol
     get() = symbolAt(398)
 
-public val MaterialSymbols.BacklightLow: MaterialSymbol
+val MaterialSymbols.BacklightLow: MaterialSymbol
     get() = symbolAt(399)
 
-public val MaterialSymbols.Backpack: MaterialSymbol
+val MaterialSymbols.Backpack: MaterialSymbol
     get() = symbolAt(400)
 
-public val MaterialSymbols.Backspace: MaterialSymbol
+val MaterialSymbols.Backspace: MaterialSymbol
     get() = symbolAt(401)
 
-public val MaterialSymbols.Backup: MaterialSymbol
+val MaterialSymbols.Backup: MaterialSymbol
     get() = symbolAt(402)
 
-public val MaterialSymbols.BackupTable: MaterialSymbol
+val MaterialSymbols.BackupTable: MaterialSymbol
     get() = symbolAt(403)
 
-public val MaterialSymbols.Badge: MaterialSymbol
+val MaterialSymbols.Badge: MaterialSymbol
     get() = symbolAt(404)
 
-public val MaterialSymbols.BadgeCriticalBattery: MaterialSymbol
+val MaterialSymbols.BadgeCriticalBattery: MaterialSymbol
     get() = symbolAt(405)
 
-public val MaterialSymbols.Badminton: MaterialSymbol
+val MaterialSymbols.Badminton: MaterialSymbol
     get() = symbolAt(406)
 
-public val MaterialSymbols.BakeryDining: MaterialSymbol
+val MaterialSymbols.BakeryDining: MaterialSymbol
     get() = symbolAt(407)
 
-public val MaterialSymbols.Balance: MaterialSymbol
+val MaterialSymbols.Balance: MaterialSymbol
     get() = symbolAt(408)
 
-public val MaterialSymbols.Balcony: MaterialSymbol
+val MaterialSymbols.Balcony: MaterialSymbol
     get() = symbolAt(409)
 
-public val MaterialSymbols.Ballot: MaterialSymbol
+val MaterialSymbols.Ballot: MaterialSymbol
     get() = symbolAt(410)
 
-public val MaterialSymbols.BarChart: MaterialSymbol
+val MaterialSymbols.BarChart: MaterialSymbol
     get() = symbolAt(411)
 
-public val MaterialSymbols.BarChart4Bars: MaterialSymbol
+val MaterialSymbols.BarChart4Bars: MaterialSymbol
     get() = symbolAt(412)
 
-public val MaterialSymbols.BarChartOff: MaterialSymbol
+val MaterialSymbols.BarChartOff: MaterialSymbol
     get() = symbolAt(413)
 
-public val MaterialSymbols.Barcode: MaterialSymbol
+val MaterialSymbols.Barcode: MaterialSymbol
     get() = symbolAt(414)
 
-public val MaterialSymbols.BarcodeReader: MaterialSymbol
+val MaterialSymbols.BarcodeReader: MaterialSymbol
     get() = symbolAt(415)
 
-public val MaterialSymbols.BarcodeScanner: MaterialSymbol
+val MaterialSymbols.BarcodeScanner: MaterialSymbol
     get() = symbolAt(416)
 
-public val MaterialSymbols.Barefoot: MaterialSymbol
+val MaterialSymbols.Barefoot: MaterialSymbol
     get() = symbolAt(417)
 
-public val MaterialSymbols.BatchPrediction: MaterialSymbol
+val MaterialSymbols.BatchPrediction: MaterialSymbol
     get() = symbolAt(418)
 
-public val MaterialSymbols.BathBedrock: MaterialSymbol
+val MaterialSymbols.BathBedrock: MaterialSymbol
     get() = symbolAt(419)
 
-public val MaterialSymbols.BathOutdoor: MaterialSymbol
+val MaterialSymbols.BathOutdoor: MaterialSymbol
     get() = symbolAt(420)
 
-public val MaterialSymbols.BathPrivate: MaterialSymbol
+val MaterialSymbols.BathPrivate: MaterialSymbol
     get() = symbolAt(421)
 
-public val MaterialSymbols.BathPublicLarge: MaterialSymbol
+val MaterialSymbols.BathPublicLarge: MaterialSymbol
     get() = symbolAt(422)
 
-public val MaterialSymbols.BathSoak: MaterialSymbol
+val MaterialSymbols.BathSoak: MaterialSymbol
     get() = symbolAt(423)
 
-public val MaterialSymbols.Bathroom: MaterialSymbol
+val MaterialSymbols.Bathroom: MaterialSymbol
     get() = symbolAt(424)
 
-public val MaterialSymbols.Bathtub: MaterialSymbol
+val MaterialSymbols.Bathtub: MaterialSymbol
     get() = symbolAt(425)
 
-public val MaterialSymbols.Battery0Bar: MaterialSymbol
+val MaterialSymbols.Battery0Bar: MaterialSymbol
     get() = symbolAt(426)
 
-public val MaterialSymbols.Battery1Bar: MaterialSymbol
+val MaterialSymbols.Battery1Bar: MaterialSymbol
     get() = symbolAt(427)
 
-public val MaterialSymbols.Battery20: MaterialSymbol
+val MaterialSymbols.Battery20: MaterialSymbol
     get() = symbolAt(428)
 
-public val MaterialSymbols.Battery2Bar: MaterialSymbol
+val MaterialSymbols.Battery2Bar: MaterialSymbol
     get() = symbolAt(429)
 
-public val MaterialSymbols.Battery30: MaterialSymbol
+val MaterialSymbols.Battery30: MaterialSymbol
     get() = symbolAt(430)
 
-public val MaterialSymbols.Battery3Bar: MaterialSymbol
+val MaterialSymbols.Battery3Bar: MaterialSymbol
     get() = symbolAt(431)
 
-public val MaterialSymbols.Battery4Bar: MaterialSymbol
+val MaterialSymbols.Battery4Bar: MaterialSymbol
     get() = symbolAt(432)
 
-public val MaterialSymbols.Battery50: MaterialSymbol
+val MaterialSymbols.Battery50: MaterialSymbol
     get() = symbolAt(433)
 
-public val MaterialSymbols.Battery5Bar: MaterialSymbol
+val MaterialSymbols.Battery5Bar: MaterialSymbol
     get() = symbolAt(434)
 
-public val MaterialSymbols.Battery60: MaterialSymbol
+val MaterialSymbols.Battery60: MaterialSymbol
     get() = symbolAt(435)
 
-public val MaterialSymbols.Battery6Bar: MaterialSymbol
+val MaterialSymbols.Battery6Bar: MaterialSymbol
     get() = symbolAt(436)
 
-public val MaterialSymbols.Battery80: MaterialSymbol
+val MaterialSymbols.Battery80: MaterialSymbol
     get() = symbolAt(437)
 
-public val MaterialSymbols.Battery90: MaterialSymbol
+val MaterialSymbols.Battery90: MaterialSymbol
     get() = symbolAt(438)
 
-public val MaterialSymbols.BatteryAlert: MaterialSymbol
+val MaterialSymbols.BatteryAlert: MaterialSymbol
     get() = symbolAt(439)
 
-public val MaterialSymbols.BatteryAndroid0: MaterialSymbol
+val MaterialSymbols.BatteryAndroid0: MaterialSymbol
     get() = symbolAt(440)
 
-public val MaterialSymbols.BatteryAndroid1: MaterialSymbol
+val MaterialSymbols.BatteryAndroid1: MaterialSymbol
     get() = symbolAt(441)
 
-public val MaterialSymbols.BatteryAndroid2: MaterialSymbol
+val MaterialSymbols.BatteryAndroid2: MaterialSymbol
     get() = symbolAt(442)
 
-public val MaterialSymbols.BatteryAndroid3: MaterialSymbol
+val MaterialSymbols.BatteryAndroid3: MaterialSymbol
     get() = symbolAt(443)
 
-public val MaterialSymbols.BatteryAndroid4: MaterialSymbol
+val MaterialSymbols.BatteryAndroid4: MaterialSymbol
     get() = symbolAt(444)
 
-public val MaterialSymbols.BatteryAndroid5: MaterialSymbol
+val MaterialSymbols.BatteryAndroid5: MaterialSymbol
     get() = symbolAt(445)
 
-public val MaterialSymbols.BatteryAndroid6: MaterialSymbol
+val MaterialSymbols.BatteryAndroid6: MaterialSymbol
     get() = symbolAt(446)
 
-public val MaterialSymbols.BatteryAndroidAlert: MaterialSymbol
+val MaterialSymbols.BatteryAndroidAlert: MaterialSymbol
     get() = symbolAt(447)
 
-public val MaterialSymbols.BatteryAndroidBolt: MaterialSymbol
+val MaterialSymbols.BatteryAndroidBolt: MaterialSymbol
     get() = symbolAt(448)
 
-public val MaterialSymbols.BatteryAndroidFrame1: MaterialSymbol
+val MaterialSymbols.BatteryAndroidFrame1: MaterialSymbol
     get() = symbolAt(449)
 
-public val MaterialSymbols.BatteryAndroidFrame2: MaterialSymbol
+val MaterialSymbols.BatteryAndroidFrame2: MaterialSymbol
     get() = symbolAt(450)
 
-public val MaterialSymbols.BatteryAndroidFrame3: MaterialSymbol
+val MaterialSymbols.BatteryAndroidFrame3: MaterialSymbol
     get() = symbolAt(451)
 
-public val MaterialSymbols.BatteryAndroidFrame4: MaterialSymbol
+val MaterialSymbols.BatteryAndroidFrame4: MaterialSymbol
     get() = symbolAt(452)
 
-public val MaterialSymbols.BatteryAndroidFrame5: MaterialSymbol
+val MaterialSymbols.BatteryAndroidFrame5: MaterialSymbol
     get() = symbolAt(453)
 
-public val MaterialSymbols.BatteryAndroidFrame6: MaterialSymbol
+val MaterialSymbols.BatteryAndroidFrame6: MaterialSymbol
     get() = symbolAt(454)
 
-public val MaterialSymbols.BatteryAndroidFrameAlert: MaterialSymbol
+val MaterialSymbols.BatteryAndroidFrameAlert: MaterialSymbol
     get() = symbolAt(455)
 
-public val MaterialSymbols.BatteryAndroidFrameBolt: MaterialSymbol
+val MaterialSymbols.BatteryAndroidFrameBolt: MaterialSymbol
     get() = symbolAt(456)
 
-public val MaterialSymbols.BatteryAndroidFrameFull: MaterialSymbol
+val MaterialSymbols.BatteryAndroidFrameFull: MaterialSymbol
     get() = symbolAt(457)
 
-public val MaterialSymbols.BatteryAndroidFramePlus: MaterialSymbol
+val MaterialSymbols.BatteryAndroidFramePlus: MaterialSymbol
     get() = symbolAt(458)
 
-public val MaterialSymbols.BatteryAndroidFrameQuestion: MaterialSymbol
+val MaterialSymbols.BatteryAndroidFrameQuestion: MaterialSymbol
     get() = symbolAt(459)
 
-public val MaterialSymbols.BatteryAndroidFrameShare: MaterialSymbol
+val MaterialSymbols.BatteryAndroidFrameShare: MaterialSymbol
     get() = symbolAt(460)
 
-public val MaterialSymbols.BatteryAndroidFrameShield: MaterialSymbol
+val MaterialSymbols.BatteryAndroidFrameShield: MaterialSymbol
     get() = symbolAt(461)
 
-public val MaterialSymbols.BatteryAndroidFull: MaterialSymbol
+val MaterialSymbols.BatteryAndroidFull: MaterialSymbol
     get() = symbolAt(462)
 
-public val MaterialSymbols.BatteryAndroidPlus: MaterialSymbol
+val MaterialSymbols.BatteryAndroidPlus: MaterialSymbol
     get() = symbolAt(463)
 
-public val MaterialSymbols.BatteryAndroidQuestion: MaterialSymbol
+val MaterialSymbols.BatteryAndroidQuestion: MaterialSymbol
     get() = symbolAt(464)
 
-public val MaterialSymbols.BatteryAndroidShare: MaterialSymbol
+val MaterialSymbols.BatteryAndroidShare: MaterialSymbol
     get() = symbolAt(465)
 
-public val MaterialSymbols.BatteryAndroidShield: MaterialSymbol
+val MaterialSymbols.BatteryAndroidShield: MaterialSymbol
     get() = symbolAt(466)
 
-public val MaterialSymbols.BatteryChange: MaterialSymbol
+val MaterialSymbols.BatteryChange: MaterialSymbol
     get() = symbolAt(467)
 
-public val MaterialSymbols.BatteryCharging20: MaterialSymbol
+val MaterialSymbols.BatteryCharging20: MaterialSymbol
     get() = symbolAt(468)
 
-public val MaterialSymbols.BatteryCharging30: MaterialSymbol
+val MaterialSymbols.BatteryCharging30: MaterialSymbol
     get() = symbolAt(469)
 
-public val MaterialSymbols.BatteryCharging50: MaterialSymbol
+val MaterialSymbols.BatteryCharging50: MaterialSymbol
     get() = symbolAt(470)
 
-public val MaterialSymbols.BatteryCharging60: MaterialSymbol
+val MaterialSymbols.BatteryCharging60: MaterialSymbol
     get() = symbolAt(471)
 
-public val MaterialSymbols.BatteryCharging80: MaterialSymbol
+val MaterialSymbols.BatteryCharging80: MaterialSymbol
     get() = symbolAt(472)
 
-public val MaterialSymbols.BatteryCharging90: MaterialSymbol
+val MaterialSymbols.BatteryCharging90: MaterialSymbol
     get() = symbolAt(473)
 
-public val MaterialSymbols.BatteryChargingFull: MaterialSymbol
+val MaterialSymbols.BatteryChargingFull: MaterialSymbol
     get() = symbolAt(474)
 
-public val MaterialSymbols.BatteryError: MaterialSymbol
+val MaterialSymbols.BatteryError: MaterialSymbol
     get() = symbolAt(475)
 
-public val MaterialSymbols.BatteryFull: MaterialSymbol
+val MaterialSymbols.BatteryFull: MaterialSymbol
     get() = symbolAt(476)
 
-public val MaterialSymbols.BatteryFullAlt: MaterialSymbol
+val MaterialSymbols.BatteryFullAlt: MaterialSymbol
     get() = symbolAt(477)
 
-public val MaterialSymbols.BatteryHoriz000: MaterialSymbol
+val MaterialSymbols.BatteryHoriz000: MaterialSymbol
     get() = symbolAt(478)
 
-public val MaterialSymbols.BatteryHoriz050: MaterialSymbol
+val MaterialSymbols.BatteryHoriz050: MaterialSymbol
     get() = symbolAt(479)
 
-public val MaterialSymbols.BatteryHoriz075: MaterialSymbol
+val MaterialSymbols.BatteryHoriz075: MaterialSymbol
     get() = symbolAt(480)
 
-public val MaterialSymbols.BatteryLow: MaterialSymbol
+val MaterialSymbols.BatteryLow: MaterialSymbol
     get() = symbolAt(481)
 
-public val MaterialSymbols.BatteryPlus: MaterialSymbol
+val MaterialSymbols.BatteryPlus: MaterialSymbol
     get() = symbolAt(482)
 
-public val MaterialSymbols.BatteryProfile: MaterialSymbol
+val MaterialSymbols.BatteryProfile: MaterialSymbol
     get() = symbolAt(483)
 
-public val MaterialSymbols.BatterySaver: MaterialSymbol
+val MaterialSymbols.BatterySaver: MaterialSymbol
     get() = symbolAt(484)
 
-public val MaterialSymbols.BatteryShare: MaterialSymbol
+val MaterialSymbols.BatteryShare: MaterialSymbol
     get() = symbolAt(485)
 
-public val MaterialSymbols.BatteryStatusGood: MaterialSymbol
+val MaterialSymbols.BatteryStatusGood: MaterialSymbol
     get() = symbolAt(486)
 
-public val MaterialSymbols.BatteryStd: MaterialSymbol
+val MaterialSymbols.BatteryStd: MaterialSymbol
     get() = symbolAt(487)
 
-public val MaterialSymbols.BatteryUnknown: MaterialSymbol
+val MaterialSymbols.BatteryUnknown: MaterialSymbol
     get() = symbolAt(488)
 
-public val MaterialSymbols.BatteryVert005: MaterialSymbol
+val MaterialSymbols.BatteryVert005: MaterialSymbol
     get() = symbolAt(489)
 
-public val MaterialSymbols.BatteryVert020: MaterialSymbol
+val MaterialSymbols.BatteryVert020: MaterialSymbol
     get() = symbolAt(490)
 
-public val MaterialSymbols.BatteryVert050: MaterialSymbol
+val MaterialSymbols.BatteryVert050: MaterialSymbol
     get() = symbolAt(491)
 
-public val MaterialSymbols.BatteryVeryLow: MaterialSymbol
+val MaterialSymbols.BatteryVeryLow: MaterialSymbol
     get() = symbolAt(492)
 
-public val MaterialSymbols.BeachAccess: MaterialSymbol
+val MaterialSymbols.BeachAccess: MaterialSymbol
     get() = symbolAt(493)
 
-public val MaterialSymbols.Bed: MaterialSymbol
+val MaterialSymbols.Bed: MaterialSymbol
     get() = symbolAt(494)
 
-public val MaterialSymbols.BedroomBaby: MaterialSymbol
+val MaterialSymbols.BedroomBaby: MaterialSymbol
     get() = symbolAt(495)
 
-public val MaterialSymbols.BedroomChild: MaterialSymbol
+val MaterialSymbols.BedroomChild: MaterialSymbol
     get() = symbolAt(496)
 
-public val MaterialSymbols.BedroomParent: MaterialSymbol
+val MaterialSymbols.BedroomParent: MaterialSymbol
     get() = symbolAt(497)
 
-public val MaterialSymbols.Bedtime: MaterialSymbol
+val MaterialSymbols.Bedtime: MaterialSymbol
     get() = symbolAt(498)
 
-public val MaterialSymbols.BedtimeOff: MaterialSymbol
+val MaterialSymbols.BedtimeOff: MaterialSymbol
     get() = symbolAt(499)
 
-public val MaterialSymbols.Beenhere: MaterialSymbol
+val MaterialSymbols.Beenhere: MaterialSymbol
     get() = symbolAt(500)
 
-public val MaterialSymbols.BeerMeal: MaterialSymbol
+val MaterialSymbols.BeerMeal: MaterialSymbol
     get() = symbolAt(501)
 
-public val MaterialSymbols.Bento: MaterialSymbol
+val MaterialSymbols.Bento: MaterialSymbol
     get() = symbolAt(502)
 
-public val MaterialSymbols.Bia: MaterialSymbol
+val MaterialSymbols.Bia: MaterialSymbol
     get() = symbolAt(503)
 
-public val MaterialSymbols.BidLandscape: MaterialSymbol
+val MaterialSymbols.BidLandscape: MaterialSymbol
     get() = symbolAt(504)
 
-public val MaterialSymbols.BidLandscapeDisabled: MaterialSymbol
+val MaterialSymbols.BidLandscapeDisabled: MaterialSymbol
     get() = symbolAt(505)
 
-public val MaterialSymbols.BigtopUpdates: MaterialSymbol
+val MaterialSymbols.BigtopUpdates: MaterialSymbol
     get() = symbolAt(506)
 
-public val MaterialSymbols.BikeDock: MaterialSymbol
+val MaterialSymbols.BikeDock: MaterialSymbol
     get() = symbolAt(507)
 
-public val MaterialSymbols.BikeLane: MaterialSymbol
+val MaterialSymbols.BikeLane: MaterialSymbol
     get() = symbolAt(508)
 
-public val MaterialSymbols.BikeScooter: MaterialSymbol
+val MaterialSymbols.BikeScooter: MaterialSymbol
     get() = symbolAt(509)
 
-public val MaterialSymbols.Biotech: MaterialSymbol
+val MaterialSymbols.Biotech: MaterialSymbol
     get() = symbolAt(510)
 
-public val MaterialSymbols.Blanket: MaterialSymbol
+val MaterialSymbols.Blanket: MaterialSymbol
     get() = symbolAt(511)
 
-public val MaterialSymbols.Blender: MaterialSymbol
+val MaterialSymbols.Blender: MaterialSymbol
     get() = symbolAt(512)
 
-public val MaterialSymbols.Blind: MaterialSymbol
+val MaterialSymbols.Blind: MaterialSymbol
     get() = symbolAt(513)
 
-public val MaterialSymbols.Blinds: MaterialSymbol
+val MaterialSymbols.Blinds: MaterialSymbol
     get() = symbolAt(514)
 
-public val MaterialSymbols.BlindsClosed: MaterialSymbol
+val MaterialSymbols.BlindsClosed: MaterialSymbol
     get() = symbolAt(515)
 
-public val MaterialSymbols.Block: MaterialSymbol
+val MaterialSymbols.Block: MaterialSymbol
     get() = symbolAt(516)
 
-public val MaterialSymbols.BloodPressure: MaterialSymbol
+val MaterialSymbols.BloodPressure: MaterialSymbol
     get() = symbolAt(517)
 
-public val MaterialSymbols.Bloodtype: MaterialSymbol
+val MaterialSymbols.Bloodtype: MaterialSymbol
     get() = symbolAt(518)
 
-public val MaterialSymbols.Bluetooth: MaterialSymbol
+val MaterialSymbols.Bluetooth: MaterialSymbol
     get() = symbolAt(519)
 
-public val MaterialSymbols.BluetoothAudio: MaterialSymbol
+val MaterialSymbols.BluetoothAudio: MaterialSymbol
     get() = symbolAt(520)
 
-public val MaterialSymbols.BluetoothConnected: MaterialSymbol
+val MaterialSymbols.BluetoothConnected: MaterialSymbol
     get() = symbolAt(521)
 
-public val MaterialSymbols.BluetoothDisabled: MaterialSymbol
+val MaterialSymbols.BluetoothDisabled: MaterialSymbol
     get() = symbolAt(522)
 
-public val MaterialSymbols.BluetoothDrive: MaterialSymbol
+val MaterialSymbols.BluetoothDrive: MaterialSymbol
     get() = symbolAt(523)
 
-public val MaterialSymbols.BluetoothSearching: MaterialSymbol
+val MaterialSymbols.BluetoothSearching: MaterialSymbol
     get() = symbolAt(524)
 
-public val MaterialSymbols.BlurCircular: MaterialSymbol
+val MaterialSymbols.BlurCircular: MaterialSymbol
     get() = symbolAt(525)
 
-public val MaterialSymbols.BlurLinear: MaterialSymbol
+val MaterialSymbols.BlurLinear: MaterialSymbol
     get() = symbolAt(526)
 
-public val MaterialSymbols.BlurMedium: MaterialSymbol
+val MaterialSymbols.BlurMedium: MaterialSymbol
     get() = symbolAt(527)
 
-public val MaterialSymbols.BlurOff: MaterialSymbol
+val MaterialSymbols.BlurOff: MaterialSymbol
     get() = symbolAt(528)
 
-public val MaterialSymbols.BlurOn: MaterialSymbol
+val MaterialSymbols.BlurOn: MaterialSymbol
     get() = symbolAt(529)
 
-public val MaterialSymbols.BlurShort: MaterialSymbol
+val MaterialSymbols.BlurShort: MaterialSymbol
     get() = symbolAt(530)
 
-public val MaterialSymbols.BoatBus: MaterialSymbol
+val MaterialSymbols.BoatBus: MaterialSymbol
     get() = symbolAt(531)
 
-public val MaterialSymbols.BoatRailway: MaterialSymbol
+val MaterialSymbols.BoatRailway: MaterialSymbol
     get() = symbolAt(532)
 
-public val MaterialSymbols.BodyFat: MaterialSymbol
+val MaterialSymbols.BodyFat: MaterialSymbol
     get() = symbolAt(533)
 
-public val MaterialSymbols.BodySystem: MaterialSymbol
+val MaterialSymbols.BodySystem: MaterialSymbol
     get() = symbolAt(534)
 
-public val MaterialSymbols.Bolt: MaterialSymbol
+val MaterialSymbols.Bolt: MaterialSymbol
     get() = symbolAt(535)
 
-public val MaterialSymbols.Bomb: MaterialSymbol
+val MaterialSymbols.Bomb: MaterialSymbol
     get() = symbolAt(536)
 
-public val MaterialSymbols.Book: MaterialSymbol
+val MaterialSymbols.Book: MaterialSymbol
     get() = symbolAt(537)
 
-public val MaterialSymbols.Book2: MaterialSymbol
+val MaterialSymbols.Book2: MaterialSymbol
     get() = symbolAt(538)
 
-public val MaterialSymbols.Book3: MaterialSymbol
+val MaterialSymbols.Book3: MaterialSymbol
     get() = symbolAt(539)
 
-public val MaterialSymbols.Book4: MaterialSymbol
+val MaterialSymbols.Book4: MaterialSymbol
     get() = symbolAt(540)
 
-public val MaterialSymbols.Book5: MaterialSymbol
+val MaterialSymbols.Book5: MaterialSymbol
     get() = symbolAt(541)
 
-public val MaterialSymbols.Book6: MaterialSymbol
+val MaterialSymbols.Book6: MaterialSymbol
     get() = symbolAt(542)
 
-public val MaterialSymbols.BookOnline: MaterialSymbol
+val MaterialSymbols.BookOnline: MaterialSymbol
     get() = symbolAt(543)
 
-public val MaterialSymbols.BookRibbon: MaterialSymbol
+val MaterialSymbols.BookRibbon: MaterialSymbol
     get() = symbolAt(544)
 
-public val MaterialSymbols.Bookmark: MaterialSymbol
+val MaterialSymbols.Bookmark: MaterialSymbol
     get() = symbolAt(545)
 
-public val MaterialSymbols.BookmarkAdd: MaterialSymbol
+val MaterialSymbols.BookmarkAdd: MaterialSymbol
     get() = symbolAt(546)
 
-public val MaterialSymbols.BookmarkAdded: MaterialSymbol
+val MaterialSymbols.BookmarkAdded: MaterialSymbol
     get() = symbolAt(547)
 
-public val MaterialSymbols.BookmarkBag: MaterialSymbol
+val MaterialSymbols.BookmarkBag: MaterialSymbol
     get() = symbolAt(548)
 
-public val MaterialSymbols.BookmarkBorder: MaterialSymbol
+val MaterialSymbols.BookmarkBorder: MaterialSymbol
     get() = symbolAt(549)
 
-public val MaterialSymbols.BookmarkCheck: MaterialSymbol
+val MaterialSymbols.BookmarkCheck: MaterialSymbol
     get() = symbolAt(550)
 
-public val MaterialSymbols.BookmarkFlag: MaterialSymbol
+val MaterialSymbols.BookmarkFlag: MaterialSymbol
     get() = symbolAt(551)
 
-public val MaterialSymbols.BookmarkHeart: MaterialSymbol
+val MaterialSymbols.BookmarkHeart: MaterialSymbol
     get() = symbolAt(552)
 
-public val MaterialSymbols.BookmarkManager: MaterialSymbol
+val MaterialSymbols.BookmarkManager: MaterialSymbol
     get() = symbolAt(553)
 
-public val MaterialSymbols.BookmarkRemove: MaterialSymbol
+val MaterialSymbols.BookmarkRemove: MaterialSymbol
     get() = symbolAt(554)
 
-public val MaterialSymbols.BookmarkStar: MaterialSymbol
+val MaterialSymbols.BookmarkStar: MaterialSymbol
     get() = symbolAt(555)
 
-public val MaterialSymbols.Bookmarks: MaterialSymbol
+val MaterialSymbols.Bookmarks: MaterialSymbol
     get() = symbolAt(556)
 
-public val MaterialSymbols.BooksMoviesAndMusic: MaterialSymbol
+val MaterialSymbols.BooksMoviesAndMusic: MaterialSymbol
     get() = symbolAt(557)
 
-public val MaterialSymbols.BorderAll: MaterialSymbol
+val MaterialSymbols.BorderAll: MaterialSymbol
     get() = symbolAt(558)
 
-public val MaterialSymbols.BorderBottom: MaterialSymbol
+val MaterialSymbols.BorderBottom: MaterialSymbol
     get() = symbolAt(559)
 
-public val MaterialSymbols.BorderClear: MaterialSymbol
+val MaterialSymbols.BorderClear: MaterialSymbol
     get() = symbolAt(560)
 
-public val MaterialSymbols.BorderColor: MaterialSymbol
+val MaterialSymbols.BorderColor: MaterialSymbol
     get() = symbolAt(561)
 
-public val MaterialSymbols.BorderHorizontal: MaterialSymbol
+val MaterialSymbols.BorderHorizontal: MaterialSymbol
     get() = symbolAt(562)
 
-public val MaterialSymbols.BorderInner: MaterialSymbol
+val MaterialSymbols.BorderInner: MaterialSymbol
     get() = symbolAt(563)
 
-public val MaterialSymbols.BorderLeft: MaterialSymbol
+val MaterialSymbols.BorderLeft: MaterialSymbol
     get() = symbolAt(564)
 
-public val MaterialSymbols.BorderOuter: MaterialSymbol
+val MaterialSymbols.BorderOuter: MaterialSymbol
     get() = symbolAt(565)
 
-public val MaterialSymbols.BorderRight: MaterialSymbol
+val MaterialSymbols.BorderRight: MaterialSymbol
     get() = symbolAt(566)
 
-public val MaterialSymbols.BorderStyle: MaterialSymbol
+val MaterialSymbols.BorderStyle: MaterialSymbol
     get() = symbolAt(567)
 
-public val MaterialSymbols.BorderTop: MaterialSymbol
+val MaterialSymbols.BorderTop: MaterialSymbol
     get() = symbolAt(568)
 
-public val MaterialSymbols.BorderVertical: MaterialSymbol
+val MaterialSymbols.BorderVertical: MaterialSymbol
     get() = symbolAt(569)
 
-public val MaterialSymbols.Borg: MaterialSymbol
+val MaterialSymbols.Borg: MaterialSymbol
     get() = symbolAt(570)
 
-public val MaterialSymbols.BottomAppBar: MaterialSymbol
+val MaterialSymbols.BottomAppBar: MaterialSymbol
     get() = symbolAt(571)
 
-public val MaterialSymbols.BottomDrawer: MaterialSymbol
+val MaterialSymbols.BottomDrawer: MaterialSymbol
     get() = symbolAt(572)
 
-public val MaterialSymbols.BottomNavigation: MaterialSymbol
+val MaterialSymbols.BottomNavigation: MaterialSymbol
     get() = symbolAt(573)
 
-public val MaterialSymbols.BottomPanelClose: MaterialSymbol
+val MaterialSymbols.BottomPanelClose: MaterialSymbol
     get() = symbolAt(574)
 
-public val MaterialSymbols.BottomPanelOpen: MaterialSymbol
+val MaterialSymbols.BottomPanelOpen: MaterialSymbol
     get() = symbolAt(575)
 
-public val MaterialSymbols.BottomRightClick: MaterialSymbol
+val MaterialSymbols.BottomRightClick: MaterialSymbol
     get() = symbolAt(576)
 
-public val MaterialSymbols.BottomSheets: MaterialSymbol
+val MaterialSymbols.BottomSheets: MaterialSymbol
     get() = symbolAt(577)
 
-public val MaterialSymbols.Box: MaterialSymbol
+val MaterialSymbols.Box: MaterialSymbol
     get() = symbolAt(578)
 
-public val MaterialSymbols.BoxAdd: MaterialSymbol
+val MaterialSymbols.BoxAdd: MaterialSymbol
     get() = symbolAt(579)
 
-public val MaterialSymbols.BoxEdit: MaterialSymbol
+val MaterialSymbols.BoxEdit: MaterialSymbol
     get() = symbolAt(580)
 
-public val MaterialSymbols.Boy: MaterialSymbol
+val MaterialSymbols.Boy: MaterialSymbol
     get() = symbolAt(581)
 
-public val MaterialSymbols.BrandAwareness: MaterialSymbol
+val MaterialSymbols.BrandAwareness: MaterialSymbol
     get() = symbolAt(582)
 
-public val MaterialSymbols.BrandFamily: MaterialSymbol
+val MaterialSymbols.BrandFamily: MaterialSymbol
     get() = symbolAt(583)
 
-public val MaterialSymbols.BrandingWatermark: MaterialSymbol
+val MaterialSymbols.BrandingWatermark: MaterialSymbol
     get() = symbolAt(584)
 
-public val MaterialSymbols.BreakfastDining: MaterialSymbol
+val MaterialSymbols.BreakfastDining: MaterialSymbol
     get() = symbolAt(585)
 
-public val MaterialSymbols.BreakingNews: MaterialSymbol
+val MaterialSymbols.BreakingNews: MaterialSymbol
     get() = symbolAt(586)
 
-public val MaterialSymbols.BreakingNewsAlt1: MaterialSymbol
+val MaterialSymbols.BreakingNewsAlt1: MaterialSymbol
     get() = symbolAt(587)
 
-public val MaterialSymbols.Breastfeeding: MaterialSymbol
+val MaterialSymbols.Breastfeeding: MaterialSymbol
     get() = symbolAt(588)
 
-public val MaterialSymbols.Brick: MaterialSymbol
+val MaterialSymbols.Brick: MaterialSymbol
     get() = symbolAt(589)
 
-public val MaterialSymbols.BriefcaseMeal: MaterialSymbol
+val MaterialSymbols.BriefcaseMeal: MaterialSymbol
     get() = symbolAt(590)
 
-public val MaterialSymbols.Brightness1: MaterialSymbol
+val MaterialSymbols.Brightness1: MaterialSymbol
     get() = symbolAt(591)
 
-public val MaterialSymbols.Brightness2: MaterialSymbol
+val MaterialSymbols.Brightness2: MaterialSymbol
     get() = symbolAt(592)
 
-public val MaterialSymbols.Brightness3: MaterialSymbol
+val MaterialSymbols.Brightness3: MaterialSymbol
     get() = symbolAt(593)
 
-public val MaterialSymbols.Brightness4: MaterialSymbol
+val MaterialSymbols.Brightness4: MaterialSymbol
     get() = symbolAt(594)
 
-public val MaterialSymbols.Brightness5: MaterialSymbol
+val MaterialSymbols.Brightness5: MaterialSymbol
     get() = symbolAt(595)
 
-public val MaterialSymbols.Brightness6: MaterialSymbol
+val MaterialSymbols.Brightness6: MaterialSymbol
     get() = symbolAt(596)
 
-public val MaterialSymbols.Brightness7: MaterialSymbol
+val MaterialSymbols.Brightness7: MaterialSymbol
     get() = symbolAt(597)
 
-public val MaterialSymbols.BrightnessAlert: MaterialSymbol
+val MaterialSymbols.BrightnessAlert: MaterialSymbol
     get() = symbolAt(598)
 
-public val MaterialSymbols.BrightnessAuto: MaterialSymbol
+val MaterialSymbols.BrightnessAuto: MaterialSymbol
     get() = symbolAt(599)
 
-public val MaterialSymbols.BrightnessEmpty: MaterialSymbol
+val MaterialSymbols.BrightnessEmpty: MaterialSymbol
     get() = symbolAt(600)
 
-public val MaterialSymbols.BrightnessHigh: MaterialSymbol
+val MaterialSymbols.BrightnessHigh: MaterialSymbol
     get() = symbolAt(601)
 
-public val MaterialSymbols.BrightnessLow: MaterialSymbol
+val MaterialSymbols.BrightnessLow: MaterialSymbol
     get() = symbolAt(602)
 
-public val MaterialSymbols.BrightnessMedium: MaterialSymbol
+val MaterialSymbols.BrightnessMedium: MaterialSymbol
     get() = symbolAt(603)
 
-public val MaterialSymbols.BringYourOwnIp: MaterialSymbol
+val MaterialSymbols.BringYourOwnIp: MaterialSymbol
     get() = symbolAt(604)
 
-public val MaterialSymbols.BroadcastOnHome: MaterialSymbol
+val MaterialSymbols.BroadcastOnHome: MaterialSymbol
     get() = symbolAt(605)
 
-public val MaterialSymbols.BroadcastOnPersonal: MaterialSymbol
+val MaterialSymbols.BroadcastOnPersonal: MaterialSymbol
     get() = symbolAt(606)
 
-public val MaterialSymbols.BrokenImage: MaterialSymbol
+val MaterialSymbols.BrokenImage: MaterialSymbol
     get() = symbolAt(607)
 
-public val MaterialSymbols.Browse: MaterialSymbol
+val MaterialSymbols.Browse: MaterialSymbol
     get() = symbolAt(608)
 
-public val MaterialSymbols.BrowseActivity: MaterialSymbol
+val MaterialSymbols.BrowseActivity: MaterialSymbol
     get() = symbolAt(609)
 
-public val MaterialSymbols.BrowseGallery: MaterialSymbol
+val MaterialSymbols.BrowseGallery: MaterialSymbol
     get() = symbolAt(610)
 
-public val MaterialSymbols.BrowserNotSupported: MaterialSymbol
+val MaterialSymbols.BrowserNotSupported: MaterialSymbol
     get() = symbolAt(611)
 
-public val MaterialSymbols.BrowserUpdated: MaterialSymbol
+val MaterialSymbols.BrowserUpdated: MaterialSymbol
     get() = symbolAt(612)
 
-public val MaterialSymbols.BrunchDining: MaterialSymbol
+val MaterialSymbols.BrunchDining: MaterialSymbol
     get() = symbolAt(613)
 
-public val MaterialSymbols.Brush: MaterialSymbol
+val MaterialSymbols.Brush: MaterialSymbol
     get() = symbolAt(614)
 
-public val MaterialSymbols.Bubble: MaterialSymbol
+val MaterialSymbols.Bubble: MaterialSymbol
     get() = symbolAt(615)
 
-public val MaterialSymbols.BubbleChart: MaterialSymbol
+val MaterialSymbols.BubbleChart: MaterialSymbol
     get() = symbolAt(616)
 
-public val MaterialSymbols.Bubbles: MaterialSymbol
+val MaterialSymbols.Bubbles: MaterialSymbol
     get() = symbolAt(617)
 
-public val MaterialSymbols.BucketCheck: MaterialSymbol
+val MaterialSymbols.BucketCheck: MaterialSymbol
     get() = symbolAt(618)
 
-public val MaterialSymbols.BugReport: MaterialSymbol
+val MaterialSymbols.BugReport: MaterialSymbol
     get() = symbolAt(619)
 
-public val MaterialSymbols.Build: MaterialSymbol
+val MaterialSymbols.Build: MaterialSymbol
     get() = symbolAt(620)
 
-public val MaterialSymbols.BuildCircle: MaterialSymbol
+val MaterialSymbols.BuildCircle: MaterialSymbol
     get() = symbolAt(621)
 
-public val MaterialSymbols.Bungalow: MaterialSymbol
+val MaterialSymbols.Bungalow: MaterialSymbol
     get() = symbolAt(622)
 
-public val MaterialSymbols.BurstMode: MaterialSymbol
+val MaterialSymbols.BurstMode: MaterialSymbol
     get() = symbolAt(623)
 
-public val MaterialSymbols.BusAlert: MaterialSymbol
+val MaterialSymbols.BusAlert: MaterialSymbol
     get() = symbolAt(624)
 
-public val MaterialSymbols.BusRailway: MaterialSymbol
+val MaterialSymbols.BusRailway: MaterialSymbol
     get() = symbolAt(625)
 
-public val MaterialSymbols.Business: MaterialSymbol
+val MaterialSymbols.Business: MaterialSymbol
     get() = symbolAt(626)
 
-public val MaterialSymbols.BusinessCenter: MaterialSymbol
+val MaterialSymbols.BusinessCenter: MaterialSymbol
     get() = symbolAt(627)
 
-public val MaterialSymbols.BusinessChip: MaterialSymbol
+val MaterialSymbols.BusinessChip: MaterialSymbol
     get() = symbolAt(628)
 
-public val MaterialSymbols.BusinessMessages: MaterialSymbol
+val MaterialSymbols.BusinessMessages: MaterialSymbol
     get() = symbolAt(629)
 
-public val MaterialSymbols.ButtonsAlt: MaterialSymbol
+val MaterialSymbols.ButtonsAlt: MaterialSymbol
     get() = symbolAt(630)
 
-public val MaterialSymbols.Cabin: MaterialSymbol
+val MaterialSymbols.Cabin: MaterialSymbol
     get() = symbolAt(631)
 
-public val MaterialSymbols.Cable: MaterialSymbol
+val MaterialSymbols.Cable: MaterialSymbol
     get() = symbolAt(632)
 
-public val MaterialSymbols.CableCar: MaterialSymbol
+val MaterialSymbols.CableCar: MaterialSymbol
     get() = symbolAt(633)
 
-public val MaterialSymbols.Cached: MaterialSymbol
+val MaterialSymbols.Cached: MaterialSymbol
     get() = symbolAt(634)
 
-public val MaterialSymbols.Cadence: MaterialSymbol
+val MaterialSymbols.Cadence: MaterialSymbol
     get() = symbolAt(635)
 
-public val MaterialSymbols.Cake: MaterialSymbol
+val MaterialSymbols.Cake: MaterialSymbol
     get() = symbolAt(636)
 
-public val MaterialSymbols.CakeAdd: MaterialSymbol
+val MaterialSymbols.CakeAdd: MaterialSymbol
     get() = symbolAt(637)
 
-public val MaterialSymbols.Calculate: MaterialSymbol
+val MaterialSymbols.Calculate: MaterialSymbol
     get() = symbolAt(638)
 
-public val MaterialSymbols.CalendarAddOn: MaterialSymbol
+val MaterialSymbols.CalendarAddOn: MaterialSymbol
     get() = symbolAt(639)
 
-public val MaterialSymbols.CalendarAppsScript: MaterialSymbol
+val MaterialSymbols.CalendarAppsScript: MaterialSymbol
     get() = symbolAt(640)
 
-public val MaterialSymbols.CalendarCheck: MaterialSymbol
+val MaterialSymbols.CalendarCheck: MaterialSymbol
     get() = symbolAt(641)
 
-public val MaterialSymbols.CalendarClock: MaterialSymbol
+val MaterialSymbols.CalendarClock: MaterialSymbol
     get() = symbolAt(642)
 
-public val MaterialSymbols.CalendarLock: MaterialSymbol
+val MaterialSymbols.CalendarLock: MaterialSymbol
     get() = symbolAt(643)
 
-public val MaterialSymbols.CalendarMeal: MaterialSymbol
+val MaterialSymbols.CalendarMeal: MaterialSymbol
     get() = symbolAt(644)
 
-public val MaterialSymbols.CalendarMeal2: MaterialSymbol
+val MaterialSymbols.CalendarMeal2: MaterialSymbol
     get() = symbolAt(645)
 
-public val MaterialSymbols.CalendarMonth: MaterialSymbol
+val MaterialSymbols.CalendarMonth: MaterialSymbol
     get() = symbolAt(646)
 
-public val MaterialSymbols.CalendarToday: MaterialSymbol
+val MaterialSymbols.CalendarToday: MaterialSymbol
     get() = symbolAt(647)
 
-public val MaterialSymbols.CalendarViewDay: MaterialSymbol
+val MaterialSymbols.CalendarViewDay: MaterialSymbol
     get() = symbolAt(648)
 
-public val MaterialSymbols.CalendarViewMonth: MaterialSymbol
+val MaterialSymbols.CalendarViewMonth: MaterialSymbol
     get() = symbolAt(649)
 
-public val MaterialSymbols.CalendarViewWeek: MaterialSymbol
+val MaterialSymbols.CalendarViewWeek: MaterialSymbol
     get() = symbolAt(650)
 
-public val MaterialSymbols.Call: MaterialSymbol
+val MaterialSymbols.Call: MaterialSymbol
     get() = symbolAt(651)
 
-public val MaterialSymbols.CallEnd: MaterialSymbol
+val MaterialSymbols.CallEnd: MaterialSymbol
     get() = symbolAt(652)
 
-public val MaterialSymbols.CallEndAlt: MaterialSymbol
+val MaterialSymbols.CallEndAlt: MaterialSymbol
     get() = symbolAt(653)
 
-public val MaterialSymbols.CallLog: MaterialSymbol
+val MaterialSymbols.CallLog: MaterialSymbol
     get() = symbolAt(654)
 
-public val MaterialSymbols.CallMade: MaterialSymbol
+val MaterialSymbols.CallMade: MaterialSymbol
     get() = symbolAt(655)
 
-public val MaterialSymbols.CallMerge: MaterialSymbol
+val MaterialSymbols.CallMerge: MaterialSymbol
     get() = symbolAt(656)
 
-public val MaterialSymbols.CallMissed: MaterialSymbol
+val MaterialSymbols.CallMissed: MaterialSymbol
     get() = symbolAt(657)
 
-public val MaterialSymbols.CallMissedOutgoing: MaterialSymbol
+val MaterialSymbols.CallMissedOutgoing: MaterialSymbol
     get() = symbolAt(658)
 
-public val MaterialSymbols.CallQuality: MaterialSymbol
+val MaterialSymbols.CallQuality: MaterialSymbol
     get() = symbolAt(659)
 
-public val MaterialSymbols.CallReceived: MaterialSymbol
+val MaterialSymbols.CallReceived: MaterialSymbol
     get() = symbolAt(660)
 
-public val MaterialSymbols.CallSplit: MaterialSymbol
+val MaterialSymbols.CallSplit: MaterialSymbol
     get() = symbolAt(661)
 
-public val MaterialSymbols.CallToAction: MaterialSymbol
+val MaterialSymbols.CallToAction: MaterialSymbol
     get() = symbolAt(662)
 
-public val MaterialSymbols.Camera: MaterialSymbol
+val MaterialSymbols.Camera: MaterialSymbol
     get() = symbolAt(663)
 
-public val MaterialSymbols.CameraAlt: MaterialSymbol
+val MaterialSymbols.CameraAlt: MaterialSymbol
     get() = symbolAt(664)
 
-public val MaterialSymbols.CameraEnhance: MaterialSymbol
+val MaterialSymbols.CameraEnhance: MaterialSymbol
     get() = symbolAt(665)
 
-public val MaterialSymbols.CameraFront: MaterialSymbol
+val MaterialSymbols.CameraFront: MaterialSymbol
     get() = symbolAt(666)
 
-public val MaterialSymbols.CameraIndoor: MaterialSymbol
+val MaterialSymbols.CameraIndoor: MaterialSymbol
     get() = symbolAt(667)
 
-public val MaterialSymbols.CameraOutdoor: MaterialSymbol
+val MaterialSymbols.CameraOutdoor: MaterialSymbol
     get() = symbolAt(668)
 
-public val MaterialSymbols.CameraRear: MaterialSymbol
+val MaterialSymbols.CameraRear: MaterialSymbol
     get() = symbolAt(669)
 
-public val MaterialSymbols.CameraRoll: MaterialSymbol
+val MaterialSymbols.CameraRoll: MaterialSymbol
     get() = symbolAt(670)
 
-public val MaterialSymbols.CameraVideo: MaterialSymbol
+val MaterialSymbols.CameraVideo: MaterialSymbol
     get() = symbolAt(671)
 
-public val MaterialSymbols.Cameraswitch: MaterialSymbol
+val MaterialSymbols.Cameraswitch: MaterialSymbol
     get() = symbolAt(672)
 
-public val MaterialSymbols.Campaign: MaterialSymbol
+val MaterialSymbols.Campaign: MaterialSymbol
     get() = symbolAt(673)
 
-public val MaterialSymbols.Camping: MaterialSymbol
+val MaterialSymbols.Camping: MaterialSymbol
     get() = symbolAt(674)
 
-public val MaterialSymbols.Cancel: MaterialSymbol
+val MaterialSymbols.Cancel: MaterialSymbol
     get() = symbolAt(675)
 
-public val MaterialSymbols.CancelPresentation: MaterialSymbol
+val MaterialSymbols.CancelPresentation: MaterialSymbol
     get() = symbolAt(676)
 
-public val MaterialSymbols.CancelScheduleSend: MaterialSymbol
+val MaterialSymbols.CancelScheduleSend: MaterialSymbol
     get() = symbolAt(677)
 
-public val MaterialSymbols.Candle: MaterialSymbol
+val MaterialSymbols.Candle: MaterialSymbol
     get() = symbolAt(678)
 
-public val MaterialSymbols.CandlestickChart: MaterialSymbol
+val MaterialSymbols.CandlestickChart: MaterialSymbol
     get() = symbolAt(679)
 
-public val MaterialSymbols.Cannabis: MaterialSymbol
+val MaterialSymbols.Cannabis: MaterialSymbol
     get() = symbolAt(680)
 
-public val MaterialSymbols.CaptivePortal: MaterialSymbol
+val MaterialSymbols.CaptivePortal: MaterialSymbol
     get() = symbolAt(681)
 
-public val MaterialSymbols.Capture: MaterialSymbol
+val MaterialSymbols.Capture: MaterialSymbol
     get() = symbolAt(682)
 
-public val MaterialSymbols.CarCrash: MaterialSymbol
+val MaterialSymbols.CarCrash: MaterialSymbol
     get() = symbolAt(683)
 
-public val MaterialSymbols.CarDefrostLeft: MaterialSymbol
+val MaterialSymbols.CarDefrostLeft: MaterialSymbol
     get() = symbolAt(684)
 
-public val MaterialSymbols.CarDefrostLowLeft: MaterialSymbol
+val MaterialSymbols.CarDefrostLowLeft: MaterialSymbol
     get() = symbolAt(685)
 
-public val MaterialSymbols.CarDefrostLowRight: MaterialSymbol
+val MaterialSymbols.CarDefrostLowRight: MaterialSymbol
     get() = symbolAt(686)
 
-public val MaterialSymbols.CarDefrostMidLeft: MaterialSymbol
+val MaterialSymbols.CarDefrostMidLeft: MaterialSymbol
     get() = symbolAt(687)
 
-public val MaterialSymbols.CarDefrostMidLowLeft: MaterialSymbol
+val MaterialSymbols.CarDefrostMidLowLeft: MaterialSymbol
     get() = symbolAt(688)
 
-public val MaterialSymbols.CarDefrostMidLowRight: MaterialSymbol
+val MaterialSymbols.CarDefrostMidLowRight: MaterialSymbol
     get() = symbolAt(689)
 
-public val MaterialSymbols.CarDefrostMidRight: MaterialSymbol
+val MaterialSymbols.CarDefrostMidRight: MaterialSymbol
     get() = symbolAt(690)
 
-public val MaterialSymbols.CarDefrostRight: MaterialSymbol
+val MaterialSymbols.CarDefrostRight: MaterialSymbol
     get() = symbolAt(691)
 
-public val MaterialSymbols.CarFanLowLeft: MaterialSymbol
+val MaterialSymbols.CarFanLowLeft: MaterialSymbol
     get() = symbolAt(692)
 
-public val MaterialSymbols.CarFanLowMidLeft: MaterialSymbol
+val MaterialSymbols.CarFanLowMidLeft: MaterialSymbol
     get() = symbolAt(693)
 
-public val MaterialSymbols.CarFanLowRight: MaterialSymbol
+val MaterialSymbols.CarFanLowRight: MaterialSymbol
     get() = symbolAt(694)
 
-public val MaterialSymbols.CarFanMidLeft: MaterialSymbol
+val MaterialSymbols.CarFanMidLeft: MaterialSymbol
     get() = symbolAt(695)
 
-public val MaterialSymbols.CarFanMidLowRight: MaterialSymbol
+val MaterialSymbols.CarFanMidLowRight: MaterialSymbol
     get() = symbolAt(696)
 
-public val MaterialSymbols.CarFanMidRight: MaterialSymbol
+val MaterialSymbols.CarFanMidRight: MaterialSymbol
     get() = symbolAt(697)
 
-public val MaterialSymbols.CarFanRecirculate: MaterialSymbol
+val MaterialSymbols.CarFanRecirculate: MaterialSymbol
     get() = symbolAt(698)
 
-public val MaterialSymbols.CarGear: MaterialSymbol
+val MaterialSymbols.CarGear: MaterialSymbol
     get() = symbolAt(699)
 
-public val MaterialSymbols.CarLock: MaterialSymbol
+val MaterialSymbols.CarLock: MaterialSymbol
     get() = symbolAt(700)
 
-public val MaterialSymbols.CarMirrorHeat: MaterialSymbol
+val MaterialSymbols.CarMirrorHeat: MaterialSymbol
     get() = symbolAt(701)
 
-public val MaterialSymbols.CarRental: MaterialSymbol
+val MaterialSymbols.CarRental: MaterialSymbol
     get() = symbolAt(702)
 
-public val MaterialSymbols.CarRepair: MaterialSymbol
+val MaterialSymbols.CarRepair: MaterialSymbol
     get() = symbolAt(703)
 
-public val MaterialSymbols.CarTag: MaterialSymbol
+val MaterialSymbols.CarTag: MaterialSymbol
     get() = symbolAt(704)
 
-public val MaterialSymbols.CardGiftcard: MaterialSymbol
+val MaterialSymbols.CardGiftcard: MaterialSymbol
     get() = symbolAt(705)
 
-public val MaterialSymbols.CardMembership: MaterialSymbol
+val MaterialSymbols.CardMembership: MaterialSymbol
     get() = symbolAt(706)
 
-public val MaterialSymbols.CardTravel: MaterialSymbol
+val MaterialSymbols.CardTravel: MaterialSymbol
     get() = symbolAt(707)
 
-public val MaterialSymbols.CardioLoad: MaterialSymbol
+val MaterialSymbols.CardioLoad: MaterialSymbol
     get() = symbolAt(708)
 
-public val MaterialSymbols.Cardiology: MaterialSymbol
+val MaterialSymbols.Cardiology: MaterialSymbol
     get() = symbolAt(709)
 
-public val MaterialSymbols.Cards: MaterialSymbol
+val MaterialSymbols.Cards: MaterialSymbol
     get() = symbolAt(710)
 
-public val MaterialSymbols.CardsStar: MaterialSymbol
+val MaterialSymbols.CardsStar: MaterialSymbol
     get() = symbolAt(711)
 
-public val MaterialSymbols.Carpenter: MaterialSymbol
+val MaterialSymbols.Carpenter: MaterialSymbol
     get() = symbolAt(712)
 
-public val MaterialSymbols.CarryOnBag: MaterialSymbol
+val MaterialSymbols.CarryOnBag: MaterialSymbol
     get() = symbolAt(713)
 
-public val MaterialSymbols.CarryOnBagChecked: MaterialSymbol
+val MaterialSymbols.CarryOnBagChecked: MaterialSymbol
     get() = symbolAt(714)
 
-public val MaterialSymbols.CarryOnBagInactive: MaterialSymbol
+val MaterialSymbols.CarryOnBagInactive: MaterialSymbol
     get() = symbolAt(715)
 
-public val MaterialSymbols.CarryOnBagQuestion: MaterialSymbol
+val MaterialSymbols.CarryOnBagQuestion: MaterialSymbol
     get() = symbolAt(716)
 
-public val MaterialSymbols.Cases: MaterialSymbol
+val MaterialSymbols.Cases: MaterialSymbol
     get() = symbolAt(717)
 
-public val MaterialSymbols.Casino: MaterialSymbol
+val MaterialSymbols.Casino: MaterialSymbol
     get() = symbolAt(718)
 
-public val MaterialSymbols.Cast: MaterialSymbol
+val MaterialSymbols.Cast: MaterialSymbol
     get() = symbolAt(719)
 
-public val MaterialSymbols.CastConnected: MaterialSymbol
+val MaterialSymbols.CastConnected: MaterialSymbol
     get() = symbolAt(720)
 
-public val MaterialSymbols.CastForEducation: MaterialSymbol
+val MaterialSymbols.CastForEducation: MaterialSymbol
     get() = symbolAt(721)
 
-public val MaterialSymbols.CastPause: MaterialSymbol
+val MaterialSymbols.CastPause: MaterialSymbol
     get() = symbolAt(722)
 
-public val MaterialSymbols.CastWarning: MaterialSymbol
+val MaterialSymbols.CastWarning: MaterialSymbol
     get() = symbolAt(723)
 
-public val MaterialSymbols.Castle: MaterialSymbol
+val MaterialSymbols.Castle: MaterialSymbol
     get() = symbolAt(724)
 
-public val MaterialSymbols.Category: MaterialSymbol
+val MaterialSymbols.Category: MaterialSymbol
     get() = symbolAt(725)
 
-public val MaterialSymbols.CategorySearch: MaterialSymbol
+val MaterialSymbols.CategorySearch: MaterialSymbol
     get() = symbolAt(726)
 
-public val MaterialSymbols.Celebration: MaterialSymbol
+val MaterialSymbols.Celebration: MaterialSymbol
     get() = symbolAt(727)
 
-public val MaterialSymbols.CellMerge: MaterialSymbol
+val MaterialSymbols.CellMerge: MaterialSymbol
     get() = symbolAt(728)
 
-public val MaterialSymbols.CellTower: MaterialSymbol
+val MaterialSymbols.CellTower: MaterialSymbol
     get() = symbolAt(729)
 
-public val MaterialSymbols.CellWifi: MaterialSymbol
+val MaterialSymbols.CellWifi: MaterialSymbol
     get() = symbolAt(730)
 
-public val MaterialSymbols.CenterFocusStrong: MaterialSymbol
+val MaterialSymbols.CenterFocusStrong: MaterialSymbol
     get() = symbolAt(731)
 
-public val MaterialSymbols.CenterFocusWeak: MaterialSymbol
+val MaterialSymbols.CenterFocusWeak: MaterialSymbol
     get() = symbolAt(732)
 
-public val MaterialSymbols.Chair: MaterialSymbol
+val MaterialSymbols.Chair: MaterialSymbol
     get() = symbolAt(733)
 
-public val MaterialSymbols.ChairAlt: MaterialSymbol
+val MaterialSymbols.ChairAlt: MaterialSymbol
     get() = symbolAt(734)
 
-public val MaterialSymbols.ChairCounter: MaterialSymbol
+val MaterialSymbols.ChairCounter: MaterialSymbol
     get() = symbolAt(735)
 
-public val MaterialSymbols.ChairFireplace: MaterialSymbol
+val MaterialSymbols.ChairFireplace: MaterialSymbol
     get() = symbolAt(736)
 
-public val MaterialSymbols.ChairUmbrella: MaterialSymbol
+val MaterialSymbols.ChairUmbrella: MaterialSymbol
     get() = symbolAt(737)
 
-public val MaterialSymbols.Chalet: MaterialSymbol
+val MaterialSymbols.Chalet: MaterialSymbol
     get() = symbolAt(738)
 
-public val MaterialSymbols.ChangeCircle: MaterialSymbol
+val MaterialSymbols.ChangeCircle: MaterialSymbol
     get() = symbolAt(739)
 
-public val MaterialSymbols.ChangeHistory: MaterialSymbol
+val MaterialSymbols.ChangeHistory: MaterialSymbol
     get() = symbolAt(740)
 
-public val MaterialSymbols.Charger: MaterialSymbol
+val MaterialSymbols.Charger: MaterialSymbol
     get() = symbolAt(741)
 
-public val MaterialSymbols.ChargingStation: MaterialSymbol
+val MaterialSymbols.ChargingStation: MaterialSymbol
     get() = symbolAt(742)
 
-public val MaterialSymbols.ChartData: MaterialSymbol
+val MaterialSymbols.ChartData: MaterialSymbol
     get() = symbolAt(743)
 
-public val MaterialSymbols.Chat: MaterialSymbol
+val MaterialSymbols.Chat: MaterialSymbol
     get() = symbolAt(744)
 
-public val MaterialSymbols.ChatAddOn: MaterialSymbol
+val MaterialSymbols.ChatAddOn: MaterialSymbol
     get() = symbolAt(745)
 
-public val MaterialSymbols.ChatAppsScript: MaterialSymbol
+val MaterialSymbols.ChatAppsScript: MaterialSymbol
     get() = symbolAt(746)
 
-public val MaterialSymbols.ChatBubble: MaterialSymbol
+val MaterialSymbols.ChatBubble: MaterialSymbol
     get() = symbolAt(747)
 
-public val MaterialSymbols.ChatBubbleOutline: MaterialSymbol
+val MaterialSymbols.ChatBubbleOutline: MaterialSymbol
     get() = symbolAt(748)
 
-public val MaterialSymbols.ChatDashed: MaterialSymbol
+val MaterialSymbols.ChatDashed: MaterialSymbol
     get() = symbolAt(749)
 
-public val MaterialSymbols.ChatError: MaterialSymbol
+val MaterialSymbols.ChatError: MaterialSymbol
     get() = symbolAt(750)
 
-public val MaterialSymbols.ChatInfo: MaterialSymbol
+val MaterialSymbols.ChatInfo: MaterialSymbol
     get() = symbolAt(751)
 
-public val MaterialSymbols.ChatPasteGo: MaterialSymbol
+val MaterialSymbols.ChatPasteGo: MaterialSymbol
     get() = symbolAt(752)
 
-public val MaterialSymbols.ChatPasteGo2: MaterialSymbol
+val MaterialSymbols.ChatPasteGo2: MaterialSymbol
     get() = symbolAt(753)
 
-public val MaterialSymbols.Check: MaterialSymbol
+val MaterialSymbols.Check: MaterialSymbol
     get() = symbolAt(754)
 
-public val MaterialSymbols.CheckBox: MaterialSymbol
+val MaterialSymbols.CheckBox: MaterialSymbol
     get() = symbolAt(755)
 
-public val MaterialSymbols.CheckBoxOutlineBlank: MaterialSymbol
+val MaterialSymbols.CheckBoxOutlineBlank: MaterialSymbol
     get() = symbolAt(756)
 
-public val MaterialSymbols.CheckCircle: MaterialSymbol
+val MaterialSymbols.CheckCircle: MaterialSymbol
     get() = symbolAt(757)
 
-public val MaterialSymbols.CheckCircleFilled: MaterialSymbol
+val MaterialSymbols.CheckCircleFilled: MaterialSymbol
     get() = symbolAt(758)
 
-public val MaterialSymbols.CheckCircleOutline: MaterialSymbol
+val MaterialSymbols.CheckCircleOutline: MaterialSymbol
     get() = symbolAt(759)
 
-public val MaterialSymbols.CheckCircleUnread: MaterialSymbol
+val MaterialSymbols.CheckCircleUnread: MaterialSymbol
     get() = symbolAt(760)
 
-public val MaterialSymbols.CheckInOut: MaterialSymbol
+val MaterialSymbols.CheckInOut: MaterialSymbol
     get() = symbolAt(761)
 
-public val MaterialSymbols.CheckIndeterminateSmall: MaterialSymbol
+val MaterialSymbols.CheckIndeterminateSmall: MaterialSymbol
     get() = symbolAt(762)
 
-public val MaterialSymbols.CheckSmall: MaterialSymbol
+val MaterialSymbols.CheckSmall: MaterialSymbol
     get() = symbolAt(763)
 
-public val MaterialSymbols.Checkbook: MaterialSymbol
+val MaterialSymbols.Checkbook: MaterialSymbol
     get() = symbolAt(764)
 
-public val MaterialSymbols.CheckedBag: MaterialSymbol
+val MaterialSymbols.CheckedBag: MaterialSymbol
     get() = symbolAt(765)
 
-public val MaterialSymbols.CheckedBagQuestion: MaterialSymbol
+val MaterialSymbols.CheckedBagQuestion: MaterialSymbol
     get() = symbolAt(766)
 
-public val MaterialSymbols.Checklist: MaterialSymbol
+val MaterialSymbols.Checklist: MaterialSymbol
     get() = symbolAt(767)
 
-public val MaterialSymbols.ChecklistRtl: MaterialSymbol
+val MaterialSymbols.ChecklistRtl: MaterialSymbol
     get() = symbolAt(768)
 
-public val MaterialSymbols.Checkroom: MaterialSymbol
+val MaterialSymbols.Checkroom: MaterialSymbol
     get() = symbolAt(769)
 
-public val MaterialSymbols.Cheer: MaterialSymbol
+val MaterialSymbols.Cheer: MaterialSymbol
     get() = symbolAt(770)
 
-public val MaterialSymbols.ChefHat: MaterialSymbol
+val MaterialSymbols.ChefHat: MaterialSymbol
     get() = symbolAt(771)
 
-public val MaterialSymbols.Chess: MaterialSymbol
+val MaterialSymbols.Chess: MaterialSymbol
     get() = symbolAt(772)
 
-public val MaterialSymbols.ChessBishop: MaterialSymbol
+val MaterialSymbols.ChessBishop: MaterialSymbol
     get() = symbolAt(773)
 
-public val MaterialSymbols.ChessBishop2: MaterialSymbol
+val MaterialSymbols.ChessBishop2: MaterialSymbol
     get() = symbolAt(774)
 
-public val MaterialSymbols.ChessKing: MaterialSymbol
+val MaterialSymbols.ChessKing: MaterialSymbol
     get() = symbolAt(775)
 
-public val MaterialSymbols.ChessKing2: MaterialSymbol
+val MaterialSymbols.ChessKing2: MaterialSymbol
     get() = symbolAt(776)
 
-public val MaterialSymbols.ChessKnight: MaterialSymbol
+val MaterialSymbols.ChessKnight: MaterialSymbol
     get() = symbolAt(777)
 
-public val MaterialSymbols.ChessPawn: MaterialSymbol
+val MaterialSymbols.ChessPawn: MaterialSymbol
     get() = symbolAt(778)
 
-public val MaterialSymbols.ChessPawn2: MaterialSymbol
+val MaterialSymbols.ChessPawn2: MaterialSymbol
     get() = symbolAt(779)
 
-public val MaterialSymbols.ChessQueen: MaterialSymbol
+val MaterialSymbols.ChessQueen: MaterialSymbol
     get() = symbolAt(780)
 
-public val MaterialSymbols.ChessRook: MaterialSymbol
+val MaterialSymbols.ChessRook: MaterialSymbol
     get() = symbolAt(781)
 
-public val MaterialSymbols.ChevronBackward: MaterialSymbol
+val MaterialSymbols.ChevronBackward: MaterialSymbol
     get() = symbolAt(782)
 
-public val MaterialSymbols.ChevronForward: MaterialSymbol
+val MaterialSymbols.ChevronForward: MaterialSymbol
     get() = symbolAt(783)
 
-public val MaterialSymbols.ChevronLeft: MaterialSymbol
+val MaterialSymbols.ChevronLeft: MaterialSymbol
     get() = symbolAt(784)
 
-public val MaterialSymbols.ChevronRight: MaterialSymbol
+val MaterialSymbols.ChevronRight: MaterialSymbol
     get() = symbolAt(785)
 
-public val MaterialSymbols.ChildCare: MaterialSymbol
+val MaterialSymbols.ChildCare: MaterialSymbol
     get() = symbolAt(786)
 
-public val MaterialSymbols.ChildFriendly: MaterialSymbol
+val MaterialSymbols.ChildFriendly: MaterialSymbol
     get() = symbolAt(787)
 
-public val MaterialSymbols.ChildHat: MaterialSymbol
+val MaterialSymbols.ChildHat: MaterialSymbol
     get() = symbolAt(788)
 
-public val MaterialSymbols.ChipExtraction: MaterialSymbol
+val MaterialSymbols.ChipExtraction: MaterialSymbol
     get() = symbolAt(789)
 
-public val MaterialSymbols.Chips: MaterialSymbol
+val MaterialSymbols.Chips: MaterialSymbol
     get() = symbolAt(790)
 
-public val MaterialSymbols.ChromeReaderMode: MaterialSymbol
+val MaterialSymbols.ChromeReaderMode: MaterialSymbol
     get() = symbolAt(791)
 
-public val MaterialSymbols.Chromecast2: MaterialSymbol
+val MaterialSymbols.Chromecast2: MaterialSymbol
     get() = symbolAt(792)
 
-public val MaterialSymbols.ChromecastDevice: MaterialSymbol
+val MaterialSymbols.ChromecastDevice: MaterialSymbol
     get() = symbolAt(793)
 
-public val MaterialSymbols.Chronic: MaterialSymbol
+val MaterialSymbols.Chronic: MaterialSymbol
     get() = symbolAt(794)
 
-public val MaterialSymbols.Church: MaterialSymbol
+val MaterialSymbols.Church: MaterialSymbol
     get() = symbolAt(795)
 
-public val MaterialSymbols.CinematicBlur: MaterialSymbol
+val MaterialSymbols.CinematicBlur: MaterialSymbol
     get() = symbolAt(796)
 
-public val MaterialSymbols.Circle: MaterialSymbol
+val MaterialSymbols.Circle: MaterialSymbol
     get() = symbolAt(797)
 
-public val MaterialSymbols.CircleNotifications: MaterialSymbol
+val MaterialSymbols.CircleNotifications: MaterialSymbol
     get() = symbolAt(798)
 
-public val MaterialSymbols.Circles: MaterialSymbol
+val MaterialSymbols.Circles: MaterialSymbol
     get() = symbolAt(799)
 
-public val MaterialSymbols.CirclesExt: MaterialSymbol
+val MaterialSymbols.CirclesExt: MaterialSymbol
     get() = symbolAt(800)
 
-public val MaterialSymbols.Clarify: MaterialSymbol
+val MaterialSymbols.Clarify: MaterialSymbol
     get() = symbolAt(801)
 
-public val MaterialSymbols.Class: MaterialSymbol
+val MaterialSymbols.Class: MaterialSymbol
     get() = symbolAt(802)
 
-public val MaterialSymbols.CleanHands: MaterialSymbol
+val MaterialSymbols.CleanHands: MaterialSymbol
     get() = symbolAt(803)
 
-public val MaterialSymbols.Cleaning: MaterialSymbol
+val MaterialSymbols.Cleaning: MaterialSymbol
     get() = symbolAt(804)
 
-public val MaterialSymbols.CleaningBucket: MaterialSymbol
+val MaterialSymbols.CleaningBucket: MaterialSymbol
     get() = symbolAt(805)
 
-public val MaterialSymbols.CleaningServices: MaterialSymbol
+val MaterialSymbols.CleaningServices: MaterialSymbol
     get() = symbolAt(806)
 
-public val MaterialSymbols.Clear: MaterialSymbol
+val MaterialSymbols.Clear: MaterialSymbol
     get() = symbolAt(807)
 
-public val MaterialSymbols.ClearAll: MaterialSymbol
+val MaterialSymbols.ClearAll: MaterialSymbol
     get() = symbolAt(808)
 
-public val MaterialSymbols.ClearDay: MaterialSymbol
+val MaterialSymbols.ClearDay: MaterialSymbol
     get() = symbolAt(809)
 
-public val MaterialSymbols.ClearNight: MaterialSymbol
+val MaterialSymbols.ClearNight: MaterialSymbol
     get() = symbolAt(810)
 
-public val MaterialSymbols.ClimateMiniSplit: MaterialSymbol
+val MaterialSymbols.ClimateMiniSplit: MaterialSymbol
     get() = symbolAt(811)
 
-public val MaterialSymbols.ClinicalNotes: MaterialSymbol
+val MaterialSymbols.ClinicalNotes: MaterialSymbol
     get() = symbolAt(812)
 
-public val MaterialSymbols.ClockArrowDown: MaterialSymbol
+val MaterialSymbols.ClockArrowDown: MaterialSymbol
     get() = symbolAt(813)
 
-public val MaterialSymbols.ClockArrowUp: MaterialSymbol
+val MaterialSymbols.ClockArrowUp: MaterialSymbol
     get() = symbolAt(814)
 
-public val MaterialSymbols.ClockLoader10: MaterialSymbol
+val MaterialSymbols.ClockLoader10: MaterialSymbol
     get() = symbolAt(815)
 
-public val MaterialSymbols.ClockLoader20: MaterialSymbol
+val MaterialSymbols.ClockLoader20: MaterialSymbol
     get() = symbolAt(816)
 
-public val MaterialSymbols.ClockLoader40: MaterialSymbol
+val MaterialSymbols.ClockLoader40: MaterialSymbol
     get() = symbolAt(817)
 
-public val MaterialSymbols.ClockLoader60: MaterialSymbol
+val MaterialSymbols.ClockLoader60: MaterialSymbol
     get() = symbolAt(818)
 
-public val MaterialSymbols.ClockLoader80: MaterialSymbol
+val MaterialSymbols.ClockLoader80: MaterialSymbol
     get() = symbolAt(819)
 
-public val MaterialSymbols.ClockLoader90: MaterialSymbol
+val MaterialSymbols.ClockLoader90: MaterialSymbol
     get() = symbolAt(820)
 
-public val MaterialSymbols.Close: MaterialSymbol
+val MaterialSymbols.Close: MaterialSymbol
     get() = symbolAt(821)
 
-public val MaterialSymbols.CloseFullscreen: MaterialSymbol
+val MaterialSymbols.CloseFullscreen: MaterialSymbol
     get() = symbolAt(822)
 
-public val MaterialSymbols.CloseSmall: MaterialSymbol
+val MaterialSymbols.CloseSmall: MaterialSymbol
     get() = symbolAt(823)
 
-public val MaterialSymbols.ClosedCaption: MaterialSymbol
+val MaterialSymbols.ClosedCaption: MaterialSymbol
     get() = symbolAt(824)
 
-public val MaterialSymbols.ClosedCaptionAdd: MaterialSymbol
+val MaterialSymbols.ClosedCaptionAdd: MaterialSymbol
     get() = symbolAt(825)
 
-public val MaterialSymbols.ClosedCaptionDisabled: MaterialSymbol
+val MaterialSymbols.ClosedCaptionDisabled: MaterialSymbol
     get() = symbolAt(826)
 
-public val MaterialSymbols.ClosedCaptionOff: MaterialSymbol
+val MaterialSymbols.ClosedCaptionOff: MaterialSymbol
     get() = symbolAt(827)
 
-public val MaterialSymbols.Cloud: MaterialSymbol
+val MaterialSymbols.Cloud: MaterialSymbol
     get() = symbolAt(828)
 
-public val MaterialSymbols.CloudAlert: MaterialSymbol
+val MaterialSymbols.CloudAlert: MaterialSymbol
     get() = symbolAt(829)
 
-public val MaterialSymbols.CloudCircle: MaterialSymbol
+val MaterialSymbols.CloudCircle: MaterialSymbol
     get() = symbolAt(830)
 
-public val MaterialSymbols.CloudDone: MaterialSymbol
+val MaterialSymbols.CloudDone: MaterialSymbol
     get() = symbolAt(831)
 
-public val MaterialSymbols.CloudDownload: MaterialSymbol
+val MaterialSymbols.CloudDownload: MaterialSymbol
     get() = symbolAt(832)
 
-public val MaterialSymbols.CloudLock: MaterialSymbol
+val MaterialSymbols.CloudLock: MaterialSymbol
     get() = symbolAt(833)
 
-public val MaterialSymbols.CloudOff: MaterialSymbol
+val MaterialSymbols.CloudOff: MaterialSymbol
     get() = symbolAt(834)
 
-public val MaterialSymbols.CloudQueue: MaterialSymbol
+val MaterialSymbols.CloudQueue: MaterialSymbol
     get() = symbolAt(835)
 
-public val MaterialSymbols.CloudSync: MaterialSymbol
+val MaterialSymbols.CloudSync: MaterialSymbol
     get() = symbolAt(836)
 
-public val MaterialSymbols.CloudUpload: MaterialSymbol
+val MaterialSymbols.CloudUpload: MaterialSymbol
     get() = symbolAt(837)
 
-public val MaterialSymbols.Cloudy: MaterialSymbol
+val MaterialSymbols.Cloudy: MaterialSymbol
     get() = symbolAt(838)
 
-public val MaterialSymbols.CloudyFilled: MaterialSymbol
+val MaterialSymbols.CloudyFilled: MaterialSymbol
     get() = symbolAt(839)
 
-public val MaterialSymbols.CloudySnowing: MaterialSymbol
+val MaterialSymbols.CloudySnowing: MaterialSymbol
     get() = symbolAt(840)
 
-public val MaterialSymbols.Co2: MaterialSymbol
+val MaterialSymbols.Co2: MaterialSymbol
     get() = symbolAt(841)
 
-public val MaterialSymbols.CoPresent: MaterialSymbol
+val MaterialSymbols.CoPresent: MaterialSymbol
     get() = symbolAt(842)
 
-public val MaterialSymbols.Code: MaterialSymbol
+val MaterialSymbols.Code: MaterialSymbol
     get() = symbolAt(843)
 
-public val MaterialSymbols.CodeBlocks: MaterialSymbol
+val MaterialSymbols.CodeBlocks: MaterialSymbol
     get() = symbolAt(844)
 
-public val MaterialSymbols.CodeOff: MaterialSymbol
+val MaterialSymbols.CodeOff: MaterialSymbol
     get() = symbolAt(845)
 
-public val MaterialSymbols.Coffee: MaterialSymbol
+val MaterialSymbols.Coffee: MaterialSymbol
     get() = symbolAt(846)
 
-public val MaterialSymbols.CoffeeMaker: MaterialSymbol
+val MaterialSymbols.CoffeeMaker: MaterialSymbol
     get() = symbolAt(847)
 
-public val MaterialSymbols.Cognition: MaterialSymbol
+val MaterialSymbols.Cognition: MaterialSymbol
     get() = symbolAt(848)
 
-public val MaterialSymbols.Cognition2: MaterialSymbol
+val MaterialSymbols.Cognition2: MaterialSymbol
     get() = symbolAt(849)
 
-public val MaterialSymbols.CollapseAll: MaterialSymbol
+val MaterialSymbols.CollapseAll: MaterialSymbol
     get() = symbolAt(850)
 
-public val MaterialSymbols.CollapseContent: MaterialSymbol
+val MaterialSymbols.CollapseContent: MaterialSymbol
     get() = symbolAt(851)
 
-public val MaterialSymbols.Collections: MaterialSymbol
+val MaterialSymbols.Collections: MaterialSymbol
     get() = symbolAt(852)
 
-public val MaterialSymbols.CollectionsBookmark: MaterialSymbol
+val MaterialSymbols.CollectionsBookmark: MaterialSymbol
     get() = symbolAt(853)
 
-public val MaterialSymbols.ColorLens: MaterialSymbol
+val MaterialSymbols.ColorLens: MaterialSymbol
     get() = symbolAt(854)
 
-public val MaterialSymbols.Colorize: MaterialSymbol
+val MaterialSymbols.Colorize: MaterialSymbol
     get() = symbolAt(855)
 
-public val MaterialSymbols.Colors: MaterialSymbol
+val MaterialSymbols.Colors: MaterialSymbol
     get() = symbolAt(856)
 
-public val MaterialSymbols.CombineColumns: MaterialSymbol
+val MaterialSymbols.CombineColumns: MaterialSymbol
     get() = symbolAt(857)
 
-public val MaterialSymbols.ComedyMask: MaterialSymbol
+val MaterialSymbols.ComedyMask: MaterialSymbol
     get() = symbolAt(858)
 
-public val MaterialSymbols.ComicBubble: MaterialSymbol
+val MaterialSymbols.ComicBubble: MaterialSymbol
     get() = symbolAt(859)
 
-public val MaterialSymbols.Comment: MaterialSymbol
+val MaterialSymbols.Comment: MaterialSymbol
     get() = symbolAt(860)
 
-public val MaterialSymbols.CommentBank: MaterialSymbol
+val MaterialSymbols.CommentBank: MaterialSymbol
     get() = symbolAt(861)
 
-public val MaterialSymbols.CommentsDisabled: MaterialSymbol
+val MaterialSymbols.CommentsDisabled: MaterialSymbol
     get() = symbolAt(862)
 
-public val MaterialSymbols.Commit: MaterialSymbol
+val MaterialSymbols.Commit: MaterialSymbol
     get() = symbolAt(863)
 
-public val MaterialSymbols.Communication: MaterialSymbol
+val MaterialSymbols.Communication: MaterialSymbol
     get() = symbolAt(864)
 
-public val MaterialSymbols.Communities: MaterialSymbol
+val MaterialSymbols.Communities: MaterialSymbol
     get() = symbolAt(865)
 
-public val MaterialSymbols.CommunitiesFilled: MaterialSymbol
+val MaterialSymbols.CommunitiesFilled: MaterialSymbol
     get() = symbolAt(866)
 
-public val MaterialSymbols.Commute: MaterialSymbol
+val MaterialSymbols.Commute: MaterialSymbol
     get() = symbolAt(867)
 
-public val MaterialSymbols.Compare: MaterialSymbol
+val MaterialSymbols.Compare: MaterialSymbol
     get() = symbolAt(868)
 
-public val MaterialSymbols.CompareArrows: MaterialSymbol
+val MaterialSymbols.CompareArrows: MaterialSymbol
     get() = symbolAt(869)
 
-public val MaterialSymbols.CompassCalibration: MaterialSymbol
+val MaterialSymbols.CompassCalibration: MaterialSymbol
     get() = symbolAt(870)
 
-public val MaterialSymbols.ComponentExchange: MaterialSymbol
+val MaterialSymbols.ComponentExchange: MaterialSymbol
     get() = symbolAt(871)
 
-public val MaterialSymbols.Compost: MaterialSymbol
+val MaterialSymbols.Compost: MaterialSymbol
     get() = symbolAt(872)
 
-public val MaterialSymbols.Compress: MaterialSymbol
+val MaterialSymbols.Compress: MaterialSymbol
     get() = symbolAt(873)
 
-public val MaterialSymbols.Computer: MaterialSymbol
+val MaterialSymbols.Computer: MaterialSymbol
     get() = symbolAt(874)
 
-public val MaterialSymbols.ComputerArrowUp: MaterialSymbol
+val MaterialSymbols.ComputerArrowUp: MaterialSymbol
     get() = symbolAt(875)
 
-public val MaterialSymbols.ComputerCancel: MaterialSymbol
+val MaterialSymbols.ComputerCancel: MaterialSymbol
     get() = symbolAt(876)
 
-public val MaterialSymbols.Concierge: MaterialSymbol
+val MaterialSymbols.Concierge: MaterialSymbol
     get() = symbolAt(877)
 
-public val MaterialSymbols.Conditions: MaterialSymbol
+val MaterialSymbols.Conditions: MaterialSymbol
     get() = symbolAt(878)
 
-public val MaterialSymbols.ConfirmationNumber: MaterialSymbol
+val MaterialSymbols.ConfirmationNumber: MaterialSymbol
     get() = symbolAt(879)
 
-public val MaterialSymbols.Congenital: MaterialSymbol
+val MaterialSymbols.Congenital: MaterialSymbol
     get() = symbolAt(880)
 
-public val MaterialSymbols.ConnectWithoutContact: MaterialSymbol
+val MaterialSymbols.ConnectWithoutContact: MaterialSymbol
     get() = symbolAt(881)
 
-public val MaterialSymbols.ConnectedTv: MaterialSymbol
+val MaterialSymbols.ConnectedTv: MaterialSymbol
     get() = symbolAt(882)
 
-public val MaterialSymbols.ConnectingAirports: MaterialSymbol
+val MaterialSymbols.ConnectingAirports: MaterialSymbol
     get() = symbolAt(883)
 
-public val MaterialSymbols.Construction: MaterialSymbol
+val MaterialSymbols.Construction: MaterialSymbol
     get() = symbolAt(884)
 
-public val MaterialSymbols.ContactEmergency: MaterialSymbol
+val MaterialSymbols.ContactEmergency: MaterialSymbol
     get() = symbolAt(885)
 
-public val MaterialSymbols.ContactMail: MaterialSymbol
+val MaterialSymbols.ContactMail: MaterialSymbol
     get() = symbolAt(886)
 
-public val MaterialSymbols.ContactPage: MaterialSymbol
+val MaterialSymbols.ContactPage: MaterialSymbol
     get() = symbolAt(887)
 
-public val MaterialSymbols.ContactPhone: MaterialSymbol
+val MaterialSymbols.ContactPhone: MaterialSymbol
     get() = symbolAt(888)
 
-public val MaterialSymbols.ContactPhoneFilled: MaterialSymbol
+val MaterialSymbols.ContactPhoneFilled: MaterialSymbol
     get() = symbolAt(889)
 
-public val MaterialSymbols.ContactSupport: MaterialSymbol
+val MaterialSymbols.ContactSupport: MaterialSymbol
     get() = symbolAt(890)
 
-public val MaterialSymbols.Contactless: MaterialSymbol
+val MaterialSymbols.Contactless: MaterialSymbol
     get() = symbolAt(891)
 
-public val MaterialSymbols.ContactlessOff: MaterialSymbol
+val MaterialSymbols.ContactlessOff: MaterialSymbol
     get() = symbolAt(892)
 
-public val MaterialSymbols.Contacts: MaterialSymbol
+val MaterialSymbols.Contacts: MaterialSymbol
     get() = symbolAt(893)
 
-public val MaterialSymbols.ContactsProduct: MaterialSymbol
+val MaterialSymbols.ContactsProduct: MaterialSymbol
     get() = symbolAt(894)
 
-public val MaterialSymbols.ContentCopy: MaterialSymbol
+val MaterialSymbols.ContentCopy: MaterialSymbol
     get() = symbolAt(895)
 
-public val MaterialSymbols.ContentCut: MaterialSymbol
+val MaterialSymbols.ContentCut: MaterialSymbol
     get() = symbolAt(896)
 
-public val MaterialSymbols.ContentPaste: MaterialSymbol
+val MaterialSymbols.ContentPaste: MaterialSymbol
     get() = symbolAt(897)
 
-public val MaterialSymbols.ContentPasteGo: MaterialSymbol
+val MaterialSymbols.ContentPasteGo: MaterialSymbol
     get() = symbolAt(898)
 
-public val MaterialSymbols.ContentPasteOff: MaterialSymbol
+val MaterialSymbols.ContentPasteOff: MaterialSymbol
     get() = symbolAt(899)
 
-public val MaterialSymbols.ContentPasteSearch: MaterialSymbol
+val MaterialSymbols.ContentPasteSearch: MaterialSymbol
     get() = symbolAt(900)
 
-public val MaterialSymbols.ContextualToken: MaterialSymbol
+val MaterialSymbols.ContextualToken: MaterialSymbol
     get() = symbolAt(901)
 
-public val MaterialSymbols.ContextualTokenAdd: MaterialSymbol
+val MaterialSymbols.ContextualTokenAdd: MaterialSymbol
     get() = symbolAt(902)
 
-public val MaterialSymbols.Contract: MaterialSymbol
+val MaterialSymbols.Contract: MaterialSymbol
     get() = symbolAt(903)
 
-public val MaterialSymbols.ContractDelete: MaterialSymbol
+val MaterialSymbols.ContractDelete: MaterialSymbol
     get() = symbolAt(904)
 
-public val MaterialSymbols.ContractEdit: MaterialSymbol
+val MaterialSymbols.ContractEdit: MaterialSymbol
     get() = symbolAt(905)
 
-public val MaterialSymbols.Contrast: MaterialSymbol
+val MaterialSymbols.Contrast: MaterialSymbol
     get() = symbolAt(906)
 
-public val MaterialSymbols.ContrastCircle: MaterialSymbol
+val MaterialSymbols.ContrastCircle: MaterialSymbol
     get() = symbolAt(907)
 
-public val MaterialSymbols.ContrastRtlOff: MaterialSymbol
+val MaterialSymbols.ContrastRtlOff: MaterialSymbol
     get() = symbolAt(908)
 
-public val MaterialSymbols.ContrastSquare: MaterialSymbol
+val MaterialSymbols.ContrastSquare: MaterialSymbol
     get() = symbolAt(909)
 
-public val MaterialSymbols.ControlCamera: MaterialSymbol
+val MaterialSymbols.ControlCamera: MaterialSymbol
     get() = symbolAt(910)
 
-public val MaterialSymbols.ControlPoint: MaterialSymbol
+val MaterialSymbols.ControlPoint: MaterialSymbol
     get() = symbolAt(911)
 
-public val MaterialSymbols.ControlPointDuplicate: MaterialSymbol
+val MaterialSymbols.ControlPointDuplicate: MaterialSymbol
     get() = symbolAt(912)
 
-public val MaterialSymbols.ControllerGen: MaterialSymbol
+val MaterialSymbols.ControllerGen: MaterialSymbol
     get() = symbolAt(913)
 
-public val MaterialSymbols.Conversation: MaterialSymbol
+val MaterialSymbols.Conversation: MaterialSymbol
     get() = symbolAt(914)
 
-public val MaterialSymbols.ConversionPath: MaterialSymbol
+val MaterialSymbols.ConversionPath: MaterialSymbol
     get() = symbolAt(915)
 
-public val MaterialSymbols.ConversionPathOff: MaterialSymbol
+val MaterialSymbols.ConversionPathOff: MaterialSymbol
     get() = symbolAt(916)
 
-public val MaterialSymbols.ConvertToText: MaterialSymbol
+val MaterialSymbols.ConvertToText: MaterialSymbol
     get() = symbolAt(917)
 
-public val MaterialSymbols.ConveyorBelt: MaterialSymbol
+val MaterialSymbols.ConveyorBelt: MaterialSymbol
     get() = symbolAt(918)
 
-public val MaterialSymbols.Cookie: MaterialSymbol
+val MaterialSymbols.Cookie: MaterialSymbol
     get() = symbolAt(919)
 
-public val MaterialSymbols.CookieOff: MaterialSymbol
+val MaterialSymbols.CookieOff: MaterialSymbol
     get() = symbolAt(920)
 
-public val MaterialSymbols.Cooking: MaterialSymbol
+val MaterialSymbols.Cooking: MaterialSymbol
     get() = symbolAt(921)
 
-public val MaterialSymbols.CoolToDry: MaterialSymbol
+val MaterialSymbols.CoolToDry: MaterialSymbol
     get() = symbolAt(922)
 
-public val MaterialSymbols.CopyAll: MaterialSymbol
+val MaterialSymbols.CopyAll: MaterialSymbol
     get() = symbolAt(923)
 
-public val MaterialSymbols.Copyright: MaterialSymbol
+val MaterialSymbols.Copyright: MaterialSymbol
     get() = symbolAt(924)
 
-public val MaterialSymbols.Coronavirus: MaterialSymbol
+val MaterialSymbols.Coronavirus: MaterialSymbol
     get() = symbolAt(925)
 
-public val MaterialSymbols.CorporateFare: MaterialSymbol
+val MaterialSymbols.CorporateFare: MaterialSymbol
     get() = symbolAt(926)
 
-public val MaterialSymbols.Cottage: MaterialSymbol
+val MaterialSymbols.Cottage: MaterialSymbol
     get() = symbolAt(927)
 
-public val MaterialSymbols.Counter0: MaterialSymbol
+val MaterialSymbols.Counter0: MaterialSymbol
     get() = symbolAt(928)
 
-public val MaterialSymbols.Counter1: MaterialSymbol
+val MaterialSymbols.Counter1: MaterialSymbol
     get() = symbolAt(929)
 
-public val MaterialSymbols.Counter2: MaterialSymbol
+val MaterialSymbols.Counter2: MaterialSymbol
     get() = symbolAt(930)
 
-public val MaterialSymbols.Counter3: MaterialSymbol
+val MaterialSymbols.Counter3: MaterialSymbol
     get() = symbolAt(931)
 
-public val MaterialSymbols.Counter4: MaterialSymbol
+val MaterialSymbols.Counter4: MaterialSymbol
     get() = symbolAt(932)
 
-public val MaterialSymbols.Counter5: MaterialSymbol
+val MaterialSymbols.Counter5: MaterialSymbol
     get() = symbolAt(933)
 
-public val MaterialSymbols.Counter6: MaterialSymbol
+val MaterialSymbols.Counter6: MaterialSymbol
     get() = symbolAt(934)
 
-public val MaterialSymbols.Counter7: MaterialSymbol
+val MaterialSymbols.Counter7: MaterialSymbol
     get() = symbolAt(935)
 
-public val MaterialSymbols.Counter8: MaterialSymbol
+val MaterialSymbols.Counter8: MaterialSymbol
     get() = symbolAt(936)
 
-public val MaterialSymbols.Counter9: MaterialSymbol
+val MaterialSymbols.Counter9: MaterialSymbol
     get() = symbolAt(937)
 
-public val MaterialSymbols.Countertops: MaterialSymbol
+val MaterialSymbols.Countertops: MaterialSymbol
     get() = symbolAt(938)
 
-public val MaterialSymbols.Create: MaterialSymbol
+val MaterialSymbols.Create: MaterialSymbol
     get() = symbolAt(939)
 
-public val MaterialSymbols.CreateNewFolder: MaterialSymbol
+val MaterialSymbols.CreateNewFolder: MaterialSymbol
     get() = symbolAt(940)
 
-public val MaterialSymbols.CreditCard: MaterialSymbol
+val MaterialSymbols.CreditCard: MaterialSymbol
     get() = symbolAt(941)
 
-public val MaterialSymbols.CreditCardClock: MaterialSymbol
+val MaterialSymbols.CreditCardClock: MaterialSymbol
     get() = symbolAt(942)
 
-public val MaterialSymbols.CreditCardGear: MaterialSymbol
+val MaterialSymbols.CreditCardGear: MaterialSymbol
     get() = symbolAt(943)
 
-public val MaterialSymbols.CreditCardHeart: MaterialSymbol
+val MaterialSymbols.CreditCardHeart: MaterialSymbol
     get() = symbolAt(944)
 
-public val MaterialSymbols.CreditCardOff: MaterialSymbol
+val MaterialSymbols.CreditCardOff: MaterialSymbol
     get() = symbolAt(945)
 
-public val MaterialSymbols.CreditScore: MaterialSymbol
+val MaterialSymbols.CreditScore: MaterialSymbol
     get() = symbolAt(946)
 
-public val MaterialSymbols.Crib: MaterialSymbol
+val MaterialSymbols.Crib: MaterialSymbol
     get() = symbolAt(947)
 
-public val MaterialSymbols.CrisisAlert: MaterialSymbol
+val MaterialSymbols.CrisisAlert: MaterialSymbol
     get() = symbolAt(948)
 
-public val MaterialSymbols.Crop: MaterialSymbol
+val MaterialSymbols.Crop: MaterialSymbol
     get() = symbolAt(949)
 
-public val MaterialSymbols.Crop169: MaterialSymbol
+val MaterialSymbols.Crop169: MaterialSymbol
     get() = symbolAt(950)
 
-public val MaterialSymbols.Crop32: MaterialSymbol
+val MaterialSymbols.Crop32: MaterialSymbol
     get() = symbolAt(951)
 
-public val MaterialSymbols.Crop54: MaterialSymbol
+val MaterialSymbols.Crop54: MaterialSymbol
     get() = symbolAt(952)
 
-public val MaterialSymbols.Crop75: MaterialSymbol
+val MaterialSymbols.Crop75: MaterialSymbol
     get() = symbolAt(953)
 
-public val MaterialSymbols.Crop916: MaterialSymbol
+val MaterialSymbols.Crop916: MaterialSymbol
     get() = symbolAt(954)
 
-public val MaterialSymbols.CropDin: MaterialSymbol
+val MaterialSymbols.CropDin: MaterialSymbol
     get() = symbolAt(955)
 
-public val MaterialSymbols.CropFree: MaterialSymbol
+val MaterialSymbols.CropFree: MaterialSymbol
     get() = symbolAt(956)
 
-public val MaterialSymbols.CropLandscape: MaterialSymbol
+val MaterialSymbols.CropLandscape: MaterialSymbol
     get() = symbolAt(957)
 
-public val MaterialSymbols.CropOriginal: MaterialSymbol
+val MaterialSymbols.CropOriginal: MaterialSymbol
     get() = symbolAt(958)
 
-public val MaterialSymbols.CropPortrait: MaterialSymbol
+val MaterialSymbols.CropPortrait: MaterialSymbol
     get() = symbolAt(959)
 
-public val MaterialSymbols.CropRotate: MaterialSymbol
+val MaterialSymbols.CropRotate: MaterialSymbol
     get() = symbolAt(960)
 
-public val MaterialSymbols.CropSquare: MaterialSymbol
+val MaterialSymbols.CropSquare: MaterialSymbol
     get() = symbolAt(961)
 
-public val MaterialSymbols.Crossword: MaterialSymbol
+val MaterialSymbols.Crossword: MaterialSymbol
     get() = symbolAt(962)
 
-public val MaterialSymbols.Crowdsource: MaterialSymbol
+val MaterialSymbols.Crowdsource: MaterialSymbol
     get() = symbolAt(963)
 
-public val MaterialSymbols.Crown: MaterialSymbol
+val MaterialSymbols.Crown: MaterialSymbol
     get() = symbolAt(964)
 
-public val MaterialSymbols.CrueltyFree: MaterialSymbol
+val MaterialSymbols.CrueltyFree: MaterialSymbol
     get() = symbolAt(965)
 
-public val MaterialSymbols.Css: MaterialSymbol
+val MaterialSymbols.Css: MaterialSymbol
     get() = symbolAt(966)
 
-public val MaterialSymbols.Csv: MaterialSymbol
+val MaterialSymbols.Csv: MaterialSymbol
     get() = symbolAt(967)
 
-public val MaterialSymbols.CurrencyBitcoin: MaterialSymbol
+val MaterialSymbols.CurrencyBitcoin: MaterialSymbol
     get() = symbolAt(968)
 
-public val MaterialSymbols.CurrencyExchange: MaterialSymbol
+val MaterialSymbols.CurrencyExchange: MaterialSymbol
     get() = symbolAt(969)
 
-public val MaterialSymbols.CurrencyFranc: MaterialSymbol
+val MaterialSymbols.CurrencyFranc: MaterialSymbol
     get() = symbolAt(970)
 
-public val MaterialSymbols.CurrencyLira: MaterialSymbol
+val MaterialSymbols.CurrencyLira: MaterialSymbol
     get() = symbolAt(971)
 
-public val MaterialSymbols.CurrencyPound: MaterialSymbol
+val MaterialSymbols.CurrencyPound: MaterialSymbol
     get() = symbolAt(972)
 
-public val MaterialSymbols.CurrencyRuble: MaterialSymbol
+val MaterialSymbols.CurrencyRuble: MaterialSymbol
     get() = symbolAt(973)
 
-public val MaterialSymbols.CurrencyRupee: MaterialSymbol
+val MaterialSymbols.CurrencyRupee: MaterialSymbol
     get() = symbolAt(974)
 
-public val MaterialSymbols.CurrencyRupeeCircle: MaterialSymbol
+val MaterialSymbols.CurrencyRupeeCircle: MaterialSymbol
     get() = symbolAt(975)
 
-public val MaterialSymbols.CurrencyYen: MaterialSymbol
+val MaterialSymbols.CurrencyYen: MaterialSymbol
     get() = symbolAt(976)
 
-public val MaterialSymbols.CurrencyYuan: MaterialSymbol
+val MaterialSymbols.CurrencyYuan: MaterialSymbol
     get() = symbolAt(977)
 
-public val MaterialSymbols.Curtains: MaterialSymbol
+val MaterialSymbols.Curtains: MaterialSymbol
     get() = symbolAt(978)
 
-public val MaterialSymbols.CurtainsClosed: MaterialSymbol
+val MaterialSymbols.CurtainsClosed: MaterialSymbol
     get() = symbolAt(979)
 
-public val MaterialSymbols.CustomTypography: MaterialSymbol
+val MaterialSymbols.CustomTypography: MaterialSymbol
     get() = symbolAt(980)
 
-public val MaterialSymbols.Cut: MaterialSymbol
+val MaterialSymbols.Cut: MaterialSymbol
     get() = symbolAt(981)
 
-public val MaterialSymbols.Cycle: MaterialSymbol
+val MaterialSymbols.Cycle: MaterialSymbol
     get() = symbolAt(982)
 
-public val MaterialSymbols.Cyclone: MaterialSymbol
+val MaterialSymbols.Cyclone: MaterialSymbol
     get() = symbolAt(983)
 
-public val MaterialSymbols.Dangerous: MaterialSymbol
+val MaterialSymbols.Dangerous: MaterialSymbol
     get() = symbolAt(984)
 
-public val MaterialSymbols.DarkMode: MaterialSymbol
+val MaterialSymbols.DarkMode: MaterialSymbol
     get() = symbolAt(985)
 
-public val MaterialSymbols.Dashboard: MaterialSymbol
+val MaterialSymbols.Dashboard: MaterialSymbol
     get() = symbolAt(986)
 
-public val MaterialSymbols.Dashboard2: MaterialSymbol
+val MaterialSymbols.Dashboard2: MaterialSymbol
     get() = symbolAt(987)
 
-public val MaterialSymbols.DashboardCustomize: MaterialSymbol
+val MaterialSymbols.DashboardCustomize: MaterialSymbol
     get() = symbolAt(988)
 
-public val MaterialSymbols.DataAlert: MaterialSymbol
+val MaterialSymbols.DataAlert: MaterialSymbol
     get() = symbolAt(989)
 
-public val MaterialSymbols.DataArray: MaterialSymbol
+val MaterialSymbols.DataArray: MaterialSymbol
     get() = symbolAt(990)
 
-public val MaterialSymbols.DataCheck: MaterialSymbol
+val MaterialSymbols.DataCheck: MaterialSymbol
     get() = symbolAt(991)
 
-public val MaterialSymbols.DataExploration: MaterialSymbol
+val MaterialSymbols.DataExploration: MaterialSymbol
     get() = symbolAt(992)
 
-public val MaterialSymbols.DataInfoAlert: MaterialSymbol
+val MaterialSymbols.DataInfoAlert: MaterialSymbol
     get() = symbolAt(993)
 
-public val MaterialSymbols.DataLossPrevention: MaterialSymbol
+val MaterialSymbols.DataLossPrevention: MaterialSymbol
     get() = symbolAt(994)
 
-public val MaterialSymbols.DataObject: MaterialSymbol
+val MaterialSymbols.DataObject: MaterialSymbol
     get() = symbolAt(995)
 
-public val MaterialSymbols.DataSaverOff: MaterialSymbol
+val MaterialSymbols.DataSaverOff: MaterialSymbol
     get() = symbolAt(996)
 
-public val MaterialSymbols.DataSaverOn: MaterialSymbol
+val MaterialSymbols.DataSaverOn: MaterialSymbol
     get() = symbolAt(997)
 
-public val MaterialSymbols.DataTable: MaterialSymbol
+val MaterialSymbols.DataTable: MaterialSymbol
     get() = symbolAt(998)
 
-public val MaterialSymbols.DataThresholding: MaterialSymbol
+val MaterialSymbols.DataThresholding: MaterialSymbol
     get() = symbolAt(999)
 
-public val MaterialSymbols.DataUsage: MaterialSymbol
+val MaterialSymbols.DataUsage: MaterialSymbol
     get() = symbolAt(1000)
 
-public val MaterialSymbols.Database: MaterialSymbol
+val MaterialSymbols.Database: MaterialSymbol
     get() = symbolAt(1001)
 
-public val MaterialSymbols.DatabaseOff: MaterialSymbol
+val MaterialSymbols.DatabaseOff: MaterialSymbol
     get() = symbolAt(1002)
 
-public val MaterialSymbols.DatabaseSearch: MaterialSymbol
+val MaterialSymbols.DatabaseSearch: MaterialSymbol
     get() = symbolAt(1003)
 
-public val MaterialSymbols.DatabaseUpload: MaterialSymbol
+val MaterialSymbols.DatabaseUpload: MaterialSymbol
     get() = symbolAt(1004)
 
-public val MaterialSymbols.Dataset: MaterialSymbol
+val MaterialSymbols.Dataset: MaterialSymbol
     get() = symbolAt(1005)
 
-public val MaterialSymbols.DatasetLinked: MaterialSymbol
+val MaterialSymbols.DatasetLinked: MaterialSymbol
     get() = symbolAt(1006)
 
-public val MaterialSymbols.DateRange: MaterialSymbol
+val MaterialSymbols.DateRange: MaterialSymbol
     get() = symbolAt(1007)
 
-public val MaterialSymbols.Deblur: MaterialSymbol
+val MaterialSymbols.Deblur: MaterialSymbol
     get() = symbolAt(1008)
 
-public val MaterialSymbols.Deceased: MaterialSymbol
+val MaterialSymbols.Deceased: MaterialSymbol
     get() = symbolAt(1009)
 
-public val MaterialSymbols.DecimalDecrease: MaterialSymbol
+val MaterialSymbols.DecimalDecrease: MaterialSymbol
     get() = symbolAt(1010)
 
-public val MaterialSymbols.DecimalIncrease: MaterialSymbol
+val MaterialSymbols.DecimalIncrease: MaterialSymbol
     get() = symbolAt(1011)
 
-public val MaterialSymbols.Deck: MaterialSymbol
+val MaterialSymbols.Deck: MaterialSymbol
     get() = symbolAt(1012)
 
-public val MaterialSymbols.Dehaze: MaterialSymbol
+val MaterialSymbols.Dehaze: MaterialSymbol
     get() = symbolAt(1013)
 
-public val MaterialSymbols.Delete: MaterialSymbol
+val MaterialSymbols.Delete: MaterialSymbol
     get() = symbolAt(1014)
 
-public val MaterialSymbols.DeleteForever: MaterialSymbol
+val MaterialSymbols.DeleteForever: MaterialSymbol
     get() = symbolAt(1015)
 
-public val MaterialSymbols.DeleteHistory: MaterialSymbol
+val MaterialSymbols.DeleteHistory: MaterialSymbol
     get() = symbolAt(1016)
 
-public val MaterialSymbols.DeleteOutline: MaterialSymbol
+val MaterialSymbols.DeleteOutline: MaterialSymbol
     get() = symbolAt(1017)
 
-public val MaterialSymbols.DeleteSweep: MaterialSymbol
+val MaterialSymbols.DeleteSweep: MaterialSymbol
     get() = symbolAt(1018)
 
-public val MaterialSymbols.DeliveryDining: MaterialSymbol
+val MaterialSymbols.DeliveryDining: MaterialSymbol
     get() = symbolAt(1019)
 
-public val MaterialSymbols.DeliveryTruckBolt: MaterialSymbol
+val MaterialSymbols.DeliveryTruckBolt: MaterialSymbol
     get() = symbolAt(1020)
 
-public val MaterialSymbols.DeliveryTruckSpeed: MaterialSymbol
+val MaterialSymbols.DeliveryTruckSpeed: MaterialSymbol
     get() = symbolAt(1021)
 
-public val MaterialSymbols.Demography: MaterialSymbol
+val MaterialSymbols.Demography: MaterialSymbol
     get() = symbolAt(1022)
 
-public val MaterialSymbols.DensityLarge: MaterialSymbol
+val MaterialSymbols.DensityLarge: MaterialSymbol
     get() = symbolAt(1023)
 
-public val MaterialSymbols.DensityMedium: MaterialSymbol
+val MaterialSymbols.DensityMedium: MaterialSymbol
     get() = symbolAt(1024)
 
-public val MaterialSymbols.DensitySmall: MaterialSymbol
+val MaterialSymbols.DensitySmall: MaterialSymbol
     get() = symbolAt(1025)
 
-public val MaterialSymbols.Dentistry: MaterialSymbol
+val MaterialSymbols.Dentistry: MaterialSymbol
     get() = symbolAt(1026)
 
-public val MaterialSymbols.DepartureBoard: MaterialSymbol
+val MaterialSymbols.DepartureBoard: MaterialSymbol
     get() = symbolAt(1027)
 
-public val MaterialSymbols.DeployedCode: MaterialSymbol
+val MaterialSymbols.DeployedCode: MaterialSymbol
     get() = symbolAt(1028)
 
-public val MaterialSymbols.DeployedCodeAccount: MaterialSymbol
+val MaterialSymbols.DeployedCodeAccount: MaterialSymbol
     get() = symbolAt(1029)
 
-public val MaterialSymbols.DeployedCodeAlert: MaterialSymbol
+val MaterialSymbols.DeployedCodeAlert: MaterialSymbol
     get() = symbolAt(1030)
 
-public val MaterialSymbols.DeployedCodeHistory: MaterialSymbol
+val MaterialSymbols.DeployedCodeHistory: MaterialSymbol
     get() = symbolAt(1031)
 
-public val MaterialSymbols.DeployedCodeUpdate: MaterialSymbol
+val MaterialSymbols.DeployedCodeUpdate: MaterialSymbol
     get() = symbolAt(1032)
 
-public val MaterialSymbols.Dermatology: MaterialSymbol
+val MaterialSymbols.Dermatology: MaterialSymbol
     get() = symbolAt(1033)
 
-public val MaterialSymbols.Description: MaterialSymbol
+val MaterialSymbols.Description: MaterialSymbol
     get() = symbolAt(1034)
 
-public val MaterialSymbols.Deselect: MaterialSymbol
+val MaterialSymbols.Deselect: MaterialSymbol
     get() = symbolAt(1035)
 
-public val MaterialSymbols.DesignServices: MaterialSymbol
+val MaterialSymbols.DesignServices: MaterialSymbol
     get() = symbolAt(1036)
 
-public val MaterialSymbols.Desk: MaterialSymbol
+val MaterialSymbols.Desk: MaterialSymbol
     get() = symbolAt(1037)
 
-public val MaterialSymbols.Deskphone: MaterialSymbol
+val MaterialSymbols.Deskphone: MaterialSymbol
     get() = symbolAt(1038)
 
-public val MaterialSymbols.DesktopAccessDisabled: MaterialSymbol
+val MaterialSymbols.DesktopAccessDisabled: MaterialSymbol
     get() = symbolAt(1039)
 
-public val MaterialSymbols.DesktopCloud: MaterialSymbol
+val MaterialSymbols.DesktopCloud: MaterialSymbol
     get() = symbolAt(1040)
 
-public val MaterialSymbols.DesktopCloudStack: MaterialSymbol
+val MaterialSymbols.DesktopCloudStack: MaterialSymbol
     get() = symbolAt(1041)
 
-public val MaterialSymbols.DesktopLandscape: MaterialSymbol
+val MaterialSymbols.DesktopLandscape: MaterialSymbol
     get() = symbolAt(1042)
 
-public val MaterialSymbols.DesktopLandscapeAdd: MaterialSymbol
+val MaterialSymbols.DesktopLandscapeAdd: MaterialSymbol
     get() = symbolAt(1043)
 
-public val MaterialSymbols.DesktopMac: MaterialSymbol
+val MaterialSymbols.DesktopMac: MaterialSymbol
     get() = symbolAt(1044)
 
-public val MaterialSymbols.DesktopPortrait: MaterialSymbol
+val MaterialSymbols.DesktopPortrait: MaterialSymbol
     get() = symbolAt(1045)
 
-public val MaterialSymbols.DesktopWindows: MaterialSymbol
+val MaterialSymbols.DesktopWindows: MaterialSymbol
     get() = symbolAt(1046)
 
-public val MaterialSymbols.Destruction: MaterialSymbol
+val MaterialSymbols.Destruction: MaterialSymbol
     get() = symbolAt(1047)
 
-public val MaterialSymbols.Details: MaterialSymbol
+val MaterialSymbols.Details: MaterialSymbol
     get() = symbolAt(1048)
 
-public val MaterialSymbols.DetectionAndZone: MaterialSymbol
+val MaterialSymbols.DetectionAndZone: MaterialSymbol
     get() = symbolAt(1049)
 
-public val MaterialSymbols.Detector: MaterialSymbol
+val MaterialSymbols.Detector: MaterialSymbol
     get() = symbolAt(1050)
 
-public val MaterialSymbols.DetectorAlarm: MaterialSymbol
+val MaterialSymbols.DetectorAlarm: MaterialSymbol
     get() = symbolAt(1051)
 
-public val MaterialSymbols.DetectorBattery: MaterialSymbol
+val MaterialSymbols.DetectorBattery: MaterialSymbol
     get() = symbolAt(1052)
 
-public val MaterialSymbols.DetectorCo: MaterialSymbol
+val MaterialSymbols.DetectorCo: MaterialSymbol
     get() = symbolAt(1053)
 
-public val MaterialSymbols.DetectorOffline: MaterialSymbol
+val MaterialSymbols.DetectorOffline: MaterialSymbol
     get() = symbolAt(1054)
 
-public val MaterialSymbols.DetectorSmoke: MaterialSymbol
+val MaterialSymbols.DetectorSmoke: MaterialSymbol
     get() = symbolAt(1055)
 
-public val MaterialSymbols.DetectorStatus: MaterialSymbol
+val MaterialSymbols.DetectorStatus: MaterialSymbol
     get() = symbolAt(1056)
 
-public val MaterialSymbols.DeveloperBoard: MaterialSymbol
+val MaterialSymbols.DeveloperBoard: MaterialSymbol
     get() = symbolAt(1057)
 
-public val MaterialSymbols.DeveloperBoardOff: MaterialSymbol
+val MaterialSymbols.DeveloperBoardOff: MaterialSymbol
     get() = symbolAt(1058)
 
-public val MaterialSymbols.DeveloperGuide: MaterialSymbol
+val MaterialSymbols.DeveloperGuide: MaterialSymbol
     get() = symbolAt(1059)
 
-public val MaterialSymbols.DeveloperMode: MaterialSymbol
+val MaterialSymbols.DeveloperMode: MaterialSymbol
     get() = symbolAt(1060)
 
-public val MaterialSymbols.DeveloperModeTv: MaterialSymbol
+val MaterialSymbols.DeveloperModeTv: MaterialSymbol
     get() = symbolAt(1061)
 
-public val MaterialSymbols.DeviceBand: MaterialSymbol
+val MaterialSymbols.DeviceBand: MaterialSymbol
     get() = symbolAt(1062)
 
-public val MaterialSymbols.DeviceHub: MaterialSymbol
+val MaterialSymbols.DeviceHub: MaterialSymbol
     get() = symbolAt(1063)
 
-public val MaterialSymbols.DeviceReset: MaterialSymbol
+val MaterialSymbols.DeviceReset: MaterialSymbol
     get() = symbolAt(1064)
 
-public val MaterialSymbols.DeviceThermostat: MaterialSymbol
+val MaterialSymbols.DeviceThermostat: MaterialSymbol
     get() = symbolAt(1065)
 
-public val MaterialSymbols.DeviceUnknown: MaterialSymbol
+val MaterialSymbols.DeviceUnknown: MaterialSymbol
     get() = symbolAt(1066)
 
-public val MaterialSymbols.Devices: MaterialSymbol
+val MaterialSymbols.Devices: MaterialSymbol
     get() = symbolAt(1067)
 
-public val MaterialSymbols.DevicesFold: MaterialSymbol
+val MaterialSymbols.DevicesFold: MaterialSymbol
     get() = symbolAt(1068)
 
-public val MaterialSymbols.DevicesFold2: MaterialSymbol
+val MaterialSymbols.DevicesFold2: MaterialSymbol
     get() = symbolAt(1069)
 
-public val MaterialSymbols.DevicesOff: MaterialSymbol
+val MaterialSymbols.DevicesOff: MaterialSymbol
     get() = symbolAt(1070)
 
-public val MaterialSymbols.DevicesOther: MaterialSymbol
+val MaterialSymbols.DevicesOther: MaterialSymbol
     get() = symbolAt(1071)
 
-public val MaterialSymbols.DevicesWearables: MaterialSymbol
+val MaterialSymbols.DevicesWearables: MaterialSymbol
     get() = symbolAt(1072)
 
-public val MaterialSymbols.DewPoint: MaterialSymbol
+val MaterialSymbols.DewPoint: MaterialSymbol
     get() = symbolAt(1073)
 
-public val MaterialSymbols.Diagnosis: MaterialSymbol
+val MaterialSymbols.Diagnosis: MaterialSymbol
     get() = symbolAt(1074)
 
-public val MaterialSymbols.DiagonalLine: MaterialSymbol
+val MaterialSymbols.DiagonalLine: MaterialSymbol
     get() = symbolAt(1075)
 
-public val MaterialSymbols.DialerSip: MaterialSymbol
+val MaterialSymbols.DialerSip: MaterialSymbol
     get() = symbolAt(1076)
 
-public val MaterialSymbols.Dialogs: MaterialSymbol
+val MaterialSymbols.Dialogs: MaterialSymbol
     get() = symbolAt(1077)
 
-public val MaterialSymbols.Dialpad: MaterialSymbol
+val MaterialSymbols.Dialpad: MaterialSymbol
     get() = symbolAt(1078)
 
-public val MaterialSymbols.Diamond: MaterialSymbol
+val MaterialSymbols.Diamond: MaterialSymbol
     get() = symbolAt(1079)
 
-public val MaterialSymbols.DiamondShine: MaterialSymbol
+val MaterialSymbols.DiamondShine: MaterialSymbol
     get() = symbolAt(1080)
 
-public val MaterialSymbols.Dictionary: MaterialSymbol
+val MaterialSymbols.Dictionary: MaterialSymbol
     get() = symbolAt(1081)
 
-public val MaterialSymbols.Difference: MaterialSymbol
+val MaterialSymbols.Difference: MaterialSymbol
     get() = symbolAt(1082)
 
-public val MaterialSymbols.DigitalOutOfHome: MaterialSymbol
+val MaterialSymbols.DigitalOutOfHome: MaterialSymbol
     get() = symbolAt(1083)
 
-public val MaterialSymbols.DigitalWellbeing: MaterialSymbol
+val MaterialSymbols.DigitalWellbeing: MaterialSymbol
     get() = symbolAt(1084)
 
-public val MaterialSymbols.DineHeart: MaterialSymbol
+val MaterialSymbols.DineHeart: MaterialSymbol
     get() = symbolAt(1085)
 
-public val MaterialSymbols.DineIn: MaterialSymbol
+val MaterialSymbols.DineIn: MaterialSymbol
     get() = symbolAt(1086)
 
-public val MaterialSymbols.DineLamp: MaterialSymbol
+val MaterialSymbols.DineLamp: MaterialSymbol
     get() = symbolAt(1087)
 
-public val MaterialSymbols.Dining: MaterialSymbol
+val MaterialSymbols.Dining: MaterialSymbol
     get() = symbolAt(1088)
 
-public val MaterialSymbols.DinnerDining: MaterialSymbol
+val MaterialSymbols.DinnerDining: MaterialSymbol
     get() = symbolAt(1089)
 
-public val MaterialSymbols.Directions: MaterialSymbol
+val MaterialSymbols.Directions: MaterialSymbol
     get() = symbolAt(1090)
 
-public val MaterialSymbols.DirectionsAlt: MaterialSymbol
+val MaterialSymbols.DirectionsAlt: MaterialSymbol
     get() = symbolAt(1091)
 
-public val MaterialSymbols.DirectionsAltOff: MaterialSymbol
+val MaterialSymbols.DirectionsAltOff: MaterialSymbol
     get() = symbolAt(1092)
 
-public val MaterialSymbols.DirectionsBike: MaterialSymbol
+val MaterialSymbols.DirectionsBike: MaterialSymbol
     get() = symbolAt(1093)
 
-public val MaterialSymbols.DirectionsBoat: MaterialSymbol
+val MaterialSymbols.DirectionsBoat: MaterialSymbol
     get() = symbolAt(1094)
 
-public val MaterialSymbols.DirectionsBoatFilled: MaterialSymbol
+val MaterialSymbols.DirectionsBoatFilled: MaterialSymbol
     get() = symbolAt(1095)
 
-public val MaterialSymbols.DirectionsBus: MaterialSymbol
+val MaterialSymbols.DirectionsBus: MaterialSymbol
     get() = symbolAt(1096)
 
-public val MaterialSymbols.DirectionsBusFilled: MaterialSymbol
+val MaterialSymbols.DirectionsBusFilled: MaterialSymbol
     get() = symbolAt(1097)
 
-public val MaterialSymbols.DirectionsCar: MaterialSymbol
+val MaterialSymbols.DirectionsCar: MaterialSymbol
     get() = symbolAt(1098)
 
-public val MaterialSymbols.DirectionsCarFilled: MaterialSymbol
+val MaterialSymbols.DirectionsCarFilled: MaterialSymbol
     get() = symbolAt(1099)
 
-public val MaterialSymbols.DirectionsOff: MaterialSymbol
+val MaterialSymbols.DirectionsOff: MaterialSymbol
     get() = symbolAt(1100)
 
-public val MaterialSymbols.DirectionsRailway: MaterialSymbol
+val MaterialSymbols.DirectionsRailway: MaterialSymbol
     get() = symbolAt(1101)
 
-public val MaterialSymbols.DirectionsRailway2: MaterialSymbol
+val MaterialSymbols.DirectionsRailway2: MaterialSymbol
     get() = symbolAt(1102)
 
-public val MaterialSymbols.DirectionsRailwayFilled: MaterialSymbol
+val MaterialSymbols.DirectionsRailwayFilled: MaterialSymbol
     get() = symbolAt(1103)
 
-public val MaterialSymbols.DirectionsRun: MaterialSymbol
+val MaterialSymbols.DirectionsRun: MaterialSymbol
     get() = symbolAt(1104)
 
-public val MaterialSymbols.DirectionsSubway: MaterialSymbol
+val MaterialSymbols.DirectionsSubway: MaterialSymbol
     get() = symbolAt(1105)
 
-public val MaterialSymbols.DirectionsSubwayFilled: MaterialSymbol
+val MaterialSymbols.DirectionsSubwayFilled: MaterialSymbol
     get() = symbolAt(1106)
 
-public val MaterialSymbols.DirectionsTransit: MaterialSymbol
+val MaterialSymbols.DirectionsTransit: MaterialSymbol
     get() = symbolAt(1107)
 
-public val MaterialSymbols.DirectionsTransitFilled: MaterialSymbol
+val MaterialSymbols.DirectionsTransitFilled: MaterialSymbol
     get() = symbolAt(1108)
 
-public val MaterialSymbols.DirectionsWalk: MaterialSymbol
+val MaterialSymbols.DirectionsWalk: MaterialSymbol
     get() = symbolAt(1109)
 
-public val MaterialSymbols.DirectorySync: MaterialSymbol
+val MaterialSymbols.DirectorySync: MaterialSymbol
     get() = symbolAt(1110)
 
-public val MaterialSymbols.DirtyLens: MaterialSymbol
+val MaterialSymbols.DirtyLens: MaterialSymbol
     get() = symbolAt(1111)
 
-public val MaterialSymbols.DisabledByDefault: MaterialSymbol
+val MaterialSymbols.DisabledByDefault: MaterialSymbol
     get() = symbolAt(1112)
 
-public val MaterialSymbols.DisabledVisible: MaterialSymbol
+val MaterialSymbols.DisabledVisible: MaterialSymbol
     get() = symbolAt(1113)
 
-public val MaterialSymbols.DiscFull: MaterialSymbol
+val MaterialSymbols.DiscFull: MaterialSymbol
     get() = symbolAt(1114)
 
-public val MaterialSymbols.DiscoverTune: MaterialSymbol
+val MaterialSymbols.DiscoverTune: MaterialSymbol
     get() = symbolAt(1115)
 
-public val MaterialSymbols.Dishwasher: MaterialSymbol
+val MaterialSymbols.Dishwasher: MaterialSymbol
     get() = symbolAt(1116)
 
-public val MaterialSymbols.DishwasherGen: MaterialSymbol
+val MaterialSymbols.DishwasherGen: MaterialSymbol
     get() = symbolAt(1117)
 
-public val MaterialSymbols.DisplayExternalInput: MaterialSymbol
+val MaterialSymbols.DisplayExternalInput: MaterialSymbol
     get() = symbolAt(1118)
 
-public val MaterialSymbols.DisplaySettings: MaterialSymbol
+val MaterialSymbols.DisplaySettings: MaterialSymbol
     get() = symbolAt(1119)
 
-public val MaterialSymbols.Distance: MaterialSymbol
+val MaterialSymbols.Distance: MaterialSymbol
     get() = symbolAt(1120)
 
-public val MaterialSymbols.Diversity1: MaterialSymbol
+val MaterialSymbols.Diversity1: MaterialSymbol
     get() = symbolAt(1121)
 
-public val MaterialSymbols.Diversity2: MaterialSymbol
+val MaterialSymbols.Diversity2: MaterialSymbol
     get() = symbolAt(1122)
 
-public val MaterialSymbols.Diversity3: MaterialSymbol
+val MaterialSymbols.Diversity3: MaterialSymbol
     get() = symbolAt(1123)
 
-public val MaterialSymbols.Diversity4: MaterialSymbol
+val MaterialSymbols.Diversity4: MaterialSymbol
     get() = symbolAt(1124)
 
-public val MaterialSymbols.Dns: MaterialSymbol
+val MaterialSymbols.Dns: MaterialSymbol
     get() = symbolAt(1125)
 
-public val MaterialSymbols.DoDisturb: MaterialSymbol
+val MaterialSymbols.DoDisturb: MaterialSymbol
     get() = symbolAt(1126)
 
-public val MaterialSymbols.DoDisturbAlt: MaterialSymbol
+val MaterialSymbols.DoDisturbAlt: MaterialSymbol
     get() = symbolAt(1127)
 
-public val MaterialSymbols.DoDisturbOff: MaterialSymbol
+val MaterialSymbols.DoDisturbOff: MaterialSymbol
     get() = symbolAt(1128)
 
-public val MaterialSymbols.DoDisturbOn: MaterialSymbol
+val MaterialSymbols.DoDisturbOn: MaterialSymbol
     get() = symbolAt(1129)
 
-public val MaterialSymbols.DoNotDisturb: MaterialSymbol
+val MaterialSymbols.DoNotDisturb: MaterialSymbol
     get() = symbolAt(1130)
 
-public val MaterialSymbols.DoNotDisturbAlt: MaterialSymbol
+val MaterialSymbols.DoNotDisturbAlt: MaterialSymbol
     get() = symbolAt(1131)
 
-public val MaterialSymbols.DoNotDisturbOff: MaterialSymbol
+val MaterialSymbols.DoNotDisturbOff: MaterialSymbol
     get() = symbolAt(1132)
 
-public val MaterialSymbols.DoNotDisturbOn: MaterialSymbol
+val MaterialSymbols.DoNotDisturbOn: MaterialSymbol
     get() = symbolAt(1133)
 
-public val MaterialSymbols.DoNotDisturbOnTotalSilence: MaterialSymbol
+val MaterialSymbols.DoNotDisturbOnTotalSilence: MaterialSymbol
     get() = symbolAt(1134)
 
-public val MaterialSymbols.DoNotStep: MaterialSymbol
+val MaterialSymbols.DoNotStep: MaterialSymbol
     get() = symbolAt(1135)
 
-public val MaterialSymbols.DoNotTouch: MaterialSymbol
+val MaterialSymbols.DoNotTouch: MaterialSymbol
     get() = symbolAt(1136)
 
-public val MaterialSymbols.Dock: MaterialSymbol
+val MaterialSymbols.Dock: MaterialSymbol
     get() = symbolAt(1137)
 
-public val MaterialSymbols.DockToBottom: MaterialSymbol
+val MaterialSymbols.DockToBottom: MaterialSymbol
     get() = symbolAt(1138)
 
-public val MaterialSymbols.DockToLeft: MaterialSymbol
+val MaterialSymbols.DockToLeft: MaterialSymbol
     get() = symbolAt(1139)
 
-public val MaterialSymbols.DockToRight: MaterialSymbol
+val MaterialSymbols.DockToRight: MaterialSymbol
     get() = symbolAt(1140)
 
-public val MaterialSymbols.Docs: MaterialSymbol
+val MaterialSymbols.Docs: MaterialSymbol
     get() = symbolAt(1141)
 
-public val MaterialSymbols.DocsAddOn: MaterialSymbol
+val MaterialSymbols.DocsAddOn: MaterialSymbol
     get() = symbolAt(1142)
 
-public val MaterialSymbols.DocsAppsScript: MaterialSymbol
+val MaterialSymbols.DocsAppsScript: MaterialSymbol
     get() = symbolAt(1143)
 
-public val MaterialSymbols.DocumentScanner: MaterialSymbol
+val MaterialSymbols.DocumentScanner: MaterialSymbol
     get() = symbolAt(1144)
 
-public val MaterialSymbols.DocumentSearch: MaterialSymbol
+val MaterialSymbols.DocumentSearch: MaterialSymbol
     get() = symbolAt(1145)
 
-public val MaterialSymbols.Domain: MaterialSymbol
+val MaterialSymbols.Domain: MaterialSymbol
     get() = symbolAt(1146)
 
-public val MaterialSymbols.DomainAdd: MaterialSymbol
+val MaterialSymbols.DomainAdd: MaterialSymbol
     get() = symbolAt(1147)
 
-public val MaterialSymbols.DomainDisabled: MaterialSymbol
+val MaterialSymbols.DomainDisabled: MaterialSymbol
     get() = symbolAt(1148)
 
-public val MaterialSymbols.DomainVerification: MaterialSymbol
+val MaterialSymbols.DomainVerification: MaterialSymbol
     get() = symbolAt(1149)
 
-public val MaterialSymbols.DomainVerificationOff: MaterialSymbol
+val MaterialSymbols.DomainVerificationOff: MaterialSymbol
     get() = symbolAt(1150)
 
-public val MaterialSymbols.DominoMask: MaterialSymbol
+val MaterialSymbols.DominoMask: MaterialSymbol
     get() = symbolAt(1151)
 
-public val MaterialSymbols.Done: MaterialSymbol
+val MaterialSymbols.Done: MaterialSymbol
     get() = symbolAt(1152)
 
-public val MaterialSymbols.DoneAll: MaterialSymbol
+val MaterialSymbols.DoneAll: MaterialSymbol
     get() = symbolAt(1153)
 
-public val MaterialSymbols.DoneOutline: MaterialSymbol
+val MaterialSymbols.DoneOutline: MaterialSymbol
     get() = symbolAt(1154)
 
-public val MaterialSymbols.DonutLarge: MaterialSymbol
+val MaterialSymbols.DonutLarge: MaterialSymbol
     get() = symbolAt(1155)
 
-public val MaterialSymbols.DonutSmall: MaterialSymbol
+val MaterialSymbols.DonutSmall: MaterialSymbol
     get() = symbolAt(1156)
 
-public val MaterialSymbols.DoorBack: MaterialSymbol
+val MaterialSymbols.DoorBack: MaterialSymbol
     get() = symbolAt(1157)
 
-public val MaterialSymbols.DoorFront: MaterialSymbol
+val MaterialSymbols.DoorFront: MaterialSymbol
     get() = symbolAt(1158)
 
-public val MaterialSymbols.DoorOpen: MaterialSymbol
+val MaterialSymbols.DoorOpen: MaterialSymbol
     get() = symbolAt(1159)
 
-public val MaterialSymbols.DoorSensor: MaterialSymbol
+val MaterialSymbols.DoorSensor: MaterialSymbol
     get() = symbolAt(1160)
 
-public val MaterialSymbols.DoorSliding: MaterialSymbol
+val MaterialSymbols.DoorSliding: MaterialSymbol
     get() = symbolAt(1161)
 
-public val MaterialSymbols.Doorbell: MaterialSymbol
+val MaterialSymbols.Doorbell: MaterialSymbol
     get() = symbolAt(1162)
 
-public val MaterialSymbols.Doorbell3p: MaterialSymbol
+val MaterialSymbols.Doorbell3p: MaterialSymbol
     get() = symbolAt(1163)
 
-public val MaterialSymbols.DoorbellChime: MaterialSymbol
+val MaterialSymbols.DoorbellChime: MaterialSymbol
     get() = symbolAt(1164)
 
-public val MaterialSymbols.DoubleArrow: MaterialSymbol
+val MaterialSymbols.DoubleArrow: MaterialSymbol
     get() = symbolAt(1165)
 
-public val MaterialSymbols.DownhillSkiing: MaterialSymbol
+val MaterialSymbols.DownhillSkiing: MaterialSymbol
     get() = symbolAt(1166)
 
-public val MaterialSymbols.Download: MaterialSymbol
+val MaterialSymbols.Download: MaterialSymbol
     get() = symbolAt(1167)
 
-public val MaterialSymbols.Download2: MaterialSymbol
+val MaterialSymbols.Download2: MaterialSymbol
     get() = symbolAt(1168)
 
-public val MaterialSymbols.DownloadDone: MaterialSymbol
+val MaterialSymbols.DownloadDone: MaterialSymbol
     get() = symbolAt(1169)
 
-public val MaterialSymbols.DownloadForOffline: MaterialSymbol
+val MaterialSymbols.DownloadForOffline: MaterialSymbol
     get() = symbolAt(1170)
 
-public val MaterialSymbols.Downloading: MaterialSymbol
+val MaterialSymbols.Downloading: MaterialSymbol
     get() = symbolAt(1171)
 
-public val MaterialSymbols.Draft: MaterialSymbol
+val MaterialSymbols.Draft: MaterialSymbol
     get() = symbolAt(1172)
 
-public val MaterialSymbols.DraftOrders: MaterialSymbol
+val MaterialSymbols.DraftOrders: MaterialSymbol
     get() = symbolAt(1173)
 
-public val MaterialSymbols.Drafts: MaterialSymbol
+val MaterialSymbols.Drafts: MaterialSymbol
     get() = symbolAt(1174)
 
-public val MaterialSymbols.DragClick: MaterialSymbol
+val MaterialSymbols.DragClick: MaterialSymbol
     get() = symbolAt(1175)
 
-public val MaterialSymbols.DragHandle: MaterialSymbol
+val MaterialSymbols.DragHandle: MaterialSymbol
     get() = symbolAt(1176)
 
-public val MaterialSymbols.DragIndicator: MaterialSymbol
+val MaterialSymbols.DragIndicator: MaterialSymbol
     get() = symbolAt(1177)
 
-public val MaterialSymbols.DragPan: MaterialSymbol
+val MaterialSymbols.DragPan: MaterialSymbol
     get() = symbolAt(1178)
 
-public val MaterialSymbols.Draw: MaterialSymbol
+val MaterialSymbols.Draw: MaterialSymbol
     get() = symbolAt(1179)
 
-public val MaterialSymbols.DrawAbstract: MaterialSymbol
+val MaterialSymbols.DrawAbstract: MaterialSymbol
     get() = symbolAt(1180)
 
-public val MaterialSymbols.DrawCollage: MaterialSymbol
+val MaterialSymbols.DrawCollage: MaterialSymbol
     get() = symbolAt(1181)
 
-public val MaterialSymbols.DrawingRecognition: MaterialSymbol
+val MaterialSymbols.DrawingRecognition: MaterialSymbol
     get() = symbolAt(1182)
 
-public val MaterialSymbols.Dresser: MaterialSymbol
+val MaterialSymbols.Dresser: MaterialSymbol
     get() = symbolAt(1183)
 
-public val MaterialSymbols.DriveEta: MaterialSymbol
+val MaterialSymbols.DriveEta: MaterialSymbol
     get() = symbolAt(1184)
 
-public val MaterialSymbols.DriveExport: MaterialSymbol
+val MaterialSymbols.DriveExport: MaterialSymbol
     get() = symbolAt(1185)
 
-public val MaterialSymbols.DriveFileMove: MaterialSymbol
+val MaterialSymbols.DriveFileMove: MaterialSymbol
     get() = symbolAt(1186)
 
-public val MaterialSymbols.DriveFileMoveOutline: MaterialSymbol
+val MaterialSymbols.DriveFileMoveOutline: MaterialSymbol
     get() = symbolAt(1187)
 
-public val MaterialSymbols.DriveFileMoveRtl: MaterialSymbol
+val MaterialSymbols.DriveFileMoveRtl: MaterialSymbol
     get() = symbolAt(1188)
 
-public val MaterialSymbols.DriveFileRenameOutline: MaterialSymbol
+val MaterialSymbols.DriveFileRenameOutline: MaterialSymbol
     get() = symbolAt(1189)
 
-public val MaterialSymbols.DriveFolderUpload: MaterialSymbol
+val MaterialSymbols.DriveFolderUpload: MaterialSymbol
     get() = symbolAt(1190)
 
-public val MaterialSymbols.DriveFusiontable: MaterialSymbol
+val MaterialSymbols.DriveFusiontable: MaterialSymbol
     get() = symbolAt(1191)
 
-public val MaterialSymbols.Drone: MaterialSymbol
+val MaterialSymbols.Drone: MaterialSymbol
     get() = symbolAt(1192)
 
-public val MaterialSymbols.Drone2: MaterialSymbol
+val MaterialSymbols.Drone2: MaterialSymbol
     get() = symbolAt(1193)
 
-public val MaterialSymbols.Dropdown: MaterialSymbol
+val MaterialSymbols.Dropdown: MaterialSymbol
     get() = symbolAt(1194)
 
-public val MaterialSymbols.DropperEye: MaterialSymbol
+val MaterialSymbols.DropperEye: MaterialSymbol
     get() = symbolAt(1195)
 
-public val MaterialSymbols.Dry: MaterialSymbol
+val MaterialSymbols.Dry: MaterialSymbol
     get() = symbolAt(1196)
 
-public val MaterialSymbols.DryCleaning: MaterialSymbol
+val MaterialSymbols.DryCleaning: MaterialSymbol
     get() = symbolAt(1197)
 
-public val MaterialSymbols.DualScreen: MaterialSymbol
+val MaterialSymbols.DualScreen: MaterialSymbol
     get() = symbolAt(1198)
 
-public val MaterialSymbols.Duo: MaterialSymbol
+val MaterialSymbols.Duo: MaterialSymbol
     get() = symbolAt(1199)
 
-public val MaterialSymbols.Dvr: MaterialSymbol
+val MaterialSymbols.Dvr: MaterialSymbol
     get() = symbolAt(1200)
 
-public val MaterialSymbols.DynamicFeed: MaterialSymbol
+val MaterialSymbols.DynamicFeed: MaterialSymbol
     get() = symbolAt(1201)
 
-public val MaterialSymbols.DynamicForm: MaterialSymbol
+val MaterialSymbols.DynamicForm: MaterialSymbol
     get() = symbolAt(1202)
 
-public val MaterialSymbols.E911Avatar: MaterialSymbol
+val MaterialSymbols.E911Avatar: MaterialSymbol
     get() = symbolAt(1203)
 
-public val MaterialSymbols.E911Emergency: MaterialSymbol
+val MaterialSymbols.E911Emergency: MaterialSymbol
     get() = symbolAt(1204)
 
-public val MaterialSymbols.EMobiledata: MaterialSymbol
+val MaterialSymbols.EMobiledata: MaterialSymbol
     get() = symbolAt(1205)
 
-public val MaterialSymbols.EMobiledataBadge: MaterialSymbol
+val MaterialSymbols.EMobiledataBadge: MaterialSymbol
     get() = symbolAt(1206)
 
-public val MaterialSymbols.EarSound: MaterialSymbol
+val MaterialSymbols.EarSound: MaterialSymbol
     get() = symbolAt(1207)
 
-public val MaterialSymbols.EarbudCase: MaterialSymbol
+val MaterialSymbols.EarbudCase: MaterialSymbol
     get() = symbolAt(1208)
 
-public val MaterialSymbols.EarbudLeft: MaterialSymbol
+val MaterialSymbols.EarbudLeft: MaterialSymbol
     get() = symbolAt(1209)
 
-public val MaterialSymbols.EarbudRight: MaterialSymbol
+val MaterialSymbols.EarbudRight: MaterialSymbol
     get() = symbolAt(1210)
 
-public val MaterialSymbols.Earbuds: MaterialSymbol
+val MaterialSymbols.Earbuds: MaterialSymbol
     get() = symbolAt(1211)
 
-public val MaterialSymbols.Earbuds2: MaterialSymbol
+val MaterialSymbols.Earbuds2: MaterialSymbol
     get() = symbolAt(1212)
 
-public val MaterialSymbols.EarbudsBattery: MaterialSymbol
+val MaterialSymbols.EarbudsBattery: MaterialSymbol
     get() = symbolAt(1213)
 
-public val MaterialSymbols.EarlyOn: MaterialSymbol
+val MaterialSymbols.EarlyOn: MaterialSymbol
     get() = symbolAt(1214)
 
-public val MaterialSymbols.Earthquake: MaterialSymbol
+val MaterialSymbols.Earthquake: MaterialSymbol
     get() = symbolAt(1215)
 
-public val MaterialSymbols.East: MaterialSymbol
+val MaterialSymbols.East: MaterialSymbol
     get() = symbolAt(1216)
 
-public val MaterialSymbols.Ecg: MaterialSymbol
+val MaterialSymbols.Ecg: MaterialSymbol
     get() = symbolAt(1217)
 
-public val MaterialSymbols.EcgHeart: MaterialSymbol
+val MaterialSymbols.EcgHeart: MaterialSymbol
     get() = symbolAt(1218)
 
-public val MaterialSymbols.Eco: MaterialSymbol
+val MaterialSymbols.Eco: MaterialSymbol
     get() = symbolAt(1219)
 
-public val MaterialSymbols.Eda: MaterialSymbol
+val MaterialSymbols.Eda: MaterialSymbol
     get() = symbolAt(1220)
 
-public val MaterialSymbols.EdgesensorHigh: MaterialSymbol
+val MaterialSymbols.EdgesensorHigh: MaterialSymbol
     get() = symbolAt(1221)
 
-public val MaterialSymbols.EdgesensorLow: MaterialSymbol
+val MaterialSymbols.EdgesensorLow: MaterialSymbol
     get() = symbolAt(1222)
 
-public val MaterialSymbols.Edit: MaterialSymbol
+val MaterialSymbols.Edit: MaterialSymbol
     get() = symbolAt(1223)
 
-public val MaterialSymbols.EditArrowDown: MaterialSymbol
+val MaterialSymbols.EditArrowDown: MaterialSymbol
     get() = symbolAt(1224)
 
-public val MaterialSymbols.EditArrowUp: MaterialSymbol
+val MaterialSymbols.EditArrowUp: MaterialSymbol
     get() = symbolAt(1225)
 
-public val MaterialSymbols.EditAttributes: MaterialSymbol
+val MaterialSymbols.EditAttributes: MaterialSymbol
     get() = symbolAt(1226)
 
-public val MaterialSymbols.EditAudio: MaterialSymbol
+val MaterialSymbols.EditAudio: MaterialSymbol
     get() = symbolAt(1227)
 
-public val MaterialSymbols.EditCalendar: MaterialSymbol
+val MaterialSymbols.EditCalendar: MaterialSymbol
     get() = symbolAt(1228)
 
-public val MaterialSymbols.EditDocument: MaterialSymbol
+val MaterialSymbols.EditDocument: MaterialSymbol
     get() = symbolAt(1229)
 
-public val MaterialSymbols.EditLocation: MaterialSymbol
+val MaterialSymbols.EditLocation: MaterialSymbol
     get() = symbolAt(1230)
 
-public val MaterialSymbols.EditLocationAlt: MaterialSymbol
+val MaterialSymbols.EditLocationAlt: MaterialSymbol
     get() = symbolAt(1231)
 
-public val MaterialSymbols.EditNote: MaterialSymbol
+val MaterialSymbols.EditNote: MaterialSymbol
     get() = symbolAt(1232)
 
-public val MaterialSymbols.EditNotifications: MaterialSymbol
+val MaterialSymbols.EditNotifications: MaterialSymbol
     get() = symbolAt(1233)
 
-public val MaterialSymbols.EditOff: MaterialSymbol
+val MaterialSymbols.EditOff: MaterialSymbol
     get() = symbolAt(1234)
 
-public val MaterialSymbols.EditRoad: MaterialSymbol
+val MaterialSymbols.EditRoad: MaterialSymbol
     get() = symbolAt(1235)
 
-public val MaterialSymbols.EditSquare: MaterialSymbol
+val MaterialSymbols.EditSquare: MaterialSymbol
     get() = symbolAt(1236)
 
-public val MaterialSymbols.EditorChoice: MaterialSymbol
+val MaterialSymbols.EditorChoice: MaterialSymbol
     get() = symbolAt(1237)
 
-public val MaterialSymbols.Egg: MaterialSymbol
+val MaterialSymbols.Egg: MaterialSymbol
     get() = symbolAt(1238)
 
-public val MaterialSymbols.EggAlt: MaterialSymbol
+val MaterialSymbols.EggAlt: MaterialSymbol
     get() = symbolAt(1239)
 
-public val MaterialSymbols.Eject: MaterialSymbol
+val MaterialSymbols.Eject: MaterialSymbol
     get() = symbolAt(1240)
 
-public val MaterialSymbols.Elderly: MaterialSymbol
+val MaterialSymbols.Elderly: MaterialSymbol
     get() = symbolAt(1241)
 
-public val MaterialSymbols.ElderlyWoman: MaterialSymbol
+val MaterialSymbols.ElderlyWoman: MaterialSymbol
     get() = symbolAt(1242)
 
-public val MaterialSymbols.ElectricBike: MaterialSymbol
+val MaterialSymbols.ElectricBike: MaterialSymbol
     get() = symbolAt(1243)
 
-public val MaterialSymbols.ElectricBolt: MaterialSymbol
+val MaterialSymbols.ElectricBolt: MaterialSymbol
     get() = symbolAt(1244)
 
-public val MaterialSymbols.ElectricCar: MaterialSymbol
+val MaterialSymbols.ElectricCar: MaterialSymbol
     get() = symbolAt(1245)
 
-public val MaterialSymbols.ElectricMeter: MaterialSymbol
+val MaterialSymbols.ElectricMeter: MaterialSymbol
     get() = symbolAt(1246)
 
-public val MaterialSymbols.ElectricMoped: MaterialSymbol
+val MaterialSymbols.ElectricMoped: MaterialSymbol
     get() = symbolAt(1247)
 
-public val MaterialSymbols.ElectricRickshaw: MaterialSymbol
+val MaterialSymbols.ElectricRickshaw: MaterialSymbol
     get() = symbolAt(1248)
 
-public val MaterialSymbols.ElectricScooter: MaterialSymbol
+val MaterialSymbols.ElectricScooter: MaterialSymbol
     get() = symbolAt(1249)
 
-public val MaterialSymbols.ElectricalServices: MaterialSymbol
+val MaterialSymbols.ElectricalServices: MaterialSymbol
     get() = symbolAt(1250)
 
-public val MaterialSymbols.Elevation: MaterialSymbol
+val MaterialSymbols.Elevation: MaterialSymbol
     get() = symbolAt(1251)
 
-public val MaterialSymbols.Elevator: MaterialSymbol
+val MaterialSymbols.Elevator: MaterialSymbol
     get() = symbolAt(1252)
 
-public val MaterialSymbols.Email: MaterialSymbol
+val MaterialSymbols.Email: MaterialSymbol
     get() = symbolAt(1253)
 
-public val MaterialSymbols.Emergency: MaterialSymbol
+val MaterialSymbols.Emergency: MaterialSymbol
     get() = symbolAt(1254)
 
-public val MaterialSymbols.EmergencyHeat: MaterialSymbol
+val MaterialSymbols.EmergencyHeat: MaterialSymbol
     get() = symbolAt(1255)
 
-public val MaterialSymbols.EmergencyHeat2: MaterialSymbol
+val MaterialSymbols.EmergencyHeat2: MaterialSymbol
     get() = symbolAt(1256)
 
-public val MaterialSymbols.EmergencyHome: MaterialSymbol
+val MaterialSymbols.EmergencyHome: MaterialSymbol
     get() = symbolAt(1257)
 
-public val MaterialSymbols.EmergencyRecording: MaterialSymbol
+val MaterialSymbols.EmergencyRecording: MaterialSymbol
     get() = symbolAt(1258)
 
-public val MaterialSymbols.EmergencyShare: MaterialSymbol
+val MaterialSymbols.EmergencyShare: MaterialSymbol
     get() = symbolAt(1259)
 
-public val MaterialSymbols.EmergencyShareOff: MaterialSymbol
+val MaterialSymbols.EmergencyShareOff: MaterialSymbol
     get() = symbolAt(1260)
 
-public val MaterialSymbols.EmojiEmotions: MaterialSymbol
+val MaterialSymbols.EmojiEmotions: MaterialSymbol
     get() = symbolAt(1261)
 
-public val MaterialSymbols.EmojiEvents: MaterialSymbol
+val MaterialSymbols.EmojiEvents: MaterialSymbol
     get() = symbolAt(1262)
 
-public val MaterialSymbols.EmojiFlags: MaterialSymbol
+val MaterialSymbols.EmojiFlags: MaterialSymbol
     get() = symbolAt(1263)
 
-public val MaterialSymbols.EmojiFoodBeverage: MaterialSymbol
+val MaterialSymbols.EmojiFoodBeverage: MaterialSymbol
     get() = symbolAt(1264)
 
-public val MaterialSymbols.EmojiLanguage: MaterialSymbol
+val MaterialSymbols.EmojiLanguage: MaterialSymbol
     get() = symbolAt(1265)
 
-public val MaterialSymbols.EmojiNature: MaterialSymbol
+val MaterialSymbols.EmojiNature: MaterialSymbol
     get() = symbolAt(1266)
 
-public val MaterialSymbols.EmojiObjects: MaterialSymbol
+val MaterialSymbols.EmojiObjects: MaterialSymbol
     get() = symbolAt(1267)
 
-public val MaterialSymbols.EmojiPeople: MaterialSymbol
+val MaterialSymbols.EmojiPeople: MaterialSymbol
     get() = symbolAt(1268)
 
-public val MaterialSymbols.EmojiSymbols: MaterialSymbol
+val MaterialSymbols.EmojiSymbols: MaterialSymbol
     get() = symbolAt(1269)
 
-public val MaterialSymbols.EmojiTransportation: MaterialSymbol
+val MaterialSymbols.EmojiTransportation: MaterialSymbol
     get() = symbolAt(1270)
 
-public val MaterialSymbols.Emoticon: MaterialSymbol
+val MaterialSymbols.Emoticon: MaterialSymbol
     get() = symbolAt(1271)
 
-public val MaterialSymbols.EmptyDashboard: MaterialSymbol
+val MaterialSymbols.EmptyDashboard: MaterialSymbol
     get() = symbolAt(1272)
 
-public val MaterialSymbols.Enable: MaterialSymbol
+val MaterialSymbols.Enable: MaterialSymbol
     get() = symbolAt(1273)
 
-public val MaterialSymbols.Encrypted: MaterialSymbol
+val MaterialSymbols.Encrypted: MaterialSymbol
     get() = symbolAt(1274)
 
-public val MaterialSymbols.EncryptedAdd: MaterialSymbol
+val MaterialSymbols.EncryptedAdd: MaterialSymbol
     get() = symbolAt(1275)
 
-public val MaterialSymbols.EncryptedAddCircle: MaterialSymbol
+val MaterialSymbols.EncryptedAddCircle: MaterialSymbol
     get() = symbolAt(1276)
 
-public val MaterialSymbols.EncryptedMinusCircle: MaterialSymbol
+val MaterialSymbols.EncryptedMinusCircle: MaterialSymbol
     get() = symbolAt(1277)
 
-public val MaterialSymbols.EncryptedOff: MaterialSymbol
+val MaterialSymbols.EncryptedOff: MaterialSymbol
     get() = symbolAt(1278)
 
-public val MaterialSymbols.Endocrinology: MaterialSymbol
+val MaterialSymbols.Endocrinology: MaterialSymbol
     get() = symbolAt(1279)
 
-public val MaterialSymbols.Energy: MaterialSymbol
+val MaterialSymbols.Energy: MaterialSymbol
     get() = symbolAt(1280)
 
-public val MaterialSymbols.EnergyProgramSaving: MaterialSymbol
+val MaterialSymbols.EnergyProgramSaving: MaterialSymbol
     get() = symbolAt(1281)
 
-public val MaterialSymbols.EnergyProgramTimeUsed: MaterialSymbol
+val MaterialSymbols.EnergyProgramTimeUsed: MaterialSymbol
     get() = symbolAt(1282)
 
-public val MaterialSymbols.EnergySavingsLeaf: MaterialSymbol
+val MaterialSymbols.EnergySavingsLeaf: MaterialSymbol
     get() = symbolAt(1283)
 
-public val MaterialSymbols.Engineering: MaterialSymbol
+val MaterialSymbols.Engineering: MaterialSymbol
     get() = symbolAt(1284)
 
-public val MaterialSymbols.EnhancedEncryption: MaterialSymbol
+val MaterialSymbols.EnhancedEncryption: MaterialSymbol
     get() = symbolAt(1285)
 
-public val MaterialSymbols.Ent: MaterialSymbol
+val MaterialSymbols.Ent: MaterialSymbol
     get() = symbolAt(1286)
 
-public val MaterialSymbols.Enterprise: MaterialSymbol
+val MaterialSymbols.Enterprise: MaterialSymbol
     get() = symbolAt(1287)
 
-public val MaterialSymbols.EnterpriseOff: MaterialSymbol
+val MaterialSymbols.EnterpriseOff: MaterialSymbol
     get() = symbolAt(1288)
 
-public val MaterialSymbols.Equal: MaterialSymbol
+val MaterialSymbols.Equal: MaterialSymbol
     get() = symbolAt(1289)
 
-public val MaterialSymbols.Equalizer: MaterialSymbol
+val MaterialSymbols.Equalizer: MaterialSymbol
     get() = symbolAt(1290)
 
-public val MaterialSymbols.EraserSize1: MaterialSymbol
+val MaterialSymbols.EraserSize1: MaterialSymbol
     get() = symbolAt(1291)
 
-public val MaterialSymbols.EraserSize2: MaterialSymbol
+val MaterialSymbols.EraserSize2: MaterialSymbol
     get() = symbolAt(1292)
 
-public val MaterialSymbols.EraserSize3: MaterialSymbol
+val MaterialSymbols.EraserSize3: MaterialSymbol
     get() = symbolAt(1293)
 
-public val MaterialSymbols.EraserSize4: MaterialSymbol
+val MaterialSymbols.EraserSize4: MaterialSymbol
     get() = symbolAt(1294)
 
-public val MaterialSymbols.EraserSize5: MaterialSymbol
+val MaterialSymbols.EraserSize5: MaterialSymbol
     get() = symbolAt(1295)
 
-public val MaterialSymbols.Error: MaterialSymbol
+val MaterialSymbols.Error: MaterialSymbol
     get() = symbolAt(1296)
 
-public val MaterialSymbols.ErrorCircleRounded: MaterialSymbol
+val MaterialSymbols.ErrorCircleRounded: MaterialSymbol
     get() = symbolAt(1297)
 
-public val MaterialSymbols.ErrorMed: MaterialSymbol
+val MaterialSymbols.ErrorMed: MaterialSymbol
     get() = symbolAt(1298)
 
-public val MaterialSymbols.ErrorOutline: MaterialSymbol
+val MaterialSymbols.ErrorOutline: MaterialSymbol
     get() = symbolAt(1299)
 
-public val MaterialSymbols.Escalator: MaterialSymbol
+val MaterialSymbols.Escalator: MaterialSymbol
     get() = symbolAt(1300)
 
-public val MaterialSymbols.EscalatorWarning: MaterialSymbol
+val MaterialSymbols.EscalatorWarning: MaterialSymbol
     get() = symbolAt(1301)
 
-public val MaterialSymbols.Euro: MaterialSymbol
+val MaterialSymbols.Euro: MaterialSymbol
     get() = symbolAt(1302)
 
-public val MaterialSymbols.EuroSymbol: MaterialSymbol
+val MaterialSymbols.EuroSymbol: MaterialSymbol
     get() = symbolAt(1303)
 
-public val MaterialSymbols.EvCharger: MaterialSymbol
+val MaterialSymbols.EvCharger: MaterialSymbol
     get() = symbolAt(1304)
 
-public val MaterialSymbols.EvMobiledataBadge: MaterialSymbol
+val MaterialSymbols.EvMobiledataBadge: MaterialSymbol
     get() = symbolAt(1305)
 
-public val MaterialSymbols.EvShadow: MaterialSymbol
+val MaterialSymbols.EvShadow: MaterialSymbol
     get() = symbolAt(1306)
 
-public val MaterialSymbols.EvShadowAdd: MaterialSymbol
+val MaterialSymbols.EvShadowAdd: MaterialSymbol
     get() = symbolAt(1307)
 
-public val MaterialSymbols.EvShadowMinus: MaterialSymbol
+val MaterialSymbols.EvShadowMinus: MaterialSymbol
     get() = symbolAt(1308)
 
-public val MaterialSymbols.EvStation: MaterialSymbol
+val MaterialSymbols.EvStation: MaterialSymbol
     get() = symbolAt(1309)
 
-public val MaterialSymbols.Event: MaterialSymbol
+val MaterialSymbols.Event: MaterialSymbol
     get() = symbolAt(1310)
 
-public val MaterialSymbols.EventAvailable: MaterialSymbol
+val MaterialSymbols.EventAvailable: MaterialSymbol
     get() = symbolAt(1311)
 
-public val MaterialSymbols.EventBusy: MaterialSymbol
+val MaterialSymbols.EventBusy: MaterialSymbol
     get() = symbolAt(1312)
 
-public val MaterialSymbols.EventList: MaterialSymbol
+val MaterialSymbols.EventList: MaterialSymbol
     get() = symbolAt(1313)
 
-public val MaterialSymbols.EventNote: MaterialSymbol
+val MaterialSymbols.EventNote: MaterialSymbol
     get() = symbolAt(1314)
 
-public val MaterialSymbols.EventRepeat: MaterialSymbol
+val MaterialSymbols.EventRepeat: MaterialSymbol
     get() = symbolAt(1315)
 
-public val MaterialSymbols.EventSeat: MaterialSymbol
+val MaterialSymbols.EventSeat: MaterialSymbol
     get() = symbolAt(1316)
 
-public val MaterialSymbols.EventUpcoming: MaterialSymbol
+val MaterialSymbols.EventUpcoming: MaterialSymbol
     get() = symbolAt(1317)
 
-public val MaterialSymbols.Exclamation: MaterialSymbol
+val MaterialSymbols.Exclamation: MaterialSymbol
     get() = symbolAt(1318)
 
-public val MaterialSymbols.Exercise: MaterialSymbol
+val MaterialSymbols.Exercise: MaterialSymbol
     get() = symbolAt(1319)
 
-public val MaterialSymbols.ExitToApp: MaterialSymbol
+val MaterialSymbols.ExitToApp: MaterialSymbol
     get() = symbolAt(1320)
 
-public val MaterialSymbols.Expand: MaterialSymbol
+val MaterialSymbols.Expand: MaterialSymbol
     get() = symbolAt(1321)
 
-public val MaterialSymbols.ExpandAll: MaterialSymbol
+val MaterialSymbols.ExpandAll: MaterialSymbol
     get() = symbolAt(1322)
 
-public val MaterialSymbols.ExpandCircleDown: MaterialSymbol
+val MaterialSymbols.ExpandCircleDown: MaterialSymbol
     get() = symbolAt(1323)
 
-public val MaterialSymbols.ExpandCircleRight: MaterialSymbol
+val MaterialSymbols.ExpandCircleRight: MaterialSymbol
     get() = symbolAt(1324)
 
-public val MaterialSymbols.ExpandCircleUp: MaterialSymbol
+val MaterialSymbols.ExpandCircleUp: MaterialSymbol
     get() = symbolAt(1325)
 
-public val MaterialSymbols.ExpandContent: MaterialSymbol
+val MaterialSymbols.ExpandContent: MaterialSymbol
     get() = symbolAt(1326)
 
-public val MaterialSymbols.ExpandLess: MaterialSymbol
+val MaterialSymbols.ExpandLess: MaterialSymbol
     get() = symbolAt(1327)
 
-public val MaterialSymbols.ExpandMore: MaterialSymbol
+val MaterialSymbols.ExpandMore: MaterialSymbol
     get() = symbolAt(1328)
 
-public val MaterialSymbols.ExpansionPanels: MaterialSymbol
+val MaterialSymbols.ExpansionPanels: MaterialSymbol
     get() = symbolAt(1329)
 
-public val MaterialSymbols.ExpensionPanels: MaterialSymbol
+val MaterialSymbols.ExpensionPanels: MaterialSymbol
     get() = symbolAt(1330)
 
-public val MaterialSymbols.Experiment: MaterialSymbol
+val MaterialSymbols.Experiment: MaterialSymbol
     get() = symbolAt(1331)
 
-public val MaterialSymbols.Explicit: MaterialSymbol
+val MaterialSymbols.Explicit: MaterialSymbol
     get() = symbolAt(1332)
 
-public val MaterialSymbols.Explore: MaterialSymbol
+val MaterialSymbols.Explore: MaterialSymbol
     get() = symbolAt(1333)
 
-public val MaterialSymbols.ExploreNearby: MaterialSymbol
+val MaterialSymbols.ExploreNearby: MaterialSymbol
     get() = symbolAt(1334)
 
-public val MaterialSymbols.ExploreOff: MaterialSymbol
+val MaterialSymbols.ExploreOff: MaterialSymbol
     get() = symbolAt(1335)
 
-public val MaterialSymbols.Explosion: MaterialSymbol
+val MaterialSymbols.Explosion: MaterialSymbol
     get() = symbolAt(1336)
 
-public val MaterialSymbols.ExportNotes: MaterialSymbol
+val MaterialSymbols.ExportNotes: MaterialSymbol
     get() = symbolAt(1337)
 
-public val MaterialSymbols.Exposure: MaterialSymbol
+val MaterialSymbols.Exposure: MaterialSymbol
     get() = symbolAt(1338)
 
-public val MaterialSymbols.ExposureNeg1: MaterialSymbol
+val MaterialSymbols.ExposureNeg1: MaterialSymbol
     get() = symbolAt(1339)
 
-public val MaterialSymbols.ExposureNeg2: MaterialSymbol
+val MaterialSymbols.ExposureNeg2: MaterialSymbol
     get() = symbolAt(1340)
 
-public val MaterialSymbols.ExposurePlus1: MaterialSymbol
+val MaterialSymbols.ExposurePlus1: MaterialSymbol
     get() = symbolAt(1341)
 
-public val MaterialSymbols.ExposurePlus2: MaterialSymbol
+val MaterialSymbols.ExposurePlus2: MaterialSymbol
     get() = symbolAt(1342)
 
-public val MaterialSymbols.ExposureZero: MaterialSymbol
+val MaterialSymbols.ExposureZero: MaterialSymbol
     get() = symbolAt(1343)
 
-public val MaterialSymbols.Extension: MaterialSymbol
+val MaterialSymbols.Extension: MaterialSymbol
     get() = symbolAt(1344)
 
-public val MaterialSymbols.ExtensionOff: MaterialSymbol
+val MaterialSymbols.ExtensionOff: MaterialSymbol
     get() = symbolAt(1345)
 
-public val MaterialSymbols.EyeTracking: MaterialSymbol
+val MaterialSymbols.EyeTracking: MaterialSymbol
     get() = symbolAt(1346)
 
-public val MaterialSymbols.Eyeglasses: MaterialSymbol
+val MaterialSymbols.Eyeglasses: MaterialSymbol
     get() = symbolAt(1347)
 
-public val MaterialSymbols.Eyeglasses2: MaterialSymbol
+val MaterialSymbols.Eyeglasses2: MaterialSymbol
     get() = symbolAt(1348)
 
-public val MaterialSymbols.Eyeglasses2Sound: MaterialSymbol
+val MaterialSymbols.Eyeglasses2Sound: MaterialSymbol
     get() = symbolAt(1349)
 
-public val MaterialSymbols.Face: MaterialSymbol
+val MaterialSymbols.Face: MaterialSymbol
     get() = symbolAt(1350)
 
-public val MaterialSymbols.Face2: MaterialSymbol
+val MaterialSymbols.Face2: MaterialSymbol
     get() = symbolAt(1351)
 
-public val MaterialSymbols.Face3: MaterialSymbol
+val MaterialSymbols.Face3: MaterialSymbol
     get() = symbolAt(1352)
 
-public val MaterialSymbols.Face4: MaterialSymbol
+val MaterialSymbols.Face4: MaterialSymbol
     get() = symbolAt(1353)
 
-public val MaterialSymbols.Face5: MaterialSymbol
+val MaterialSymbols.Face5: MaterialSymbol
     get() = symbolAt(1354)
 
-public val MaterialSymbols.Face6: MaterialSymbol
+val MaterialSymbols.Face6: MaterialSymbol
     get() = symbolAt(1355)
 
-public val MaterialSymbols.FaceDown: MaterialSymbol
+val MaterialSymbols.FaceDown: MaterialSymbol
     get() = symbolAt(1356)
 
-public val MaterialSymbols.FaceLeft: MaterialSymbol
+val MaterialSymbols.FaceLeft: MaterialSymbol
     get() = symbolAt(1357)
 
-public val MaterialSymbols.FaceNod: MaterialSymbol
+val MaterialSymbols.FaceNod: MaterialSymbol
     get() = symbolAt(1358)
 
-public val MaterialSymbols.FaceRetouchingNatural: MaterialSymbol
+val MaterialSymbols.FaceRetouchingNatural: MaterialSymbol
     get() = symbolAt(1359)
 
-public val MaterialSymbols.FaceRetouchingOff: MaterialSymbol
+val MaterialSymbols.FaceRetouchingOff: MaterialSymbol
     get() = symbolAt(1360)
 
-public val MaterialSymbols.FaceRight: MaterialSymbol
+val MaterialSymbols.FaceRight: MaterialSymbol
     get() = symbolAt(1361)
 
-public val MaterialSymbols.FaceShake: MaterialSymbol
+val MaterialSymbols.FaceShake: MaterialSymbol
     get() = symbolAt(1362)
 
-public val MaterialSymbols.FaceUnlock: MaterialSymbol
+val MaterialSymbols.FaceUnlock: MaterialSymbol
     get() = symbolAt(1363)
 
-public val MaterialSymbols.FaceUp: MaterialSymbol
+val MaterialSymbols.FaceUp: MaterialSymbol
     get() = symbolAt(1364)
 
-public val MaterialSymbols.FactCheck: MaterialSymbol
+val MaterialSymbols.FactCheck: MaterialSymbol
     get() = symbolAt(1365)
 
-public val MaterialSymbols.Factory: MaterialSymbol
+val MaterialSymbols.Factory: MaterialSymbol
     get() = symbolAt(1366)
 
-public val MaterialSymbols.Falling: MaterialSymbol
+val MaterialSymbols.Falling: MaterialSymbol
     get() = symbolAt(1367)
 
-public val MaterialSymbols.FamiliarFaceAndZone: MaterialSymbol
+val MaterialSymbols.FamiliarFaceAndZone: MaterialSymbol
     get() = symbolAt(1368)
 
-public val MaterialSymbols.FamilyGroup: MaterialSymbol
+val MaterialSymbols.FamilyGroup: MaterialSymbol
     get() = symbolAt(1369)
 
-public val MaterialSymbols.FamilyHistory: MaterialSymbol
+val MaterialSymbols.FamilyHistory: MaterialSymbol
     get() = symbolAt(1370)
 
-public val MaterialSymbols.FamilyHome: MaterialSymbol
+val MaterialSymbols.FamilyHome: MaterialSymbol
     get() = symbolAt(1371)
 
-public val MaterialSymbols.FamilyLink: MaterialSymbol
+val MaterialSymbols.FamilyLink: MaterialSymbol
     get() = symbolAt(1372)
 
-public val MaterialSymbols.FamilyRestroom: MaterialSymbol
+val MaterialSymbols.FamilyRestroom: MaterialSymbol
     get() = symbolAt(1373)
 
-public val MaterialSymbols.FamilyStar: MaterialSymbol
+val MaterialSymbols.FamilyStar: MaterialSymbol
     get() = symbolAt(1374)
 
-public val MaterialSymbols.FanFocus: MaterialSymbol
+val MaterialSymbols.FanFocus: MaterialSymbol
     get() = symbolAt(1375)
 
-public val MaterialSymbols.FanIndirect: MaterialSymbol
+val MaterialSymbols.FanIndirect: MaterialSymbol
     get() = symbolAt(1376)
 
-public val MaterialSymbols.FarsightDigital: MaterialSymbol
+val MaterialSymbols.FarsightDigital: MaterialSymbol
     get() = symbolAt(1377)
 
-public val MaterialSymbols.FastForward: MaterialSymbol
+val MaterialSymbols.FastForward: MaterialSymbol
     get() = symbolAt(1378)
 
-public val MaterialSymbols.FastRewind: MaterialSymbol
+val MaterialSymbols.FastRewind: MaterialSymbol
     get() = symbolAt(1379)
 
-public val MaterialSymbols.Fastfood: MaterialSymbol
+val MaterialSymbols.Fastfood: MaterialSymbol
     get() = symbolAt(1380)
 
-public val MaterialSymbols.Faucet: MaterialSymbol
+val MaterialSymbols.Faucet: MaterialSymbol
     get() = symbolAt(1381)
 
-public val MaterialSymbols.Favorite: MaterialSymbol
+val MaterialSymbols.Favorite: MaterialSymbol
     get() = symbolAt(1382)
 
-public val MaterialSymbols.FavoriteBorder: MaterialSymbol
+val MaterialSymbols.FavoriteBorder: MaterialSymbol
     get() = symbolAt(1383)
 
-public val MaterialSymbols.Fax: MaterialSymbol
+val MaterialSymbols.Fax: MaterialSymbol
     get() = symbolAt(1384)
 
-public val MaterialSymbols.FeatureSearch: MaterialSymbol
+val MaterialSymbols.FeatureSearch: MaterialSymbol
     get() = symbolAt(1385)
 
-public val MaterialSymbols.FeaturedPlayList: MaterialSymbol
+val MaterialSymbols.FeaturedPlayList: MaterialSymbol
     get() = symbolAt(1386)
 
-public val MaterialSymbols.FeaturedSeasonalAndGifts: MaterialSymbol
+val MaterialSymbols.FeaturedSeasonalAndGifts: MaterialSymbol
     get() = symbolAt(1387)
 
-public val MaterialSymbols.FeaturedVideo: MaterialSymbol
+val MaterialSymbols.FeaturedVideo: MaterialSymbol
     get() = symbolAt(1388)
 
-public val MaterialSymbols.Feed: MaterialSymbol
+val MaterialSymbols.Feed: MaterialSymbol
     get() = symbolAt(1389)
 
-public val MaterialSymbols.Feedback: MaterialSymbol
+val MaterialSymbols.Feedback: MaterialSymbol
     get() = symbolAt(1390)
 
-public val MaterialSymbols.Female: MaterialSymbol
+val MaterialSymbols.Female: MaterialSymbol
     get() = symbolAt(1391)
 
-public val MaterialSymbols.Femur: MaterialSymbol
+val MaterialSymbols.Femur: MaterialSymbol
     get() = symbolAt(1392)
 
-public val MaterialSymbols.FemurAlt: MaterialSymbol
+val MaterialSymbols.FemurAlt: MaterialSymbol
     get() = symbolAt(1393)
 
-public val MaterialSymbols.Fence: MaterialSymbol
+val MaterialSymbols.Fence: MaterialSymbol
     get() = symbolAt(1394)
 
-public val MaterialSymbols.Fertile: MaterialSymbol
+val MaterialSymbols.Fertile: MaterialSymbol
     get() = symbolAt(1395)
 
-public val MaterialSymbols.Festival: MaterialSymbol
+val MaterialSymbols.Festival: MaterialSymbol
     get() = symbolAt(1396)
 
-public val MaterialSymbols.FiberDvr: MaterialSymbol
+val MaterialSymbols.FiberDvr: MaterialSymbol
     get() = symbolAt(1397)
 
-public val MaterialSymbols.FiberManualRecord: MaterialSymbol
+val MaterialSymbols.FiberManualRecord: MaterialSymbol
     get() = symbolAt(1398)
 
-public val MaterialSymbols.FiberNew: MaterialSymbol
+val MaterialSymbols.FiberNew: MaterialSymbol
     get() = symbolAt(1399)
 
-public val MaterialSymbols.FiberPin: MaterialSymbol
+val MaterialSymbols.FiberPin: MaterialSymbol
     get() = symbolAt(1400)
 
-public val MaterialSymbols.FiberSmartRecord: MaterialSymbol
+val MaterialSymbols.FiberSmartRecord: MaterialSymbol
     get() = symbolAt(1401)
 
-public val MaterialSymbols.FileCopy: MaterialSymbol
+val MaterialSymbols.FileCopy: MaterialSymbol
     get() = symbolAt(1402)
 
-public val MaterialSymbols.FileCopyOff: MaterialSymbol
+val MaterialSymbols.FileCopyOff: MaterialSymbol
     get() = symbolAt(1403)
 
-public val MaterialSymbols.FileDownload: MaterialSymbol
+val MaterialSymbols.FileDownload: MaterialSymbol
     get() = symbolAt(1404)
 
-public val MaterialSymbols.FileDownloadDone: MaterialSymbol
+val MaterialSymbols.FileDownloadDone: MaterialSymbol
     get() = symbolAt(1405)
 
-public val MaterialSymbols.FileDownloadOff: MaterialSymbol
+val MaterialSymbols.FileDownloadOff: MaterialSymbol
     get() = symbolAt(1406)
 
-public val MaterialSymbols.FileExport: MaterialSymbol
+val MaterialSymbols.FileExport: MaterialSymbol
     get() = symbolAt(1407)
 
-public val MaterialSymbols.FileJson: MaterialSymbol
+val MaterialSymbols.FileJson: MaterialSymbol
     get() = symbolAt(1408)
 
-public val MaterialSymbols.FileMap: MaterialSymbol
+val MaterialSymbols.FileMap: MaterialSymbol
     get() = symbolAt(1409)
 
-public val MaterialSymbols.FileMapStack: MaterialSymbol
+val MaterialSymbols.FileMapStack: MaterialSymbol
     get() = symbolAt(1410)
 
-public val MaterialSymbols.FileOpen: MaterialSymbol
+val MaterialSymbols.FileOpen: MaterialSymbol
     get() = symbolAt(1411)
 
-public val MaterialSymbols.FilePng: MaterialSymbol
+val MaterialSymbols.FilePng: MaterialSymbol
     get() = symbolAt(1412)
 
-public val MaterialSymbols.FilePresent: MaterialSymbol
+val MaterialSymbols.FilePresent: MaterialSymbol
     get() = symbolAt(1413)
 
-public val MaterialSymbols.FileSave: MaterialSymbol
+val MaterialSymbols.FileSave: MaterialSymbol
     get() = symbolAt(1414)
 
-public val MaterialSymbols.FileSaveOff: MaterialSymbol
+val MaterialSymbols.FileSaveOff: MaterialSymbol
     get() = symbolAt(1415)
 
-public val MaterialSymbols.FileUpload: MaterialSymbol
+val MaterialSymbols.FileUpload: MaterialSymbol
     get() = symbolAt(1416)
 
-public val MaterialSymbols.FileUploadOff: MaterialSymbol
+val MaterialSymbols.FileUploadOff: MaterialSymbol
     get() = symbolAt(1417)
 
-public val MaterialSymbols.Files: MaterialSymbol
+val MaterialSymbols.Files: MaterialSymbol
     get() = symbolAt(1418)
 
-public val MaterialSymbols.Filter: MaterialSymbol
+val MaterialSymbols.Filter: MaterialSymbol
     get() = symbolAt(1419)
 
-public val MaterialSymbols.Filter1: MaterialSymbol
+val MaterialSymbols.Filter1: MaterialSymbol
     get() = symbolAt(1420)
 
-public val MaterialSymbols.Filter2: MaterialSymbol
+val MaterialSymbols.Filter2: MaterialSymbol
     get() = symbolAt(1421)
 
-public val MaterialSymbols.Filter3: MaterialSymbol
+val MaterialSymbols.Filter3: MaterialSymbol
     get() = symbolAt(1422)
 
-public val MaterialSymbols.Filter4: MaterialSymbol
+val MaterialSymbols.Filter4: MaterialSymbol
     get() = symbolAt(1423)
 
-public val MaterialSymbols.Filter5: MaterialSymbol
+val MaterialSymbols.Filter5: MaterialSymbol
     get() = symbolAt(1424)
 
-public val MaterialSymbols.Filter6: MaterialSymbol
+val MaterialSymbols.Filter6: MaterialSymbol
     get() = symbolAt(1425)
 
-public val MaterialSymbols.Filter7: MaterialSymbol
+val MaterialSymbols.Filter7: MaterialSymbol
     get() = symbolAt(1426)
 
-public val MaterialSymbols.Filter8: MaterialSymbol
+val MaterialSymbols.Filter8: MaterialSymbol
     get() = symbolAt(1427)
 
-public val MaterialSymbols.Filter9: MaterialSymbol
+val MaterialSymbols.Filter9: MaterialSymbol
     get() = symbolAt(1428)
 
-public val MaterialSymbols.Filter9Plus: MaterialSymbol
+val MaterialSymbols.Filter9Plus: MaterialSymbol
     get() = symbolAt(1429)
 
-public val MaterialSymbols.FilterAlt: MaterialSymbol
+val MaterialSymbols.FilterAlt: MaterialSymbol
     get() = symbolAt(1430)
 
-public val MaterialSymbols.FilterAltOff: MaterialSymbol
+val MaterialSymbols.FilterAltOff: MaterialSymbol
     get() = symbolAt(1431)
 
-public val MaterialSymbols.FilterArrowRight: MaterialSymbol
+val MaterialSymbols.FilterArrowRight: MaterialSymbol
     get() = symbolAt(1432)
 
-public val MaterialSymbols.FilterBAndW: MaterialSymbol
+val MaterialSymbols.FilterBAndW: MaterialSymbol
     get() = symbolAt(1433)
 
-public val MaterialSymbols.FilterCenterFocus: MaterialSymbol
+val MaterialSymbols.FilterCenterFocus: MaterialSymbol
     get() = symbolAt(1434)
 
-public val MaterialSymbols.FilterDrama: MaterialSymbol
+val MaterialSymbols.FilterDrama: MaterialSymbol
     get() = symbolAt(1435)
 
-public val MaterialSymbols.FilterFrames: MaterialSymbol
+val MaterialSymbols.FilterFrames: MaterialSymbol
     get() = symbolAt(1436)
 
-public val MaterialSymbols.FilterHdr: MaterialSymbol
+val MaterialSymbols.FilterHdr: MaterialSymbol
     get() = symbolAt(1437)
 
-public val MaterialSymbols.FilterList: MaterialSymbol
+val MaterialSymbols.FilterList: MaterialSymbol
     get() = symbolAt(1438)
 
-public val MaterialSymbols.FilterListAlt: MaterialSymbol
+val MaterialSymbols.FilterListAlt: MaterialSymbol
     get() = symbolAt(1439)
 
-public val MaterialSymbols.FilterListOff: MaterialSymbol
+val MaterialSymbols.FilterListOff: MaterialSymbol
     get() = symbolAt(1440)
 
-public val MaterialSymbols.FilterNone: MaterialSymbol
+val MaterialSymbols.FilterNone: MaterialSymbol
     get() = symbolAt(1441)
 
-public val MaterialSymbols.FilterRetrolux: MaterialSymbol
+val MaterialSymbols.FilterRetrolux: MaterialSymbol
     get() = symbolAt(1442)
 
-public val MaterialSymbols.FilterTiltShift: MaterialSymbol
+val MaterialSymbols.FilterTiltShift: MaterialSymbol
     get() = symbolAt(1443)
 
-public val MaterialSymbols.FilterVintage: MaterialSymbol
+val MaterialSymbols.FilterVintage: MaterialSymbol
     get() = symbolAt(1444)
 
-public val MaterialSymbols.Finance: MaterialSymbol
+val MaterialSymbols.Finance: MaterialSymbol
     get() = symbolAt(1445)
 
-public val MaterialSymbols.FinanceChip: MaterialSymbol
+val MaterialSymbols.FinanceChip: MaterialSymbol
     get() = symbolAt(1446)
 
-public val MaterialSymbols.FinanceMode: MaterialSymbol
+val MaterialSymbols.FinanceMode: MaterialSymbol
     get() = symbolAt(1447)
 
-public val MaterialSymbols.FindInPage: MaterialSymbol
+val MaterialSymbols.FindInPage: MaterialSymbol
     get() = symbolAt(1448)
 
-public val MaterialSymbols.FindReplace: MaterialSymbol
+val MaterialSymbols.FindReplace: MaterialSymbol
     get() = symbolAt(1449)
 
-public val MaterialSymbols.Fingerprint: MaterialSymbol
+val MaterialSymbols.Fingerprint: MaterialSymbol
     get() = symbolAt(1450)
 
-public val MaterialSymbols.FingerprintOff: MaterialSymbol
+val MaterialSymbols.FingerprintOff: MaterialSymbol
     get() = symbolAt(1451)
 
-public val MaterialSymbols.FireExtinguisher: MaterialSymbol
+val MaterialSymbols.FireExtinguisher: MaterialSymbol
     get() = symbolAt(1452)
 
-public val MaterialSymbols.FireHydrant: MaterialSymbol
+val MaterialSymbols.FireHydrant: MaterialSymbol
     get() = symbolAt(1453)
 
-public val MaterialSymbols.FireTruck: MaterialSymbol
+val MaterialSymbols.FireTruck: MaterialSymbol
     get() = symbolAt(1454)
 
-public val MaterialSymbols.Fireplace: MaterialSymbol
+val MaterialSymbols.Fireplace: MaterialSymbol
     get() = symbolAt(1455)
 
-public val MaterialSymbols.FirstPage: MaterialSymbol
+val MaterialSymbols.FirstPage: MaterialSymbol
     get() = symbolAt(1456)
 
-public val MaterialSymbols.FitPage: MaterialSymbol
+val MaterialSymbols.FitPage: MaterialSymbol
     get() = symbolAt(1457)
 
-public val MaterialSymbols.FitPageHeight: MaterialSymbol
+val MaterialSymbols.FitPageHeight: MaterialSymbol
     get() = symbolAt(1458)
 
-public val MaterialSymbols.FitPageWidth: MaterialSymbol
+val MaterialSymbols.FitPageWidth: MaterialSymbol
     get() = symbolAt(1459)
 
-public val MaterialSymbols.FitScreen: MaterialSymbol
+val MaterialSymbols.FitScreen: MaterialSymbol
     get() = symbolAt(1460)
 
-public val MaterialSymbols.FitWidth: MaterialSymbol
+val MaterialSymbols.FitWidth: MaterialSymbol
     get() = symbolAt(1461)
 
-public val MaterialSymbols.FitnessCenter: MaterialSymbol
+val MaterialSymbols.FitnessCenter: MaterialSymbol
     get() = symbolAt(1462)
 
-public val MaterialSymbols.FitnessTracker: MaterialSymbol
+val MaterialSymbols.FitnessTracker: MaterialSymbol
     get() = symbolAt(1463)
 
-public val MaterialSymbols.FitnessTrackers: MaterialSymbol
+val MaterialSymbols.FitnessTrackers: MaterialSymbol
     get() = symbolAt(1464)
 
-public val MaterialSymbols.Flag: MaterialSymbol
+val MaterialSymbols.Flag: MaterialSymbol
     get() = symbolAt(1465)
 
-public val MaterialSymbols.Flag2: MaterialSymbol
+val MaterialSymbols.Flag2: MaterialSymbol
     get() = symbolAt(1466)
 
-public val MaterialSymbols.FlagCheck: MaterialSymbol
+val MaterialSymbols.FlagCheck: MaterialSymbol
     get() = symbolAt(1467)
 
-public val MaterialSymbols.FlagCircle: MaterialSymbol
+val MaterialSymbols.FlagCircle: MaterialSymbol
     get() = symbolAt(1468)
 
-public val MaterialSymbols.FlagFilled: MaterialSymbol
+val MaterialSymbols.FlagFilled: MaterialSymbol
     get() = symbolAt(1469)
 
-public val MaterialSymbols.Flaky: MaterialSymbol
+val MaterialSymbols.Flaky: MaterialSymbol
     get() = symbolAt(1470)
 
-public val MaterialSymbols.Flare: MaterialSymbol
+val MaterialSymbols.Flare: MaterialSymbol
     get() = symbolAt(1471)
 
-public val MaterialSymbols.FlashAuto: MaterialSymbol
+val MaterialSymbols.FlashAuto: MaterialSymbol
     get() = symbolAt(1472)
 
-public val MaterialSymbols.FlashOff: MaterialSymbol
+val MaterialSymbols.FlashOff: MaterialSymbol
     get() = symbolAt(1473)
 
-public val MaterialSymbols.FlashOn: MaterialSymbol
+val MaterialSymbols.FlashOn: MaterialSymbol
     get() = symbolAt(1474)
 
-public val MaterialSymbols.FlashlightOff: MaterialSymbol
+val MaterialSymbols.FlashlightOff: MaterialSymbol
     get() = symbolAt(1475)
 
-public val MaterialSymbols.FlashlightOn: MaterialSymbol
+val MaterialSymbols.FlashlightOn: MaterialSymbol
     get() = symbolAt(1476)
 
-public val MaterialSymbols.Flatware: MaterialSymbol
+val MaterialSymbols.Flatware: MaterialSymbol
     get() = symbolAt(1477)
 
-public val MaterialSymbols.FlexDirection: MaterialSymbol
+val MaterialSymbols.FlexDirection: MaterialSymbol
     get() = symbolAt(1478)
 
-public val MaterialSymbols.FlexNoWrap: MaterialSymbol
+val MaterialSymbols.FlexNoWrap: MaterialSymbol
     get() = symbolAt(1479)
 
-public val MaterialSymbols.FlexWrap: MaterialSymbol
+val MaterialSymbols.FlexWrap: MaterialSymbol
     get() = symbolAt(1480)
 
-public val MaterialSymbols.Flight: MaterialSymbol
+val MaterialSymbols.Flight: MaterialSymbol
     get() = symbolAt(1481)
 
-public val MaterialSymbols.FlightClass: MaterialSymbol
+val MaterialSymbols.FlightClass: MaterialSymbol
     get() = symbolAt(1482)
 
-public val MaterialSymbols.FlightLand: MaterialSymbol
+val MaterialSymbols.FlightLand: MaterialSymbol
     get() = symbolAt(1483)
 
-public val MaterialSymbols.FlightTakeoff: MaterialSymbol
+val MaterialSymbols.FlightTakeoff: MaterialSymbol
     get() = symbolAt(1484)
 
-public val MaterialSymbols.FlightsAndHotels: MaterialSymbol
+val MaterialSymbols.FlightsAndHotels: MaterialSymbol
     get() = symbolAt(1485)
 
-public val MaterialSymbols.Flightsmode: MaterialSymbol
+val MaterialSymbols.Flightsmode: MaterialSymbol
     get() = symbolAt(1486)
 
-public val MaterialSymbols.Flip: MaterialSymbol
+val MaterialSymbols.Flip: MaterialSymbol
     get() = symbolAt(1487)
 
-public val MaterialSymbols.FlipCameraAndroid: MaterialSymbol
+val MaterialSymbols.FlipCameraAndroid: MaterialSymbol
     get() = symbolAt(1488)
 
-public val MaterialSymbols.FlipCameraIos: MaterialSymbol
+val MaterialSymbols.FlipCameraIos: MaterialSymbol
     get() = symbolAt(1489)
 
-public val MaterialSymbols.FlipToBack: MaterialSymbol
+val MaterialSymbols.FlipToBack: MaterialSymbol
     get() = symbolAt(1490)
 
-public val MaterialSymbols.FlipToFront: MaterialSymbol
+val MaterialSymbols.FlipToFront: MaterialSymbol
     get() = symbolAt(1491)
 
-public val MaterialSymbols.FloatLandscape2: MaterialSymbol
+val MaterialSymbols.FloatLandscape2: MaterialSymbol
     get() = symbolAt(1492)
 
-public val MaterialSymbols.FloatPortrait2: MaterialSymbol
+val MaterialSymbols.FloatPortrait2: MaterialSymbol
     get() = symbolAt(1493)
 
-public val MaterialSymbols.Flood: MaterialSymbol
+val MaterialSymbols.Flood: MaterialSymbol
     get() = symbolAt(1494)
 
-public val MaterialSymbols.Floor: MaterialSymbol
+val MaterialSymbols.Floor: MaterialSymbol
     get() = symbolAt(1495)
 
-public val MaterialSymbols.FloorLamp: MaterialSymbol
+val MaterialSymbols.FloorLamp: MaterialSymbol
     get() = symbolAt(1496)
 
-public val MaterialSymbols.Flourescent: MaterialSymbol
+val MaterialSymbols.Flourescent: MaterialSymbol
     get() = symbolAt(1497)
 
-public val MaterialSymbols.Flowchart: MaterialSymbol
+val MaterialSymbols.Flowchart: MaterialSymbol
     get() = symbolAt(1498)
 
-public val MaterialSymbols.Flowsheet: MaterialSymbol
+val MaterialSymbols.Flowsheet: MaterialSymbol
     get() = symbolAt(1499)
 
-public val MaterialSymbols.Fluid: MaterialSymbol
+val MaterialSymbols.Fluid: MaterialSymbol
     get() = symbolAt(1500)
 
-public val MaterialSymbols.FluidBalance: MaterialSymbol
+val MaterialSymbols.FluidBalance: MaterialSymbol
     get() = symbolAt(1501)
 
-public val MaterialSymbols.FluidMed: MaterialSymbol
+val MaterialSymbols.FluidMed: MaterialSymbol
     get() = symbolAt(1502)
 
-public val MaterialSymbols.Fluorescent: MaterialSymbol
+val MaterialSymbols.Fluorescent: MaterialSymbol
     get() = symbolAt(1503)
 
-public val MaterialSymbols.Flutter: MaterialSymbol
+val MaterialSymbols.Flutter: MaterialSymbol
     get() = symbolAt(1504)
 
-public val MaterialSymbols.FlutterDash: MaterialSymbol
+val MaterialSymbols.FlutterDash: MaterialSymbol
     get() = symbolAt(1505)
 
-public val MaterialSymbols.Flyover: MaterialSymbol
+val MaterialSymbols.Flyover: MaterialSymbol
     get() = symbolAt(1506)
 
-public val MaterialSymbols.FmdBad: MaterialSymbol
+val MaterialSymbols.FmdBad: MaterialSymbol
     get() = symbolAt(1507)
 
-public val MaterialSymbols.FmdGood: MaterialSymbol
+val MaterialSymbols.FmdGood: MaterialSymbol
     get() = symbolAt(1508)
 
-public val MaterialSymbols.Foggy: MaterialSymbol
+val MaterialSymbols.Foggy: MaterialSymbol
     get() = symbolAt(1509)
 
-public val MaterialSymbols.FoldedHands: MaterialSymbol
+val MaterialSymbols.FoldedHands: MaterialSymbol
     get() = symbolAt(1510)
 
-public val MaterialSymbols.Folder: MaterialSymbol
+val MaterialSymbols.Folder: MaterialSymbol
     get() = symbolAt(1511)
 
-public val MaterialSymbols.FolderCheck: MaterialSymbol
+val MaterialSymbols.FolderCheck: MaterialSymbol
     get() = symbolAt(1512)
 
-public val MaterialSymbols.FolderCheck2: MaterialSymbol
+val MaterialSymbols.FolderCheck2: MaterialSymbol
     get() = symbolAt(1513)
 
-public val MaterialSymbols.FolderCode: MaterialSymbol
+val MaterialSymbols.FolderCode: MaterialSymbol
     get() = symbolAt(1514)
 
-public val MaterialSymbols.FolderCopy: MaterialSymbol
+val MaterialSymbols.FolderCopy: MaterialSymbol
     get() = symbolAt(1515)
 
-public val MaterialSymbols.FolderData: MaterialSymbol
+val MaterialSymbols.FolderData: MaterialSymbol
     get() = symbolAt(1516)
 
-public val MaterialSymbols.FolderDelete: MaterialSymbol
+val MaterialSymbols.FolderDelete: MaterialSymbol
     get() = symbolAt(1517)
 
-public val MaterialSymbols.FolderEye: MaterialSymbol
+val MaterialSymbols.FolderEye: MaterialSymbol
     get() = symbolAt(1518)
 
-public val MaterialSymbols.FolderInfo: MaterialSymbol
+val MaterialSymbols.FolderInfo: MaterialSymbol
     get() = symbolAt(1519)
 
-public val MaterialSymbols.FolderLimited: MaterialSymbol
+val MaterialSymbols.FolderLimited: MaterialSymbol
     get() = symbolAt(1520)
 
-public val MaterialSymbols.FolderManaged: MaterialSymbol
+val MaterialSymbols.FolderManaged: MaterialSymbol
     get() = symbolAt(1521)
 
-public val MaterialSymbols.FolderMatch: MaterialSymbol
+val MaterialSymbols.FolderMatch: MaterialSymbol
     get() = symbolAt(1522)
 
-public val MaterialSymbols.FolderOff: MaterialSymbol
+val MaterialSymbols.FolderOff: MaterialSymbol
     get() = symbolAt(1523)
 
-public val MaterialSymbols.FolderOpen: MaterialSymbol
+val MaterialSymbols.FolderOpen: MaterialSymbol
     get() = symbolAt(1524)
 
-public val MaterialSymbols.FolderShared: MaterialSymbol
+val MaterialSymbols.FolderShared: MaterialSymbol
     get() = symbolAt(1525)
 
-public val MaterialSymbols.FolderSpecial: MaterialSymbol
+val MaterialSymbols.FolderSpecial: MaterialSymbol
     get() = symbolAt(1526)
 
-public val MaterialSymbols.FolderSupervised: MaterialSymbol
+val MaterialSymbols.FolderSupervised: MaterialSymbol
     get() = symbolAt(1527)
 
-public val MaterialSymbols.FolderZip: MaterialSymbol
+val MaterialSymbols.FolderZip: MaterialSymbol
     get() = symbolAt(1528)
 
-public val MaterialSymbols.FollowTheSigns: MaterialSymbol
+val MaterialSymbols.FollowTheSigns: MaterialSymbol
     get() = symbolAt(1529)
 
-public val MaterialSymbols.FontDownload: MaterialSymbol
+val MaterialSymbols.FontDownload: MaterialSymbol
     get() = symbolAt(1530)
 
-public val MaterialSymbols.FontDownloadOff: MaterialSymbol
+val MaterialSymbols.FontDownloadOff: MaterialSymbol
     get() = symbolAt(1531)
 
-public val MaterialSymbols.FoodBank: MaterialSymbol
+val MaterialSymbols.FoodBank: MaterialSymbol
     get() = symbolAt(1532)
 
-public val MaterialSymbols.FootBones: MaterialSymbol
+val MaterialSymbols.FootBones: MaterialSymbol
     get() = symbolAt(1533)
 
-public val MaterialSymbols.Footprint: MaterialSymbol
+val MaterialSymbols.Footprint: MaterialSymbol
     get() = symbolAt(1534)
 
-public val MaterialSymbols.ForYou: MaterialSymbol
+val MaterialSymbols.ForYou: MaterialSymbol
     get() = symbolAt(1535)
 
-public val MaterialSymbols.Forest: MaterialSymbol
+val MaterialSymbols.Forest: MaterialSymbol
     get() = symbolAt(1536)
 
-public val MaterialSymbols.ForkLeft: MaterialSymbol
+val MaterialSymbols.ForkLeft: MaterialSymbol
     get() = symbolAt(1537)
 
-public val MaterialSymbols.ForkRight: MaterialSymbol
+val MaterialSymbols.ForkRight: MaterialSymbol
     get() = symbolAt(1538)
 
-public val MaterialSymbols.ForkSpoon: MaterialSymbol
+val MaterialSymbols.ForkSpoon: MaterialSymbol
     get() = symbolAt(1539)
 
-public val MaterialSymbols.Forklift: MaterialSymbol
+val MaterialSymbols.Forklift: MaterialSymbol
     get() = symbolAt(1540)
 
-public val MaterialSymbols.FormatAlignCenter: MaterialSymbol
+val MaterialSymbols.FormatAlignCenter: MaterialSymbol
     get() = symbolAt(1541)
 
-public val MaterialSymbols.FormatAlignJustify: MaterialSymbol
+val MaterialSymbols.FormatAlignJustify: MaterialSymbol
     get() = symbolAt(1542)
 
-public val MaterialSymbols.FormatAlignLeft: MaterialSymbol
+val MaterialSymbols.FormatAlignLeft: MaterialSymbol
     get() = symbolAt(1543)
 
-public val MaterialSymbols.FormatAlignRight: MaterialSymbol
+val MaterialSymbols.FormatAlignRight: MaterialSymbol
     get() = symbolAt(1544)
 
-public val MaterialSymbols.FormatBold: MaterialSymbol
+val MaterialSymbols.FormatBold: MaterialSymbol
     get() = symbolAt(1545)
 
-public val MaterialSymbols.FormatClear: MaterialSymbol
+val MaterialSymbols.FormatClear: MaterialSymbol
     get() = symbolAt(1546)
 
-public val MaterialSymbols.FormatColorFill: MaterialSymbol
+val MaterialSymbols.FormatColorFill: MaterialSymbol
     get() = symbolAt(1547)
 
-public val MaterialSymbols.FormatColorReset: MaterialSymbol
+val MaterialSymbols.FormatColorReset: MaterialSymbol
     get() = symbolAt(1548)
 
-public val MaterialSymbols.FormatColorText: MaterialSymbol
+val MaterialSymbols.FormatColorText: MaterialSymbol
     get() = symbolAt(1549)
 
-public val MaterialSymbols.FormatH1: MaterialSymbol
+val MaterialSymbols.FormatH1: MaterialSymbol
     get() = symbolAt(1550)
 
-public val MaterialSymbols.FormatH2: MaterialSymbol
+val MaterialSymbols.FormatH2: MaterialSymbol
     get() = symbolAt(1551)
 
-public val MaterialSymbols.FormatH3: MaterialSymbol
+val MaterialSymbols.FormatH3: MaterialSymbol
     get() = symbolAt(1552)
 
-public val MaterialSymbols.FormatH4: MaterialSymbol
+val MaterialSymbols.FormatH4: MaterialSymbol
     get() = symbolAt(1553)
 
-public val MaterialSymbols.FormatH5: MaterialSymbol
+val MaterialSymbols.FormatH5: MaterialSymbol
     get() = symbolAt(1554)
 
-public val MaterialSymbols.FormatH6: MaterialSymbol
+val MaterialSymbols.FormatH6: MaterialSymbol
     get() = symbolAt(1555)
 
-public val MaterialSymbols.FormatImageLeft: MaterialSymbol
+val MaterialSymbols.FormatImageLeft: MaterialSymbol
     get() = symbolAt(1556)
 
-public val MaterialSymbols.FormatImageRight: MaterialSymbol
+val MaterialSymbols.FormatImageRight: MaterialSymbol
     get() = symbolAt(1557)
 
-public val MaterialSymbols.FormatIndentDecrease: MaterialSymbol
+val MaterialSymbols.FormatIndentDecrease: MaterialSymbol
     get() = symbolAt(1558)
 
-public val MaterialSymbols.FormatIndentIncrease: MaterialSymbol
+val MaterialSymbols.FormatIndentIncrease: MaterialSymbol
     get() = symbolAt(1559)
 
-public val MaterialSymbols.FormatInkHighlighter: MaterialSymbol
+val MaterialSymbols.FormatInkHighlighter: MaterialSymbol
     get() = symbolAt(1560)
 
-public val MaterialSymbols.FormatItalic: MaterialSymbol
+val MaterialSymbols.FormatItalic: MaterialSymbol
     get() = symbolAt(1561)
 
-public val MaterialSymbols.FormatLetterSpacing: MaterialSymbol
+val MaterialSymbols.FormatLetterSpacing: MaterialSymbol
     get() = symbolAt(1562)
 
-public val MaterialSymbols.FormatLetterSpacing2: MaterialSymbol
+val MaterialSymbols.FormatLetterSpacing2: MaterialSymbol
     get() = symbolAt(1563)
 
-public val MaterialSymbols.FormatLetterSpacingStandard: MaterialSymbol
+val MaterialSymbols.FormatLetterSpacingStandard: MaterialSymbol
     get() = symbolAt(1564)
 
-public val MaterialSymbols.FormatLetterSpacingWide: MaterialSymbol
+val MaterialSymbols.FormatLetterSpacingWide: MaterialSymbol
     get() = symbolAt(1565)
 
-public val MaterialSymbols.FormatLetterSpacingWider: MaterialSymbol
+val MaterialSymbols.FormatLetterSpacingWider: MaterialSymbol
     get() = symbolAt(1566)
 
-public val MaterialSymbols.FormatLineSpacing: MaterialSymbol
+val MaterialSymbols.FormatLineSpacing: MaterialSymbol
     get() = symbolAt(1567)
 
-public val MaterialSymbols.FormatListBulleted: MaterialSymbol
+val MaterialSymbols.FormatListBulleted: MaterialSymbol
     get() = symbolAt(1568)
 
-public val MaterialSymbols.FormatListBulletedAdd: MaterialSymbol
+val MaterialSymbols.FormatListBulletedAdd: MaterialSymbol
     get() = symbolAt(1569)
 
-public val MaterialSymbols.FormatListNumbered: MaterialSymbol
+val MaterialSymbols.FormatListNumbered: MaterialSymbol
     get() = symbolAt(1570)
 
-public val MaterialSymbols.FormatListNumberedRtl: MaterialSymbol
+val MaterialSymbols.FormatListNumberedRtl: MaterialSymbol
     get() = symbolAt(1571)
 
-public val MaterialSymbols.FormatOverline: MaterialSymbol
+val MaterialSymbols.FormatOverline: MaterialSymbol
     get() = symbolAt(1572)
 
-public val MaterialSymbols.FormatPaint: MaterialSymbol
+val MaterialSymbols.FormatPaint: MaterialSymbol
     get() = symbolAt(1573)
 
-public val MaterialSymbols.FormatParagraph: MaterialSymbol
+val MaterialSymbols.FormatParagraph: MaterialSymbol
     get() = symbolAt(1574)
 
-public val MaterialSymbols.FormatQuote: MaterialSymbol
+val MaterialSymbols.FormatQuote: MaterialSymbol
     get() = symbolAt(1575)
 
-public val MaterialSymbols.FormatQuoteOff: MaterialSymbol
+val MaterialSymbols.FormatQuoteOff: MaterialSymbol
     get() = symbolAt(1576)
 
-public val MaterialSymbols.FormatShapes: MaterialSymbol
+val MaterialSymbols.FormatShapes: MaterialSymbol
     get() = symbolAt(1577)
 
-public val MaterialSymbols.FormatSize: MaterialSymbol
+val MaterialSymbols.FormatSize: MaterialSymbol
     get() = symbolAt(1578)
 
-public val MaterialSymbols.FormatStrikethrough: MaterialSymbol
+val MaterialSymbols.FormatStrikethrough: MaterialSymbol
     get() = symbolAt(1579)
 
-public val MaterialSymbols.FormatTextClip: MaterialSymbol
+val MaterialSymbols.FormatTextClip: MaterialSymbol
     get() = symbolAt(1580)
 
-public val MaterialSymbols.FormatTextOverflow: MaterialSymbol
+val MaterialSymbols.FormatTextOverflow: MaterialSymbol
     get() = symbolAt(1581)
 
-public val MaterialSymbols.FormatTextWrap: MaterialSymbol
+val MaterialSymbols.FormatTextWrap: MaterialSymbol
     get() = symbolAt(1582)
 
-public val MaterialSymbols.FormatTextdirectionLToR: MaterialSymbol
+val MaterialSymbols.FormatTextdirectionLToR: MaterialSymbol
     get() = symbolAt(1583)
 
-public val MaterialSymbols.FormatTextdirectionRToL: MaterialSymbol
+val MaterialSymbols.FormatTextdirectionRToL: MaterialSymbol
     get() = symbolAt(1584)
 
-public val MaterialSymbols.FormatTextdirectionVertical: MaterialSymbol
+val MaterialSymbols.FormatTextdirectionVertical: MaterialSymbol
     get() = symbolAt(1585)
 
-public val MaterialSymbols.FormatUnderlined: MaterialSymbol
+val MaterialSymbols.FormatUnderlined: MaterialSymbol
     get() = symbolAt(1586)
 
-public val MaterialSymbols.FormatUnderlinedSquiggle: MaterialSymbol
+val MaterialSymbols.FormatUnderlinedSquiggle: MaterialSymbol
     get() = symbolAt(1587)
 
-public val MaterialSymbols.FormsAddOn: MaterialSymbol
+val MaterialSymbols.FormsAddOn: MaterialSymbol
     get() = symbolAt(1588)
 
-public val MaterialSymbols.FormsAppsScript: MaterialSymbol
+val MaterialSymbols.FormsAppsScript: MaterialSymbol
     get() = symbolAt(1589)
 
-public val MaterialSymbols.Fort: MaterialSymbol
+val MaterialSymbols.Fort: MaterialSymbol
     get() = symbolAt(1590)
 
-public val MaterialSymbols.Forum: MaterialSymbol
+val MaterialSymbols.Forum: MaterialSymbol
     get() = symbolAt(1591)
 
-public val MaterialSymbols.Forward: MaterialSymbol
+val MaterialSymbols.Forward: MaterialSymbol
     get() = symbolAt(1592)
 
-public val MaterialSymbols.Forward10: MaterialSymbol
+val MaterialSymbols.Forward10: MaterialSymbol
     get() = symbolAt(1593)
 
-public val MaterialSymbols.Forward30: MaterialSymbol
+val MaterialSymbols.Forward30: MaterialSymbol
     get() = symbolAt(1594)
 
-public val MaterialSymbols.Forward5: MaterialSymbol
+val MaterialSymbols.Forward5: MaterialSymbol
     get() = symbolAt(1595)
 
-public val MaterialSymbols.ForwardCircle: MaterialSymbol
+val MaterialSymbols.ForwardCircle: MaterialSymbol
     get() = symbolAt(1596)
 
-public val MaterialSymbols.ForwardMedia: MaterialSymbol
+val MaterialSymbols.ForwardMedia: MaterialSymbol
     get() = symbolAt(1597)
 
-public val MaterialSymbols.ForwardToInbox: MaterialSymbol
+val MaterialSymbols.ForwardToInbox: MaterialSymbol
     get() = symbolAt(1598)
 
-public val MaterialSymbols.Foundation: MaterialSymbol
+val MaterialSymbols.Foundation: MaterialSymbol
     get() = symbolAt(1599)
 
-public val MaterialSymbols.Fragrance: MaterialSymbol
+val MaterialSymbols.Fragrance: MaterialSymbol
     get() = symbolAt(1600)
 
-public val MaterialSymbols.FrameBug: MaterialSymbol
+val MaterialSymbols.FrameBug: MaterialSymbol
     get() = symbolAt(1601)
 
-public val MaterialSymbols.FrameExclamation: MaterialSymbol
+val MaterialSymbols.FrameExclamation: MaterialSymbol
     get() = symbolAt(1602)
 
-public val MaterialSymbols.FrameInspect: MaterialSymbol
+val MaterialSymbols.FrameInspect: MaterialSymbol
     get() = symbolAt(1603)
 
-public val MaterialSymbols.FramePerson: MaterialSymbol
+val MaterialSymbols.FramePerson: MaterialSymbol
     get() = symbolAt(1604)
 
-public val MaterialSymbols.FramePersonMic: MaterialSymbol
+val MaterialSymbols.FramePersonMic: MaterialSymbol
     get() = symbolAt(1605)
 
-public val MaterialSymbols.FramePersonOff: MaterialSymbol
+val MaterialSymbols.FramePersonOff: MaterialSymbol
     get() = symbolAt(1606)
 
-public val MaterialSymbols.FrameReload: MaterialSymbol
+val MaterialSymbols.FrameReload: MaterialSymbol
     get() = symbolAt(1607)
 
-public val MaterialSymbols.FrameSource: MaterialSymbol
+val MaterialSymbols.FrameSource: MaterialSymbol
     get() = symbolAt(1608)
 
-public val MaterialSymbols.FreeBreakfast: MaterialSymbol
+val MaterialSymbols.FreeBreakfast: MaterialSymbol
     get() = symbolAt(1609)
 
-public val MaterialSymbols.FreeCancellation: MaterialSymbol
+val MaterialSymbols.FreeCancellation: MaterialSymbol
     get() = symbolAt(1610)
 
-public val MaterialSymbols.FrontHand: MaterialSymbol
+val MaterialSymbols.FrontHand: MaterialSymbol
     get() = symbolAt(1611)
 
-public val MaterialSymbols.FrontLoader: MaterialSymbol
+val MaterialSymbols.FrontLoader: MaterialSymbol
     get() = symbolAt(1612)
 
-public val MaterialSymbols.FullCoverage: MaterialSymbol
+val MaterialSymbols.FullCoverage: MaterialSymbol
     get() = symbolAt(1613)
 
-public val MaterialSymbols.FullHd: MaterialSymbol
+val MaterialSymbols.FullHd: MaterialSymbol
     get() = symbolAt(1614)
 
-public val MaterialSymbols.FullStackedBarChart: MaterialSymbol
+val MaterialSymbols.FullStackedBarChart: MaterialSymbol
     get() = symbolAt(1615)
 
-public val MaterialSymbols.Fullscreen: MaterialSymbol
+val MaterialSymbols.Fullscreen: MaterialSymbol
     get() = symbolAt(1616)
 
-public val MaterialSymbols.FullscreenExit: MaterialSymbol
+val MaterialSymbols.FullscreenExit: MaterialSymbol
     get() = symbolAt(1617)
 
-public val MaterialSymbols.FullscreenPortrait: MaterialSymbol
+val MaterialSymbols.FullscreenPortrait: MaterialSymbol
     get() = symbolAt(1618)
 
-public val MaterialSymbols.Function: MaterialSymbol
+val MaterialSymbols.Function: MaterialSymbol
     get() = symbolAt(1619)
 
-public val MaterialSymbols.Functions: MaterialSymbol
+val MaterialSymbols.Functions: MaterialSymbol
     get() = symbolAt(1620)
 
-public val MaterialSymbols.Funicular: MaterialSymbol
+val MaterialSymbols.Funicular: MaterialSymbol
     get() = symbolAt(1621)
 
-public val MaterialSymbols.GMobiledata: MaterialSymbol
+val MaterialSymbols.GMobiledata: MaterialSymbol
     get() = symbolAt(1622)
 
-public val MaterialSymbols.GMobiledataBadge: MaterialSymbol
+val MaterialSymbols.GMobiledataBadge: MaterialSymbol
     get() = symbolAt(1623)
 
-public val MaterialSymbols.GTranslate: MaterialSymbol
+val MaterialSymbols.GTranslate: MaterialSymbol
     get() = symbolAt(1624)
 
-public val MaterialSymbols.GalleryThumbnail: MaterialSymbol
+val MaterialSymbols.GalleryThumbnail: MaterialSymbol
     get() = symbolAt(1625)
 
-public val MaterialSymbols.Gamepad: MaterialSymbol
+val MaterialSymbols.Gamepad: MaterialSymbol
     get() = symbolAt(1626)
 
-public val MaterialSymbols.Games: MaterialSymbol
+val MaterialSymbols.Games: MaterialSymbol
     get() = symbolAt(1627)
 
-public val MaterialSymbols.Garage: MaterialSymbol
+val MaterialSymbols.Garage: MaterialSymbol
     get() = symbolAt(1628)
 
-public val MaterialSymbols.GarageCheck: MaterialSymbol
+val MaterialSymbols.GarageCheck: MaterialSymbol
     get() = symbolAt(1629)
 
-public val MaterialSymbols.GarageDoor: MaterialSymbol
+val MaterialSymbols.GarageDoor: MaterialSymbol
     get() = symbolAt(1630)
 
-public val MaterialSymbols.GarageHome: MaterialSymbol
+val MaterialSymbols.GarageHome: MaterialSymbol
     get() = symbolAt(1631)
 
-public val MaterialSymbols.GarageMoney: MaterialSymbol
+val MaterialSymbols.GarageMoney: MaterialSymbol
     get() = symbolAt(1632)
 
-public val MaterialSymbols.GardenCart: MaterialSymbol
+val MaterialSymbols.GardenCart: MaterialSymbol
     get() = symbolAt(1633)
 
-public val MaterialSymbols.GasMeter: MaterialSymbol
+val MaterialSymbols.GasMeter: MaterialSymbol
     get() = symbolAt(1634)
 
-public val MaterialSymbols.Gastroenterology: MaterialSymbol
+val MaterialSymbols.Gastroenterology: MaterialSymbol
     get() = symbolAt(1635)
 
-public val MaterialSymbols.Gate: MaterialSymbol
+val MaterialSymbols.Gate: MaterialSymbol
     get() = symbolAt(1636)
 
-public val MaterialSymbols.Gavel: MaterialSymbol
+val MaterialSymbols.Gavel: MaterialSymbol
     get() = symbolAt(1637)
 
-public val MaterialSymbols.GeneralDevice: MaterialSymbol
+val MaterialSymbols.GeneralDevice: MaterialSymbol
     get() = symbolAt(1638)
 
-public val MaterialSymbols.GeneratingTokens: MaterialSymbol
+val MaterialSymbols.GeneratingTokens: MaterialSymbol
     get() = symbolAt(1639)
 
-public val MaterialSymbols.Genetics: MaterialSymbol
+val MaterialSymbols.Genetics: MaterialSymbol
     get() = symbolAt(1640)
 
-public val MaterialSymbols.Genres: MaterialSymbol
+val MaterialSymbols.Genres: MaterialSymbol
     get() = symbolAt(1641)
 
-public val MaterialSymbols.Gesture: MaterialSymbol
+val MaterialSymbols.Gesture: MaterialSymbol
     get() = symbolAt(1642)
 
-public val MaterialSymbols.GestureSelect: MaterialSymbol
+val MaterialSymbols.GestureSelect: MaterialSymbol
     get() = symbolAt(1643)
 
-public val MaterialSymbols.GetApp: MaterialSymbol
+val MaterialSymbols.GetApp: MaterialSymbol
     get() = symbolAt(1644)
 
-public val MaterialSymbols.Gif: MaterialSymbol
+val MaterialSymbols.Gif: MaterialSymbol
     get() = symbolAt(1645)
 
-public val MaterialSymbols.Gif2: MaterialSymbol
+val MaterialSymbols.Gif2: MaterialSymbol
     get() = symbolAt(1646)
 
-public val MaterialSymbols.GifBox: MaterialSymbol
+val MaterialSymbols.GifBox: MaterialSymbol
     get() = symbolAt(1647)
 
-public val MaterialSymbols.Girl: MaterialSymbol
+val MaterialSymbols.Girl: MaterialSymbol
     get() = symbolAt(1648)
 
-public val MaterialSymbols.Gite: MaterialSymbol
+val MaterialSymbols.Gite: MaterialSymbol
     get() = symbolAt(1649)
 
-public val MaterialSymbols.GlassCup: MaterialSymbol
+val MaterialSymbols.GlassCup: MaterialSymbol
     get() = symbolAt(1650)
 
-public val MaterialSymbols.Globe: MaterialSymbol
+val MaterialSymbols.Globe: MaterialSymbol
     get() = symbolAt(1651)
 
-public val MaterialSymbols.GlobeAsia: MaterialSymbol
+val MaterialSymbols.GlobeAsia: MaterialSymbol
     get() = symbolAt(1652)
 
-public val MaterialSymbols.GlobeBook: MaterialSymbol
+val MaterialSymbols.GlobeBook: MaterialSymbol
     get() = symbolAt(1653)
 
-public val MaterialSymbols.GlobeLocationPin: MaterialSymbol
+val MaterialSymbols.GlobeLocationPin: MaterialSymbol
     get() = symbolAt(1654)
 
-public val MaterialSymbols.GlobeUk: MaterialSymbol
+val MaterialSymbols.GlobeUk: MaterialSymbol
     get() = symbolAt(1655)
 
-public val MaterialSymbols.Glucose: MaterialSymbol
+val MaterialSymbols.Glucose: MaterialSymbol
     get() = symbolAt(1656)
 
-public val MaterialSymbols.Glyphs: MaterialSymbol
+val MaterialSymbols.Glyphs: MaterialSymbol
     get() = symbolAt(1657)
 
-public val MaterialSymbols.GoToLine: MaterialSymbol
+val MaterialSymbols.GoToLine: MaterialSymbol
     get() = symbolAt(1658)
 
-public val MaterialSymbols.GolfCourse: MaterialSymbol
+val MaterialSymbols.GolfCourse: MaterialSymbol
     get() = symbolAt(1659)
 
-public val MaterialSymbols.GondolaLift: MaterialSymbol
+val MaterialSymbols.GondolaLift: MaterialSymbol
     get() = symbolAt(1660)
 
-public val MaterialSymbols.GoogleHomeDevices: MaterialSymbol
+val MaterialSymbols.GoogleHomeDevices: MaterialSymbol
     get() = symbolAt(1661)
 
-public val MaterialSymbols.GooglePlusReshare: MaterialSymbol
+val MaterialSymbols.GooglePlusReshare: MaterialSymbol
     get() = symbolAt(1662)
 
-public val MaterialSymbols.GoogleTvRemote: MaterialSymbol
+val MaterialSymbols.GoogleTvRemote: MaterialSymbol
     get() = symbolAt(1663)
 
-public val MaterialSymbols.GoogleWifi: MaterialSymbol
+val MaterialSymbols.GoogleWifi: MaterialSymbol
     get() = symbolAt(1664)
 
-public val MaterialSymbols.GppBad: MaterialSymbol
+val MaterialSymbols.GppBad: MaterialSymbol
     get() = symbolAt(1665)
 
-public val MaterialSymbols.GppGood: MaterialSymbol
+val MaterialSymbols.GppGood: MaterialSymbol
     get() = symbolAt(1666)
 
-public val MaterialSymbols.GppMaybe: MaterialSymbol
+val MaterialSymbols.GppMaybe: MaterialSymbol
     get() = symbolAt(1667)
 
-public val MaterialSymbols.GpsFixed: MaterialSymbol
+val MaterialSymbols.GpsFixed: MaterialSymbol
     get() = symbolAt(1668)
 
-public val MaterialSymbols.GpsNotFixed: MaterialSymbol
+val MaterialSymbols.GpsNotFixed: MaterialSymbol
     get() = symbolAt(1669)
 
-public val MaterialSymbols.GpsOff: MaterialSymbol
+val MaterialSymbols.GpsOff: MaterialSymbol
     get() = symbolAt(1670)
 
-public val MaterialSymbols.Grade: MaterialSymbol
+val MaterialSymbols.Grade: MaterialSymbol
     get() = symbolAt(1671)
 
-public val MaterialSymbols.Gradient: MaterialSymbol
+val MaterialSymbols.Gradient: MaterialSymbol
     get() = symbolAt(1672)
 
-public val MaterialSymbols.Grading: MaterialSymbol
+val MaterialSymbols.Grading: MaterialSymbol
     get() = symbolAt(1673)
 
-public val MaterialSymbols.Grain: MaterialSymbol
+val MaterialSymbols.Grain: MaterialSymbol
     get() = symbolAt(1674)
 
-public val MaterialSymbols.Graph1: MaterialSymbol
+val MaterialSymbols.Graph1: MaterialSymbol
     get() = symbolAt(1675)
 
-public val MaterialSymbols.Graph2: MaterialSymbol
+val MaterialSymbols.Graph2: MaterialSymbol
     get() = symbolAt(1676)
 
-public val MaterialSymbols.Graph3: MaterialSymbol
+val MaterialSymbols.Graph3: MaterialSymbol
     get() = symbolAt(1677)
 
-public val MaterialSymbols.Graph4: MaterialSymbol
+val MaterialSymbols.Graph4: MaterialSymbol
     get() = symbolAt(1678)
 
-public val MaterialSymbols.Graph5: MaterialSymbol
+val MaterialSymbols.Graph5: MaterialSymbol
     get() = symbolAt(1679)
 
-public val MaterialSymbols.Graph6: MaterialSymbol
+val MaterialSymbols.Graph6: MaterialSymbol
     get() = symbolAt(1680)
 
-public val MaterialSymbols.Graph7: MaterialSymbol
+val MaterialSymbols.Graph7: MaterialSymbol
     get() = symbolAt(1681)
 
-public val MaterialSymbols.GraphicEq: MaterialSymbol
+val MaterialSymbols.GraphicEq: MaterialSymbol
     get() = symbolAt(1682)
 
-public val MaterialSymbols.Grass: MaterialSymbol
+val MaterialSymbols.Grass: MaterialSymbol
     get() = symbolAt(1683)
 
-public val MaterialSymbols.Grid3x3: MaterialSymbol
+val MaterialSymbols.Grid3x3: MaterialSymbol
     get() = symbolAt(1684)
 
-public val MaterialSymbols.Grid3x3Off: MaterialSymbol
+val MaterialSymbols.Grid3x3Off: MaterialSymbol
     get() = symbolAt(1685)
 
-public val MaterialSymbols.Grid4x4: MaterialSymbol
+val MaterialSymbols.Grid4x4: MaterialSymbol
     get() = symbolAt(1686)
 
-public val MaterialSymbols.GridGoldenratio: MaterialSymbol
+val MaterialSymbols.GridGoldenratio: MaterialSymbol
     get() = symbolAt(1687)
 
-public val MaterialSymbols.GridGuides: MaterialSymbol
+val MaterialSymbols.GridGuides: MaterialSymbol
     get() = symbolAt(1688)
 
-public val MaterialSymbols.GridOff: MaterialSymbol
+val MaterialSymbols.GridOff: MaterialSymbol
     get() = symbolAt(1689)
 
-public val MaterialSymbols.GridOn: MaterialSymbol
+val MaterialSymbols.GridOn: MaterialSymbol
     get() = symbolAt(1690)
 
-public val MaterialSymbols.GridView: MaterialSymbol
+val MaterialSymbols.GridView: MaterialSymbol
     get() = symbolAt(1691)
 
-public val MaterialSymbols.Grocery: MaterialSymbol
+val MaterialSymbols.Grocery: MaterialSymbol
     get() = symbolAt(1692)
 
-public val MaterialSymbols.Group: MaterialSymbol
+val MaterialSymbols.Group: MaterialSymbol
     get() = symbolAt(1693)
 
-public val MaterialSymbols.GroupAdd: MaterialSymbol
+val MaterialSymbols.GroupAdd: MaterialSymbol
     get() = symbolAt(1694)
 
-public val MaterialSymbols.GroupOff: MaterialSymbol
+val MaterialSymbols.GroupOff: MaterialSymbol
     get() = symbolAt(1695)
 
-public val MaterialSymbols.GroupRemove: MaterialSymbol
+val MaterialSymbols.GroupRemove: MaterialSymbol
     get() = symbolAt(1696)
 
-public val MaterialSymbols.GroupSearch: MaterialSymbol
+val MaterialSymbols.GroupSearch: MaterialSymbol
     get() = symbolAt(1697)
 
-public val MaterialSymbols.GroupWork: MaterialSymbol
+val MaterialSymbols.GroupWork: MaterialSymbol
     get() = symbolAt(1698)
 
-public val MaterialSymbols.GroupedBarChart: MaterialSymbol
+val MaterialSymbols.GroupedBarChart: MaterialSymbol
     get() = symbolAt(1699)
 
-public val MaterialSymbols.Groups: MaterialSymbol
+val MaterialSymbols.Groups: MaterialSymbol
     get() = symbolAt(1700)
 
-public val MaterialSymbols.Groups2: MaterialSymbol
+val MaterialSymbols.Groups2: MaterialSymbol
     get() = symbolAt(1701)
 
-public val MaterialSymbols.Groups3: MaterialSymbol
+val MaterialSymbols.Groups3: MaterialSymbol
     get() = symbolAt(1702)
 
-public val MaterialSymbols.Guardian: MaterialSymbol
+val MaterialSymbols.Guardian: MaterialSymbol
     get() = symbolAt(1703)
 
-public val MaterialSymbols.Gynecology: MaterialSymbol
+val MaterialSymbols.Gynecology: MaterialSymbol
     get() = symbolAt(1704)
 
-public val MaterialSymbols.HMobiledata: MaterialSymbol
+val MaterialSymbols.HMobiledata: MaterialSymbol
     get() = symbolAt(1705)
 
-public val MaterialSymbols.HMobiledataBadge: MaterialSymbol
+val MaterialSymbols.HMobiledataBadge: MaterialSymbol
     get() = symbolAt(1706)
 
-public val MaterialSymbols.HPlusMobiledata: MaterialSymbol
+val MaterialSymbols.HPlusMobiledata: MaterialSymbol
     get() = symbolAt(1707)
 
-public val MaterialSymbols.HPlusMobiledataBadge: MaterialSymbol
+val MaterialSymbols.HPlusMobiledataBadge: MaterialSymbol
     get() = symbolAt(1708)
 
-public val MaterialSymbols.Hail: MaterialSymbol
+val MaterialSymbols.Hail: MaterialSymbol
     get() = symbolAt(1709)
 
-public val MaterialSymbols.Hallway: MaterialSymbol
+val MaterialSymbols.Hallway: MaterialSymbol
     get() = symbolAt(1710)
 
-public val MaterialSymbols.HanamiDango: MaterialSymbol
+val MaterialSymbols.HanamiDango: MaterialSymbol
     get() = symbolAt(1711)
 
-public val MaterialSymbols.HandBones: MaterialSymbol
+val MaterialSymbols.HandBones: MaterialSymbol
     get() = symbolAt(1712)
 
-public val MaterialSymbols.HandGesture: MaterialSymbol
+val MaterialSymbols.HandGesture: MaterialSymbol
     get() = symbolAt(1713)
 
-public val MaterialSymbols.HandGestureOff: MaterialSymbol
+val MaterialSymbols.HandGestureOff: MaterialSymbol
     get() = symbolAt(1714)
 
-public val MaterialSymbols.HandMeal: MaterialSymbol
+val MaterialSymbols.HandMeal: MaterialSymbol
     get() = symbolAt(1715)
 
-public val MaterialSymbols.HandPackage: MaterialSymbol
+val MaterialSymbols.HandPackage: MaterialSymbol
     get() = symbolAt(1716)
 
-public val MaterialSymbols.HandheldController: MaterialSymbol
+val MaterialSymbols.HandheldController: MaterialSymbol
     get() = symbolAt(1717)
 
-public val MaterialSymbols.Handshake: MaterialSymbol
+val MaterialSymbols.Handshake: MaterialSymbol
     get() = symbolAt(1718)
 
-public val MaterialSymbols.HandwritingRecognition: MaterialSymbol
+val MaterialSymbols.HandwritingRecognition: MaterialSymbol
     get() = symbolAt(1719)
 
-public val MaterialSymbols.Handyman: MaterialSymbol
+val MaterialSymbols.Handyman: MaterialSymbol
     get() = symbolAt(1720)
 
-public val MaterialSymbols.HangoutVideo: MaterialSymbol
+val MaterialSymbols.HangoutVideo: MaterialSymbol
     get() = symbolAt(1721)
 
-public val MaterialSymbols.HangoutVideoOff: MaterialSymbol
+val MaterialSymbols.HangoutVideoOff: MaterialSymbol
     get() = symbolAt(1722)
 
-public val MaterialSymbols.HardDisk: MaterialSymbol
+val MaterialSymbols.HardDisk: MaterialSymbol
     get() = symbolAt(1723)
 
-public val MaterialSymbols.HardDrive: MaterialSymbol
+val MaterialSymbols.HardDrive: MaterialSymbol
     get() = symbolAt(1724)
 
-public val MaterialSymbols.HardDrive2: MaterialSymbol
+val MaterialSymbols.HardDrive2: MaterialSymbol
     get() = symbolAt(1725)
 
-public val MaterialSymbols.Hardware: MaterialSymbol
+val MaterialSymbols.Hardware: MaterialSymbol
     get() = symbolAt(1726)
 
-public val MaterialSymbols.Hd: MaterialSymbol
+val MaterialSymbols.Hd: MaterialSymbol
     get() = symbolAt(1727)
 
-public val MaterialSymbols.HdrAuto: MaterialSymbol
+val MaterialSymbols.HdrAuto: MaterialSymbol
     get() = symbolAt(1728)
 
-public val MaterialSymbols.HdrAutoSelect: MaterialSymbol
+val MaterialSymbols.HdrAutoSelect: MaterialSymbol
     get() = symbolAt(1729)
 
-public val MaterialSymbols.HdrEnhancedSelect: MaterialSymbol
+val MaterialSymbols.HdrEnhancedSelect: MaterialSymbol
     get() = symbolAt(1730)
 
-public val MaterialSymbols.HdrOff: MaterialSymbol
+val MaterialSymbols.HdrOff: MaterialSymbol
     get() = symbolAt(1731)
 
-public val MaterialSymbols.HdrOffSelect: MaterialSymbol
+val MaterialSymbols.HdrOffSelect: MaterialSymbol
     get() = symbolAt(1732)
 
-public val MaterialSymbols.HdrOn: MaterialSymbol
+val MaterialSymbols.HdrOn: MaterialSymbol
     get() = symbolAt(1733)
 
-public val MaterialSymbols.HdrOnSelect: MaterialSymbol
+val MaterialSymbols.HdrOnSelect: MaterialSymbol
     get() = symbolAt(1734)
 
-public val MaterialSymbols.HdrPlus: MaterialSymbol
+val MaterialSymbols.HdrPlus: MaterialSymbol
     get() = symbolAt(1735)
 
-public val MaterialSymbols.HdrPlusOff: MaterialSymbol
+val MaterialSymbols.HdrPlusOff: MaterialSymbol
     get() = symbolAt(1736)
 
-public val MaterialSymbols.HdrStrong: MaterialSymbol
+val MaterialSymbols.HdrStrong: MaterialSymbol
     get() = symbolAt(1737)
 
-public val MaterialSymbols.HdrWeak: MaterialSymbol
+val MaterialSymbols.HdrWeak: MaterialSymbol
     get() = symbolAt(1738)
 
-public val MaterialSymbols.HeadMountedDevice: MaterialSymbol
+val MaterialSymbols.HeadMountedDevice: MaterialSymbol
     get() = symbolAt(1739)
 
-public val MaterialSymbols.Headphones: MaterialSymbol
+val MaterialSymbols.Headphones: MaterialSymbol
     get() = symbolAt(1740)
 
-public val MaterialSymbols.HeadphonesBattery: MaterialSymbol
+val MaterialSymbols.HeadphonesBattery: MaterialSymbol
     get() = symbolAt(1741)
 
-public val MaterialSymbols.Headset: MaterialSymbol
+val MaterialSymbols.Headset: MaterialSymbol
     get() = symbolAt(1742)
 
-public val MaterialSymbols.HeadsetMic: MaterialSymbol
+val MaterialSymbols.HeadsetMic: MaterialSymbol
     get() = symbolAt(1743)
 
-public val MaterialSymbols.HeadsetOff: MaterialSymbol
+val MaterialSymbols.HeadsetOff: MaterialSymbol
     get() = symbolAt(1744)
 
-public val MaterialSymbols.Healing: MaterialSymbol
+val MaterialSymbols.Healing: MaterialSymbol
     get() = symbolAt(1745)
 
-public val MaterialSymbols.HealthAndBeauty: MaterialSymbol
+val MaterialSymbols.HealthAndBeauty: MaterialSymbol
     get() = symbolAt(1746)
 
-public val MaterialSymbols.HealthAndSafety: MaterialSymbol
+val MaterialSymbols.HealthAndSafety: MaterialSymbol
     get() = symbolAt(1747)
 
-public val MaterialSymbols.HealthCross: MaterialSymbol
+val MaterialSymbols.HealthCross: MaterialSymbol
     get() = symbolAt(1748)
 
-public val MaterialSymbols.HealthMetrics: MaterialSymbol
+val MaterialSymbols.HealthMetrics: MaterialSymbol
     get() = symbolAt(1749)
 
-public val MaterialSymbols.HeapSnapshotLarge: MaterialSymbol
+val MaterialSymbols.HeapSnapshotLarge: MaterialSymbol
     get() = symbolAt(1750)
 
-public val MaterialSymbols.HeapSnapshotMultiple: MaterialSymbol
+val MaterialSymbols.HeapSnapshotMultiple: MaterialSymbol
     get() = symbolAt(1751)
 
-public val MaterialSymbols.HeapSnapshotThumbnail: MaterialSymbol
+val MaterialSymbols.HeapSnapshotThumbnail: MaterialSymbol
     get() = symbolAt(1752)
 
-public val MaterialSymbols.Hearing: MaterialSymbol
+val MaterialSymbols.Hearing: MaterialSymbol
     get() = symbolAt(1753)
 
-public val MaterialSymbols.HearingAid: MaterialSymbol
+val MaterialSymbols.HearingAid: MaterialSymbol
     get() = symbolAt(1754)
 
-public val MaterialSymbols.HearingAidDisabled: MaterialSymbol
+val MaterialSymbols.HearingAidDisabled: MaterialSymbol
     get() = symbolAt(1755)
 
-public val MaterialSymbols.HearingAidDisabledLeft: MaterialSymbol
+val MaterialSymbols.HearingAidDisabledLeft: MaterialSymbol
     get() = symbolAt(1756)
 
-public val MaterialSymbols.HearingAidLeft: MaterialSymbol
+val MaterialSymbols.HearingAidLeft: MaterialSymbol
     get() = symbolAt(1757)
 
-public val MaterialSymbols.HearingDisabled: MaterialSymbol
+val MaterialSymbols.HearingDisabled: MaterialSymbol
     get() = symbolAt(1758)
 
-public val MaterialSymbols.HeartBroken: MaterialSymbol
+val MaterialSymbols.HeartBroken: MaterialSymbol
     get() = symbolAt(1759)
 
-public val MaterialSymbols.HeartCheck: MaterialSymbol
+val MaterialSymbols.HeartCheck: MaterialSymbol
     get() = symbolAt(1760)
 
-public val MaterialSymbols.HeartMinus: MaterialSymbol
+val MaterialSymbols.HeartMinus: MaterialSymbol
     get() = symbolAt(1761)
 
-public val MaterialSymbols.HeartPlus: MaterialSymbol
+val MaterialSymbols.HeartPlus: MaterialSymbol
     get() = symbolAt(1762)
 
-public val MaterialSymbols.HeartSmile: MaterialSymbol
+val MaterialSymbols.HeartSmile: MaterialSymbol
     get() = symbolAt(1763)
 
-public val MaterialSymbols.Heat: MaterialSymbol
+val MaterialSymbols.Heat: MaterialSymbol
     get() = symbolAt(1764)
 
-public val MaterialSymbols.HeatPump: MaterialSymbol
+val MaterialSymbols.HeatPump: MaterialSymbol
     get() = symbolAt(1765)
 
-public val MaterialSymbols.HeatPumpBalance: MaterialSymbol
+val MaterialSymbols.HeatPumpBalance: MaterialSymbol
     get() = symbolAt(1766)
 
-public val MaterialSymbols.Height: MaterialSymbol
+val MaterialSymbols.Height: MaterialSymbol
     get() = symbolAt(1767)
 
-public val MaterialSymbols.Helicopter: MaterialSymbol
+val MaterialSymbols.Helicopter: MaterialSymbol
     get() = symbolAt(1768)
 
-public val MaterialSymbols.Help: MaterialSymbol
+val MaterialSymbols.Help: MaterialSymbol
     get() = symbolAt(1769)
 
-public val MaterialSymbols.HelpCenter: MaterialSymbol
+val MaterialSymbols.HelpCenter: MaterialSymbol
     get() = symbolAt(1770)
 
-public val MaterialSymbols.HelpClinic: MaterialSymbol
+val MaterialSymbols.HelpClinic: MaterialSymbol
     get() = symbolAt(1771)
 
-public val MaterialSymbols.HelpOutline: MaterialSymbol
+val MaterialSymbols.HelpOutline: MaterialSymbol
     get() = symbolAt(1772)
 
-public val MaterialSymbols.Hematology: MaterialSymbol
+val MaterialSymbols.Hematology: MaterialSymbol
     get() = symbolAt(1773)
 
-public val MaterialSymbols.Hevc: MaterialSymbol
+val MaterialSymbols.Hevc: MaterialSymbol
     get() = symbolAt(1774)
 
-public val MaterialSymbols.Hexagon: MaterialSymbol
+val MaterialSymbols.Hexagon: MaterialSymbol
     get() = symbolAt(1775)
 
-public val MaterialSymbols.Hide: MaterialSymbol
+val MaterialSymbols.Hide: MaterialSymbol
     get() = symbolAt(1776)
 
-public val MaterialSymbols.HideImage: MaterialSymbol
+val MaterialSymbols.HideImage: MaterialSymbol
     get() = symbolAt(1777)
 
-public val MaterialSymbols.HideSource: MaterialSymbol
+val MaterialSymbols.HideSource: MaterialSymbol
     get() = symbolAt(1778)
 
-public val MaterialSymbols.HighChair: MaterialSymbol
+val MaterialSymbols.HighChair: MaterialSymbol
     get() = symbolAt(1779)
 
-public val MaterialSymbols.HighDensity: MaterialSymbol
+val MaterialSymbols.HighDensity: MaterialSymbol
     get() = symbolAt(1780)
 
-public val MaterialSymbols.HighQuality: MaterialSymbol
+val MaterialSymbols.HighQuality: MaterialSymbol
     get() = symbolAt(1781)
 
-public val MaterialSymbols.HighRes: MaterialSymbol
+val MaterialSymbols.HighRes: MaterialSymbol
     get() = symbolAt(1782)
 
-public val MaterialSymbols.Highlight: MaterialSymbol
+val MaterialSymbols.Highlight: MaterialSymbol
     get() = symbolAt(1783)
 
-public val MaterialSymbols.HighlightAlt: MaterialSymbol
+val MaterialSymbols.HighlightAlt: MaterialSymbol
     get() = symbolAt(1784)
 
-public val MaterialSymbols.HighlightKeyboardFocus: MaterialSymbol
+val MaterialSymbols.HighlightKeyboardFocus: MaterialSymbol
     get() = symbolAt(1785)
 
-public val MaterialSymbols.HighlightMouseCursor: MaterialSymbol
+val MaterialSymbols.HighlightMouseCursor: MaterialSymbol
     get() = symbolAt(1786)
 
-public val MaterialSymbols.HighlightOff: MaterialSymbol
+val MaterialSymbols.HighlightOff: MaterialSymbol
     get() = symbolAt(1787)
 
-public val MaterialSymbols.HighlightTextCursor: MaterialSymbol
+val MaterialSymbols.HighlightTextCursor: MaterialSymbol
     get() = symbolAt(1788)
 
-public val MaterialSymbols.HighlighterSize1: MaterialSymbol
+val MaterialSymbols.HighlighterSize1: MaterialSymbol
     get() = symbolAt(1789)
 
-public val MaterialSymbols.HighlighterSize2: MaterialSymbol
+val MaterialSymbols.HighlighterSize2: MaterialSymbol
     get() = symbolAt(1790)
 
-public val MaterialSymbols.HighlighterSize3: MaterialSymbol
+val MaterialSymbols.HighlighterSize3: MaterialSymbol
     get() = symbolAt(1791)
 
-public val MaterialSymbols.HighlighterSize4: MaterialSymbol
+val MaterialSymbols.HighlighterSize4: MaterialSymbol
     get() = symbolAt(1792)
 
-public val MaterialSymbols.HighlighterSize5: MaterialSymbol
+val MaterialSymbols.HighlighterSize5: MaterialSymbol
     get() = symbolAt(1793)
 
-public val MaterialSymbols.Hiking: MaterialSymbol
+val MaterialSymbols.Hiking: MaterialSymbol
     get() = symbolAt(1794)
 
-public val MaterialSymbols.History: MaterialSymbol
+val MaterialSymbols.History: MaterialSymbol
     get() = symbolAt(1795)
 
-public val MaterialSymbols.History2: MaterialSymbol
+val MaterialSymbols.History2: MaterialSymbol
     get() = symbolAt(1796)
 
-public val MaterialSymbols.HistoryEdu: MaterialSymbol
+val MaterialSymbols.HistoryEdu: MaterialSymbol
     get() = symbolAt(1797)
 
-public val MaterialSymbols.HistoryOff: MaterialSymbol
+val MaterialSymbols.HistoryOff: MaterialSymbol
     get() = symbolAt(1798)
 
-public val MaterialSymbols.HistoryToggleOff: MaterialSymbol
+val MaterialSymbols.HistoryToggleOff: MaterialSymbol
     get() = symbolAt(1799)
 
-public val MaterialSymbols.Hive: MaterialSymbol
+val MaterialSymbols.Hive: MaterialSymbol
     get() = symbolAt(1800)
 
-public val MaterialSymbols.Hls: MaterialSymbol
+val MaterialSymbols.Hls: MaterialSymbol
     get() = symbolAt(1801)
 
-public val MaterialSymbols.HlsOff: MaterialSymbol
+val MaterialSymbols.HlsOff: MaterialSymbol
     get() = symbolAt(1802)
 
-public val MaterialSymbols.HolidayVillage: MaterialSymbol
+val MaterialSymbols.HolidayVillage: MaterialSymbol
     get() = symbolAt(1803)
 
-public val MaterialSymbols.Home: MaterialSymbol
+val MaterialSymbols.Home: MaterialSymbol
     get() = symbolAt(1804)
 
-public val MaterialSymbols.HomeAndGarden: MaterialSymbol
+val MaterialSymbols.HomeAndGarden: MaterialSymbol
     get() = symbolAt(1805)
 
-public val MaterialSymbols.HomeAppLogo: MaterialSymbol
+val MaterialSymbols.HomeAppLogo: MaterialSymbol
     get() = symbolAt(1806)
 
-public val MaterialSymbols.HomeFilled: MaterialSymbol
+val MaterialSymbols.HomeFilled: MaterialSymbol
     get() = symbolAt(1807)
 
-public val MaterialSymbols.HomeHealth: MaterialSymbol
+val MaterialSymbols.HomeHealth: MaterialSymbol
     get() = symbolAt(1808)
 
-public val MaterialSymbols.HomeImprovementAndTools: MaterialSymbol
+val MaterialSymbols.HomeImprovementAndTools: MaterialSymbol
     get() = symbolAt(1809)
 
-public val MaterialSymbols.HomeIotDevice: MaterialSymbol
+val MaterialSymbols.HomeIotDevice: MaterialSymbol
     get() = symbolAt(1810)
 
-public val MaterialSymbols.HomeMax: MaterialSymbol
+val MaterialSymbols.HomeMax: MaterialSymbol
     get() = symbolAt(1811)
 
-public val MaterialSymbols.HomeMaxDots: MaterialSymbol
+val MaterialSymbols.HomeMaxDots: MaterialSymbol
     get() = symbolAt(1812)
 
-public val MaterialSymbols.HomeMini: MaterialSymbol
+val MaterialSymbols.HomeMini: MaterialSymbol
     get() = symbolAt(1813)
 
-public val MaterialSymbols.HomePin: MaterialSymbol
+val MaterialSymbols.HomePin: MaterialSymbol
     get() = symbolAt(1814)
 
-public val MaterialSymbols.HomeRepairService: MaterialSymbol
+val MaterialSymbols.HomeRepairService: MaterialSymbol
     get() = symbolAt(1815)
 
-public val MaterialSymbols.HomeSpeaker: MaterialSymbol
+val MaterialSymbols.HomeSpeaker: MaterialSymbol
     get() = symbolAt(1816)
 
-public val MaterialSymbols.HomeStorage: MaterialSymbol
+val MaterialSymbols.HomeStorage: MaterialSymbol
     get() = symbolAt(1817)
 
-public val MaterialSymbols.HomeWork: MaterialSymbol
+val MaterialSymbols.HomeWork: MaterialSymbol
     get() = symbolAt(1818)
 
-public val MaterialSymbols.HorizontalDistribute: MaterialSymbol
+val MaterialSymbols.HorizontalDistribute: MaterialSymbol
     get() = symbolAt(1819)
 
-public val MaterialSymbols.HorizontalRule: MaterialSymbol
+val MaterialSymbols.HorizontalRule: MaterialSymbol
     get() = symbolAt(1820)
 
-public val MaterialSymbols.HorizontalSplit: MaterialSymbol
+val MaterialSymbols.HorizontalSplit: MaterialSymbol
     get() = symbolAt(1821)
 
-public val MaterialSymbols.Host: MaterialSymbol
+val MaterialSymbols.Host: MaterialSymbol
     get() = symbolAt(1822)
 
-public val MaterialSymbols.HotTub: MaterialSymbol
+val MaterialSymbols.HotTub: MaterialSymbol
     get() = symbolAt(1823)
 
-public val MaterialSymbols.Hotel: MaterialSymbol
+val MaterialSymbols.Hotel: MaterialSymbol
     get() = symbolAt(1824)
 
-public val MaterialSymbols.HotelClass: MaterialSymbol
+val MaterialSymbols.HotelClass: MaterialSymbol
     get() = symbolAt(1825)
 
-public val MaterialSymbols.Hourglass: MaterialSymbol
+val MaterialSymbols.Hourglass: MaterialSymbol
     get() = symbolAt(1826)
 
-public val MaterialSymbols.HourglassArrowDown: MaterialSymbol
+val MaterialSymbols.HourglassArrowDown: MaterialSymbol
     get() = symbolAt(1827)
 
-public val MaterialSymbols.HourglassArrowUp: MaterialSymbol
+val MaterialSymbols.HourglassArrowUp: MaterialSymbol
     get() = symbolAt(1828)
 
-public val MaterialSymbols.HourglassBottom: MaterialSymbol
+val MaterialSymbols.HourglassBottom: MaterialSymbol
     get() = symbolAt(1829)
 
-public val MaterialSymbols.HourglassDisabled: MaterialSymbol
+val MaterialSymbols.HourglassDisabled: MaterialSymbol
     get() = symbolAt(1830)
 
-public val MaterialSymbols.HourglassEmpty: MaterialSymbol
+val MaterialSymbols.HourglassEmpty: MaterialSymbol
     get() = symbolAt(1831)
 
-public val MaterialSymbols.HourglassFull: MaterialSymbol
+val MaterialSymbols.HourglassFull: MaterialSymbol
     get() = symbolAt(1832)
 
-public val MaterialSymbols.HourglassPause: MaterialSymbol
+val MaterialSymbols.HourglassPause: MaterialSymbol
     get() = symbolAt(1833)
 
-public val MaterialSymbols.HourglassTop: MaterialSymbol
+val MaterialSymbols.HourglassTop: MaterialSymbol
     get() = symbolAt(1834)
 
-public val MaterialSymbols.House: MaterialSymbol
+val MaterialSymbols.House: MaterialSymbol
     get() = symbolAt(1835)
 
-public val MaterialSymbols.HouseSiding: MaterialSymbol
+val MaterialSymbols.HouseSiding: MaterialSymbol
     get() = symbolAt(1836)
 
-public val MaterialSymbols.HouseWithShield: MaterialSymbol
+val MaterialSymbols.HouseWithShield: MaterialSymbol
     get() = symbolAt(1837)
 
-public val MaterialSymbols.Houseboat: MaterialSymbol
+val MaterialSymbols.Houseboat: MaterialSymbol
     get() = symbolAt(1838)
 
-public val MaterialSymbols.HouseholdSupplies: MaterialSymbol
+val MaterialSymbols.HouseholdSupplies: MaterialSymbol
     get() = symbolAt(1839)
 
-public val MaterialSymbols.Hov: MaterialSymbol
+val MaterialSymbols.Hov: MaterialSymbol
     get() = symbolAt(1840)
 
-public val MaterialSymbols.HowToReg: MaterialSymbol
+val MaterialSymbols.HowToReg: MaterialSymbol
     get() = symbolAt(1841)
 
-public val MaterialSymbols.HowToVote: MaterialSymbol
+val MaterialSymbols.HowToVote: MaterialSymbol
     get() = symbolAt(1842)
 
-public val MaterialSymbols.HrResting: MaterialSymbol
+val MaterialSymbols.HrResting: MaterialSymbol
     get() = symbolAt(1843)
 
-public val MaterialSymbols.Html: MaterialSymbol
+val MaterialSymbols.Html: MaterialSymbol
     get() = symbolAt(1844)
 
-public val MaterialSymbols.Http: MaterialSymbol
+val MaterialSymbols.Http: MaterialSymbol
     get() = symbolAt(1845)
 
-public val MaterialSymbols.Https: MaterialSymbol
+val MaterialSymbols.Https: MaterialSymbol
     get() = symbolAt(1846)
 
-public val MaterialSymbols.Hub: MaterialSymbol
+val MaterialSymbols.Hub: MaterialSymbol
     get() = symbolAt(1847)
 
-public val MaterialSymbols.Humerus: MaterialSymbol
+val MaterialSymbols.Humerus: MaterialSymbol
     get() = symbolAt(1848)
 
-public val MaterialSymbols.HumerusAlt: MaterialSymbol
+val MaterialSymbols.HumerusAlt: MaterialSymbol
     get() = symbolAt(1849)
 
-public val MaterialSymbols.HumidityHigh: MaterialSymbol
+val MaterialSymbols.HumidityHigh: MaterialSymbol
     get() = symbolAt(1850)
 
-public val MaterialSymbols.HumidityIndoor: MaterialSymbol
+val MaterialSymbols.HumidityIndoor: MaterialSymbol
     get() = symbolAt(1851)
 
-public val MaterialSymbols.HumidityLow: MaterialSymbol
+val MaterialSymbols.HumidityLow: MaterialSymbol
     get() = symbolAt(1852)
 
-public val MaterialSymbols.HumidityMid: MaterialSymbol
+val MaterialSymbols.HumidityMid: MaterialSymbol
     get() = symbolAt(1853)
 
-public val MaterialSymbols.HumidityPercentage: MaterialSymbol
+val MaterialSymbols.HumidityPercentage: MaterialSymbol
     get() = symbolAt(1854)
 
-public val MaterialSymbols.Hvac: MaterialSymbol
+val MaterialSymbols.Hvac: MaterialSymbol
     get() = symbolAt(1855)
 
-public val MaterialSymbols.HvacMaxDefrost: MaterialSymbol
+val MaterialSymbols.HvacMaxDefrost: MaterialSymbol
     get() = symbolAt(1856)
 
-public val MaterialSymbols.IceSkating: MaterialSymbol
+val MaterialSymbols.IceSkating: MaterialSymbol
     get() = symbolAt(1857)
 
-public val MaterialSymbols.Icecream: MaterialSymbol
+val MaterialSymbols.Icecream: MaterialSymbol
     get() = symbolAt(1858)
 
-public val MaterialSymbols.IdCard: MaterialSymbol
+val MaterialSymbols.IdCard: MaterialSymbol
     get() = symbolAt(1859)
 
-public val MaterialSymbols.IdentityAwareProxy: MaterialSymbol
+val MaterialSymbols.IdentityAwareProxy: MaterialSymbol
     get() = symbolAt(1860)
 
-public val MaterialSymbols.IdentityPlatform: MaterialSymbol
+val MaterialSymbols.IdentityPlatform: MaterialSymbol
     get() = symbolAt(1861)
 
-public val MaterialSymbols.Ifl: MaterialSymbol
+val MaterialSymbols.Ifl: MaterialSymbol
     get() = symbolAt(1862)
 
-public val MaterialSymbols.Iframe: MaterialSymbol
+val MaterialSymbols.Iframe: MaterialSymbol
     get() = symbolAt(1863)
 
-public val MaterialSymbols.IframeOff: MaterialSymbol
+val MaterialSymbols.IframeOff: MaterialSymbol
     get() = symbolAt(1864)
 
-public val MaterialSymbols.Image: MaterialSymbol
+val MaterialSymbols.Image: MaterialSymbol
     get() = symbolAt(1865)
 
-public val MaterialSymbols.ImageArrowUp: MaterialSymbol
+val MaterialSymbols.ImageArrowUp: MaterialSymbol
     get() = symbolAt(1866)
 
-public val MaterialSymbols.ImageAspectRatio: MaterialSymbol
+val MaterialSymbols.ImageAspectRatio: MaterialSymbol
     get() = symbolAt(1867)
 
-public val MaterialSymbols.ImageInset: MaterialSymbol
+val MaterialSymbols.ImageInset: MaterialSymbol
     get() = symbolAt(1868)
 
-public val MaterialSymbols.ImageNotSupported: MaterialSymbol
+val MaterialSymbols.ImageNotSupported: MaterialSymbol
     get() = symbolAt(1869)
 
-public val MaterialSymbols.ImageSearch: MaterialSymbol
+val MaterialSymbols.ImageSearch: MaterialSymbol
     get() = symbolAt(1870)
 
-public val MaterialSymbols.ImagesearchRoller: MaterialSymbol
+val MaterialSymbols.ImagesearchRoller: MaterialSymbol
     get() = symbolAt(1871)
 
-public val MaterialSymbols.Imagesmode: MaterialSymbol
+val MaterialSymbols.Imagesmode: MaterialSymbol
     get() = symbolAt(1872)
 
-public val MaterialSymbols.Immunology: MaterialSymbol
+val MaterialSymbols.Immunology: MaterialSymbol
     get() = symbolAt(1873)
 
-public val MaterialSymbols.ImportContacts: MaterialSymbol
+val MaterialSymbols.ImportContacts: MaterialSymbol
     get() = symbolAt(1874)
 
-public val MaterialSymbols.ImportExport: MaterialSymbol
+val MaterialSymbols.ImportExport: MaterialSymbol
     get() = symbolAt(1875)
 
-public val MaterialSymbols.ImportantDevices: MaterialSymbol
+val MaterialSymbols.ImportantDevices: MaterialSymbol
     get() = symbolAt(1876)
 
-public val MaterialSymbols.InHomeMode: MaterialSymbol
+val MaterialSymbols.InHomeMode: MaterialSymbol
     get() = symbolAt(1877)
 
-public val MaterialSymbols.InactiveOrder: MaterialSymbol
+val MaterialSymbols.InactiveOrder: MaterialSymbol
     get() = symbolAt(1878)
 
-public val MaterialSymbols.Inbox: MaterialSymbol
+val MaterialSymbols.Inbox: MaterialSymbol
     get() = symbolAt(1879)
 
-public val MaterialSymbols.InboxCustomize: MaterialSymbol
+val MaterialSymbols.InboxCustomize: MaterialSymbol
     get() = symbolAt(1880)
 
-public val MaterialSymbols.InboxText: MaterialSymbol
+val MaterialSymbols.InboxText: MaterialSymbol
     get() = symbolAt(1881)
 
-public val MaterialSymbols.InboxTextAsterisk: MaterialSymbol
+val MaterialSymbols.InboxTextAsterisk: MaterialSymbol
     get() = symbolAt(1882)
 
-public val MaterialSymbols.InboxTextPerson: MaterialSymbol
+val MaterialSymbols.InboxTextPerson: MaterialSymbol
     get() = symbolAt(1883)
 
-public val MaterialSymbols.InboxTextShare: MaterialSymbol
+val MaterialSymbols.InboxTextShare: MaterialSymbol
     get() = symbolAt(1884)
 
-public val MaterialSymbols.IncompleteCircle: MaterialSymbol
+val MaterialSymbols.IncompleteCircle: MaterialSymbol
     get() = symbolAt(1885)
 
-public val MaterialSymbols.IndeterminateCheckBox: MaterialSymbol
+val MaterialSymbols.IndeterminateCheckBox: MaterialSymbol
     get() = symbolAt(1886)
 
-public val MaterialSymbols.IndeterminateQuestionBox: MaterialSymbol
+val MaterialSymbols.IndeterminateQuestionBox: MaterialSymbol
     get() = symbolAt(1887)
 
-public val MaterialSymbols.Info: MaterialSymbol
+val MaterialSymbols.Info: MaterialSymbol
     get() = symbolAt(1888)
 
-public val MaterialSymbols.InfoI: MaterialSymbol
+val MaterialSymbols.InfoI: MaterialSymbol
     get() = symbolAt(1889)
 
-public val MaterialSymbols.Infrared: MaterialSymbol
+val MaterialSymbols.Infrared: MaterialSymbol
     get() = symbolAt(1890)
 
-public val MaterialSymbols.InkEraser: MaterialSymbol
+val MaterialSymbols.InkEraser: MaterialSymbol
     get() = symbolAt(1891)
 
-public val MaterialSymbols.InkEraserOff: MaterialSymbol
+val MaterialSymbols.InkEraserOff: MaterialSymbol
     get() = symbolAt(1892)
 
-public val MaterialSymbols.InkHighlighter: MaterialSymbol
+val MaterialSymbols.InkHighlighter: MaterialSymbol
     get() = symbolAt(1893)
 
-public val MaterialSymbols.InkHighlighterMove: MaterialSymbol
+val MaterialSymbols.InkHighlighterMove: MaterialSymbol
     get() = symbolAt(1894)
 
-public val MaterialSymbols.InkMarker: MaterialSymbol
+val MaterialSymbols.InkMarker: MaterialSymbol
     get() = symbolAt(1895)
 
-public val MaterialSymbols.InkPen: MaterialSymbol
+val MaterialSymbols.InkPen: MaterialSymbol
     get() = symbolAt(1896)
 
-public val MaterialSymbols.InkSelection: MaterialSymbol
+val MaterialSymbols.InkSelection: MaterialSymbol
     get() = symbolAt(1897)
 
-public val MaterialSymbols.Inpatient: MaterialSymbol
+val MaterialSymbols.Inpatient: MaterialSymbol
     get() = symbolAt(1898)
 
-public val MaterialSymbols.Input: MaterialSymbol
+val MaterialSymbols.Input: MaterialSymbol
     get() = symbolAt(1899)
 
-public val MaterialSymbols.InputCircle: MaterialSymbol
+val MaterialSymbols.InputCircle: MaterialSymbol
     get() = symbolAt(1900)
 
-public val MaterialSymbols.InsertChart: MaterialSymbol
+val MaterialSymbols.InsertChart: MaterialSymbol
     get() = symbolAt(1901)
 
-public val MaterialSymbols.InsertChartFilled: MaterialSymbol
+val MaterialSymbols.InsertChartFilled: MaterialSymbol
     get() = symbolAt(1902)
 
-public val MaterialSymbols.InsertChartOutlined: MaterialSymbol
+val MaterialSymbols.InsertChartOutlined: MaterialSymbol
     get() = symbolAt(1903)
 
-public val MaterialSymbols.InsertComment: MaterialSymbol
+val MaterialSymbols.InsertComment: MaterialSymbol
     get() = symbolAt(1904)
 
-public val MaterialSymbols.InsertDriveFile: MaterialSymbol
+val MaterialSymbols.InsertDriveFile: MaterialSymbol
     get() = symbolAt(1905)
 
-public val MaterialSymbols.InsertEmoticon: MaterialSymbol
+val MaterialSymbols.InsertEmoticon: MaterialSymbol
     get() = symbolAt(1906)
 
-public val MaterialSymbols.InsertInvitation: MaterialSymbol
+val MaterialSymbols.InsertInvitation: MaterialSymbol
     get() = symbolAt(1907)
 
-public val MaterialSymbols.InsertLink: MaterialSymbol
+val MaterialSymbols.InsertLink: MaterialSymbol
     get() = symbolAt(1908)
 
-public val MaterialSymbols.InsertPageBreak: MaterialSymbol
+val MaterialSymbols.InsertPageBreak: MaterialSymbol
     get() = symbolAt(1909)
 
-public val MaterialSymbols.InsertPhoto: MaterialSymbol
+val MaterialSymbols.InsertPhoto: MaterialSymbol
     get() = symbolAt(1910)
 
-public val MaterialSymbols.InsertText: MaterialSymbol
+val MaterialSymbols.InsertText: MaterialSymbol
     get() = symbolAt(1911)
 
-public val MaterialSymbols.Insights: MaterialSymbol
+val MaterialSymbols.Insights: MaterialSymbol
     get() = symbolAt(1912)
 
-public val MaterialSymbols.InstallDesktop: MaterialSymbol
+val MaterialSymbols.InstallDesktop: MaterialSymbol
     get() = symbolAt(1913)
 
-public val MaterialSymbols.InstallMobile: MaterialSymbol
+val MaterialSymbols.InstallMobile: MaterialSymbol
     get() = symbolAt(1914)
 
-public val MaterialSymbols.InstantMix: MaterialSymbol
+val MaterialSymbols.InstantMix: MaterialSymbol
     get() = symbolAt(1915)
 
-public val MaterialSymbols.IntegrationInstructions: MaterialSymbol
+val MaterialSymbols.IntegrationInstructions: MaterialSymbol
     get() = symbolAt(1916)
 
-public val MaterialSymbols.InteractiveSpace: MaterialSymbol
+val MaterialSymbols.InteractiveSpace: MaterialSymbol
     get() = symbolAt(1917)
 
-public val MaterialSymbols.Interests: MaterialSymbol
+val MaterialSymbols.Interests: MaterialSymbol
     get() = symbolAt(1918)
 
-public val MaterialSymbols.InterpreterMode: MaterialSymbol
+val MaterialSymbols.InterpreterMode: MaterialSymbol
     get() = symbolAt(1919)
 
-public val MaterialSymbols.Inventory: MaterialSymbol
+val MaterialSymbols.Inventory: MaterialSymbol
     get() = symbolAt(1920)
 
-public val MaterialSymbols.Inventory2: MaterialSymbol
+val MaterialSymbols.Inventory2: MaterialSymbol
     get() = symbolAt(1921)
 
-public val MaterialSymbols.InvertColors: MaterialSymbol
+val MaterialSymbols.InvertColors: MaterialSymbol
     get() = symbolAt(1922)
 
-public val MaterialSymbols.InvertColorsOff: MaterialSymbol
+val MaterialSymbols.InvertColorsOff: MaterialSymbol
     get() = symbolAt(1923)
 
-public val MaterialSymbols.Ios: MaterialSymbol
+val MaterialSymbols.Ios: MaterialSymbol
     get() = symbolAt(1924)
 
-public val MaterialSymbols.IosShare: MaterialSymbol
+val MaterialSymbols.IosShare: MaterialSymbol
     get() = symbolAt(1925)
 
-public val MaterialSymbols.Iron: MaterialSymbol
+val MaterialSymbols.Iron: MaterialSymbol
     get() = symbolAt(1926)
 
-public val MaterialSymbols.Iso: MaterialSymbol
+val MaterialSymbols.Iso: MaterialSymbol
     get() = symbolAt(1927)
 
-public val MaterialSymbols.JamboardKiosk: MaterialSymbol
+val MaterialSymbols.JamboardKiosk: MaterialSymbol
     get() = symbolAt(1928)
 
-public val MaterialSymbols.JapaneseCurry: MaterialSymbol
+val MaterialSymbols.JapaneseCurry: MaterialSymbol
     get() = symbolAt(1929)
 
-public val MaterialSymbols.JapaneseFlag: MaterialSymbol
+val MaterialSymbols.JapaneseFlag: MaterialSymbol
     get() = symbolAt(1930)
 
-public val MaterialSymbols.Javascript: MaterialSymbol
+val MaterialSymbols.Javascript: MaterialSymbol
     get() = symbolAt(1931)
 
-public val MaterialSymbols.Join: MaterialSymbol
+val MaterialSymbols.Join: MaterialSymbol
     get() = symbolAt(1932)
 
-public val MaterialSymbols.JoinFull: MaterialSymbol
+val MaterialSymbols.JoinFull: MaterialSymbol
     get() = symbolAt(1933)
 
-public val MaterialSymbols.JoinInner: MaterialSymbol
+val MaterialSymbols.JoinInner: MaterialSymbol
     get() = symbolAt(1934)
 
-public val MaterialSymbols.JoinLeft: MaterialSymbol
+val MaterialSymbols.JoinLeft: MaterialSymbol
     get() = symbolAt(1935)
 
-public val MaterialSymbols.JoinRight: MaterialSymbol
+val MaterialSymbols.JoinRight: MaterialSymbol
     get() = symbolAt(1936)
 
-public val MaterialSymbols.Joystick: MaterialSymbol
+val MaterialSymbols.Joystick: MaterialSymbol
     get() = symbolAt(1937)
 
-public val MaterialSymbols.JumpToElement: MaterialSymbol
+val MaterialSymbols.JumpToElement: MaterialSymbol
     get() = symbolAt(1938)
 
-public val MaterialSymbols.KanjiAlcohol: MaterialSymbol
+val MaterialSymbols.KanjiAlcohol: MaterialSymbol
     get() = symbolAt(1939)
 
-public val MaterialSymbols.Kayaking: MaterialSymbol
+val MaterialSymbols.Kayaking: MaterialSymbol
     get() = symbolAt(1940)
 
-public val MaterialSymbols.KebabDining: MaterialSymbol
+val MaterialSymbols.KebabDining: MaterialSymbol
     get() = symbolAt(1941)
 
-public val MaterialSymbols.Keep: MaterialSymbol
+val MaterialSymbols.Keep: MaterialSymbol
     get() = symbolAt(1942)
 
-public val MaterialSymbols.KeepOff: MaterialSymbol
+val MaterialSymbols.KeepOff: MaterialSymbol
     get() = symbolAt(1943)
 
-public val MaterialSymbols.KeepPin: MaterialSymbol
+val MaterialSymbols.KeepPin: MaterialSymbol
     get() = symbolAt(1944)
 
-public val MaterialSymbols.KeepPublic: MaterialSymbol
+val MaterialSymbols.KeepPublic: MaterialSymbol
     get() = symbolAt(1945)
 
-public val MaterialSymbols.Kettle: MaterialSymbol
+val MaterialSymbols.Kettle: MaterialSymbol
     get() = symbolAt(1946)
 
-public val MaterialSymbols.Key: MaterialSymbol
+val MaterialSymbols.Key: MaterialSymbol
     get() = symbolAt(1947)
 
-public val MaterialSymbols.KeyOff: MaterialSymbol
+val MaterialSymbols.KeyOff: MaterialSymbol
     get() = symbolAt(1948)
 
-public val MaterialSymbols.KeyVertical: MaterialSymbol
+val MaterialSymbols.KeyVertical: MaterialSymbol
     get() = symbolAt(1949)
 
-public val MaterialSymbols.KeyVisualizer: MaterialSymbol
+val MaterialSymbols.KeyVisualizer: MaterialSymbol
     get() = symbolAt(1950)
 
-public val MaterialSymbols.Keyboard: MaterialSymbol
+val MaterialSymbols.Keyboard: MaterialSymbol
     get() = symbolAt(1951)
 
-public val MaterialSymbols.KeyboardAlt: MaterialSymbol
+val MaterialSymbols.KeyboardAlt: MaterialSymbol
     get() = symbolAt(1952)
 
-public val MaterialSymbols.KeyboardArrowDown: MaterialSymbol
+val MaterialSymbols.KeyboardArrowDown: MaterialSymbol
     get() = symbolAt(1953)
 
-public val MaterialSymbols.KeyboardArrowLeft: MaterialSymbol
+val MaterialSymbols.KeyboardArrowLeft: MaterialSymbol
     get() = symbolAt(1954)
 
-public val MaterialSymbols.KeyboardArrowRight: MaterialSymbol
+val MaterialSymbols.KeyboardArrowRight: MaterialSymbol
     get() = symbolAt(1955)
 
-public val MaterialSymbols.KeyboardArrowUp: MaterialSymbol
+val MaterialSymbols.KeyboardArrowUp: MaterialSymbol
     get() = symbolAt(1956)
 
-public val MaterialSymbols.KeyboardBackspace: MaterialSymbol
+val MaterialSymbols.KeyboardBackspace: MaterialSymbol
     get() = symbolAt(1957)
 
-public val MaterialSymbols.KeyboardCapslock: MaterialSymbol
+val MaterialSymbols.KeyboardCapslock: MaterialSymbol
     get() = symbolAt(1958)
 
-public val MaterialSymbols.KeyboardCapslockBadge: MaterialSymbol
+val MaterialSymbols.KeyboardCapslockBadge: MaterialSymbol
     get() = symbolAt(1959)
 
-public val MaterialSymbols.KeyboardCommandKey: MaterialSymbol
+val MaterialSymbols.KeyboardCommandKey: MaterialSymbol
     get() = symbolAt(1960)
 
-public val MaterialSymbols.KeyboardControlKey: MaterialSymbol
+val MaterialSymbols.KeyboardControlKey: MaterialSymbol
     get() = symbolAt(1961)
 
-public val MaterialSymbols.KeyboardDoubleArrowDown: MaterialSymbol
+val MaterialSymbols.KeyboardDoubleArrowDown: MaterialSymbol
     get() = symbolAt(1962)
 
-public val MaterialSymbols.KeyboardDoubleArrowLeft: MaterialSymbol
+val MaterialSymbols.KeyboardDoubleArrowLeft: MaterialSymbol
     get() = symbolAt(1963)
 
-public val MaterialSymbols.KeyboardDoubleArrowRight: MaterialSymbol
+val MaterialSymbols.KeyboardDoubleArrowRight: MaterialSymbol
     get() = symbolAt(1964)
 
-public val MaterialSymbols.KeyboardDoubleArrowUp: MaterialSymbol
+val MaterialSymbols.KeyboardDoubleArrowUp: MaterialSymbol
     get() = symbolAt(1965)
 
-public val MaterialSymbols.KeyboardExternalInput: MaterialSymbol
+val MaterialSymbols.KeyboardExternalInput: MaterialSymbol
     get() = symbolAt(1966)
 
-public val MaterialSymbols.KeyboardFull: MaterialSymbol
+val MaterialSymbols.KeyboardFull: MaterialSymbol
     get() = symbolAt(1967)
 
-public val MaterialSymbols.KeyboardHide: MaterialSymbol
+val MaterialSymbols.KeyboardHide: MaterialSymbol
     get() = symbolAt(1968)
 
-public val MaterialSymbols.KeyboardKeys: MaterialSymbol
+val MaterialSymbols.KeyboardKeys: MaterialSymbol
     get() = symbolAt(1969)
 
-public val MaterialSymbols.KeyboardLock: MaterialSymbol
+val MaterialSymbols.KeyboardLock: MaterialSymbol
     get() = symbolAt(1970)
 
-public val MaterialSymbols.KeyboardLockOff: MaterialSymbol
+val MaterialSymbols.KeyboardLockOff: MaterialSymbol
     get() = symbolAt(1971)
 
-public val MaterialSymbols.KeyboardOff: MaterialSymbol
+val MaterialSymbols.KeyboardOff: MaterialSymbol
     get() = symbolAt(1972)
 
-public val MaterialSymbols.KeyboardOnscreen: MaterialSymbol
+val MaterialSymbols.KeyboardOnscreen: MaterialSymbol
     get() = symbolAt(1973)
 
-public val MaterialSymbols.KeyboardOptionKey: MaterialSymbol
+val MaterialSymbols.KeyboardOptionKey: MaterialSymbol
     get() = symbolAt(1974)
 
-public val MaterialSymbols.KeyboardPreviousLanguage: MaterialSymbol
+val MaterialSymbols.KeyboardPreviousLanguage: MaterialSymbol
     get() = symbolAt(1975)
 
-public val MaterialSymbols.KeyboardReturn: MaterialSymbol
+val MaterialSymbols.KeyboardReturn: MaterialSymbol
     get() = symbolAt(1976)
 
-public val MaterialSymbols.KeyboardTab: MaterialSymbol
+val MaterialSymbols.KeyboardTab: MaterialSymbol
     get() = symbolAt(1977)
 
-public val MaterialSymbols.KeyboardTabRtl: MaterialSymbol
+val MaterialSymbols.KeyboardTabRtl: MaterialSymbol
     get() = symbolAt(1978)
 
-public val MaterialSymbols.KeyboardVoice: MaterialSymbol
+val MaterialSymbols.KeyboardVoice: MaterialSymbol
     get() = symbolAt(1979)
 
-public val MaterialSymbols.KidStar: MaterialSymbol
+val MaterialSymbols.KidStar: MaterialSymbol
     get() = symbolAt(1980)
 
-public val MaterialSymbols.KingBed: MaterialSymbol
+val MaterialSymbols.KingBed: MaterialSymbol
     get() = symbolAt(1981)
 
-public val MaterialSymbols.Kitchen: MaterialSymbol
+val MaterialSymbols.Kitchen: MaterialSymbol
     get() = symbolAt(1982)
 
-public val MaterialSymbols.Kitesurfing: MaterialSymbol
+val MaterialSymbols.Kitesurfing: MaterialSymbol
     get() = symbolAt(1983)
 
-public val MaterialSymbols.LabPanel: MaterialSymbol
+val MaterialSymbols.LabPanel: MaterialSymbol
     get() = symbolAt(1984)
 
-public val MaterialSymbols.LabProfile: MaterialSymbol
+val MaterialSymbols.LabProfile: MaterialSymbol
     get() = symbolAt(1985)
 
-public val MaterialSymbols.LabResearch: MaterialSymbol
+val MaterialSymbols.LabResearch: MaterialSymbol
     get() = symbolAt(1986)
 
-public val MaterialSymbols.Label: MaterialSymbol
+val MaterialSymbols.Label: MaterialSymbol
     get() = symbolAt(1987)
 
-public val MaterialSymbols.LabelImportant: MaterialSymbol
+val MaterialSymbols.LabelImportant: MaterialSymbol
     get() = symbolAt(1988)
 
-public val MaterialSymbols.LabelImportantOutline: MaterialSymbol
+val MaterialSymbols.LabelImportantOutline: MaterialSymbol
     get() = symbolAt(1989)
 
-public val MaterialSymbols.LabelOff: MaterialSymbol
+val MaterialSymbols.LabelOff: MaterialSymbol
     get() = symbolAt(1990)
 
-public val MaterialSymbols.LabelOutline: MaterialSymbol
+val MaterialSymbols.LabelOutline: MaterialSymbol
     get() = symbolAt(1991)
 
-public val MaterialSymbols.Labs: MaterialSymbol
+val MaterialSymbols.Labs: MaterialSymbol
     get() = symbolAt(1992)
 
-public val MaterialSymbols.Lan: MaterialSymbol
+val MaterialSymbols.Lan: MaterialSymbol
     get() = symbolAt(1993)
 
-public val MaterialSymbols.Landscape: MaterialSymbol
+val MaterialSymbols.Landscape: MaterialSymbol
     get() = symbolAt(1994)
 
-public val MaterialSymbols.Landscape2: MaterialSymbol
+val MaterialSymbols.Landscape2: MaterialSymbol
     get() = symbolAt(1995)
 
-public val MaterialSymbols.Landscape2Edit: MaterialSymbol
+val MaterialSymbols.Landscape2Edit: MaterialSymbol
     get() = symbolAt(1996)
 
-public val MaterialSymbols.Landscape2Off: MaterialSymbol
+val MaterialSymbols.Landscape2Off: MaterialSymbol
     get() = symbolAt(1997)
 
-public val MaterialSymbols.Landslide: MaterialSymbol
+val MaterialSymbols.Landslide: MaterialSymbol
     get() = symbolAt(1998)
 
-public val MaterialSymbols.Language: MaterialSymbol
+val MaterialSymbols.Language: MaterialSymbol
     get() = symbolAt(1999)
 
-public val MaterialSymbols.LanguageChineseArray: MaterialSymbol
+val MaterialSymbols.LanguageChineseArray: MaterialSymbol
     get() = symbolAt(2000)
 
-public val MaterialSymbols.LanguageChineseCangjie: MaterialSymbol
+val MaterialSymbols.LanguageChineseCangjie: MaterialSymbol
     get() = symbolAt(2001)
 
-public val MaterialSymbols.LanguageChineseDayi: MaterialSymbol
+val MaterialSymbols.LanguageChineseDayi: MaterialSymbol
     get() = symbolAt(2002)
 
-public val MaterialSymbols.LanguageChinesePinyin: MaterialSymbol
+val MaterialSymbols.LanguageChinesePinyin: MaterialSymbol
     get() = symbolAt(2003)
 
-public val MaterialSymbols.LanguageChineseQuick: MaterialSymbol
+val MaterialSymbols.LanguageChineseQuick: MaterialSymbol
     get() = symbolAt(2004)
 
-public val MaterialSymbols.LanguageChineseWubi: MaterialSymbol
+val MaterialSymbols.LanguageChineseWubi: MaterialSymbol
     get() = symbolAt(2005)
 
-public val MaterialSymbols.LanguageFrench: MaterialSymbol
+val MaterialSymbols.LanguageFrench: MaterialSymbol
     get() = symbolAt(2006)
 
-public val MaterialSymbols.LanguageGbEnglish: MaterialSymbol
+val MaterialSymbols.LanguageGbEnglish: MaterialSymbol
     get() = symbolAt(2007)
 
-public val MaterialSymbols.LanguageInternational: MaterialSymbol
+val MaterialSymbols.LanguageInternational: MaterialSymbol
     get() = symbolAt(2008)
 
-public val MaterialSymbols.LanguageJapaneseKana: MaterialSymbol
+val MaterialSymbols.LanguageJapaneseKana: MaterialSymbol
     get() = symbolAt(2009)
 
-public val MaterialSymbols.LanguageKoreanLatin: MaterialSymbol
+val MaterialSymbols.LanguageKoreanLatin: MaterialSymbol
     get() = symbolAt(2010)
 
-public val MaterialSymbols.LanguagePinyin: MaterialSymbol
+val MaterialSymbols.LanguagePinyin: MaterialSymbol
     get() = symbolAt(2011)
 
-public val MaterialSymbols.LanguageSpanish: MaterialSymbol
+val MaterialSymbols.LanguageSpanish: MaterialSymbol
     get() = symbolAt(2012)
 
-public val MaterialSymbols.LanguageUs: MaterialSymbol
+val MaterialSymbols.LanguageUs: MaterialSymbol
     get() = symbolAt(2013)
 
-public val MaterialSymbols.LanguageUsColemak: MaterialSymbol
+val MaterialSymbols.LanguageUsColemak: MaterialSymbol
     get() = symbolAt(2014)
 
-public val MaterialSymbols.LanguageUsDvorak: MaterialSymbol
+val MaterialSymbols.LanguageUsDvorak: MaterialSymbol
     get() = symbolAt(2015)
 
-public val MaterialSymbols.Laps: MaterialSymbol
+val MaterialSymbols.Laps: MaterialSymbol
     get() = symbolAt(2016)
 
-public val MaterialSymbols.Laptop: MaterialSymbol
+val MaterialSymbols.Laptop: MaterialSymbol
     get() = symbolAt(2017)
 
-public val MaterialSymbols.LaptopCar: MaterialSymbol
+val MaterialSymbols.LaptopCar: MaterialSymbol
     get() = symbolAt(2018)
 
-public val MaterialSymbols.LaptopChromebook: MaterialSymbol
+val MaterialSymbols.LaptopChromebook: MaterialSymbol
     get() = symbolAt(2019)
 
-public val MaterialSymbols.LaptopMac: MaterialSymbol
+val MaterialSymbols.LaptopMac: MaterialSymbol
     get() = symbolAt(2020)
 
-public val MaterialSymbols.LaptopWindows: MaterialSymbol
+val MaterialSymbols.LaptopWindows: MaterialSymbol
     get() = symbolAt(2021)
 
-public val MaterialSymbols.LassoSelect: MaterialSymbol
+val MaterialSymbols.LassoSelect: MaterialSymbol
     get() = symbolAt(2022)
 
-public val MaterialSymbols.LastPage: MaterialSymbol
+val MaterialSymbols.LastPage: MaterialSymbol
     get() = symbolAt(2023)
 
-public val MaterialSymbols.Launch: MaterialSymbol
+val MaterialSymbols.Launch: MaterialSymbol
     get() = symbolAt(2024)
 
-public val MaterialSymbols.Laundry: MaterialSymbol
+val MaterialSymbols.Laundry: MaterialSymbol
     get() = symbolAt(2025)
 
-public val MaterialSymbols.Layers: MaterialSymbol
+val MaterialSymbols.Layers: MaterialSymbol
     get() = symbolAt(2026)
 
-public val MaterialSymbols.LayersClear: MaterialSymbol
+val MaterialSymbols.LayersClear: MaterialSymbol
     get() = symbolAt(2027)
 
-public val MaterialSymbols.Lda: MaterialSymbol
+val MaterialSymbols.Lda: MaterialSymbol
     get() = symbolAt(2028)
 
-public val MaterialSymbols.Leaderboard: MaterialSymbol
+val MaterialSymbols.Leaderboard: MaterialSymbol
     get() = symbolAt(2029)
 
-public val MaterialSymbols.LeakAdd: MaterialSymbol
+val MaterialSymbols.LeakAdd: MaterialSymbol
     get() = symbolAt(2030)
 
-public val MaterialSymbols.LeakRemove: MaterialSymbol
+val MaterialSymbols.LeakRemove: MaterialSymbol
     get() = symbolAt(2031)
 
-public val MaterialSymbols.LeftClick: MaterialSymbol
+val MaterialSymbols.LeftClick: MaterialSymbol
     get() = symbolAt(2032)
 
-public val MaterialSymbols.LeftPanelClose: MaterialSymbol
+val MaterialSymbols.LeftPanelClose: MaterialSymbol
     get() = symbolAt(2033)
 
-public val MaterialSymbols.LeftPanelOpen: MaterialSymbol
+val MaterialSymbols.LeftPanelOpen: MaterialSymbol
     get() = symbolAt(2034)
 
-public val MaterialSymbols.LegendToggle: MaterialSymbol
+val MaterialSymbols.LegendToggle: MaterialSymbol
     get() = symbolAt(2035)
 
-public val MaterialSymbols.Lens: MaterialSymbol
+val MaterialSymbols.Lens: MaterialSymbol
     get() = symbolAt(2036)
 
-public val MaterialSymbols.LensBlur: MaterialSymbol
+val MaterialSymbols.LensBlur: MaterialSymbol
     get() = symbolAt(2037)
 
-public val MaterialSymbols.LetterSwitch: MaterialSymbol
+val MaterialSymbols.LetterSwitch: MaterialSymbol
     get() = symbolAt(2038)
 
-public val MaterialSymbols.LibraryAdd: MaterialSymbol
+val MaterialSymbols.LibraryAdd: MaterialSymbol
     get() = symbolAt(2039)
 
-public val MaterialSymbols.LibraryAddCheck: MaterialSymbol
+val MaterialSymbols.LibraryAddCheck: MaterialSymbol
     get() = symbolAt(2040)
 
-public val MaterialSymbols.LibraryBooks: MaterialSymbol
+val MaterialSymbols.LibraryBooks: MaterialSymbol
     get() = symbolAt(2041)
 
-public val MaterialSymbols.LibraryMusic: MaterialSymbol
+val MaterialSymbols.LibraryMusic: MaterialSymbol
     get() = symbolAt(2042)
 
-public val MaterialSymbols.License: MaterialSymbol
+val MaterialSymbols.License: MaterialSymbol
     get() = symbolAt(2043)
 
-public val MaterialSymbols.LiftToTalk: MaterialSymbol
+val MaterialSymbols.LiftToTalk: MaterialSymbol
     get() = symbolAt(2044)
 
-public val MaterialSymbols.Light: MaterialSymbol
+val MaterialSymbols.Light: MaterialSymbol
     get() = symbolAt(2045)
 
-public val MaterialSymbols.LightGroup: MaterialSymbol
+val MaterialSymbols.LightGroup: MaterialSymbol
     get() = symbolAt(2046)
 
-public val MaterialSymbols.LightMode: MaterialSymbol
+val MaterialSymbols.LightMode: MaterialSymbol
     get() = symbolAt(2047)
 
-public val MaterialSymbols.LightOff: MaterialSymbol
+val MaterialSymbols.LightOff: MaterialSymbol
     get() = symbolAt(2048)
 
-public val MaterialSymbols.Lightbulb: MaterialSymbol
+val MaterialSymbols.Lightbulb: MaterialSymbol
     get() = symbolAt(2049)
 
-public val MaterialSymbols.Lightbulb2: MaterialSymbol
+val MaterialSymbols.Lightbulb2: MaterialSymbol
     get() = symbolAt(2050)
 
-public val MaterialSymbols.LightbulbCircle: MaterialSymbol
+val MaterialSymbols.LightbulbCircle: MaterialSymbol
     get() = symbolAt(2051)
 
-public val MaterialSymbols.LightbulbOutline: MaterialSymbol
+val MaterialSymbols.LightbulbOutline: MaterialSymbol
     get() = symbolAt(2052)
 
-public val MaterialSymbols.LightningStand: MaterialSymbol
+val MaterialSymbols.LightningStand: MaterialSymbol
     get() = symbolAt(2053)
 
-public val MaterialSymbols.LineAxis: MaterialSymbol
+val MaterialSymbols.LineAxis: MaterialSymbol
     get() = symbolAt(2054)
 
-public val MaterialSymbols.LineCurve: MaterialSymbol
+val MaterialSymbols.LineCurve: MaterialSymbol
     get() = symbolAt(2055)
 
-public val MaterialSymbols.LineEnd: MaterialSymbol
+val MaterialSymbols.LineEnd: MaterialSymbol
     get() = symbolAt(2056)
 
-public val MaterialSymbols.LineEndArrow: MaterialSymbol
+val MaterialSymbols.LineEndArrow: MaterialSymbol
     get() = symbolAt(2057)
 
-public val MaterialSymbols.LineEndArrowNotch: MaterialSymbol
+val MaterialSymbols.LineEndArrowNotch: MaterialSymbol
     get() = symbolAt(2058)
 
-public val MaterialSymbols.LineEndCircle: MaterialSymbol
+val MaterialSymbols.LineEndCircle: MaterialSymbol
     get() = symbolAt(2059)
 
-public val MaterialSymbols.LineEndDiamond: MaterialSymbol
+val MaterialSymbols.LineEndDiamond: MaterialSymbol
     get() = symbolAt(2060)
 
-public val MaterialSymbols.LineEndSquare: MaterialSymbol
+val MaterialSymbols.LineEndSquare: MaterialSymbol
     get() = symbolAt(2061)
 
-public val MaterialSymbols.LineStart: MaterialSymbol
+val MaterialSymbols.LineStart: MaterialSymbol
     get() = symbolAt(2062)
 
-public val MaterialSymbols.LineStartArrow: MaterialSymbol
+val MaterialSymbols.LineStartArrow: MaterialSymbol
     get() = symbolAt(2063)
 
-public val MaterialSymbols.LineStartArrowNotch: MaterialSymbol
+val MaterialSymbols.LineStartArrowNotch: MaterialSymbol
     get() = symbolAt(2064)
 
-public val MaterialSymbols.LineStartCircle: MaterialSymbol
+val MaterialSymbols.LineStartCircle: MaterialSymbol
     get() = symbolAt(2065)
 
-public val MaterialSymbols.LineStartDiamond: MaterialSymbol
+val MaterialSymbols.LineStartDiamond: MaterialSymbol
     get() = symbolAt(2066)
 
-public val MaterialSymbols.LineStartSquare: MaterialSymbol
+val MaterialSymbols.LineStartSquare: MaterialSymbol
     get() = symbolAt(2067)
 
-public val MaterialSymbols.LineStyle: MaterialSymbol
+val MaterialSymbols.LineStyle: MaterialSymbol
     get() = symbolAt(2068)
 
-public val MaterialSymbols.LineWeight: MaterialSymbol
+val MaterialSymbols.LineWeight: MaterialSymbol
     get() = symbolAt(2069)
 
-public val MaterialSymbols.LinearScale: MaterialSymbol
+val MaterialSymbols.LinearScale: MaterialSymbol
     get() = symbolAt(2070)
 
-public val MaterialSymbols.Link: MaterialSymbol
+val MaterialSymbols.Link: MaterialSymbol
     get() = symbolAt(2071)
 
-public val MaterialSymbols.LinkOff: MaterialSymbol
+val MaterialSymbols.LinkOff: MaterialSymbol
     get() = symbolAt(2072)
 
-public val MaterialSymbols.LinkedCamera: MaterialSymbol
+val MaterialSymbols.LinkedCamera: MaterialSymbol
     get() = symbolAt(2073)
 
-public val MaterialSymbols.LinkedServices: MaterialSymbol
+val MaterialSymbols.LinkedServices: MaterialSymbol
     get() = symbolAt(2074)
 
-public val MaterialSymbols.Liquor: MaterialSymbol
+val MaterialSymbols.Liquor: MaterialSymbol
     get() = symbolAt(2075)
 
-public val MaterialSymbols.List: MaterialSymbol
+val MaterialSymbols.List: MaterialSymbol
     get() = symbolAt(2076)
 
-public val MaterialSymbols.ListAlt: MaterialSymbol
+val MaterialSymbols.ListAlt: MaterialSymbol
     get() = symbolAt(2077)
 
-public val MaterialSymbols.ListAltAdd: MaterialSymbol
+val MaterialSymbols.ListAltAdd: MaterialSymbol
     get() = symbolAt(2078)
 
-public val MaterialSymbols.ListAltCheck: MaterialSymbol
+val MaterialSymbols.ListAltCheck: MaterialSymbol
     get() = symbolAt(2079)
 
-public val MaterialSymbols.Lists: MaterialSymbol
+val MaterialSymbols.Lists: MaterialSymbol
     get() = symbolAt(2080)
 
-public val MaterialSymbols.LiveHelp: MaterialSymbol
+val MaterialSymbols.LiveHelp: MaterialSymbol
     get() = symbolAt(2081)
 
-public val MaterialSymbols.LiveTv: MaterialSymbol
+val MaterialSymbols.LiveTv: MaterialSymbol
     get() = symbolAt(2082)
 
-public val MaterialSymbols.Living: MaterialSymbol
+val MaterialSymbols.Living: MaterialSymbol
     get() = symbolAt(2083)
 
-public val MaterialSymbols.LocalActivity: MaterialSymbol
+val MaterialSymbols.LocalActivity: MaterialSymbol
     get() = symbolAt(2084)
 
-public val MaterialSymbols.LocalAirport: MaterialSymbol
+val MaterialSymbols.LocalAirport: MaterialSymbol
     get() = symbolAt(2085)
 
-public val MaterialSymbols.LocalAtm: MaterialSymbol
+val MaterialSymbols.LocalAtm: MaterialSymbol
     get() = symbolAt(2086)
 
-public val MaterialSymbols.LocalBar: MaterialSymbol
+val MaterialSymbols.LocalBar: MaterialSymbol
     get() = symbolAt(2087)
 
-public val MaterialSymbols.LocalCafe: MaterialSymbol
+val MaterialSymbols.LocalCafe: MaterialSymbol
     get() = symbolAt(2088)
 
-public val MaterialSymbols.LocalCarWash: MaterialSymbol
+val MaterialSymbols.LocalCarWash: MaterialSymbol
     get() = symbolAt(2089)
 
-public val MaterialSymbols.LocalConvenienceStore: MaterialSymbol
+val MaterialSymbols.LocalConvenienceStore: MaterialSymbol
     get() = symbolAt(2090)
 
-public val MaterialSymbols.LocalDining: MaterialSymbol
+val MaterialSymbols.LocalDining: MaterialSymbol
     get() = symbolAt(2091)
 
-public val MaterialSymbols.LocalDrink: MaterialSymbol
+val MaterialSymbols.LocalDrink: MaterialSymbol
     get() = symbolAt(2092)
 
-public val MaterialSymbols.LocalFireDepartment: MaterialSymbol
+val MaterialSymbols.LocalFireDepartment: MaterialSymbol
     get() = symbolAt(2093)
 
-public val MaterialSymbols.LocalFlorist: MaterialSymbol
+val MaterialSymbols.LocalFlorist: MaterialSymbol
     get() = symbolAt(2094)
 
-public val MaterialSymbols.LocalGasStation: MaterialSymbol
+val MaterialSymbols.LocalGasStation: MaterialSymbol
     get() = symbolAt(2095)
 
-public val MaterialSymbols.LocalGroceryStore: MaterialSymbol
+val MaterialSymbols.LocalGroceryStore: MaterialSymbol
     get() = symbolAt(2096)
 
-public val MaterialSymbols.LocalHospital: MaterialSymbol
+val MaterialSymbols.LocalHospital: MaterialSymbol
     get() = symbolAt(2097)
 
-public val MaterialSymbols.LocalHotel: MaterialSymbol
+val MaterialSymbols.LocalHotel: MaterialSymbol
     get() = symbolAt(2098)
 
-public val MaterialSymbols.LocalLaundryService: MaterialSymbol
+val MaterialSymbols.LocalLaundryService: MaterialSymbol
     get() = symbolAt(2099)
 
-public val MaterialSymbols.LocalLibrary: MaterialSymbol
+val MaterialSymbols.LocalLibrary: MaterialSymbol
     get() = symbolAt(2100)
 
-public val MaterialSymbols.LocalMall: MaterialSymbol
+val MaterialSymbols.LocalMall: MaterialSymbol
     get() = symbolAt(2101)
 
-public val MaterialSymbols.LocalMovies: MaterialSymbol
+val MaterialSymbols.LocalMovies: MaterialSymbol
     get() = symbolAt(2102)
 
-public val MaterialSymbols.LocalOffer: MaterialSymbol
+val MaterialSymbols.LocalOffer: MaterialSymbol
     get() = symbolAt(2103)
 
-public val MaterialSymbols.LocalParking: MaterialSymbol
+val MaterialSymbols.LocalParking: MaterialSymbol
     get() = symbolAt(2104)
 
-public val MaterialSymbols.LocalPharmacy: MaterialSymbol
+val MaterialSymbols.LocalPharmacy: MaterialSymbol
     get() = symbolAt(2105)
 
-public val MaterialSymbols.LocalPhone: MaterialSymbol
+val MaterialSymbols.LocalPhone: MaterialSymbol
     get() = symbolAt(2106)
 
-public val MaterialSymbols.LocalPizza: MaterialSymbol
+val MaterialSymbols.LocalPizza: MaterialSymbol
     get() = symbolAt(2107)
 
-public val MaterialSymbols.LocalPlay: MaterialSymbol
+val MaterialSymbols.LocalPlay: MaterialSymbol
     get() = symbolAt(2108)
 
-public val MaterialSymbols.LocalPolice: MaterialSymbol
+val MaterialSymbols.LocalPolice: MaterialSymbol
     get() = symbolAt(2109)
 
-public val MaterialSymbols.LocalPostOffice: MaterialSymbol
+val MaterialSymbols.LocalPostOffice: MaterialSymbol
     get() = symbolAt(2110)
 
-public val MaterialSymbols.LocalPrintshop: MaterialSymbol
+val MaterialSymbols.LocalPrintshop: MaterialSymbol
     get() = symbolAt(2111)
 
-public val MaterialSymbols.LocalSee: MaterialSymbol
+val MaterialSymbols.LocalSee: MaterialSymbol
     get() = symbolAt(2112)
 
-public val MaterialSymbols.LocalShipping: MaterialSymbol
+val MaterialSymbols.LocalShipping: MaterialSymbol
     get() = symbolAt(2113)
 
-public val MaterialSymbols.LocalTaxi: MaterialSymbol
+val MaterialSymbols.LocalTaxi: MaterialSymbol
     get() = symbolAt(2114)
 
-public val MaterialSymbols.LocationAutomation: MaterialSymbol
+val MaterialSymbols.LocationAutomation: MaterialSymbol
     get() = symbolAt(2115)
 
-public val MaterialSymbols.LocationAway: MaterialSymbol
+val MaterialSymbols.LocationAway: MaterialSymbol
     get() = symbolAt(2116)
 
-public val MaterialSymbols.LocationChip: MaterialSymbol
+val MaterialSymbols.LocationChip: MaterialSymbol
     get() = symbolAt(2117)
 
-public val MaterialSymbols.LocationCity: MaterialSymbol
+val MaterialSymbols.LocationCity: MaterialSymbol
     get() = symbolAt(2118)
 
-public val MaterialSymbols.LocationDisabled: MaterialSymbol
+val MaterialSymbols.LocationDisabled: MaterialSymbol
     get() = symbolAt(2119)
 
-public val MaterialSymbols.LocationHome: MaterialSymbol
+val MaterialSymbols.LocationHome: MaterialSymbol
     get() = symbolAt(2120)
 
-public val MaterialSymbols.LocationOff: MaterialSymbol
+val MaterialSymbols.LocationOff: MaterialSymbol
     get() = symbolAt(2121)
 
-public val MaterialSymbols.LocationOn: MaterialSymbol
+val MaterialSymbols.LocationOn: MaterialSymbol
     get() = symbolAt(2122)
 
-public val MaterialSymbols.LocationPin: MaterialSymbol
+val MaterialSymbols.LocationPin: MaterialSymbol
     get() = symbolAt(2123)
 
-public val MaterialSymbols.LocationSearching: MaterialSymbol
+val MaterialSymbols.LocationSearching: MaterialSymbol
     get() = symbolAt(2124)
 
-public val MaterialSymbols.LocatorTag: MaterialSymbol
+val MaterialSymbols.LocatorTag: MaterialSymbol
     get() = symbolAt(2125)
 
-public val MaterialSymbols.Lock: MaterialSymbol
+val MaterialSymbols.Lock: MaterialSymbol
     get() = symbolAt(2126)
 
-public val MaterialSymbols.LockClock: MaterialSymbol
+val MaterialSymbols.LockClock: MaterialSymbol
     get() = symbolAt(2127)
 
-public val MaterialSymbols.LockOpen: MaterialSymbol
+val MaterialSymbols.LockOpen: MaterialSymbol
     get() = symbolAt(2128)
 
-public val MaterialSymbols.LockOpenCircle: MaterialSymbol
+val MaterialSymbols.LockOpenCircle: MaterialSymbol
     get() = symbolAt(2129)
 
-public val MaterialSymbols.LockOpenRight: MaterialSymbol
+val MaterialSymbols.LockOpenRight: MaterialSymbol
     get() = symbolAt(2130)
 
-public val MaterialSymbols.LockOutline: MaterialSymbol
+val MaterialSymbols.LockOutline: MaterialSymbol
     get() = symbolAt(2131)
 
-public val MaterialSymbols.LockPerson: MaterialSymbol
+val MaterialSymbols.LockPerson: MaterialSymbol
     get() = symbolAt(2132)
 
-public val MaterialSymbols.LockReset: MaterialSymbol
+val MaterialSymbols.LockReset: MaterialSymbol
     get() = symbolAt(2133)
 
-public val MaterialSymbols.Login: MaterialSymbol
+val MaterialSymbols.Login: MaterialSymbol
     get() = symbolAt(2134)
 
-public val MaterialSymbols.LogoDev: MaterialSymbol
+val MaterialSymbols.LogoDev: MaterialSymbol
     get() = symbolAt(2135)
 
-public val MaterialSymbols.Logout: MaterialSymbol
+val MaterialSymbols.Logout: MaterialSymbol
     get() = symbolAt(2136)
 
-public val MaterialSymbols.Looks: MaterialSymbol
+val MaterialSymbols.Looks: MaterialSymbol
     get() = symbolAt(2137)
 
-public val MaterialSymbols.Looks3: MaterialSymbol
+val MaterialSymbols.Looks3: MaterialSymbol
     get() = symbolAt(2138)
 
-public val MaterialSymbols.Looks4: MaterialSymbol
+val MaterialSymbols.Looks4: MaterialSymbol
     get() = symbolAt(2139)
 
-public val MaterialSymbols.Looks5: MaterialSymbol
+val MaterialSymbols.Looks5: MaterialSymbol
     get() = symbolAt(2140)
 
-public val MaterialSymbols.Looks6: MaterialSymbol
+val MaterialSymbols.Looks6: MaterialSymbol
     get() = symbolAt(2141)
 
-public val MaterialSymbols.LooksOne: MaterialSymbol
+val MaterialSymbols.LooksOne: MaterialSymbol
     get() = symbolAt(2142)
 
-public val MaterialSymbols.LooksTwo: MaterialSymbol
+val MaterialSymbols.LooksTwo: MaterialSymbol
     get() = symbolAt(2143)
 
-public val MaterialSymbols.Loop: MaterialSymbol
+val MaterialSymbols.Loop: MaterialSymbol
     get() = symbolAt(2144)
 
-public val MaterialSymbols.Loupe: MaterialSymbol
+val MaterialSymbols.Loupe: MaterialSymbol
     get() = symbolAt(2145)
 
-public val MaterialSymbols.LowDensity: MaterialSymbol
+val MaterialSymbols.LowDensity: MaterialSymbol
     get() = symbolAt(2146)
 
-public val MaterialSymbols.LowPriority: MaterialSymbol
+val MaterialSymbols.LowPriority: MaterialSymbol
     get() = symbolAt(2147)
 
-public val MaterialSymbols.Lowercase: MaterialSymbol
+val MaterialSymbols.Lowercase: MaterialSymbol
     get() = symbolAt(2148)
 
-public val MaterialSymbols.Loyalty: MaterialSymbol
+val MaterialSymbols.Loyalty: MaterialSymbol
     get() = symbolAt(2149)
 
-public val MaterialSymbols.LteMobiledata: MaterialSymbol
+val MaterialSymbols.LteMobiledata: MaterialSymbol
     get() = symbolAt(2150)
 
-public val MaterialSymbols.LteMobiledataBadge: MaterialSymbol
+val MaterialSymbols.LteMobiledataBadge: MaterialSymbol
     get() = symbolAt(2151)
 
-public val MaterialSymbols.LtePlusMobiledata: MaterialSymbol
+val MaterialSymbols.LtePlusMobiledata: MaterialSymbol
     get() = symbolAt(2152)
 
-public val MaterialSymbols.LtePlusMobiledataBadge: MaterialSymbol
+val MaterialSymbols.LtePlusMobiledataBadge: MaterialSymbol
     get() = symbolAt(2153)
 
-public val MaterialSymbols.Luggage: MaterialSymbol
+val MaterialSymbols.Luggage: MaterialSymbol
     get() = symbolAt(2154)
 
-public val MaterialSymbols.LunchDining: MaterialSymbol
+val MaterialSymbols.LunchDining: MaterialSymbol
     get() = symbolAt(2155)
 
-public val MaterialSymbols.Lyrics: MaterialSymbol
+val MaterialSymbols.Lyrics: MaterialSymbol
     get() = symbolAt(2156)
 
-public val MaterialSymbols.MacroAuto: MaterialSymbol
+val MaterialSymbols.MacroAuto: MaterialSymbol
     get() = symbolAt(2157)
 
-public val MaterialSymbols.MacroOff: MaterialSymbol
+val MaterialSymbols.MacroOff: MaterialSymbol
     get() = symbolAt(2158)
 
-public val MaterialSymbols.MagicButton: MaterialSymbol
+val MaterialSymbols.MagicButton: MaterialSymbol
     get() = symbolAt(2159)
 
-public val MaterialSymbols.MagicExchange: MaterialSymbol
+val MaterialSymbols.MagicExchange: MaterialSymbol
     get() = symbolAt(2160)
 
-public val MaterialSymbols.MagicTether: MaterialSymbol
+val MaterialSymbols.MagicTether: MaterialSymbol
     get() = symbolAt(2161)
 
-public val MaterialSymbols.MagnificationLarge: MaterialSymbol
+val MaterialSymbols.MagnificationLarge: MaterialSymbol
     get() = symbolAt(2162)
 
-public val MaterialSymbols.MagnificationSmall: MaterialSymbol
+val MaterialSymbols.MagnificationSmall: MaterialSymbol
     get() = symbolAt(2163)
 
-public val MaterialSymbols.MagnifyDocked: MaterialSymbol
+val MaterialSymbols.MagnifyDocked: MaterialSymbol
     get() = symbolAt(2164)
 
-public val MaterialSymbols.MagnifyFullscreen: MaterialSymbol
+val MaterialSymbols.MagnifyFullscreen: MaterialSymbol
     get() = symbolAt(2165)
 
-public val MaterialSymbols.Mail: MaterialSymbol
+val MaterialSymbols.Mail: MaterialSymbol
     get() = symbolAt(2166)
 
-public val MaterialSymbols.MailAsterisk: MaterialSymbol
+val MaterialSymbols.MailAsterisk: MaterialSymbol
     get() = symbolAt(2167)
 
-public val MaterialSymbols.MailLock: MaterialSymbol
+val MaterialSymbols.MailLock: MaterialSymbol
     get() = symbolAt(2168)
 
-public val MaterialSymbols.MailOff: MaterialSymbol
+val MaterialSymbols.MailOff: MaterialSymbol
     get() = symbolAt(2169)
 
-public val MaterialSymbols.MailOutline: MaterialSymbol
+val MaterialSymbols.MailOutline: MaterialSymbol
     get() = symbolAt(2170)
 
-public val MaterialSymbols.MailShield: MaterialSymbol
+val MaterialSymbols.MailShield: MaterialSymbol
     get() = symbolAt(2171)
 
-public val MaterialSymbols.Male: MaterialSymbol
+val MaterialSymbols.Male: MaterialSymbol
     get() = symbolAt(2172)
 
-public val MaterialSymbols.Man: MaterialSymbol
+val MaterialSymbols.Man: MaterialSymbol
     get() = symbolAt(2173)
 
-public val MaterialSymbols.Man2: MaterialSymbol
+val MaterialSymbols.Man2: MaterialSymbol
     get() = symbolAt(2174)
 
-public val MaterialSymbols.Man3: MaterialSymbol
+val MaterialSymbols.Man3: MaterialSymbol
     get() = symbolAt(2175)
 
-public val MaterialSymbols.Man4: MaterialSymbol
+val MaterialSymbols.Man4: MaterialSymbol
     get() = symbolAt(2176)
 
-public val MaterialSymbols.ManageAccounts: MaterialSymbol
+val MaterialSymbols.ManageAccounts: MaterialSymbol
     get() = symbolAt(2177)
 
-public val MaterialSymbols.ManageHistory: MaterialSymbol
+val MaterialSymbols.ManageHistory: MaterialSymbol
     get() = symbolAt(2178)
 
-public val MaterialSymbols.ManageSearch: MaterialSymbol
+val MaterialSymbols.ManageSearch: MaterialSymbol
     get() = symbolAt(2179)
 
-public val MaterialSymbols.Manga: MaterialSymbol
+val MaterialSymbols.Manga: MaterialSymbol
     get() = symbolAt(2180)
 
-public val MaterialSymbols.Manufacturing: MaterialSymbol
+val MaterialSymbols.Manufacturing: MaterialSymbol
     get() = symbolAt(2181)
 
-public val MaterialSymbols.Map: MaterialSymbol
+val MaterialSymbols.Map: MaterialSymbol
     get() = symbolAt(2182)
 
-public val MaterialSymbols.MapPinHeart: MaterialSymbol
+val MaterialSymbols.MapPinHeart: MaterialSymbol
     get() = symbolAt(2183)
 
-public val MaterialSymbols.MapPinReview: MaterialSymbol
+val MaterialSymbols.MapPinReview: MaterialSymbol
     get() = symbolAt(2184)
 
-public val MaterialSymbols.MapSearch: MaterialSymbol
+val MaterialSymbols.MapSearch: MaterialSymbol
     get() = symbolAt(2185)
 
-public val MaterialSymbols.MapsHomeWork: MaterialSymbol
+val MaterialSymbols.MapsHomeWork: MaterialSymbol
     get() = symbolAt(2186)
 
-public val MaterialSymbols.MapsUgc: MaterialSymbol
+val MaterialSymbols.MapsUgc: MaterialSymbol
     get() = symbolAt(2187)
 
-public val MaterialSymbols.Margin: MaterialSymbol
+val MaterialSymbols.Margin: MaterialSymbol
     get() = symbolAt(2188)
 
-public val MaterialSymbols.MarkAsUnread: MaterialSymbol
+val MaterialSymbols.MarkAsUnread: MaterialSymbol
     get() = symbolAt(2189)
 
-public val MaterialSymbols.MarkChatRead: MaterialSymbol
+val MaterialSymbols.MarkChatRead: MaterialSymbol
     get() = symbolAt(2190)
 
-public val MaterialSymbols.MarkChatUnread: MaterialSymbol
+val MaterialSymbols.MarkChatUnread: MaterialSymbol
     get() = symbolAt(2191)
 
-public val MaterialSymbols.MarkEmailRead: MaterialSymbol
+val MaterialSymbols.MarkEmailRead: MaterialSymbol
     get() = symbolAt(2192)
 
-public val MaterialSymbols.MarkEmailUnread: MaterialSymbol
+val MaterialSymbols.MarkEmailUnread: MaterialSymbol
     get() = symbolAt(2193)
 
-public val MaterialSymbols.MarkUnreadChatAlt: MaterialSymbol
+val MaterialSymbols.MarkUnreadChatAlt: MaterialSymbol
     get() = symbolAt(2194)
 
-public val MaterialSymbols.Markdown: MaterialSymbol
+val MaterialSymbols.Markdown: MaterialSymbol
     get() = symbolAt(2195)
 
-public val MaterialSymbols.MarkdownCopy: MaterialSymbol
+val MaterialSymbols.MarkdownCopy: MaterialSymbol
     get() = symbolAt(2196)
 
-public val MaterialSymbols.MarkdownPaste: MaterialSymbol
+val MaterialSymbols.MarkdownPaste: MaterialSymbol
     get() = symbolAt(2197)
 
-public val MaterialSymbols.Markunread: MaterialSymbol
+val MaterialSymbols.Markunread: MaterialSymbol
     get() = symbolAt(2198)
 
-public val MaterialSymbols.MarkunreadMailbox: MaterialSymbol
+val MaterialSymbols.MarkunreadMailbox: MaterialSymbol
     get() = symbolAt(2199)
 
-public val MaterialSymbols.MaskedTransitions: MaterialSymbol
+val MaterialSymbols.MaskedTransitions: MaterialSymbol
     get() = symbolAt(2200)
 
-public val MaterialSymbols.MaskedTransitionsAdd: MaterialSymbol
+val MaterialSymbols.MaskedTransitionsAdd: MaterialSymbol
     get() = symbolAt(2201)
 
-public val MaterialSymbols.Masks: MaterialSymbol
+val MaterialSymbols.Masks: MaterialSymbol
     get() = symbolAt(2202)
 
-public val MaterialSymbols.Massage: MaterialSymbol
+val MaterialSymbols.Massage: MaterialSymbol
     get() = symbolAt(2203)
 
-public val MaterialSymbols.MatchCase: MaterialSymbol
+val MaterialSymbols.MatchCase: MaterialSymbol
     get() = symbolAt(2204)
 
-public val MaterialSymbols.MatchCaseOff: MaterialSymbol
+val MaterialSymbols.MatchCaseOff: MaterialSymbol
     get() = symbolAt(2205)
 
-public val MaterialSymbols.MatchWord: MaterialSymbol
+val MaterialSymbols.MatchWord: MaterialSymbol
     get() = symbolAt(2206)
 
-public val MaterialSymbols.Matter: MaterialSymbol
+val MaterialSymbols.Matter: MaterialSymbol
     get() = symbolAt(2207)
 
-public val MaterialSymbols.Maximize: MaterialSymbol
+val MaterialSymbols.Maximize: MaterialSymbol
     get() = symbolAt(2208)
 
-public val MaterialSymbols.MealDinner: MaterialSymbol
+val MaterialSymbols.MealDinner: MaterialSymbol
     get() = symbolAt(2209)
 
-public val MaterialSymbols.MealLunch: MaterialSymbol
+val MaterialSymbols.MealLunch: MaterialSymbol
     get() = symbolAt(2210)
 
-public val MaterialSymbols.MeasuringTape: MaterialSymbol
+val MaterialSymbols.MeasuringTape: MaterialSymbol
     get() = symbolAt(2211)
 
-public val MaterialSymbols.MediaBluetoothOff: MaterialSymbol
+val MaterialSymbols.MediaBluetoothOff: MaterialSymbol
     get() = symbolAt(2212)
 
-public val MaterialSymbols.MediaBluetoothOn: MaterialSymbol
+val MaterialSymbols.MediaBluetoothOn: MaterialSymbol
     get() = symbolAt(2213)
 
-public val MaterialSymbols.MediaLink: MaterialSymbol
+val MaterialSymbols.MediaLink: MaterialSymbol
     get() = symbolAt(2214)
 
-public val MaterialSymbols.MediaOutput: MaterialSymbol
+val MaterialSymbols.MediaOutput: MaterialSymbol
     get() = symbolAt(2215)
 
-public val MaterialSymbols.MediaOutputOff: MaterialSymbol
+val MaterialSymbols.MediaOutputOff: MaterialSymbol
     get() = symbolAt(2216)
 
-public val MaterialSymbols.Mediation: MaterialSymbol
+val MaterialSymbols.Mediation: MaterialSymbol
     get() = symbolAt(2217)
 
-public val MaterialSymbols.MedicalInformation: MaterialSymbol
+val MaterialSymbols.MedicalInformation: MaterialSymbol
     get() = symbolAt(2218)
 
-public val MaterialSymbols.MedicalMask: MaterialSymbol
+val MaterialSymbols.MedicalMask: MaterialSymbol
     get() = symbolAt(2219)
 
-public val MaterialSymbols.MedicalServices: MaterialSymbol
+val MaterialSymbols.MedicalServices: MaterialSymbol
     get() = symbolAt(2220)
 
-public val MaterialSymbols.Medication: MaterialSymbol
+val MaterialSymbols.Medication: MaterialSymbol
     get() = symbolAt(2221)
 
-public val MaterialSymbols.MedicationLiquid: MaterialSymbol
+val MaterialSymbols.MedicationLiquid: MaterialSymbol
     get() = symbolAt(2222)
 
-public val MaterialSymbols.MeetingRoom: MaterialSymbol
+val MaterialSymbols.MeetingRoom: MaterialSymbol
     get() = symbolAt(2223)
 
-public val MaterialSymbols.Memory: MaterialSymbol
+val MaterialSymbols.Memory: MaterialSymbol
     get() = symbolAt(2224)
 
-public val MaterialSymbols.MemoryAlt: MaterialSymbol
+val MaterialSymbols.MemoryAlt: MaterialSymbol
     get() = symbolAt(2225)
 
-public val MaterialSymbols.MenstrualHealth: MaterialSymbol
+val MaterialSymbols.MenstrualHealth: MaterialSymbol
     get() = symbolAt(2226)
 
-public val MaterialSymbols.Menu: MaterialSymbol
+val MaterialSymbols.Menu: MaterialSymbol
     get() = symbolAt(2227)
 
-public val MaterialSymbols.MenuBook: MaterialSymbol
+val MaterialSymbols.MenuBook: MaterialSymbol
     get() = symbolAt(2228)
 
-public val MaterialSymbols.MenuBook2: MaterialSymbol
+val MaterialSymbols.MenuBook2: MaterialSymbol
     get() = symbolAt(2229)
 
-public val MaterialSymbols.MenuOpen: MaterialSymbol
+val MaterialSymbols.MenuOpen: MaterialSymbol
     get() = symbolAt(2230)
 
-public val MaterialSymbols.Merge: MaterialSymbol
+val MaterialSymbols.Merge: MaterialSymbol
     get() = symbolAt(2231)
 
-public val MaterialSymbols.MergeType: MaterialSymbol
+val MaterialSymbols.MergeType: MaterialSymbol
     get() = symbolAt(2232)
 
-public val MaterialSymbols.Message: MaterialSymbol
+val MaterialSymbols.Message: MaterialSymbol
     get() = symbolAt(2233)
 
-public val MaterialSymbols.Metabolism: MaterialSymbol
+val MaterialSymbols.Metabolism: MaterialSymbol
     get() = symbolAt(2234)
 
-public val MaterialSymbols.Metro: MaterialSymbol
+val MaterialSymbols.Metro: MaterialSymbol
     get() = symbolAt(2235)
 
-public val MaterialSymbols.MfgNestYaleLock: MaterialSymbol
+val MaterialSymbols.MfgNestYaleLock: MaterialSymbol
     get() = symbolAt(2236)
 
-public val MaterialSymbols.Mic: MaterialSymbol
+val MaterialSymbols.Mic: MaterialSymbol
     get() = symbolAt(2237)
 
-public val MaterialSymbols.MicAlert: MaterialSymbol
+val MaterialSymbols.MicAlert: MaterialSymbol
     get() = symbolAt(2238)
 
-public val MaterialSymbols.MicDouble: MaterialSymbol
+val MaterialSymbols.MicDouble: MaterialSymbol
     get() = symbolAt(2239)
 
-public val MaterialSymbols.MicExternalOff: MaterialSymbol
+val MaterialSymbols.MicExternalOff: MaterialSymbol
     get() = symbolAt(2240)
 
-public val MaterialSymbols.MicExternalOn: MaterialSymbol
+val MaterialSymbols.MicExternalOn: MaterialSymbol
     get() = symbolAt(2241)
 
-public val MaterialSymbols.MicNone: MaterialSymbol
+val MaterialSymbols.MicNone: MaterialSymbol
     get() = symbolAt(2242)
 
-public val MaterialSymbols.MicOff: MaterialSymbol
+val MaterialSymbols.MicOff: MaterialSymbol
     get() = symbolAt(2243)
 
-public val MaterialSymbols.Microbiology: MaterialSymbol
+val MaterialSymbols.Microbiology: MaterialSymbol
     get() = symbolAt(2244)
 
-public val MaterialSymbols.Microwave: MaterialSymbol
+val MaterialSymbols.Microwave: MaterialSymbol
     get() = symbolAt(2245)
 
-public val MaterialSymbols.MicrowaveGen: MaterialSymbol
+val MaterialSymbols.MicrowaveGen: MaterialSymbol
     get() = symbolAt(2246)
 
-public val MaterialSymbols.MilitaryTech: MaterialSymbol
+val MaterialSymbols.MilitaryTech: MaterialSymbol
     get() = symbolAt(2247)
 
-public val MaterialSymbols.Mimo: MaterialSymbol
+val MaterialSymbols.Mimo: MaterialSymbol
     get() = symbolAt(2248)
 
-public val MaterialSymbols.MimoDisconnect: MaterialSymbol
+val MaterialSymbols.MimoDisconnect: MaterialSymbol
     get() = symbolAt(2249)
 
-public val MaterialSymbols.Mindfulness: MaterialSymbol
+val MaterialSymbols.Mindfulness: MaterialSymbol
     get() = symbolAt(2250)
 
-public val MaterialSymbols.Minimize: MaterialSymbol
+val MaterialSymbols.Minimize: MaterialSymbol
     get() = symbolAt(2251)
 
-public val MaterialSymbols.MinorCrash: MaterialSymbol
+val MaterialSymbols.MinorCrash: MaterialSymbol
     get() = symbolAt(2252)
 
-public val MaterialSymbols.Mintmark: MaterialSymbol
+val MaterialSymbols.Mintmark: MaterialSymbol
     get() = symbolAt(2253)
 
-public val MaterialSymbols.MissedVideoCall: MaterialSymbol
+val MaterialSymbols.MissedVideoCall: MaterialSymbol
     get() = symbolAt(2254)
 
-public val MaterialSymbols.MissedVideoCallFilled: MaterialSymbol
+val MaterialSymbols.MissedVideoCallFilled: MaterialSymbol
     get() = symbolAt(2255)
 
-public val MaterialSymbols.MissingController: MaterialSymbol
+val MaterialSymbols.MissingController: MaterialSymbol
     get() = symbolAt(2256)
 
-public val MaterialSymbols.Mist: MaterialSymbol
+val MaterialSymbols.Mist: MaterialSymbol
     get() = symbolAt(2257)
 
-public val MaterialSymbols.Mitre: MaterialSymbol
+val MaterialSymbols.Mitre: MaterialSymbol
     get() = symbolAt(2258)
 
-public val MaterialSymbols.MixtureMed: MaterialSymbol
+val MaterialSymbols.MixtureMed: MaterialSymbol
     get() = symbolAt(2259)
 
-public val MaterialSymbols.Mms: MaterialSymbol
+val MaterialSymbols.Mms: MaterialSymbol
     get() = symbolAt(2260)
 
-public val MaterialSymbols.Mobile: MaterialSymbol
+val MaterialSymbols.Mobile: MaterialSymbol
     get() = symbolAt(2261)
 
-public val MaterialSymbols.Mobile2: MaterialSymbol
+val MaterialSymbols.Mobile2: MaterialSymbol
     get() = symbolAt(2262)
 
-public val MaterialSymbols.Mobile3: MaterialSymbol
+val MaterialSymbols.Mobile3: MaterialSymbol
     get() = symbolAt(2263)
 
-public val MaterialSymbols.MobileAlert: MaterialSymbol
+val MaterialSymbols.MobileAlert: MaterialSymbol
     get() = symbolAt(2264)
 
-public val MaterialSymbols.MobileArrowDown: MaterialSymbol
+val MaterialSymbols.MobileArrowDown: MaterialSymbol
     get() = symbolAt(2265)
 
-public val MaterialSymbols.MobileArrowRight: MaterialSymbol
+val MaterialSymbols.MobileArrowRight: MaterialSymbol
     get() = symbolAt(2266)
 
-public val MaterialSymbols.MobileArrowUpRight: MaterialSymbol
+val MaterialSymbols.MobileArrowUpRight: MaterialSymbol
     get() = symbolAt(2267)
 
-public val MaterialSymbols.MobileBlock: MaterialSymbol
+val MaterialSymbols.MobileBlock: MaterialSymbol
     get() = symbolAt(2268)
 
-public val MaterialSymbols.MobileCamera: MaterialSymbol
+val MaterialSymbols.MobileCamera: MaterialSymbol
     get() = symbolAt(2269)
 
-public val MaterialSymbols.MobileCameraFront: MaterialSymbol
+val MaterialSymbols.MobileCameraFront: MaterialSymbol
     get() = symbolAt(2270)
 
-public val MaterialSymbols.MobileCameraRear: MaterialSymbol
+val MaterialSymbols.MobileCameraRear: MaterialSymbol
     get() = symbolAt(2271)
 
-public val MaterialSymbols.MobileCancel: MaterialSymbol
+val MaterialSymbols.MobileCancel: MaterialSymbol
     get() = symbolAt(2272)
 
-public val MaterialSymbols.MobileCast: MaterialSymbol
+val MaterialSymbols.MobileCast: MaterialSymbol
     get() = symbolAt(2273)
 
-public val MaterialSymbols.MobileCharge: MaterialSymbol
+val MaterialSymbols.MobileCharge: MaterialSymbol
     get() = symbolAt(2274)
 
-public val MaterialSymbols.MobileChat: MaterialSymbol
+val MaterialSymbols.MobileChat: MaterialSymbol
     get() = symbolAt(2275)
 
-public val MaterialSymbols.MobileCheck: MaterialSymbol
+val MaterialSymbols.MobileCheck: MaterialSymbol
     get() = symbolAt(2276)
 
-public val MaterialSymbols.MobileCode: MaterialSymbol
+val MaterialSymbols.MobileCode: MaterialSymbol
     get() = symbolAt(2277)
 
-public val MaterialSymbols.MobileDots: MaterialSymbol
+val MaterialSymbols.MobileDots: MaterialSymbol
     get() = symbolAt(2278)
 
-public val MaterialSymbols.MobileFriendly: MaterialSymbol
+val MaterialSymbols.MobileFriendly: MaterialSymbol
     get() = symbolAt(2279)
 
-public val MaterialSymbols.MobileGear: MaterialSymbol
+val MaterialSymbols.MobileGear: MaterialSymbol
     get() = symbolAt(2280)
 
-public val MaterialSymbols.MobileHand: MaterialSymbol
+val MaterialSymbols.MobileHand: MaterialSymbol
     get() = symbolAt(2281)
 
-public val MaterialSymbols.MobileHandLeft: MaterialSymbol
+val MaterialSymbols.MobileHandLeft: MaterialSymbol
     get() = symbolAt(2282)
 
-public val MaterialSymbols.MobileHandLeftOff: MaterialSymbol
+val MaterialSymbols.MobileHandLeftOff: MaterialSymbol
     get() = symbolAt(2283)
 
-public val MaterialSymbols.MobileHandOff: MaterialSymbol
+val MaterialSymbols.MobileHandOff: MaterialSymbol
     get() = symbolAt(2284)
 
-public val MaterialSymbols.MobileInfo: MaterialSymbol
+val MaterialSymbols.MobileInfo: MaterialSymbol
     get() = symbolAt(2285)
 
-public val MaterialSymbols.MobileLandscape: MaterialSymbol
+val MaterialSymbols.MobileLandscape: MaterialSymbol
     get() = symbolAt(2286)
 
-public val MaterialSymbols.MobileLayout: MaterialSymbol
+val MaterialSymbols.MobileLayout: MaterialSymbol
     get() = symbolAt(2287)
 
-public val MaterialSymbols.MobileLockLandscape: MaterialSymbol
+val MaterialSymbols.MobileLockLandscape: MaterialSymbol
     get() = symbolAt(2288)
 
-public val MaterialSymbols.MobileLockPortrait: MaterialSymbol
+val MaterialSymbols.MobileLockPortrait: MaterialSymbol
     get() = symbolAt(2289)
 
-public val MaterialSymbols.MobileLoupe: MaterialSymbol
+val MaterialSymbols.MobileLoupe: MaterialSymbol
     get() = symbolAt(2290)
 
-public val MaterialSymbols.MobileMenu: MaterialSymbol
+val MaterialSymbols.MobileMenu: MaterialSymbol
     get() = symbolAt(2291)
 
-public val MaterialSymbols.MobileOff: MaterialSymbol
+val MaterialSymbols.MobileOff: MaterialSymbol
     get() = symbolAt(2292)
 
-public val MaterialSymbols.MobileQuestion: MaterialSymbol
+val MaterialSymbols.MobileQuestion: MaterialSymbol
     get() = symbolAt(2293)
 
-public val MaterialSymbols.MobileRotate: MaterialSymbol
+val MaterialSymbols.MobileRotate: MaterialSymbol
     get() = symbolAt(2294)
 
-public val MaterialSymbols.MobileRotateLock: MaterialSymbol
+val MaterialSymbols.MobileRotateLock: MaterialSymbol
     get() = symbolAt(2295)
 
-public val MaterialSymbols.MobileScreenShare: MaterialSymbol
+val MaterialSymbols.MobileScreenShare: MaterialSymbol
     get() = symbolAt(2296)
 
-public val MaterialSymbols.MobileScreensaver: MaterialSymbol
+val MaterialSymbols.MobileScreensaver: MaterialSymbol
     get() = symbolAt(2297)
 
-public val MaterialSymbols.MobileSensorHi: MaterialSymbol
+val MaterialSymbols.MobileSensorHi: MaterialSymbol
     get() = symbolAt(2298)
 
-public val MaterialSymbols.MobileSensorLo: MaterialSymbol
+val MaterialSymbols.MobileSensorLo: MaterialSymbol
     get() = symbolAt(2299)
 
-public val MaterialSymbols.MobileShare: MaterialSymbol
+val MaterialSymbols.MobileShare: MaterialSymbol
     get() = symbolAt(2300)
 
-public val MaterialSymbols.MobileShareStack: MaterialSymbol
+val MaterialSymbols.MobileShareStack: MaterialSymbol
     get() = symbolAt(2301)
 
-public val MaterialSymbols.MobileSound: MaterialSymbol
+val MaterialSymbols.MobileSound: MaterialSymbol
     get() = symbolAt(2302)
 
-public val MaterialSymbols.MobileSound2: MaterialSymbol
+val MaterialSymbols.MobileSound2: MaterialSymbol
     get() = symbolAt(2303)
 
-public val MaterialSymbols.MobileSoundOff: MaterialSymbol
+val MaterialSymbols.MobileSoundOff: MaterialSymbol
     get() = symbolAt(2304)
 
-public val MaterialSymbols.MobileSpeaker: MaterialSymbol
+val MaterialSymbols.MobileSpeaker: MaterialSymbol
     get() = symbolAt(2305)
 
-public val MaterialSymbols.MobileText: MaterialSymbol
+val MaterialSymbols.MobileText: MaterialSymbol
     get() = symbolAt(2306)
 
-public val MaterialSymbols.MobileText2: MaterialSymbol
+val MaterialSymbols.MobileText2: MaterialSymbol
     get() = symbolAt(2307)
 
-public val MaterialSymbols.MobileTheft: MaterialSymbol
+val MaterialSymbols.MobileTheft: MaterialSymbol
     get() = symbolAt(2308)
 
-public val MaterialSymbols.MobileTicket: MaterialSymbol
+val MaterialSymbols.MobileTicket: MaterialSymbol
     get() = symbolAt(2309)
 
-public val MaterialSymbols.MobileVibrate: MaterialSymbol
+val MaterialSymbols.MobileVibrate: MaterialSymbol
     get() = symbolAt(2310)
 
-public val MaterialSymbols.MobileWrench: MaterialSymbol
+val MaterialSymbols.MobileWrench: MaterialSymbol
     get() = symbolAt(2311)
 
-public val MaterialSymbols.MobiledataOff: MaterialSymbol
+val MaterialSymbols.MobiledataOff: MaterialSymbol
     get() = symbolAt(2312)
 
-public val MaterialSymbols.Mode: MaterialSymbol
+val MaterialSymbols.Mode: MaterialSymbol
     get() = symbolAt(2313)
 
-public val MaterialSymbols.ModeComment: MaterialSymbol
+val MaterialSymbols.ModeComment: MaterialSymbol
     get() = symbolAt(2314)
 
-public val MaterialSymbols.ModeCool: MaterialSymbol
+val MaterialSymbols.ModeCool: MaterialSymbol
     get() = symbolAt(2315)
 
-public val MaterialSymbols.ModeCoolOff: MaterialSymbol
+val MaterialSymbols.ModeCoolOff: MaterialSymbol
     get() = symbolAt(2316)
 
-public val MaterialSymbols.ModeDual: MaterialSymbol
+val MaterialSymbols.ModeDual: MaterialSymbol
     get() = symbolAt(2317)
 
-public val MaterialSymbols.ModeEdit: MaterialSymbol
+val MaterialSymbols.ModeEdit: MaterialSymbol
     get() = symbolAt(2318)
 
-public val MaterialSymbols.ModeEditOutline: MaterialSymbol
+val MaterialSymbols.ModeEditOutline: MaterialSymbol
     get() = symbolAt(2319)
 
-public val MaterialSymbols.ModeFan: MaterialSymbol
+val MaterialSymbols.ModeFan: MaterialSymbol
     get() = symbolAt(2320)
 
-public val MaterialSymbols.ModeFanOff: MaterialSymbol
+val MaterialSymbols.ModeFanOff: MaterialSymbol
     get() = symbolAt(2321)
 
-public val MaterialSymbols.ModeHeat: MaterialSymbol
+val MaterialSymbols.ModeHeat: MaterialSymbol
     get() = symbolAt(2322)
 
-public val MaterialSymbols.ModeHeatCool: MaterialSymbol
+val MaterialSymbols.ModeHeatCool: MaterialSymbol
     get() = symbolAt(2323)
 
-public val MaterialSymbols.ModeHeatOff: MaterialSymbol
+val MaterialSymbols.ModeHeatOff: MaterialSymbol
     get() = symbolAt(2324)
 
-public val MaterialSymbols.ModeNight: MaterialSymbol
+val MaterialSymbols.ModeNight: MaterialSymbol
     get() = symbolAt(2325)
 
-public val MaterialSymbols.ModeOfTravel: MaterialSymbol
+val MaterialSymbols.ModeOfTravel: MaterialSymbol
     get() = symbolAt(2326)
 
-public val MaterialSymbols.ModeOffOn: MaterialSymbol
+val MaterialSymbols.ModeOffOn: MaterialSymbol
     get() = symbolAt(2327)
 
-public val MaterialSymbols.ModeStandby: MaterialSymbol
+val MaterialSymbols.ModeStandby: MaterialSymbol
     get() = symbolAt(2328)
 
-public val MaterialSymbols.ModelTraining: MaterialSymbol
+val MaterialSymbols.ModelTraining: MaterialSymbol
     get() = symbolAt(2329)
 
-public val MaterialSymbols.Modeling: MaterialSymbol
+val MaterialSymbols.Modeling: MaterialSymbol
     get() = symbolAt(2330)
 
-public val MaterialSymbols.MonetizationOn: MaterialSymbol
+val MaterialSymbols.MonetizationOn: MaterialSymbol
     get() = symbolAt(2331)
 
-public val MaterialSymbols.Money: MaterialSymbol
+val MaterialSymbols.Money: MaterialSymbol
     get() = symbolAt(2332)
 
-public val MaterialSymbols.MoneyBag: MaterialSymbol
+val MaterialSymbols.MoneyBag: MaterialSymbol
     get() = symbolAt(2333)
 
-public val MaterialSymbols.MoneyOff: MaterialSymbol
+val MaterialSymbols.MoneyOff: MaterialSymbol
     get() = symbolAt(2334)
 
-public val MaterialSymbols.MoneyOffCsred: MaterialSymbol
+val MaterialSymbols.MoneyOffCsred: MaterialSymbol
     get() = symbolAt(2335)
 
-public val MaterialSymbols.MoneyRange: MaterialSymbol
+val MaterialSymbols.MoneyRange: MaterialSymbol
     get() = symbolAt(2336)
 
-public val MaterialSymbols.Monitor: MaterialSymbol
+val MaterialSymbols.Monitor: MaterialSymbol
     get() = symbolAt(2337)
 
-public val MaterialSymbols.MonitorHeart: MaterialSymbol
+val MaterialSymbols.MonitorHeart: MaterialSymbol
     get() = symbolAt(2338)
 
-public val MaterialSymbols.MonitorWeight: MaterialSymbol
+val MaterialSymbols.MonitorWeight: MaterialSymbol
     get() = symbolAt(2339)
 
-public val MaterialSymbols.MonitorWeightGain: MaterialSymbol
+val MaterialSymbols.MonitorWeightGain: MaterialSymbol
     get() = symbolAt(2340)
 
-public val MaterialSymbols.MonitorWeightLoss: MaterialSymbol
+val MaterialSymbols.MonitorWeightLoss: MaterialSymbol
     get() = symbolAt(2341)
 
-public val MaterialSymbols.Monitoring: MaterialSymbol
+val MaterialSymbols.Monitoring: MaterialSymbol
     get() = symbolAt(2342)
 
-public val MaterialSymbols.MonochromePhotos: MaterialSymbol
+val MaterialSymbols.MonochromePhotos: MaterialSymbol
     get() = symbolAt(2343)
 
-public val MaterialSymbols.Monorail: MaterialSymbol
+val MaterialSymbols.Monorail: MaterialSymbol
     get() = symbolAt(2344)
 
-public val MaterialSymbols.Mood: MaterialSymbol
+val MaterialSymbols.Mood: MaterialSymbol
     get() = symbolAt(2345)
 
-public val MaterialSymbols.MoodBad: MaterialSymbol
+val MaterialSymbols.MoodBad: MaterialSymbol
     get() = symbolAt(2346)
 
-public val MaterialSymbols.MoonStars: MaterialSymbol
+val MaterialSymbols.MoonStars: MaterialSymbol
     get() = symbolAt(2347)
 
-public val MaterialSymbols.Mop: MaterialSymbol
+val MaterialSymbols.Mop: MaterialSymbol
     get() = symbolAt(2348)
 
-public val MaterialSymbols.Moped: MaterialSymbol
+val MaterialSymbols.Moped: MaterialSymbol
     get() = symbolAt(2349)
 
-public val MaterialSymbols.MopedPackage: MaterialSymbol
+val MaterialSymbols.MopedPackage: MaterialSymbol
     get() = symbolAt(2350)
 
-public val MaterialSymbols.More: MaterialSymbol
+val MaterialSymbols.More: MaterialSymbol
     get() = symbolAt(2351)
 
-public val MaterialSymbols.MoreDown: MaterialSymbol
+val MaterialSymbols.MoreDown: MaterialSymbol
     get() = symbolAt(2352)
 
-public val MaterialSymbols.MoreHoriz: MaterialSymbol
+val MaterialSymbols.MoreHoriz: MaterialSymbol
     get() = symbolAt(2353)
 
-public val MaterialSymbols.MoreTime: MaterialSymbol
+val MaterialSymbols.MoreTime: MaterialSymbol
     get() = symbolAt(2354)
 
-public val MaterialSymbols.MoreUp: MaterialSymbol
+val MaterialSymbols.MoreUp: MaterialSymbol
     get() = symbolAt(2355)
 
-public val MaterialSymbols.MoreVert: MaterialSymbol
+val MaterialSymbols.MoreVert: MaterialSymbol
     get() = symbolAt(2356)
 
-public val MaterialSymbols.Mosque: MaterialSymbol
+val MaterialSymbols.Mosque: MaterialSymbol
     get() = symbolAt(2357)
 
-public val MaterialSymbols.MotionBlur: MaterialSymbol
+val MaterialSymbols.MotionBlur: MaterialSymbol
     get() = symbolAt(2358)
 
-public val MaterialSymbols.MotionMode: MaterialSymbol
+val MaterialSymbols.MotionMode: MaterialSymbol
     get() = symbolAt(2359)
 
-public val MaterialSymbols.MotionPhotosAuto: MaterialSymbol
+val MaterialSymbols.MotionPhotosAuto: MaterialSymbol
     get() = symbolAt(2360)
 
-public val MaterialSymbols.MotionPhotosOff: MaterialSymbol
+val MaterialSymbols.MotionPhotosOff: MaterialSymbol
     get() = symbolAt(2361)
 
-public val MaterialSymbols.MotionPhotosOn: MaterialSymbol
+val MaterialSymbols.MotionPhotosOn: MaterialSymbol
     get() = symbolAt(2362)
 
-public val MaterialSymbols.MotionPhotosPause: MaterialSymbol
+val MaterialSymbols.MotionPhotosPause: MaterialSymbol
     get() = symbolAt(2363)
 
-public val MaterialSymbols.MotionPhotosPaused: MaterialSymbol
+val MaterialSymbols.MotionPhotosPaused: MaterialSymbol
     get() = symbolAt(2364)
 
-public val MaterialSymbols.MotionPlay: MaterialSymbol
+val MaterialSymbols.MotionPlay: MaterialSymbol
     get() = symbolAt(2365)
 
-public val MaterialSymbols.MotionSensorActive: MaterialSymbol
+val MaterialSymbols.MotionSensorActive: MaterialSymbol
     get() = symbolAt(2366)
 
-public val MaterialSymbols.MotionSensorAlert: MaterialSymbol
+val MaterialSymbols.MotionSensorAlert: MaterialSymbol
     get() = symbolAt(2367)
 
-public val MaterialSymbols.MotionSensorIdle: MaterialSymbol
+val MaterialSymbols.MotionSensorIdle: MaterialSymbol
     get() = symbolAt(2368)
 
-public val MaterialSymbols.MotionSensorUrgent: MaterialSymbol
+val MaterialSymbols.MotionSensorUrgent: MaterialSymbol
     get() = symbolAt(2369)
 
-public val MaterialSymbols.Motorcycle: MaterialSymbol
+val MaterialSymbols.Motorcycle: MaterialSymbol
     get() = symbolAt(2370)
 
-public val MaterialSymbols.MountainFlag: MaterialSymbol
+val MaterialSymbols.MountainFlag: MaterialSymbol
     get() = symbolAt(2371)
 
-public val MaterialSymbols.MountainSteam: MaterialSymbol
+val MaterialSymbols.MountainSteam: MaterialSymbol
     get() = symbolAt(2372)
 
-public val MaterialSymbols.Mouse: MaterialSymbol
+val MaterialSymbols.Mouse: MaterialSymbol
     get() = symbolAt(2373)
 
-public val MaterialSymbols.MouseLock: MaterialSymbol
+val MaterialSymbols.MouseLock: MaterialSymbol
     get() = symbolAt(2374)
 
-public val MaterialSymbols.MouseLockOff: MaterialSymbol
+val MaterialSymbols.MouseLockOff: MaterialSymbol
     get() = symbolAt(2375)
 
-public val MaterialSymbols.Move: MaterialSymbol
+val MaterialSymbols.Move: MaterialSymbol
     get() = symbolAt(2376)
 
-public val MaterialSymbols.MoveDown: MaterialSymbol
+val MaterialSymbols.MoveDown: MaterialSymbol
     get() = symbolAt(2377)
 
-public val MaterialSymbols.MoveGroup: MaterialSymbol
+val MaterialSymbols.MoveGroup: MaterialSymbol
     get() = symbolAt(2378)
 
-public val MaterialSymbols.MoveItem: MaterialSymbol
+val MaterialSymbols.MoveItem: MaterialSymbol
     get() = symbolAt(2379)
 
-public val MaterialSymbols.MoveLocation: MaterialSymbol
+val MaterialSymbols.MoveLocation: MaterialSymbol
     get() = symbolAt(2380)
 
-public val MaterialSymbols.MoveSelectionDown: MaterialSymbol
+val MaterialSymbols.MoveSelectionDown: MaterialSymbol
     get() = symbolAt(2381)
 
-public val MaterialSymbols.MoveSelectionLeft: MaterialSymbol
+val MaterialSymbols.MoveSelectionLeft: MaterialSymbol
     get() = symbolAt(2382)
 
-public val MaterialSymbols.MoveSelectionRight: MaterialSymbol
+val MaterialSymbols.MoveSelectionRight: MaterialSymbol
     get() = symbolAt(2383)
 
-public val MaterialSymbols.MoveSelectionUp: MaterialSymbol
+val MaterialSymbols.MoveSelectionUp: MaterialSymbol
     get() = symbolAt(2384)
 
-public val MaterialSymbols.MoveToInbox: MaterialSymbol
+val MaterialSymbols.MoveToInbox: MaterialSymbol
     get() = symbolAt(2385)
 
-public val MaterialSymbols.MoveUp: MaterialSymbol
+val MaterialSymbols.MoveUp: MaterialSymbol
     get() = symbolAt(2386)
 
-public val MaterialSymbols.MovedLocation: MaterialSymbol
+val MaterialSymbols.MovedLocation: MaterialSymbol
     get() = symbolAt(2387)
 
-public val MaterialSymbols.Movie: MaterialSymbol
+val MaterialSymbols.Movie: MaterialSymbol
     get() = symbolAt(2388)
 
-public val MaterialSymbols.MovieCreation: MaterialSymbol
+val MaterialSymbols.MovieCreation: MaterialSymbol
     get() = symbolAt(2389)
 
-public val MaterialSymbols.MovieEdit: MaterialSymbol
+val MaterialSymbols.MovieEdit: MaterialSymbol
     get() = symbolAt(2390)
 
-public val MaterialSymbols.MovieFilter: MaterialSymbol
+val MaterialSymbols.MovieFilter: MaterialSymbol
     get() = symbolAt(2391)
 
-public val MaterialSymbols.MovieInfo: MaterialSymbol
+val MaterialSymbols.MovieInfo: MaterialSymbol
     get() = symbolAt(2392)
 
-public val MaterialSymbols.MovieOff: MaterialSymbol
+val MaterialSymbols.MovieOff: MaterialSymbol
     get() = symbolAt(2393)
 
-public val MaterialSymbols.MovieSpeaker: MaterialSymbol
+val MaterialSymbols.MovieSpeaker: MaterialSymbol
     get() = symbolAt(2394)
 
-public val MaterialSymbols.Moving: MaterialSymbol
+val MaterialSymbols.Moving: MaterialSymbol
     get() = symbolAt(2395)
 
-public val MaterialSymbols.MovingBeds: MaterialSymbol
+val MaterialSymbols.MovingBeds: MaterialSymbol
     get() = symbolAt(2396)
 
-public val MaterialSymbols.MovingMinistry: MaterialSymbol
+val MaterialSymbols.MovingMinistry: MaterialSymbol
     get() = symbolAt(2397)
 
-public val MaterialSymbols.Mp: MaterialSymbol
+val MaterialSymbols.Mp: MaterialSymbol
     get() = symbolAt(2398)
 
-public val MaterialSymbols.Multicooker: MaterialSymbol
+val MaterialSymbols.Multicooker: MaterialSymbol
     get() = symbolAt(2399)
 
-public val MaterialSymbols.MultilineChart: MaterialSymbol
+val MaterialSymbols.MultilineChart: MaterialSymbol
     get() = symbolAt(2400)
 
-public val MaterialSymbols.MultimodalHandEye: MaterialSymbol
+val MaterialSymbols.MultimodalHandEye: MaterialSymbol
     get() = symbolAt(2401)
 
-public val MaterialSymbols.MultipleAirports: MaterialSymbol
+val MaterialSymbols.MultipleAirports: MaterialSymbol
     get() = symbolAt(2402)
 
-public val MaterialSymbols.MultipleStop: MaterialSymbol
+val MaterialSymbols.MultipleStop: MaterialSymbol
     get() = symbolAt(2403)
 
-public val MaterialSymbols.Museum: MaterialSymbol
+val MaterialSymbols.Museum: MaterialSymbol
     get() = symbolAt(2404)
 
-public val MaterialSymbols.MusicCast: MaterialSymbol
+val MaterialSymbols.MusicCast: MaterialSymbol
     get() = symbolAt(2405)
 
-public val MaterialSymbols.MusicHistory: MaterialSymbol
+val MaterialSymbols.MusicHistory: MaterialSymbol
     get() = symbolAt(2406)
 
-public val MaterialSymbols.MusicNote: MaterialSymbol
+val MaterialSymbols.MusicNote: MaterialSymbol
     get() = symbolAt(2407)
 
-public val MaterialSymbols.MusicNoteAdd: MaterialSymbol
+val MaterialSymbols.MusicNoteAdd: MaterialSymbol
     get() = symbolAt(2408)
 
-public val MaterialSymbols.MusicOff: MaterialSymbol
+val MaterialSymbols.MusicOff: MaterialSymbol
     get() = symbolAt(2409)
 
-public val MaterialSymbols.MusicVideo: MaterialSymbol
+val MaterialSymbols.MusicVideo: MaterialSymbol
     get() = symbolAt(2410)
 
-public val MaterialSymbols.MyLocation: MaterialSymbol
+val MaterialSymbols.MyLocation: MaterialSymbol
     get() = symbolAt(2411)
 
-public val MaterialSymbols.Mystery: MaterialSymbol
+val MaterialSymbols.Mystery: MaterialSymbol
     get() = symbolAt(2412)
 
-public val MaterialSymbols.Nat: MaterialSymbol
+val MaterialSymbols.Nat: MaterialSymbol
     get() = symbolAt(2413)
 
-public val MaterialSymbols.Nature: MaterialSymbol
+val MaterialSymbols.Nature: MaterialSymbol
     get() = symbolAt(2414)
 
-public val MaterialSymbols.NaturePeople: MaterialSymbol
+val MaterialSymbols.NaturePeople: MaterialSymbol
     get() = symbolAt(2415)
 
-public val MaterialSymbols.NavigateBefore: MaterialSymbol
+val MaterialSymbols.NavigateBefore: MaterialSymbol
     get() = symbolAt(2416)
 
-public val MaterialSymbols.NavigateNext: MaterialSymbol
+val MaterialSymbols.NavigateNext: MaterialSymbol
     get() = symbolAt(2417)
 
-public val MaterialSymbols.Navigation: MaterialSymbol
+val MaterialSymbols.Navigation: MaterialSymbol
     get() = symbolAt(2418)
 
-public val MaterialSymbols.NearMe: MaterialSymbol
+val MaterialSymbols.NearMe: MaterialSymbol
     get() = symbolAt(2419)
 
-public val MaterialSymbols.NearMeDisabled: MaterialSymbol
+val MaterialSymbols.NearMeDisabled: MaterialSymbol
     get() = symbolAt(2420)
 
-public val MaterialSymbols.Nearby: MaterialSymbol
+val MaterialSymbols.Nearby: MaterialSymbol
     get() = symbolAt(2421)
 
-public val MaterialSymbols.NearbyError: MaterialSymbol
+val MaterialSymbols.NearbyError: MaterialSymbol
     get() = symbolAt(2422)
 
-public val MaterialSymbols.NearbyOff: MaterialSymbol
+val MaterialSymbols.NearbyOff: MaterialSymbol
     get() = symbolAt(2423)
 
-public val MaterialSymbols.Nephrology: MaterialSymbol
+val MaterialSymbols.Nephrology: MaterialSymbol
     get() = symbolAt(2424)
 
-public val MaterialSymbols.NestAudio: MaterialSymbol
+val MaterialSymbols.NestAudio: MaterialSymbol
     get() = symbolAt(2425)
 
-public val MaterialSymbols.NestCamFloodlight: MaterialSymbol
+val MaterialSymbols.NestCamFloodlight: MaterialSymbol
     get() = symbolAt(2426)
 
-public val MaterialSymbols.NestCamIndoor: MaterialSymbol
+val MaterialSymbols.NestCamIndoor: MaterialSymbol
     get() = symbolAt(2427)
 
-public val MaterialSymbols.NestCamIq: MaterialSymbol
+val MaterialSymbols.NestCamIq: MaterialSymbol
     get() = symbolAt(2428)
 
-public val MaterialSymbols.NestCamIqOutdoor: MaterialSymbol
+val MaterialSymbols.NestCamIqOutdoor: MaterialSymbol
     get() = symbolAt(2429)
 
-public val MaterialSymbols.NestCamMagnetMount: MaterialSymbol
+val MaterialSymbols.NestCamMagnetMount: MaterialSymbol
     get() = symbolAt(2430)
 
-public val MaterialSymbols.NestCamOutdoor: MaterialSymbol
+val MaterialSymbols.NestCamOutdoor: MaterialSymbol
     get() = symbolAt(2431)
 
-public val MaterialSymbols.NestCamStand: MaterialSymbol
+val MaterialSymbols.NestCamStand: MaterialSymbol
     get() = symbolAt(2432)
 
-public val MaterialSymbols.NestCamWallMount: MaterialSymbol
+val MaterialSymbols.NestCamWallMount: MaterialSymbol
     get() = symbolAt(2433)
 
-public val MaterialSymbols.NestCamWiredStand: MaterialSymbol
+val MaterialSymbols.NestCamWiredStand: MaterialSymbol
     get() = symbolAt(2434)
 
-public val MaterialSymbols.NestClockFarsightAnalog: MaterialSymbol
+val MaterialSymbols.NestClockFarsightAnalog: MaterialSymbol
     get() = symbolAt(2435)
 
-public val MaterialSymbols.NestClockFarsightDigital: MaterialSymbol
+val MaterialSymbols.NestClockFarsightDigital: MaterialSymbol
     get() = symbolAt(2436)
 
-public val MaterialSymbols.NestConnect: MaterialSymbol
+val MaterialSymbols.NestConnect: MaterialSymbol
     get() = symbolAt(2437)
 
-public val MaterialSymbols.NestDetect: MaterialSymbol
+val MaterialSymbols.NestDetect: MaterialSymbol
     get() = symbolAt(2438)
 
-public val MaterialSymbols.NestDisplay: MaterialSymbol
+val MaterialSymbols.NestDisplay: MaterialSymbol
     get() = symbolAt(2439)
 
-public val MaterialSymbols.NestDisplayMax: MaterialSymbol
+val MaterialSymbols.NestDisplayMax: MaterialSymbol
     get() = symbolAt(2440)
 
-public val MaterialSymbols.NestDoorbellVisitor: MaterialSymbol
+val MaterialSymbols.NestDoorbellVisitor: MaterialSymbol
     get() = symbolAt(2441)
 
-public val MaterialSymbols.NestEcoLeaf: MaterialSymbol
+val MaterialSymbols.NestEcoLeaf: MaterialSymbol
     get() = symbolAt(2442)
 
-public val MaterialSymbols.NestFarsightCool: MaterialSymbol
+val MaterialSymbols.NestFarsightCool: MaterialSymbol
     get() = symbolAt(2443)
 
-public val MaterialSymbols.NestFarsightDual: MaterialSymbol
+val MaterialSymbols.NestFarsightDual: MaterialSymbol
     get() = symbolAt(2444)
 
-public val MaterialSymbols.NestFarsightEco: MaterialSymbol
+val MaterialSymbols.NestFarsightEco: MaterialSymbol
     get() = symbolAt(2445)
 
-public val MaterialSymbols.NestFarsightHeat: MaterialSymbol
+val MaterialSymbols.NestFarsightHeat: MaterialSymbol
     get() = symbolAt(2446)
 
-public val MaterialSymbols.NestFarsightSeasonal: MaterialSymbol
+val MaterialSymbols.NestFarsightSeasonal: MaterialSymbol
     get() = symbolAt(2447)
 
-public val MaterialSymbols.NestFarsightWeather: MaterialSymbol
+val MaterialSymbols.NestFarsightWeather: MaterialSymbol
     get() = symbolAt(2448)
 
-public val MaterialSymbols.NestFoundSavings: MaterialSymbol
+val MaterialSymbols.NestFoundSavings: MaterialSymbol
     get() = symbolAt(2449)
 
-public val MaterialSymbols.NestGaleWifi: MaterialSymbol
+val MaterialSymbols.NestGaleWifi: MaterialSymbol
     get() = symbolAt(2450)
 
-public val MaterialSymbols.NestHeatLinkE: MaterialSymbol
+val MaterialSymbols.NestHeatLinkE: MaterialSymbol
     get() = symbolAt(2451)
 
-public val MaterialSymbols.NestHeatLinkGen3: MaterialSymbol
+val MaterialSymbols.NestHeatLinkGen3: MaterialSymbol
     get() = symbolAt(2452)
 
-public val MaterialSymbols.NestHelloDoorbell: MaterialSymbol
+val MaterialSymbols.NestHelloDoorbell: MaterialSymbol
     get() = symbolAt(2453)
 
-public val MaterialSymbols.NestLocatorTag: MaterialSymbol
+val MaterialSymbols.NestLocatorTag: MaterialSymbol
     get() = symbolAt(2454)
 
-public val MaterialSymbols.NestMini: MaterialSymbol
+val MaterialSymbols.NestMini: MaterialSymbol
     get() = symbolAt(2455)
 
-public val MaterialSymbols.NestMultiRoom: MaterialSymbol
+val MaterialSymbols.NestMultiRoom: MaterialSymbol
     get() = symbolAt(2456)
 
-public val MaterialSymbols.NestProtect: MaterialSymbol
+val MaterialSymbols.NestProtect: MaterialSymbol
     get() = symbolAt(2457)
 
-public val MaterialSymbols.NestRemote: MaterialSymbol
+val MaterialSymbols.NestRemote: MaterialSymbol
     get() = symbolAt(2458)
 
-public val MaterialSymbols.NestRemoteComfortSensor: MaterialSymbol
+val MaterialSymbols.NestRemoteComfortSensor: MaterialSymbol
     get() = symbolAt(2459)
 
-public val MaterialSymbols.NestSecureAlarm: MaterialSymbol
+val MaterialSymbols.NestSecureAlarm: MaterialSymbol
     get() = symbolAt(2460)
 
-public val MaterialSymbols.NestSunblock: MaterialSymbol
+val MaterialSymbols.NestSunblock: MaterialSymbol
     get() = symbolAt(2461)
 
-public val MaterialSymbols.NestTag: MaterialSymbol
+val MaterialSymbols.NestTag: MaterialSymbol
     get() = symbolAt(2462)
 
-public val MaterialSymbols.NestThermostat: MaterialSymbol
+val MaterialSymbols.NestThermostat: MaterialSymbol
     get() = symbolAt(2463)
 
-public val MaterialSymbols.NestThermostatEEu: MaterialSymbol
+val MaterialSymbols.NestThermostatEEu: MaterialSymbol
     get() = symbolAt(2464)
 
-public val MaterialSymbols.NestThermostatGen3: MaterialSymbol
+val MaterialSymbols.NestThermostatGen3: MaterialSymbol
     get() = symbolAt(2465)
 
-public val MaterialSymbols.NestThermostatSensor: MaterialSymbol
+val MaterialSymbols.NestThermostatSensor: MaterialSymbol
     get() = symbolAt(2466)
 
-public val MaterialSymbols.NestThermostatSensorEu: MaterialSymbol
+val MaterialSymbols.NestThermostatSensorEu: MaterialSymbol
     get() = symbolAt(2467)
 
-public val MaterialSymbols.NestThermostatZirconiumEu: MaterialSymbol
+val MaterialSymbols.NestThermostatZirconiumEu: MaterialSymbol
     get() = symbolAt(2468)
 
-public val MaterialSymbols.NestTrueRadiant: MaterialSymbol
+val MaterialSymbols.NestTrueRadiant: MaterialSymbol
     get() = symbolAt(2469)
 
-public val MaterialSymbols.NestWakeOnApproach: MaterialSymbol
+val MaterialSymbols.NestWakeOnApproach: MaterialSymbol
     get() = symbolAt(2470)
 
-public val MaterialSymbols.NestWakeOnPress: MaterialSymbol
+val MaterialSymbols.NestWakeOnPress: MaterialSymbol
     get() = symbolAt(2471)
 
-public val MaterialSymbols.NestWifiGale: MaterialSymbol
+val MaterialSymbols.NestWifiGale: MaterialSymbol
     get() = symbolAt(2472)
 
-public val MaterialSymbols.NestWifiMistral: MaterialSymbol
+val MaterialSymbols.NestWifiMistral: MaterialSymbol
     get() = symbolAt(2473)
 
-public val MaterialSymbols.NestWifiPoint: MaterialSymbol
+val MaterialSymbols.NestWifiPoint: MaterialSymbol
     get() = symbolAt(2474)
 
-public val MaterialSymbols.NestWifiPointVento: MaterialSymbol
+val MaterialSymbols.NestWifiPointVento: MaterialSymbol
     get() = symbolAt(2475)
 
-public val MaterialSymbols.NestWifiPro: MaterialSymbol
+val MaterialSymbols.NestWifiPro: MaterialSymbol
     get() = symbolAt(2476)
 
-public val MaterialSymbols.NestWifiPro2: MaterialSymbol
+val MaterialSymbols.NestWifiPro2: MaterialSymbol
     get() = symbolAt(2477)
 
-public val MaterialSymbols.NestWifiRouter: MaterialSymbol
+val MaterialSymbols.NestWifiRouter: MaterialSymbol
     get() = symbolAt(2478)
 
-public val MaterialSymbols.NetworkCell: MaterialSymbol
+val MaterialSymbols.NetworkCell: MaterialSymbol
     get() = symbolAt(2479)
 
-public val MaterialSymbols.NetworkCheck: MaterialSymbol
+val MaterialSymbols.NetworkCheck: MaterialSymbol
     get() = symbolAt(2480)
 
-public val MaterialSymbols.NetworkIntelNode: MaterialSymbol
+val MaterialSymbols.NetworkIntelNode: MaterialSymbol
     get() = symbolAt(2481)
 
-public val MaterialSymbols.NetworkIntelligence: MaterialSymbol
+val MaterialSymbols.NetworkIntelligence: MaterialSymbol
     get() = symbolAt(2482)
 
-public val MaterialSymbols.NetworkIntelligenceHistory: MaterialSymbol
+val MaterialSymbols.NetworkIntelligenceHistory: MaterialSymbol
     get() = symbolAt(2483)
 
-public val MaterialSymbols.NetworkIntelligenceUpdate: MaterialSymbol
+val MaterialSymbols.NetworkIntelligenceUpdate: MaterialSymbol
     get() = symbolAt(2484)
 
-public val MaterialSymbols.NetworkLocked: MaterialSymbol
+val MaterialSymbols.NetworkLocked: MaterialSymbol
     get() = symbolAt(2485)
 
-public val MaterialSymbols.NetworkManage: MaterialSymbol
+val MaterialSymbols.NetworkManage: MaterialSymbol
     get() = symbolAt(2486)
 
-public val MaterialSymbols.NetworkNode: MaterialSymbol
+val MaterialSymbols.NetworkNode: MaterialSymbol
     get() = symbolAt(2487)
 
-public val MaterialSymbols.NetworkPing: MaterialSymbol
+val MaterialSymbols.NetworkPing: MaterialSymbol
     get() = symbolAt(2488)
 
-public val MaterialSymbols.NetworkWifi: MaterialSymbol
+val MaterialSymbols.NetworkWifi: MaterialSymbol
     get() = symbolAt(2489)
 
-public val MaterialSymbols.NetworkWifi1Bar: MaterialSymbol
+val MaterialSymbols.NetworkWifi1Bar: MaterialSymbol
     get() = symbolAt(2490)
 
-public val MaterialSymbols.NetworkWifi1BarLocked: MaterialSymbol
+val MaterialSymbols.NetworkWifi1BarLocked: MaterialSymbol
     get() = symbolAt(2491)
 
-public val MaterialSymbols.NetworkWifi2Bar: MaterialSymbol
+val MaterialSymbols.NetworkWifi2Bar: MaterialSymbol
     get() = symbolAt(2492)
 
-public val MaterialSymbols.NetworkWifi2BarLocked: MaterialSymbol
+val MaterialSymbols.NetworkWifi2BarLocked: MaterialSymbol
     get() = symbolAt(2493)
 
-public val MaterialSymbols.NetworkWifi3Bar: MaterialSymbol
+val MaterialSymbols.NetworkWifi3Bar: MaterialSymbol
     get() = symbolAt(2494)
 
-public val MaterialSymbols.NetworkWifi3BarLocked: MaterialSymbol
+val MaterialSymbols.NetworkWifi3BarLocked: MaterialSymbol
     get() = symbolAt(2495)
 
-public val MaterialSymbols.NetworkWifiLocked: MaterialSymbol
+val MaterialSymbols.NetworkWifiLocked: MaterialSymbol
     get() = symbolAt(2496)
 
-public val MaterialSymbols.Neurology: MaterialSymbol
+val MaterialSymbols.Neurology: MaterialSymbol
     get() = symbolAt(2497)
 
-public val MaterialSymbols.NewLabel: MaterialSymbol
+val MaterialSymbols.NewLabel: MaterialSymbol
     get() = symbolAt(2498)
 
-public val MaterialSymbols.NewReleases: MaterialSymbol
+val MaterialSymbols.NewReleases: MaterialSymbol
     get() = symbolAt(2499)
 
-public val MaterialSymbols.NewWindow: MaterialSymbol
+val MaterialSymbols.NewWindow: MaterialSymbol
     get() = symbolAt(2500)
 
-public val MaterialSymbols.News: MaterialSymbol
+val MaterialSymbols.News: MaterialSymbol
     get() = symbolAt(2501)
 
-public val MaterialSymbols.Newsmode: MaterialSymbol
+val MaterialSymbols.Newsmode: MaterialSymbol
     get() = symbolAt(2502)
 
-public val MaterialSymbols.Newspaper: MaterialSymbol
+val MaterialSymbols.Newspaper: MaterialSymbol
     get() = symbolAt(2503)
 
-public val MaterialSymbols.Newsstand: MaterialSymbol
+val MaterialSymbols.Newsstand: MaterialSymbol
     get() = symbolAt(2504)
 
-public val MaterialSymbols.NextPlan: MaterialSymbol
+val MaterialSymbols.NextPlan: MaterialSymbol
     get() = symbolAt(2505)
 
-public val MaterialSymbols.NextWeek: MaterialSymbol
+val MaterialSymbols.NextWeek: MaterialSymbol
     get() = symbolAt(2506)
 
-public val MaterialSymbols.Nfc: MaterialSymbol
+val MaterialSymbols.Nfc: MaterialSymbol
     get() = symbolAt(2507)
 
-public val MaterialSymbols.NfcOff: MaterialSymbol
+val MaterialSymbols.NfcOff: MaterialSymbol
     get() = symbolAt(2508)
 
-public val MaterialSymbols.NightShelter: MaterialSymbol
+val MaterialSymbols.NightShelter: MaterialSymbol
     get() = symbolAt(2509)
 
-public val MaterialSymbols.NightSightAuto: MaterialSymbol
+val MaterialSymbols.NightSightAuto: MaterialSymbol
     get() = symbolAt(2510)
 
-public val MaterialSymbols.NightSightAutoOff: MaterialSymbol
+val MaterialSymbols.NightSightAutoOff: MaterialSymbol
     get() = symbolAt(2511)
 
-public val MaterialSymbols.NightSightMax: MaterialSymbol
+val MaterialSymbols.NightSightMax: MaterialSymbol
     get() = symbolAt(2512)
 
-public val MaterialSymbols.Nightlife: MaterialSymbol
+val MaterialSymbols.Nightlife: MaterialSymbol
     get() = symbolAt(2513)
 
-public val MaterialSymbols.Nightlight: MaterialSymbol
+val MaterialSymbols.Nightlight: MaterialSymbol
     get() = symbolAt(2514)
 
-public val MaterialSymbols.NightlightRound: MaterialSymbol
+val MaterialSymbols.NightlightRound: MaterialSymbol
     get() = symbolAt(2515)
 
-public val MaterialSymbols.NightsStay: MaterialSymbol
+val MaterialSymbols.NightsStay: MaterialSymbol
     get() = symbolAt(2516)
 
-public val MaterialSymbols.NoAccounts: MaterialSymbol
+val MaterialSymbols.NoAccounts: MaterialSymbol
     get() = symbolAt(2517)
 
-public val MaterialSymbols.NoAdultContent: MaterialSymbol
+val MaterialSymbols.NoAdultContent: MaterialSymbol
     get() = symbolAt(2518)
 
-public val MaterialSymbols.NoBackpack: MaterialSymbol
+val MaterialSymbols.NoBackpack: MaterialSymbol
     get() = symbolAt(2519)
 
-public val MaterialSymbols.NoCrash: MaterialSymbol
+val MaterialSymbols.NoCrash: MaterialSymbol
     get() = symbolAt(2520)
 
-public val MaterialSymbols.NoDrinks: MaterialSymbol
+val MaterialSymbols.NoDrinks: MaterialSymbol
     get() = symbolAt(2521)
 
-public val MaterialSymbols.NoEncryption: MaterialSymbol
+val MaterialSymbols.NoEncryption: MaterialSymbol
     get() = symbolAt(2522)
 
-public val MaterialSymbols.NoEncryptionGmailerrorred: MaterialSymbol
+val MaterialSymbols.NoEncryptionGmailerrorred: MaterialSymbol
     get() = symbolAt(2523)
 
-public val MaterialSymbols.NoFlash: MaterialSymbol
+val MaterialSymbols.NoFlash: MaterialSymbol
     get() = symbolAt(2524)
 
-public val MaterialSymbols.NoFood: MaterialSymbol
+val MaterialSymbols.NoFood: MaterialSymbol
     get() = symbolAt(2525)
 
-public val MaterialSymbols.NoLuggage: MaterialSymbol
+val MaterialSymbols.NoLuggage: MaterialSymbol
     get() = symbolAt(2526)
 
-public val MaterialSymbols.NoMeals: MaterialSymbol
+val MaterialSymbols.NoMeals: MaterialSymbol
     get() = symbolAt(2527)
 
-public val MaterialSymbols.NoMeetingRoom: MaterialSymbol
+val MaterialSymbols.NoMeetingRoom: MaterialSymbol
     get() = symbolAt(2528)
 
-public val MaterialSymbols.NoPhotography: MaterialSymbol
+val MaterialSymbols.NoPhotography: MaterialSymbol
     get() = symbolAt(2529)
 
-public val MaterialSymbols.NoSim: MaterialSymbol
+val MaterialSymbols.NoSim: MaterialSymbol
     get() = symbolAt(2530)
 
-public val MaterialSymbols.NoSound: MaterialSymbol
+val MaterialSymbols.NoSound: MaterialSymbol
     get() = symbolAt(2531)
 
-public val MaterialSymbols.NoStroller: MaterialSymbol
+val MaterialSymbols.NoStroller: MaterialSymbol
     get() = symbolAt(2532)
 
-public val MaterialSymbols.NoTransfer: MaterialSymbol
+val MaterialSymbols.NoTransfer: MaterialSymbol
     get() = symbolAt(2533)
 
-public val MaterialSymbols.NoiseAware: MaterialSymbol
+val MaterialSymbols.NoiseAware: MaterialSymbol
     get() = symbolAt(2534)
 
-public val MaterialSymbols.NoiseControlOff: MaterialSymbol
+val MaterialSymbols.NoiseControlOff: MaterialSymbol
     get() = symbolAt(2535)
 
-public val MaterialSymbols.NoiseControlOn: MaterialSymbol
+val MaterialSymbols.NoiseControlOn: MaterialSymbol
     get() = symbolAt(2536)
 
-public val MaterialSymbols.NordicWalking: MaterialSymbol
+val MaterialSymbols.NordicWalking: MaterialSymbol
     get() = symbolAt(2537)
 
-public val MaterialSymbols.North: MaterialSymbol
+val MaterialSymbols.North: MaterialSymbol
     get() = symbolAt(2538)
 
-public val MaterialSymbols.NorthEast: MaterialSymbol
+val MaterialSymbols.NorthEast: MaterialSymbol
     get() = symbolAt(2539)
 
-public val MaterialSymbols.NorthWest: MaterialSymbol
+val MaterialSymbols.NorthWest: MaterialSymbol
     get() = symbolAt(2540)
 
-public val MaterialSymbols.NotAccessible: MaterialSymbol
+val MaterialSymbols.NotAccessible: MaterialSymbol
     get() = symbolAt(2541)
 
-public val MaterialSymbols.NotAccessibleForward: MaterialSymbol
+val MaterialSymbols.NotAccessibleForward: MaterialSymbol
     get() = symbolAt(2542)
 
-public val MaterialSymbols.NotInterested: MaterialSymbol
+val MaterialSymbols.NotInterested: MaterialSymbol
     get() = symbolAt(2543)
 
-public val MaterialSymbols.NotListedLocation: MaterialSymbol
+val MaterialSymbols.NotListedLocation: MaterialSymbol
     get() = symbolAt(2544)
 
-public val MaterialSymbols.NotStarted: MaterialSymbol
+val MaterialSymbols.NotStarted: MaterialSymbol
     get() = symbolAt(2545)
 
-public val MaterialSymbols.Note: MaterialSymbol
+val MaterialSymbols.Note: MaterialSymbol
     get() = symbolAt(2546)
 
-public val MaterialSymbols.NoteAdd: MaterialSymbol
+val MaterialSymbols.NoteAdd: MaterialSymbol
     get() = symbolAt(2547)
 
-public val MaterialSymbols.NoteAlt: MaterialSymbol
+val MaterialSymbols.NoteAlt: MaterialSymbol
     get() = symbolAt(2548)
 
-public val MaterialSymbols.NoteStack: MaterialSymbol
+val MaterialSymbols.NoteStack: MaterialSymbol
     get() = symbolAt(2549)
 
-public val MaterialSymbols.NoteStackAdd: MaterialSymbol
+val MaterialSymbols.NoteStackAdd: MaterialSymbol
     get() = symbolAt(2550)
 
-public val MaterialSymbols.Notes: MaterialSymbol
+val MaterialSymbols.Notes: MaterialSymbol
     get() = symbolAt(2551)
 
-public val MaterialSymbols.NotificationAdd: MaterialSymbol
+val MaterialSymbols.NotificationAdd: MaterialSymbol
     get() = symbolAt(2552)
 
-public val MaterialSymbols.NotificationImportant: MaterialSymbol
+val MaterialSymbols.NotificationImportant: MaterialSymbol
     get() = symbolAt(2553)
 
-public val MaterialSymbols.NotificationMultiple: MaterialSymbol
+val MaterialSymbols.NotificationMultiple: MaterialSymbol
     get() = symbolAt(2554)
 
-public val MaterialSymbols.NotificationSettings: MaterialSymbol
+val MaterialSymbols.NotificationSettings: MaterialSymbol
     get() = symbolAt(2555)
 
-public val MaterialSymbols.NotificationSound: MaterialSymbol
+val MaterialSymbols.NotificationSound: MaterialSymbol
     get() = symbolAt(2556)
 
-public val MaterialSymbols.Notifications: MaterialSymbol
+val MaterialSymbols.Notifications: MaterialSymbol
     get() = symbolAt(2557)
 
-public val MaterialSymbols.NotificationsActive: MaterialSymbol
+val MaterialSymbols.NotificationsActive: MaterialSymbol
     get() = symbolAt(2558)
 
-public val MaterialSymbols.NotificationsNone: MaterialSymbol
+val MaterialSymbols.NotificationsNone: MaterialSymbol
     get() = symbolAt(2559)
 
-public val MaterialSymbols.NotificationsOff: MaterialSymbol
+val MaterialSymbols.NotificationsOff: MaterialSymbol
     get() = symbolAt(2560)
 
-public val MaterialSymbols.NotificationsPaused: MaterialSymbol
+val MaterialSymbols.NotificationsPaused: MaterialSymbol
     get() = symbolAt(2561)
 
-public val MaterialSymbols.NotificationsUnread: MaterialSymbol
+val MaterialSymbols.NotificationsUnread: MaterialSymbol
     get() = symbolAt(2562)
 
-public val MaterialSymbols.Numbers: MaterialSymbol
+val MaterialSymbols.Numbers: MaterialSymbol
     get() = symbolAt(2563)
 
-public val MaterialSymbols.Nutrition: MaterialSymbol
+val MaterialSymbols.Nutrition: MaterialSymbol
     get() = symbolAt(2564)
 
-public val MaterialSymbols.Ods: MaterialSymbol
+val MaterialSymbols.Ods: MaterialSymbol
     get() = symbolAt(2565)
 
-public val MaterialSymbols.Odt: MaterialSymbol
+val MaterialSymbols.Odt: MaterialSymbol
     get() = symbolAt(2566)
 
-public val MaterialSymbols.OfflineBolt: MaterialSymbol
+val MaterialSymbols.OfflineBolt: MaterialSymbol
     get() = symbolAt(2567)
 
-public val MaterialSymbols.OfflinePin: MaterialSymbol
+val MaterialSymbols.OfflinePin: MaterialSymbol
     get() = symbolAt(2568)
 
-public val MaterialSymbols.OfflinePinOff: MaterialSymbol
+val MaterialSymbols.OfflinePinOff: MaterialSymbol
     get() = symbolAt(2569)
 
-public val MaterialSymbols.OfflineShare: MaterialSymbol
+val MaterialSymbols.OfflineShare: MaterialSymbol
     get() = symbolAt(2570)
 
-public val MaterialSymbols.OilBarrel: MaterialSymbol
+val MaterialSymbols.OilBarrel: MaterialSymbol
     get() = symbolAt(2571)
 
-public val MaterialSymbols.Okonomiyaki: MaterialSymbol
+val MaterialSymbols.Okonomiyaki: MaterialSymbol
     get() = symbolAt(2572)
 
-public val MaterialSymbols.OnDeviceTraining: MaterialSymbol
+val MaterialSymbols.OnDeviceTraining: MaterialSymbol
     get() = symbolAt(2573)
 
-public val MaterialSymbols.OnHubDevice: MaterialSymbol
+val MaterialSymbols.OnHubDevice: MaterialSymbol
     get() = symbolAt(2574)
 
-public val MaterialSymbols.Oncology: MaterialSymbol
+val MaterialSymbols.Oncology: MaterialSymbol
     get() = symbolAt(2575)
 
-public val MaterialSymbols.OndemandVideo: MaterialSymbol
+val MaterialSymbols.OndemandVideo: MaterialSymbol
     get() = symbolAt(2576)
 
-public val MaterialSymbols.OnlinePrediction: MaterialSymbol
+val MaterialSymbols.OnlinePrediction: MaterialSymbol
     get() = symbolAt(2577)
 
-public val MaterialSymbols.Onsen: MaterialSymbol
+val MaterialSymbols.Onsen: MaterialSymbol
     get() = symbolAt(2578)
 
-public val MaterialSymbols.Opacity: MaterialSymbol
+val MaterialSymbols.Opacity: MaterialSymbol
     get() = symbolAt(2579)
 
-public val MaterialSymbols.OpenInBrowser: MaterialSymbol
+val MaterialSymbols.OpenInBrowser: MaterialSymbol
     get() = symbolAt(2580)
 
-public val MaterialSymbols.OpenInFull: MaterialSymbol
+val MaterialSymbols.OpenInFull: MaterialSymbol
     get() = symbolAt(2581)
 
-public val MaterialSymbols.OpenInNew: MaterialSymbol
+val MaterialSymbols.OpenInNew: MaterialSymbol
     get() = symbolAt(2582)
 
-public val MaterialSymbols.OpenInNewDown: MaterialSymbol
+val MaterialSymbols.OpenInNewDown: MaterialSymbol
     get() = symbolAt(2583)
 
-public val MaterialSymbols.OpenInNewOff: MaterialSymbol
+val MaterialSymbols.OpenInNewOff: MaterialSymbol
     get() = symbolAt(2584)
 
-public val MaterialSymbols.OpenInPhone: MaterialSymbol
+val MaterialSymbols.OpenInPhone: MaterialSymbol
     get() = symbolAt(2585)
 
-public val MaterialSymbols.OpenJam: MaterialSymbol
+val MaterialSymbols.OpenJam: MaterialSymbol
     get() = symbolAt(2586)
 
-public val MaterialSymbols.OpenRun: MaterialSymbol
+val MaterialSymbols.OpenRun: MaterialSymbol
     get() = symbolAt(2587)
 
-public val MaterialSymbols.OpenWith: MaterialSymbol
+val MaterialSymbols.OpenWith: MaterialSymbol
     get() = symbolAt(2588)
 
-public val MaterialSymbols.Ophthalmology: MaterialSymbol
+val MaterialSymbols.Ophthalmology: MaterialSymbol
     get() = symbolAt(2589)
 
-public val MaterialSymbols.OralDisease: MaterialSymbol
+val MaterialSymbols.OralDisease: MaterialSymbol
     get() = symbolAt(2590)
 
-public val MaterialSymbols.Orbit: MaterialSymbol
+val MaterialSymbols.Orbit: MaterialSymbol
     get() = symbolAt(2591)
 
-public val MaterialSymbols.OrderApprove: MaterialSymbol
+val MaterialSymbols.OrderApprove: MaterialSymbol
     get() = symbolAt(2592)
 
-public val MaterialSymbols.OrderPlay: MaterialSymbol
+val MaterialSymbols.OrderPlay: MaterialSymbol
     get() = symbolAt(2593)
 
-public val MaterialSymbols.Orders: MaterialSymbol
+val MaterialSymbols.Orders: MaterialSymbol
     get() = symbolAt(2594)
 
-public val MaterialSymbols.Orthopedics: MaterialSymbol
+val MaterialSymbols.Orthopedics: MaterialSymbol
     get() = symbolAt(2595)
 
-public val MaterialSymbols.OtherAdmission: MaterialSymbol
+val MaterialSymbols.OtherAdmission: MaterialSymbol
     get() = symbolAt(2596)
 
-public val MaterialSymbols.OtherHouses: MaterialSymbol
+val MaterialSymbols.OtherHouses: MaterialSymbol
     get() = symbolAt(2597)
 
-public val MaterialSymbols.Outbound: MaterialSymbol
+val MaterialSymbols.Outbound: MaterialSymbol
     get() = symbolAt(2598)
 
-public val MaterialSymbols.Outbox: MaterialSymbol
+val MaterialSymbols.Outbox: MaterialSymbol
     get() = symbolAt(2599)
 
-public val MaterialSymbols.OutboxAlt: MaterialSymbol
+val MaterialSymbols.OutboxAlt: MaterialSymbol
     get() = symbolAt(2600)
 
-public val MaterialSymbols.OutdoorGarden: MaterialSymbol
+val MaterialSymbols.OutdoorGarden: MaterialSymbol
     get() = symbolAt(2601)
 
-public val MaterialSymbols.OutdoorGrill: MaterialSymbol
+val MaterialSymbols.OutdoorGrill: MaterialSymbol
     get() = symbolAt(2602)
 
-public val MaterialSymbols.OutgoingMail: MaterialSymbol
+val MaterialSymbols.OutgoingMail: MaterialSymbol
     get() = symbolAt(2603)
 
-public val MaterialSymbols.Outlet: MaterialSymbol
+val MaterialSymbols.Outlet: MaterialSymbol
     get() = symbolAt(2604)
 
-public val MaterialSymbols.OutlinedFlag: MaterialSymbol
+val MaterialSymbols.OutlinedFlag: MaterialSymbol
     get() = symbolAt(2605)
 
-public val MaterialSymbols.Outpatient: MaterialSymbol
+val MaterialSymbols.Outpatient: MaterialSymbol
     get() = symbolAt(2606)
 
-public val MaterialSymbols.OutpatientMed: MaterialSymbol
+val MaterialSymbols.OutpatientMed: MaterialSymbol
     get() = symbolAt(2607)
 
-public val MaterialSymbols.Output: MaterialSymbol
+val MaterialSymbols.Output: MaterialSymbol
     get() = symbolAt(2608)
 
-public val MaterialSymbols.OutputCircle: MaterialSymbol
+val MaterialSymbols.OutputCircle: MaterialSymbol
     get() = symbolAt(2609)
 
-public val MaterialSymbols.Oven: MaterialSymbol
+val MaterialSymbols.Oven: MaterialSymbol
     get() = symbolAt(2610)
 
-public val MaterialSymbols.OvenGen: MaterialSymbol
+val MaterialSymbols.OvenGen: MaterialSymbol
     get() = symbolAt(2611)
 
-public val MaterialSymbols.Overview: MaterialSymbol
+val MaterialSymbols.Overview: MaterialSymbol
     get() = symbolAt(2612)
 
-public val MaterialSymbols.OverviewKey: MaterialSymbol
+val MaterialSymbols.OverviewKey: MaterialSymbol
     get() = symbolAt(2613)
 
-public val MaterialSymbols.Owl: MaterialSymbol
+val MaterialSymbols.Owl: MaterialSymbol
     get() = symbolAt(2614)
 
-public val MaterialSymbols.OxygenSaturation: MaterialSymbol
+val MaterialSymbols.OxygenSaturation: MaterialSymbol
     get() = symbolAt(2615)
 
-public val MaterialSymbols.P2p: MaterialSymbol
+val MaterialSymbols.P2p: MaterialSymbol
     get() = symbolAt(2616)
 
-public val MaterialSymbols.Pace: MaterialSymbol
+val MaterialSymbols.Pace: MaterialSymbol
     get() = symbolAt(2617)
 
-public val MaterialSymbols.Pacemaker: MaterialSymbol
+val MaterialSymbols.Pacemaker: MaterialSymbol
     get() = symbolAt(2618)
 
-public val MaterialSymbols.Package: MaterialSymbol
+val MaterialSymbols.Package: MaterialSymbol
     get() = symbolAt(2619)
 
-public val MaterialSymbols.Package2: MaterialSymbol
+val MaterialSymbols.Package2: MaterialSymbol
     get() = symbolAt(2620)
 
-public val MaterialSymbols.Padding: MaterialSymbol
+val MaterialSymbols.Padding: MaterialSymbol
     get() = symbolAt(2621)
 
-public val MaterialSymbols.Padel: MaterialSymbol
+val MaterialSymbols.Padel: MaterialSymbol
     get() = symbolAt(2622)
 
-public val MaterialSymbols.PageControl: MaterialSymbol
+val MaterialSymbols.PageControl: MaterialSymbol
     get() = symbolAt(2623)
 
-public val MaterialSymbols.PageFooter: MaterialSymbol
+val MaterialSymbols.PageFooter: MaterialSymbol
     get() = symbolAt(2624)
 
-public val MaterialSymbols.PageHeader: MaterialSymbol
+val MaterialSymbols.PageHeader: MaterialSymbol
     get() = symbolAt(2625)
 
-public val MaterialSymbols.PageInfo: MaterialSymbol
+val MaterialSymbols.PageInfo: MaterialSymbol
     get() = symbolAt(2626)
 
-public val MaterialSymbols.PageMenuIos: MaterialSymbol
+val MaterialSymbols.PageMenuIos: MaterialSymbol
     get() = symbolAt(2627)
 
-public val MaterialSymbols.Pageless: MaterialSymbol
+val MaterialSymbols.Pageless: MaterialSymbol
     get() = symbolAt(2628)
 
-public val MaterialSymbols.Pages: MaterialSymbol
+val MaterialSymbols.Pages: MaterialSymbol
     get() = symbolAt(2629)
 
-public val MaterialSymbols.Pageview: MaterialSymbol
+val MaterialSymbols.Pageview: MaterialSymbol
     get() = symbolAt(2630)
 
-public val MaterialSymbols.Paid: MaterialSymbol
+val MaterialSymbols.Paid: MaterialSymbol
     get() = symbolAt(2631)
 
-public val MaterialSymbols.Palette: MaterialSymbol
+val MaterialSymbols.Palette: MaterialSymbol
     get() = symbolAt(2632)
 
-public val MaterialSymbols.Pallet: MaterialSymbol
+val MaterialSymbols.Pallet: MaterialSymbol
     get() = symbolAt(2633)
 
-public val MaterialSymbols.PanTool: MaterialSymbol
+val MaterialSymbols.PanTool: MaterialSymbol
     get() = symbolAt(2634)
 
-public val MaterialSymbols.PanToolAlt: MaterialSymbol
+val MaterialSymbols.PanToolAlt: MaterialSymbol
     get() = symbolAt(2635)
 
-public val MaterialSymbols.PanZoom: MaterialSymbol
+val MaterialSymbols.PanZoom: MaterialSymbol
     get() = symbolAt(2636)
 
-public val MaterialSymbols.Panorama: MaterialSymbol
+val MaterialSymbols.Panorama: MaterialSymbol
     get() = symbolAt(2637)
 
-public val MaterialSymbols.PanoramaFishEye: MaterialSymbol
+val MaterialSymbols.PanoramaFishEye: MaterialSymbol
     get() = symbolAt(2638)
 
-public val MaterialSymbols.PanoramaHorizontal: MaterialSymbol
+val MaterialSymbols.PanoramaHorizontal: MaterialSymbol
     get() = symbolAt(2639)
 
-public val MaterialSymbols.PanoramaPhotosphere: MaterialSymbol
+val MaterialSymbols.PanoramaPhotosphere: MaterialSymbol
     get() = symbolAt(2640)
 
-public val MaterialSymbols.PanoramaVertical: MaterialSymbol
+val MaterialSymbols.PanoramaVertical: MaterialSymbol
     get() = symbolAt(2641)
 
-public val MaterialSymbols.PanoramaWideAngle: MaterialSymbol
+val MaterialSymbols.PanoramaWideAngle: MaterialSymbol
     get() = symbolAt(2642)
 
-public val MaterialSymbols.Paragliding: MaterialSymbol
+val MaterialSymbols.Paragliding: MaterialSymbol
     get() = symbolAt(2643)
 
-public val MaterialSymbols.ParentChildDining: MaterialSymbol
+val MaterialSymbols.ParentChildDining: MaterialSymbol
     get() = symbolAt(2644)
 
-public val MaterialSymbols.Park: MaterialSymbol
+val MaterialSymbols.Park: MaterialSymbol
     get() = symbolAt(2645)
 
-public val MaterialSymbols.ParkingMeter: MaterialSymbol
+val MaterialSymbols.ParkingMeter: MaterialSymbol
     get() = symbolAt(2646)
 
-public val MaterialSymbols.ParkingSign: MaterialSymbol
+val MaterialSymbols.ParkingSign: MaterialSymbol
     get() = symbolAt(2647)
 
-public val MaterialSymbols.ParkingValet: MaterialSymbol
+val MaterialSymbols.ParkingValet: MaterialSymbol
     get() = symbolAt(2648)
 
-public val MaterialSymbols.PartlyCloudyDay: MaterialSymbol
+val MaterialSymbols.PartlyCloudyDay: MaterialSymbol
     get() = symbolAt(2649)
 
-public val MaterialSymbols.PartlyCloudyNight: MaterialSymbol
+val MaterialSymbols.PartlyCloudyNight: MaterialSymbol
     get() = symbolAt(2650)
 
-public val MaterialSymbols.PartnerExchange: MaterialSymbol
+val MaterialSymbols.PartnerExchange: MaterialSymbol
     get() = symbolAt(2651)
 
-public val MaterialSymbols.PartnerHeart: MaterialSymbol
+val MaterialSymbols.PartnerHeart: MaterialSymbol
     get() = symbolAt(2652)
 
-public val MaterialSymbols.PartnerReports: MaterialSymbol
+val MaterialSymbols.PartnerReports: MaterialSymbol
     get() = symbolAt(2653)
 
-public val MaterialSymbols.PartyMode: MaterialSymbol
+val MaterialSymbols.PartyMode: MaterialSymbol
     get() = symbolAt(2654)
 
-public val MaterialSymbols.Passkey: MaterialSymbol
+val MaterialSymbols.Passkey: MaterialSymbol
     get() = symbolAt(2655)
 
-public val MaterialSymbols.Password: MaterialSymbol
+val MaterialSymbols.Password: MaterialSymbol
     get() = symbolAt(2656)
 
-public val MaterialSymbols.Password2: MaterialSymbol
+val MaterialSymbols.Password2: MaterialSymbol
     get() = symbolAt(2657)
 
-public val MaterialSymbols.Password2Off: MaterialSymbol
+val MaterialSymbols.Password2Off: MaterialSymbol
     get() = symbolAt(2658)
 
-public val MaterialSymbols.PatientList: MaterialSymbol
+val MaterialSymbols.PatientList: MaterialSymbol
     get() = symbolAt(2659)
 
-public val MaterialSymbols.Pattern: MaterialSymbol
+val MaterialSymbols.Pattern: MaterialSymbol
     get() = symbolAt(2660)
 
-public val MaterialSymbols.Pause: MaterialSymbol
+val MaterialSymbols.Pause: MaterialSymbol
     get() = symbolAt(2661)
 
-public val MaterialSymbols.PauseCircle: MaterialSymbol
+val MaterialSymbols.PauseCircle: MaterialSymbol
     get() = symbolAt(2662)
 
-public val MaterialSymbols.PauseCircleFilled: MaterialSymbol
+val MaterialSymbols.PauseCircleFilled: MaterialSymbol
     get() = symbolAt(2663)
 
-public val MaterialSymbols.PauseCircleOutline: MaterialSymbol
+val MaterialSymbols.PauseCircleOutline: MaterialSymbol
     get() = symbolAt(2664)
 
-public val MaterialSymbols.PausePresentation: MaterialSymbol
+val MaterialSymbols.PausePresentation: MaterialSymbol
     get() = symbolAt(2665)
 
-public val MaterialSymbols.Payment: MaterialSymbol
+val MaterialSymbols.Payment: MaterialSymbol
     get() = symbolAt(2666)
 
-public val MaterialSymbols.PaymentArrowDown: MaterialSymbol
+val MaterialSymbols.PaymentArrowDown: MaterialSymbol
     get() = symbolAt(2667)
 
-public val MaterialSymbols.PaymentCard: MaterialSymbol
+val MaterialSymbols.PaymentCard: MaterialSymbol
     get() = symbolAt(2668)
 
-public val MaterialSymbols.Payments: MaterialSymbol
+val MaterialSymbols.Payments: MaterialSymbol
     get() = symbolAt(2669)
 
-public val MaterialSymbols.PedalBike: MaterialSymbol
+val MaterialSymbols.PedalBike: MaterialSymbol
     get() = symbolAt(2670)
 
-public val MaterialSymbols.Pediatrics: MaterialSymbol
+val MaterialSymbols.Pediatrics: MaterialSymbol
     get() = symbolAt(2671)
 
-public val MaterialSymbols.PenSize1: MaterialSymbol
+val MaterialSymbols.PenSize1: MaterialSymbol
     get() = symbolAt(2672)
 
-public val MaterialSymbols.PenSize2: MaterialSymbol
+val MaterialSymbols.PenSize2: MaterialSymbol
     get() = symbolAt(2673)
 
-public val MaterialSymbols.PenSize3: MaterialSymbol
+val MaterialSymbols.PenSize3: MaterialSymbol
     get() = symbolAt(2674)
 
-public val MaterialSymbols.PenSize4: MaterialSymbol
+val MaterialSymbols.PenSize4: MaterialSymbol
     get() = symbolAt(2675)
 
-public val MaterialSymbols.PenSize5: MaterialSymbol
+val MaterialSymbols.PenSize5: MaterialSymbol
     get() = symbolAt(2676)
 
-public val MaterialSymbols.Pending: MaterialSymbol
+val MaterialSymbols.Pending: MaterialSymbol
     get() = symbolAt(2677)
 
-public val MaterialSymbols.PendingActions: MaterialSymbol
+val MaterialSymbols.PendingActions: MaterialSymbol
     get() = symbolAt(2678)
 
-public val MaterialSymbols.Pentagon: MaterialSymbol
+val MaterialSymbols.Pentagon: MaterialSymbol
     get() = symbolAt(2679)
 
-public val MaterialSymbols.People: MaterialSymbol
+val MaterialSymbols.People: MaterialSymbol
     get() = symbolAt(2680)
 
-public val MaterialSymbols.PeopleAlt: MaterialSymbol
+val MaterialSymbols.PeopleAlt: MaterialSymbol
     get() = symbolAt(2681)
 
-public val MaterialSymbols.PeopleOutline: MaterialSymbol
+val MaterialSymbols.PeopleOutline: MaterialSymbol
     get() = symbolAt(2682)
 
-public val MaterialSymbols.Percent: MaterialSymbol
+val MaterialSymbols.Percent: MaterialSymbol
     get() = symbolAt(2683)
 
-public val MaterialSymbols.PercentDiscount: MaterialSymbol
+val MaterialSymbols.PercentDiscount: MaterialSymbol
     get() = symbolAt(2684)
 
-public val MaterialSymbols.PerformanceMax: MaterialSymbol
+val MaterialSymbols.PerformanceMax: MaterialSymbol
     get() = symbolAt(2685)
 
-public val MaterialSymbols.Pergola: MaterialSymbol
+val MaterialSymbols.Pergola: MaterialSymbol
     get() = symbolAt(2686)
 
-public val MaterialSymbols.PermCameraMic: MaterialSymbol
+val MaterialSymbols.PermCameraMic: MaterialSymbol
     get() = symbolAt(2687)
 
-public val MaterialSymbols.PermContactCalendar: MaterialSymbol
+val MaterialSymbols.PermContactCalendar: MaterialSymbol
     get() = symbolAt(2688)
 
-public val MaterialSymbols.PermDataSetting: MaterialSymbol
+val MaterialSymbols.PermDataSetting: MaterialSymbol
     get() = symbolAt(2689)
 
-public val MaterialSymbols.PermDeviceInformation: MaterialSymbol
+val MaterialSymbols.PermDeviceInformation: MaterialSymbol
     get() = symbolAt(2690)
 
-public val MaterialSymbols.PermIdentity: MaterialSymbol
+val MaterialSymbols.PermIdentity: MaterialSymbol
     get() = symbolAt(2691)
 
-public val MaterialSymbols.PermMedia: MaterialSymbol
+val MaterialSymbols.PermMedia: MaterialSymbol
     get() = symbolAt(2692)
 
-public val MaterialSymbols.PermPhoneMsg: MaterialSymbol
+val MaterialSymbols.PermPhoneMsg: MaterialSymbol
     get() = symbolAt(2693)
 
-public val MaterialSymbols.PermScanWifi: MaterialSymbol
+val MaterialSymbols.PermScanWifi: MaterialSymbol
     get() = symbolAt(2694)
 
-public val MaterialSymbols.Person: MaterialSymbol
+val MaterialSymbols.Person: MaterialSymbol
     get() = symbolAt(2695)
 
-public val MaterialSymbols.Person2: MaterialSymbol
+val MaterialSymbols.Person2: MaterialSymbol
     get() = symbolAt(2696)
 
-public val MaterialSymbols.Person3: MaterialSymbol
+val MaterialSymbols.Person3: MaterialSymbol
     get() = symbolAt(2697)
 
-public val MaterialSymbols.Person4: MaterialSymbol
+val MaterialSymbols.Person4: MaterialSymbol
     get() = symbolAt(2698)
 
-public val MaterialSymbols.PersonAdd: MaterialSymbol
+val MaterialSymbols.PersonAdd: MaterialSymbol
     get() = symbolAt(2699)
 
-public val MaterialSymbols.PersonAddAlt: MaterialSymbol
+val MaterialSymbols.PersonAddAlt: MaterialSymbol
     get() = symbolAt(2700)
 
-public val MaterialSymbols.PersonAddDisabled: MaterialSymbol
+val MaterialSymbols.PersonAddDisabled: MaterialSymbol
     get() = symbolAt(2701)
 
-public val MaterialSymbols.PersonAlert: MaterialSymbol
+val MaterialSymbols.PersonAlert: MaterialSymbol
     get() = symbolAt(2702)
 
-public val MaterialSymbols.PersonApron: MaterialSymbol
+val MaterialSymbols.PersonApron: MaterialSymbol
     get() = symbolAt(2703)
 
-public val MaterialSymbols.PersonBook: MaterialSymbol
+val MaterialSymbols.PersonBook: MaterialSymbol
     get() = symbolAt(2704)
 
-public val MaterialSymbols.PersonCancel: MaterialSymbol
+val MaterialSymbols.PersonCancel: MaterialSymbol
     get() = symbolAt(2705)
 
-public val MaterialSymbols.PersonCelebrate: MaterialSymbol
+val MaterialSymbols.PersonCelebrate: MaterialSymbol
     get() = symbolAt(2706)
 
-public val MaterialSymbols.PersonCheck: MaterialSymbol
+val MaterialSymbols.PersonCheck: MaterialSymbol
     get() = symbolAt(2707)
 
-public val MaterialSymbols.PersonEdit: MaterialSymbol
+val MaterialSymbols.PersonEdit: MaterialSymbol
     get() = symbolAt(2708)
 
-public val MaterialSymbols.PersonFilled: MaterialSymbol
+val MaterialSymbols.PersonFilled: MaterialSymbol
     get() = symbolAt(2709)
 
-public val MaterialSymbols.PersonHeart: MaterialSymbol
+val MaterialSymbols.PersonHeart: MaterialSymbol
     get() = symbolAt(2710)
 
-public val MaterialSymbols.PersonOff: MaterialSymbol
+val MaterialSymbols.PersonOff: MaterialSymbol
     get() = symbolAt(2711)
 
-public val MaterialSymbols.PersonOutline: MaterialSymbol
+val MaterialSymbols.PersonOutline: MaterialSymbol
     get() = symbolAt(2712)
 
-public val MaterialSymbols.PersonPin: MaterialSymbol
+val MaterialSymbols.PersonPin: MaterialSymbol
     get() = symbolAt(2713)
 
-public val MaterialSymbols.PersonPinCircle: MaterialSymbol
+val MaterialSymbols.PersonPinCircle: MaterialSymbol
     get() = symbolAt(2714)
 
-public val MaterialSymbols.PersonPlay: MaterialSymbol
+val MaterialSymbols.PersonPlay: MaterialSymbol
     get() = symbolAt(2715)
 
-public val MaterialSymbols.PersonRaisedHand: MaterialSymbol
+val MaterialSymbols.PersonRaisedHand: MaterialSymbol
     get() = symbolAt(2716)
 
-public val MaterialSymbols.PersonRemove: MaterialSymbol
+val MaterialSymbols.PersonRemove: MaterialSymbol
     get() = symbolAt(2717)
 
-public val MaterialSymbols.PersonSearch: MaterialSymbol
+val MaterialSymbols.PersonSearch: MaterialSymbol
     get() = symbolAt(2718)
 
-public val MaterialSymbols.PersonShield: MaterialSymbol
+val MaterialSymbols.PersonShield: MaterialSymbol
     get() = symbolAt(2719)
 
-public val MaterialSymbols.PersonalBag: MaterialSymbol
+val MaterialSymbols.PersonalBag: MaterialSymbol
     get() = symbolAt(2720)
 
-public val MaterialSymbols.PersonalBagOff: MaterialSymbol
+val MaterialSymbols.PersonalBagOff: MaterialSymbol
     get() = symbolAt(2721)
 
-public val MaterialSymbols.PersonalBagQuestion: MaterialSymbol
+val MaterialSymbols.PersonalBagQuestion: MaterialSymbol
     get() = symbolAt(2722)
 
-public val MaterialSymbols.PersonalInjury: MaterialSymbol
+val MaterialSymbols.PersonalInjury: MaterialSymbol
     get() = symbolAt(2723)
 
-public val MaterialSymbols.PersonalPlaces: MaterialSymbol
+val MaterialSymbols.PersonalPlaces: MaterialSymbol
     get() = symbolAt(2724)
 
-public val MaterialSymbols.PersonalVideo: MaterialSymbol
+val MaterialSymbols.PersonalVideo: MaterialSymbol
     get() = symbolAt(2725)
 
-public val MaterialSymbols.PestControl: MaterialSymbol
+val MaterialSymbols.PestControl: MaterialSymbol
     get() = symbolAt(2726)
 
-public val MaterialSymbols.PestControlRodent: MaterialSymbol
+val MaterialSymbols.PestControlRodent: MaterialSymbol
     get() = symbolAt(2727)
 
-public val MaterialSymbols.PetSupplies: MaterialSymbol
+val MaterialSymbols.PetSupplies: MaterialSymbol
     get() = symbolAt(2728)
 
-public val MaterialSymbols.Pets: MaterialSymbol
+val MaterialSymbols.Pets: MaterialSymbol
     get() = symbolAt(2729)
 
-public val MaterialSymbols.Phishing: MaterialSymbol
+val MaterialSymbols.Phishing: MaterialSymbol
     get() = symbolAt(2730)
 
-public val MaterialSymbols.Phone: MaterialSymbol
+val MaterialSymbols.Phone: MaterialSymbol
     get() = symbolAt(2731)
 
-public val MaterialSymbols.PhoneAlt: MaterialSymbol
+val MaterialSymbols.PhoneAlt: MaterialSymbol
     get() = symbolAt(2732)
 
-public val MaterialSymbols.PhoneAndroid: MaterialSymbol
+val MaterialSymbols.PhoneAndroid: MaterialSymbol
     get() = symbolAt(2733)
 
-public val MaterialSymbols.PhoneBluetoothSpeaker: MaterialSymbol
+val MaterialSymbols.PhoneBluetoothSpeaker: MaterialSymbol
     get() = symbolAt(2734)
 
-public val MaterialSymbols.PhoneCallback: MaterialSymbol
+val MaterialSymbols.PhoneCallback: MaterialSymbol
     get() = symbolAt(2735)
 
-public val MaterialSymbols.PhoneDisabled: MaterialSymbol
+val MaterialSymbols.PhoneDisabled: MaterialSymbol
     get() = symbolAt(2736)
 
-public val MaterialSymbols.PhoneEnabled: MaterialSymbol
+val MaterialSymbols.PhoneEnabled: MaterialSymbol
     get() = symbolAt(2737)
 
-public val MaterialSymbols.PhoneForwarded: MaterialSymbol
+val MaterialSymbols.PhoneForwarded: MaterialSymbol
     get() = symbolAt(2738)
 
-public val MaterialSymbols.PhoneInTalk: MaterialSymbol
+val MaterialSymbols.PhoneInTalk: MaterialSymbol
     get() = symbolAt(2739)
 
-public val MaterialSymbols.PhoneIphone: MaterialSymbol
+val MaterialSymbols.PhoneIphone: MaterialSymbol
     get() = symbolAt(2740)
 
-public val MaterialSymbols.PhoneLocked: MaterialSymbol
+val MaterialSymbols.PhoneLocked: MaterialSymbol
     get() = symbolAt(2741)
 
-public val MaterialSymbols.PhoneMissed: MaterialSymbol
+val MaterialSymbols.PhoneMissed: MaterialSymbol
     get() = symbolAt(2742)
 
-public val MaterialSymbols.PhonePaused: MaterialSymbol
+val MaterialSymbols.PhonePaused: MaterialSymbol
     get() = symbolAt(2743)
 
-public val MaterialSymbols.Phonelink: MaterialSymbol
+val MaterialSymbols.Phonelink: MaterialSymbol
     get() = symbolAt(2744)
 
-public val MaterialSymbols.PhonelinkErase: MaterialSymbol
+val MaterialSymbols.PhonelinkErase: MaterialSymbol
     get() = symbolAt(2745)
 
-public val MaterialSymbols.PhonelinkLock: MaterialSymbol
+val MaterialSymbols.PhonelinkLock: MaterialSymbol
     get() = symbolAt(2746)
 
-public val MaterialSymbols.PhonelinkOff: MaterialSymbol
+val MaterialSymbols.PhonelinkOff: MaterialSymbol
     get() = symbolAt(2747)
 
-public val MaterialSymbols.PhonelinkRing: MaterialSymbol
+val MaterialSymbols.PhonelinkRing: MaterialSymbol
     get() = symbolAt(2748)
 
-public val MaterialSymbols.PhonelinkRingOff: MaterialSymbol
+val MaterialSymbols.PhonelinkRingOff: MaterialSymbol
     get() = symbolAt(2749)
 
-public val MaterialSymbols.PhonelinkSetup: MaterialSymbol
+val MaterialSymbols.PhonelinkSetup: MaterialSymbol
     get() = symbolAt(2750)
 
-public val MaterialSymbols.Photo: MaterialSymbol
+val MaterialSymbols.Photo: MaterialSymbol
     get() = symbolAt(2751)
 
-public val MaterialSymbols.PhotoAlbum: MaterialSymbol
+val MaterialSymbols.PhotoAlbum: MaterialSymbol
     get() = symbolAt(2752)
 
-public val MaterialSymbols.PhotoAutoMerge: MaterialSymbol
+val MaterialSymbols.PhotoAutoMerge: MaterialSymbol
     get() = symbolAt(2753)
 
-public val MaterialSymbols.PhotoCamera: MaterialSymbol
+val MaterialSymbols.PhotoCamera: MaterialSymbol
     get() = symbolAt(2754)
 
-public val MaterialSymbols.PhotoCameraBack: MaterialSymbol
+val MaterialSymbols.PhotoCameraBack: MaterialSymbol
     get() = symbolAt(2755)
 
-public val MaterialSymbols.PhotoCameraFront: MaterialSymbol
+val MaterialSymbols.PhotoCameraFront: MaterialSymbol
     get() = symbolAt(2756)
 
-public val MaterialSymbols.PhotoFilter: MaterialSymbol
+val MaterialSymbols.PhotoFilter: MaterialSymbol
     get() = symbolAt(2757)
 
-public val MaterialSymbols.PhotoFrame: MaterialSymbol
+val MaterialSymbols.PhotoFrame: MaterialSymbol
     get() = symbolAt(2758)
 
-public val MaterialSymbols.PhotoLibrary: MaterialSymbol
+val MaterialSymbols.PhotoLibrary: MaterialSymbol
     get() = symbolAt(2759)
 
-public val MaterialSymbols.PhotoPrints: MaterialSymbol
+val MaterialSymbols.PhotoPrints: MaterialSymbol
     get() = symbolAt(2760)
 
-public val MaterialSymbols.PhotoSizeSelectActual: MaterialSymbol
+val MaterialSymbols.PhotoSizeSelectActual: MaterialSymbol
     get() = symbolAt(2761)
 
-public val MaterialSymbols.PhotoSizeSelectLarge: MaterialSymbol
+val MaterialSymbols.PhotoSizeSelectLarge: MaterialSymbol
     get() = symbolAt(2762)
 
-public val MaterialSymbols.PhotoSizeSelectSmall: MaterialSymbol
+val MaterialSymbols.PhotoSizeSelectSmall: MaterialSymbol
     get() = symbolAt(2763)
 
-public val MaterialSymbols.Php: MaterialSymbol
+val MaterialSymbols.Php: MaterialSymbol
     get() = symbolAt(2764)
 
-public val MaterialSymbols.PhysicalTherapy: MaterialSymbol
+val MaterialSymbols.PhysicalTherapy: MaterialSymbol
     get() = symbolAt(2765)
 
-public val MaterialSymbols.Piano: MaterialSymbol
+val MaterialSymbols.Piano: MaterialSymbol
     get() = symbolAt(2766)
 
-public val MaterialSymbols.PianoOff: MaterialSymbol
+val MaterialSymbols.PianoOff: MaterialSymbol
     get() = symbolAt(2767)
 
-public val MaterialSymbols.Pickleball: MaterialSymbol
+val MaterialSymbols.Pickleball: MaterialSymbol
     get() = symbolAt(2768)
 
-public val MaterialSymbols.PictureAsPdf: MaterialSymbol
+val MaterialSymbols.PictureAsPdf: MaterialSymbol
     get() = symbolAt(2769)
 
-public val MaterialSymbols.PictureInPicture: MaterialSymbol
+val MaterialSymbols.PictureInPicture: MaterialSymbol
     get() = symbolAt(2770)
 
-public val MaterialSymbols.PictureInPictureAlt: MaterialSymbol
+val MaterialSymbols.PictureInPictureAlt: MaterialSymbol
     get() = symbolAt(2771)
 
-public val MaterialSymbols.PictureInPictureCenter: MaterialSymbol
+val MaterialSymbols.PictureInPictureCenter: MaterialSymbol
     get() = symbolAt(2772)
 
-public val MaterialSymbols.PictureInPictureLarge: MaterialSymbol
+val MaterialSymbols.PictureInPictureLarge: MaterialSymbol
     get() = symbolAt(2773)
 
-public val MaterialSymbols.PictureInPictureMedium: MaterialSymbol
+val MaterialSymbols.PictureInPictureMedium: MaterialSymbol
     get() = symbolAt(2774)
 
-public val MaterialSymbols.PictureInPictureMobile: MaterialSymbol
+val MaterialSymbols.PictureInPictureMobile: MaterialSymbol
     get() = symbolAt(2775)
 
-public val MaterialSymbols.PictureInPictureOff: MaterialSymbol
+val MaterialSymbols.PictureInPictureOff: MaterialSymbol
     get() = symbolAt(2776)
 
-public val MaterialSymbols.PictureInPictureSmall: MaterialSymbol
+val MaterialSymbols.PictureInPictureSmall: MaterialSymbol
     get() = symbolAt(2777)
 
-public val MaterialSymbols.PieChart: MaterialSymbol
+val MaterialSymbols.PieChart: MaterialSymbol
     get() = symbolAt(2778)
 
-public val MaterialSymbols.PieChartFilled: MaterialSymbol
+val MaterialSymbols.PieChartFilled: MaterialSymbol
     get() = symbolAt(2779)
 
-public val MaterialSymbols.PieChartOutline: MaterialSymbol
+val MaterialSymbols.PieChartOutline: MaterialSymbol
     get() = symbolAt(2780)
 
-public val MaterialSymbols.PieChartOutlined: MaterialSymbol
+val MaterialSymbols.PieChartOutlined: MaterialSymbol
     get() = symbolAt(2781)
 
-public val MaterialSymbols.Pill: MaterialSymbol
+val MaterialSymbols.Pill: MaterialSymbol
     get() = symbolAt(2782)
 
-public val MaterialSymbols.PillOff: MaterialSymbol
+val MaterialSymbols.PillOff: MaterialSymbol
     get() = symbolAt(2783)
 
-public val MaterialSymbols.Pin: MaterialSymbol
+val MaterialSymbols.Pin: MaterialSymbol
     get() = symbolAt(2784)
 
-public val MaterialSymbols.PinDrop: MaterialSymbol
+val MaterialSymbols.PinDrop: MaterialSymbol
     get() = symbolAt(2785)
 
-public val MaterialSymbols.PinEnd: MaterialSymbol
+val MaterialSymbols.PinEnd: MaterialSymbol
     get() = symbolAt(2786)
 
-public val MaterialSymbols.PinInvoke: MaterialSymbol
+val MaterialSymbols.PinInvoke: MaterialSymbol
     get() = symbolAt(2787)
 
-public val MaterialSymbols.Pinboard: MaterialSymbol
+val MaterialSymbols.Pinboard: MaterialSymbol
     get() = symbolAt(2788)
 
-public val MaterialSymbols.PinboardUnread: MaterialSymbol
+val MaterialSymbols.PinboardUnread: MaterialSymbol
     get() = symbolAt(2789)
 
-public val MaterialSymbols.Pinch: MaterialSymbol
+val MaterialSymbols.Pinch: MaterialSymbol
     get() = symbolAt(2790)
 
-public val MaterialSymbols.PinchZoomIn: MaterialSymbol
+val MaterialSymbols.PinchZoomIn: MaterialSymbol
     get() = symbolAt(2791)
 
-public val MaterialSymbols.PinchZoomOut: MaterialSymbol
+val MaterialSymbols.PinchZoomOut: MaterialSymbol
     get() = symbolAt(2792)
 
-public val MaterialSymbols.Pip: MaterialSymbol
+val MaterialSymbols.Pip: MaterialSymbol
     get() = symbolAt(2793)
 
-public val MaterialSymbols.PipExit: MaterialSymbol
+val MaterialSymbols.PipExit: MaterialSymbol
     get() = symbolAt(2794)
 
-public val MaterialSymbols.PivotTableChart: MaterialSymbol
+val MaterialSymbols.PivotTableChart: MaterialSymbol
     get() = symbolAt(2795)
 
-public val MaterialSymbols.Place: MaterialSymbol
+val MaterialSymbols.Place: MaterialSymbol
     get() = symbolAt(2796)
 
-public val MaterialSymbols.PlaceItem: MaterialSymbol
+val MaterialSymbols.PlaceItem: MaterialSymbol
     get() = symbolAt(2797)
 
-public val MaterialSymbols.Plagiarism: MaterialSymbol
+val MaterialSymbols.Plagiarism: MaterialSymbol
     get() = symbolAt(2798)
 
-public val MaterialSymbols.PlaneContrails: MaterialSymbol
+val MaterialSymbols.PlaneContrails: MaterialSymbol
     get() = symbolAt(2799)
 
-public val MaterialSymbols.Planet: MaterialSymbol
+val MaterialSymbols.Planet: MaterialSymbol
     get() = symbolAt(2800)
 
-public val MaterialSymbols.PlannerBannerAdPt: MaterialSymbol
+val MaterialSymbols.PlannerBannerAdPt: MaterialSymbol
     get() = symbolAt(2801)
 
-public val MaterialSymbols.PlannerReview: MaterialSymbol
+val MaterialSymbols.PlannerReview: MaterialSymbol
     get() = symbolAt(2802)
 
-public val MaterialSymbols.PlayArrow: MaterialSymbol
+val MaterialSymbols.PlayArrow: MaterialSymbol
     get() = symbolAt(2803)
 
-public val MaterialSymbols.PlayCircle: MaterialSymbol
+val MaterialSymbols.PlayCircle: MaterialSymbol
     get() = symbolAt(2804)
 
-public val MaterialSymbols.PlayDisabled: MaterialSymbol
+val MaterialSymbols.PlayDisabled: MaterialSymbol
     get() = symbolAt(2805)
 
-public val MaterialSymbols.PlayForWork: MaterialSymbol
+val MaterialSymbols.PlayForWork: MaterialSymbol
     get() = symbolAt(2806)
 
-public val MaterialSymbols.PlayLesson: MaterialSymbol
+val MaterialSymbols.PlayLesson: MaterialSymbol
     get() = symbolAt(2807)
 
-public val MaterialSymbols.PlayMusic: MaterialSymbol
+val MaterialSymbols.PlayMusic: MaterialSymbol
     get() = symbolAt(2808)
 
-public val MaterialSymbols.PlayPause: MaterialSymbol
+val MaterialSymbols.PlayPause: MaterialSymbol
     get() = symbolAt(2809)
 
-public val MaterialSymbols.PlayShapes: MaterialSymbol
+val MaterialSymbols.PlayShapes: MaterialSymbol
     get() = symbolAt(2810)
 
-public val MaterialSymbols.Playground: MaterialSymbol
+val MaterialSymbols.Playground: MaterialSymbol
     get() = symbolAt(2811)
 
-public val MaterialSymbols.Playground2: MaterialSymbol
+val MaterialSymbols.Playground2: MaterialSymbol
     get() = symbolAt(2812)
 
-public val MaterialSymbols.PlayingCards: MaterialSymbol
+val MaterialSymbols.PlayingCards: MaterialSymbol
     get() = symbolAt(2813)
 
-public val MaterialSymbols.PlaylistAdd: MaterialSymbol
+val MaterialSymbols.PlaylistAdd: MaterialSymbol
     get() = symbolAt(2814)
 
-public val MaterialSymbols.PlaylistAddCheck: MaterialSymbol
+val MaterialSymbols.PlaylistAddCheck: MaterialSymbol
     get() = symbolAt(2815)
 
-public val MaterialSymbols.PlaylistAddCheckCircle: MaterialSymbol
+val MaterialSymbols.PlaylistAddCheckCircle: MaterialSymbol
     get() = symbolAt(2816)
 
-public val MaterialSymbols.PlaylistAddCircle: MaterialSymbol
+val MaterialSymbols.PlaylistAddCircle: MaterialSymbol
     get() = symbolAt(2817)
 
-public val MaterialSymbols.PlaylistPlay: MaterialSymbol
+val MaterialSymbols.PlaylistPlay: MaterialSymbol
     get() = symbolAt(2818)
 
-public val MaterialSymbols.PlaylistRemove: MaterialSymbol
+val MaterialSymbols.PlaylistRemove: MaterialSymbol
     get() = symbolAt(2819)
 
-public val MaterialSymbols.PlugConnect: MaterialSymbol
+val MaterialSymbols.PlugConnect: MaterialSymbol
     get() = symbolAt(2820)
 
-public val MaterialSymbols.Plumbing: MaterialSymbol
+val MaterialSymbols.Plumbing: MaterialSymbol
     get() = symbolAt(2821)
 
-public val MaterialSymbols.PlusOne: MaterialSymbol
+val MaterialSymbols.PlusOne: MaterialSymbol
     get() = symbolAt(2822)
 
-public val MaterialSymbols.Podcasts: MaterialSymbol
+val MaterialSymbols.Podcasts: MaterialSymbol
     get() = symbolAt(2823)
 
-public val MaterialSymbols.Podiatry: MaterialSymbol
+val MaterialSymbols.Podiatry: MaterialSymbol
     get() = symbolAt(2824)
 
-public val MaterialSymbols.Podium: MaterialSymbol
+val MaterialSymbols.Podium: MaterialSymbol
     get() = symbolAt(2825)
 
-public val MaterialSymbols.PointOfSale: MaterialSymbol
+val MaterialSymbols.PointOfSale: MaterialSymbol
     get() = symbolAt(2826)
 
-public val MaterialSymbols.PointScan: MaterialSymbol
+val MaterialSymbols.PointScan: MaterialSymbol
     get() = symbolAt(2827)
 
-public val MaterialSymbols.PokerChip: MaterialSymbol
+val MaterialSymbols.PokerChip: MaterialSymbol
     get() = symbolAt(2828)
 
-public val MaterialSymbols.Policy: MaterialSymbol
+val MaterialSymbols.Policy: MaterialSymbol
     get() = symbolAt(2829)
 
-public val MaterialSymbols.PolicyAlert: MaterialSymbol
+val MaterialSymbols.PolicyAlert: MaterialSymbol
     get() = symbolAt(2830)
 
-public val MaterialSymbols.Poll: MaterialSymbol
+val MaterialSymbols.Poll: MaterialSymbol
     get() = symbolAt(2831)
 
-public val MaterialSymbols.Polyline: MaterialSymbol
+val MaterialSymbols.Polyline: MaterialSymbol
     get() = symbolAt(2832)
 
-public val MaterialSymbols.Polymer: MaterialSymbol
+val MaterialSymbols.Polymer: MaterialSymbol
     get() = symbolAt(2833)
 
-public val MaterialSymbols.Pool: MaterialSymbol
+val MaterialSymbols.Pool: MaterialSymbol
     get() = symbolAt(2834)
 
-public val MaterialSymbols.PortableWifiOff: MaterialSymbol
+val MaterialSymbols.PortableWifiOff: MaterialSymbol
     get() = symbolAt(2835)
 
-public val MaterialSymbols.Portrait: MaterialSymbol
+val MaterialSymbols.Portrait: MaterialSymbol
     get() = symbolAt(2836)
 
-public val MaterialSymbols.PositionBottomLeft: MaterialSymbol
+val MaterialSymbols.PositionBottomLeft: MaterialSymbol
     get() = symbolAt(2837)
 
-public val MaterialSymbols.PositionBottomRight: MaterialSymbol
+val MaterialSymbols.PositionBottomRight: MaterialSymbol
     get() = symbolAt(2838)
 
-public val MaterialSymbols.PositionTopRight: MaterialSymbol
+val MaterialSymbols.PositionTopRight: MaterialSymbol
     get() = symbolAt(2839)
 
-public val MaterialSymbols.Post: MaterialSymbol
+val MaterialSymbols.Post: MaterialSymbol
     get() = symbolAt(2840)
 
-public val MaterialSymbols.PostAdd: MaterialSymbol
+val MaterialSymbols.PostAdd: MaterialSymbol
     get() = symbolAt(2841)
 
-public val MaterialSymbols.PottedPlant: MaterialSymbol
+val MaterialSymbols.PottedPlant: MaterialSymbol
     get() = symbolAt(2842)
 
-public val MaterialSymbols.Power: MaterialSymbol
+val MaterialSymbols.Power: MaterialSymbol
     get() = symbolAt(2843)
 
-public val MaterialSymbols.PowerInput: MaterialSymbol
+val MaterialSymbols.PowerInput: MaterialSymbol
     get() = symbolAt(2844)
 
-public val MaterialSymbols.PowerOff: MaterialSymbol
+val MaterialSymbols.PowerOff: MaterialSymbol
     get() = symbolAt(2845)
 
-public val MaterialSymbols.PowerRounded: MaterialSymbol
+val MaterialSymbols.PowerRounded: MaterialSymbol
     get() = symbolAt(2846)
 
-public val MaterialSymbols.PowerSettingsCircle: MaterialSymbol
+val MaterialSymbols.PowerSettingsCircle: MaterialSymbol
     get() = symbolAt(2847)
 
-public val MaterialSymbols.PowerSettingsNew: MaterialSymbol
+val MaterialSymbols.PowerSettingsNew: MaterialSymbol
     get() = symbolAt(2848)
 
-public val MaterialSymbols.PrayerTimes: MaterialSymbol
+val MaterialSymbols.PrayerTimes: MaterialSymbol
     get() = symbolAt(2849)
 
-public val MaterialSymbols.PrecisionManufacturing: MaterialSymbol
+val MaterialSymbols.PrecisionManufacturing: MaterialSymbol
     get() = symbolAt(2850)
 
-public val MaterialSymbols.Pregnancy: MaterialSymbol
+val MaterialSymbols.Pregnancy: MaterialSymbol
     get() = symbolAt(2851)
 
-public val MaterialSymbols.PregnantWoman: MaterialSymbol
+val MaterialSymbols.PregnantWoman: MaterialSymbol
     get() = symbolAt(2852)
 
-public val MaterialSymbols.Preliminary: MaterialSymbol
+val MaterialSymbols.Preliminary: MaterialSymbol
     get() = symbolAt(2853)
 
-public val MaterialSymbols.Prescriptions: MaterialSymbol
+val MaterialSymbols.Prescriptions: MaterialSymbol
     get() = symbolAt(2854)
 
-public val MaterialSymbols.PresentToAll: MaterialSymbol
+val MaterialSymbols.PresentToAll: MaterialSymbol
     get() = symbolAt(2855)
 
-public val MaterialSymbols.Preview: MaterialSymbol
+val MaterialSymbols.Preview: MaterialSymbol
     get() = symbolAt(2856)
 
-public val MaterialSymbols.PreviewOff: MaterialSymbol
+val MaterialSymbols.PreviewOff: MaterialSymbol
     get() = symbolAt(2857)
 
-public val MaterialSymbols.PriceChange: MaterialSymbol
+val MaterialSymbols.PriceChange: MaterialSymbol
     get() = symbolAt(2858)
 
-public val MaterialSymbols.PriceCheck: MaterialSymbol
+val MaterialSymbols.PriceCheck: MaterialSymbol
     get() = symbolAt(2859)
 
-public val MaterialSymbols.Print: MaterialSymbol
+val MaterialSymbols.Print: MaterialSymbol
     get() = symbolAt(2860)
 
-public val MaterialSymbols.PrintAdd: MaterialSymbol
+val MaterialSymbols.PrintAdd: MaterialSymbol
     get() = symbolAt(2861)
 
-public val MaterialSymbols.PrintConnect: MaterialSymbol
+val MaterialSymbols.PrintConnect: MaterialSymbol
     get() = symbolAt(2862)
 
-public val MaterialSymbols.PrintDisabled: MaterialSymbol
+val MaterialSymbols.PrintDisabled: MaterialSymbol
     get() = symbolAt(2863)
 
-public val MaterialSymbols.PrintError: MaterialSymbol
+val MaterialSymbols.PrintError: MaterialSymbol
     get() = symbolAt(2864)
 
-public val MaterialSymbols.PrintLock: MaterialSymbol
+val MaterialSymbols.PrintLock: MaterialSymbol
     get() = symbolAt(2865)
 
-public val MaterialSymbols.Priority: MaterialSymbol
+val MaterialSymbols.Priority: MaterialSymbol
     get() = symbolAt(2866)
 
-public val MaterialSymbols.PriorityHigh: MaterialSymbol
+val MaterialSymbols.PriorityHigh: MaterialSymbol
     get() = symbolAt(2867)
 
-public val MaterialSymbols.Privacy: MaterialSymbol
+val MaterialSymbols.Privacy: MaterialSymbol
     get() = symbolAt(2868)
 
-public val MaterialSymbols.PrivacyTip: MaterialSymbol
+val MaterialSymbols.PrivacyTip: MaterialSymbol
     get() = symbolAt(2869)
 
-public val MaterialSymbols.PrivateConnectivity: MaterialSymbol
+val MaterialSymbols.PrivateConnectivity: MaterialSymbol
     get() = symbolAt(2870)
 
-public val MaterialSymbols.Problem: MaterialSymbol
+val MaterialSymbols.Problem: MaterialSymbol
     get() = symbolAt(2871)
 
-public val MaterialSymbols.Procedure: MaterialSymbol
+val MaterialSymbols.Procedure: MaterialSymbol
     get() = symbolAt(2872)
 
-public val MaterialSymbols.ProcessChart: MaterialSymbol
+val MaterialSymbols.ProcessChart: MaterialSymbol
     get() = symbolAt(2873)
 
-public val MaterialSymbols.ProductionQuantityLimits: MaterialSymbol
+val MaterialSymbols.ProductionQuantityLimits: MaterialSymbol
     get() = symbolAt(2874)
 
-public val MaterialSymbols.Productivity: MaterialSymbol
+val MaterialSymbols.Productivity: MaterialSymbol
     get() = symbolAt(2875)
 
-public val MaterialSymbols.ProgressActivity: MaterialSymbol
+val MaterialSymbols.ProgressActivity: MaterialSymbol
     get() = symbolAt(2876)
 
-public val MaterialSymbols.PromptSuggestion: MaterialSymbol
+val MaterialSymbols.PromptSuggestion: MaterialSymbol
     get() = symbolAt(2877)
 
-public val MaterialSymbols.Propane: MaterialSymbol
+val MaterialSymbols.Propane: MaterialSymbol
     get() = symbolAt(2878)
 
-public val MaterialSymbols.PropaneTank: MaterialSymbol
+val MaterialSymbols.PropaneTank: MaterialSymbol
     get() = symbolAt(2879)
 
-public val MaterialSymbols.Psychiatry: MaterialSymbol
+val MaterialSymbols.Psychiatry: MaterialSymbol
     get() = symbolAt(2880)
 
-public val MaterialSymbols.Psychology: MaterialSymbol
+val MaterialSymbols.Psychology: MaterialSymbol
     get() = symbolAt(2881)
 
-public val MaterialSymbols.PsychologyAlt: MaterialSymbol
+val MaterialSymbols.PsychologyAlt: MaterialSymbol
     get() = symbolAt(2882)
 
-public val MaterialSymbols.Public: MaterialSymbol
+val MaterialSymbols.Public: MaterialSymbol
     get() = symbolAt(2883)
 
-public val MaterialSymbols.PublicOff: MaterialSymbol
+val MaterialSymbols.PublicOff: MaterialSymbol
     get() = symbolAt(2884)
 
-public val MaterialSymbols.Publish: MaterialSymbol
+val MaterialSymbols.Publish: MaterialSymbol
     get() = symbolAt(2885)
 
-public val MaterialSymbols.PublishedWithChanges: MaterialSymbol
+val MaterialSymbols.PublishedWithChanges: MaterialSymbol
     get() = symbolAt(2886)
 
-public val MaterialSymbols.Pulmonology: MaterialSymbol
+val MaterialSymbols.Pulmonology: MaterialSymbol
     get() = symbolAt(2887)
 
-public val MaterialSymbols.PulseAlert: MaterialSymbol
+val MaterialSymbols.PulseAlert: MaterialSymbol
     get() = symbolAt(2888)
 
-public val MaterialSymbols.PunchClock: MaterialSymbol
+val MaterialSymbols.PunchClock: MaterialSymbol
     get() = symbolAt(2889)
 
-public val MaterialSymbols.PushPin: MaterialSymbol
+val MaterialSymbols.PushPin: MaterialSymbol
     get() = symbolAt(2890)
 
-public val MaterialSymbols.QrCode: MaterialSymbol
+val MaterialSymbols.QrCode: MaterialSymbol
     get() = symbolAt(2891)
 
-public val MaterialSymbols.QrCode2: MaterialSymbol
+val MaterialSymbols.QrCode2: MaterialSymbol
     get() = symbolAt(2892)
 
-public val MaterialSymbols.QrCode2Add: MaterialSymbol
+val MaterialSymbols.QrCode2Add: MaterialSymbol
     get() = symbolAt(2893)
 
-public val MaterialSymbols.QrCodeScanner: MaterialSymbol
+val MaterialSymbols.QrCodeScanner: MaterialSymbol
     get() = symbolAt(2894)
 
-public val MaterialSymbols.QueryBuilder: MaterialSymbol
+val MaterialSymbols.QueryBuilder: MaterialSymbol
     get() = symbolAt(2895)
 
-public val MaterialSymbols.QueryStats: MaterialSymbol
+val MaterialSymbols.QueryStats: MaterialSymbol
     get() = symbolAt(2896)
 
-public val MaterialSymbols.QuestionAnswer: MaterialSymbol
+val MaterialSymbols.QuestionAnswer: MaterialSymbol
     get() = symbolAt(2897)
 
-public val MaterialSymbols.QuestionExchange: MaterialSymbol
+val MaterialSymbols.QuestionExchange: MaterialSymbol
     get() = symbolAt(2898)
 
-public val MaterialSymbols.QuestionMark: MaterialSymbol
+val MaterialSymbols.QuestionMark: MaterialSymbol
     get() = symbolAt(2899)
 
-public val MaterialSymbols.Queue: MaterialSymbol
+val MaterialSymbols.Queue: MaterialSymbol
     get() = symbolAt(2900)
 
-public val MaterialSymbols.QueueMusic: MaterialSymbol
+val MaterialSymbols.QueueMusic: MaterialSymbol
     get() = symbolAt(2901)
 
-public val MaterialSymbols.QueuePlayNext: MaterialSymbol
+val MaterialSymbols.QueuePlayNext: MaterialSymbol
     get() = symbolAt(2902)
 
-public val MaterialSymbols.QuickPhrases: MaterialSymbol
+val MaterialSymbols.QuickPhrases: MaterialSymbol
     get() = symbolAt(2903)
 
-public val MaterialSymbols.QuickReference: MaterialSymbol
+val MaterialSymbols.QuickReference: MaterialSymbol
     get() = symbolAt(2904)
 
-public val MaterialSymbols.QuickReferenceAll: MaterialSymbol
+val MaterialSymbols.QuickReferenceAll: MaterialSymbol
     get() = symbolAt(2905)
 
-public val MaterialSymbols.QuickReorder: MaterialSymbol
+val MaterialSymbols.QuickReorder: MaterialSymbol
     get() = symbolAt(2906)
 
-public val MaterialSymbols.Quickreply: MaterialSymbol
+val MaterialSymbols.Quickreply: MaterialSymbol
     get() = symbolAt(2907)
 
-public val MaterialSymbols.QuietTime: MaterialSymbol
+val MaterialSymbols.QuietTime: MaterialSymbol
     get() = symbolAt(2908)
 
-public val MaterialSymbols.QuietTimeActive: MaterialSymbol
+val MaterialSymbols.QuietTimeActive: MaterialSymbol
     get() = symbolAt(2909)
 
-public val MaterialSymbols.Quiz: MaterialSymbol
+val MaterialSymbols.Quiz: MaterialSymbol
     get() = symbolAt(2910)
 
-public val MaterialSymbols.RMobiledata: MaterialSymbol
+val MaterialSymbols.RMobiledata: MaterialSymbol
     get() = symbolAt(2911)
 
-public val MaterialSymbols.Radar: MaterialSymbol
+val MaterialSymbols.Radar: MaterialSymbol
     get() = symbolAt(2912)
 
-public val MaterialSymbols.Radio: MaterialSymbol
+val MaterialSymbols.Radio: MaterialSymbol
     get() = symbolAt(2913)
 
-public val MaterialSymbols.RadioButtonChecked: MaterialSymbol
+val MaterialSymbols.RadioButtonChecked: MaterialSymbol
     get() = symbolAt(2914)
 
-public val MaterialSymbols.RadioButtonPartial: MaterialSymbol
+val MaterialSymbols.RadioButtonPartial: MaterialSymbol
     get() = symbolAt(2915)
 
-public val MaterialSymbols.RadioButtonUnchecked: MaterialSymbol
+val MaterialSymbols.RadioButtonUnchecked: MaterialSymbol
     get() = symbolAt(2916)
 
-public val MaterialSymbols.Radiology: MaterialSymbol
+val MaterialSymbols.Radiology: MaterialSymbol
     get() = symbolAt(2917)
 
-public val MaterialSymbols.RailwayAlert: MaterialSymbol
+val MaterialSymbols.RailwayAlert: MaterialSymbol
     get() = symbolAt(2918)
 
-public val MaterialSymbols.RailwayAlert2: MaterialSymbol
+val MaterialSymbols.RailwayAlert2: MaterialSymbol
     get() = symbolAt(2919)
 
-public val MaterialSymbols.Rainy: MaterialSymbol
+val MaterialSymbols.Rainy: MaterialSymbol
     get() = symbolAt(2920)
 
-public val MaterialSymbols.RainyHeavy: MaterialSymbol
+val MaterialSymbols.RainyHeavy: MaterialSymbol
     get() = symbolAt(2921)
 
-public val MaterialSymbols.RainyLight: MaterialSymbol
+val MaterialSymbols.RainyLight: MaterialSymbol
     get() = symbolAt(2922)
 
-public val MaterialSymbols.RainySnow: MaterialSymbol
+val MaterialSymbols.RainySnow: MaterialSymbol
     get() = symbolAt(2923)
 
-public val MaterialSymbols.RamenDining: MaterialSymbol
+val MaterialSymbols.RamenDining: MaterialSymbol
     get() = symbolAt(2924)
 
-public val MaterialSymbols.RampLeft: MaterialSymbol
+val MaterialSymbols.RampLeft: MaterialSymbol
     get() = symbolAt(2925)
 
-public val MaterialSymbols.RampRight: MaterialSymbol
+val MaterialSymbols.RampRight: MaterialSymbol
     get() = symbolAt(2926)
 
-public val MaterialSymbols.RangeHood: MaterialSymbol
+val MaterialSymbols.RangeHood: MaterialSymbol
     get() = symbolAt(2927)
 
-public val MaterialSymbols.RateReview: MaterialSymbol
+val MaterialSymbols.RateReview: MaterialSymbol
     get() = symbolAt(2928)
 
-public val MaterialSymbols.RateReviewRtl: MaterialSymbol
+val MaterialSymbols.RateReviewRtl: MaterialSymbol
     get() = symbolAt(2929)
 
-public val MaterialSymbols.Raven: MaterialSymbol
+val MaterialSymbols.Raven: MaterialSymbol
     get() = symbolAt(2930)
 
-public val MaterialSymbols.RawOff: MaterialSymbol
+val MaterialSymbols.RawOff: MaterialSymbol
     get() = symbolAt(2931)
 
-public val MaterialSymbols.RawOn: MaterialSymbol
+val MaterialSymbols.RawOn: MaterialSymbol
     get() = symbolAt(2932)
 
-public val MaterialSymbols.ReadMore: MaterialSymbol
+val MaterialSymbols.ReadMore: MaterialSymbol
     get() = symbolAt(2933)
 
-public val MaterialSymbols.ReadinessScore: MaterialSymbol
+val MaterialSymbols.ReadinessScore: MaterialSymbol
     get() = symbolAt(2934)
 
-public val MaterialSymbols.RealEstateAgent: MaterialSymbol
+val MaterialSymbols.RealEstateAgent: MaterialSymbol
     get() = symbolAt(2935)
 
-public val MaterialSymbols.RearCamera: MaterialSymbol
+val MaterialSymbols.RearCamera: MaterialSymbol
     get() = symbolAt(2936)
 
-public val MaterialSymbols.Rebase: MaterialSymbol
+val MaterialSymbols.Rebase: MaterialSymbol
     get() = symbolAt(2937)
 
-public val MaterialSymbols.RebaseEdit: MaterialSymbol
+val MaterialSymbols.RebaseEdit: MaterialSymbol
     get() = symbolAt(2938)
 
-public val MaterialSymbols.Receipt: MaterialSymbol
+val MaterialSymbols.Receipt: MaterialSymbol
     get() = symbolAt(2939)
 
-public val MaterialSymbols.ReceiptLong: MaterialSymbol
+val MaterialSymbols.ReceiptLong: MaterialSymbol
     get() = symbolAt(2940)
 
-public val MaterialSymbols.ReceiptLongOff: MaterialSymbol
+val MaterialSymbols.ReceiptLongOff: MaterialSymbol
     get() = symbolAt(2941)
 
-public val MaterialSymbols.RecentActors: MaterialSymbol
+val MaterialSymbols.RecentActors: MaterialSymbol
     get() = symbolAt(2942)
 
-public val MaterialSymbols.RecentPatient: MaterialSymbol
+val MaterialSymbols.RecentPatient: MaterialSymbol
     get() = symbolAt(2943)
 
-public val MaterialSymbols.Recenter: MaterialSymbol
+val MaterialSymbols.Recenter: MaterialSymbol
     get() = symbolAt(2944)
 
-public val MaterialSymbols.Recommend: MaterialSymbol
+val MaterialSymbols.Recommend: MaterialSymbol
     get() = symbolAt(2945)
 
-public val MaterialSymbols.RecordVoiceOver: MaterialSymbol
+val MaterialSymbols.RecordVoiceOver: MaterialSymbol
     get() = symbolAt(2946)
 
-public val MaterialSymbols.Rectangle: MaterialSymbol
+val MaterialSymbols.Rectangle: MaterialSymbol
     get() = symbolAt(2947)
 
-public val MaterialSymbols.Recycling: MaterialSymbol
+val MaterialSymbols.Recycling: MaterialSymbol
     get() = symbolAt(2948)
 
-public val MaterialSymbols.Redeem: MaterialSymbol
+val MaterialSymbols.Redeem: MaterialSymbol
     get() = symbolAt(2949)
 
-public val MaterialSymbols.Redo: MaterialSymbol
+val MaterialSymbols.Redo: MaterialSymbol
     get() = symbolAt(2950)
 
-public val MaterialSymbols.ReduceCapacity: MaterialSymbol
+val MaterialSymbols.ReduceCapacity: MaterialSymbol
     get() = symbolAt(2951)
 
-public val MaterialSymbols.Refresh: MaterialSymbol
+val MaterialSymbols.Refresh: MaterialSymbol
     get() = symbolAt(2952)
 
-public val MaterialSymbols.RegularExpression: MaterialSymbol
+val MaterialSymbols.RegularExpression: MaterialSymbol
     get() = symbolAt(2953)
 
-public val MaterialSymbols.Relax: MaterialSymbol
+val MaterialSymbols.Relax: MaterialSymbol
     get() = symbolAt(2954)
 
-public val MaterialSymbols.ReleaseAlert: MaterialSymbol
+val MaterialSymbols.ReleaseAlert: MaterialSymbol
     get() = symbolAt(2955)
 
-public val MaterialSymbols.RememberMe: MaterialSymbol
+val MaterialSymbols.RememberMe: MaterialSymbol
     get() = symbolAt(2956)
 
-public val MaterialSymbols.Reminder: MaterialSymbol
+val MaterialSymbols.Reminder: MaterialSymbol
     get() = symbolAt(2957)
 
-public val MaterialSymbols.RemindersAlt: MaterialSymbol
+val MaterialSymbols.RemindersAlt: MaterialSymbol
     get() = symbolAt(2958)
 
-public val MaterialSymbols.RemoteGen: MaterialSymbol
+val MaterialSymbols.RemoteGen: MaterialSymbol
     get() = symbolAt(2959)
 
-public val MaterialSymbols.Remove: MaterialSymbol
+val MaterialSymbols.Remove: MaterialSymbol
     get() = symbolAt(2960)
 
-public val MaterialSymbols.RemoveCircle: MaterialSymbol
+val MaterialSymbols.RemoveCircle: MaterialSymbol
     get() = symbolAt(2961)
 
-public val MaterialSymbols.RemoveCircleOutline: MaterialSymbol
+val MaterialSymbols.RemoveCircleOutline: MaterialSymbol
     get() = symbolAt(2962)
 
-public val MaterialSymbols.RemoveDone: MaterialSymbol
+val MaterialSymbols.RemoveDone: MaterialSymbol
     get() = symbolAt(2963)
 
-public val MaterialSymbols.RemoveFromQueue: MaterialSymbol
+val MaterialSymbols.RemoveFromQueue: MaterialSymbol
     get() = symbolAt(2964)
 
-public val MaterialSymbols.RemoveModerator: MaterialSymbol
+val MaterialSymbols.RemoveModerator: MaterialSymbol
     get() = symbolAt(2965)
 
-public val MaterialSymbols.RemoveRedEye: MaterialSymbol
+val MaterialSymbols.RemoveRedEye: MaterialSymbol
     get() = symbolAt(2966)
 
-public val MaterialSymbols.RemoveRoad: MaterialSymbol
+val MaterialSymbols.RemoveRoad: MaterialSymbol
     get() = symbolAt(2967)
 
-public val MaterialSymbols.RemoveSelection: MaterialSymbol
+val MaterialSymbols.RemoveSelection: MaterialSymbol
     get() = symbolAt(2968)
 
-public val MaterialSymbols.RemoveShoppingCart: MaterialSymbol
+val MaterialSymbols.RemoveShoppingCart: MaterialSymbol
     get() = symbolAt(2969)
 
-public val MaterialSymbols.ReopenWindow: MaterialSymbol
+val MaterialSymbols.ReopenWindow: MaterialSymbol
     get() = symbolAt(2970)
 
-public val MaterialSymbols.Reorder: MaterialSymbol
+val MaterialSymbols.Reorder: MaterialSymbol
     get() = symbolAt(2971)
 
-public val MaterialSymbols.Repartition: MaterialSymbol
+val MaterialSymbols.Repartition: MaterialSymbol
     get() = symbolAt(2972)
 
-public val MaterialSymbols.Repeat: MaterialSymbol
+val MaterialSymbols.Repeat: MaterialSymbol
     get() = symbolAt(2973)
 
-public val MaterialSymbols.RepeatOn: MaterialSymbol
+val MaterialSymbols.RepeatOn: MaterialSymbol
     get() = symbolAt(2974)
 
-public val MaterialSymbols.RepeatOne: MaterialSymbol
+val MaterialSymbols.RepeatOne: MaterialSymbol
     get() = symbolAt(2975)
 
-public val MaterialSymbols.RepeatOneOn: MaterialSymbol
+val MaterialSymbols.RepeatOneOn: MaterialSymbol
     get() = symbolAt(2976)
 
-public val MaterialSymbols.ReplaceAudio: MaterialSymbol
+val MaterialSymbols.ReplaceAudio: MaterialSymbol
     get() = symbolAt(2977)
 
-public val MaterialSymbols.ReplaceImage: MaterialSymbol
+val MaterialSymbols.ReplaceImage: MaterialSymbol
     get() = symbolAt(2978)
 
-public val MaterialSymbols.ReplaceVideo: MaterialSymbol
+val MaterialSymbols.ReplaceVideo: MaterialSymbol
     get() = symbolAt(2979)
 
-public val MaterialSymbols.Replay: MaterialSymbol
+val MaterialSymbols.Replay: MaterialSymbol
     get() = symbolAt(2980)
 
-public val MaterialSymbols.Replay10: MaterialSymbol
+val MaterialSymbols.Replay10: MaterialSymbol
     get() = symbolAt(2981)
 
-public val MaterialSymbols.Replay30: MaterialSymbol
+val MaterialSymbols.Replay30: MaterialSymbol
     get() = symbolAt(2982)
 
-public val MaterialSymbols.Replay5: MaterialSymbol
+val MaterialSymbols.Replay5: MaterialSymbol
     get() = symbolAt(2983)
 
-public val MaterialSymbols.ReplayCircleFilled: MaterialSymbol
+val MaterialSymbols.ReplayCircleFilled: MaterialSymbol
     get() = symbolAt(2984)
 
-public val MaterialSymbols.Reply: MaterialSymbol
+val MaterialSymbols.Reply: MaterialSymbol
     get() = symbolAt(2985)
 
-public val MaterialSymbols.ReplyAll: MaterialSymbol
+val MaterialSymbols.ReplyAll: MaterialSymbol
     get() = symbolAt(2986)
 
-public val MaterialSymbols.Report: MaterialSymbol
+val MaterialSymbols.Report: MaterialSymbol
     get() = symbolAt(2987)
 
-public val MaterialSymbols.ReportGmailerrorred: MaterialSymbol
+val MaterialSymbols.ReportGmailerrorred: MaterialSymbol
     get() = symbolAt(2988)
 
-public val MaterialSymbols.ReportOff: MaterialSymbol
+val MaterialSymbols.ReportOff: MaterialSymbol
     get() = symbolAt(2989)
 
-public val MaterialSymbols.ReportProblem: MaterialSymbol
+val MaterialSymbols.ReportProblem: MaterialSymbol
     get() = symbolAt(2990)
 
-public val MaterialSymbols.RequestPage: MaterialSymbol
+val MaterialSymbols.RequestPage: MaterialSymbol
     get() = symbolAt(2991)
 
-public val MaterialSymbols.RequestQuote: MaterialSymbol
+val MaterialSymbols.RequestQuote: MaterialSymbol
     get() = symbolAt(2992)
 
-public val MaterialSymbols.ResetBrightness: MaterialSymbol
+val MaterialSymbols.ResetBrightness: MaterialSymbol
     get() = symbolAt(2993)
 
-public val MaterialSymbols.ResetExposure: MaterialSymbol
+val MaterialSymbols.ResetExposure: MaterialSymbol
     get() = symbolAt(2994)
 
-public val MaterialSymbols.ResetFocus: MaterialSymbol
+val MaterialSymbols.ResetFocus: MaterialSymbol
     get() = symbolAt(2995)
 
-public val MaterialSymbols.ResetImage: MaterialSymbol
+val MaterialSymbols.ResetImage: MaterialSymbol
     get() = symbolAt(2996)
 
-public val MaterialSymbols.ResetIso: MaterialSymbol
+val MaterialSymbols.ResetIso: MaterialSymbol
     get() = symbolAt(2997)
 
-public val MaterialSymbols.ResetSettings: MaterialSymbol
+val MaterialSymbols.ResetSettings: MaterialSymbol
     get() = symbolAt(2998)
 
-public val MaterialSymbols.ResetShadow: MaterialSymbol
+val MaterialSymbols.ResetShadow: MaterialSymbol
     get() = symbolAt(2999)
 
-public val MaterialSymbols.ResetShutterSpeed: MaterialSymbol
+val MaterialSymbols.ResetShutterSpeed: MaterialSymbol
     get() = symbolAt(3000)
 
-public val MaterialSymbols.ResetTv: MaterialSymbol
+val MaterialSymbols.ResetTv: MaterialSymbol
     get() = symbolAt(3001)
 
-public val MaterialSymbols.ResetWhiteBalance: MaterialSymbol
+val MaterialSymbols.ResetWhiteBalance: MaterialSymbol
     get() = symbolAt(3002)
 
-public val MaterialSymbols.ResetWrench: MaterialSymbol
+val MaterialSymbols.ResetWrench: MaterialSymbol
     get() = symbolAt(3003)
 
-public val MaterialSymbols.Resize: MaterialSymbol
+val MaterialSymbols.Resize: MaterialSymbol
     get() = symbolAt(3004)
 
-public val MaterialSymbols.RespiratoryRate: MaterialSymbol
+val MaterialSymbols.RespiratoryRate: MaterialSymbol
     get() = symbolAt(3005)
 
-public val MaterialSymbols.ResponsiveLayout: MaterialSymbol
+val MaterialSymbols.ResponsiveLayout: MaterialSymbol
     get() = symbolAt(3006)
 
-public val MaterialSymbols.RestArea: MaterialSymbol
+val MaterialSymbols.RestArea: MaterialSymbol
     get() = symbolAt(3007)
 
-public val MaterialSymbols.RestartAlt: MaterialSymbol
+val MaterialSymbols.RestartAlt: MaterialSymbol
     get() = symbolAt(3008)
 
-public val MaterialSymbols.Restaurant: MaterialSymbol
+val MaterialSymbols.Restaurant: MaterialSymbol
     get() = symbolAt(3009)
 
-public val MaterialSymbols.RestaurantMenu: MaterialSymbol
+val MaterialSymbols.RestaurantMenu: MaterialSymbol
     get() = symbolAt(3010)
 
-public val MaterialSymbols.Restore: MaterialSymbol
+val MaterialSymbols.Restore: MaterialSymbol
     get() = symbolAt(3011)
 
-public val MaterialSymbols.RestoreFromTrash: MaterialSymbol
+val MaterialSymbols.RestoreFromTrash: MaterialSymbol
     get() = symbolAt(3012)
 
-public val MaterialSymbols.RestorePage: MaterialSymbol
+val MaterialSymbols.RestorePage: MaterialSymbol
     get() = symbolAt(3013)
 
-public val MaterialSymbols.Resume: MaterialSymbol
+val MaterialSymbols.Resume: MaterialSymbol
     get() = symbolAt(3014)
 
-public val MaterialSymbols.Reviews: MaterialSymbol
+val MaterialSymbols.Reviews: MaterialSymbol
     get() = symbolAt(3015)
 
-public val MaterialSymbols.RewardedAds: MaterialSymbol
+val MaterialSymbols.RewardedAds: MaterialSymbol
     get() = symbolAt(3016)
 
-public val MaterialSymbols.Rheumatology: MaterialSymbol
+val MaterialSymbols.Rheumatology: MaterialSymbol
     get() = symbolAt(3017)
 
-public val MaterialSymbols.RibCage: MaterialSymbol
+val MaterialSymbols.RibCage: MaterialSymbol
     get() = symbolAt(3018)
 
-public val MaterialSymbols.RiceBowl: MaterialSymbol
+val MaterialSymbols.RiceBowl: MaterialSymbol
     get() = symbolAt(3019)
 
-public val MaterialSymbols.RightClick: MaterialSymbol
+val MaterialSymbols.RightClick: MaterialSymbol
     get() = symbolAt(3020)
 
-public val MaterialSymbols.RightPanelClose: MaterialSymbol
+val MaterialSymbols.RightPanelClose: MaterialSymbol
     get() = symbolAt(3021)
 
-public val MaterialSymbols.RightPanelOpen: MaterialSymbol
+val MaterialSymbols.RightPanelOpen: MaterialSymbol
     get() = symbolAt(3022)
 
-public val MaterialSymbols.RingVolume: MaterialSymbol
+val MaterialSymbols.RingVolume: MaterialSymbol
     get() = symbolAt(3023)
 
-public val MaterialSymbols.RingVolumeFilled: MaterialSymbol
+val MaterialSymbols.RingVolumeFilled: MaterialSymbol
     get() = symbolAt(3024)
 
-public val MaterialSymbols.Ripples: MaterialSymbol
+val MaterialSymbols.Ripples: MaterialSymbol
     get() = symbolAt(3025)
 
-public val MaterialSymbols.Road: MaterialSymbol
+val MaterialSymbols.Road: MaterialSymbol
     get() = symbolAt(3026)
 
-public val MaterialSymbols.Robot: MaterialSymbol
+val MaterialSymbols.Robot: MaterialSymbol
     get() = symbolAt(3027)
 
-public val MaterialSymbols.Robot2: MaterialSymbol
+val MaterialSymbols.Robot2: MaterialSymbol
     get() = symbolAt(3028)
 
-public val MaterialSymbols.Rocket: MaterialSymbol
+val MaterialSymbols.Rocket: MaterialSymbol
     get() = symbolAt(3029)
 
-public val MaterialSymbols.RocketLaunch: MaterialSymbol
+val MaterialSymbols.RocketLaunch: MaterialSymbol
     get() = symbolAt(3030)
 
-public val MaterialSymbols.RollerShades: MaterialSymbol
+val MaterialSymbols.RollerShades: MaterialSymbol
     get() = symbolAt(3031)
 
-public val MaterialSymbols.RollerShadesClosed: MaterialSymbol
+val MaterialSymbols.RollerShadesClosed: MaterialSymbol
     get() = symbolAt(3032)
 
-public val MaterialSymbols.RollerSkating: MaterialSymbol
+val MaterialSymbols.RollerSkating: MaterialSymbol
     get() = symbolAt(3033)
 
-public val MaterialSymbols.Roofing: MaterialSymbol
+val MaterialSymbols.Roofing: MaterialSymbol
     get() = symbolAt(3034)
 
-public val MaterialSymbols.Room: MaterialSymbol
+val MaterialSymbols.Room: MaterialSymbol
     get() = symbolAt(3035)
 
-public val MaterialSymbols.RoomPreferences: MaterialSymbol
+val MaterialSymbols.RoomPreferences: MaterialSymbol
     get() = symbolAt(3036)
 
-public val MaterialSymbols.RoomService: MaterialSymbol
+val MaterialSymbols.RoomService: MaterialSymbol
     get() = symbolAt(3037)
 
-public val MaterialSymbols.Rotate90DegreesCcw: MaterialSymbol
+val MaterialSymbols.Rotate90DegreesCcw: MaterialSymbol
     get() = symbolAt(3038)
 
-public val MaterialSymbols.Rotate90DegreesCw: MaterialSymbol
+val MaterialSymbols.Rotate90DegreesCw: MaterialSymbol
     get() = symbolAt(3039)
 
-public val MaterialSymbols.RotateAuto: MaterialSymbol
+val MaterialSymbols.RotateAuto: MaterialSymbol
     get() = symbolAt(3040)
 
-public val MaterialSymbols.RotateLeft: MaterialSymbol
+val MaterialSymbols.RotateLeft: MaterialSymbol
     get() = symbolAt(3041)
 
-public val MaterialSymbols.RotateRight: MaterialSymbol
+val MaterialSymbols.RotateRight: MaterialSymbol
     get() = symbolAt(3042)
 
-public val MaterialSymbols.RoundaboutLeft: MaterialSymbol
+val MaterialSymbols.RoundaboutLeft: MaterialSymbol
     get() = symbolAt(3043)
 
-public val MaterialSymbols.RoundaboutRight: MaterialSymbol
+val MaterialSymbols.RoundaboutRight: MaterialSymbol
     get() = symbolAt(3044)
 
-public val MaterialSymbols.RoundedCorner: MaterialSymbol
+val MaterialSymbols.RoundedCorner: MaterialSymbol
     get() = symbolAt(3045)
 
-public val MaterialSymbols.Route: MaterialSymbol
+val MaterialSymbols.Route: MaterialSymbol
     get() = symbolAt(3046)
 
-public val MaterialSymbols.Router: MaterialSymbol
+val MaterialSymbols.Router: MaterialSymbol
     get() = symbolAt(3047)
 
-public val MaterialSymbols.RouterOff: MaterialSymbol
+val MaterialSymbols.RouterOff: MaterialSymbol
     get() = symbolAt(3048)
 
-public val MaterialSymbols.Routine: MaterialSymbol
+val MaterialSymbols.Routine: MaterialSymbol
     get() = symbolAt(3049)
 
-public val MaterialSymbols.Rowing: MaterialSymbol
+val MaterialSymbols.Rowing: MaterialSymbol
     get() = symbolAt(3050)
 
-public val MaterialSymbols.RssFeed: MaterialSymbol
+val MaterialSymbols.RssFeed: MaterialSymbol
     get() = symbolAt(3051)
 
-public val MaterialSymbols.Rsvp: MaterialSymbol
+val MaterialSymbols.Rsvp: MaterialSymbol
     get() = symbolAt(3052)
 
-public val MaterialSymbols.Rtt: MaterialSymbol
+val MaterialSymbols.Rtt: MaterialSymbol
     get() = symbolAt(3053)
 
-public val MaterialSymbols.Rubric: MaterialSymbol
+val MaterialSymbols.Rubric: MaterialSymbol
     get() = symbolAt(3054)
 
-public val MaterialSymbols.Rule: MaterialSymbol
+val MaterialSymbols.Rule: MaterialSymbol
     get() = symbolAt(3055)
 
-public val MaterialSymbols.RuleFolder: MaterialSymbol
+val MaterialSymbols.RuleFolder: MaterialSymbol
     get() = symbolAt(3056)
 
-public val MaterialSymbols.RuleSettings: MaterialSymbol
+val MaterialSymbols.RuleSettings: MaterialSymbol
     get() = symbolAt(3057)
 
-public val MaterialSymbols.RunCircle: MaterialSymbol
+val MaterialSymbols.RunCircle: MaterialSymbol
     get() = symbolAt(3058)
 
-public val MaterialSymbols.RunningWithErrors: MaterialSymbol
+val MaterialSymbols.RunningWithErrors: MaterialSymbol
     get() = symbolAt(3059)
 
-public val MaterialSymbols.RvHookup: MaterialSymbol
+val MaterialSymbols.RvHookup: MaterialSymbol
     get() = symbolAt(3060)
 
-public val MaterialSymbols.SafetyCheck: MaterialSymbol
+val MaterialSymbols.SafetyCheck: MaterialSymbol
     get() = symbolAt(3061)
 
-public val MaterialSymbols.SafetyCheckOff: MaterialSymbol
+val MaterialSymbols.SafetyCheckOff: MaterialSymbol
     get() = symbolAt(3062)
 
-public val MaterialSymbols.SafetyDivider: MaterialSymbol
+val MaterialSymbols.SafetyDivider: MaterialSymbol
     get() = symbolAt(3063)
 
-public val MaterialSymbols.Sailing: MaterialSymbol
+val MaterialSymbols.Sailing: MaterialSymbol
     get() = symbolAt(3064)
 
-public val MaterialSymbols.Salinity: MaterialSymbol
+val MaterialSymbols.Salinity: MaterialSymbol
     get() = symbolAt(3065)
 
-public val MaterialSymbols.Sanitizer: MaterialSymbol
+val MaterialSymbols.Sanitizer: MaterialSymbol
     get() = symbolAt(3066)
 
-public val MaterialSymbols.Satellite: MaterialSymbol
+val MaterialSymbols.Satellite: MaterialSymbol
     get() = symbolAt(3067)
 
-public val MaterialSymbols.SatelliteAlt: MaterialSymbol
+val MaterialSymbols.SatelliteAlt: MaterialSymbol
     get() = symbolAt(3068)
 
-public val MaterialSymbols.Sauna: MaterialSymbol
+val MaterialSymbols.Sauna: MaterialSymbol
     get() = symbolAt(3069)
 
-public val MaterialSymbols.Save: MaterialSymbol
+val MaterialSymbols.Save: MaterialSymbol
     get() = symbolAt(3070)
 
-public val MaterialSymbols.SaveAlt: MaterialSymbol
+val MaterialSymbols.SaveAlt: MaterialSymbol
     get() = symbolAt(3071)
 
-public val MaterialSymbols.SaveAs: MaterialSymbol
+val MaterialSymbols.SaveAs: MaterialSymbol
     get() = symbolAt(3072)
 
-public val MaterialSymbols.SaveClock: MaterialSymbol
+val MaterialSymbols.SaveClock: MaterialSymbol
     get() = symbolAt(3073)
 
-public val MaterialSymbols.SavedSearch: MaterialSymbol
+val MaterialSymbols.SavedSearch: MaterialSymbol
     get() = symbolAt(3074)
 
-public val MaterialSymbols.Savings: MaterialSymbol
+val MaterialSymbols.Savings: MaterialSymbol
     get() = symbolAt(3075)
 
-public val MaterialSymbols.Scale: MaterialSymbol
+val MaterialSymbols.Scale: MaterialSymbol
     get() = symbolAt(3076)
 
-public val MaterialSymbols.Scan: MaterialSymbol
+val MaterialSymbols.Scan: MaterialSymbol
     get() = symbolAt(3077)
 
-public val MaterialSymbols.ScanDelete: MaterialSymbol
+val MaterialSymbols.ScanDelete: MaterialSymbol
     get() = symbolAt(3078)
 
-public val MaterialSymbols.Scanner: MaterialSymbol
+val MaterialSymbols.Scanner: MaterialSymbol
     get() = symbolAt(3079)
 
-public val MaterialSymbols.ScatterPlot: MaterialSymbol
+val MaterialSymbols.ScatterPlot: MaterialSymbol
     get() = symbolAt(3080)
 
-public val MaterialSymbols.Scene: MaterialSymbol
+val MaterialSymbols.Scene: MaterialSymbol
     get() = symbolAt(3081)
 
-public val MaterialSymbols.Schedule: MaterialSymbol
+val MaterialSymbols.Schedule: MaterialSymbol
     get() = symbolAt(3082)
 
-public val MaterialSymbols.ScheduleSend: MaterialSymbol
+val MaterialSymbols.ScheduleSend: MaterialSymbol
     get() = symbolAt(3083)
 
-public val MaterialSymbols.Schema: MaterialSymbol
+val MaterialSymbols.Schema: MaterialSymbol
     get() = symbolAt(3084)
 
-public val MaterialSymbols.School: MaterialSymbol
+val MaterialSymbols.School: MaterialSymbol
     get() = symbolAt(3085)
 
-public val MaterialSymbols.Science: MaterialSymbol
+val MaterialSymbols.Science: MaterialSymbol
     get() = symbolAt(3086)
 
-public val MaterialSymbols.ScienceOff: MaterialSymbol
+val MaterialSymbols.ScienceOff: MaterialSymbol
     get() = symbolAt(3087)
 
-public val MaterialSymbols.Scooter: MaterialSymbol
+val MaterialSymbols.Scooter: MaterialSymbol
     get() = symbolAt(3088)
 
-public val MaterialSymbols.Score: MaterialSymbol
+val MaterialSymbols.Score: MaterialSymbol
     get() = symbolAt(3089)
 
-public val MaterialSymbols.Scoreboard: MaterialSymbol
+val MaterialSymbols.Scoreboard: MaterialSymbol
     get() = symbolAt(3090)
 
-public val MaterialSymbols.ScreenLockLandscape: MaterialSymbol
+val MaterialSymbols.ScreenLockLandscape: MaterialSymbol
     get() = symbolAt(3091)
 
-public val MaterialSymbols.ScreenLockPortrait: MaterialSymbol
+val MaterialSymbols.ScreenLockPortrait: MaterialSymbol
     get() = symbolAt(3092)
 
-public val MaterialSymbols.ScreenLockRotation: MaterialSymbol
+val MaterialSymbols.ScreenLockRotation: MaterialSymbol
     get() = symbolAt(3093)
 
-public val MaterialSymbols.ScreenRecord: MaterialSymbol
+val MaterialSymbols.ScreenRecord: MaterialSymbol
     get() = symbolAt(3094)
 
-public val MaterialSymbols.ScreenRotation: MaterialSymbol
+val MaterialSymbols.ScreenRotation: MaterialSymbol
     get() = symbolAt(3095)
 
-public val MaterialSymbols.ScreenRotationAlt: MaterialSymbol
+val MaterialSymbols.ScreenRotationAlt: MaterialSymbol
     get() = symbolAt(3096)
 
-public val MaterialSymbols.ScreenRotationUp: MaterialSymbol
+val MaterialSymbols.ScreenRotationUp: MaterialSymbol
     get() = symbolAt(3097)
 
-public val MaterialSymbols.ScreenSearchDesktop: MaterialSymbol
+val MaterialSymbols.ScreenSearchDesktop: MaterialSymbol
     get() = symbolAt(3098)
 
-public val MaterialSymbols.ScreenShare: MaterialSymbol
+val MaterialSymbols.ScreenShare: MaterialSymbol
     get() = symbolAt(3099)
 
-public val MaterialSymbols.Screenshot: MaterialSymbol
+val MaterialSymbols.Screenshot: MaterialSymbol
     get() = symbolAt(3100)
 
-public val MaterialSymbols.ScreenshotFrame: MaterialSymbol
+val MaterialSymbols.ScreenshotFrame: MaterialSymbol
     get() = symbolAt(3101)
 
-public val MaterialSymbols.ScreenshotFrame2: MaterialSymbol
+val MaterialSymbols.ScreenshotFrame2: MaterialSymbol
     get() = symbolAt(3102)
 
-public val MaterialSymbols.ScreenshotKeyboard: MaterialSymbol
+val MaterialSymbols.ScreenshotKeyboard: MaterialSymbol
     get() = symbolAt(3103)
 
-public val MaterialSymbols.ScreenshotMonitor: MaterialSymbol
+val MaterialSymbols.ScreenshotMonitor: MaterialSymbol
     get() = symbolAt(3104)
 
-public val MaterialSymbols.ScreenshotRegion: MaterialSymbol
+val MaterialSymbols.ScreenshotRegion: MaterialSymbol
     get() = symbolAt(3105)
 
-public val MaterialSymbols.ScreenshotTablet: MaterialSymbol
+val MaterialSymbols.ScreenshotTablet: MaterialSymbol
     get() = symbolAt(3106)
 
-public val MaterialSymbols.Script: MaterialSymbol
+val MaterialSymbols.Script: MaterialSymbol
     get() = symbolAt(3107)
 
-public val MaterialSymbols.ScrollableHeader: MaterialSymbol
+val MaterialSymbols.ScrollableHeader: MaterialSymbol
     get() = symbolAt(3108)
 
-public val MaterialSymbols.ScubaDiving: MaterialSymbol
+val MaterialSymbols.ScubaDiving: MaterialSymbol
     get() = symbolAt(3109)
 
-public val MaterialSymbols.Sd: MaterialSymbol
+val MaterialSymbols.Sd: MaterialSymbol
     get() = symbolAt(3110)
 
-public val MaterialSymbols.SdCard: MaterialSymbol
+val MaterialSymbols.SdCard: MaterialSymbol
     get() = symbolAt(3111)
 
-public val MaterialSymbols.SdCardAlert: MaterialSymbol
+val MaterialSymbols.SdCardAlert: MaterialSymbol
     get() = symbolAt(3112)
 
-public val MaterialSymbols.SdStorage: MaterialSymbol
+val MaterialSymbols.SdStorage: MaterialSymbol
     get() = symbolAt(3113)
 
-public val MaterialSymbols.Sdk: MaterialSymbol
+val MaterialSymbols.Sdk: MaterialSymbol
     get() = symbolAt(3114)
 
-public val MaterialSymbols.Search: MaterialSymbol
+val MaterialSymbols.Search: MaterialSymbol
     get() = symbolAt(3115)
 
-public val MaterialSymbols.SearchActivity: MaterialSymbol
+val MaterialSymbols.SearchActivity: MaterialSymbol
     get() = symbolAt(3116)
 
-public val MaterialSymbols.SearchCheck: MaterialSymbol
+val MaterialSymbols.SearchCheck: MaterialSymbol
     get() = symbolAt(3117)
 
-public val MaterialSymbols.SearchCheck2: MaterialSymbol
+val MaterialSymbols.SearchCheck2: MaterialSymbol
     get() = symbolAt(3118)
 
-public val MaterialSymbols.SearchGear: MaterialSymbol
+val MaterialSymbols.SearchGear: MaterialSymbol
     get() = symbolAt(3119)
 
-public val MaterialSymbols.SearchHandsFree: MaterialSymbol
+val MaterialSymbols.SearchHandsFree: MaterialSymbol
     get() = symbolAt(3120)
 
-public val MaterialSymbols.SearchInsights: MaterialSymbol
+val MaterialSymbols.SearchInsights: MaterialSymbol
     get() = symbolAt(3121)
 
-public val MaterialSymbols.SearchOff: MaterialSymbol
+val MaterialSymbols.SearchOff: MaterialSymbol
     get() = symbolAt(3122)
 
-public val MaterialSymbols.SeatCoolLeft: MaterialSymbol
+val MaterialSymbols.SeatCoolLeft: MaterialSymbol
     get() = symbolAt(3123)
 
-public val MaterialSymbols.SeatCoolRight: MaterialSymbol
+val MaterialSymbols.SeatCoolRight: MaterialSymbol
     get() = symbolAt(3124)
 
-public val MaterialSymbols.SeatHeatLeft: MaterialSymbol
+val MaterialSymbols.SeatHeatLeft: MaterialSymbol
     get() = symbolAt(3125)
 
-public val MaterialSymbols.SeatHeatRight: MaterialSymbol
+val MaterialSymbols.SeatHeatRight: MaterialSymbol
     get() = symbolAt(3126)
 
-public val MaterialSymbols.SeatVentLeft: MaterialSymbol
+val MaterialSymbols.SeatVentLeft: MaterialSymbol
     get() = symbolAt(3127)
 
-public val MaterialSymbols.SeatVentRight: MaterialSymbol
+val MaterialSymbols.SeatVentRight: MaterialSymbol
     get() = symbolAt(3128)
 
-public val MaterialSymbols.Security: MaterialSymbol
+val MaterialSymbols.Security: MaterialSymbol
     get() = symbolAt(3129)
 
-public val MaterialSymbols.SecurityKey: MaterialSymbol
+val MaterialSymbols.SecurityKey: MaterialSymbol
     get() = symbolAt(3130)
 
-public val MaterialSymbols.SecurityUpdate: MaterialSymbol
+val MaterialSymbols.SecurityUpdate: MaterialSymbol
     get() = symbolAt(3131)
 
-public val MaterialSymbols.SecurityUpdateGood: MaterialSymbol
+val MaterialSymbols.SecurityUpdateGood: MaterialSymbol
     get() = symbolAt(3132)
 
-public val MaterialSymbols.SecurityUpdateWarning: MaterialSymbol
+val MaterialSymbols.SecurityUpdateWarning: MaterialSymbol
     get() = symbolAt(3133)
 
-public val MaterialSymbols.Segment: MaterialSymbol
+val MaterialSymbols.Segment: MaterialSymbol
     get() = symbolAt(3134)
 
-public val MaterialSymbols.Select: MaterialSymbol
+val MaterialSymbols.Select: MaterialSymbol
     get() = symbolAt(3135)
 
-public val MaterialSymbols.SelectAll: MaterialSymbol
+val MaterialSymbols.SelectAll: MaterialSymbol
     get() = symbolAt(3136)
 
-public val MaterialSymbols.SelectCheckBox: MaterialSymbol
+val MaterialSymbols.SelectCheckBox: MaterialSymbol
     get() = symbolAt(3137)
 
-public val MaterialSymbols.SelectToSpeak: MaterialSymbol
+val MaterialSymbols.SelectToSpeak: MaterialSymbol
     get() = symbolAt(3138)
 
-public val MaterialSymbols.SelectWindow: MaterialSymbol
+val MaterialSymbols.SelectWindow: MaterialSymbol
     get() = symbolAt(3139)
 
-public val MaterialSymbols.SelectWindow2: MaterialSymbol
+val MaterialSymbols.SelectWindow2: MaterialSymbol
     get() = symbolAt(3140)
 
-public val MaterialSymbols.SelectWindowOff: MaterialSymbol
+val MaterialSymbols.SelectWindowOff: MaterialSymbol
     get() = symbolAt(3141)
 
-public val MaterialSymbols.SelfCare: MaterialSymbol
+val MaterialSymbols.SelfCare: MaterialSymbol
     get() = symbolAt(3142)
 
-public val MaterialSymbols.SelfImprovement: MaterialSymbol
+val MaterialSymbols.SelfImprovement: MaterialSymbol
     get() = symbolAt(3143)
 
-public val MaterialSymbols.Sell: MaterialSymbol
+val MaterialSymbols.Sell: MaterialSymbol
     get() = symbolAt(3144)
 
-public val MaterialSymbols.Send: MaterialSymbol
+val MaterialSymbols.Send: MaterialSymbol
     get() = symbolAt(3145)
 
-public val MaterialSymbols.SendAndArchive: MaterialSymbol
+val MaterialSymbols.SendAndArchive: MaterialSymbol
     get() = symbolAt(3146)
 
-public val MaterialSymbols.SendMoney: MaterialSymbol
+val MaterialSymbols.SendMoney: MaterialSymbol
     get() = symbolAt(3147)
 
-public val MaterialSymbols.SendTimeExtension: MaterialSymbol
+val MaterialSymbols.SendTimeExtension: MaterialSymbol
     get() = symbolAt(3148)
 
-public val MaterialSymbols.SendToMobile: MaterialSymbol
+val MaterialSymbols.SendToMobile: MaterialSymbol
     get() = symbolAt(3149)
 
-public val MaterialSymbols.SensorDoor: MaterialSymbol
+val MaterialSymbols.SensorDoor: MaterialSymbol
     get() = symbolAt(3150)
 
-public val MaterialSymbols.SensorOccupied: MaterialSymbol
+val MaterialSymbols.SensorOccupied: MaterialSymbol
     get() = symbolAt(3151)
 
-public val MaterialSymbols.SensorWindow: MaterialSymbol
+val MaterialSymbols.SensorWindow: MaterialSymbol
     get() = symbolAt(3152)
 
-public val MaterialSymbols.Sensors: MaterialSymbol
+val MaterialSymbols.Sensors: MaterialSymbol
     get() = symbolAt(3153)
 
-public val MaterialSymbols.SensorsKrx: MaterialSymbol
+val MaterialSymbols.SensorsKrx: MaterialSymbol
     get() = symbolAt(3154)
 
-public val MaterialSymbols.SensorsKrxOff: MaterialSymbol
+val MaterialSymbols.SensorsKrxOff: MaterialSymbol
     get() = symbolAt(3155)
 
-public val MaterialSymbols.SensorsOff: MaterialSymbol
+val MaterialSymbols.SensorsOff: MaterialSymbol
     get() = symbolAt(3156)
 
-public val MaterialSymbols.SentimentCalm: MaterialSymbol
+val MaterialSymbols.SentimentCalm: MaterialSymbol
     get() = symbolAt(3157)
 
-public val MaterialSymbols.SentimentContent: MaterialSymbol
+val MaterialSymbols.SentimentContent: MaterialSymbol
     get() = symbolAt(3158)
 
-public val MaterialSymbols.SentimentDissatisfied: MaterialSymbol
+val MaterialSymbols.SentimentDissatisfied: MaterialSymbol
     get() = symbolAt(3159)
 
-public val MaterialSymbols.SentimentExcited: MaterialSymbol
+val MaterialSymbols.SentimentExcited: MaterialSymbol
     get() = symbolAt(3160)
 
-public val MaterialSymbols.SentimentExtremelyDissatisfied: MaterialSymbol
+val MaterialSymbols.SentimentExtremelyDissatisfied: MaterialSymbol
     get() = symbolAt(3161)
 
-public val MaterialSymbols.SentimentFrustrated: MaterialSymbol
+val MaterialSymbols.SentimentFrustrated: MaterialSymbol
     get() = symbolAt(3162)
 
-public val MaterialSymbols.SentimentNeutral: MaterialSymbol
+val MaterialSymbols.SentimentNeutral: MaterialSymbol
     get() = symbolAt(3163)
 
-public val MaterialSymbols.SentimentSad: MaterialSymbol
+val MaterialSymbols.SentimentSad: MaterialSymbol
     get() = symbolAt(3164)
 
-public val MaterialSymbols.SentimentSatisfied: MaterialSymbol
+val MaterialSymbols.SentimentSatisfied: MaterialSymbol
     get() = symbolAt(3165)
 
-public val MaterialSymbols.SentimentSatisfiedAlt: MaterialSymbol
+val MaterialSymbols.SentimentSatisfiedAlt: MaterialSymbol
     get() = symbolAt(3166)
 
-public val MaterialSymbols.SentimentStressed: MaterialSymbol
+val MaterialSymbols.SentimentStressed: MaterialSymbol
     get() = symbolAt(3167)
 
-public val MaterialSymbols.SentimentVeryDissatisfied: MaterialSymbol
+val MaterialSymbols.SentimentVeryDissatisfied: MaterialSymbol
     get() = symbolAt(3168)
 
-public val MaterialSymbols.SentimentVerySatisfied: MaterialSymbol
+val MaterialSymbols.SentimentVerySatisfied: MaterialSymbol
     get() = symbolAt(3169)
 
-public val MaterialSymbols.SentimentWorried: MaterialSymbol
+val MaterialSymbols.SentimentWorried: MaterialSymbol
     get() = symbolAt(3170)
 
-public val MaterialSymbols.Serif: MaterialSymbol
+val MaterialSymbols.Serif: MaterialSymbol
     get() = symbolAt(3171)
 
-public val MaterialSymbols.ServerPerson: MaterialSymbol
+val MaterialSymbols.ServerPerson: MaterialSymbol
     get() = symbolAt(3172)
 
-public val MaterialSymbols.ServiceToolbox: MaterialSymbol
+val MaterialSymbols.ServiceToolbox: MaterialSymbol
     get() = symbolAt(3173)
 
-public val MaterialSymbols.SetMeal: MaterialSymbol
+val MaterialSymbols.SetMeal: MaterialSymbol
     get() = symbolAt(3174)
 
-public val MaterialSymbols.Settings: MaterialSymbol
+val MaterialSymbols.Settings: MaterialSymbol
     get() = symbolAt(3175)
 
-public val MaterialSymbols.SettingsAccessibility: MaterialSymbol
+val MaterialSymbols.SettingsAccessibility: MaterialSymbol
     get() = symbolAt(3176)
 
-public val MaterialSymbols.SettingsAccountBox: MaterialSymbol
+val MaterialSymbols.SettingsAccountBox: MaterialSymbol
     get() = symbolAt(3177)
 
-public val MaterialSymbols.SettingsAlert: MaterialSymbol
+val MaterialSymbols.SettingsAlert: MaterialSymbol
     get() = symbolAt(3178)
 
-public val MaterialSymbols.SettingsApplications: MaterialSymbol
+val MaterialSymbols.SettingsApplications: MaterialSymbol
     get() = symbolAt(3179)
 
-public val MaterialSymbols.SettingsBRoll: MaterialSymbol
+val MaterialSymbols.SettingsBRoll: MaterialSymbol
     get() = symbolAt(3180)
 
-public val MaterialSymbols.SettingsBackupRestore: MaterialSymbol
+val MaterialSymbols.SettingsBackupRestore: MaterialSymbol
     get() = symbolAt(3181)
 
-public val MaterialSymbols.SettingsBluetooth: MaterialSymbol
+val MaterialSymbols.SettingsBluetooth: MaterialSymbol
     get() = symbolAt(3182)
 
-public val MaterialSymbols.SettingsBrightness: MaterialSymbol
+val MaterialSymbols.SettingsBrightness: MaterialSymbol
     get() = symbolAt(3183)
 
-public val MaterialSymbols.SettingsCell: MaterialSymbol
+val MaterialSymbols.SettingsCell: MaterialSymbol
     get() = symbolAt(3184)
 
-public val MaterialSymbols.SettingsCinematicBlur: MaterialSymbol
+val MaterialSymbols.SettingsCinematicBlur: MaterialSymbol
     get() = symbolAt(3185)
 
-public val MaterialSymbols.SettingsEthernet: MaterialSymbol
+val MaterialSymbols.SettingsEthernet: MaterialSymbol
     get() = symbolAt(3186)
 
-public val MaterialSymbols.SettingsHeart: MaterialSymbol
+val MaterialSymbols.SettingsHeart: MaterialSymbol
     get() = symbolAt(3187)
 
-public val MaterialSymbols.SettingsInputAntenna: MaterialSymbol
+val MaterialSymbols.SettingsInputAntenna: MaterialSymbol
     get() = symbolAt(3188)
 
-public val MaterialSymbols.SettingsInputComponent: MaterialSymbol
+val MaterialSymbols.SettingsInputComponent: MaterialSymbol
     get() = symbolAt(3189)
 
-public val MaterialSymbols.SettingsInputComposite: MaterialSymbol
+val MaterialSymbols.SettingsInputComposite: MaterialSymbol
     get() = symbolAt(3190)
 
-public val MaterialSymbols.SettingsInputHdmi: MaterialSymbol
+val MaterialSymbols.SettingsInputHdmi: MaterialSymbol
     get() = symbolAt(3191)
 
-public val MaterialSymbols.SettingsInputSvideo: MaterialSymbol
+val MaterialSymbols.SettingsInputSvideo: MaterialSymbol
     get() = symbolAt(3192)
 
-public val MaterialSymbols.SettingsMotionMode: MaterialSymbol
+val MaterialSymbols.SettingsMotionMode: MaterialSymbol
     get() = symbolAt(3193)
 
-public val MaterialSymbols.SettingsNightSight: MaterialSymbol
+val MaterialSymbols.SettingsNightSight: MaterialSymbol
     get() = symbolAt(3194)
 
-public val MaterialSymbols.SettingsOverscan: MaterialSymbol
+val MaterialSymbols.SettingsOverscan: MaterialSymbol
     get() = symbolAt(3195)
 
-public val MaterialSymbols.SettingsPanorama: MaterialSymbol
+val MaterialSymbols.SettingsPanorama: MaterialSymbol
     get() = symbolAt(3196)
 
-public val MaterialSymbols.SettingsPhone: MaterialSymbol
+val MaterialSymbols.SettingsPhone: MaterialSymbol
     get() = symbolAt(3197)
 
-public val MaterialSymbols.SettingsPhotoCamera: MaterialSymbol
+val MaterialSymbols.SettingsPhotoCamera: MaterialSymbol
     get() = symbolAt(3198)
 
-public val MaterialSymbols.SettingsPower: MaterialSymbol
+val MaterialSymbols.SettingsPower: MaterialSymbol
     get() = symbolAt(3199)
 
-public val MaterialSymbols.SettingsRemote: MaterialSymbol
+val MaterialSymbols.SettingsRemote: MaterialSymbol
     get() = symbolAt(3200)
 
-public val MaterialSymbols.SettingsSeating: MaterialSymbol
+val MaterialSymbols.SettingsSeating: MaterialSymbol
     get() = symbolAt(3201)
 
-public val MaterialSymbols.SettingsSlowMotion: MaterialSymbol
+val MaterialSymbols.SettingsSlowMotion: MaterialSymbol
     get() = symbolAt(3202)
 
-public val MaterialSymbols.SettingsSuggest: MaterialSymbol
+val MaterialSymbols.SettingsSuggest: MaterialSymbol
     get() = symbolAt(3203)
 
-public val MaterialSymbols.SettingsSystemDaydream: MaterialSymbol
+val MaterialSymbols.SettingsSystemDaydream: MaterialSymbol
     get() = symbolAt(3204)
 
-public val MaterialSymbols.SettingsTimelapse: MaterialSymbol
+val MaterialSymbols.SettingsTimelapse: MaterialSymbol
     get() = symbolAt(3205)
 
-public val MaterialSymbols.SettingsVideoCamera: MaterialSymbol
+val MaterialSymbols.SettingsVideoCamera: MaterialSymbol
     get() = symbolAt(3206)
 
-public val MaterialSymbols.SettingsVoice: MaterialSymbol
+val MaterialSymbols.SettingsVoice: MaterialSymbol
     get() = symbolAt(3207)
 
-public val MaterialSymbols.SettopComponent: MaterialSymbol
+val MaterialSymbols.SettopComponent: MaterialSymbol
     get() = symbolAt(3208)
 
-public val MaterialSymbols.SevereCold: MaterialSymbol
+val MaterialSymbols.SevereCold: MaterialSymbol
     get() = symbolAt(3209)
 
-public val MaterialSymbols.Shadow: MaterialSymbol
+val MaterialSymbols.Shadow: MaterialSymbol
     get() = symbolAt(3210)
 
-public val MaterialSymbols.ShadowAdd: MaterialSymbol
+val MaterialSymbols.ShadowAdd: MaterialSymbol
     get() = symbolAt(3211)
 
-public val MaterialSymbols.ShadowMinus: MaterialSymbol
+val MaterialSymbols.ShadowMinus: MaterialSymbol
     get() = symbolAt(3212)
 
-public val MaterialSymbols.ShapeLine: MaterialSymbol
+val MaterialSymbols.ShapeLine: MaterialSymbol
     get() = symbolAt(3213)
 
-public val MaterialSymbols.ShapeRecognition: MaterialSymbol
+val MaterialSymbols.ShapeRecognition: MaterialSymbol
     get() = symbolAt(3214)
 
-public val MaterialSymbols.Shapes: MaterialSymbol
+val MaterialSymbols.Shapes: MaterialSymbol
     get() = symbolAt(3215)
 
-public val MaterialSymbols.Share: MaterialSymbol
+val MaterialSymbols.Share: MaterialSymbol
     get() = symbolAt(3216)
 
-public val MaterialSymbols.ShareEta: MaterialSymbol
+val MaterialSymbols.ShareEta: MaterialSymbol
     get() = symbolAt(3217)
 
-public val MaterialSymbols.ShareLocation: MaterialSymbol
+val MaterialSymbols.ShareLocation: MaterialSymbol
     get() = symbolAt(3218)
 
-public val MaterialSymbols.ShareOff: MaterialSymbol
+val MaterialSymbols.ShareOff: MaterialSymbol
     get() = symbolAt(3219)
 
-public val MaterialSymbols.ShareReviews: MaterialSymbol
+val MaterialSymbols.ShareReviews: MaterialSymbol
     get() = symbolAt(3220)
 
-public val MaterialSymbols.ShareWindows: MaterialSymbol
+val MaterialSymbols.ShareWindows: MaterialSymbol
     get() = symbolAt(3221)
 
-public val MaterialSymbols.ShavedIce: MaterialSymbol
+val MaterialSymbols.ShavedIce: MaterialSymbol
     get() = symbolAt(3222)
 
-public val MaterialSymbols.SheetsRtl: MaterialSymbol
+val MaterialSymbols.SheetsRtl: MaterialSymbol
     get() = symbolAt(3223)
 
-public val MaterialSymbols.ShelfAutoHide: MaterialSymbol
+val MaterialSymbols.ShelfAutoHide: MaterialSymbol
     get() = symbolAt(3224)
 
-public val MaterialSymbols.ShelfPosition: MaterialSymbol
+val MaterialSymbols.ShelfPosition: MaterialSymbol
     get() = symbolAt(3225)
 
-public val MaterialSymbols.Shelves: MaterialSymbol
+val MaterialSymbols.Shelves: MaterialSymbol
     get() = symbolAt(3226)
 
-public val MaterialSymbols.Shield: MaterialSymbol
+val MaterialSymbols.Shield: MaterialSymbol
     get() = symbolAt(3227)
 
-public val MaterialSymbols.ShieldLock: MaterialSymbol
+val MaterialSymbols.ShieldLock: MaterialSymbol
     get() = symbolAt(3228)
 
-public val MaterialSymbols.ShieldLocked: MaterialSymbol
+val MaterialSymbols.ShieldLocked: MaterialSymbol
     get() = symbolAt(3229)
 
-public val MaterialSymbols.ShieldMoon: MaterialSymbol
+val MaterialSymbols.ShieldMoon: MaterialSymbol
     get() = symbolAt(3230)
 
-public val MaterialSymbols.ShieldPerson: MaterialSymbol
+val MaterialSymbols.ShieldPerson: MaterialSymbol
     get() = symbolAt(3231)
 
-public val MaterialSymbols.ShieldQuestion: MaterialSymbol
+val MaterialSymbols.ShieldQuestion: MaterialSymbol
     get() = symbolAt(3232)
 
-public val MaterialSymbols.ShieldToggle: MaterialSymbol
+val MaterialSymbols.ShieldToggle: MaterialSymbol
     get() = symbolAt(3233)
 
-public val MaterialSymbols.ShieldWatch: MaterialSymbol
+val MaterialSymbols.ShieldWatch: MaterialSymbol
     get() = symbolAt(3234)
 
-public val MaterialSymbols.ShieldWithHeart: MaterialSymbol
+val MaterialSymbols.ShieldWithHeart: MaterialSymbol
     get() = symbolAt(3235)
 
-public val MaterialSymbols.ShieldWithHouse: MaterialSymbol
+val MaterialSymbols.ShieldWithHouse: MaterialSymbol
     get() = symbolAt(3236)
 
-public val MaterialSymbols.Shift: MaterialSymbol
+val MaterialSymbols.Shift: MaterialSymbol
     get() = symbolAt(3237)
 
-public val MaterialSymbols.ShiftLock: MaterialSymbol
+val MaterialSymbols.ShiftLock: MaterialSymbol
     get() = symbolAt(3238)
 
-public val MaterialSymbols.ShiftLockOff: MaterialSymbol
+val MaterialSymbols.ShiftLockOff: MaterialSymbol
     get() = symbolAt(3239)
 
-public val MaterialSymbols.Shop: MaterialSymbol
+val MaterialSymbols.Shop: MaterialSymbol
     get() = symbolAt(3240)
 
-public val MaterialSymbols.Shop2: MaterialSymbol
+val MaterialSymbols.Shop2: MaterialSymbol
     get() = symbolAt(3241)
 
-public val MaterialSymbols.ShopTwo: MaterialSymbol
+val MaterialSymbols.ShopTwo: MaterialSymbol
     get() = symbolAt(3242)
 
-public val MaterialSymbols.ShoppingBag: MaterialSymbol
+val MaterialSymbols.ShoppingBag: MaterialSymbol
     get() = symbolAt(3243)
 
-public val MaterialSymbols.ShoppingBagSpeed: MaterialSymbol
+val MaterialSymbols.ShoppingBagSpeed: MaterialSymbol
     get() = symbolAt(3244)
 
-public val MaterialSymbols.ShoppingBasket: MaterialSymbol
+val MaterialSymbols.ShoppingBasket: MaterialSymbol
     get() = symbolAt(3245)
 
-public val MaterialSymbols.ShoppingCart: MaterialSymbol
+val MaterialSymbols.ShoppingCart: MaterialSymbol
     get() = symbolAt(3246)
 
-public val MaterialSymbols.ShoppingCartCheckout: MaterialSymbol
+val MaterialSymbols.ShoppingCartCheckout: MaterialSymbol
     get() = symbolAt(3247)
 
-public val MaterialSymbols.ShoppingCartOff: MaterialSymbol
+val MaterialSymbols.ShoppingCartOff: MaterialSymbol
     get() = symbolAt(3248)
 
-public val MaterialSymbols.Shoppingmode: MaterialSymbol
+val MaterialSymbols.Shoppingmode: MaterialSymbol
     get() = symbolAt(3249)
 
-public val MaterialSymbols.ShortStay: MaterialSymbol
+val MaterialSymbols.ShortStay: MaterialSymbol
     get() = symbolAt(3250)
 
-public val MaterialSymbols.ShortText: MaterialSymbol
+val MaterialSymbols.ShortText: MaterialSymbol
     get() = symbolAt(3251)
 
-public val MaterialSymbols.Shortcut: MaterialSymbol
+val MaterialSymbols.Shortcut: MaterialSymbol
     get() = symbolAt(3252)
 
-public val MaterialSymbols.ShowChart: MaterialSymbol
+val MaterialSymbols.ShowChart: MaterialSymbol
     get() = symbolAt(3253)
 
-public val MaterialSymbols.Shower: MaterialSymbol
+val MaterialSymbols.Shower: MaterialSymbol
     get() = symbolAt(3254)
 
-public val MaterialSymbols.Shuffle: MaterialSymbol
+val MaterialSymbols.Shuffle: MaterialSymbol
     get() = symbolAt(3255)
 
-public val MaterialSymbols.ShuffleOn: MaterialSymbol
+val MaterialSymbols.ShuffleOn: MaterialSymbol
     get() = symbolAt(3256)
 
-public val MaterialSymbols.ShutterSpeed: MaterialSymbol
+val MaterialSymbols.ShutterSpeed: MaterialSymbol
     get() = symbolAt(3257)
 
-public val MaterialSymbols.ShutterSpeedAdd: MaterialSymbol
+val MaterialSymbols.ShutterSpeedAdd: MaterialSymbol
     get() = symbolAt(3258)
 
-public val MaterialSymbols.ShutterSpeedMinus: MaterialSymbol
+val MaterialSymbols.ShutterSpeedMinus: MaterialSymbol
     get() = symbolAt(3259)
 
-public val MaterialSymbols.Sick: MaterialSymbol
+val MaterialSymbols.Sick: MaterialSymbol
     get() = symbolAt(3260)
 
-public val MaterialSymbols.SideNavigation: MaterialSymbol
+val MaterialSymbols.SideNavigation: MaterialSymbol
     get() = symbolAt(3261)
 
-public val MaterialSymbols.SignLanguage: MaterialSymbol
+val MaterialSymbols.SignLanguage: MaterialSymbol
     get() = symbolAt(3262)
 
-public val MaterialSymbols.SignLanguage2: MaterialSymbol
+val MaterialSymbols.SignLanguage2: MaterialSymbol
     get() = symbolAt(3263)
 
-public val MaterialSymbols.SignalCellular0Bar: MaterialSymbol
+val MaterialSymbols.SignalCellular0Bar: MaterialSymbol
     get() = symbolAt(3264)
 
-public val MaterialSymbols.SignalCellular1Bar: MaterialSymbol
+val MaterialSymbols.SignalCellular1Bar: MaterialSymbol
     get() = symbolAt(3265)
 
-public val MaterialSymbols.SignalCellular2Bar: MaterialSymbol
+val MaterialSymbols.SignalCellular2Bar: MaterialSymbol
     get() = symbolAt(3266)
 
-public val MaterialSymbols.SignalCellular3Bar: MaterialSymbol
+val MaterialSymbols.SignalCellular3Bar: MaterialSymbol
     get() = symbolAt(3267)
 
-public val MaterialSymbols.SignalCellular4Bar: MaterialSymbol
+val MaterialSymbols.SignalCellular4Bar: MaterialSymbol
     get() = symbolAt(3268)
 
-public val MaterialSymbols.SignalCellularAdd: MaterialSymbol
+val MaterialSymbols.SignalCellularAdd: MaterialSymbol
     get() = symbolAt(3269)
 
-public val MaterialSymbols.SignalCellularAlt: MaterialSymbol
+val MaterialSymbols.SignalCellularAlt: MaterialSymbol
     get() = symbolAt(3270)
 
-public val MaterialSymbols.SignalCellularAlt1Bar: MaterialSymbol
+val MaterialSymbols.SignalCellularAlt1Bar: MaterialSymbol
     get() = symbolAt(3271)
 
-public val MaterialSymbols.SignalCellularAlt2Bar: MaterialSymbol
+val MaterialSymbols.SignalCellularAlt2Bar: MaterialSymbol
     get() = symbolAt(3272)
 
-public val MaterialSymbols.SignalCellularConnectedNoInternet0Bar: MaterialSymbol
+val MaterialSymbols.SignalCellularConnectedNoInternet0Bar: MaterialSymbol
     get() = symbolAt(3273)
 
-public val MaterialSymbols.SignalCellularConnectedNoInternet4Bar: MaterialSymbol
+val MaterialSymbols.SignalCellularConnectedNoInternet4Bar: MaterialSymbol
     get() = symbolAt(3274)
 
-public val MaterialSymbols.SignalCellularNoSim: MaterialSymbol
+val MaterialSymbols.SignalCellularNoSim: MaterialSymbol
     get() = symbolAt(3275)
 
-public val MaterialSymbols.SignalCellularNodata: MaterialSymbol
+val MaterialSymbols.SignalCellularNodata: MaterialSymbol
     get() = symbolAt(3276)
 
-public val MaterialSymbols.SignalCellularNull: MaterialSymbol
+val MaterialSymbols.SignalCellularNull: MaterialSymbol
     get() = symbolAt(3277)
 
-public val MaterialSymbols.SignalCellularOff: MaterialSymbol
+val MaterialSymbols.SignalCellularOff: MaterialSymbol
     get() = symbolAt(3278)
 
-public val MaterialSymbols.SignalCellularPause: MaterialSymbol
+val MaterialSymbols.SignalCellularPause: MaterialSymbol
     get() = symbolAt(3279)
 
-public val MaterialSymbols.SignalDisconnected: MaterialSymbol
+val MaterialSymbols.SignalDisconnected: MaterialSymbol
     get() = symbolAt(3280)
 
-public val MaterialSymbols.SignalWifi0Bar: MaterialSymbol
+val MaterialSymbols.SignalWifi0Bar: MaterialSymbol
     get() = symbolAt(3281)
 
-public val MaterialSymbols.SignalWifi4Bar: MaterialSymbol
+val MaterialSymbols.SignalWifi4Bar: MaterialSymbol
     get() = symbolAt(3282)
 
-public val MaterialSymbols.SignalWifi4BarLock: MaterialSymbol
+val MaterialSymbols.SignalWifi4BarLock: MaterialSymbol
     get() = symbolAt(3283)
 
-public val MaterialSymbols.SignalWifiBad: MaterialSymbol
+val MaterialSymbols.SignalWifiBad: MaterialSymbol
     get() = symbolAt(3284)
 
-public val MaterialSymbols.SignalWifiConnectedNoInternet4: MaterialSymbol
+val MaterialSymbols.SignalWifiConnectedNoInternet4: MaterialSymbol
     get() = symbolAt(3285)
 
-public val MaterialSymbols.SignalWifiOff: MaterialSymbol
+val MaterialSymbols.SignalWifiOff: MaterialSymbol
     get() = symbolAt(3286)
 
-public val MaterialSymbols.SignalWifiStatusbar4Bar: MaterialSymbol
+val MaterialSymbols.SignalWifiStatusbar4Bar: MaterialSymbol
     get() = symbolAt(3287)
 
-public val MaterialSymbols.SignalWifiStatusbarNotConnected: MaterialSymbol
+val MaterialSymbols.SignalWifiStatusbarNotConnected: MaterialSymbol
     get() = symbolAt(3288)
 
-public val MaterialSymbols.SignalWifiStatusbarNull: MaterialSymbol
+val MaterialSymbols.SignalWifiStatusbarNull: MaterialSymbol
     get() = symbolAt(3289)
 
-public val MaterialSymbols.Signature: MaterialSymbol
+val MaterialSymbols.Signature: MaterialSymbol
     get() = symbolAt(3290)
 
-public val MaterialSymbols.Signpost: MaterialSymbol
+val MaterialSymbols.Signpost: MaterialSymbol
     get() = symbolAt(3291)
 
-public val MaterialSymbols.SimCard: MaterialSymbol
+val MaterialSymbols.SimCard: MaterialSymbol
     get() = symbolAt(3292)
 
-public val MaterialSymbols.SimCardAlert: MaterialSymbol
+val MaterialSymbols.SimCardAlert: MaterialSymbol
     get() = symbolAt(3293)
 
-public val MaterialSymbols.SimCardDownload: MaterialSymbol
+val MaterialSymbols.SimCardDownload: MaterialSymbol
     get() = symbolAt(3294)
 
-public val MaterialSymbols.Simulation: MaterialSymbol
+val MaterialSymbols.Simulation: MaterialSymbol
     get() = symbolAt(3295)
 
-public val MaterialSymbols.SingleBed: MaterialSymbol
+val MaterialSymbols.SingleBed: MaterialSymbol
     get() = symbolAt(3296)
 
-public val MaterialSymbols.Sip: MaterialSymbol
+val MaterialSymbols.Sip: MaterialSymbol
     get() = symbolAt(3297)
 
-public val MaterialSymbols.Siren: MaterialSymbol
+val MaterialSymbols.Siren: MaterialSymbol
     get() = symbolAt(3298)
 
-public val MaterialSymbols.SirenCheck: MaterialSymbol
+val MaterialSymbols.SirenCheck: MaterialSymbol
     get() = symbolAt(3299)
 
-public val MaterialSymbols.SirenOpen: MaterialSymbol
+val MaterialSymbols.SirenOpen: MaterialSymbol
     get() = symbolAt(3300)
 
-public val MaterialSymbols.SirenQuestion: MaterialSymbol
+val MaterialSymbols.SirenQuestion: MaterialSymbol
     get() = symbolAt(3301)
 
-public val MaterialSymbols.Skateboarding: MaterialSymbol
+val MaterialSymbols.Skateboarding: MaterialSymbol
     get() = symbolAt(3302)
 
-public val MaterialSymbols.Skeleton: MaterialSymbol
+val MaterialSymbols.Skeleton: MaterialSymbol
     get() = symbolAt(3303)
 
-public val MaterialSymbols.Skillet: MaterialSymbol
+val MaterialSymbols.Skillet: MaterialSymbol
     get() = symbolAt(3304)
 
-public val MaterialSymbols.SkilletCooktop: MaterialSymbol
+val MaterialSymbols.SkilletCooktop: MaterialSymbol
     get() = symbolAt(3305)
 
-public val MaterialSymbols.SkipNext: MaterialSymbol
+val MaterialSymbols.SkipNext: MaterialSymbol
     get() = symbolAt(3306)
 
-public val MaterialSymbols.SkipPrevious: MaterialSymbol
+val MaterialSymbols.SkipPrevious: MaterialSymbol
     get() = symbolAt(3307)
 
-public val MaterialSymbols.Skull: MaterialSymbol
+val MaterialSymbols.Skull: MaterialSymbol
     get() = symbolAt(3308)
 
-public val MaterialSymbols.SkullList: MaterialSymbol
+val MaterialSymbols.SkullList: MaterialSymbol
     get() = symbolAt(3309)
 
-public val MaterialSymbols.SlabSerif: MaterialSymbol
+val MaterialSymbols.SlabSerif: MaterialSymbol
     get() = symbolAt(3310)
 
-public val MaterialSymbols.Sledding: MaterialSymbol
+val MaterialSymbols.Sledding: MaterialSymbol
     get() = symbolAt(3311)
 
-public val MaterialSymbols.Sleep: MaterialSymbol
+val MaterialSymbols.Sleep: MaterialSymbol
     get() = symbolAt(3312)
 
-public val MaterialSymbols.SleepScore: MaterialSymbol
+val MaterialSymbols.SleepScore: MaterialSymbol
     get() = symbolAt(3313)
 
-public val MaterialSymbols.SlideLibrary: MaterialSymbol
+val MaterialSymbols.SlideLibrary: MaterialSymbol
     get() = symbolAt(3314)
 
-public val MaterialSymbols.Sliders: MaterialSymbol
+val MaterialSymbols.Sliders: MaterialSymbol
     get() = symbolAt(3315)
 
-public val MaterialSymbols.Slideshow: MaterialSymbol
+val MaterialSymbols.Slideshow: MaterialSymbol
     get() = symbolAt(3316)
 
-public val MaterialSymbols.SlowMotionVideo: MaterialSymbol
+val MaterialSymbols.SlowMotionVideo: MaterialSymbol
     get() = symbolAt(3317)
 
-public val MaterialSymbols.SmartButton: MaterialSymbol
+val MaterialSymbols.SmartButton: MaterialSymbol
     get() = symbolAt(3318)
 
-public val MaterialSymbols.SmartCardReader: MaterialSymbol
+val MaterialSymbols.SmartCardReader: MaterialSymbol
     get() = symbolAt(3319)
 
-public val MaterialSymbols.SmartCardReaderOff: MaterialSymbol
+val MaterialSymbols.SmartCardReaderOff: MaterialSymbol
     get() = symbolAt(3320)
 
-public val MaterialSymbols.SmartDisplay: MaterialSymbol
+val MaterialSymbols.SmartDisplay: MaterialSymbol
     get() = symbolAt(3321)
 
-public val MaterialSymbols.SmartOutlet: MaterialSymbol
+val MaterialSymbols.SmartOutlet: MaterialSymbol
     get() = symbolAt(3322)
 
-public val MaterialSymbols.SmartScreen: MaterialSymbol
+val MaterialSymbols.SmartScreen: MaterialSymbol
     get() = symbolAt(3323)
 
-public val MaterialSymbols.SmartToy: MaterialSymbol
+val MaterialSymbols.SmartToy: MaterialSymbol
     get() = symbolAt(3324)
 
-public val MaterialSymbols.Smartphone: MaterialSymbol
+val MaterialSymbols.Smartphone: MaterialSymbol
     get() = symbolAt(3325)
 
-public val MaterialSymbols.SmartphoneCamera: MaterialSymbol
+val MaterialSymbols.SmartphoneCamera: MaterialSymbol
     get() = symbolAt(3326)
 
-public val MaterialSymbols.SmbShare: MaterialSymbol
+val MaterialSymbols.SmbShare: MaterialSymbol
     get() = symbolAt(3327)
 
-public val MaterialSymbols.SmokeFree: MaterialSymbol
+val MaterialSymbols.SmokeFree: MaterialSymbol
     get() = symbolAt(3328)
 
-public val MaterialSymbols.SmokingRooms: MaterialSymbol
+val MaterialSymbols.SmokingRooms: MaterialSymbol
     get() = symbolAt(3329)
 
-public val MaterialSymbols.Sms: MaterialSymbol
+val MaterialSymbols.Sms: MaterialSymbol
     get() = symbolAt(3330)
 
-public val MaterialSymbols.SmsFailed: MaterialSymbol
+val MaterialSymbols.SmsFailed: MaterialSymbol
     get() = symbolAt(3331)
 
-public val MaterialSymbols.SnippetFolder: MaterialSymbol
+val MaterialSymbols.SnippetFolder: MaterialSymbol
     get() = symbolAt(3332)
 
-public val MaterialSymbols.Snooze: MaterialSymbol
+val MaterialSymbols.Snooze: MaterialSymbol
     get() = symbolAt(3333)
 
-public val MaterialSymbols.Snowboarding: MaterialSymbol
+val MaterialSymbols.Snowboarding: MaterialSymbol
     get() = symbolAt(3334)
 
-public val MaterialSymbols.Snowing: MaterialSymbol
+val MaterialSymbols.Snowing: MaterialSymbol
     get() = symbolAt(3335)
 
-public val MaterialSymbols.SnowingHeavy: MaterialSymbol
+val MaterialSymbols.SnowingHeavy: MaterialSymbol
     get() = symbolAt(3336)
 
-public val MaterialSymbols.Snowmobile: MaterialSymbol
+val MaterialSymbols.Snowmobile: MaterialSymbol
     get() = symbolAt(3337)
 
-public val MaterialSymbols.Snowshoeing: MaterialSymbol
+val MaterialSymbols.Snowshoeing: MaterialSymbol
     get() = symbolAt(3338)
 
-public val MaterialSymbols.Soap: MaterialSymbol
+val MaterialSymbols.Soap: MaterialSymbol
     get() = symbolAt(3339)
 
-public val MaterialSymbols.Soba: MaterialSymbol
+val MaterialSymbols.Soba: MaterialSymbol
     get() = symbolAt(3340)
 
-public val MaterialSymbols.SocialDistance: MaterialSymbol
+val MaterialSymbols.SocialDistance: MaterialSymbol
     get() = symbolAt(3341)
 
-public val MaterialSymbols.SocialLeaderboard: MaterialSymbol
+val MaterialSymbols.SocialLeaderboard: MaterialSymbol
     get() = symbolAt(3342)
 
-public val MaterialSymbols.SolarPower: MaterialSymbol
+val MaterialSymbols.SolarPower: MaterialSymbol
     get() = symbolAt(3343)
 
-public val MaterialSymbols.SoloDining: MaterialSymbol
+val MaterialSymbols.SoloDining: MaterialSymbol
     get() = symbolAt(3344)
 
-public val MaterialSymbols.Sort: MaterialSymbol
+val MaterialSymbols.Sort: MaterialSymbol
     get() = symbolAt(3345)
 
-public val MaterialSymbols.SortByAlpha: MaterialSymbol
+val MaterialSymbols.SortByAlpha: MaterialSymbol
     get() = symbolAt(3346)
 
-public val MaterialSymbols.Sos: MaterialSymbol
+val MaterialSymbols.Sos: MaterialSymbol
     get() = symbolAt(3347)
 
-public val MaterialSymbols.SoundDetectionDogBarking: MaterialSymbol
+val MaterialSymbols.SoundDetectionDogBarking: MaterialSymbol
     get() = symbolAt(3348)
 
-public val MaterialSymbols.SoundDetectionGlassBreak: MaterialSymbol
+val MaterialSymbols.SoundDetectionGlassBreak: MaterialSymbol
     get() = symbolAt(3349)
 
-public val MaterialSymbols.SoundDetectionLoudSound: MaterialSymbol
+val MaterialSymbols.SoundDetectionLoudSound: MaterialSymbol
     get() = symbolAt(3350)
 
-public val MaterialSymbols.SoundSampler: MaterialSymbol
+val MaterialSymbols.SoundSampler: MaterialSymbol
     get() = symbolAt(3351)
 
-public val MaterialSymbols.SoupKitchen: MaterialSymbol
+val MaterialSymbols.SoupKitchen: MaterialSymbol
     get() = symbolAt(3352)
 
-public val MaterialSymbols.Source: MaterialSymbol
+val MaterialSymbols.Source: MaterialSymbol
     get() = symbolAt(3353)
 
-public val MaterialSymbols.SourceEnvironment: MaterialSymbol
+val MaterialSymbols.SourceEnvironment: MaterialSymbol
     get() = symbolAt(3354)
 
-public val MaterialSymbols.SourceNotes: MaterialSymbol
+val MaterialSymbols.SourceNotes: MaterialSymbol
     get() = symbolAt(3355)
 
-public val MaterialSymbols.South: MaterialSymbol
+val MaterialSymbols.South: MaterialSymbol
     get() = symbolAt(3356)
 
-public val MaterialSymbols.SouthAmerica: MaterialSymbol
+val MaterialSymbols.SouthAmerica: MaterialSymbol
     get() = symbolAt(3357)
 
-public val MaterialSymbols.SouthEast: MaterialSymbol
+val MaterialSymbols.SouthEast: MaterialSymbol
     get() = symbolAt(3358)
 
-public val MaterialSymbols.SouthWest: MaterialSymbol
+val MaterialSymbols.SouthWest: MaterialSymbol
     get() = symbolAt(3359)
 
-public val MaterialSymbols.Spa: MaterialSymbol
+val MaterialSymbols.Spa: MaterialSymbol
     get() = symbolAt(3360)
 
-public val MaterialSymbols.SpaceBar: MaterialSymbol
+val MaterialSymbols.SpaceBar: MaterialSymbol
     get() = symbolAt(3361)
 
-public val MaterialSymbols.SpaceDashboard: MaterialSymbol
+val MaterialSymbols.SpaceDashboard: MaterialSymbol
     get() = symbolAt(3362)
 
-public val MaterialSymbols.SpatialAudio: MaterialSymbol
+val MaterialSymbols.SpatialAudio: MaterialSymbol
     get() = symbolAt(3363)
 
-public val MaterialSymbols.SpatialAudioOff: MaterialSymbol
+val MaterialSymbols.SpatialAudioOff: MaterialSymbol
     get() = symbolAt(3364)
 
-public val MaterialSymbols.SpatialSpeaker: MaterialSymbol
+val MaterialSymbols.SpatialSpeaker: MaterialSymbol
     get() = symbolAt(3365)
 
-public val MaterialSymbols.SpatialTracking: MaterialSymbol
+val MaterialSymbols.SpatialTracking: MaterialSymbol
     get() = symbolAt(3366)
 
-public val MaterialSymbols.Speaker: MaterialSymbol
+val MaterialSymbols.Speaker: MaterialSymbol
     get() = symbolAt(3367)
 
-public val MaterialSymbols.SpeakerGroup: MaterialSymbol
+val MaterialSymbols.SpeakerGroup: MaterialSymbol
     get() = symbolAt(3368)
 
-public val MaterialSymbols.SpeakerNotes: MaterialSymbol
+val MaterialSymbols.SpeakerNotes: MaterialSymbol
     get() = symbolAt(3369)
 
-public val MaterialSymbols.SpeakerNotesOff: MaterialSymbol
+val MaterialSymbols.SpeakerNotesOff: MaterialSymbol
     get() = symbolAt(3370)
 
-public val MaterialSymbols.SpeakerPhone: MaterialSymbol
+val MaterialSymbols.SpeakerPhone: MaterialSymbol
     get() = symbolAt(3371)
 
-public val MaterialSymbols.SpecialCharacter: MaterialSymbol
+val MaterialSymbols.SpecialCharacter: MaterialSymbol
     get() = symbolAt(3372)
 
-public val MaterialSymbols.SpecificGravity: MaterialSymbol
+val MaterialSymbols.SpecificGravity: MaterialSymbol
     get() = symbolAt(3373)
 
-public val MaterialSymbols.SpeechToText: MaterialSymbol
+val MaterialSymbols.SpeechToText: MaterialSymbol
     get() = symbolAt(3374)
 
-public val MaterialSymbols.Speed: MaterialSymbol
+val MaterialSymbols.Speed: MaterialSymbol
     get() = symbolAt(3375)
 
-public val MaterialSymbols.Speed025: MaterialSymbol
+val MaterialSymbols.Speed025: MaterialSymbol
     get() = symbolAt(3376)
 
-public val MaterialSymbols.Speed02x: MaterialSymbol
+val MaterialSymbols.Speed02x: MaterialSymbol
     get() = symbolAt(3377)
 
-public val MaterialSymbols.Speed05: MaterialSymbol
+val MaterialSymbols.Speed05: MaterialSymbol
     get() = symbolAt(3378)
 
-public val MaterialSymbols.Speed05x: MaterialSymbol
+val MaterialSymbols.Speed05x: MaterialSymbol
     get() = symbolAt(3379)
 
-public val MaterialSymbols.Speed075: MaterialSymbol
+val MaterialSymbols.Speed075: MaterialSymbol
     get() = symbolAt(3380)
 
-public val MaterialSymbols.Speed07x: MaterialSymbol
+val MaterialSymbols.Speed07x: MaterialSymbol
     get() = symbolAt(3381)
 
-public val MaterialSymbols.Speed12: MaterialSymbol
+val MaterialSymbols.Speed12: MaterialSymbol
     get() = symbolAt(3382)
 
-public val MaterialSymbols.Speed125: MaterialSymbol
+val MaterialSymbols.Speed125: MaterialSymbol
     get() = symbolAt(3383)
 
-public val MaterialSymbols.Speed12x: MaterialSymbol
+val MaterialSymbols.Speed12x: MaterialSymbol
     get() = symbolAt(3384)
 
-public val MaterialSymbols.Speed15: MaterialSymbol
+val MaterialSymbols.Speed15: MaterialSymbol
     get() = symbolAt(3385)
 
-public val MaterialSymbols.Speed15x: MaterialSymbol
+val MaterialSymbols.Speed15x: MaterialSymbol
     get() = symbolAt(3386)
 
-public val MaterialSymbols.Speed175: MaterialSymbol
+val MaterialSymbols.Speed175: MaterialSymbol
     get() = symbolAt(3387)
 
-public val MaterialSymbols.Speed17x: MaterialSymbol
+val MaterialSymbols.Speed17x: MaterialSymbol
     get() = symbolAt(3388)
 
-public val MaterialSymbols.Speed2x: MaterialSymbol
+val MaterialSymbols.Speed2x: MaterialSymbol
     get() = symbolAt(3389)
 
-public val MaterialSymbols.SpeedCamera: MaterialSymbol
+val MaterialSymbols.SpeedCamera: MaterialSymbol
     get() = symbolAt(3390)
 
-public val MaterialSymbols.Spellcheck: MaterialSymbol
+val MaterialSymbols.Spellcheck: MaterialSymbol
     get() = symbolAt(3391)
 
-public val MaterialSymbols.SplitScene: MaterialSymbol
+val MaterialSymbols.SplitScene: MaterialSymbol
     get() = symbolAt(3392)
 
-public val MaterialSymbols.SplitSceneDown: MaterialSymbol
+val MaterialSymbols.SplitSceneDown: MaterialSymbol
     get() = symbolAt(3393)
 
-public val MaterialSymbols.SplitSceneLeft: MaterialSymbol
+val MaterialSymbols.SplitSceneLeft: MaterialSymbol
     get() = symbolAt(3394)
 
-public val MaterialSymbols.SplitSceneRight: MaterialSymbol
+val MaterialSymbols.SplitSceneRight: MaterialSymbol
     get() = symbolAt(3395)
 
-public val MaterialSymbols.SplitSceneUp: MaterialSymbol
+val MaterialSymbols.SplitSceneUp: MaterialSymbol
     get() = symbolAt(3396)
 
-public val MaterialSymbols.Splitscreen: MaterialSymbol
+val MaterialSymbols.Splitscreen: MaterialSymbol
     get() = symbolAt(3397)
 
-public val MaterialSymbols.SplitscreenAdd: MaterialSymbol
+val MaterialSymbols.SplitscreenAdd: MaterialSymbol
     get() = symbolAt(3398)
 
-public val MaterialSymbols.SplitscreenBottom: MaterialSymbol
+val MaterialSymbols.SplitscreenBottom: MaterialSymbol
     get() = symbolAt(3399)
 
-public val MaterialSymbols.SplitscreenLandscape: MaterialSymbol
+val MaterialSymbols.SplitscreenLandscape: MaterialSymbol
     get() = symbolAt(3400)
 
-public val MaterialSymbols.SplitscreenLeft: MaterialSymbol
+val MaterialSymbols.SplitscreenLeft: MaterialSymbol
     get() = symbolAt(3401)
 
-public val MaterialSymbols.SplitscreenPortrait: MaterialSymbol
+val MaterialSymbols.SplitscreenPortrait: MaterialSymbol
     get() = symbolAt(3402)
 
-public val MaterialSymbols.SplitscreenRight: MaterialSymbol
+val MaterialSymbols.SplitscreenRight: MaterialSymbol
     get() = symbolAt(3403)
 
-public val MaterialSymbols.SplitscreenTop: MaterialSymbol
+val MaterialSymbols.SplitscreenTop: MaterialSymbol
     get() = symbolAt(3404)
 
-public val MaterialSymbols.SplitscreenVerticalAdd: MaterialSymbol
+val MaterialSymbols.SplitscreenVerticalAdd: MaterialSymbol
     get() = symbolAt(3405)
 
-public val MaterialSymbols.Spo2: MaterialSymbol
+val MaterialSymbols.Spo2: MaterialSymbol
     get() = symbolAt(3406)
 
-public val MaterialSymbols.Spoke: MaterialSymbol
+val MaterialSymbols.Spoke: MaterialSymbol
     get() = symbolAt(3407)
 
-public val MaterialSymbols.Sports: MaterialSymbol
+val MaterialSymbols.Sports: MaterialSymbol
     get() = symbolAt(3408)
 
-public val MaterialSymbols.SportsAndOutdoors: MaterialSymbol
+val MaterialSymbols.SportsAndOutdoors: MaterialSymbol
     get() = symbolAt(3409)
 
-public val MaterialSymbols.SportsBar: MaterialSymbol
+val MaterialSymbols.SportsBar: MaterialSymbol
     get() = symbolAt(3410)
 
-public val MaterialSymbols.SportsBaseball: MaterialSymbol
+val MaterialSymbols.SportsBaseball: MaterialSymbol
     get() = symbolAt(3411)
 
-public val MaterialSymbols.SportsBasketball: MaterialSymbol
+val MaterialSymbols.SportsBasketball: MaterialSymbol
     get() = symbolAt(3412)
 
-public val MaterialSymbols.SportsCricket: MaterialSymbol
+val MaterialSymbols.SportsCricket: MaterialSymbol
     get() = symbolAt(3413)
 
-public val MaterialSymbols.SportsEsports: MaterialSymbol
+val MaterialSymbols.SportsEsports: MaterialSymbol
     get() = symbolAt(3414)
 
-public val MaterialSymbols.SportsFootball: MaterialSymbol
+val MaterialSymbols.SportsFootball: MaterialSymbol
     get() = symbolAt(3415)
 
-public val MaterialSymbols.SportsGolf: MaterialSymbol
+val MaterialSymbols.SportsGolf: MaterialSymbol
     get() = symbolAt(3416)
 
-public val MaterialSymbols.SportsGymnastics: MaterialSymbol
+val MaterialSymbols.SportsGymnastics: MaterialSymbol
     get() = symbolAt(3417)
 
-public val MaterialSymbols.SportsHandball: MaterialSymbol
+val MaterialSymbols.SportsHandball: MaterialSymbol
     get() = symbolAt(3418)
 
-public val MaterialSymbols.SportsHockey: MaterialSymbol
+val MaterialSymbols.SportsHockey: MaterialSymbol
     get() = symbolAt(3419)
 
-public val MaterialSymbols.SportsKabaddi: MaterialSymbol
+val MaterialSymbols.SportsKabaddi: MaterialSymbol
     get() = symbolAt(3420)
 
-public val MaterialSymbols.SportsMartialArts: MaterialSymbol
+val MaterialSymbols.SportsMartialArts: MaterialSymbol
     get() = symbolAt(3421)
 
-public val MaterialSymbols.SportsMma: MaterialSymbol
+val MaterialSymbols.SportsMma: MaterialSymbol
     get() = symbolAt(3422)
 
-public val MaterialSymbols.SportsMotorsports: MaterialSymbol
+val MaterialSymbols.SportsMotorsports: MaterialSymbol
     get() = symbolAt(3423)
 
-public val MaterialSymbols.SportsRugby: MaterialSymbol
+val MaterialSymbols.SportsRugby: MaterialSymbol
     get() = symbolAt(3424)
 
-public val MaterialSymbols.SportsScore: MaterialSymbol
+val MaterialSymbols.SportsScore: MaterialSymbol
     get() = symbolAt(3425)
 
-public val MaterialSymbols.SportsSoccer: MaterialSymbol
+val MaterialSymbols.SportsSoccer: MaterialSymbol
     get() = symbolAt(3426)
 
-public val MaterialSymbols.SportsTennis: MaterialSymbol
+val MaterialSymbols.SportsTennis: MaterialSymbol
     get() = symbolAt(3427)
 
-public val MaterialSymbols.SportsVolleyball: MaterialSymbol
+val MaterialSymbols.SportsVolleyball: MaterialSymbol
     get() = symbolAt(3428)
 
-public val MaterialSymbols.Sprinkler: MaterialSymbol
+val MaterialSymbols.Sprinkler: MaterialSymbol
     get() = symbolAt(3429)
 
-public val MaterialSymbols.Sprint: MaterialSymbol
+val MaterialSymbols.Sprint: MaterialSymbol
     get() = symbolAt(3430)
 
-public val MaterialSymbols.Square: MaterialSymbol
+val MaterialSymbols.Square: MaterialSymbol
     get() = symbolAt(3431)
 
-public val MaterialSymbols.SquareDot: MaterialSymbol
+val MaterialSymbols.SquareDot: MaterialSymbol
     get() = symbolAt(3432)
 
-public val MaterialSymbols.SquareFoot: MaterialSymbol
+val MaterialSymbols.SquareFoot: MaterialSymbol
     get() = symbolAt(3433)
 
-public val MaterialSymbols.SsidChart: MaterialSymbol
+val MaterialSymbols.SsidChart: MaterialSymbol
     get() = symbolAt(3434)
 
-public val MaterialSymbols.Stack: MaterialSymbol
+val MaterialSymbols.Stack: MaterialSymbol
     get() = symbolAt(3435)
 
-public val MaterialSymbols.StackGroup: MaterialSymbol
+val MaterialSymbols.StackGroup: MaterialSymbol
     get() = symbolAt(3436)
 
-public val MaterialSymbols.StackHexagon: MaterialSymbol
+val MaterialSymbols.StackHexagon: MaterialSymbol
     get() = symbolAt(3437)
 
-public val MaterialSymbols.StackOff: MaterialSymbol
+val MaterialSymbols.StackOff: MaterialSymbol
     get() = symbolAt(3438)
 
-public val MaterialSymbols.StackStar: MaterialSymbol
+val MaterialSymbols.StackStar: MaterialSymbol
     get() = symbolAt(3439)
 
-public val MaterialSymbols.StackedBarChart: MaterialSymbol
+val MaterialSymbols.StackedBarChart: MaterialSymbol
     get() = symbolAt(3440)
 
-public val MaterialSymbols.StackedEmail: MaterialSymbol
+val MaterialSymbols.StackedEmail: MaterialSymbol
     get() = symbolAt(3441)
 
-public val MaterialSymbols.StackedInbox: MaterialSymbol
+val MaterialSymbols.StackedInbox: MaterialSymbol
     get() = symbolAt(3442)
 
-public val MaterialSymbols.StackedLineChart: MaterialSymbol
+val MaterialSymbols.StackedLineChart: MaterialSymbol
     get() = symbolAt(3443)
 
-public val MaterialSymbols.Stacks: MaterialSymbol
+val MaterialSymbols.Stacks: MaterialSymbol
     get() = symbolAt(3444)
 
-public val MaterialSymbols.StadiaController: MaterialSymbol
+val MaterialSymbols.StadiaController: MaterialSymbol
     get() = symbolAt(3445)
 
-public val MaterialSymbols.Stadium: MaterialSymbol
+val MaterialSymbols.Stadium: MaterialSymbol
     get() = symbolAt(3446)
 
-public val MaterialSymbols.Stairs: MaterialSymbol
+val MaterialSymbols.Stairs: MaterialSymbol
     get() = symbolAt(3447)
 
-public val MaterialSymbols.Stairs2: MaterialSymbol
+val MaterialSymbols.Stairs2: MaterialSymbol
     get() = symbolAt(3448)
 
-public val MaterialSymbols.Star: MaterialSymbol
+val MaterialSymbols.Star: MaterialSymbol
     get() = symbolAt(3449)
 
-public val MaterialSymbols.StarBorder: MaterialSymbol
+val MaterialSymbols.StarBorder: MaterialSymbol
     get() = symbolAt(3450)
 
-public val MaterialSymbols.StarBorderPurple500: MaterialSymbol
+val MaterialSymbols.StarBorderPurple500: MaterialSymbol
     get() = symbolAt(3451)
 
-public val MaterialSymbols.StarHalf: MaterialSymbol
+val MaterialSymbols.StarHalf: MaterialSymbol
     get() = symbolAt(3452)
 
-public val MaterialSymbols.StarOutline: MaterialSymbol
+val MaterialSymbols.StarOutline: MaterialSymbol
     get() = symbolAt(3453)
 
-public val MaterialSymbols.StarPurple500: MaterialSymbol
+val MaterialSymbols.StarPurple500: MaterialSymbol
     get() = symbolAt(3454)
 
-public val MaterialSymbols.StarRate: MaterialSymbol
+val MaterialSymbols.StarRate: MaterialSymbol
     get() = symbolAt(3455)
 
-public val MaterialSymbols.StarRateHalf: MaterialSymbol
+val MaterialSymbols.StarRateHalf: MaterialSymbol
     get() = symbolAt(3456)
 
-public val MaterialSymbols.StarShine: MaterialSymbol
+val MaterialSymbols.StarShine: MaterialSymbol
     get() = symbolAt(3457)
 
-public val MaterialSymbols.Stars: MaterialSymbol
+val MaterialSymbols.Stars: MaterialSymbol
     get() = symbolAt(3458)
 
-public val MaterialSymbols.Stars2: MaterialSymbol
+val MaterialSymbols.Stars2: MaterialSymbol
     get() = symbolAt(3459)
 
-public val MaterialSymbols.Start: MaterialSymbol
+val MaterialSymbols.Start: MaterialSymbol
     get() = symbolAt(3460)
 
-public val MaterialSymbols.Stat0: MaterialSymbol
+val MaterialSymbols.Stat0: MaterialSymbol
     get() = symbolAt(3461)
 
-public val MaterialSymbols.Stat1: MaterialSymbol
+val MaterialSymbols.Stat1: MaterialSymbol
     get() = symbolAt(3462)
 
-public val MaterialSymbols.Stat2: MaterialSymbol
+val MaterialSymbols.Stat2: MaterialSymbol
     get() = symbolAt(3463)
 
-public val MaterialSymbols.Stat3: MaterialSymbol
+val MaterialSymbols.Stat3: MaterialSymbol
     get() = symbolAt(3464)
 
-public val MaterialSymbols.StatMinus1: MaterialSymbol
+val MaterialSymbols.StatMinus1: MaterialSymbol
     get() = symbolAt(3465)
 
-public val MaterialSymbols.StatMinus2: MaterialSymbol
+val MaterialSymbols.StatMinus2: MaterialSymbol
     get() = symbolAt(3466)
 
-public val MaterialSymbols.StatMinus3: MaterialSymbol
+val MaterialSymbols.StatMinus3: MaterialSymbol
     get() = symbolAt(3467)
 
-public val MaterialSymbols.StayCurrentLandscape: MaterialSymbol
+val MaterialSymbols.StayCurrentLandscape: MaterialSymbol
     get() = symbolAt(3468)
 
-public val MaterialSymbols.StayCurrentPortrait: MaterialSymbol
+val MaterialSymbols.StayCurrentPortrait: MaterialSymbol
     get() = symbolAt(3469)
 
-public val MaterialSymbols.StayPrimaryLandscape: MaterialSymbol
+val MaterialSymbols.StayPrimaryLandscape: MaterialSymbol
     get() = symbolAt(3470)
 
-public val MaterialSymbols.StayPrimaryPortrait: MaterialSymbol
+val MaterialSymbols.StayPrimaryPortrait: MaterialSymbol
     get() = symbolAt(3471)
 
-public val MaterialSymbols.SteeringWheelHeat: MaterialSymbol
+val MaterialSymbols.SteeringWheelHeat: MaterialSymbol
     get() = symbolAt(3472)
 
-public val MaterialSymbols.Step: MaterialSymbol
+val MaterialSymbols.Step: MaterialSymbol
     get() = symbolAt(3473)
 
-public val MaterialSymbols.StepInto: MaterialSymbol
+val MaterialSymbols.StepInto: MaterialSymbol
     get() = symbolAt(3474)
 
-public val MaterialSymbols.StepOut: MaterialSymbol
+val MaterialSymbols.StepOut: MaterialSymbol
     get() = symbolAt(3475)
 
-public val MaterialSymbols.StepOver: MaterialSymbol
+val MaterialSymbols.StepOver: MaterialSymbol
     get() = symbolAt(3476)
 
-public val MaterialSymbols.Steppers: MaterialSymbol
+val MaterialSymbols.Steppers: MaterialSymbol
     get() = symbolAt(3477)
 
-public val MaterialSymbols.Steps: MaterialSymbol
+val MaterialSymbols.Steps: MaterialSymbol
     get() = symbolAt(3478)
 
-public val MaterialSymbols.Stethoscope: MaterialSymbol
+val MaterialSymbols.Stethoscope: MaterialSymbol
     get() = symbolAt(3479)
 
-public val MaterialSymbols.StethoscopeArrow: MaterialSymbol
+val MaterialSymbols.StethoscopeArrow: MaterialSymbol
     get() = symbolAt(3480)
 
-public val MaterialSymbols.StethoscopeCheck: MaterialSymbol
+val MaterialSymbols.StethoscopeCheck: MaterialSymbol
     get() = symbolAt(3481)
 
-public val MaterialSymbols.StickyNote: MaterialSymbol
+val MaterialSymbols.StickyNote: MaterialSymbol
     get() = symbolAt(3482)
 
-public val MaterialSymbols.StickyNote2: MaterialSymbol
+val MaterialSymbols.StickyNote2: MaterialSymbol
     get() = symbolAt(3483)
 
-public val MaterialSymbols.StockMedia: MaterialSymbol
+val MaterialSymbols.StockMedia: MaterialSymbol
     get() = symbolAt(3484)
 
-public val MaterialSymbols.Stockpot: MaterialSymbol
+val MaterialSymbols.Stockpot: MaterialSymbol
     get() = symbolAt(3485)
 
-public val MaterialSymbols.Stop: MaterialSymbol
+val MaterialSymbols.Stop: MaterialSymbol
     get() = symbolAt(3486)
 
-public val MaterialSymbols.StopCircle: MaterialSymbol
+val MaterialSymbols.StopCircle: MaterialSymbol
     get() = symbolAt(3487)
 
-public val MaterialSymbols.StopScreenShare: MaterialSymbol
+val MaterialSymbols.StopScreenShare: MaterialSymbol
     get() = symbolAt(3488)
 
-public val MaterialSymbols.Storage: MaterialSymbol
+val MaterialSymbols.Storage: MaterialSymbol
     get() = symbolAt(3489)
 
-public val MaterialSymbols.Store: MaterialSymbol
+val MaterialSymbols.Store: MaterialSymbol
     get() = symbolAt(3490)
 
-public val MaterialSymbols.StoreMallDirectory: MaterialSymbol
+val MaterialSymbols.StoreMallDirectory: MaterialSymbol
     get() = symbolAt(3491)
 
-public val MaterialSymbols.Storefront: MaterialSymbol
+val MaterialSymbols.Storefront: MaterialSymbol
     get() = symbolAt(3492)
 
-public val MaterialSymbols.Storm: MaterialSymbol
+val MaterialSymbols.Storm: MaterialSymbol
     get() = symbolAt(3493)
 
-public val MaterialSymbols.Straight: MaterialSymbol
+val MaterialSymbols.Straight: MaterialSymbol
     get() = symbolAt(3494)
 
-public val MaterialSymbols.Straighten: MaterialSymbol
+val MaterialSymbols.Straighten: MaterialSymbol
     get() = symbolAt(3495)
 
-public val MaterialSymbols.Strategy: MaterialSymbol
+val MaterialSymbols.Strategy: MaterialSymbol
     get() = symbolAt(3496)
 
-public val MaterialSymbols.Stream: MaterialSymbol
+val MaterialSymbols.Stream: MaterialSymbol
     get() = symbolAt(3497)
 
-public val MaterialSymbols.StreamApps: MaterialSymbol
+val MaterialSymbols.StreamApps: MaterialSymbol
     get() = symbolAt(3498)
 
-public val MaterialSymbols.Streetview: MaterialSymbol
+val MaterialSymbols.Streetview: MaterialSymbol
     get() = symbolAt(3499)
 
-public val MaterialSymbols.StressManagement: MaterialSymbol
+val MaterialSymbols.StressManagement: MaterialSymbol
     get() = symbolAt(3500)
 
-public val MaterialSymbols.StrikethroughS: MaterialSymbol
+val MaterialSymbols.StrikethroughS: MaterialSymbol
     get() = symbolAt(3501)
 
-public val MaterialSymbols.StrokeFull: MaterialSymbol
+val MaterialSymbols.StrokeFull: MaterialSymbol
     get() = symbolAt(3502)
 
-public val MaterialSymbols.StrokePartial: MaterialSymbol
+val MaterialSymbols.StrokePartial: MaterialSymbol
     get() = symbolAt(3503)
 
-public val MaterialSymbols.Stroller: MaterialSymbol
+val MaterialSymbols.Stroller: MaterialSymbol
     get() = symbolAt(3504)
 
-public val MaterialSymbols.Style: MaterialSymbol
+val MaterialSymbols.Style: MaterialSymbol
     get() = symbolAt(3505)
 
-public val MaterialSymbols.Styler: MaterialSymbol
+val MaterialSymbols.Styler: MaterialSymbol
     get() = symbolAt(3506)
 
-public val MaterialSymbols.Stylus: MaterialSymbol
+val MaterialSymbols.Stylus: MaterialSymbol
     get() = symbolAt(3507)
 
-public val MaterialSymbols.StylusBrush: MaterialSymbol
+val MaterialSymbols.StylusBrush: MaterialSymbol
     get() = symbolAt(3508)
 
-public val MaterialSymbols.StylusFountainPen: MaterialSymbol
+val MaterialSymbols.StylusFountainPen: MaterialSymbol
     get() = symbolAt(3509)
 
-public val MaterialSymbols.StylusHighlighter: MaterialSymbol
+val MaterialSymbols.StylusHighlighter: MaterialSymbol
     get() = symbolAt(3510)
 
-public val MaterialSymbols.StylusLaserPointer: MaterialSymbol
+val MaterialSymbols.StylusLaserPointer: MaterialSymbol
     get() = symbolAt(3511)
 
-public val MaterialSymbols.StylusNote: MaterialSymbol
+val MaterialSymbols.StylusNote: MaterialSymbol
     get() = symbolAt(3512)
 
-public val MaterialSymbols.StylusPen: MaterialSymbol
+val MaterialSymbols.StylusPen: MaterialSymbol
     get() = symbolAt(3513)
 
-public val MaterialSymbols.StylusPencil: MaterialSymbol
+val MaterialSymbols.StylusPencil: MaterialSymbol
     get() = symbolAt(3514)
 
-public val MaterialSymbols.SubdirectoryArrowLeft: MaterialSymbol
+val MaterialSymbols.SubdirectoryArrowLeft: MaterialSymbol
     get() = symbolAt(3515)
 
-public val MaterialSymbols.SubdirectoryArrowRight: MaterialSymbol
+val MaterialSymbols.SubdirectoryArrowRight: MaterialSymbol
     get() = symbolAt(3516)
 
-public val MaterialSymbols.Subheader: MaterialSymbol
+val MaterialSymbols.Subheader: MaterialSymbol
     get() = symbolAt(3517)
 
-public val MaterialSymbols.Subject: MaterialSymbol
+val MaterialSymbols.Subject: MaterialSymbol
     get() = symbolAt(3518)
 
-public val MaterialSymbols.Subscript: MaterialSymbol
+val MaterialSymbols.Subscript: MaterialSymbol
     get() = symbolAt(3519)
 
-public val MaterialSymbols.Subscriptions: MaterialSymbol
+val MaterialSymbols.Subscriptions: MaterialSymbol
     get() = symbolAt(3520)
 
-public val MaterialSymbols.Subtitles: MaterialSymbol
+val MaterialSymbols.Subtitles: MaterialSymbol
     get() = symbolAt(3521)
 
-public val MaterialSymbols.SubtitlesGear: MaterialSymbol
+val MaterialSymbols.SubtitlesGear: MaterialSymbol
     get() = symbolAt(3522)
 
-public val MaterialSymbols.SubtitlesOff: MaterialSymbol
+val MaterialSymbols.SubtitlesOff: MaterialSymbol
     get() = symbolAt(3523)
 
-public val MaterialSymbols.Subway: MaterialSymbol
+val MaterialSymbols.Subway: MaterialSymbol
     get() = symbolAt(3524)
 
-public val MaterialSymbols.SubwayWalk: MaterialSymbol
+val MaterialSymbols.SubwayWalk: MaterialSymbol
     get() = symbolAt(3525)
 
-public val MaterialSymbols.Summarize: MaterialSymbol
+val MaterialSymbols.Summarize: MaterialSymbol
     get() = symbolAt(3526)
 
-public val MaterialSymbols.Sunny: MaterialSymbol
+val MaterialSymbols.Sunny: MaterialSymbol
     get() = symbolAt(3527)
 
-public val MaterialSymbols.SunnySnowing: MaterialSymbol
+val MaterialSymbols.SunnySnowing: MaterialSymbol
     get() = symbolAt(3528)
 
-public val MaterialSymbols.Superscript: MaterialSymbol
+val MaterialSymbols.Superscript: MaterialSymbol
     get() = symbolAt(3529)
 
-public val MaterialSymbols.SupervisedUserCircle: MaterialSymbol
+val MaterialSymbols.SupervisedUserCircle: MaterialSymbol
     get() = symbolAt(3530)
 
-public val MaterialSymbols.SupervisedUserCircleOff: MaterialSymbol
+val MaterialSymbols.SupervisedUserCircleOff: MaterialSymbol
     get() = symbolAt(3531)
 
-public val MaterialSymbols.SupervisorAccount: MaterialSymbol
+val MaterialSymbols.SupervisorAccount: MaterialSymbol
     get() = symbolAt(3532)
 
-public val MaterialSymbols.Support: MaterialSymbol
+val MaterialSymbols.Support: MaterialSymbol
     get() = symbolAt(3533)
 
-public val MaterialSymbols.SupportAgent: MaterialSymbol
+val MaterialSymbols.SupportAgent: MaterialSymbol
     get() = symbolAt(3534)
 
-public val MaterialSymbols.Surfing: MaterialSymbol
+val MaterialSymbols.Surfing: MaterialSymbol
     get() = symbolAt(3535)
 
-public val MaterialSymbols.Surgical: MaterialSymbol
+val MaterialSymbols.Surgical: MaterialSymbol
     get() = symbolAt(3536)
 
-public val MaterialSymbols.SurroundSound: MaterialSymbol
+val MaterialSymbols.SurroundSound: MaterialSymbol
     get() = symbolAt(3537)
 
-public val MaterialSymbols.SwapCalls: MaterialSymbol
+val MaterialSymbols.SwapCalls: MaterialSymbol
     get() = symbolAt(3538)
 
-public val MaterialSymbols.SwapDrivingApps: MaterialSymbol
+val MaterialSymbols.SwapDrivingApps: MaterialSymbol
     get() = symbolAt(3539)
 
-public val MaterialSymbols.SwapDrivingAppsWheel: MaterialSymbol
+val MaterialSymbols.SwapDrivingAppsWheel: MaterialSymbol
     get() = symbolAt(3540)
 
-public val MaterialSymbols.SwapHoriz: MaterialSymbol
+val MaterialSymbols.SwapHoriz: MaterialSymbol
     get() = symbolAt(3541)
 
-public val MaterialSymbols.SwapHorizontalCircle: MaterialSymbol
+val MaterialSymbols.SwapHorizontalCircle: MaterialSymbol
     get() = symbolAt(3542)
 
-public val MaterialSymbols.SwapVert: MaterialSymbol
+val MaterialSymbols.SwapVert: MaterialSymbol
     get() = symbolAt(3543)
 
-public val MaterialSymbols.SwapVerticalCircle: MaterialSymbol
+val MaterialSymbols.SwapVerticalCircle: MaterialSymbol
     get() = symbolAt(3544)
 
-public val MaterialSymbols.Sweep: MaterialSymbol
+val MaterialSymbols.Sweep: MaterialSymbol
     get() = symbolAt(3545)
 
-public val MaterialSymbols.Swipe: MaterialSymbol
+val MaterialSymbols.Swipe: MaterialSymbol
     get() = symbolAt(3546)
 
-public val MaterialSymbols.SwipeDown: MaterialSymbol
+val MaterialSymbols.SwipeDown: MaterialSymbol
     get() = symbolAt(3547)
 
-public val MaterialSymbols.SwipeDownAlt: MaterialSymbol
+val MaterialSymbols.SwipeDownAlt: MaterialSymbol
     get() = symbolAt(3548)
 
-public val MaterialSymbols.SwipeLeft: MaterialSymbol
+val MaterialSymbols.SwipeLeft: MaterialSymbol
     get() = symbolAt(3549)
 
-public val MaterialSymbols.SwipeLeftAlt: MaterialSymbol
+val MaterialSymbols.SwipeLeftAlt: MaterialSymbol
     get() = symbolAt(3550)
 
-public val MaterialSymbols.SwipeRight: MaterialSymbol
+val MaterialSymbols.SwipeRight: MaterialSymbol
     get() = symbolAt(3551)
 
-public val MaterialSymbols.SwipeRightAlt: MaterialSymbol
+val MaterialSymbols.SwipeRightAlt: MaterialSymbol
     get() = symbolAt(3552)
 
-public val MaterialSymbols.SwipeUp: MaterialSymbol
+val MaterialSymbols.SwipeUp: MaterialSymbol
     get() = symbolAt(3553)
 
-public val MaterialSymbols.SwipeUpAlt: MaterialSymbol
+val MaterialSymbols.SwipeUpAlt: MaterialSymbol
     get() = symbolAt(3554)
 
-public val MaterialSymbols.SwipeVertical: MaterialSymbol
+val MaterialSymbols.SwipeVertical: MaterialSymbol
     get() = symbolAt(3555)
 
-public val MaterialSymbols.Switch: MaterialSymbol
+val MaterialSymbols.Switch: MaterialSymbol
     get() = symbolAt(3556)
 
-public val MaterialSymbols.SwitchAccess: MaterialSymbol
+val MaterialSymbols.SwitchAccess: MaterialSymbol
     get() = symbolAt(3557)
 
-public val MaterialSymbols.SwitchAccess2: MaterialSymbol
+val MaterialSymbols.SwitchAccess2: MaterialSymbol
     get() = symbolAt(3558)
 
-public val MaterialSymbols.SwitchAccess3: MaterialSymbol
+val MaterialSymbols.SwitchAccess3: MaterialSymbol
     get() = symbolAt(3559)
 
-public val MaterialSymbols.SwitchAccessShortcut: MaterialSymbol
+val MaterialSymbols.SwitchAccessShortcut: MaterialSymbol
     get() = symbolAt(3560)
 
-public val MaterialSymbols.SwitchAccessShortcutAdd: MaterialSymbol
+val MaterialSymbols.SwitchAccessShortcutAdd: MaterialSymbol
     get() = symbolAt(3561)
 
-public val MaterialSymbols.SwitchAccount: MaterialSymbol
+val MaterialSymbols.SwitchAccount: MaterialSymbol
     get() = symbolAt(3562)
 
-public val MaterialSymbols.SwitchCamera: MaterialSymbol
+val MaterialSymbols.SwitchCamera: MaterialSymbol
     get() = symbolAt(3563)
 
-public val MaterialSymbols.SwitchLeft: MaterialSymbol
+val MaterialSymbols.SwitchLeft: MaterialSymbol
     get() = symbolAt(3564)
 
-public val MaterialSymbols.SwitchRight: MaterialSymbol
+val MaterialSymbols.SwitchRight: MaterialSymbol
     get() = symbolAt(3565)
 
-public val MaterialSymbols.SwitchVideo: MaterialSymbol
+val MaterialSymbols.SwitchVideo: MaterialSymbol
     get() = symbolAt(3566)
 
-public val MaterialSymbols.Switches: MaterialSymbol
+val MaterialSymbols.Switches: MaterialSymbol
     get() = symbolAt(3567)
 
-public val MaterialSymbols.SwordRose: MaterialSymbol
+val MaterialSymbols.SwordRose: MaterialSymbol
     get() = symbolAt(3568)
 
-public val MaterialSymbols.Swords: MaterialSymbol
+val MaterialSymbols.Swords: MaterialSymbol
     get() = symbolAt(3569)
 
-public val MaterialSymbols.Symptoms: MaterialSymbol
+val MaterialSymbols.Symptoms: MaterialSymbol
     get() = symbolAt(3570)
 
-public val MaterialSymbols.Synagogue: MaterialSymbol
+val MaterialSymbols.Synagogue: MaterialSymbol
     get() = symbolAt(3571)
 
-public val MaterialSymbols.Sync: MaterialSymbol
+val MaterialSymbols.Sync: MaterialSymbol
     get() = symbolAt(3572)
 
-public val MaterialSymbols.SyncAlt: MaterialSymbol
+val MaterialSymbols.SyncAlt: MaterialSymbol
     get() = symbolAt(3573)
 
-public val MaterialSymbols.SyncArrowDown: MaterialSymbol
+val MaterialSymbols.SyncArrowDown: MaterialSymbol
     get() = symbolAt(3574)
 
-public val MaterialSymbols.SyncArrowUp: MaterialSymbol
+val MaterialSymbols.SyncArrowUp: MaterialSymbol
     get() = symbolAt(3575)
 
-public val MaterialSymbols.SyncDesktop: MaterialSymbol
+val MaterialSymbols.SyncDesktop: MaterialSymbol
     get() = symbolAt(3576)
 
-public val MaterialSymbols.SyncDisabled: MaterialSymbol
+val MaterialSymbols.SyncDisabled: MaterialSymbol
     get() = symbolAt(3577)
 
-public val MaterialSymbols.SyncLock: MaterialSymbol
+val MaterialSymbols.SyncLock: MaterialSymbol
     get() = symbolAt(3578)
 
-public val MaterialSymbols.SyncProblem: MaterialSymbol
+val MaterialSymbols.SyncProblem: MaterialSymbol
     get() = symbolAt(3579)
 
-public val MaterialSymbols.SyncSavedLocally: MaterialSymbol
+val MaterialSymbols.SyncSavedLocally: MaterialSymbol
     get() = symbolAt(3580)
 
-public val MaterialSymbols.SyncSavedLocallyOff: MaterialSymbol
+val MaterialSymbols.SyncSavedLocallyOff: MaterialSymbol
     get() = symbolAt(3581)
 
-public val MaterialSymbols.Syringe: MaterialSymbol
+val MaterialSymbols.Syringe: MaterialSymbol
     get() = symbolAt(3582)
 
-public val MaterialSymbols.SystemSecurityUpdate: MaterialSymbol
+val MaterialSymbols.SystemSecurityUpdate: MaterialSymbol
     get() = symbolAt(3583)
 
-public val MaterialSymbols.SystemSecurityUpdateGood: MaterialSymbol
+val MaterialSymbols.SystemSecurityUpdateGood: MaterialSymbol
     get() = symbolAt(3584)
 
-public val MaterialSymbols.SystemSecurityUpdateWarning: MaterialSymbol
+val MaterialSymbols.SystemSecurityUpdateWarning: MaterialSymbol
     get() = symbolAt(3585)
 
-public val MaterialSymbols.SystemUpdate: MaterialSymbol
+val MaterialSymbols.SystemUpdate: MaterialSymbol
     get() = symbolAt(3586)
 
-public val MaterialSymbols.SystemUpdateAlt: MaterialSymbol
+val MaterialSymbols.SystemUpdateAlt: MaterialSymbol
     get() = symbolAt(3587)
 
-public val MaterialSymbols.Tab: MaterialSymbol
+val MaterialSymbols.Tab: MaterialSymbol
     get() = symbolAt(3588)
 
-public val MaterialSymbols.TabClose: MaterialSymbol
+val MaterialSymbols.TabClose: MaterialSymbol
     get() = symbolAt(3589)
 
-public val MaterialSymbols.TabCloseInactive: MaterialSymbol
+val MaterialSymbols.TabCloseInactive: MaterialSymbol
     get() = symbolAt(3590)
 
-public val MaterialSymbols.TabCloseRight: MaterialSymbol
+val MaterialSymbols.TabCloseRight: MaterialSymbol
     get() = symbolAt(3591)
 
-public val MaterialSymbols.TabDuplicate: MaterialSymbol
+val MaterialSymbols.TabDuplicate: MaterialSymbol
     get() = symbolAt(3592)
 
-public val MaterialSymbols.TabGroup: MaterialSymbol
+val MaterialSymbols.TabGroup: MaterialSymbol
     get() = symbolAt(3593)
 
-public val MaterialSymbols.TabInactive: MaterialSymbol
+val MaterialSymbols.TabInactive: MaterialSymbol
     get() = symbolAt(3594)
 
-public val MaterialSymbols.TabMove: MaterialSymbol
+val MaterialSymbols.TabMove: MaterialSymbol
     get() = symbolAt(3595)
 
-public val MaterialSymbols.TabNewRight: MaterialSymbol
+val MaterialSymbols.TabNewRight: MaterialSymbol
     get() = symbolAt(3596)
 
-public val MaterialSymbols.TabRecent: MaterialSymbol
+val MaterialSymbols.TabRecent: MaterialSymbol
     get() = symbolAt(3597)
 
-public val MaterialSymbols.TabSearch: MaterialSymbol
+val MaterialSymbols.TabSearch: MaterialSymbol
     get() = symbolAt(3598)
 
-public val MaterialSymbols.TabUnselected: MaterialSymbol
+val MaterialSymbols.TabUnselected: MaterialSymbol
     get() = symbolAt(3599)
 
-public val MaterialSymbols.Table: MaterialSymbol
+val MaterialSymbols.Table: MaterialSymbol
     get() = symbolAt(3600)
 
-public val MaterialSymbols.TableBar: MaterialSymbol
+val MaterialSymbols.TableBar: MaterialSymbol
     get() = symbolAt(3601)
 
-public val MaterialSymbols.TableChart: MaterialSymbol
+val MaterialSymbols.TableChart: MaterialSymbol
     get() = symbolAt(3602)
 
-public val MaterialSymbols.TableChartView: MaterialSymbol
+val MaterialSymbols.TableChartView: MaterialSymbol
     get() = symbolAt(3603)
 
-public val MaterialSymbols.TableConvert: MaterialSymbol
+val MaterialSymbols.TableConvert: MaterialSymbol
     get() = symbolAt(3604)
 
-public val MaterialSymbols.TableEdit: MaterialSymbol
+val MaterialSymbols.TableEdit: MaterialSymbol
     get() = symbolAt(3605)
 
-public val MaterialSymbols.TableEye: MaterialSymbol
+val MaterialSymbols.TableEye: MaterialSymbol
     get() = symbolAt(3606)
 
-public val MaterialSymbols.TableLamp: MaterialSymbol
+val MaterialSymbols.TableLamp: MaterialSymbol
     get() = symbolAt(3607)
 
-public val MaterialSymbols.TableLarge: MaterialSymbol
+val MaterialSymbols.TableLarge: MaterialSymbol
     get() = symbolAt(3608)
 
-public val MaterialSymbols.TableRestaurant: MaterialSymbol
+val MaterialSymbols.TableRestaurant: MaterialSymbol
     get() = symbolAt(3609)
 
-public val MaterialSymbols.TableRows: MaterialSymbol
+val MaterialSymbols.TableRows: MaterialSymbol
     get() = symbolAt(3610)
 
-public val MaterialSymbols.TableRowsNarrow: MaterialSymbol
+val MaterialSymbols.TableRowsNarrow: MaterialSymbol
     get() = symbolAt(3611)
 
-public val MaterialSymbols.TableSign: MaterialSymbol
+val MaterialSymbols.TableSign: MaterialSymbol
     get() = symbolAt(3612)
 
-public val MaterialSymbols.TableView: MaterialSymbol
+val MaterialSymbols.TableView: MaterialSymbol
     get() = symbolAt(3613)
 
-public val MaterialSymbols.Tablet: MaterialSymbol
+val MaterialSymbols.Tablet: MaterialSymbol
     get() = symbolAt(3614)
 
-public val MaterialSymbols.TabletAndroid: MaterialSymbol
+val MaterialSymbols.TabletAndroid: MaterialSymbol
     get() = symbolAt(3615)
 
-public val MaterialSymbols.TabletCamera: MaterialSymbol
+val MaterialSymbols.TabletCamera: MaterialSymbol
     get() = symbolAt(3616)
 
-public val MaterialSymbols.TabletMac: MaterialSymbol
+val MaterialSymbols.TabletMac: MaterialSymbol
     get() = symbolAt(3617)
 
-public val MaterialSymbols.Tabs: MaterialSymbol
+val MaterialSymbols.Tabs: MaterialSymbol
     get() = symbolAt(3618)
 
-public val MaterialSymbols.Tactic: MaterialSymbol
+val MaterialSymbols.Tactic: MaterialSymbol
     get() = symbolAt(3619)
 
-public val MaterialSymbols.Tag: MaterialSymbol
+val MaterialSymbols.Tag: MaterialSymbol
     get() = symbolAt(3620)
 
-public val MaterialSymbols.TagFaces: MaterialSymbol
+val MaterialSymbols.TagFaces: MaterialSymbol
     get() = symbolAt(3621)
 
-public val MaterialSymbols.TakeoutDining: MaterialSymbol
+val MaterialSymbols.TakeoutDining: MaterialSymbol
     get() = symbolAt(3622)
 
-public val MaterialSymbols.TakeoutDining2: MaterialSymbol
+val MaterialSymbols.TakeoutDining2: MaterialSymbol
     get() = symbolAt(3623)
 
-public val MaterialSymbols.TamperDetectionOff: MaterialSymbol
+val MaterialSymbols.TamperDetectionOff: MaterialSymbol
     get() = symbolAt(3624)
 
-public val MaterialSymbols.TamperDetectionOn: MaterialSymbol
+val MaterialSymbols.TamperDetectionOn: MaterialSymbol
     get() = symbolAt(3625)
 
-public val MaterialSymbols.TapAndPlay: MaterialSymbol
+val MaterialSymbols.TapAndPlay: MaterialSymbol
     get() = symbolAt(3626)
 
-public val MaterialSymbols.Tapas: MaterialSymbol
+val MaterialSymbols.Tapas: MaterialSymbol
     get() = symbolAt(3627)
 
-public val MaterialSymbols.Target: MaterialSymbol
+val MaterialSymbols.Target: MaterialSymbol
     get() = symbolAt(3628)
 
-public val MaterialSymbols.Task: MaterialSymbol
+val MaterialSymbols.Task: MaterialSymbol
     get() = symbolAt(3629)
 
-public val MaterialSymbols.TaskAlt: MaterialSymbol
+val MaterialSymbols.TaskAlt: MaterialSymbol
     get() = symbolAt(3630)
 
-public val MaterialSymbols.TatamiSeat: MaterialSymbol
+val MaterialSymbols.TatamiSeat: MaterialSymbol
     get() = symbolAt(3631)
 
-public val MaterialSymbols.Taunt: MaterialSymbol
+val MaterialSymbols.Taunt: MaterialSymbol
     get() = symbolAt(3632)
 
-public val MaterialSymbols.TaxiAlert: MaterialSymbol
+val MaterialSymbols.TaxiAlert: MaterialSymbol
     get() = symbolAt(3633)
 
-public val MaterialSymbols.TeamDashboard: MaterialSymbol
+val MaterialSymbols.TeamDashboard: MaterialSymbol
     get() = symbolAt(3634)
 
-public val MaterialSymbols.TempPreferencesCustom: MaterialSymbol
+val MaterialSymbols.TempPreferencesCustom: MaterialSymbol
     get() = symbolAt(3635)
 
-public val MaterialSymbols.TempPreferencesEco: MaterialSymbol
+val MaterialSymbols.TempPreferencesEco: MaterialSymbol
     get() = symbolAt(3636)
 
-public val MaterialSymbols.TempleBuddhist: MaterialSymbol
+val MaterialSymbols.TempleBuddhist: MaterialSymbol
     get() = symbolAt(3637)
 
-public val MaterialSymbols.TempleHindu: MaterialSymbol
+val MaterialSymbols.TempleHindu: MaterialSymbol
     get() = symbolAt(3638)
 
-public val MaterialSymbols.Tenancy: MaterialSymbol
+val MaterialSymbols.Tenancy: MaterialSymbol
     get() = symbolAt(3639)
 
-public val MaterialSymbols.Terminal: MaterialSymbol
+val MaterialSymbols.Terminal: MaterialSymbol
     get() = symbolAt(3640)
 
-public val MaterialSymbols.Terrain: MaterialSymbol
+val MaterialSymbols.Terrain: MaterialSymbol
     get() = symbolAt(3641)
 
-public val MaterialSymbols.TextAd: MaterialSymbol
+val MaterialSymbols.TextAd: MaterialSymbol
     get() = symbolAt(3642)
 
-public val MaterialSymbols.TextCompare: MaterialSymbol
+val MaterialSymbols.TextCompare: MaterialSymbol
     get() = symbolAt(3643)
 
-public val MaterialSymbols.TextDecrease: MaterialSymbol
+val MaterialSymbols.TextDecrease: MaterialSymbol
     get() = symbolAt(3644)
 
-public val MaterialSymbols.TextFields: MaterialSymbol
+val MaterialSymbols.TextFields: MaterialSymbol
     get() = symbolAt(3645)
 
-public val MaterialSymbols.TextFieldsAlt: MaterialSymbol
+val MaterialSymbols.TextFieldsAlt: MaterialSymbol
     get() = symbolAt(3646)
 
-public val MaterialSymbols.TextFormat: MaterialSymbol
+val MaterialSymbols.TextFormat: MaterialSymbol
     get() = symbolAt(3647)
 
-public val MaterialSymbols.TextIncrease: MaterialSymbol
+val MaterialSymbols.TextIncrease: MaterialSymbol
     get() = symbolAt(3648)
 
-public val MaterialSymbols.TextRotateUp: MaterialSymbol
+val MaterialSymbols.TextRotateUp: MaterialSymbol
     get() = symbolAt(3649)
 
-public val MaterialSymbols.TextRotateVertical: MaterialSymbol
+val MaterialSymbols.TextRotateVertical: MaterialSymbol
     get() = symbolAt(3650)
 
-public val MaterialSymbols.TextRotationAngledown: MaterialSymbol
+val MaterialSymbols.TextRotationAngledown: MaterialSymbol
     get() = symbolAt(3651)
 
-public val MaterialSymbols.TextRotationAngleup: MaterialSymbol
+val MaterialSymbols.TextRotationAngleup: MaterialSymbol
     get() = symbolAt(3652)
 
-public val MaterialSymbols.TextRotationDown: MaterialSymbol
+val MaterialSymbols.TextRotationDown: MaterialSymbol
     get() = symbolAt(3653)
 
-public val MaterialSymbols.TextRotationNone: MaterialSymbol
+val MaterialSymbols.TextRotationNone: MaterialSymbol
     get() = symbolAt(3654)
 
-public val MaterialSymbols.TextSelectEnd: MaterialSymbol
+val MaterialSymbols.TextSelectEnd: MaterialSymbol
     get() = symbolAt(3655)
 
-public val MaterialSymbols.TextSelectJumpToBeginning: MaterialSymbol
+val MaterialSymbols.TextSelectJumpToBeginning: MaterialSymbol
     get() = symbolAt(3656)
 
-public val MaterialSymbols.TextSelectJumpToEnd: MaterialSymbol
+val MaterialSymbols.TextSelectJumpToEnd: MaterialSymbol
     get() = symbolAt(3657)
 
-public val MaterialSymbols.TextSelectMoveBackCharacter: MaterialSymbol
+val MaterialSymbols.TextSelectMoveBackCharacter: MaterialSymbol
     get() = symbolAt(3658)
 
-public val MaterialSymbols.TextSelectMoveBackWord: MaterialSymbol
+val MaterialSymbols.TextSelectMoveBackWord: MaterialSymbol
     get() = symbolAt(3659)
 
-public val MaterialSymbols.TextSelectMoveDown: MaterialSymbol
+val MaterialSymbols.TextSelectMoveDown: MaterialSymbol
     get() = symbolAt(3660)
 
-public val MaterialSymbols.TextSelectMoveForwardCharacter: MaterialSymbol
+val MaterialSymbols.TextSelectMoveForwardCharacter: MaterialSymbol
     get() = symbolAt(3661)
 
-public val MaterialSymbols.TextSelectMoveForwardWord: MaterialSymbol
+val MaterialSymbols.TextSelectMoveForwardWord: MaterialSymbol
     get() = symbolAt(3662)
 
-public val MaterialSymbols.TextSelectMoveUp: MaterialSymbol
+val MaterialSymbols.TextSelectMoveUp: MaterialSymbol
     get() = symbolAt(3663)
 
-public val MaterialSymbols.TextSelectStart: MaterialSymbol
+val MaterialSymbols.TextSelectStart: MaterialSymbol
     get() = symbolAt(3664)
 
-public val MaterialSymbols.TextSnippet: MaterialSymbol
+val MaterialSymbols.TextSnippet: MaterialSymbol
     get() = symbolAt(3665)
 
-public val MaterialSymbols.TextToSpeech: MaterialSymbol
+val MaterialSymbols.TextToSpeech: MaterialSymbol
     get() = symbolAt(3666)
 
-public val MaterialSymbols.TextUp: MaterialSymbol
+val MaterialSymbols.TextUp: MaterialSymbol
     get() = symbolAt(3667)
 
-public val MaterialSymbols.Textsms: MaterialSymbol
+val MaterialSymbols.Textsms: MaterialSymbol
     get() = symbolAt(3668)
 
-public val MaterialSymbols.Texture: MaterialSymbol
+val MaterialSymbols.Texture: MaterialSymbol
     get() = symbolAt(3669)
 
-public val MaterialSymbols.TextureAdd: MaterialSymbol
+val MaterialSymbols.TextureAdd: MaterialSymbol
     get() = symbolAt(3670)
 
-public val MaterialSymbols.TextureMinus: MaterialSymbol
+val MaterialSymbols.TextureMinus: MaterialSymbol
     get() = symbolAt(3671)
 
-public val MaterialSymbols.TheaterComedy: MaterialSymbol
+val MaterialSymbols.TheaterComedy: MaterialSymbol
     get() = symbolAt(3672)
 
-public val MaterialSymbols.Theaters: MaterialSymbol
+val MaterialSymbols.Theaters: MaterialSymbol
     get() = symbolAt(3673)
 
-public val MaterialSymbols.Thermometer: MaterialSymbol
+val MaterialSymbols.Thermometer: MaterialSymbol
     get() = symbolAt(3674)
 
-public val MaterialSymbols.ThermometerAdd: MaterialSymbol
+val MaterialSymbols.ThermometerAdd: MaterialSymbol
     get() = symbolAt(3675)
 
-public val MaterialSymbols.ThermometerGain: MaterialSymbol
+val MaterialSymbols.ThermometerGain: MaterialSymbol
     get() = symbolAt(3676)
 
-public val MaterialSymbols.ThermometerLoss: MaterialSymbol
+val MaterialSymbols.ThermometerLoss: MaterialSymbol
     get() = symbolAt(3677)
 
-public val MaterialSymbols.ThermometerMinus: MaterialSymbol
+val MaterialSymbols.ThermometerMinus: MaterialSymbol
     get() = symbolAt(3678)
 
-public val MaterialSymbols.Thermostat: MaterialSymbol
+val MaterialSymbols.Thermostat: MaterialSymbol
     get() = symbolAt(3679)
 
-public val MaterialSymbols.ThermostatArrowDown: MaterialSymbol
+val MaterialSymbols.ThermostatArrowDown: MaterialSymbol
     get() = symbolAt(3680)
 
-public val MaterialSymbols.ThermostatArrowUp: MaterialSymbol
+val MaterialSymbols.ThermostatArrowUp: MaterialSymbol
     get() = symbolAt(3681)
 
-public val MaterialSymbols.ThermostatAuto: MaterialSymbol
+val MaterialSymbols.ThermostatAuto: MaterialSymbol
     get() = symbolAt(3682)
 
-public val MaterialSymbols.ThermostatCarbon: MaterialSymbol
+val MaterialSymbols.ThermostatCarbon: MaterialSymbol
     get() = symbolAt(3683)
 
-public val MaterialSymbols.ThingsToDo: MaterialSymbol
+val MaterialSymbols.ThingsToDo: MaterialSymbol
     get() = symbolAt(3684)
 
-public val MaterialSymbols.ThreadUnread: MaterialSymbol
+val MaterialSymbols.ThreadUnread: MaterialSymbol
     get() = symbolAt(3685)
 
-public val MaterialSymbols.ThreatIntelligence: MaterialSymbol
+val MaterialSymbols.ThreatIntelligence: MaterialSymbol
     get() = symbolAt(3686)
 
-public val MaterialSymbols.ThumbDown: MaterialSymbol
+val MaterialSymbols.ThumbDown: MaterialSymbol
     get() = symbolAt(3687)
 
-public val MaterialSymbols.ThumbDownAlt: MaterialSymbol
+val MaterialSymbols.ThumbDownAlt: MaterialSymbol
     get() = symbolAt(3688)
 
-public val MaterialSymbols.ThumbDownFilled: MaterialSymbol
+val MaterialSymbols.ThumbDownFilled: MaterialSymbol
     get() = symbolAt(3689)
 
-public val MaterialSymbols.ThumbDownOff: MaterialSymbol
+val MaterialSymbols.ThumbDownOff: MaterialSymbol
     get() = symbolAt(3690)
 
-public val MaterialSymbols.ThumbDownOffAlt: MaterialSymbol
+val MaterialSymbols.ThumbDownOffAlt: MaterialSymbol
     get() = symbolAt(3691)
 
-public val MaterialSymbols.ThumbUp: MaterialSymbol
+val MaterialSymbols.ThumbUp: MaterialSymbol
     get() = symbolAt(3692)
 
-public val MaterialSymbols.ThumbUpAlt: MaterialSymbol
+val MaterialSymbols.ThumbUpAlt: MaterialSymbol
     get() = symbolAt(3693)
 
-public val MaterialSymbols.ThumbUpFilled: MaterialSymbol
+val MaterialSymbols.ThumbUpFilled: MaterialSymbol
     get() = symbolAt(3694)
 
-public val MaterialSymbols.ThumbUpOff: MaterialSymbol
+val MaterialSymbols.ThumbUpOff: MaterialSymbol
     get() = symbolAt(3695)
 
-public val MaterialSymbols.ThumbUpOffAlt: MaterialSymbol
+val MaterialSymbols.ThumbUpOffAlt: MaterialSymbol
     get() = symbolAt(3696)
 
-public val MaterialSymbols.ThumbnailBar: MaterialSymbol
+val MaterialSymbols.ThumbnailBar: MaterialSymbol
     get() = symbolAt(3697)
 
-public val MaterialSymbols.ThumbsUpDouble: MaterialSymbol
+val MaterialSymbols.ThumbsUpDouble: MaterialSymbol
     get() = symbolAt(3698)
 
-public val MaterialSymbols.ThumbsUpDown: MaterialSymbol
+val MaterialSymbols.ThumbsUpDown: MaterialSymbol
     get() = symbolAt(3699)
 
-public val MaterialSymbols.Thunderstorm: MaterialSymbol
+val MaterialSymbols.Thunderstorm: MaterialSymbol
     get() = symbolAt(3700)
 
-public val MaterialSymbols.Tibia: MaterialSymbol
+val MaterialSymbols.Tibia: MaterialSymbol
     get() = symbolAt(3701)
 
-public val MaterialSymbols.TibiaAlt: MaterialSymbol
+val MaterialSymbols.TibiaAlt: MaterialSymbol
     get() = symbolAt(3702)
 
-public val MaterialSymbols.TileLarge: MaterialSymbol
+val MaterialSymbols.TileLarge: MaterialSymbol
     get() = symbolAt(3703)
 
-public val MaterialSymbols.TileMedium: MaterialSymbol
+val MaterialSymbols.TileMedium: MaterialSymbol
     get() = symbolAt(3704)
 
-public val MaterialSymbols.TileSmall: MaterialSymbol
+val MaterialSymbols.TileSmall: MaterialSymbol
     get() = symbolAt(3705)
 
-public val MaterialSymbols.TimeAuto: MaterialSymbol
+val MaterialSymbols.TimeAuto: MaterialSymbol
     get() = symbolAt(3706)
 
-public val MaterialSymbols.TimeToLeave: MaterialSymbol
+val MaterialSymbols.TimeToLeave: MaterialSymbol
     get() = symbolAt(3707)
 
-public val MaterialSymbols.Timelapse: MaterialSymbol
+val MaterialSymbols.Timelapse: MaterialSymbol
     get() = symbolAt(3708)
 
-public val MaterialSymbols.Timeline: MaterialSymbol
+val MaterialSymbols.Timeline: MaterialSymbol
     get() = symbolAt(3709)
 
-public val MaterialSymbols.Timer: MaterialSymbol
+val MaterialSymbols.Timer: MaterialSymbol
     get() = symbolAt(3710)
 
-public val MaterialSymbols.Timer1: MaterialSymbol
+val MaterialSymbols.Timer1: MaterialSymbol
     get() = symbolAt(3711)
 
-public val MaterialSymbols.Timer10: MaterialSymbol
+val MaterialSymbols.Timer10: MaterialSymbol
     get() = symbolAt(3712)
 
-public val MaterialSymbols.Timer10Alt1: MaterialSymbol
+val MaterialSymbols.Timer10Alt1: MaterialSymbol
     get() = symbolAt(3713)
 
-public val MaterialSymbols.Timer10Select: MaterialSymbol
+val MaterialSymbols.Timer10Select: MaterialSymbol
     get() = symbolAt(3714)
 
-public val MaterialSymbols.Timer2: MaterialSymbol
+val MaterialSymbols.Timer2: MaterialSymbol
     get() = symbolAt(3715)
 
-public val MaterialSymbols.Timer3: MaterialSymbol
+val MaterialSymbols.Timer3: MaterialSymbol
     get() = symbolAt(3716)
 
-public val MaterialSymbols.Timer3Alt1: MaterialSymbol
+val MaterialSymbols.Timer3Alt1: MaterialSymbol
     get() = symbolAt(3717)
 
-public val MaterialSymbols.Timer3Select: MaterialSymbol
+val MaterialSymbols.Timer3Select: MaterialSymbol
     get() = symbolAt(3718)
 
-public val MaterialSymbols.Timer5: MaterialSymbol
+val MaterialSymbols.Timer5: MaterialSymbol
     get() = symbolAt(3719)
 
-public val MaterialSymbols.Timer5Shutter: MaterialSymbol
+val MaterialSymbols.Timer5Shutter: MaterialSymbol
     get() = symbolAt(3720)
 
-public val MaterialSymbols.TimerArrowDown: MaterialSymbol
+val MaterialSymbols.TimerArrowDown: MaterialSymbol
     get() = symbolAt(3721)
 
-public val MaterialSymbols.TimerArrowUp: MaterialSymbol
+val MaterialSymbols.TimerArrowUp: MaterialSymbol
     get() = symbolAt(3722)
 
-public val MaterialSymbols.TimerOff: MaterialSymbol
+val MaterialSymbols.TimerOff: MaterialSymbol
     get() = symbolAt(3723)
 
-public val MaterialSymbols.TimerPause: MaterialSymbol
+val MaterialSymbols.TimerPause: MaterialSymbol
     get() = symbolAt(3724)
 
-public val MaterialSymbols.TimerPlay: MaterialSymbol
+val MaterialSymbols.TimerPlay: MaterialSymbol
     get() = symbolAt(3725)
 
-public val MaterialSymbols.TipsAndUpdates: MaterialSymbol
+val MaterialSymbols.TipsAndUpdates: MaterialSymbol
     get() = symbolAt(3726)
 
-public val MaterialSymbols.TireRepair: MaterialSymbol
+val MaterialSymbols.TireRepair: MaterialSymbol
     get() = symbolAt(3727)
 
-public val MaterialSymbols.Title: MaterialSymbol
+val MaterialSymbols.Title: MaterialSymbol
     get() = symbolAt(3728)
 
-public val MaterialSymbols.Titlecase: MaterialSymbol
+val MaterialSymbols.Titlecase: MaterialSymbol
     get() = symbolAt(3729)
 
-public val MaterialSymbols.Toast: MaterialSymbol
+val MaterialSymbols.Toast: MaterialSymbol
     get() = symbolAt(3730)
 
-public val MaterialSymbols.Toc: MaterialSymbol
+val MaterialSymbols.Toc: MaterialSymbol
     get() = symbolAt(3731)
 
-public val MaterialSymbols.Today: MaterialSymbol
+val MaterialSymbols.Today: MaterialSymbol
     get() = symbolAt(3732)
 
-public val MaterialSymbols.ToggleOff: MaterialSymbol
+val MaterialSymbols.ToggleOff: MaterialSymbol
     get() = symbolAt(3733)
 
-public val MaterialSymbols.ToggleOn: MaterialSymbol
+val MaterialSymbols.ToggleOn: MaterialSymbol
     get() = symbolAt(3734)
 
-public val MaterialSymbols.Token: MaterialSymbol
+val MaterialSymbols.Token: MaterialSymbol
     get() = symbolAt(3735)
 
-public val MaterialSymbols.Toll: MaterialSymbol
+val MaterialSymbols.Toll: MaterialSymbol
     get() = symbolAt(3736)
 
-public val MaterialSymbols.Tonality: MaterialSymbol
+val MaterialSymbols.Tonality: MaterialSymbol
     get() = symbolAt(3737)
 
-public val MaterialSymbols.Tonality2: MaterialSymbol
+val MaterialSymbols.Tonality2: MaterialSymbol
     get() = symbolAt(3738)
 
-public val MaterialSymbols.Toolbar: MaterialSymbol
+val MaterialSymbols.Toolbar: MaterialSymbol
     get() = symbolAt(3739)
 
-public val MaterialSymbols.ToolsFlatHead: MaterialSymbol
+val MaterialSymbols.ToolsFlatHead: MaterialSymbol
     get() = symbolAt(3740)
 
-public val MaterialSymbols.ToolsInstallationKit: MaterialSymbol
+val MaterialSymbols.ToolsInstallationKit: MaterialSymbol
     get() = symbolAt(3741)
 
-public val MaterialSymbols.ToolsLadder: MaterialSymbol
+val MaterialSymbols.ToolsLadder: MaterialSymbol
     get() = symbolAt(3742)
 
-public val MaterialSymbols.ToolsLevel: MaterialSymbol
+val MaterialSymbols.ToolsLevel: MaterialSymbol
     get() = symbolAt(3743)
 
-public val MaterialSymbols.ToolsPhillips: MaterialSymbol
+val MaterialSymbols.ToolsPhillips: MaterialSymbol
     get() = symbolAt(3744)
 
-public val MaterialSymbols.ToolsPliersWireStripper: MaterialSymbol
+val MaterialSymbols.ToolsPliersWireStripper: MaterialSymbol
     get() = symbolAt(3745)
 
-public val MaterialSymbols.ToolsPowerDrill: MaterialSymbol
+val MaterialSymbols.ToolsPowerDrill: MaterialSymbol
     get() = symbolAt(3746)
 
-public val MaterialSymbols.ToolsWrench: MaterialSymbol
+val MaterialSymbols.ToolsWrench: MaterialSymbol
     get() = symbolAt(3747)
 
-public val MaterialSymbols.Tooltip: MaterialSymbol
+val MaterialSymbols.Tooltip: MaterialSymbol
     get() = symbolAt(3748)
 
-public val MaterialSymbols.Tooltip2: MaterialSymbol
+val MaterialSymbols.Tooltip2: MaterialSymbol
     get() = symbolAt(3749)
 
-public val MaterialSymbols.TopPanelClose: MaterialSymbol
+val MaterialSymbols.TopPanelClose: MaterialSymbol
     get() = symbolAt(3750)
 
-public val MaterialSymbols.TopPanelOpen: MaterialSymbol
+val MaterialSymbols.TopPanelOpen: MaterialSymbol
     get() = symbolAt(3751)
 
-public val MaterialSymbols.Topic: MaterialSymbol
+val MaterialSymbols.Topic: MaterialSymbol
     get() = symbolAt(3752)
 
-public val MaterialSymbols.Tornado: MaterialSymbol
+val MaterialSymbols.Tornado: MaterialSymbol
     get() = symbolAt(3753)
 
-public val MaterialSymbols.TotalDissolvedSolids: MaterialSymbol
+val MaterialSymbols.TotalDissolvedSolids: MaterialSymbol
     get() = symbolAt(3754)
 
-public val MaterialSymbols.TouchApp: MaterialSymbol
+val MaterialSymbols.TouchApp: MaterialSymbol
     get() = symbolAt(3755)
 
-public val MaterialSymbols.TouchDouble: MaterialSymbol
+val MaterialSymbols.TouchDouble: MaterialSymbol
     get() = symbolAt(3756)
 
-public val MaterialSymbols.TouchLong: MaterialSymbol
+val MaterialSymbols.TouchLong: MaterialSymbol
     get() = symbolAt(3757)
 
-public val MaterialSymbols.TouchTriple: MaterialSymbol
+val MaterialSymbols.TouchTriple: MaterialSymbol
     get() = symbolAt(3758)
 
-public val MaterialSymbols.TouchpadMouse: MaterialSymbol
+val MaterialSymbols.TouchpadMouse: MaterialSymbol
     get() = symbolAt(3759)
 
-public val MaterialSymbols.TouchpadMouseOff: MaterialSymbol
+val MaterialSymbols.TouchpadMouseOff: MaterialSymbol
     get() = symbolAt(3760)
 
-public val MaterialSymbols.Tour: MaterialSymbol
+val MaterialSymbols.Tour: MaterialSymbol
     get() = symbolAt(3761)
 
-public val MaterialSymbols.Toys: MaterialSymbol
+val MaterialSymbols.Toys: MaterialSymbol
     get() = symbolAt(3762)
 
-public val MaterialSymbols.ToysAndGames: MaterialSymbol
+val MaterialSymbols.ToysAndGames: MaterialSymbol
     get() = symbolAt(3763)
 
-public val MaterialSymbols.ToysFan: MaterialSymbol
+val MaterialSymbols.ToysFan: MaterialSymbol
     get() = symbolAt(3764)
 
-public val MaterialSymbols.TrackChanges: MaterialSymbol
+val MaterialSymbols.TrackChanges: MaterialSymbol
     get() = symbolAt(3765)
 
-public val MaterialSymbols.TrackpadInput: MaterialSymbol
+val MaterialSymbols.TrackpadInput: MaterialSymbol
     get() = symbolAt(3766)
 
-public val MaterialSymbols.TrackpadInput2: MaterialSymbol
+val MaterialSymbols.TrackpadInput2: MaterialSymbol
     get() = symbolAt(3767)
 
-public val MaterialSymbols.TrackpadInput3: MaterialSymbol
+val MaterialSymbols.TrackpadInput3: MaterialSymbol
     get() = symbolAt(3768)
 
-public val MaterialSymbols.Traffic: MaterialSymbol
+val MaterialSymbols.Traffic: MaterialSymbol
     get() = symbolAt(3769)
 
-public val MaterialSymbols.TrafficJam: MaterialSymbol
+val MaterialSymbols.TrafficJam: MaterialSymbol
     get() = symbolAt(3770)
 
-public val MaterialSymbols.TrailLength: MaterialSymbol
+val MaterialSymbols.TrailLength: MaterialSymbol
     get() = symbolAt(3771)
 
-public val MaterialSymbols.TrailLengthMedium: MaterialSymbol
+val MaterialSymbols.TrailLengthMedium: MaterialSymbol
     get() = symbolAt(3772)
 
-public val MaterialSymbols.TrailLengthShort: MaterialSymbol
+val MaterialSymbols.TrailLengthShort: MaterialSymbol
     get() = symbolAt(3773)
 
-public val MaterialSymbols.Train: MaterialSymbol
+val MaterialSymbols.Train: MaterialSymbol
     get() = symbolAt(3774)
 
-public val MaterialSymbols.Tram: MaterialSymbol
+val MaterialSymbols.Tram: MaterialSymbol
     get() = symbolAt(3775)
 
-public val MaterialSymbols.Transcribe: MaterialSymbol
+val MaterialSymbols.Transcribe: MaterialSymbol
     get() = symbolAt(3776)
 
-public val MaterialSymbols.TransferWithinAStation: MaterialSymbol
+val MaterialSymbols.TransferWithinAStation: MaterialSymbol
     get() = symbolAt(3777)
 
-public val MaterialSymbols.Transform: MaterialSymbol
+val MaterialSymbols.Transform: MaterialSymbol
     get() = symbolAt(3778)
 
-public val MaterialSymbols.Transgender: MaterialSymbol
+val MaterialSymbols.Transgender: MaterialSymbol
     get() = symbolAt(3779)
 
-public val MaterialSymbols.TransitEnterexit: MaterialSymbol
+val MaterialSymbols.TransitEnterexit: MaterialSymbol
     get() = symbolAt(3780)
 
-public val MaterialSymbols.TransitTicket: MaterialSymbol
+val MaterialSymbols.TransitTicket: MaterialSymbol
     get() = symbolAt(3781)
 
-public val MaterialSymbols.TransitionChop: MaterialSymbol
+val MaterialSymbols.TransitionChop: MaterialSymbol
     get() = symbolAt(3782)
 
-public val MaterialSymbols.TransitionDissolve: MaterialSymbol
+val MaterialSymbols.TransitionDissolve: MaterialSymbol
     get() = symbolAt(3783)
 
-public val MaterialSymbols.TransitionFade: MaterialSymbol
+val MaterialSymbols.TransitionFade: MaterialSymbol
     get() = symbolAt(3784)
 
-public val MaterialSymbols.TransitionPush: MaterialSymbol
+val MaterialSymbols.TransitionPush: MaterialSymbol
     get() = symbolAt(3785)
 
-public val MaterialSymbols.TransitionSlide: MaterialSymbol
+val MaterialSymbols.TransitionSlide: MaterialSymbol
     get() = symbolAt(3786)
 
-public val MaterialSymbols.Translate: MaterialSymbol
+val MaterialSymbols.Translate: MaterialSymbol
     get() = symbolAt(3787)
 
-public val MaterialSymbols.TranslateIndic: MaterialSymbol
+val MaterialSymbols.TranslateIndic: MaterialSymbol
     get() = symbolAt(3788)
 
-public val MaterialSymbols.Transportation: MaterialSymbol
+val MaterialSymbols.Transportation: MaterialSymbol
     get() = symbolAt(3789)
 
-public val MaterialSymbols.Travel: MaterialSymbol
+val MaterialSymbols.Travel: MaterialSymbol
     get() = symbolAt(3790)
 
-public val MaterialSymbols.TravelExplore: MaterialSymbol
+val MaterialSymbols.TravelExplore: MaterialSymbol
     get() = symbolAt(3791)
 
-public val MaterialSymbols.TravelLuggageAndBags: MaterialSymbol
+val MaterialSymbols.TravelLuggageAndBags: MaterialSymbol
     get() = symbolAt(3792)
 
-public val MaterialSymbols.TrendingDown: MaterialSymbol
+val MaterialSymbols.TrendingDown: MaterialSymbol
     get() = symbolAt(3793)
 
-public val MaterialSymbols.TrendingFlat: MaterialSymbol
+val MaterialSymbols.TrendingFlat: MaterialSymbol
     get() = symbolAt(3794)
 
-public val MaterialSymbols.TrendingUp: MaterialSymbol
+val MaterialSymbols.TrendingUp: MaterialSymbol
     get() = symbolAt(3795)
 
-public val MaterialSymbols.Trip: MaterialSymbol
+val MaterialSymbols.Trip: MaterialSymbol
     get() = symbolAt(3796)
 
-public val MaterialSymbols.TripOrigin: MaterialSymbol
+val MaterialSymbols.TripOrigin: MaterialSymbol
     get() = symbolAt(3797)
 
-public val MaterialSymbols.Trolley: MaterialSymbol
+val MaterialSymbols.Trolley: MaterialSymbol
     get() = symbolAt(3798)
 
-public val MaterialSymbols.TrolleyCableCar: MaterialSymbol
+val MaterialSymbols.TrolleyCableCar: MaterialSymbol
     get() = symbolAt(3799)
 
-public val MaterialSymbols.Trophy: MaterialSymbol
+val MaterialSymbols.Trophy: MaterialSymbol
     get() = symbolAt(3800)
 
-public val MaterialSymbols.Troubleshoot: MaterialSymbol
+val MaterialSymbols.Troubleshoot: MaterialSymbol
     get() = symbolAt(3801)
 
-public val MaterialSymbols.Try: MaterialSymbol
+val MaterialSymbols.Try: MaterialSymbol
     get() = symbolAt(3802)
 
-public val MaterialSymbols.Tsunami: MaterialSymbol
+val MaterialSymbols.Tsunami: MaterialSymbol
     get() = symbolAt(3803)
 
-public val MaterialSymbols.Tsv: MaterialSymbol
+val MaterialSymbols.Tsv: MaterialSymbol
     get() = symbolAt(3804)
 
-public val MaterialSymbols.Tty: MaterialSymbol
+val MaterialSymbols.Tty: MaterialSymbol
     get() = symbolAt(3805)
 
-public val MaterialSymbols.Tune: MaterialSymbol
+val MaterialSymbols.Tune: MaterialSymbol
     get() = symbolAt(3806)
 
-public val MaterialSymbols.Tungsten: MaterialSymbol
+val MaterialSymbols.Tungsten: MaterialSymbol
     get() = symbolAt(3807)
 
-public val MaterialSymbols.TurnLeft: MaterialSymbol
+val MaterialSymbols.TurnLeft: MaterialSymbol
     get() = symbolAt(3808)
 
-public val MaterialSymbols.TurnRight: MaterialSymbol
+val MaterialSymbols.TurnRight: MaterialSymbol
     get() = symbolAt(3809)
 
-public val MaterialSymbols.TurnSharpLeft: MaterialSymbol
+val MaterialSymbols.TurnSharpLeft: MaterialSymbol
     get() = symbolAt(3810)
 
-public val MaterialSymbols.TurnSharpRight: MaterialSymbol
+val MaterialSymbols.TurnSharpRight: MaterialSymbol
     get() = symbolAt(3811)
 
-public val MaterialSymbols.TurnSlightLeft: MaterialSymbol
+val MaterialSymbols.TurnSlightLeft: MaterialSymbol
     get() = symbolAt(3812)
 
-public val MaterialSymbols.TurnSlightRight: MaterialSymbol
+val MaterialSymbols.TurnSlightRight: MaterialSymbol
     get() = symbolAt(3813)
 
-public val MaterialSymbols.TurnedIn: MaterialSymbol
+val MaterialSymbols.TurnedIn: MaterialSymbol
     get() = symbolAt(3814)
 
-public val MaterialSymbols.TurnedInNot: MaterialSymbol
+val MaterialSymbols.TurnedInNot: MaterialSymbol
     get() = symbolAt(3815)
 
-public val MaterialSymbols.Tv: MaterialSymbol
+val MaterialSymbols.Tv: MaterialSymbol
     get() = symbolAt(3816)
 
-public val MaterialSymbols.TvDisplays: MaterialSymbol
+val MaterialSymbols.TvDisplays: MaterialSymbol
     get() = symbolAt(3817)
 
-public val MaterialSymbols.TvGen: MaterialSymbol
+val MaterialSymbols.TvGen: MaterialSymbol
     get() = symbolAt(3818)
 
-public val MaterialSymbols.TvGuide: MaterialSymbol
+val MaterialSymbols.TvGuide: MaterialSymbol
     get() = symbolAt(3819)
 
-public val MaterialSymbols.TvNext: MaterialSymbol
+val MaterialSymbols.TvNext: MaterialSymbol
     get() = symbolAt(3820)
 
-public val MaterialSymbols.TvOff: MaterialSymbol
+val MaterialSymbols.TvOff: MaterialSymbol
     get() = symbolAt(3821)
 
-public val MaterialSymbols.TvOptionsEditChannels: MaterialSymbol
+val MaterialSymbols.TvOptionsEditChannels: MaterialSymbol
     get() = symbolAt(3822)
 
-public val MaterialSymbols.TvOptionsInputSettings: MaterialSymbol
+val MaterialSymbols.TvOptionsInputSettings: MaterialSymbol
     get() = symbolAt(3823)
 
-public val MaterialSymbols.TvRemote: MaterialSymbol
+val MaterialSymbols.TvRemote: MaterialSymbol
     get() = symbolAt(3824)
 
-public val MaterialSymbols.TvSignin: MaterialSymbol
+val MaterialSymbols.TvSignin: MaterialSymbol
     get() = symbolAt(3825)
 
-public val MaterialSymbols.TvWithAssistant: MaterialSymbol
+val MaterialSymbols.TvWithAssistant: MaterialSymbol
     get() = symbolAt(3826)
 
-public val MaterialSymbols.TwoPager: MaterialSymbol
+val MaterialSymbols.TwoPager: MaterialSymbol
     get() = symbolAt(3827)
 
-public val MaterialSymbols.TwoPagerStore: MaterialSymbol
+val MaterialSymbols.TwoPagerStore: MaterialSymbol
     get() = symbolAt(3828)
 
-public val MaterialSymbols.TwoWheeler: MaterialSymbol
+val MaterialSymbols.TwoWheeler: MaterialSymbol
     get() = symbolAt(3829)
 
-public val MaterialSymbols.TypeSpecimen: MaterialSymbol
+val MaterialSymbols.TypeSpecimen: MaterialSymbol
     get() = symbolAt(3830)
 
-public val MaterialSymbols.UTurnLeft: MaterialSymbol
+val MaterialSymbols.UTurnLeft: MaterialSymbol
     get() = symbolAt(3831)
 
-public val MaterialSymbols.UTurnRight: MaterialSymbol
+val MaterialSymbols.UTurnRight: MaterialSymbol
     get() = symbolAt(3832)
 
-public val MaterialSymbols.Udon: MaterialSymbol
+val MaterialSymbols.Udon: MaterialSymbol
     get() = symbolAt(3833)
 
-public val MaterialSymbols.UlnaRadius: MaterialSymbol
+val MaterialSymbols.UlnaRadius: MaterialSymbol
     get() = symbolAt(3834)
 
-public val MaterialSymbols.UlnaRadiusAlt: MaterialSymbol
+val MaterialSymbols.UlnaRadiusAlt: MaterialSymbol
     get() = symbolAt(3835)
 
-public val MaterialSymbols.Umbrella: MaterialSymbol
+val MaterialSymbols.Umbrella: MaterialSymbol
     get() = symbolAt(3836)
 
-public val MaterialSymbols.Unarchive: MaterialSymbol
+val MaterialSymbols.Unarchive: MaterialSymbol
     get() = symbolAt(3837)
 
-public val MaterialSymbols.Undo: MaterialSymbol
+val MaterialSymbols.Undo: MaterialSymbol
     get() = symbolAt(3838)
 
-public val MaterialSymbols.UnfoldLess: MaterialSymbol
+val MaterialSymbols.UnfoldLess: MaterialSymbol
     get() = symbolAt(3839)
 
-public val MaterialSymbols.UnfoldLessDouble: MaterialSymbol
+val MaterialSymbols.UnfoldLessDouble: MaterialSymbol
     get() = symbolAt(3840)
 
-public val MaterialSymbols.UnfoldMore: MaterialSymbol
+val MaterialSymbols.UnfoldMore: MaterialSymbol
     get() = symbolAt(3841)
 
-public val MaterialSymbols.UnfoldMoreDouble: MaterialSymbol
+val MaterialSymbols.UnfoldMoreDouble: MaterialSymbol
     get() = symbolAt(3842)
 
-public val MaterialSymbols.Ungroup: MaterialSymbol
+val MaterialSymbols.Ungroup: MaterialSymbol
     get() = symbolAt(3843)
 
-public val MaterialSymbols.UniversalCurrency: MaterialSymbol
+val MaterialSymbols.UniversalCurrency: MaterialSymbol
     get() = symbolAt(3844)
 
-public val MaterialSymbols.UniversalCurrencyAlt: MaterialSymbol
+val MaterialSymbols.UniversalCurrencyAlt: MaterialSymbol
     get() = symbolAt(3845)
 
-public val MaterialSymbols.UniversalLocal: MaterialSymbol
+val MaterialSymbols.UniversalLocal: MaterialSymbol
     get() = symbolAt(3846)
 
-public val MaterialSymbols.Unknown2: MaterialSymbol
+val MaterialSymbols.Unknown2: MaterialSymbol
     get() = symbolAt(3847)
 
-public val MaterialSymbols.Unknown5: MaterialSymbol
+val MaterialSymbols.Unknown5: MaterialSymbol
     get() = symbolAt(3848)
 
-public val MaterialSymbols.Unknown7: MaterialSymbol
+val MaterialSymbols.Unknown7: MaterialSymbol
     get() = symbolAt(3849)
 
-public val MaterialSymbols.UnknownDocument: MaterialSymbol
+val MaterialSymbols.UnknownDocument: MaterialSymbol
     get() = symbolAt(3850)
 
-public val MaterialSymbols.UnknownMed: MaterialSymbol
+val MaterialSymbols.UnknownMed: MaterialSymbol
     get() = symbolAt(3851)
 
-public val MaterialSymbols.Unlicense: MaterialSymbol
+val MaterialSymbols.Unlicense: MaterialSymbol
     get() = symbolAt(3852)
 
-public val MaterialSymbols.UnpavedRoad: MaterialSymbol
+val MaterialSymbols.UnpavedRoad: MaterialSymbol
     get() = symbolAt(3853)
 
-public val MaterialSymbols.Unpin: MaterialSymbol
+val MaterialSymbols.Unpin: MaterialSymbol
     get() = symbolAt(3854)
 
-public val MaterialSymbols.Unpublished: MaterialSymbol
+val MaterialSymbols.Unpublished: MaterialSymbol
     get() = symbolAt(3855)
 
-public val MaterialSymbols.Unsubscribe: MaterialSymbol
+val MaterialSymbols.Unsubscribe: MaterialSymbol
     get() = symbolAt(3856)
 
-public val MaterialSymbols.Upcoming: MaterialSymbol
+val MaterialSymbols.Upcoming: MaterialSymbol
     get() = symbolAt(3857)
 
-public val MaterialSymbols.Update: MaterialSymbol
+val MaterialSymbols.Update: MaterialSymbol
     get() = symbolAt(3858)
 
-public val MaterialSymbols.UpdateDisabled: MaterialSymbol
+val MaterialSymbols.UpdateDisabled: MaterialSymbol
     get() = symbolAt(3859)
 
-public val MaterialSymbols.Upgrade: MaterialSymbol
+val MaterialSymbols.Upgrade: MaterialSymbol
     get() = symbolAt(3860)
 
-public val MaterialSymbols.UpiPay: MaterialSymbol
+val MaterialSymbols.UpiPay: MaterialSymbol
     get() = symbolAt(3861)
 
-public val MaterialSymbols.Upload: MaterialSymbol
+val MaterialSymbols.Upload: MaterialSymbol
     get() = symbolAt(3862)
 
-public val MaterialSymbols.Upload2: MaterialSymbol
+val MaterialSymbols.Upload2: MaterialSymbol
     get() = symbolAt(3863)
 
-public val MaterialSymbols.UploadFile: MaterialSymbol
+val MaterialSymbols.UploadFile: MaterialSymbol
     get() = symbolAt(3864)
 
-public val MaterialSymbols.Uppercase: MaterialSymbol
+val MaterialSymbols.Uppercase: MaterialSymbol
     get() = symbolAt(3865)
 
-public val MaterialSymbols.Urology: MaterialSymbol
+val MaterialSymbols.Urology: MaterialSymbol
     get() = symbolAt(3866)
 
-public val MaterialSymbols.Usb: MaterialSymbol
+val MaterialSymbols.Usb: MaterialSymbol
     get() = symbolAt(3867)
 
-public val MaterialSymbols.UsbOff: MaterialSymbol
+val MaterialSymbols.UsbOff: MaterialSymbol
     get() = symbolAt(3868)
 
-public val MaterialSymbols.UserAttributes: MaterialSymbol
+val MaterialSymbols.UserAttributes: MaterialSymbol
     get() = symbolAt(3869)
 
-public val MaterialSymbols.Vaccines: MaterialSymbol
+val MaterialSymbols.Vaccines: MaterialSymbol
     get() = symbolAt(3870)
 
-public val MaterialSymbols.Vacuum: MaterialSymbol
+val MaterialSymbols.Vacuum: MaterialSymbol
     get() = symbolAt(3871)
 
-public val MaterialSymbols.Valve: MaterialSymbol
+val MaterialSymbols.Valve: MaterialSymbol
     get() = symbolAt(3872)
 
-public val MaterialSymbols.VapeFree: MaterialSymbol
+val MaterialSymbols.VapeFree: MaterialSymbol
     get() = symbolAt(3873)
 
-public val MaterialSymbols.VapingRooms: MaterialSymbol
+val MaterialSymbols.VapingRooms: MaterialSymbol
     get() = symbolAt(3874)
 
-public val MaterialSymbols.VariableAdd: MaterialSymbol
+val MaterialSymbols.VariableAdd: MaterialSymbol
     get() = symbolAt(3875)
 
-public val MaterialSymbols.VariableInsert: MaterialSymbol
+val MaterialSymbols.VariableInsert: MaterialSymbol
     get() = symbolAt(3876)
 
-public val MaterialSymbols.VariableRemove: MaterialSymbol
+val MaterialSymbols.VariableRemove: MaterialSymbol
     get() = symbolAt(3877)
 
-public val MaterialSymbols.Variables: MaterialSymbol
+val MaterialSymbols.Variables: MaterialSymbol
     get() = symbolAt(3878)
 
-public val MaterialSymbols.Ventilator: MaterialSymbol
+val MaterialSymbols.Ventilator: MaterialSymbol
     get() = symbolAt(3879)
 
-public val MaterialSymbols.Verified: MaterialSymbol
+val MaterialSymbols.Verified: MaterialSymbol
     get() = symbolAt(3880)
 
-public val MaterialSymbols.VerifiedOff: MaterialSymbol
+val MaterialSymbols.VerifiedOff: MaterialSymbol
     get() = symbolAt(3881)
 
-public val MaterialSymbols.VerifiedUser: MaterialSymbol
+val MaterialSymbols.VerifiedUser: MaterialSymbol
     get() = symbolAt(3882)
 
-public val MaterialSymbols.VerticalAlignBottom: MaterialSymbol
+val MaterialSymbols.VerticalAlignBottom: MaterialSymbol
     get() = symbolAt(3883)
 
-public val MaterialSymbols.VerticalAlignCenter: MaterialSymbol
+val MaterialSymbols.VerticalAlignCenter: MaterialSymbol
     get() = symbolAt(3884)
 
-public val MaterialSymbols.VerticalAlignTop: MaterialSymbol
+val MaterialSymbols.VerticalAlignTop: MaterialSymbol
     get() = symbolAt(3885)
 
-public val MaterialSymbols.VerticalDistribute: MaterialSymbol
+val MaterialSymbols.VerticalDistribute: MaterialSymbol
     get() = symbolAt(3886)
 
-public val MaterialSymbols.VerticalShades: MaterialSymbol
+val MaterialSymbols.VerticalShades: MaterialSymbol
     get() = symbolAt(3887)
 
-public val MaterialSymbols.VerticalShadesClosed: MaterialSymbol
+val MaterialSymbols.VerticalShadesClosed: MaterialSymbol
     get() = symbolAt(3888)
 
-public val MaterialSymbols.VerticalSplit: MaterialSymbol
+val MaterialSymbols.VerticalSplit: MaterialSymbol
     get() = symbolAt(3889)
 
-public val MaterialSymbols.Vibration: MaterialSymbol
+val MaterialSymbols.Vibration: MaterialSymbol
     get() = symbolAt(3890)
 
-public val MaterialSymbols.VideoCall: MaterialSymbol
+val MaterialSymbols.VideoCall: MaterialSymbol
     get() = symbolAt(3891)
 
-public val MaterialSymbols.VideoCameraBack: MaterialSymbol
+val MaterialSymbols.VideoCameraBack: MaterialSymbol
     get() = symbolAt(3892)
 
-public val MaterialSymbols.VideoCameraBackAdd: MaterialSymbol
+val MaterialSymbols.VideoCameraBackAdd: MaterialSymbol
     get() = symbolAt(3893)
 
-public val MaterialSymbols.VideoCameraFront: MaterialSymbol
+val MaterialSymbols.VideoCameraFront: MaterialSymbol
     get() = symbolAt(3894)
 
-public val MaterialSymbols.VideoCameraFrontOff: MaterialSymbol
+val MaterialSymbols.VideoCameraFrontOff: MaterialSymbol
     get() = symbolAt(3895)
 
-public val MaterialSymbols.VideoChat: MaterialSymbol
+val MaterialSymbols.VideoChat: MaterialSymbol
     get() = symbolAt(3896)
 
-public val MaterialSymbols.VideoFile: MaterialSymbol
+val MaterialSymbols.VideoFile: MaterialSymbol
     get() = symbolAt(3897)
 
-public val MaterialSymbols.VideoLabel: MaterialSymbol
+val MaterialSymbols.VideoLabel: MaterialSymbol
     get() = symbolAt(3898)
 
-public val MaterialSymbols.VideoLibrary: MaterialSymbol
+val MaterialSymbols.VideoLibrary: MaterialSymbol
     get() = symbolAt(3899)
 
-public val MaterialSymbols.VideoSearch: MaterialSymbol
+val MaterialSymbols.VideoSearch: MaterialSymbol
     get() = symbolAt(3900)
 
-public val MaterialSymbols.VideoSettings: MaterialSymbol
+val MaterialSymbols.VideoSettings: MaterialSymbol
     get() = symbolAt(3901)
 
-public val MaterialSymbols.VideoStable: MaterialSymbol
+val MaterialSymbols.VideoStable: MaterialSymbol
     get() = symbolAt(3902)
 
-public val MaterialSymbols.Videocam: MaterialSymbol
+val MaterialSymbols.Videocam: MaterialSymbol
     get() = symbolAt(3903)
 
-public val MaterialSymbols.VideocamAlert: MaterialSymbol
+val MaterialSymbols.VideocamAlert: MaterialSymbol
     get() = symbolAt(3904)
 
-public val MaterialSymbols.VideocamOff: MaterialSymbol
+val MaterialSymbols.VideocamOff: MaterialSymbol
     get() = symbolAt(3905)
 
-public val MaterialSymbols.VideogameAsset: MaterialSymbol
+val MaterialSymbols.VideogameAsset: MaterialSymbol
     get() = symbolAt(3906)
 
-public val MaterialSymbols.VideogameAssetOff: MaterialSymbol
+val MaterialSymbols.VideogameAssetOff: MaterialSymbol
     get() = symbolAt(3907)
 
-public val MaterialSymbols.ViewAgenda: MaterialSymbol
+val MaterialSymbols.ViewAgenda: MaterialSymbol
     get() = symbolAt(3908)
 
-public val MaterialSymbols.ViewApps: MaterialSymbol
+val MaterialSymbols.ViewApps: MaterialSymbol
     get() = symbolAt(3909)
 
-public val MaterialSymbols.ViewArray: MaterialSymbol
+val MaterialSymbols.ViewArray: MaterialSymbol
     get() = symbolAt(3910)
 
-public val MaterialSymbols.ViewCarousel: MaterialSymbol
+val MaterialSymbols.ViewCarousel: MaterialSymbol
     get() = symbolAt(3911)
 
-public val MaterialSymbols.ViewColumn: MaterialSymbol
+val MaterialSymbols.ViewColumn: MaterialSymbol
     get() = symbolAt(3912)
 
-public val MaterialSymbols.ViewColumn2: MaterialSymbol
+val MaterialSymbols.ViewColumn2: MaterialSymbol
     get() = symbolAt(3913)
 
-public val MaterialSymbols.ViewComfy: MaterialSymbol
+val MaterialSymbols.ViewComfy: MaterialSymbol
     get() = symbolAt(3914)
 
-public val MaterialSymbols.ViewComfyAlt: MaterialSymbol
+val MaterialSymbols.ViewComfyAlt: MaterialSymbol
     get() = symbolAt(3915)
 
-public val MaterialSymbols.ViewCompact: MaterialSymbol
+val MaterialSymbols.ViewCompact: MaterialSymbol
     get() = symbolAt(3916)
 
-public val MaterialSymbols.ViewCompactAlt: MaterialSymbol
+val MaterialSymbols.ViewCompactAlt: MaterialSymbol
     get() = symbolAt(3917)
 
-public val MaterialSymbols.ViewCozy: MaterialSymbol
+val MaterialSymbols.ViewCozy: MaterialSymbol
     get() = symbolAt(3918)
 
-public val MaterialSymbols.ViewDay: MaterialSymbol
+val MaterialSymbols.ViewDay: MaterialSymbol
     get() = symbolAt(3919)
 
-public val MaterialSymbols.ViewHeadline: MaterialSymbol
+val MaterialSymbols.ViewHeadline: MaterialSymbol
     get() = symbolAt(3920)
 
-public val MaterialSymbols.ViewInAr: MaterialSymbol
+val MaterialSymbols.ViewInAr: MaterialSymbol
     get() = symbolAt(3921)
 
-public val MaterialSymbols.ViewInArNew: MaterialSymbol
+val MaterialSymbols.ViewInArNew: MaterialSymbol
     get() = symbolAt(3922)
 
-public val MaterialSymbols.ViewInArOff: MaterialSymbol
+val MaterialSymbols.ViewInArOff: MaterialSymbol
     get() = symbolAt(3923)
 
-public val MaterialSymbols.ViewKanban: MaterialSymbol
+val MaterialSymbols.ViewKanban: MaterialSymbol
     get() = symbolAt(3924)
 
-public val MaterialSymbols.ViewList: MaterialSymbol
+val MaterialSymbols.ViewList: MaterialSymbol
     get() = symbolAt(3925)
 
-public val MaterialSymbols.ViewModule: MaterialSymbol
+val MaterialSymbols.ViewModule: MaterialSymbol
     get() = symbolAt(3926)
 
-public val MaterialSymbols.ViewObjectTrack: MaterialSymbol
+val MaterialSymbols.ViewObjectTrack: MaterialSymbol
     get() = symbolAt(3927)
 
-public val MaterialSymbols.ViewQuilt: MaterialSymbol
+val MaterialSymbols.ViewQuilt: MaterialSymbol
     get() = symbolAt(3928)
 
-public val MaterialSymbols.ViewRealSize: MaterialSymbol
+val MaterialSymbols.ViewRealSize: MaterialSymbol
     get() = symbolAt(3929)
 
-public val MaterialSymbols.ViewSidebar: MaterialSymbol
+val MaterialSymbols.ViewSidebar: MaterialSymbol
     get() = symbolAt(3930)
 
-public val MaterialSymbols.ViewStream: MaterialSymbol
+val MaterialSymbols.ViewStream: MaterialSymbol
     get() = symbolAt(3931)
 
-public val MaterialSymbols.ViewTimeline: MaterialSymbol
+val MaterialSymbols.ViewTimeline: MaterialSymbol
     get() = symbolAt(3932)
 
-public val MaterialSymbols.ViewWeek: MaterialSymbol
+val MaterialSymbols.ViewWeek: MaterialSymbol
     get() = symbolAt(3933)
 
-public val MaterialSymbols.Vignette: MaterialSymbol
+val MaterialSymbols.Vignette: MaterialSymbol
     get() = symbolAt(3934)
 
-public val MaterialSymbols.Vignette2: MaterialSymbol
+val MaterialSymbols.Vignette2: MaterialSymbol
     get() = symbolAt(3935)
 
-public val MaterialSymbols.Villa: MaterialSymbol
+val MaterialSymbols.Villa: MaterialSymbol
     get() = symbolAt(3936)
 
-public val MaterialSymbols.Visibility: MaterialSymbol
+val MaterialSymbols.Visibility: MaterialSymbol
     get() = symbolAt(3937)
 
-public val MaterialSymbols.VisibilityLock: MaterialSymbol
+val MaterialSymbols.VisibilityLock: MaterialSymbol
     get() = symbolAt(3938)
 
-public val MaterialSymbols.VisibilityOff: MaterialSymbol
+val MaterialSymbols.VisibilityOff: MaterialSymbol
     get() = symbolAt(3939)
 
-public val MaterialSymbols.VitalSigns: MaterialSymbol
+val MaterialSymbols.VitalSigns: MaterialSymbol
     get() = symbolAt(3940)
 
-public val MaterialSymbols.Vitals: MaterialSymbol
+val MaterialSymbols.Vitals: MaterialSymbol
     get() = symbolAt(3941)
 
-public val MaterialSymbols.Vo2Max: MaterialSymbol
+val MaterialSymbols.Vo2Max: MaterialSymbol
     get() = symbolAt(3942)
 
-public val MaterialSymbols.VoiceChat: MaterialSymbol
+val MaterialSymbols.VoiceChat: MaterialSymbol
     get() = symbolAt(3943)
 
-public val MaterialSymbols.VoiceOverOff: MaterialSymbol
+val MaterialSymbols.VoiceOverOff: MaterialSymbol
     get() = symbolAt(3944)
 
-public val MaterialSymbols.VoiceSelection: MaterialSymbol
+val MaterialSymbols.VoiceSelection: MaterialSymbol
     get() = symbolAt(3945)
 
-public val MaterialSymbols.VoiceSelectionOff: MaterialSymbol
+val MaterialSymbols.VoiceSelectionOff: MaterialSymbol
     get() = symbolAt(3946)
 
-public val MaterialSymbols.Voicemail: MaterialSymbol
+val MaterialSymbols.Voicemail: MaterialSymbol
     get() = symbolAt(3947)
 
-public val MaterialSymbols.Voicemail2: MaterialSymbol
+val MaterialSymbols.Voicemail2: MaterialSymbol
     get() = symbolAt(3948)
 
-public val MaterialSymbols.Volcano: MaterialSymbol
+val MaterialSymbols.Volcano: MaterialSymbol
     get() = symbolAt(3949)
 
-public val MaterialSymbols.VolumeDown: MaterialSymbol
+val MaterialSymbols.VolumeDown: MaterialSymbol
     get() = symbolAt(3950)
 
-public val MaterialSymbols.VolumeDownAlt: MaterialSymbol
+val MaterialSymbols.VolumeDownAlt: MaterialSymbol
     get() = symbolAt(3951)
 
-public val MaterialSymbols.VolumeMute: MaterialSymbol
+val MaterialSymbols.VolumeMute: MaterialSymbol
     get() = symbolAt(3952)
 
-public val MaterialSymbols.VolumeOff: MaterialSymbol
+val MaterialSymbols.VolumeOff: MaterialSymbol
     get() = symbolAt(3953)
 
-public val MaterialSymbols.VolumeUp: MaterialSymbol
+val MaterialSymbols.VolumeUp: MaterialSymbol
     get() = symbolAt(3954)
 
-public val MaterialSymbols.VolunteerActivism: MaterialSymbol
+val MaterialSymbols.VolunteerActivism: MaterialSymbol
     get() = symbolAt(3955)
 
-public val MaterialSymbols.VotingChip: MaterialSymbol
+val MaterialSymbols.VotingChip: MaterialSymbol
     get() = symbolAt(3956)
 
-public val MaterialSymbols.VpnKey: MaterialSymbol
+val MaterialSymbols.VpnKey: MaterialSymbol
     get() = symbolAt(3957)
 
-public val MaterialSymbols.VpnKeyAlert: MaterialSymbol
+val MaterialSymbols.VpnKeyAlert: MaterialSymbol
     get() = symbolAt(3958)
 
-public val MaterialSymbols.VpnKeyOff: MaterialSymbol
+val MaterialSymbols.VpnKeyOff: MaterialSymbol
     get() = symbolAt(3959)
 
-public val MaterialSymbols.VpnLock: MaterialSymbol
+val MaterialSymbols.VpnLock: MaterialSymbol
     get() = symbolAt(3960)
 
-public val MaterialSymbols.VpnLock2: MaterialSymbol
+val MaterialSymbols.VpnLock2: MaterialSymbol
     get() = symbolAt(3961)
 
-public val MaterialSymbols.Vr180Create2d: MaterialSymbol
+val MaterialSymbols.Vr180Create2d: MaterialSymbol
     get() = symbolAt(3962)
 
-public val MaterialSymbols.Vr180Create2dOff: MaterialSymbol
+val MaterialSymbols.Vr180Create2dOff: MaterialSymbol
     get() = symbolAt(3963)
 
-public val MaterialSymbols.Vrpano: MaterialSymbol
+val MaterialSymbols.Vrpano: MaterialSymbol
     get() = symbolAt(3964)
 
-public val MaterialSymbols.WallArt: MaterialSymbol
+val MaterialSymbols.WallArt: MaterialSymbol
     get() = symbolAt(3965)
 
-public val MaterialSymbols.WallLamp: MaterialSymbol
+val MaterialSymbols.WallLamp: MaterialSymbol
     get() = symbolAt(3966)
 
-public val MaterialSymbols.Wallet: MaterialSymbol
+val MaterialSymbols.Wallet: MaterialSymbol
     get() = symbolAt(3967)
 
-public val MaterialSymbols.Wallpaper: MaterialSymbol
+val MaterialSymbols.Wallpaper: MaterialSymbol
     get() = symbolAt(3968)
 
-public val MaterialSymbols.WallpaperSlideshow: MaterialSymbol
+val MaterialSymbols.WallpaperSlideshow: MaterialSymbol
     get() = symbolAt(3969)
 
-public val MaterialSymbols.WandShine: MaterialSymbol
+val MaterialSymbols.WandShine: MaterialSymbol
     get() = symbolAt(3970)
 
-public val MaterialSymbols.WandStars: MaterialSymbol
+val MaterialSymbols.WandStars: MaterialSymbol
     get() = symbolAt(3971)
 
-public val MaterialSymbols.Ward: MaterialSymbol
+val MaterialSymbols.Ward: MaterialSymbol
     get() = symbolAt(3972)
 
-public val MaterialSymbols.Warehouse: MaterialSymbol
+val MaterialSymbols.Warehouse: MaterialSymbol
     get() = symbolAt(3973)
 
-public val MaterialSymbols.Warning: MaterialSymbol
+val MaterialSymbols.Warning: MaterialSymbol
     get() = symbolAt(3974)
 
-public val MaterialSymbols.WarningAmber: MaterialSymbol
+val MaterialSymbols.WarningAmber: MaterialSymbol
     get() = symbolAt(3975)
 
-public val MaterialSymbols.WarningOff: MaterialSymbol
+val MaterialSymbols.WarningOff: MaterialSymbol
     get() = symbolAt(3976)
 
-public val MaterialSymbols.Wash: MaterialSymbol
+val MaterialSymbols.Wash: MaterialSymbol
     get() = symbolAt(3977)
 
-public val MaterialSymbols.Washoku: MaterialSymbol
+val MaterialSymbols.Washoku: MaterialSymbol
     get() = symbolAt(3978)
 
-public val MaterialSymbols.Watch: MaterialSymbol
+val MaterialSymbols.Watch: MaterialSymbol
     get() = symbolAt(3979)
 
-public val MaterialSymbols.WatchArrow: MaterialSymbol
+val MaterialSymbols.WatchArrow: MaterialSymbol
     get() = symbolAt(3980)
 
-public val MaterialSymbols.WatchButtonPress: MaterialSymbol
+val MaterialSymbols.WatchButtonPress: MaterialSymbol
     get() = symbolAt(3981)
 
-public val MaterialSymbols.WatchCheck: MaterialSymbol
+val MaterialSymbols.WatchCheck: MaterialSymbol
     get() = symbolAt(3982)
 
-public val MaterialSymbols.WatchLater: MaterialSymbol
+val MaterialSymbols.WatchLater: MaterialSymbol
     get() = symbolAt(3983)
 
-public val MaterialSymbols.WatchOff: MaterialSymbol
+val MaterialSymbols.WatchOff: MaterialSymbol
     get() = symbolAt(3984)
 
-public val MaterialSymbols.WatchScreentime: MaterialSymbol
+val MaterialSymbols.WatchScreentime: MaterialSymbol
     get() = symbolAt(3985)
 
-public val MaterialSymbols.WatchVibration: MaterialSymbol
+val MaterialSymbols.WatchVibration: MaterialSymbol
     get() = symbolAt(3986)
 
-public val MaterialSymbols.WatchWake: MaterialSymbol
+val MaterialSymbols.WatchWake: MaterialSymbol
     get() = symbolAt(3987)
 
-public val MaterialSymbols.Water: MaterialSymbol
+val MaterialSymbols.Water: MaterialSymbol
     get() = symbolAt(3988)
 
-public val MaterialSymbols.WaterBottle: MaterialSymbol
+val MaterialSymbols.WaterBottle: MaterialSymbol
     get() = symbolAt(3989)
 
-public val MaterialSymbols.WaterBottleLarge: MaterialSymbol
+val MaterialSymbols.WaterBottleLarge: MaterialSymbol
     get() = symbolAt(3990)
 
-public val MaterialSymbols.WaterDamage: MaterialSymbol
+val MaterialSymbols.WaterDamage: MaterialSymbol
     get() = symbolAt(3991)
 
-public val MaterialSymbols.WaterDo: MaterialSymbol
+val MaterialSymbols.WaterDo: MaterialSymbol
     get() = symbolAt(3992)
 
-public val MaterialSymbols.WaterDrop: MaterialSymbol
+val MaterialSymbols.WaterDrop: MaterialSymbol
     get() = symbolAt(3993)
 
-public val MaterialSymbols.WaterEc: MaterialSymbol
+val MaterialSymbols.WaterEc: MaterialSymbol
     get() = symbolAt(3994)
 
-public val MaterialSymbols.WaterFull: MaterialSymbol
+val MaterialSymbols.WaterFull: MaterialSymbol
     get() = symbolAt(3995)
 
-public val MaterialSymbols.WaterHeater: MaterialSymbol
+val MaterialSymbols.WaterHeater: MaterialSymbol
     get() = symbolAt(3996)
 
-public val MaterialSymbols.WaterLock: MaterialSymbol
+val MaterialSymbols.WaterLock: MaterialSymbol
     get() = symbolAt(3997)
 
-public val MaterialSymbols.WaterLoss: MaterialSymbol
+val MaterialSymbols.WaterLoss: MaterialSymbol
     get() = symbolAt(3998)
 
-public val MaterialSymbols.WaterLux: MaterialSymbol
+val MaterialSymbols.WaterLux: MaterialSymbol
     get() = symbolAt(3999)
 
-public val MaterialSymbols.WaterMedium: MaterialSymbol
+val MaterialSymbols.WaterMedium: MaterialSymbol
     get() = symbolAt(4000)
 
-public val MaterialSymbols.WaterOrp: MaterialSymbol
+val MaterialSymbols.WaterOrp: MaterialSymbol
     get() = symbolAt(4001)
 
-public val MaterialSymbols.WaterPh: MaterialSymbol
+val MaterialSymbols.WaterPh: MaterialSymbol
     get() = symbolAt(4002)
 
-public val MaterialSymbols.WaterPump: MaterialSymbol
+val MaterialSymbols.WaterPump: MaterialSymbol
     get() = symbolAt(4003)
 
-public val MaterialSymbols.WaterVoc: MaterialSymbol
+val MaterialSymbols.WaterVoc: MaterialSymbol
     get() = symbolAt(4004)
 
-public val MaterialSymbols.WaterfallChart: MaterialSymbol
+val MaterialSymbols.WaterfallChart: MaterialSymbol
     get() = symbolAt(4005)
 
-public val MaterialSymbols.Waves: MaterialSymbol
+val MaterialSymbols.Waves: MaterialSymbol
     get() = symbolAt(4006)
 
-public val MaterialSymbols.WavingHand: MaterialSymbol
+val MaterialSymbols.WavingHand: MaterialSymbol
     get() = symbolAt(4007)
 
-public val MaterialSymbols.WbAuto: MaterialSymbol
+val MaterialSymbols.WbAuto: MaterialSymbol
     get() = symbolAt(4008)
 
-public val MaterialSymbols.WbCloudy: MaterialSymbol
+val MaterialSymbols.WbCloudy: MaterialSymbol
     get() = symbolAt(4009)
 
-public val MaterialSymbols.WbIncandescent: MaterialSymbol
+val MaterialSymbols.WbIncandescent: MaterialSymbol
     get() = symbolAt(4010)
 
-public val MaterialSymbols.WbIridescent: MaterialSymbol
+val MaterialSymbols.WbIridescent: MaterialSymbol
     get() = symbolAt(4011)
 
-public val MaterialSymbols.WbShade: MaterialSymbol
+val MaterialSymbols.WbShade: MaterialSymbol
     get() = symbolAt(4012)
 
-public val MaterialSymbols.WbSunny: MaterialSymbol
+val MaterialSymbols.WbSunny: MaterialSymbol
     get() = symbolAt(4013)
 
-public val MaterialSymbols.WbTwilight: MaterialSymbol
+val MaterialSymbols.WbTwilight: MaterialSymbol
     get() = symbolAt(4014)
 
-public val MaterialSymbols.Wc: MaterialSymbol
+val MaterialSymbols.Wc: MaterialSymbol
     get() = symbolAt(4015)
 
-public val MaterialSymbols.WeatherHail: MaterialSymbol
+val MaterialSymbols.WeatherHail: MaterialSymbol
     get() = symbolAt(4016)
 
-public val MaterialSymbols.WeatherMix: MaterialSymbol
+val MaterialSymbols.WeatherMix: MaterialSymbol
     get() = symbolAt(4017)
 
-public val MaterialSymbols.WeatherSnowy: MaterialSymbol
+val MaterialSymbols.WeatherSnowy: MaterialSymbol
     get() = symbolAt(4018)
 
-public val MaterialSymbols.Web: MaterialSymbol
+val MaterialSymbols.Web: MaterialSymbol
     get() = symbolAt(4019)
 
-public val MaterialSymbols.WebAsset: MaterialSymbol
+val MaterialSymbols.WebAsset: MaterialSymbol
     get() = symbolAt(4020)
 
-public val MaterialSymbols.WebAssetOff: MaterialSymbol
+val MaterialSymbols.WebAssetOff: MaterialSymbol
     get() = symbolAt(4021)
 
-public val MaterialSymbols.WebStories: MaterialSymbol
+val MaterialSymbols.WebStories: MaterialSymbol
     get() = symbolAt(4022)
 
-public val MaterialSymbols.WebTraffic: MaterialSymbol
+val MaterialSymbols.WebTraffic: MaterialSymbol
     get() = symbolAt(4023)
 
-public val MaterialSymbols.Webhook: MaterialSymbol
+val MaterialSymbols.Webhook: MaterialSymbol
     get() = symbolAt(4024)
 
-public val MaterialSymbols.Weekend: MaterialSymbol
+val MaterialSymbols.Weekend: MaterialSymbol
     get() = symbolAt(4025)
 
-public val MaterialSymbols.Weight: MaterialSymbol
+val MaterialSymbols.Weight: MaterialSymbol
     get() = symbolAt(4026)
 
-public val MaterialSymbols.West: MaterialSymbol
+val MaterialSymbols.West: MaterialSymbol
     get() = symbolAt(4027)
 
-public val MaterialSymbols.Whatshot: MaterialSymbol
+val MaterialSymbols.Whatshot: MaterialSymbol
     get() = symbolAt(4028)
 
-public val MaterialSymbols.WheelchairPickup: MaterialSymbol
+val MaterialSymbols.WheelchairPickup: MaterialSymbol
     get() = symbolAt(4029)
 
-public val MaterialSymbols.WhereToVote: MaterialSymbol
+val MaterialSymbols.WhereToVote: MaterialSymbol
     get() = symbolAt(4030)
 
-public val MaterialSymbols.WidgetMedium: MaterialSymbol
+val MaterialSymbols.WidgetMedium: MaterialSymbol
     get() = symbolAt(4031)
 
-public val MaterialSymbols.WidgetSmall: MaterialSymbol
+val MaterialSymbols.WidgetSmall: MaterialSymbol
     get() = symbolAt(4032)
 
-public val MaterialSymbols.WidgetWidth: MaterialSymbol
+val MaterialSymbols.WidgetWidth: MaterialSymbol
     get() = symbolAt(4033)
 
-public val MaterialSymbols.Widgets: MaterialSymbol
+val MaterialSymbols.Widgets: MaterialSymbol
     get() = symbolAt(4034)
 
-public val MaterialSymbols.Width: MaterialSymbol
+val MaterialSymbols.Width: MaterialSymbol
     get() = symbolAt(4035)
 
-public val MaterialSymbols.WidthFull: MaterialSymbol
+val MaterialSymbols.WidthFull: MaterialSymbol
     get() = symbolAt(4036)
 
-public val MaterialSymbols.WidthNormal: MaterialSymbol
+val MaterialSymbols.WidthNormal: MaterialSymbol
     get() = symbolAt(4037)
 
-public val MaterialSymbols.WidthWide: MaterialSymbol
+val MaterialSymbols.WidthWide: MaterialSymbol
     get() = symbolAt(4038)
 
-public val MaterialSymbols.Wifi: MaterialSymbol
+val MaterialSymbols.Wifi: MaterialSymbol
     get() = symbolAt(4039)
 
-public val MaterialSymbols.Wifi1Bar: MaterialSymbol
+val MaterialSymbols.Wifi1Bar: MaterialSymbol
     get() = symbolAt(4040)
 
-public val MaterialSymbols.Wifi2Bar: MaterialSymbol
+val MaterialSymbols.Wifi2Bar: MaterialSymbol
     get() = symbolAt(4041)
 
-public val MaterialSymbols.WifiAdd: MaterialSymbol
+val MaterialSymbols.WifiAdd: MaterialSymbol
     get() = symbolAt(4042)
 
-public val MaterialSymbols.WifiCalling: MaterialSymbol
+val MaterialSymbols.WifiCalling: MaterialSymbol
     get() = symbolAt(4043)
 
-public val MaterialSymbols.WifiCalling1: MaterialSymbol
+val MaterialSymbols.WifiCalling1: MaterialSymbol
     get() = symbolAt(4044)
 
-public val MaterialSymbols.WifiCalling2: MaterialSymbol
+val MaterialSymbols.WifiCalling2: MaterialSymbol
     get() = symbolAt(4045)
 
-public val MaterialSymbols.WifiCalling3: MaterialSymbol
+val MaterialSymbols.WifiCalling3: MaterialSymbol
     get() = symbolAt(4046)
 
-public val MaterialSymbols.WifiCallingBar1: MaterialSymbol
+val MaterialSymbols.WifiCallingBar1: MaterialSymbol
     get() = symbolAt(4047)
 
-public val MaterialSymbols.WifiCallingBar2: MaterialSymbol
+val MaterialSymbols.WifiCallingBar2: MaterialSymbol
     get() = symbolAt(4048)
 
-public val MaterialSymbols.WifiCallingBar3: MaterialSymbol
+val MaterialSymbols.WifiCallingBar3: MaterialSymbol
     get() = symbolAt(4049)
 
-public val MaterialSymbols.WifiChannel: MaterialSymbol
+val MaterialSymbols.WifiChannel: MaterialSymbol
     get() = symbolAt(4050)
 
-public val MaterialSymbols.WifiFind: MaterialSymbol
+val MaterialSymbols.WifiFind: MaterialSymbol
     get() = symbolAt(4051)
 
-public val MaterialSymbols.WifiHome: MaterialSymbol
+val MaterialSymbols.WifiHome: MaterialSymbol
     get() = symbolAt(4052)
 
-public val MaterialSymbols.WifiLock: MaterialSymbol
+val MaterialSymbols.WifiLock: MaterialSymbol
     get() = symbolAt(4053)
 
-public val MaterialSymbols.WifiNotification: MaterialSymbol
+val MaterialSymbols.WifiNotification: MaterialSymbol
     get() = symbolAt(4054)
 
-public val MaterialSymbols.WifiOff: MaterialSymbol
+val MaterialSymbols.WifiOff: MaterialSymbol
     get() = symbolAt(4055)
 
-public val MaterialSymbols.WifiPassword: MaterialSymbol
+val MaterialSymbols.WifiPassword: MaterialSymbol
     get() = symbolAt(4056)
 
-public val MaterialSymbols.WifiProtectedSetup: MaterialSymbol
+val MaterialSymbols.WifiProtectedSetup: MaterialSymbol
     get() = symbolAt(4057)
 
-public val MaterialSymbols.WifiProxy: MaterialSymbol
+val MaterialSymbols.WifiProxy: MaterialSymbol
     get() = symbolAt(4058)
 
-public val MaterialSymbols.WifiTethering: MaterialSymbol
+val MaterialSymbols.WifiTethering: MaterialSymbol
     get() = symbolAt(4059)
 
-public val MaterialSymbols.WifiTetheringError: MaterialSymbol
+val MaterialSymbols.WifiTetheringError: MaterialSymbol
     get() = symbolAt(4060)
 
-public val MaterialSymbols.WifiTetheringOff: MaterialSymbol
+val MaterialSymbols.WifiTetheringOff: MaterialSymbol
     get() = symbolAt(4061)
 
-public val MaterialSymbols.WindPower: MaterialSymbol
+val MaterialSymbols.WindPower: MaterialSymbol
     get() = symbolAt(4062)
 
-public val MaterialSymbols.Window: MaterialSymbol
+val MaterialSymbols.Window: MaterialSymbol
     get() = symbolAt(4063)
 
-public val MaterialSymbols.WindowClosed: MaterialSymbol
+val MaterialSymbols.WindowClosed: MaterialSymbol
     get() = symbolAt(4064)
 
-public val MaterialSymbols.WindowOpen: MaterialSymbol
+val MaterialSymbols.WindowOpen: MaterialSymbol
     get() = symbolAt(4065)
 
-public val MaterialSymbols.WindowSensor: MaterialSymbol
+val MaterialSymbols.WindowSensor: MaterialSymbol
     get() = symbolAt(4066)
 
-public val MaterialSymbols.WindshieldDefrostAuto: MaterialSymbol
+val MaterialSymbols.WindshieldDefrostAuto: MaterialSymbol
     get() = symbolAt(4067)
 
-public val MaterialSymbols.WindshieldDefrostFront: MaterialSymbol
+val MaterialSymbols.WindshieldDefrostFront: MaterialSymbol
     get() = symbolAt(4068)
 
-public val MaterialSymbols.WindshieldDefrostRear: MaterialSymbol
+val MaterialSymbols.WindshieldDefrostRear: MaterialSymbol
     get() = symbolAt(4069)
 
-public val MaterialSymbols.WindshieldHeatFront: MaterialSymbol
+val MaterialSymbols.WindshieldHeatFront: MaterialSymbol
     get() = symbolAt(4070)
 
-public val MaterialSymbols.WineBar: MaterialSymbol
+val MaterialSymbols.WineBar: MaterialSymbol
     get() = symbolAt(4071)
 
-public val MaterialSymbols.Woman: MaterialSymbol
+val MaterialSymbols.Woman: MaterialSymbol
     get() = symbolAt(4072)
 
-public val MaterialSymbols.Woman2: MaterialSymbol
+val MaterialSymbols.Woman2: MaterialSymbol
     get() = symbolAt(4073)
 
-public val MaterialSymbols.Work: MaterialSymbol
+val MaterialSymbols.Work: MaterialSymbol
     get() = symbolAt(4074)
 
-public val MaterialSymbols.WorkAlert: MaterialSymbol
+val MaterialSymbols.WorkAlert: MaterialSymbol
     get() = symbolAt(4075)
 
-public val MaterialSymbols.WorkHistory: MaterialSymbol
+val MaterialSymbols.WorkHistory: MaterialSymbol
     get() = symbolAt(4076)
 
-public val MaterialSymbols.WorkOff: MaterialSymbol
+val MaterialSymbols.WorkOff: MaterialSymbol
     get() = symbolAt(4077)
 
-public val MaterialSymbols.WorkOutline: MaterialSymbol
+val MaterialSymbols.WorkOutline: MaterialSymbol
     get() = symbolAt(4078)
 
-public val MaterialSymbols.WorkUpdate: MaterialSymbol
+val MaterialSymbols.WorkUpdate: MaterialSymbol
     get() = symbolAt(4079)
 
-public val MaterialSymbols.Workflow: MaterialSymbol
+val MaterialSymbols.Workflow: MaterialSymbol
     get() = symbolAt(4080)
 
-public val MaterialSymbols.WorkspacePremium: MaterialSymbol
+val MaterialSymbols.WorkspacePremium: MaterialSymbol
     get() = symbolAt(4081)
 
-public val MaterialSymbols.Workspaces: MaterialSymbol
+val MaterialSymbols.Workspaces: MaterialSymbol
     get() = symbolAt(4082)
 
-public val MaterialSymbols.WorkspacesOutline: MaterialSymbol
+val MaterialSymbols.WorkspacesOutline: MaterialSymbol
     get() = symbolAt(4083)
 
-public val MaterialSymbols.WoundsInjuries: MaterialSymbol
+val MaterialSymbols.WoundsInjuries: MaterialSymbol
     get() = symbolAt(4084)
 
-public val MaterialSymbols.WrapText: MaterialSymbol
+val MaterialSymbols.WrapText: MaterialSymbol
     get() = symbolAt(4085)
 
-public val MaterialSymbols.Wrist: MaterialSymbol
+val MaterialSymbols.Wrist: MaterialSymbol
     get() = symbolAt(4086)
 
-public val MaterialSymbols.WrongLocation: MaterialSymbol
+val MaterialSymbols.WrongLocation: MaterialSymbol
     get() = symbolAt(4087)
 
-public val MaterialSymbols.Wysiwyg: MaterialSymbol
+val MaterialSymbols.Wysiwyg: MaterialSymbol
     get() = symbolAt(4088)
 
-public val MaterialSymbols.Yakitori: MaterialSymbol
+val MaterialSymbols.Yakitori: MaterialSymbol
     get() = symbolAt(4089)
 
-public val MaterialSymbols.Yard: MaterialSymbol
+val MaterialSymbols.Yard: MaterialSymbol
     get() = symbolAt(4090)
 
-public val MaterialSymbols.Yoshoku: MaterialSymbol
+val MaterialSymbols.Yoshoku: MaterialSymbol
     get() = symbolAt(4091)
 
-public val MaterialSymbols.YourTrips: MaterialSymbol
+val MaterialSymbols.YourTrips: MaterialSymbol
     get() = symbolAt(4092)
 
-public val MaterialSymbols.YoutubeActivity: MaterialSymbol
+val MaterialSymbols.YoutubeActivity: MaterialSymbol
     get() = symbolAt(4093)
 
-public val MaterialSymbols.YoutubeSearchedFor: MaterialSymbol
+val MaterialSymbols.YoutubeSearchedFor: MaterialSymbol
     get() = symbolAt(4094)
 
-public val MaterialSymbols.ZonePersonAlert: MaterialSymbol
+val MaterialSymbols.ZonePersonAlert: MaterialSymbol
     get() = symbolAt(4095)
 
-public val MaterialSymbols.ZonePersonIdle: MaterialSymbol
+val MaterialSymbols.ZonePersonIdle: MaterialSymbol
     get() = symbolAt(4096)
 
-public val MaterialSymbols.ZonePersonUrgent: MaterialSymbol
+val MaterialSymbols.ZonePersonUrgent: MaterialSymbol
     get() = symbolAt(4097)
 
-public val MaterialSymbols.ZoomIn: MaterialSymbol
+val MaterialSymbols.ZoomIn: MaterialSymbol
     get() = symbolAt(4098)
 
-public val MaterialSymbols.ZoomInMap: MaterialSymbol
+val MaterialSymbols.ZoomInMap: MaterialSymbol
     get() = symbolAt(4099)
 
-public val MaterialSymbols.ZoomOut: MaterialSymbol
+val MaterialSymbols.ZoomOut: MaterialSymbol
     get() = symbolAt(4100)
 
-public val MaterialSymbols.ZoomOutMap: MaterialSymbol
+val MaterialSymbols.ZoomOutMap: MaterialSymbol
     get() = symbolAt(4101)
