@@ -1,6 +1,6 @@
 # Releasing Symbols
 
-Symbols publishes stable Kotlin Multiplatform libraries, Android drawable AARs,
+Symbols publishes Kotlin Multiplatform libraries, Android drawable AARs,
 and JVM build tooling automatically to Maven Central from release tags. The Gradle
 plugin is also submitted to the Plugin Portal, and GitHub release notes are created
 after the publication jobs succeed.
@@ -70,19 +70,22 @@ also published to Central, so consumers can resolve it through `mavenCentral()`.
 
 ## Create a release
 
-Merge the release automation and hosted-runner PRs before opening the repository.
-Then tag a commit already on `main` using canonical `vMAJOR.MINOR.PATCH`:
+Tag a commit already on `main` using `MAJOR.MINOR.PATCH`, optionally followed by
+a lowercase alphanumeric qualifier such as `-alpha01`, `-beta01`, or `-rc01`:
 
 ```shell
-git tag -a v0.1.0 -m "Symbols 0.1.0"
-git push origin v0.1.0
+git tag -a 0.1.0 -m "Symbols 0.1.0"
+git push origin 0.1.0
 ```
 
 Alternatively, create and publish a GitHub Release for that tag in the GitHub UI.
-Both events use the same serialized workflow. Stable tags are supported; snapshot
-and prerelease tag suffixes are rejected. The tag supplies `VERSION_NAME` for
-publication, so no separate edit to `gradle.properties` is necessary. Its snapshot
-version remains the default for local development and `publishToMavenLocal`.
+Both events use the same serialized workflow. Tags have no `v` prefix, and the
+three numeric components cannot have leading zeros. Qualifiers start with a lowercase
+letter; `SNAPSHOT` (in any case) and build metadata (`+...`) are rejected. For example,
+`1.0.0-alpha01` publishes version `1.0.0-alpha01` to both repositories. The complete
+tag supplies `VERSION_NAME` for publication, so no separate edit to
+`gradle.properties` is necessary. Its snapshot version remains the default for
+local development and `publishToMavenLocal`.
 
 The **Publish packages** workflow:
 
@@ -95,8 +98,10 @@ The **Publish packages** workflow:
 5. Submits `io.github.hlcaptain.symbol-fonts` to the Gradle Plugin Portal after its
    generator dependency is available on Central.
 6. Creates a GitHub Release with generated notes. Existing public release notes
-   are preserved; an existing draft is published. If the release was created in
-   the UI, it already exists while the packages are being published.
+   are preserved; an existing draft is published. The tag determines the release
+   type: tags with a qualifier become prereleases and are not marked latest.
+   If creating a prerelease in the UI, select **Set as a pre-release** too; it
+   already exists while the packages are being published.
 
 No tags are moved and no release is created by PR or branch pushes. Use a new
 version for subsequent releases; registry versions are immutable. Update
@@ -109,7 +114,7 @@ tag, allowing recovery if the final GitHub Release step failed. Run it from the
 same tag ref so GitHub's publication checks remain attached to the released commit:
 
 ```shell
-gh workflow run publish.yml --ref v0.1.0 -f tag=v0.1.0
+gh workflow run publish.yml --ref 0.1.0 -f tag=0.1.0
 ```
 
 A manual run from a different commit is rejected. Tag and release

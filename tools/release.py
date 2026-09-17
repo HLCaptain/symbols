@@ -10,7 +10,7 @@ import time
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
-TAG = re.compile(r"v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\Z")
+TAG = re.compile(r"(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(?:-[a-z][a-z0-9]*)?\Z")
 GROUP = "io.github.hlcaptain"
 PLUGIN = GROUP + ".symbol-fonts"
 JOB_NAMES = {
@@ -25,9 +25,10 @@ LIBRARIES += ["symbols-material-vectors-themed"]
 
 
 def version_from_tag(tag):
-    if not TAG.fullmatch(tag):
-        raise ValueError("Release tags must use vMAJOR.MINOR.PATCH, without leading zeros or SNAPSHOT.")
-    return tag[1:]
+    if not TAG.fullmatch(tag) or tag.endswith("-snapshot"):
+        raise ValueError("Release tags must use MAJOR.MINOR.PATCH with an optional lowercase qualifier "
+                         "(e.g. -alpha01), without a v prefix, leading zeros, or SNAPSHOT.")
+    return tag
 
 
 def git(*args):
