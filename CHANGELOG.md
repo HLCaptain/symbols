@@ -11,6 +11,9 @@ artifacts are released.
 
 ### Changed
 
+- Stable release tags now drive verified Maven Central releases, Gradle Plugin
+  Portal publication, and generated GitHub release notes without manual version edits.
+
 - Generate the four Material vector packs during the library build instead of
   tracking their Kotlin snapshots. Icon APIs and source attachments are preserved;
   source contributors need the pinned Python/FontTools environment.

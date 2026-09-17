@@ -242,7 +242,7 @@ flat directory of monochrome SVGs into typed Compose vectors, Android
 drawables, Compose drawable resources, or any combination:
 
 Plugin markers resolve in `pluginManagement`, not the dependency repository
-block. Stable releases need `mavenCentral()` there; source checkouts can use an
+block. Stable releases resolve through `gradlePluginPortal()` or `mavenCentral()` there; source checkouts can use an
 included `tooling` build. The complete settings blocks are in the
 [generator guide](docs/GENERATOR.md).
 

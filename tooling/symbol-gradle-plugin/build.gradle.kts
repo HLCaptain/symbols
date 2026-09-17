@@ -1,3 +1,4 @@
+import org.gradle.plugin.compatibility.compatibility
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 fun skikoRuntimeTarget(): String {
@@ -20,8 +21,7 @@ fun skikoRuntimeTarget(): String {
 plugins {
     alias(libs.plugins.kotlinJvm)
     alias(libs.plugins.buildConfig)
-    `java-gradle-plugin`
-    `maven-publish`
+    alias(libs.plugins.gradlePluginPublish)
 }
 
 buildConfig {
@@ -58,11 +58,15 @@ dependencies {
 }
 
 gradlePlugin {
+    website.set("https://github.com/HLCaptain/symbols")
+    vcsUrl.set("https://github.com/HLCaptain/symbols.git")
     plugins {
         create("symbolFonts") {
             id = "io.github.hlcaptain.symbol-fonts"
             implementationClass =
                 "io.github.hlcaptain.symbols.gradle.SymbolFontsPlugin"
+            compatibility { features { configurationCache.set(true) } }
+            tags.set(listOf("compose", "kotlin-multiplatform", "icons", "fonts", "svg"))
             displayName = "Symbols vector generator"
             description =
                 "Generates shrinkable Compose ImageVectors and Android vector " +
