@@ -43,9 +43,12 @@ Existing stored artifacts/caches are not deleted by this migration. It avoids
 adding that storage dependency rather than spending the remaining quota or
 silently removing old results. Logs and text job summaries remain available.
 
-Screenshots are also ephemeral. The existing `ui-review-approved` human gate is
-preserved; [screenshot testing](SCREENSHOT_TESTING.md) explains how to reproduce
-base/head images locally. No PNGs, traces, or binary reports are committed or uploaded.
+Roborazzi publishes PNG galleries/diffs to short-lived orphan report branches for
+same-repository PRs, using Git storage instead of Actions artifact storage. One PR
+comment links public immutable image URLs; PR closure removes the report branch.
+No images enter development-branch history. Fork PRs run read-only comparisons.
+The `ui-review-approved` human gate remains; [screenshot testing](SCREENSHOT_TESTING.md)
+describes report access, approval, cleanup, and local reproduction.
 
 ## Before making the repository public
 

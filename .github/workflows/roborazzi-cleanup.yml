@@ -1,0 +1,48 @@
+name: Roborazzi report cleanup
+
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  contents: read
+
+# The same group as the producer cancels it before removing its branch.
+concurrency:
+  group: screenshots-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  cleanup:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      # No checkout and no execution of PR code in this cleanup job.
+      - name: Remove closed PR report and retire its image links
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const number = context.issue.number;
+            const { data: pr } = await github.rest.pulls.get({ owner, repo, pull_number: number });
+            if (pr.state !== 'closed') return;
+            try {
+              await github.rest.git.deleteRef({ owner, repo, ref: `heads/roborazzi-pr-${number}` });
+            } catch (error) {
+              if (error.status !== 404) throw error;
+            }
+            const marker = '<!-- symbols-roborazzi-report -->';
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner, repo, issue_number: number, per_page: 100,
+            });
+            const previous = comments.find(c => c.user.login === 'github-actions[bot]' && c.body.startsWith(marker));
+            if (previous) {
+              await github.rest.issues.updateComment({
+                owner, repo, comment_id: previous.id,
+                body: `${marker}\n## Roborazzi previews\nPR closed; its temporary report branch has been removed.`,
+              });
+            }

@@ -11,7 +11,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: screenshots-${{ github.ref }}
+  group: screenshots-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -19,9 +19,10 @@ jobs:
     name: Roborazzi previews
     runs-on: macos-15-intel
     timeout-minutes: 90
+    # Public fork PR tokens remain read-only. Publishing also checks repository identity.
     permissions:
-      contents: read
-      pull-requests: read
+      contents: write
+      pull-requests: write
 
     steps:
       - name: Check out sources
@@ -48,13 +49,20 @@ jobs:
         uses: ./.github/actions/setup-ci-gradle
 
       - name: Record branch baselines
-        run: >-
-          ./gradlew
-          :samples:image-vector-migration:recordRoborazziDebug
-          -Proborazzi.cleanupOldScreenshots=true
-          --max-workers=1
-          --no-daemon
-          --stacktrace
+        id: head
+        shell: bash
+        run: |
+          set -euo pipefail
+          module_path=samples/image-vector-migration
+          rm -rf "$module_path/build/roborazzi/baselines" "$module_path/build/outputs/roborazzi"
+          ./gradlew :samples:image-vector-migration:recordRoborazziDebug \
+            -Proborazzi.cleanupOldScreenshots=true --max-workers=1 --no-daemon --stacktrace
+          if [[ "$GITHUB_EVENT_NAME" == "pull_request" ]]; then
+            mkdir -p "$RUNNER_TEMP/roborazzi-head"
+            if [[ -d "$module_path/build/roborazzi/baselines" ]]; then
+              cp -R "$module_path/build/roborazzi/baselines"/. "$RUNNER_TEMP/roborazzi-head/"
+            fi
+          fi
 
       - name: Record base branch baselines on the same runner
         id: base
@@ -67,11 +75,10 @@ jobs:
 
           module_path="samples/image-vector-migration"
           baseline_path="$module_path/build/roborazzi/baselines"
-          pr_baseline_path="$module_path/build/roborazzi/pr-baselines"
+          base_snapshots="$RUNNER_TEMP/roborazzi-base"
           base_worktree="$RUNNER_TEMP/symbols-roborazzi-base"
 
-          mkdir -p "$pr_baseline_path"
-          cp -R "$baseline_path"/. "$pr_baseline_path"/
+          mkdir -p "$base_snapshots"
 
           git worktree prune
           git worktree add --detach "$base_worktree" "$BASE_SHA"
@@ -106,35 +113,65 @@ jobs:
           rm -rf "$baseline_path"
           mkdir -p "$baseline_path"
           cp -R "$base_baseline_path"/. "$baseline_path"/
+          cp -R "$base_baseline_path"/. "$base_snapshots"/
           echo "available=true" >> "$GITHUB_OUTPUT"
 
-      - name: Verify pull request against base branch
-        id: verify
+      - name: Compare pull request against base branch
+        id: compare
         if: github.event_name == 'pull_request' && steps.base.outputs.available == 'true'
         continue-on-error: true
         run: >-
           ./gradlew
-          :samples:image-vector-migration:verifyRoborazziDebug
+          :samples:image-vector-migration:compareRoborazziDebug
           --rerun-tasks
           --max-workers=1
           --no-daemon
           --stacktrace
 
-      - name: Report local screenshot output
-        if: always()
+      - name: Build public preview and diff report
+        id: report
+        if: >-
+          !cancelled() && github.event_name == 'pull_request' &&
+          steps.head.outcome == 'success' && steps.base.outcome == 'success'
+        env:
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          COMPARE_OUTCOME: ${{ steps.compare.outcome }}
+          BASE_SUPPORTED: ${{ steps.base.outputs.available }}
         shell: bash
         run: |
-          echo "Screenshot output is temporary and expires with this hosted job. Reproduce locally using docs/SCREENSHOT_TESTING.md:"
-          echo "$GITHUB_WORKSPACE/samples/image-vector-migration/build"
-          find samples/image-vector-migration/build/outputs/roborazzi \
-            -type f -print 2>/dev/null | sort || true
+          set -euo pipefail
+          mkdir -p samples/image-vector-migration/build/outputs/roborazzi
+          python3 tools/roborazzi_report.py build \
+            --base "$RUNNER_TEMP/roborazzi-base" \
+            --head "$RUNNER_TEMP/roborazzi-head" \
+            --diffs samples/image-vector-migration/build/outputs/roborazzi \
+            --report "$RUNNER_TEMP/roborazzi-report" \
+            --outcome "$COMPARE_OUTCOME" --base-supported "$BASE_SUPPORTED"
+
+      - name: Publish report branch and update PR image links
+        id: publish
+        if: >-
+          !cancelled() && steps.report.outcome == 'success' &&
+          github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: python3 tools/roborazzi_report.py publish --report "$RUNNER_TEMP/roborazzi-report"
+
+      - name: Explain read-only fork reports
+        if: >-
+          !cancelled() && steps.report.outcome == 'success' &&
+          github.event.pull_request.head.repo.full_name != github.repository
+        run: |
+          echo "Fork comparisons run read-only; public report publishing requires a trusted same-repository branch." >> "$GITHUB_STEP_SUMMARY"
+          echo "See docs/SCREENSHOT_TESTING.md for local reproduction." >> "$GITHUB_STEP_SUMMARY"
 
       - name: Read current visual approval
         id: review
         if: >-
-          github.event_name == 'pull_request' &&
-          steps.base.outputs.available == 'true' &&
-          steps.verify.outcome == 'failure'
+          !cancelled() && steps.report.outcome == 'success' &&
+          steps.report.outputs.has_changes == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
@@ -145,31 +182,18 @@ jobs:
           approved="$(gh pr view "$PR_NUMBER" --json labels --jq 'any(.labels[]; .name == "ui-review-approved")')"
           echo "approved=$approved" >> "$GITHUB_OUTPUT"
 
-      - name: Require visual review for screenshot changes
+      - name: Enforce comparison health and human visual review
         if: >-
-          github.event_name == 'pull_request' &&
-          steps.base.outputs.available == 'true' &&
-          steps.verify.outcome == 'failure' &&
-          steps.review.outputs.approved != 'true'
+          !cancelled() && steps.report.outcome == 'success' &&
+          (steps.report.outputs.technical_failure == 'true' ||
+          (steps.report.outputs.has_changes == 'true' && steps.review.outputs.approved != 'true'))
+        env:
+          TECHNICAL_FAILURE: ${{ steps.report.outputs.technical_failure }}
         shell: bash
         run: |
-          echo "Roborazzi found visual changes. Reproduce and review the base/head comparison locally (docs/SCREENSHOT_TESTING.md), add ui-review-approved, and rerun this workflow." >&2
-          exit 1
-
-      - name: Reject non-visual comparison failures
-        if: >-
-          github.event_name == 'pull_request' &&
-          steps.base.outputs.available == 'true' &&
-          steps.verify.outcome == 'failure' &&
-          steps.review.outputs.approved == 'true'
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          if ! find samples/image-vector-migration/build/outputs/roborazzi \
-            -type f \( -name '*_actual.*' -o -name '*_compare.*' \) \
-            -print -quit | grep -q .; then
-            echo "Roborazzi failed without producing a visual diff; the approval label cannot bypass an infrastructure or test failure." >&2
-            exit 1
+          if [[ "$TECHNICAL_FAILURE" == "true" ]]; then
+            echo "Roborazzi comparison failed; visual approval cannot override test or infrastructure failures." >&2
+          else
+            echo "Review the current PR image report, apply ui-review-approved, and rerun this check." >&2
           fi
-          echo "Visual changes were approved with ui-review-approved."
+          exit 1

@@ -11,6 +11,9 @@ artifacts are released.
 
 ### Changed
 
+- Publish public Roborazzi preview/diff galleries on temporary PR report branches,
+  with immutable image links, human visual approval, and cleanup on PR closure.
+
 - Move CI and publication to provisioned GitHub-hosted runners without Actions
   artifact uploads or dependency caches; keep visual review reproducible locally.
 

@@ -28,6 +28,8 @@ baseline packages or duplicate production UI in screenshot-only composables.
 
 Use the configured standard GitHub-hosted runners. Do not add self-hosted runner
 labels, upload Actions artifacts, or enable GitHub Actions dependency caches.
-Generated reports remain in the ephemeral job workspace. Keep PR tokens read-only
-and preserve the manual screenshot review gate; reproduce visual output locally
-when review is needed.
+Ordinary CI uses read-only tokens. Roborazzi may publish generated PNG reports
+only to temporary `roborazzi-pr-<number>` branches and one PR comment for trusted
+same-repository PRs; never add images to development branches. Fork PR checks stay
+read-only. Preserve the human screenshot approval gate and delete report branches
+when PRs close.
