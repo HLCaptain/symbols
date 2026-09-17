@@ -1,0 +1,36 @@
+name: Set up CI Gradle
+description: Configure ephemeral hosted builds without Actions cache or artifact storage.
+inputs:
+  heap:
+    description: Gradle/Kotlin heap limit for this job
+    default: 6g
+runs:
+  using: composite
+  steps:
+    - uses: gradle/actions/setup-gradle@3f131e8634966bd73d06cc69884922b02e6faf92 # v6.2.0
+      with:
+        cache-disabled: true
+        dependency-graph: disabled
+        build-scan-publish: false
+    - name: Bound compiler memory and worker count
+      shell: bash
+      env:
+        GRADLE_HEAP: ${{ inputs.heap }}
+      run: |
+        set -euo pipefail
+        gradle_user_home="${GRADLE_USER_HOME:-$HOME/.gradle}"
+        mkdir -p "$gradle_user_home"
+        cat >> "$gradle_user_home/gradle.properties" <<PROPERTIES
+        org.gradle.jvmargs=-Xmx$GRADLE_HEAP -Dfile.encoding=UTF-8
+        kotlin.compiler.execution.strategy=in-process
+        org.gradle.workers.max=1
+        org.gradle.daemon=false
+        PROPERTIES
+    - name: Select the Kotlin-compatible Xcode SDK
+      if: runner.os == 'macOS'
+      shell: bash
+      run: |
+        set -euo pipefail
+        xcode_dir=/Applications/Xcode_26.0.1.app/Contents/Developer
+        test -d "$xcode_dir"
+        echo "DEVELOPER_DIR=$xcode_dir" >> "$GITHUB_ENV"

@@ -26,7 +26,7 @@ env:
 jobs:
   preflight:
     name: Publication preflight
-    runs-on: [self-hosted, macOS, ARM64]
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     environment: maven-central
     permissions:
@@ -84,7 +84,7 @@ jobs:
     name: Publish Central libraries (${{ github.event.release.tag_name || inputs.tag || github.ref_name }})
     needs: [preflight, full-verification]
     if: needs.preflight.outputs.libraries_done != 'true'
-    runs-on: [self-hosted, macOS, ARM64]
+    runs-on: macos-15-intel
     timeout-minutes: 120
     environment: maven-central
     steps:
@@ -103,17 +103,10 @@ jobs:
             17
             21
       - name: Configure Android SDK
-        shell: bash
-        run: |
-          set -euo pipefail
-          android_sdk="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-$HOME/Library/Android/sdk}}"
-          test -d "$android_sdk"
-          echo "ANDROID_HOME=$android_sdk" >> "$GITHUB_ENV"
-          echo "ANDROID_SDK_ROOT=$android_sdk" >> "$GITHUB_ENV"
+        uses: ./.github/actions/setup-ci-android
+
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@3f131e8634966bd73d06cc69884922b02e6faf92 # v6.2.0
-        with:
-          cache-disabled: true
+        uses: ./.github/actions/setup-ci-gradle
       - name: Publish and release libraries to Maven Central
         env:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
@@ -132,7 +125,7 @@ jobs:
     name: Publish Central tooling and Plugin Portal (${{ github.event.release.tag_name || inputs.tag || github.ref_name }})
     needs: [preflight, full-verification]
     if: needs.preflight.outputs.tooling_done != 'true' || needs.preflight.outputs.portal_done != 'true'
-    runs-on: [self-hosted, macOS, ARM64]
+    runs-on: ubuntu-24.04
     timeout-minutes: 90
     environment: maven-central
     steps:
@@ -149,9 +142,9 @@ jobs:
             17
             21
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@3f131e8634966bd73d06cc69884922b02e6faf92 # v6.2.0
+        uses: ./.github/actions/setup-ci-gradle
         with:
-          cache-disabled: true
+          heap: 4g
       - name: Publish and release tooling to Maven Central
         if: needs.preflight.outputs.tooling_done != 'true'
         env:
@@ -187,7 +180,7 @@ jobs:
       (needs.full-verification.result == 'success' || needs.preflight.outputs.complete == 'true') &&
       (needs.libraries.result == 'success' || needs.preflight.outputs.libraries_done == 'true') &&
       (needs.tooling.result == 'success' || (needs.preflight.outputs.tooling_done == 'true' && needs.preflight.outputs.portal_done == 'true'))
-    runs-on: [self-hosted, macOS, ARM64]
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     permissions:
       contents: write
