@@ -17,8 +17,9 @@ artifacts are released.
 - Move CI and publication to provisioned GitHub-hosted runners without Actions
   artifact uploads or dependency caches; keep visual review reproducible locally.
 
-- Stable release tags now drive verified Maven Central releases, Gradle Plugin
-  Portal publication, and generated GitHub release notes without manual version edits.
+- Release tags such as `1.0.0` and `1.0.0-alpha01` (without a `v` prefix) drive
+  verified Maven Central releases, Gradle Plugin Portal publication, and generated
+  GitHub release notes without manual version edits. Qualifiers produce prereleases.
 
 - Generate the four Material vector packs during the library build instead of
   tracking their Kotlin snapshots. Icon APIs and source attachments are preserved;

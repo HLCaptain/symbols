@@ -3,13 +3,13 @@ run-name: Release ${{ github.event.release.tag_name || inputs.tag || github.ref_
 
 on:
   push:
-    tags: ["v*"]
+    tags: ["[0-9]*.[0-9]*.[0-9]*"]
   release:
     types: [published]
   workflow_dispatch:
     inputs:
       tag:
-        description: Existing stable tag to resume (vMAJOR.MINOR.PATCH)
+        description: Existing tag to resume (1.0.0 or 1.0.0-alpha01)
         required: true
         type: string
 
@@ -192,10 +192,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if gh release view "$RELEASE_TAG" --json isDraft --jq .isDraft > "$RUNNER_TEMP/release-draft"; then
-            if [[ "$(cat "$RUNNER_TEMP/release-draft")" == "true" ]]; then
-              gh release edit "$RELEASE_TAG" --draft=false
-            fi
+          release_flags=(--prerelease=false)
+          if [[ "$RELEASE_TAG" == *-* ]]; then
+            release_flags=(--prerelease --latest=false)
+          fi
+          if gh release view "$RELEASE_TAG" > /dev/null; then
+            gh release edit "$RELEASE_TAG" --draft=false "${release_flags[@]}"
           else
-            gh release create "$RELEASE_TAG" --verify-tag --generate-notes --title "$RELEASE_TAG"
+            gh release create "$RELEASE_TAG" --verify-tag --generate-notes --title "$RELEASE_TAG" "${release_flags[@]}"
           fi
