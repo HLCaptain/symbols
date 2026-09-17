@@ -1,0 +1,16 @@
+name: Set up CI Android SDK
+description: Install the Android platform required by the version catalog on a fresh hosted runner.
+runs:
+  using: composite
+  steps:
+    - uses: android-actions/setup-android@40fd30fb8d7440372e1316f5d1809ec01dcd3699 # v4
+      with:
+        packages: platform-tools
+        log-accepted-android-sdk-licenses: false
+    - name: Install the platform and AGP build tools
+      shell: bash
+      run: |
+        set -euo pipefail
+        compile_sdk="$(python3 -c 'import tomllib; print(tomllib.load(open("gradle/libs.versions.toml", "rb"))["versions"]["android-compileSdk"])')"
+        # AGP 8.13 uses Build Tools 35.0.0 by default.
+        sdkmanager "platforms;android-$compile_sdk" "build-tools;35.0.0"

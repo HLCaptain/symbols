@@ -11,6 +11,9 @@ artifacts are released.
 
 ### Changed
 
+- Move CI and publication to provisioned GitHub-hosted runners without Actions
+  artifact uploads or dependency caches; keep visual review reproducible locally.
+
 - Stable release tags now drive verified Maven Central releases, Gradle Plugin
   Portal publication, and generated GitHub release notes without manual version edits.
 

@@ -133,9 +133,10 @@ are text only. There are no uploaded Actions artifacts, intermediary bundle
 transfers, or GitHub Actions dependency caches. Build outputs stay on the runner;
 CI jobs rebuild from the same commit rather than sharing artifact storage.
 
-The repository's existing macOS runner handles all Apple publications in one
-library publication job. The follow-up runner migration replaces that host without
-changing the publication boundary.
+The standard `macos-15-intel` GitHub runner publishes the complete library
+aggregation, including Apple artifacts, in one job. Tooling publication and release
+bookkeeping use `ubuntu-24.04`. No self-hosted runner is needed. Hosted provisioning
+and the public-repository handoff are documented in [CI](docs/CI.md).
 
 Local checks that do not publish:
 

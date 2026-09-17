@@ -29,7 +29,7 @@ concurrency:
 jobs:
   generated-sources-and-fonts:
     name: Generated sources and fonts
-    runs-on: [self-hosted, macOS, ARM64]
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
 
     steps:
@@ -61,8 +61,8 @@ jobs:
 
   jvm-and-android:
     name: JVM tests and Android release
-    runs-on: [self-hosted, macOS, ARM64]
-    timeout-minutes: 60
+    runs-on: macos-15-intel
+    timeout-minutes: 90
 
     steps:
       - name: Check out sources
@@ -83,22 +83,10 @@ jobs:
             21
 
       - name: Configure Android SDK
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          android_sdk="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-$HOME/Library/Android/sdk}}"
-          if [[ ! -d "$android_sdk" ]]; then
-            echo "Android SDK not found at $android_sdk" >&2
-            exit 1
-          fi
-          echo "ANDROID_HOME=$android_sdk" >> "$GITHUB_ENV"
-          echo "ANDROID_SDK_ROOT=$android_sdk" >> "$GITHUB_ENV"
+        uses: ./.github/actions/setup-ci-android
 
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
-        with:
-          cache-disabled: true
+        uses: ./.github/actions/setup-ci-gradle
 
       - name: Validate convention plugins
         run: >-
@@ -147,8 +135,8 @@ jobs:
 
   web:
     name: JS and Wasm production bundles
-    runs-on: [self-hosted, macOS, ARM64]
-    timeout-minutes: 60
+    runs-on: macos-15-intel
+    timeout-minutes: 90
 
     steps:
       - name: Check out sources
@@ -168,30 +156,41 @@ jobs:
             17
             21
 
-      - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
-        with:
-          cache-disabled: true
+      - name: Configure Android SDK
+        uses: ./.github/actions/setup-ci-android
 
-      - name: Compile every library and bundle the web sample
-        env:
-          NODE_OPTIONS: --max-old-space-size=8192
+      - name: Set up Gradle
+        uses: ./.github/actions/setup-ci-gradle
+
+      - name: Compile every JS and Wasm library
+        run: >-
+          ./gradlew compileKotlinJs compileKotlinWasmJs
+          -Dorg.gradle.jvmargs="-Xmx8192M -Dfile.encoding=UTF-8"
+          --max-workers=1 --no-daemon --stacktrace
+
+      - name: Link production executables before starting webpack
         run: >-
           ./gradlew
-          compileKotlinJs
-          compileKotlinWasmJs
+          :composeApp:compileProductionExecutableKotlinJs
+          :composeApp:compileProductionExecutableKotlinWasmJs
+          :composeApp:compileProductionExecutableKotlinWasmJsOptimize
+          -Dorg.gradle.jvmargs="-Xmx8192M -Dfile.encoding=UTF-8"
+          --max-workers=1 --no-daemon --stacktrace
+
+      - name: Bundle web samples with bounded Node and Gradle heaps
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096
+        run: >-
+          ./gradlew
           :composeApp:jsBrowserProductionWebpack
           :composeApp:wasmJsBrowserProductionWebpack
-          -Dorg.gradle.jvmargs="-Xmx8192M -Dfile.encoding=UTF-8"
-          -Pkotlin.compiler.execution.strategy=in-process
-          --max-workers=1
-          --no-daemon
-          --stacktrace
+          -Dorg.gradle.jvmargs="-Xmx2048M -Dfile.encoding=UTF-8"
+          --max-workers=1 --no-daemon --stacktrace
 
   apple:
     name: Apple libraries and sample framework
-    runs-on: [self-hosted, macOS, ARM64]
-    timeout-minutes: 60
+    runs-on: macos-15-intel
+    timeout-minutes: 90
 
     steps:
       - name: Check out sources
@@ -211,10 +210,11 @@ jobs:
             17
             21
 
+      - name: Configure Android SDK
+        uses: ./.github/actions/setup-ci-android
+
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
-        with:
-          cache-disabled: true
+        uses: ./.github/actions/setup-ci-gradle
 
       - name: Compile every iOS library and link the sample framework
         run: >-
