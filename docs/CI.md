@@ -32,7 +32,14 @@ The linking command excludes `:composeApp:wasmJsProductionExecutableCompileSync`
 that finalizer otherwise invokes Binaryen while the large compiler JVM is alive.
 The following webpack invocation performs optimization with a fresh 2 GB Gradle
 heap, `BINARYEN_CORES=2`, and a 4 GB Node heap. Kotlin's optimization passes and the
-full production sample are retained.
+full production sample are retained. The sample also caps Binaryen's combined
+inlining size at 32 KiB to avoid quadratic local-variable coalescing on generated
+initializers. Against the same linked Wasm input, this reduced observed optimizer
+RSS from about 20.5 GiB to 1.3 GiB; the output grew by only 7 bytes. The direct
+optimizer test took 65 seconds; the actual Gradle optimization invocation took
+1m23s versus 6m36s before the inlining bound. Thread limits alone did not solve that
+memory spike.
+This setting affects the sample executable, not published library code.
 
 JVM/Android and web verification have 90-minute limits. Library publication has a
 120-minute limit, including Central validation/publication waits. The build commands
