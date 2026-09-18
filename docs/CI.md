@@ -32,6 +32,13 @@ Webpack then uses a 2 GB Gradle heap and a 4 GB Node heap with those compilation
 outputs already built. This avoids overlapping a large compiler heap with a large
 webpack heap. The exact Kotlin production-link/optimization tasks are explicit.
 
+JVM/Android verification and web builds have a 180-minute limit. The archive
+verifier also builds JS, Wasm, and Apple publication archives, while Binaryen
+optimization of the full Wasm sample can take about 45 minutes on the Intel
+runner. Library publication also has a 180-minute budget for a cold build and
+Central validation/publication. These jobs previously exceeded their 90-minute
+verification limit without a compiler error.
+
 ## Storage
 
 Actions cache reads/writes are disabled. There are no `upload-artifact`,

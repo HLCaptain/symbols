@@ -62,7 +62,7 @@ jobs:
   jvm-and-android:
     name: JVM tests and Android release
     runs-on: macos-15-intel
-    timeout-minutes: 90
+    timeout-minutes: 180
 
     steps:
       - name: Check out sources
@@ -136,7 +136,7 @@ jobs:
   web:
     name: JS and Wasm production bundles
     runs-on: macos-15-intel
-    timeout-minutes: 90
+    timeout-minutes: 180
 
     steps:
       - name: Check out sources

@@ -11,6 +11,9 @@ artifacts are released.
 
 ### Changed
 
+- Trigger automatic package publication once when a GitHub Release is published,
+  and allow cold hosted verification/publication builds up to three hours.
+
 - Publish public Roborazzi preview/diff galleries on temporary PR report branches,
   with immutable image links, human visual approval, and cleanup on PR closure.
 

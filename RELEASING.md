@@ -1,9 +1,9 @@
 # Releasing Symbols
 
 Symbols publishes Kotlin Multiplatform libraries, Android drawable AARs,
-and JVM build tooling automatically to Maven Central from release tags. The Gradle
-plugin is also submitted to the Plugin Portal, and GitHub release notes are created
-after the publication jobs succeed.
+and JVM build tooling automatically to Maven Central when a GitHub Release is
+published. The Gradle plugin is also submitted to the Plugin Portal. The release
+tag supplies the package version, and existing release notes are preserved.
 
 ## Published artifacts
 
@@ -76,12 +76,15 @@ a lowercase alphanumeric qualifier such as `-alpha01`, `-beta01`, or `-rc01`:
 ```shell
 git tag -a 0.1.0 -m "Symbols 0.1.0"
 git push origin 0.1.0
+gh release create 0.1.0 --verify-tag --generate-notes --title 0.1.0
 ```
 
-Alternatively, create and publish a GitHub Release for that tag in the GitHub UI.
-Both events use the same serialized workflow. Tags have no `v` prefix, and the
-three numeric components cannot have leading zeros. Qualifiers start with a lowercase
-letter; `SNAPSHOT` (in any case) and build metadata (`+...`) are rejected. For example,
+Alternatively, create the tag and publish its GitHub Release in the GitHub UI.
+Only the release `published` event starts automatic package publication; pushing
+a tag alone does not start a second run. This includes prereleases (use
+`gh release create ... --prerelease --latest=false` for a qualifier).
+Tags have no `v` prefix, and the three numeric components cannot have leading
+zeros. Qualifiers start with a lowercase letter; `SNAPSHOT` (in any case) and build metadata (`+...`) are rejected. For example,
 `1.0.0-alpha01` publishes version `1.0.0-alpha01` to both repositories. The complete
 tag supplies `VERSION_NAME` for publication, so no separate edit to
 `gradle.properties` is necessary. Its snapshot version remains the default for
@@ -117,12 +120,16 @@ same tag ref so GitHub's publication checks remain attached to the released comm
 gh workflow run publish.yml --ref 0.1.0 -f tag=0.1.0
 ```
 
-A manual run from a different commit is rejected. Tag and release
-events for the same version are serialized, with active publication never cancelled.
+A manual run from a different commit is rejected. Release events and manual retries
+for the same version are serialized, with active publication never cancelled.
 Successful publication jobs on the same commit and tag prevent duplicate uploads,
 including a Portal submission still awaiting its first review. Public coordinates
 provide a fallback if old workflow history is gone. A partly visible Central bundle
 fails preflight rather than attempting to overwrite existing versions.
+
+Re-running an old release uses the workflow from its original tag, including its
+timeouts. Workflow fixes merged later into `main` apply to new tags. Do not move an
+existing release tag to pick up a fix; publish a new version from the fixed commit.
 
 If Central accepted an upload but a publishing/visibility timeout occurred, inspect
 the deployment in Central Portal and wait for it to finish before rerunning. The two
