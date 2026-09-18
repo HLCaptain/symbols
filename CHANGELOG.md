@@ -11,8 +11,10 @@ artifacts are released.
 
 ### Changed
 
-- Trigger automatic package publication once when a GitHub Release is published,
-  and allow cold hosted verification/publication builds up to three hours.
+- Trigger automatic package publication once when a GitHub Release is published.
+  Use Ubuntu for JVM/web builds and publication, partition archive verification by
+  platform, and bound Wasm optimizer threads and compiler memory. Publishing verifies
+  library/tooling code without compiling samples; PR/main CI retains full coverage.
 
 - Publish public Roborazzi preview/diff galleries on temporary PR report branches,
   with immutable image links, human visual approval, and cleanup on PR closure.

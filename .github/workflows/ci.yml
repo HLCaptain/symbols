@@ -12,12 +12,23 @@ on:
         required: false
         default: ''
         type: string
+      publication-only:
+        description: Verify published libraries and tooling without building sample applications
+        required: false
+        default: false
+        type: boolean
       invocation:
         description: Distinguishes reusable invocations from direct CI runs
         required: false
         default: reusable
         type: string
   workflow_dispatch:
+    inputs:
+      publication-only:
+        description: Verify only published libraries and tooling (no uploads)
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -61,8 +72,8 @@ jobs:
 
   jvm-and-android:
     name: JVM tests and Android release
-    runs-on: macos-15-intel
-    timeout-minutes: 180
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
 
     steps:
       - name: Check out sources
@@ -111,17 +122,19 @@ jobs:
           --stacktrace
 
       - name: Test JVM and verify release artifacts
-        run: >-
-          ./gradlew
-          jvmTest
-          assembleRelease
-          lintRelease
-          verifyPublishedArchives
-          --max-workers=1
-          --no-daemon
-          --stacktrace
+        env:
+          PUBLICATION_ONLY: ${{ inputs.publication-only }}
+        shell: bash
+        run: |
+          targets=(verifyLibraryJvm)
+          if [[ "$PUBLICATION_ONLY" != "true" ]]; then
+            targets=(jvmTest assembleRelease lintRelease verifyJvmAndAndroidPublishedArchives)
+          fi
+          python3 tools/ci_metrics.py --label "JVM and Android verification" -- \
+            ./gradlew "${targets[@]}" --max-workers=1 --no-daemon --stacktrace
 
       - name: Verify R8 and Android resource shrinking
+        if: ${{ !inputs.publication-only }}
         run: >-
           ./gradlew
           :benchmarks:shrinkable-vectors:assembleUnshrunk
@@ -131,65 +144,12 @@ jobs:
           --stacktrace
 
       - name: Inspect shrink benchmark APKs
+        if: ${{ !inputs.publication-only }}
         run: python3 benchmarks/shrinkable-vectors/verify.py
 
   web:
-    name: JS and Wasm production bundles
-    runs-on: macos-15-intel
-    timeout-minutes: 180
-
-    steps:
-      - name: Check out sources
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          ref: ${{ inputs.ref || github.sha }}
-          persist-credentials: false
-
-      - name: Set up vector generation dependencies
-        uses: ./.github/actions/setup-vector-python
-
-      - name: Set up Java
-        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
-        with:
-          distribution: temurin
-          java-version: |
-            17
-            21
-
-      - name: Configure Android SDK
-        uses: ./.github/actions/setup-ci-android
-
-      - name: Set up Gradle
-        uses: ./.github/actions/setup-ci-gradle
-
-      - name: Compile every JS and Wasm library
-        run: >-
-          ./gradlew compileKotlinJs compileKotlinWasmJs
-          -Dorg.gradle.jvmargs="-Xmx8192M -Dfile.encoding=UTF-8"
-          --max-workers=1 --no-daemon --stacktrace
-
-      - name: Link production executables before starting webpack
-        run: >-
-          ./gradlew
-          :composeApp:compileProductionExecutableKotlinJs
-          :composeApp:compileProductionExecutableKotlinWasmJs
-          :composeApp:compileProductionExecutableKotlinWasmJsOptimize
-          -Dorg.gradle.jvmargs="-Xmx8192M -Dfile.encoding=UTF-8"
-          --max-workers=1 --no-daemon --stacktrace
-
-      - name: Bundle web samples with bounded Node and Gradle heaps
-        env:
-          NODE_OPTIONS: --max-old-space-size=4096
-        run: >-
-          ./gradlew
-          :composeApp:jsBrowserProductionWebpack
-          :composeApp:wasmJsBrowserProductionWebpack
-          -Dorg.gradle.jvmargs="-Xmx2048M -Dfile.encoding=UTF-8"
-          --max-workers=1 --no-daemon --stacktrace
-
-  apple:
-    name: Apple libraries and sample framework
-    runs-on: macos-15-intel
+    name: ${{ inputs.publication-only && 'JS and Wasm library archives' || 'JS and Wasm production bundles' }}
+    runs-on: ubuntu-24.04
     timeout-minutes: 90
 
     steps:
@@ -216,11 +176,83 @@ jobs:
       - name: Set up Gradle
         uses: ./.github/actions/setup-ci-gradle
 
-      - name: Compile every iOS library and link the sample framework
+      - name: Compile and verify JS and Wasm libraries
+        env:
+          PUBLICATION_ONLY: ${{ inputs.publication-only }}
+        shell: bash
+        run: |
+          targets=(verifyWebPublishedArchives)
+          if [[ "$PUBLICATION_ONLY" != "true" ]]; then
+            targets=(compileKotlinJs compileKotlinWasmJs verifyWebPublishedArchives)
+          fi
+          python3 tools/ci_metrics.py --label "JS and Wasm library verification" -- \
+            ./gradlew "${targets[@]}" \
+            -Dorg.gradle.jvmargs="-Xmx8192M -Dfile.encoding=UTF-8" \
+            --max-workers=1 --no-daemon --stacktrace
+
+      - name: Link production executables before optimization
+        if: ${{ !inputs.publication-only }}
         run: >-
+          python3 tools/ci_metrics.py --label "Web production linking" --
           ./gradlew
-          compileKotlinIosSimulatorArm64
-          :composeApp:linkDebugFrameworkIosSimulatorArm64
-          --max-workers=1
-          --no-daemon
-          --stacktrace
+          :composeApp:compileProductionExecutableKotlinJs
+          :composeApp:compileProductionExecutableKotlinWasmJs
+          -x :composeApp:wasmJsProductionExecutableCompileSync
+          -Dorg.gradle.jvmargs="-Xmx8192M -Dfile.encoding=UTF-8"
+          --max-workers=1 --no-daemon --stacktrace
+
+      # Wasm sync finalizes linking and depends on Binaryen. Excluding it above
+      # defers optimization until the 8 GB compiler JVM has exited.
+      - name: Optimize and bundle web samples with bounded memory
+        if: ${{ !inputs.publication-only }}
+        env:
+          BINARYEN_CORES: '2'
+          NODE_OPTIONS: --max-old-space-size=4096
+        run: >-
+          python3 tools/ci_metrics.py --label "Web optimization and bundling" --
+          ./gradlew
+          :composeApp:jsBrowserProductionWebpack
+          :composeApp:wasmJsBrowserProductionWebpack
+          -Dorg.gradle.jvmargs="-Xmx2048M -Dfile.encoding=UTF-8"
+          --max-workers=1 --no-daemon --stacktrace
+
+  apple:
+    name: ${{ inputs.publication-only && 'Apple library archives' || 'Apple libraries and sample framework' }}
+    runs-on: ${{ inputs.publication-only && 'ubuntu-24.04' || 'macos-15-intel' }}
+    timeout-minutes: 90
+
+    steps:
+      - name: Check out sources
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.ref || github.sha }}
+          persist-credentials: false
+
+      - name: Set up vector generation dependencies
+        uses: ./.github/actions/setup-vector-python
+
+      - name: Set up Java
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: |
+            17
+            21
+
+      - name: Configure Android SDK
+        uses: ./.github/actions/setup-ci-android
+
+      - name: Set up Gradle
+        uses: ./.github/actions/setup-ci-gradle
+
+      - name: Verify Apple libraries and optionally link the sample framework
+        env:
+          PUBLICATION_ONLY: ${{ inputs.publication-only }}
+        shell: bash
+        run: |
+          targets=(verifyApplePublishedArchives)
+          if [[ "$PUBLICATION_ONLY" != "true" ]]; then
+            targets+=(compileKotlinIosSimulatorArm64 :composeApp:linkDebugFrameworkIosSimulatorArm64)
+          fi
+          python3 tools/ci_metrics.py --label "Apple verification" -- \
+            ./gradlew "${targets[@]}" --max-workers=1 --no-daemon --stacktrace

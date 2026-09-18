@@ -95,7 +95,10 @@ The **Publish packages** workflow:
 1. Resolves the tag to an immutable commit and checks its ancestry on `main`.
 2. Checks existing successful publication jobs and public registry coordinates,
    and validates the release credentials before any upload.
-3. Runs the complete CI workflow against that exact commit.
+3. Verifies generators, build tooling, library JVM tests/Android lint, and every
+   platform's publication archives against that exact commit. Sample applications,
+   production sample bundles/frameworks, and benchmark APKs stay in PR/main CI;
+   they are not compiled as part of publication verification.
 4. Publishes both Central aggregations with NMCP `AUTOMATIC` publishing, waiting
    for validation/publication and for public Maven coordinates to become visible.
 5. Submits `io.github.hlcaptain.symbol-fonts` to the Gradle Plugin Portal after its
@@ -145,9 +148,10 @@ are text only. There are no uploaded Actions artifacts, intermediary bundle
 transfers, or GitHub Actions dependency caches. Build outputs stay on the runner;
 CI jobs rebuild from the same commit rather than sharing artifact storage.
 
-The standard `macos-15-intel` GitHub runner publishes the complete library
-aggregation, including Apple artifacts, in one job. Tooling publication and release
-bookkeeping use `ubuntu-24.04`. No self-hosted runner is needed. Hosted provisioning
+The standard `ubuntu-24.04` GitHub runner publishes the complete library
+aggregation, including Apple KLIB artifacts, in one job with a 120-minute limit.
+Publication verification and tooling publication also use Ubuntu; the macOS sample
+framework is checked by normal PR/main CI. No self-hosted runner is needed. Hosted provisioning
 and the public-repository handoff are documented in [CI](docs/CI.md).
 
 Local checks that do not publish:

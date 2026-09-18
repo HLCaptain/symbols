@@ -188,15 +188,28 @@ abstract class VerifyPublishedArchives : DefaultTask() {
     }
 }
 
-val verifyPublishedArchives = tasks.register<VerifyPublishedArchives>(
-    "verifyPublishedArchives",
-) {
+val publicationArchiveVerifiers = listOf("JvmAndAndroid", "Web", "Apple")
+    .associateWith { platform ->
+        tasks.register<VerifyPublishedArchives>("verify${platform}PublishedArchives") {
+            group = "verification"
+            description = "Verifies legal notices and font counts in $platform publication archives."
+            legalDocuments.from(
+                layout.projectDirectory.file("LICENSE"),
+                layout.projectDirectory.file("THIRD_PARTY_NOTICES.md"),
+            )
+        }
+    }
+
+tasks.register("verifyPublishedArchives") {
     group = "verification"
-    description = "Verifies legal notices and font counts in published archives."
-    legalDocuments.from(
-        layout.projectDirectory.file("LICENSE"),
-        layout.projectDirectory.file("THIRD_PARTY_NOTICES.md"),
-    )
+    description = "Verifies legal notices and font counts in all published archives."
+    dependsOn(publicationArchiveVerifiers.values)
+}
+
+val verifyLibraryJvm = tasks.register("verifyLibraryJvm") {
+    group = "verification"
+    description = "Tests and lints published libraries and verifies their JVM and Android archives."
+    dependsOn(publicationArchiveVerifiers.getValue("JvmAndAndroid"))
 }
 
 allprojects {
@@ -220,6 +233,13 @@ subprojects {
     }
 
     plugins.withId("maven-publish") {
+        val libraryJvmChecks = tasks.matching {
+            it.name == "jvmTest" || it.name == "lintRelease"
+        }
+        verifyLibraryJvm.configure {
+            dependsOn(libraryJvmChecks)
+        }
+
         val centralJavadocJar = tasks.register<Jar>("centralJavadocJar") {
             archiveClassifier.set("javadoc")
             from(rootProject.layout.projectDirectory.file("README.md"))
@@ -388,7 +408,20 @@ subprojects {
                             name.endsWith("ZipMultiplatformResourcesForPublication")
                     }
 
-                verifyPublishedArchives.configure {
+                val platform = when {
+                    name.startsWith("ios") -> "Apple"
+                    name.startsWith("js") || name.startsWith("wasmJs") -> "Web"
+                    name in setOf(
+                        "jvmJar",
+                        "jvmSourcesJar",
+                        "androidReleaseSourcesJar",
+                        "bundleReleaseAar",
+                        "allMetadataJar",
+                        "sourcesJar",
+                    ) -> "JvmAndAndroid"
+                    else -> error("Unclassified publication archive: $path")
+                }
+                publicationArchiveVerifiers.getValue(platform).configure {
                     dependsOn(archiveTask)
                     archives.from(archiveTask.archiveFile)
                     namespacedLegalArchives.from(archiveTask.archiveFile)
