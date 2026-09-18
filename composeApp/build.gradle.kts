@@ -1,6 +1,7 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.targets.wasm.binaryen.BinaryenExec
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -123,6 +124,12 @@ kotlin {
             implementation(libs.kotlinx.coroutinesSwing)
         }
     }
+}
+
+// Keep generated resource initializers below Binaryen 125's quadratic local-coalescing cliff.
+// This bounds inlining while retaining Kotlin's complete optimization pass sequence.
+tasks.withType<BinaryenExec>().configureEach {
+    binaryenArgs.add(0, "--inline-max-combined-binary-size=32768")
 }
 
 android {

@@ -2,8 +2,6 @@ name: Publish packages
 run-name: Release ${{ github.event.release.tag_name || inputs.tag || github.ref_name }}
 
 on:
-  push:
-    tags: ["[0-9]*.[0-9]*.[0-9]*"]
   release:
     types: [published]
   workflow_dispatch:
@@ -72,11 +70,12 @@ jobs:
           done
 
   full-verification:
-    name: Full CI verification
+    name: Verify publishable libraries and tooling
     needs: preflight
     if: needs.preflight.outputs.complete != 'true'
     uses: ./.github/workflows/ci.yml
     with:
+      publication-only: true
       invocation: package-publish-${{ needs.preflight.outputs.tag }}
       ref: ${{ needs.preflight.outputs.commit }}
 
@@ -84,7 +83,7 @@ jobs:
     name: Publish Central libraries (${{ github.event.release.tag_name || inputs.tag || github.ref_name }})
     needs: [preflight, full-verification]
     if: needs.preflight.outputs.libraries_done != 'true'
-    runs-on: macos-15-intel
+    runs-on: ubuntu-24.04
     timeout-minutes: 120
     environment: maven-central
     steps:
@@ -115,6 +114,7 @@ jobs:
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
           PUBLICATION_VERSION: ${{ needs.preflight.outputs.version }}
         run: >-
+          python3 tools/ci_metrics.py --label "Library publication" --
           ./gradlew "-PVERSION_NAME=$PUBLICATION_VERSION"
           publishAggregationToCentralPortal
           --max-workers=1 --no-configuration-cache --no-daemon --stacktrace

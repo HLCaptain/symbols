@@ -5,14 +5,14 @@ or another self-hosted host.
 
 | Jobs | Runner | Reason |
 | --- | --- | --- |
-| Generator/font checks, release preflight, tooling publication, GitHub release | `ubuntu-24.04` | Lightweight checks or JVM-only tooling |
-| JVM/Android, web compilation, Apple, screenshots, library publication | `macos-15-intel` | 14 GB RAM in both private and public repositories; native Apple SDK support |
+| Generators, JVM/Android, web, publication, release bookkeeping | `ubuntu-24.04` | 4 CPUs/16 GB RAM for this public repository |
+| Apple sample framework and screenshots | `macos-15-intel` | Apple SDK and consistent screenshot baselines |
 
-The standard Apple Silicon runner has 7 GB RAM. The Intel choice gives the large
-vector compilations room without selecting a paid larger runner. See GitHub's
-[runner specifications](https://docs.github.com/en/actions/reference/runners/github-hosted-runners).
-Hosted jobs still consume the account's runner allowance while the repository is
-private; standard public-repository jobs follow GitHub's public-runner policy.
+Apple library archives can be cross-compiled on Linux with the current Kotlin
+configuration. The Apple verification job uses Ubuntu for publication-only runs;
+normal PR/main runs use macOS to also link the sample framework. See GitHub's
+[runner specifications](https://docs.github.com/en/actions/reference/runners/github-hosted-runners)
+and Kotlin's [publication host requirements](https://kotlinlang.org/docs/multiplatform-publish-lib.html#host-requirements).
 
 ## Fresh-runner setup
 
@@ -28,9 +28,63 @@ private; standard public-repository jobs follow GitHub's public-runner policy.
   written into the disposable runner's Gradle user properties, not developer setup.
 
 Web compilation/linking uses 8 GB in separate, terminating Gradle invocations.
-Webpack then uses a 2 GB Gradle heap and a 4 GB Node heap with those compilation
-outputs already built. This avoids overlapping a large compiler heap with a large
-webpack heap. The exact Kotlin production-link/optimization tasks are explicit.
+The linking command excludes `:composeApp:wasmJsProductionExecutableCompileSync`:
+that finalizer otherwise invokes Binaryen while the large compiler JVM is alive.
+The following webpack invocation performs optimization with a fresh 2 GB Gradle
+heap, `BINARYEN_CORES=2`, and a 4 GB Node heap. Kotlin's optimization passes and the
+full production sample are retained. The sample also caps Binaryen's combined
+inlining size at 32 KiB to avoid quadratic local-variable coalescing on generated
+initializers. Against the same linked Wasm input, this reduced observed optimizer
+RSS from about 20.5 GiB to 1.3 GiB; the output grew by only 7 bytes. The direct
+optimizer test took 65 seconds; the actual Gradle optimization invocation took
+1m23s versus 6m36s before the inlining bound. Thread limits alone did not solve that
+memory spike.
+This setting affects the sample executable, not published library code.
+
+JVM/Android and web verification have 90-minute limits. Library publication has a
+120-minute limit, including Central validation/publication waits. The build commands
+wrapped by `tools/ci_metrics.py` stream normal output and preserve failure status;
+they report elapsed time and sampled combined Java/wasm-opt RSS and wasm-opt RSS
+in logs and job summaries. Samples cover those processes on the isolated runner,
+not reserved heap sizes, and may miss short-lived peaks. Missing metrics never hide
+a build failure or fail an otherwise successful build.
+
+## Verification coverage
+
+Archive checks run beside the matching platform compilation instead of pulling
+all platforms into the JVM job:
+
+| Gradle task | Current archive count | Coverage |
+| --- | --- | --- |
+| `verifyJvmAndAndroidPublishedArchives` | 105 | JVM, Android and common metadata |
+| `verifyWebPublishedArchives` | 92 | JS and Wasm libraries/resources |
+| `verifyApplePublishedArchives` | 126 | iOS device and simulator libraries/resources |
+
+`verifyPublishedArchives` remains the aggregate of all three tasks. Every selected
+archive keeps the existing legal-notice, font-count and drawable checks. Unknown
+archive types fail configuration rather than silently entering the wrong job.
+`verifyLibraryJvm` combines the JVM/Android archive verifier with published modules'
+JVM tests and Android lint, excluding repository sample and benchmark projects.
+
+PR and main CI retain all sample compilation, production web bundling, Apple
+framework linking, and Android shrinking checks. Publication calls the same
+workflow with `publication-only: true`: it verifies generators, convention/plugin
+tooling, library tests/lint, and every platform's archives, without compiling sample
+apps, linking sample executables/frameworks, or building benchmark APKs. This input
+defaults to false, so normal CI coverage is unchanged. The manual CI trigger exposes
+this same input for testing publication verification without uploading packages:
+
+```shell
+gh workflow run ci.yml --ref BRANCH -f publication-only=true
+```
+
+Local profiling of PR #19 before this optimization used fresh source checkouts,
+one worker, in-process Kotlin, and disabled build/configuration caches. Dependency
+downloads were already cached. On a Ryzen 9 7950X3D with 64 GB RAM, full local
+publication took 14m37s and JS/Wasm compilation took 5m16s; the previous Intel-hosted
+web compilation took 38m. All 122 local publication coordinates, including 34 Apple
+KLIBs, were checked. These measurements establish feasibility, not predicted hosted
+timings. Hosted checks must finish within the stated limits before merging.
 
 ## Storage
 
