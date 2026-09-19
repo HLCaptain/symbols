@@ -158,12 +158,23 @@ Local checks that do not publish:
 
 ```shell
 python3 -m unittest discover -s tools/tests -p test_release.py
+python3 tools/check_signed_publications.py
 ./gradlew -p tooling -PVERSION_NAME=0.1.0 \
   :symbol-gradle-plugin:validatePlugins \
   :symbol-gradle-plugin:generatePomFileForPluginMavenPublication \
   :symbol-gradle-plugin:generatePomFileForSymbolFontsPluginMarkerMavenPublication \
   :symbol-generator-core:generatePomFileForMavenPublication
 ```
+
+The signed-publication check requires JDK 21, the Android SDK, Git, and GnuPG.
+It copies tracked working-tree sources into a temporary directory, overrides signing
+with a disposable key, and checks that signing tasks have distinct output files.
+It then publishes all seven `material-compose` variants to an isolated Maven local
+repository and verifies their signatures. Temporary sources, artifacts, and keys
+are removed afterwards. CI runs this check before publication verification, without
+release secrets or uploads. Each publication has its own local Javadoc JAR so its
+signature cannot collide with another platform's signature; Maven coordinates and
+classifiers are unchanged.
 
 `publishPlugins --validate-only` additionally checks Portal publishing configuration
 and requires Portal credentials, even though it does not upload. The

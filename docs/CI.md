@@ -66,6 +66,11 @@ archive types fail configuration rather than silently entering the wrong job.
 `verifyLibraryJvm` combines the JVM/Android archive verifier with published modules'
 JVM tests and Android lint, excluding repository sample and benchmark projects.
 
+JVM/Android CI also runs `python3 tools/check_signed_publications.py` with a
+disposable signing key and isolated Maven local repository. This checks signature
+output ownership across all publications and exercises seven signed publications
+of a small real KMP library, without release credentials or sample compilation.
+
 PR and main CI retain all sample compilation, production web bundling, Apple
 framework linking, and Android shrinking checks. Publication calls the same
 workflow with `publication-only: true`: it verifies generators, convention/plugin

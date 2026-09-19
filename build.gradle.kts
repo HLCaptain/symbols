@@ -240,10 +240,6 @@ subprojects {
             dependsOn(libraryJvmChecks)
         }
 
-        val centralJavadocJar = tasks.register<Jar>("centralJavadocJar") {
-            archiveClassifier.set("javadoc")
-            from(rootProject.layout.projectDirectory.file("README.md"))
-        }
         val signingKey = providers.gradleProperty("signingInMemoryKey")
         if (signingKey.isPresent) {
             pluginManager.apply("signing")
@@ -454,6 +450,13 @@ subprojects {
                 }
 
             publications.withType<MavenPublication>().configureEach {
+                val publicationName = name
+                // Gradle signs beside each artifact; sharing a JAR also shares its .asc output.
+                val centralJavadocJar = tasks.register<Jar>("${publicationName}CentralJavadocJar") {
+                    archiveClassifier.set("javadoc")
+                    destinationDirectory.set(layout.buildDirectory.dir("publications/$publicationName/javadoc"))
+                    from(rootProject.layout.projectDirectory.file("README.md"))
+                }
                 artifact(centralJavadocJar)
                 if (signingKey.isPresent) {
                     project.extensions.getByType<SigningExtension>().sign(this)
