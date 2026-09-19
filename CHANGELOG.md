@@ -11,6 +11,10 @@ artifacts are released.
 
 ### Changed
 
+- Give every Maven publication a separate local Javadoc JAR, preventing platform
+  signing tasks from overwriting the same signature. CI now checks signed local
+  publication with a disposable key before releasing packages.
+
 - Trigger automatic package publication once when a GitHub Release is published.
   Use Ubuntu for JVM/web builds and publication, partition archive verification by
   platform, and bound Wasm optimizer threads, inlining, and compiler memory. Publishing verifies
