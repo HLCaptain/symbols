@@ -24,7 +24,7 @@ androidx-uiautomator = "2.3.0"
 androidx-profileinstaller = "1.4.1"
 composePreviewScanner = "0.9.1"
 junit = "4.13.2"
-robolectric = "4.16.1"
+robolectric = "4.17"
 roborazzi = "1.72.0"
 skiko = "0.9.22.2"
 
