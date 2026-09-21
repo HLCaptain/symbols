@@ -1,0 +1,25 @@
+{
+  "head_sha": "d22bd70b129a6f74688e374321752820180e7fc7",
+  "base_sha": "c7c87419333a4c6249e13ed1add17d8a79817bf1",
+  "changes": [],
+  "previews": [
+    {
+      "name": "io.github.hlcaptain.symbols.sample.imagevectormigration.ImageVectorMigrationSampleKt.ImageVectorMigrationPreview.Compact_W400dp_H800dp_WITH_BACKGROUND.png",
+      "image": "images/ae8867024af71b8fe608a178a53eb6a3f4bea194af86872ed2cf2be775cfada5.png"
+    },
+    {
+      "name": "io.github.hlcaptain.symbols.sample.imagevectormigration.ImageVectorMigrationSampleKt.ImageVectorMigrationPreview.Expanded_W1000dp_H700dp_WITH_BACKGROUND.png",
+      "image": "images/acf33ea61f1c6d7292f0fa049a321f2daed46478e9828d15af738558b37bf603.png"
+    },
+    {
+      "name": "io.github.hlcaptain.symbols.sample.imagevectormigration.SvgIconExamplesKt.SvgIconExamplesPreview.Compact_W400dp_H800dp_WITH_BACKGROUND.png",
+      "image": "images/1d31fd065108b383738333386565f82c8ebc0bfbce9722d7b108815e4e6e1c22.png"
+    },
+    {
+      "name": "io.github.hlcaptain.symbols.sample.imagevectormigration.SvgIconExamplesKt.SvgIconExamplesPreview.Expanded_W1000dp_H700dp_WITH_BACKGROUND.png",
+      "image": "images/e1622cf29a0b4ef058c436c4ad2aafd775a20c9b034d4832b272b7bcbfce9763.png"
+    }
+  ],
+  "technical_failure": false,
+  "outcome": "success"
+}
