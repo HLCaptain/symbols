@@ -26,7 +26,7 @@ composePreviewScanner = "0.9.1"
 junit = "4.13.2"
 robolectric = "4.16.1"
 roborazzi = "1.72.0"
-skiko = "0.9.22.2"
+skiko = "0.150.1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
