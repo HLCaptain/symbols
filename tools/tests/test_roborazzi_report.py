@@ -4,6 +4,7 @@ import json
 import os
 from pathlib import Path
 import struct
+from subprocess import CompletedProcess
 from tempfile import TemporaryDirectory
 import unittest
 from unittest.mock import patch
@@ -25,6 +26,32 @@ class ReportTest(unittest.TestCase):
         environment = patch.dict(os.environ, {"GITHUB_OUTPUT": "", "GITHUB_STEP_SUMMARY": ""})
         environment.start()
         self.addCleanup(environment.stop)
+
+    def test_api_only_suppresses_expected_missing_reference_errors(self):
+        cases = [
+            (0, '{"sha": "abc"}', "", True, {"sha": "abc"}, False),
+            (0, "", "", True, None, False),
+            (1, '{"message": "Not Found"}', "gh: Not Found (HTTP 404)", True, None, False),
+            (1, '{"message": "Reference does not exist"}',
+             "gh: Reference does not exist (HTTP 422)", True, None, False),
+            (1, '{"message": "Validation Failed"}', "gh: Validation Failed (HTTP 422)", True, None, True),
+            (1, '{"message": "Resource not accessible by integration"}',
+             "gh: Resource not accessible by integration (HTTP 403)", True, None, True),
+            (1, '{"message": "Not Found"}', "gh: Not Found (HTTP 404)", False, None, True),
+            (1, '{"message": "Reference does not exist"}',
+             "gh: Reference does not exist (HTTP 422)", False, None, True),
+        ]
+        for code, stdout, stderr, missing, expected, raises in cases:
+            with self.subTest(stderr=stderr, missing=missing, stdout=stdout):
+                process = CompletedProcess([], code, stdout=stdout, stderr=stderr)
+                with patch.object(report.subprocess, "run", return_value=process):
+                    if raises:
+                        with self.assertRaises(RuntimeError) as error:
+                            report.api("repos/owner/repo/git/refs/heads/roborazzi-pr-7", "DELETE", missing=missing)
+                        self.assertEqual(stderr, str(error.exception))
+                    else:
+                        self.assertEqual(expected, report.api(
+                            "repos/owner/repo/git/refs/heads/roborazzi-pr-7", "DELETE", missing=missing))
 
     def fixture(self, root, outcome="success"):
         base, head, diffs = [root / name for name in ("base", "head", "diffs")]

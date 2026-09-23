@@ -178,7 +178,10 @@ def api(endpoint, method="GET", data=None, missing=False, paginate=False):
     result = subprocess.run(command, input=json.dumps(data) if data is not None else None,
                             text=True, capture_output=True)
     if result.returncode:
-        if missing and "(HTTP 404)" in result.stderr:
+        absent = "(HTTP 404)" in result.stderr or (
+            "(HTTP 422)" in result.stderr and "Reference does not exist" in result.stderr
+        )
+        if missing and absent:
             return None
         raise RuntimeError(result.stderr.strip())
     return json.loads(result.stdout) if result.stdout.strip() else None

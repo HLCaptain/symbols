@@ -33,7 +33,9 @@ jobs:
             try {
               await github.rest.git.deleteRef({ owner, repo, ref: `heads/roborazzi-pr-${number}` });
             } catch (error) {
-              if (error.status !== 404) throw error;
+              const missing = error.status === 404 ||
+                (error.status === 422 && error.response?.data?.message === 'Reference does not exist');
+              if (!missing) throw error;
             }
             const marker = '<!-- symbols-roborazzi-report -->';
             const comments = await github.paginate(github.rest.issues.listComments, {
