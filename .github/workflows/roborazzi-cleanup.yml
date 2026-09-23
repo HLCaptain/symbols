@@ -43,6 +43,6 @@ jobs:
             if (previous) {
               await github.rest.issues.updateComment({
                 owner, repo, comment_id: previous.id,
-                body: `${marker}\n## Roborazzi previews\nPR closed; its temporary report branch has been removed.`,
+                body: `${marker}\n## Roborazzi Visual Comparison\nPR closed; its temporary report branch has been removed.`,
               });
             }
