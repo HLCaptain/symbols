@@ -121,6 +121,9 @@ jobs:
           --no-daemon
           --stacktrace
 
+      - name: Check signed publication with a disposable key
+        run: python3 tools/check_signed_publications.py
+
       - name: Test JVM and verify release artifacts
         env:
           PUBLICATION_ONLY: ${{ inputs.publication-only }}
