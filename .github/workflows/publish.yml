@@ -84,7 +84,7 @@ jobs:
     needs: [preflight, full-verification]
     if: needs.preflight.outputs.libraries_done != 'true'
     runs-on: ubuntu-24.04
-    timeout-minutes: 120
+    timeout-minutes: 240
     environment: maven-central
     steps:
       - name: Check out verified commit
@@ -106,7 +106,8 @@ jobs:
 
       - name: Set up Gradle
         uses: ./.github/actions/setup-ci-gradle
-      - name: Publish and release libraries to Maven Central
+      - name: Upload and validate libraries on Maven Central
+        timeout-minutes: 90
         env:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
@@ -119,6 +120,7 @@ jobs:
           publishAggregationToCentralPortal
           --max-workers=1 --no-configuration-cache --no-daemon --stacktrace
       - name: Wait for public Maven coordinates
+        timeout-minutes: 125
         run: python3 tools/release.py --tag "$RELEASE_TAG" --wait-component libraries
 
   tooling:
@@ -126,7 +128,7 @@ jobs:
     needs: [preflight, full-verification]
     if: needs.preflight.outputs.tooling_done != 'true' || needs.preflight.outputs.portal_done != 'true'
     runs-on: ubuntu-24.04
-    timeout-minutes: 90
+    timeout-minutes: 210
     environment: maven-central
     steps:
       - name: Check out verified commit
@@ -145,7 +147,8 @@ jobs:
         uses: ./.github/actions/setup-ci-gradle
         with:
           heap: 4g
-      - name: Publish and release tooling to Maven Central
+      - name: Upload and validate tooling on Maven Central
+        timeout-minutes: 45
         if: needs.preflight.outputs.tooling_done != 'true'
         env:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
@@ -158,6 +161,7 @@ jobs:
           publishAggregationToCentralPortal
           --max-workers=1 --no-configuration-cache --no-daemon --stacktrace
       - name: Wait for tooling dependencies on Central
+        timeout-minutes: 125
         run: python3 tools/release.py --tag "$RELEASE_TAG" --wait-component tooling
       - name: Publish Gradle plugin
         if: needs.preflight.outputs.portal_done != 'true'
