@@ -31,7 +31,8 @@ nmcpSettings {
         publicationName = "symbols-tooling:" +
             providers.gradleProperty("VERSION_NAME").orElse("unspecified").get()
         validationTimeout = java.time.Duration.ofMinutes(30)
-        publishingTimeout = java.time.Duration.ofMinutes(30)
+        // Central publication is asynchronous; CI separately waits for public coordinates.
+        publishingTimeout = java.time.Duration.ZERO
     }
 }
 

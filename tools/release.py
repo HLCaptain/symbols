@@ -96,6 +96,27 @@ def publication_done(component, tag, checks):
     return all(present)
 
 
+def wait_for_publication(component, version, timeout_seconds=7200):
+    urls = publication_urls(component, version)
+    pending = urls
+    deadline = time.monotonic() + timeout_seconds
+    while pending:
+        pending = [url for url in pending if not exists(url)]
+        if not pending:
+            print(f"{component}: all {len(urls)} Maven coordinates are public.", flush=True)
+            return
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            raise TimeoutError(
+                "Central publication is still not fully visible. Inspect the existing deployment "
+                "in Central Portal; do not re-upload while it is pending. Once published, start "
+                "a fresh tag-scoped workflow run so preflight checks the registries again."
+            )
+        print(f"{component}: waiting for {len(pending)}/{len(urls)} public Maven coordinates "
+              f"({int(remaining)}s left).", flush=True)
+        time.sleep(min(30, remaining))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--tag", required=True)
@@ -103,11 +124,7 @@ def main():
     args = parser.parse_args()
     version = version_from_tag(args.tag)
     if args.wait_component:
-        deadline = time.monotonic() + 600
-        while not all(exists(url) for url in publication_urls(args.wait_component, version)):
-            if time.monotonic() >= deadline:
-                raise TimeoutError("Central publication is not yet visible; inspect its status before retrying.")
-            time.sleep(10)
+        wait_for_publication(args.wait_component, version)
         return
     commit = release_commit(args.tag)
     repository = os.environ["GITHUB_REPOSITORY"]

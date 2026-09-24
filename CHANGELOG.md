@@ -11,6 +11,10 @@ artifacts are released.
 
 ### Changed
 
+- Wait for Maven Central availability separately from upload/validation, allowing
+  asynchronous publication without failing on NMCP's former 30-minute status wait.
+  Document fresh-run recovery so retries recheck already-published coordinates.
+
 - Give every Maven publication a separate local Javadoc JAR, preventing platform
   signing tasks from overwriting the same signature. CI now checks signed local
   publication with a disposable key before releasing packages.

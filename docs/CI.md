@@ -41,8 +41,11 @@ optimizer test took 65 seconds; the actual Gradle optimization invocation took
 memory spike.
 This setting affects the sample executable, not published library code.
 
-JVM/Android and web verification have 90-minute limits. Library publication has a
-120-minute limit, including Central validation/publication waits. The build commands
+JVM/Android and web verification have 90-minute limits. Library upload/build also
+has a 90-minute step limit. Central publication is asynchronous: after validated
+upload, a separate read-only step waits up to two hours for public coordinates.
+The library/tooling publication jobs allow 240/210 minutes for this server-side
+queue; the CI build limits remain unchanged. The build commands
 wrapped by `tools/ci_metrics.py` stream normal output and preserve failure status;
 they report elapsed time and sampled combined Java/wasm-opt RSS and wasm-opt RSS
 in logs and job summaries. Samples cover those processes on the isolated runner,

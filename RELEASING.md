@@ -99,8 +99,10 @@ The **Publish packages** workflow:
    platform's publication archives against that exact commit. Sample applications,
    production sample bundles/frameworks, and benchmark APKs stay in PR/main CI;
    they are not compiled as part of publication verification.
-4. Publishes both Central aggregations with NMCP `AUTOMATIC` publishing, waiting
-   for validation/publication and for public Maven coordinates to become visible.
+4. Uploads both Central aggregations with NMCP `AUTOMATIC` publishing and waits
+   up to 30 minutes for validation. After validation, Gradle exits and a separate
+   read-only step waits up to two hours for public Maven coordinates. Central can
+   remain in `PUBLISHING` while its asynchronous publication completes.
 5. Submits `io.github.hlcaptain.symbol-fonts` to the Gradle Plugin Portal after its
    generator dependency is available on Central.
 6. Creates a GitHub Release with generated notes. Existing public release notes
@@ -115,9 +117,14 @@ version for subsequent releases; registry versions are immutable. Update
 
 ## Retries and partial failures
 
-Prefer **Re-run failed jobs**. The manual workflow trigger also accepts an existing
-tag, allowing recovery if the final GitHub Release step failed. Run it from the
-same tag ref so GitHub's publication checks remain attached to the released commit:
+After an upload or publication timeout, inspect the existing deployment in Central
+Portal and wait until it is published. Then start a **fresh workflow run** for the
+same tag so preflight rechecks the registries and skips completed uploads. Do not
+use **Re-run failed jobs** in this situation: it reuses the earlier preflight outputs,
+which may still say the now-published version is missing.
+
+Run manual recovery from the same tag ref so GitHub's publication checks remain
+attached to the released commit:
 
 ```shell
 gh workflow run publish.yml --ref 0.1.0 -f tag=0.1.0
@@ -149,7 +156,11 @@ transfers, or GitHub Actions dependency caches. Build outputs stay on the runner
 CI jobs rebuild from the same commit rather than sharing artifact storage.
 
 The standard `ubuntu-24.04` GitHub runner publishes the complete library
-aggregation, including Apple KLIB artifacts, in one job with a 120-minute limit.
+aggregation, including Apple KLIB artifacts, in one job. The library upload/build
+step has a 90-minute limit; the separate
+public-coordinate wait has its own two-hour budget. Overall library/tooling jobs
+allow 240/210 minutes to accommodate Central's remote queue, without changing the
+90-minute CI build limits.
 Publication verification and tooling publication also use Ubuntu; the macOS sample
 framework is checked by normal PR/main CI. No self-hosted runner is needed. Hosted provisioning
 and the public-repository handoff are documented in [CI](docs/CI.md).
@@ -179,6 +190,8 @@ classifiers are unchanged.
 `publishPlugins --validate-only` additionally checks Portal publishing configuration
 and requires Portal credentials, even though it does not upload. The
 [NMCP configuration](https://gradleup.com/nmcp/) now uses automatic release with
-30-minute validation and publication timeouts. Running
-`publishAggregationToCentralPortal` with real credentials therefore publishes
-immediately; use `publishToMavenLocal` for offline packaging checks.
+a 30-minute validation timeout and `publishingTimeout = Duration.ZERO`. Zero skips
+NMCP's `PUBLISHED`-status polling, not validation or automatic publication. The
+workflow still requires publicly visible coordinates before proceeding. Running
+`publishAggregationToCentralPortal` with real credentials therefore starts
+automatic publication; use `publishToMavenLocal` for offline packaging checks.

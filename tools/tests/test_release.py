@@ -7,7 +7,7 @@ from tempfile import TemporaryDirectory
 from textwrap import dedent
 from pathlib import Path
 import unittest
-from unittest.mock import patch
+from unittest.mock import call, patch
 from urllib.error import HTTPError
 
 spec = importlib.util.spec_from_file_location("release", Path(__file__).parents[1] / "release.py")
@@ -109,6 +109,31 @@ class ReleaseTest(unittest.TestCase):
         self.assertFalse(release.prior_success("portal", "0.2.0", checks))
         checks[0]["conclusion"] = "failure"
         self.assertFalse(release.prior_success("portal", "0.1.0", checks))
+
+    def test_wait_checks_only_missing_coordinates_until_they_are_public(self):
+        with patch.object(release, "publication_urls", return_value=["first", "second"]), \
+                patch.object(release, "exists", side_effect=[True, False, True]) as exists, \
+                patch.object(release.time, "monotonic", return_value=0), \
+                patch.object(release.time, "sleep") as sleep:
+            release.wait_for_publication("tooling", "1.0.1")
+        self.assertEqual([call("first"), call("second"), call("second")], exists.call_args_list)
+        sleep.assert_called_once_with(30)
+
+    def test_wait_timeout_requires_inspection_instead_of_another_upload(self):
+        with patch.object(release, "publication_urls", return_value=["pending"]), \
+                patch.object(release, "exists", return_value=False), \
+                patch.object(release.time, "monotonic", side_effect=[0, 1, 15]), \
+                patch.object(release.time, "sleep") as sleep:
+            with self.assertRaisesRegex(TimeoutError, "do not re-upload"):
+                release.wait_for_publication("libraries", "1.0.1", timeout_seconds=15)
+        sleep.assert_called_once_with(14)
+
+    def test_wait_does_not_hide_registry_errors(self):
+        error = HTTPError("url", 503, "unavailable", {}, None)
+        with patch.object(release, "publication_urls", return_value=["url"]), \
+                patch.object(release, "exists", side_effect=error), \
+                self.assertRaises(HTTPError):
+            release.wait_for_publication("tooling", "1.0.1")
 
     def test_coordinates_include_every_umbrella_pack_and_both_plugin_markers(self):
         self.assertEqual(20, len(set(release.publication_urls("libraries", "0.1.0"))))
