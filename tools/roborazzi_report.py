@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build public PNG galleries and publish isolated, temporary Roborazzi report branches."""
+"""Report visual changes on isolated, temporary Roborazzi report branches."""
 import argparse
 import base64
 import hashlib
@@ -14,6 +14,7 @@ MARKER = "<!-- symbols-roborazzi-report -->"
 APPROVAL = "ui-review-approved"
 PNG = b"\x89PNG\r\n\x1a\n"
 MAX_BYTES = 50 * 1024 * 1024
+MAX_INLINE_ROWS = 25
 
 
 def output(name, value):
@@ -74,23 +75,26 @@ def build_report(base, head, diffs, destination, outcome, base_supported, head_s
             # Roborazzi's successful comparison takes precedence over PNG metadata differences.
             continue
         row = {"name": name, "status": status}
-        if name in baseline:
-            row["base"] = save(baseline[name])
-        if name in current:
-            row["head"] = save(current[name])
         if diff_name in comparisons:
-            row["diff"] = save(comparisons[diff_name])
+            row["image"] = save(comparisons[diff_name])
+            row["image_label"] = "Diff"
+        elif name in current:
+            row["image"] = save(current[name])
+            row["image_label"] = "PR image"
+        else:
+            row["image"] = save(baseline[name])
+            row["image_label"] = "Base image"
         changes.append(row)
     report = {
         "head_sha": head_sha, "base_sha": base_sha,
         "changes": changes,
-        "previews": [{"name": name, "image": save(data)} for name, data in current.items()],
         "technical_failure": bool(unmatched) or (outcome != "success" and not (outcome == "skipped" and not base_supported)),
         "outcome": outcome,
     }
     (destination / "report.json").write_text(json.dumps(report, indent=2) + "\n")
     (destination / "README.md").write_text(markdown(report) + "\n")
     output("has_changes", bool(changes))
+    output("change_count", len(changes))
     output("technical_failure", report["technical_failure"])
     return report
 
@@ -102,27 +106,66 @@ def escape(text):
     return value
 
 
-def markdown(report, image_root=""):
-    def image(path):
-        url = image_root + path
-        return f'<a href="{url}"><img src="{url}" width="280" alt="Screenshot"></a>'
-    lines = [MARKER, "## Roborazzi previews", "",
+def preview_details(name):
+    parts = Path(name).stem.split(".")
+    class_index = next((index for index, part in enumerate(parts) if part.endswith("Kt")), None)
+    if class_index is None:
+        return name, "Default", "", ""
+    file_name = parts[class_index][:-2] + ".kt"
+    preview = parts[class_index + 1] if len(parts) > class_index + 1 else Path(name).stem
+    variant = ".".join(parts[class_index + 2:]) or "Default"
+    variant = re.sub(r"_W(\d+)dp_H(\d+)dp", r" (\1x\2 dp)", variant)
+    variant = re.sub(r"_WIDTH_(\d+)DP_HEIGHT_(\d+)DP", r" (\1x\2 dp)", variant)
+    variant = re.sub(r"_FONT_(\d+)_(\d+)f", r" font \1.\2x", variant)
+    variant = " ".join(variant.replace("_", " ").replace(",", ", ").split())
+    source = ""
+    if all(part.isidentifier() for part in parts[:class_index + 1]):
+        package = Path(*parts[:class_index]) / file_name
+        for source_set in ("commonMain", "androidMain", "iosMain", "commonTest", "androidUnitTest"):
+            candidate = Path("samples/image-vector-migration/src") / source_set / "kotlin" / package
+            if candidate.is_file():
+                source = candidate.as_posix()
+                break
+    return file_name, variant, preview, source
+
+
+def markdown(report, image_root="", source_root=""):
+    status = "Failed" if report["technical_failure"] else {
+        "success": "Passed", "failure": "Failed", "skipped": "Skipped",
+    }[report["outcome"]]
+    lines = [MARKER, "## Roborazzi Visual Comparison", "",
              f'<!-- source:{report["head_sha"]}:{report["base_sha"]} -->',
-             f'PR commit: `{report["head_sha"]}` · Base: `{report["base_sha"]}`', "",
-             f'Visual changes: **{len(report["changes"])}**. Comparison: **{report["outcome"]}**.', ""]
+             f'Status: **{status}**',
+             f'Compared against generated screenshots from: `{report["base_sha"]}`',
+             f'PR commit: `{report["head_sha"]}`', "",
+             f'Visual changes: **{len(report["changes"])}**', ""]
     if report["technical_failure"]:
         lines += ["**The screenshot task failed. Visual approval cannot override this failure.**", ""]
-    if report["changes"]:
-        lines += [f"Review every change, then apply `{APPROVAL}` and rerun the check.", "",
-                  "| Change | Preview | Base | PR | Diff |", "| --- | --- | --- | --- | --- |"]
-        for row in report["changes"]:
-            cells = [row["status"], escape(row["name"])]
-            cells += [image(row[key]) if key in row else "—" for key in ("base", "head", "diff")]
-            lines.append("| " + " | ".join(cells) + " |")
-    lines += ["", "<details>", f'<summary>Current PR previews ({len(report["previews"])})</summary>', ""]
-    for preview in report["previews"]:
-        lines += [escape(preview["name"]), "", image(preview["image"]), ""]
-    lines += ["</details>"]
+    elif not report["changes"]:
+        lines += ["No Roborazzi visual changes were detected."]
+    else:
+        lines += [f"Review every screenshot below for the current PR commit. If the visual changes are intentional, "
+                  f"apply the `{APPROVAL}` PR label to let this check pass.",
+                  "A later head or base commit makes that approval stale; updated screenshots require review again.", ""]
+    for change, title in (("Added", "Added"), ("Changed", "Modified"), ("Removed", "Removed")):
+        rows = [row for row in report["changes"] if row["status"] == change]
+        if not rows:
+            continue
+        lines += ["<details>", f"<summary>{title} baseline image profiles: {len(rows)}</summary>", "",
+                  "| Baseline profile | Variant | Image |", "|---|---|---|"]
+        for index, row in enumerate(rows):
+            file_name, variant, preview, source = preview_details(row["name"])
+            profile = f"[{escape(file_name)}]({source_root}{source})" if source and source_root else f"<code>{escape(file_name)}</code>"
+            if preview:
+                profile += f"<br><sub>Preview: <code>{escape(preview)}</code></sub>"
+            url = image_root + row["image"]
+            image = f'[Open {row["image_label"].lower()}]({url})'
+            if index < MAX_INLINE_ROWS:
+                image += f'<br><img src="{url}" width="360" alt="Roborazzi {row["image_label"].lower()}">'
+            lines.append(f"| {profile} | {escape(variant)} | {image} |")
+        if len(rows) > MAX_INLINE_ROWS:
+            lines += ["", f"Only the first {MAX_INLINE_ROWS} {title.lower()} rows are shown inline; remaining rows link to report images."]
+        lines += ["", "</details>", ""]
     return "\n".join(lines)
 
 
@@ -135,7 +178,10 @@ def api(endpoint, method="GET", data=None, missing=False, paginate=False):
     result = subprocess.run(command, input=json.dumps(data) if data is not None else None,
                             text=True, capture_output=True)
     if result.returncode:
-        if missing and "(HTTP 404)" in result.stderr:
+        absent = "(HTTP 404)" in result.stderr or (
+            "(HTTP 422)" in result.stderr and "Reference does not exist" in result.stderr
+        )
+        if missing and absent:
             return None
         raise RuntimeError(result.stderr.strip())
     return json.loads(result.stdout) if result.stdout.strip() else None
@@ -153,9 +199,9 @@ def bot_comment(prefix, number):
                  if c["user"]["login"] == "github-actions[bot]" and c["body"].startswith(MARKER)), None)
 
 
-def current_pr(prefix, repository, number, head_sha):
+def current_pr(prefix, repository, number, head_sha, base_sha):
     pr = api(f"{prefix}/pulls/{number}")
-    if (pr["state"] != "open" or pr["head"]["sha"] != head_sha
+    if (pr["state"] != "open" or pr["head"]["sha"] != head_sha or pr["base"]["sha"] != base_sha
             or (pr["head"].get("repo") or {}).get("full_name") != repository):
         return None
     return pr
@@ -167,7 +213,7 @@ def publish(directory, repository, number):
     for name in ("head_sha", "base_sha"):
         if not re.fullmatch(r"[0-9a-f]{40}", report[name]):
             raise ValueError("Invalid source commit")
-    pr = current_pr(prefix, repository, number, report["head_sha"])
+    pr = current_pr(prefix, repository, number, report["head_sha"], report["base_sha"])
     if not pr:
         print("PR closed, changed, or from a fork; no report published.")
         output("published", False)
@@ -177,49 +223,62 @@ def publish(directory, repository, number):
     if (report["changes"] and any(label["name"] == APPROVAL for label in pr["labels"])
             and (not previous or receipt not in previous["body"])):
         api(f"{prefix}/issues/{number}/labels/{APPROVAL}", "DELETE", missing=True)
-    entries = []
-    total = 0
-    for path in sorted(directory.rglob("*")):
-        if path.is_symlink():
-            raise ValueError("Report symlinks are not allowed")
-        if not path.is_file():
-            continue
-        name = path.relative_to(directory).as_posix()
-        if name not in ("README.md", "report.json") and not re.fullmatch(r"images/[0-9a-f]{64}\.png", name):
-            raise ValueError(f"Unexpected report file: {name}")
-        data = path.read_bytes()
-        if name.startswith("images/") and (not data.startswith(PNG) or Path(name).stem != hashlib.sha256(data).hexdigest()):
-            raise ValueError("Invalid or modified report PNG")
-        total += len(data)
-        if total > MAX_BYTES:
-            raise ValueError("Report exceeds 50 MiB")
-        blob = api(f"{prefix}/git/blobs", "POST", {"content": base64.b64encode(data).decode(), "encoding": "base64"})
-        entries.append({"path": name, "mode": "100644", "type": "blob", "sha": blob["sha"]})
-    tree = api(f"{prefix}/git/trees", "POST", {"tree": entries})
-    commit = api(f"{prefix}/git/commits", "POST", {
-        "message": f'Roborazzi PR #{number}: {report["head_sha"]}', "tree": tree["sha"], "parents": [],
-    })["sha"]
-    if not current_pr(prefix, repository, number, report["head_sha"]):
-        print("PR changed during report preparation; no branch or comment updated.")
-        output("published", False)
-        return
-    if api(f"{prefix}/git/ref/heads/{branch}", missing=True):
-        api(f"{prefix}/git/refs/heads/{branch}", "PATCH", {"sha": commit, "force": True})
+    image_root = ""
+    if report["changes"]:
+        entries = []
+        total = 0
+        for path in sorted(directory.rglob("*")):
+            if path.is_symlink():
+                raise ValueError("Report symlinks are not allowed")
+            if not path.is_file():
+                continue
+            name = path.relative_to(directory).as_posix()
+            if name not in ("README.md", "report.json") and not re.fullmatch(r"images/[0-9a-f]{64}\.png", name):
+                raise ValueError(f"Unexpected report file: {name}")
+            data = path.read_bytes()
+            if name.startswith("images/") and (not data.startswith(PNG) or Path(name).stem != hashlib.sha256(data).hexdigest()):
+                raise ValueError("Invalid or modified report PNG")
+            total += len(data)
+            if total > MAX_BYTES:
+                raise ValueError("Report exceeds 50 MiB")
+            blob = api(f"{prefix}/git/blobs", "POST", {"content": base64.b64encode(data).decode(), "encoding": "base64"})
+            entries.append({"path": name, "mode": "100644", "type": "blob", "sha": blob["sha"]})
+        tree = api(f"{prefix}/git/trees", "POST", {"tree": entries})
+        commit = api(f"{prefix}/git/commits", "POST", {
+            "message": f'Roborazzi PR #{number}: {report["head_sha"]}', "tree": tree["sha"], "parents": [],
+        })["sha"]
+        if not current_pr(prefix, repository, number, report["head_sha"], report["base_sha"]):
+            print("PR changed during report preparation; no branch or comment updated.")
+            output("published", False)
+            return
+        if api(f"{prefix}/git/ref/heads/{branch}", missing=True):
+            api(f"{prefix}/git/refs/heads/{branch}", "PATCH", {"sha": commit, "force": True})
+        else:
+            api(f"{prefix}/git/refs", "POST", {"ref": f"refs/heads/{branch}", "sha": commit})
+        image_root = f"https://raw.githubusercontent.com/{repository}/{commit}/"
     else:
-        api(f"{prefix}/git/refs", "POST", {"ref": f"refs/heads/{branch}", "sha": commit})
+        if not current_pr(prefix, repository, number, report["head_sha"], report["base_sha"]):
+            print("PR changed during report preparation; no branch or comment updated.")
+            output("published", False)
+            return
+        api(f"{prefix}/git/refs/heads/{branch}", "DELETE", missing=True)
     url = f"https://github.com/{repository}"
-    body = markdown(report, f"https://raw.githubusercontent.com/{repository}/{commit}/")
-    links = (f"\n\n[Full report]({url}/tree/{branch}) · "
-             f"[Download images]({url}/archive/refs/heads/{branch}.zip) · "
-             f"[Workflow run]({url}/actions/runs/{os.environ['GITHUB_RUN_ID']})\n\n"
-             "Images are public. The temporary report branch is removed when this PR closes.")
-    # Keep GitHub's comment limit predictable; the full gallery always remains on the branch.
+    body = markdown(report, image_root, f"{url}/blob/{report['head_sha']}/")
+    links = f"\n\n[Workflow run]({url}/actions/runs/{os.environ['GITHUB_RUN_ID']})"
+    if report["changes"]:
+        links += (f" · [Full report]({url}/tree/{branch})\n\n"
+                  f"[Download all report images (.zip)]({url}/archive/refs/heads/{branch}.zip)\n\n"
+                  "<sub>Report images are hosted on the temporary companion branch for this PR "
+                  "and are deleted when the PR closes.</sub>")
+    # Keep GitHub's comment limit predictable; the full change report remains on the branch.
     if len(body.encode()) > 55000:
-        body = f'{MARKER}\n{receipt}\n## Roborazzi previews\nVisual changes: **{len(report["changes"])}**. Open the full report to review every image.'
+        failure = " Screenshot comparison failed; visual approval cannot override it." if report["technical_failure"] else ""
+        body = (f'{MARKER}\n{receipt}\n## Roborazzi Visual Comparison\n'
+                f'Visual changes: **{len(report["changes"])}**.{failure} Open the full report to review every change.')
     body += links
     if previous:
         api(f'{prefix}/issues/comments/{previous["id"]}', "PATCH", {"body": body})
-    else:
+    elif report["changes"] or report["technical_failure"]:
         api(f"{prefix}/issues/{number}/comments", "POST", {"body": body})
     output("published", True)
     if os.environ.get("GITHUB_STEP_SUMMARY"):

@@ -20,8 +20,9 @@ artifacts are released.
   platform, and bound Wasm optimizer threads, inlining, and compiler memory. Publishing verifies
   library/tooling code without compiling samples; PR/main CI retains full coverage.
 
-- Publish public Roborazzi preview/diff galleries on temporary PR report branches,
-  with immutable image links, human visual approval, and cleanup on PR closure.
+- Publish only changed, added, and removed Roborazzi screenshots on temporary PR
+  report branches, with grouped visual-comparison comments, immutable image links,
+  approval-label reruns, and cleanup when differences disappear or the PR closes.
 
 - Move CI and publication to provisioned GitHub-hosted runners without Actions
   artifact uploads or dependency caches; keep visual review reproducible locally.

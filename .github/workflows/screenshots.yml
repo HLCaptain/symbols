@@ -5,18 +5,23 @@ on:
     branches:
       - main
   pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: screenshots-${{ github.event.pull_request.number || github.ref }}
+  # Ignored label events must not cancel a running PR comparison.
+  group: screenshots-${{ github.event.label.name && github.event.label.name != 'ui-review-approved' && github.run_id || github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
   roborazzi:
-    name: Roborazzi previews
+    name: ${{ github.event.label.name && github.event.label.name != 'ui-review-approved' && 'Unrelated label event' || 'Roborazzi previews' }}
+    if: >-
+      (github.event.action != 'labeled' && github.event.action != 'unlabeled') ||
+      github.event.label.name == 'ui-review-approved'
     runs-on: macos-15-intel
     timeout-minutes: 90
     # Public fork PR tokens remain read-only. Publishing also checks repository identity.
@@ -128,7 +133,7 @@ jobs:
           --no-daemon
           --stacktrace
 
-      - name: Build public preview and diff report
+      - name: Build public visual-change report
         id: report
         if: >-
           !cancelled() && github.event_name == 'pull_request' &&
@@ -149,7 +154,7 @@ jobs:
             --report "$RUNNER_TEMP/roborazzi-report" \
             --outcome "$COMPARE_OUTCOME" --base-supported "$BASE_SUPPORTED"
 
-      - name: Publish report branch and update PR image links
+      - name: Update visual-change report and PR comment
         id: publish
         if: >-
           !cancelled() && steps.report.outcome == 'success' &&
@@ -194,6 +199,6 @@ jobs:
           if [[ "$TECHNICAL_FAILURE" == "true" ]]; then
             echo "Roborazzi comparison failed; visual approval cannot override test or infrastructure failures." >&2
           else
-            echo "Review the current PR image report, apply ui-review-approved, and rerun this check." >&2
+            echo "Review the current PR image report and apply ui-review-approved to rerun this check." >&2
           fi
           exit 1

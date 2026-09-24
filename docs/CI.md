@@ -102,11 +102,15 @@ Existing stored artifacts/caches are not deleted by this migration. It avoids
 adding that storage dependency rather than spending the remaining quota or
 silently removing old results. Logs and text job summaries remain available.
 
-Roborazzi publishes PNG galleries/diffs to short-lived orphan report branches for
-same-repository PRs, using Git storage instead of Actions artifact storage. One PR
-comment links public immutable image URLs; PR closure removes the report branch.
-No images enter development-branch history. Fork PRs run read-only comparisons.
-The `ui-review-approved` human gate remains; [screenshot testing](SCREENSHOT_TESTING.md)
+Roborazzi publishes only changed, added, and removed screenshot profiles to
+short-lived orphan report branches for same-repository PRs, using Git storage
+instead of Actions artifact storage. One PR comment groups the changes and links
+public immutable images; unchanged previews are omitted. A passing no-change run
+updates an existing comment without creating a new one and removes any stale
+report branch. PR closure also removes the branch. No images enter
+development-branch history. Fork PRs run read-only comparisons. Adding or removing
+the human `ui-review-approved` label reruns screenshot verification; technical
+failures cannot be approved away. [Screenshot testing](SCREENSHOT_TESTING.md)
 describes report access, approval, cleanup, and local reproduction.
 
 ## Before making the repository public
