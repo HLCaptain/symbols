@@ -157,7 +157,7 @@ jobs:
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
           PUBLICATION_VERSION: ${{ needs.preflight.outputs.version }}
         run: >-
-          ./gradlew -p tooling "-PVERSION_NAME=$PUBLICATION_VERSION"
+          ./tooling/gradlew -p tooling "-PVERSION_NAME=$PUBLICATION_VERSION"
           publishAggregationToCentralPortal
           --max-workers=1 --no-configuration-cache --no-daemon --stacktrace
       - name: Wait for tooling dependencies on Central
@@ -172,7 +172,7 @@ jobs:
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
           PUBLICATION_VERSION: ${{ needs.preflight.outputs.version }}
         run: >-
-          ./gradlew -p tooling "-PVERSION_NAME=$PUBLICATION_VERSION"
+          ./tooling/gradlew -p tooling "-PVERSION_NAME=$PUBLICATION_VERSION"
           :symbol-gradle-plugin:publishPlugins
           --max-workers=1 --no-configuration-cache --no-daemon --stacktrace
 

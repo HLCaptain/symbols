@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.symbolsKmpPublishing)
 }
 
-android {
-    namespace = "io.github.hlcaptain.symbols.core"
+kotlin {
+    android {
+        namespace = "io.github.hlcaptain.symbols.core"
+    }
 }

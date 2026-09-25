@@ -22,7 +22,7 @@ jobs:
     if: >-
       (github.event.action != 'labeled' && github.event.action != 'unlabeled') ||
       github.event.label.name == 'ui-review-approved'
-    runs-on: macos-15-intel
+    runs-on: macos-26-intel
     timeout-minutes: 90
     # Public fork PR tokens remain read-only. Publishing also checks repository identity.
     permissions:
@@ -60,7 +60,7 @@ jobs:
           set -euo pipefail
           module_path=samples/image-vector-migration
           rm -rf "$module_path/build/roborazzi/baselines" "$module_path/build/outputs/roborazzi"
-          ./gradlew :samples:image-vector-migration:recordRoborazziDebug \
+          ./gradlew :samples:image-vector-migration:recordRoborazziAndroidHostTest \
             -Proborazzi.cleanupOldScreenshots=true --max-workers=1 --no-daemon --stacktrace
           if [[ "$GITHUB_EVENT_NAME" == "pull_request" ]]; then
             mkdir -p "$RUNNER_TEMP/roborazzi-head"
@@ -101,8 +101,17 @@ jobs:
 
           (
             cd "$base_worktree"
+            # The comparison base can precede the Android KMP and generator upgrades.
+            base_task=recordRoborazziDebug
+            if grep -q 'androidHostTest' "$base_build"; then
+              base_task=recordRoborazziAndroidHostTest
+            fi
+            python3 -m venv "$RUNNER_TEMP/roborazzi-base-python"
+            "$RUNNER_TEMP/roborazzi-base-python/bin/pip" install \
+              -r tools/requirements-font-verification.txt
+            export SYMBOLS_PYTHON="$RUNNER_TEMP/roborazzi-base-python/bin/python"
             ./gradlew \
-              :samples:image-vector-migration:recordRoborazziDebug \
+              ":samples:image-vector-migration:$base_task" \
               -Proborazzi.cleanupOldScreenshots=true \
               --max-workers=1 \
               --no-daemon \
@@ -127,7 +136,7 @@ jobs:
         continue-on-error: true
         run: >-
           ./gradlew
-          :samples:image-vector-migration:compareRoborazziDebug
+          :samples:image-vector-migration:compareRoborazziAndroidHostTest
           --rerun-tasks
           --max-workers=1
           --no-daemon

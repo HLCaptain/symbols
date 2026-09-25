@@ -12,5 +12,8 @@ runs:
       run: |
         set -euo pipefail
         compile_sdk="$(python3 -c 'import tomllib; print(tomllib.load(open("gradle/libs.versions.toml", "rb"))["versions"]["android-compileSdk"])')"
-        # AGP 8.13 uses Build Tools 35.0.0 by default.
-        sdkmanager "platforms;android-$compile_sdk" "build-tools;35.0.0"
+        # Android 37's SDK package uses the explicit minor version.
+        if [[ "$compile_sdk" == "37" ]]; then compile_sdk=37.0; fi
+        # Keep the AGP 8 compatibility fixture and AGP 9 build tools available.
+        sdkmanager "platforms;android-$compile_sdk" "platforms;android-36" \
+          "build-tools;35.0.0" "build-tools;36.0.0"

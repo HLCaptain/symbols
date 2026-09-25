@@ -116,7 +116,7 @@ tables and cannot animate or override axes.
 
 These TTFs are deterministic, checked-in derivatives of the pinned Google
 variable fonts. They are generated only in an explicit maintainer workflow with
-FontTools 4.60.2; normal Gradle builds package the already generated result.
+FontTools 4.66.0; normal Gradle builds package the already generated result.
 Their modification status, hashes, and exact commands are recorded in
 [`THIRD_PARTY_NOTICES.md`](../THIRD_PARTY_NOTICES.md).
 
@@ -222,7 +222,7 @@ the style, resource root/package, namespace, accessor role, and static defaults.
 | --- | --- |
 | `libs.plugins.symbolsKotlinMultiplatformLibrary` | Android/JVM/JS/Wasm/iOS library targets, JDK 17, JVM 11 bytecode, Android SDK levels, hierarchy, and `kotlin-test` |
 | `libs.plugins.symbolsComposeMultiplatformLibrary` | The base multiplatform convention plus Compose Multiplatform and its compiler plugin |
-| `libs.plugins.symbolsKmpPublishing` | Maven publication and the Android release variant for a multiplatform library |
+| `libs.plugins.symbolsKmpPublishing` | Maven publication and the single Android KMP variant |
 | `libs.plugins.symbolsMaterialFontLibrary` | Published Compose and symbol-generation conventions plus the derived resources, namespace, accessor, and static settings for the six allowlisted Material font projects |
 | `libs.plugins.symbolsMaterialVectorLibrary` | Published base convention plus Material vector generation, explicit API, Material catalog, and Compose UI used by the three fixed vector packs |
 | `libs.plugins.symbolsMaterialVectorSources` | Cacheable built-in vector generation and IDE/source-archive wiring, shared with the themed pack |
@@ -241,7 +241,8 @@ archive verification.
 
 ## Sample modules
 
-`composeApp` is only the multiplatform launcher. Each common feature module
+`androidApp` owns the Android launcher and depends on the shared `composeApp`.
+`composeApp` also owns the desktop/web/iOS launchers. Each common feature module
 owns the dependency and input needed for its example and contributes one
 qualified `SampleItem` from an annotated Koin `@Module @Configuration`;
 feature modules have no runtime dependencies on each other:

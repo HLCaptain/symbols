@@ -468,10 +468,10 @@ abstract class SymbolFontStyle @Inject constructor(
      * style.
      *
      * Generated Kotlin is written below `build` and is added to `commonMain` in
-     * Kotlin Multiplatform projects or `main` in Kotlin/JVM projects. Plain
-     * Kotlin/Android projects do not receive these generated Kotlin sources
-     * automatically; use [androidDrawables] there. Each icon is exposed through
-     * the configured icon-set root and style, and unused icon implementations
+     * Kotlin Multiplatform projects or `main` in Kotlin/JVM projects. Android
+     * application and library projects receive them through each variant's
+     * generated Kotlin sources. Each icon is exposed through the configured
+     * icon-set root and style, and unused icon implementations
      * can be removed by normal code shrinking.
      *
      * This output uses the explicit [font] property, the conventional file chosen
@@ -500,9 +500,9 @@ abstract class SymbolFontStyle @Inject constructor(
      * `androidDrawables(fontResource = ...)` turns variant-aware font lookup off
      * and returns the style to shared-source mode.
      *
-     * A supported Android application or library plugin must be applied for the
-     * generated directory to be added to Android variants. Calling this function
-     * more than once has no additional effect.
+     * An Android application, library, or Android KMP library plugin must be
+     * applied for the directory to be added to Android variants. Calling this
+     * function more than once has no additional effect.
      */
     fun androidDrawables() {
         androidFontResourceName.set("")
@@ -543,9 +543,9 @@ abstract class SymbolFontStyle @Inject constructor(
      * Android overlays, and the plugin warns when those outputs are mixed with
      * this mode. If [svgDirectory] is configured, the plugin warns, ignores
      * [fontResource], and uses the shared SVG source. Without an Android
-     * application or library plugin, no variant drawables are registered and a
-     * warning is shown. Call `androidDrawables()` without an argument to return to
-     * shared-source mode.
+     * application, library, or Android KMP library plugin, no variant drawables
+     * are registered and a warning is shown. Call `androidDrawables()` without
+     * an argument to return to shared-source mode.
      *
      * @param fontResource a lowercase Android font resource file name ending in
      * `.ttf`, `.otf`, or `.ttc`

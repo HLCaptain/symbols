@@ -1,23 +1,23 @@
 package io.github.hlcaptain.symbols.gradle
 
 import com.android.build.api.dsl.ApplicationExtension
+import com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryExtension
 import com.android.build.api.dsl.LibraryExtension
 import com.android.build.api.variant.AndroidComponentsExtension
-import com.android.build.api.variant.ApplicationAndroidComponentsExtension
-import com.android.build.api.variant.LibraryAndroidComponentsExtension
+import com.android.build.api.variant.KotlinMultiplatformAndroidComponentsExtension
 import com.android.build.api.variant.SourceDirectories
-import com.android.build.api.variant.Variant
 import io.github.hlcaptain.symbols.generator.SymbolGeneratorCli
 import io.github.hlcaptain.symbols.generator.SymbolManifestParser
 import io.github.hlcaptain.symbols.generator.SymbolNames
 import io.github.hlcaptain.symbols.generator.SvgIconExtractor
 import java.io.File
-import org.gradle.api.Action
 import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.Task
 import org.gradle.api.attributes.Usage
 import org.gradle.api.file.Directory
+import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.FileCollection
 import org.gradle.api.file.RegularFile
 import org.gradle.api.provider.Provider
@@ -40,7 +40,8 @@ class SymbolFontsPlugin : Plugin<Project> {
         extension.catalogs.all {
             if (!catalogsWired) {
                 project.wireGeneratedKotlin(
-                    catalogs.flatMap { task -> task.outputDirectory },
+                    catalogs,
+                    GenerateSymbolCatalogsTask::outputDirectory,
                 )
                 catalogsWired = true
             }
@@ -50,9 +51,11 @@ class SymbolFontsPlugin : Plugin<Project> {
             generatorClasspath = generatorClasspath,
         )
         project.wireGeneratedKotlin(
-            fontDescriptors.flatMap { task -> task.outputDirectory },
+            fontDescriptors,
+            GenerateSymbolFontDescriptorsTask::outputDirectory,
         )
         project.wireFontDescriptorResourceSettings(fontDescriptors, extension)
+        project.wireAndroidResourceSettings(extension)
         val derivedNames = DerivedNameRegistry()
         val conventionalComposeResources = project.layout.projectDirectory
             .dir("src/commonMain/composeResources")
@@ -96,7 +99,8 @@ class SymbolFontsPlugin : Plugin<Project> {
             derivedNames.claimNamespace(iconSet.name)
             val namespaceTask = project.registerNamespaceTask(iconSet)
             project.wireGeneratedKotlin(
-                namespaceTask.flatMap { task -> task.outputDirectory },
+                namespaceTask,
+                GenerateSymbolNamespaceTask::outputDirectory,
             )
             iconSet.styles.all { style ->
                 derivedNames.claimStyle(iconSet.name, style.name)
@@ -120,9 +124,8 @@ class SymbolFontsPlugin : Plugin<Project> {
                     }
                 }
                 project.wireGeneratedKotlin(
-                    task.flatMap { generated ->
-                        generated.kotlinOutputDirectory
-                    },
+                    task,
+                    GenerateSymbolFontTask::kotlinOutputDirectory,
                 )
                 project.wireAndroidResources(
                     iconSet = iconSet,
@@ -398,9 +401,25 @@ private fun Project.registerNamespaceTask(
         )
     }
 
-private fun Project.wireGeneratedKotlin(
-    sourceDirectory: Provider<Directory>,
+private fun Project.wireAndroidResourceSettings(extension: SymbolFontsExtension) {
+    plugins.withId("com.android.kotlin.multiplatform.library") {
+        extensions.getByType(KotlinMultiplatformAndroidComponentsExtension::class.java)
+            .finalizeDsl { android ->
+                if (extension.iconSets.any { iconSet ->
+                        iconSet.styles.any { it.generateAndroidDrawables.get() }
+                    }
+                ) {
+                    android.androidResources.enable = true
+                }
+            }
+    }
+}
+
+private fun <TaskT : Task> Project.wireGeneratedKotlin(
+    task: TaskProvider<TaskT>,
+    directory: (TaskT) -> DirectoryProperty,
 ) {
+    val sourceDirectory = task.flatMap(directory)
     plugins.withId("org.jetbrains.kotlin.multiplatform") {
         extensions
             .getByType(KotlinMultiplatformExtension::class.java)
@@ -422,6 +441,28 @@ private fun Project.wireGeneratedKotlin(
                     sourceDirectory,
                 )
             }
+    }
+    withAndroidPlugin {
+        val components = extensions.getByType(AndroidComponentsExtension::class.java)
+        components.onVariants(components.selector().all()) { variant ->
+            // KMP already receives these shared declarations through commonMain.
+            if (!plugins.hasPlugin("org.jetbrains.kotlin.multiplatform")) {
+                variant.sources.kotlin?.addGeneratedSourceDirectory(task, directory)
+            }
+        }
+    }
+}
+
+// Keep AGP types inside these callbacks: the plugin also runs without AGP.
+private fun Project.withAndroidPlugin(action: () -> Unit) {
+    listOf(
+        "com.android.application",
+        "com.android.library",
+        "com.android.kotlin.multiplatform.library",
+    ).forEach { pluginId ->
+        plugins.withId(pluginId) {
+            action()
+        }
     }
 }
 
@@ -451,55 +492,22 @@ private fun Project.wireAndroidResources(
     sharedTask: TaskProvider<GenerateSymbolFontTask>,
     generatorClasspath: FileCollection,
 ) {
-    plugins.withId("com.android.application") {
-        extensions
-            .getByType(
-                ApplicationAndroidComponentsExtension::class.java,
-            )
-            .wireAndroidResources(
-                project = this,
-                iconSet = iconSet,
-                style = style,
-                sharedTask = sharedTask,
-                generatorClasspath = generatorClasspath,
-            )
-    }
-    plugins.withId("com.android.library") {
-        extensions
-            .getByType(
-                LibraryAndroidComponentsExtension::class.java,
-            )
-            .wireAndroidResources(
-                project = this,
-                iconSet = iconSet,
-                style = style,
-                sharedTask = sharedTask,
-                generatorClasspath = generatorClasspath,
-            )
-    }
-}
-
-private fun <VariantT : Variant> AndroidComponentsExtension<*, *, VariantT>
-    .wireAndroidResources(
-        project: Project,
-        iconSet: SymbolIconSet,
-        style: SymbolFontStyle,
-        sharedTask: TaskProvider<GenerateSymbolFontTask>,
-        generatorClasspath: FileCollection,
-    ) {
-    onVariants(
-        selector().all(),
-        Action<VariantT> { variant ->
+    withAndroidPlugin {
+        val components = extensions.getByType(AndroidComponentsExtension::class.java)
+        components.onVariants(components.selector().all()) { variant ->
             if (!style.generateAndroidDrawables.get()) {
-                return@Action
+                return@onVariants
             }
-            val resources = variant.sources.res ?: return@Action
+            val resources = requireNotNull(variant.sources.res) {
+                "Android resources are disabled for $path:${variant.name}; " +
+                    "enable Android resources to use androidDrawables()."
+            }
             val fontResource = style.androidFontResourceName.get()
             val task = if (
                 fontResource.isNotEmpty() &&
                 !style.svgDirectory.isPresent
             ) {
-                project.registerVariantAndroidDrawablesTask(
+                registerVariantAndroidDrawablesTask(
                     iconSet = iconSet,
                     style = style,
                     variantName = variant.name,
@@ -514,8 +522,8 @@ private fun <VariantT : Variant> AndroidComponentsExtension<*, *, VariantT>
                 task,
                 GenerateSymbolFontTask::androidOutputDirectory,
             )
-        },
-    )
+        }
+    }
 }
 
 private fun Project.registerVariantAndroidDrawablesTask(
@@ -610,6 +618,10 @@ private fun Project.androidDefaultPackageName(): String {
             extensions.getByType(ApplicationExtension::class.java).namespace
         plugins.hasPlugin("com.android.library") ->
             extensions.getByType(LibraryExtension::class.java).namespace
+        plugins.hasPlugin("com.android.kotlin.multiplatform.library") ->
+            extensions.getByType(KotlinMultiplatformExtension::class.java)
+                .targets.filterIsInstance<KotlinMultiplatformAndroidLibraryExtension>()
+                .singleOrNull()?.namespace
         else -> null
     }?.takeIf(String::isNotBlank)
         ?: return defaultPackageName()
@@ -777,7 +789,8 @@ private fun Project.warnAboutVariantAwareMixedOutputs(
             val owner = "${iconSet.name}.${style.name}"
             if (
                 !plugins.hasPlugin("com.android.application") &&
-                !plugins.hasPlugin("com.android.library")
+                !plugins.hasPlugin("com.android.library") &&
+                !plugins.hasPlugin("com.android.kotlin.multiplatform.library")
             ) {
                 logger.warn(
                     "[symbol-fonts] $owner configures variant-aware Android " +

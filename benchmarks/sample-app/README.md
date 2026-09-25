@@ -1,6 +1,6 @@
 # Full sample APK study
 
-This study reuses `composeApp` instead of creating one Android application per
+This study reuses `androidApp` and the shared `composeApp` instead of creating one Android application per
 sample. The `symbolsSampleProfile` Gradle property selects the launcher shell,
 one feature, or the complete application while retaining the same API/UI shell,
 Navigation 3, Koin, and Rounded navigation vector dependencies.
