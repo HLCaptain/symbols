@@ -20,12 +20,12 @@ plugins {
     // in each subproject's classloader
     alias(libs.plugins.androidApplication) apply false
     alias(libs.plugins.androidLibrary) apply false
+    alias(libs.plugins.androidMultiplatformLibrary) apply false
     alias(libs.plugins.androidTest) apply false
     alias(libs.plugins.composeMultiplatform) apply false
     alias(libs.plugins.composeCompiler) apply false
     alias(libs.plugins.koinCompiler) apply false
     alias(libs.plugins.kotlinMultiplatform) apply false
-    alias(libs.plugins.kotlinAndroid) apply false
     alias(libs.plugins.roborazzi) apply false
 
     // Convention plugins
@@ -234,7 +234,8 @@ subprojects {
 
     plugins.withId("maven-publish") {
         val libraryJvmChecks = tasks.matching {
-            it.name == "jvmTest" || it.name == "lintRelease"
+            it.name == "jvmTest" || it.name == "lintRelease" ||
+                it.name == "lintAndroidMain"
         }
         verifyLibraryJvm.configure {
             dependsOn(libraryJvmChecks)
@@ -287,13 +288,13 @@ subprojects {
                     "Compose Multiplatform."
             "material-outlined-static" ->
                 "Default-axis static Outlined Material Symbols font and Compose " +
-                    "adapter for Android API 21 and Compose Multiplatform."
+                    "adapter for Android API 23 and Compose Multiplatform."
             "material-rounded-static" ->
                 "Default-axis static Rounded Material Symbols font and Compose " +
-                    "adapter for Android API 21 and Compose Multiplatform."
+                    "adapter for Android API 23 and Compose Multiplatform."
             "material-sharp-static" ->
                 "Default-axis static Sharp Material Symbols font and Compose " +
-                    "adapter for Android API 21 and Compose Multiplatform."
+                    "adapter for Android API 23 and Compose Multiplatform."
             "material-compose-drawables-outlined" ->
                 "Default-axis Outlined Material Symbols drawable resources for " +
                     "Compose Multiplatform; no bundled font."
@@ -384,6 +385,7 @@ subprojects {
                         ) ||
                     it.name.endsWith("MetadataElements") ||
                     it.name == "bundleReleaseAar" ||
+                    it.name == "bundleAndroidMainAar" ||
                     it.name.endsWith("ZipMultiplatformResourcesForPublication")
             }
             .all {
@@ -395,12 +397,14 @@ subprojects {
                             name == "jsJar" ||
                             name == "wasmJsJar" ||
                             name == "bundleReleaseAar" ||
+                            name == "bundleAndroidMainAar" ||
                             name.endsWith("ZipMultiplatformResourcesForPublication")
                     )
                 val expectedComposeDrawableStyle = composeDrawableStyles[project.name]
                     ?.takeIf {
                         name == "jvmJar" ||
                             name == "bundleReleaseAar" ||
+                            name == "bundleAndroidMainAar" ||
                             name.endsWith("ZipMultiplatformResourcesForPublication")
                     }
 
@@ -411,7 +415,9 @@ subprojects {
                         "jvmJar",
                         "jvmSourcesJar",
                         "androidReleaseSourcesJar",
+                        "androidSourcesJar",
                         "bundleReleaseAar",
+                        "bundleAndroidMainAar",
                         "allMetadataJar",
                         "sourcesJar",
                     ) -> "JvmAndAndroid"

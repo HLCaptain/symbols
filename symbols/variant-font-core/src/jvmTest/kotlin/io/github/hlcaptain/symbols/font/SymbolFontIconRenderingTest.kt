@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.asComposeCanvas
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.FrameRecomposer
 import androidx.compose.ui.scene.CanvasLayersComposeScene
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
@@ -29,6 +30,7 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
 import org.jetbrains.compose.resources.FontResource
@@ -415,19 +417,23 @@ private class IconScene(
 ) : AutoCloseable {
     private val side = (IconSize * density.density).toInt()
     private val surface = Surface.makeRasterN32Premul(side, side)
+    private val frameRecomposer = FrameRecomposer(Dispatchers.Unconfined)
     private val scene = CanvasLayersComposeScene(
+        frameRecomposer = frameRecomposer,
         density = density,
         layoutDirection = direction,
         size = IntSize(side, side),
     )
     private var time = 0L
 
-    fun setContent(content: @Composable () -> Unit) = scene.setContent(content)
+    fun setContent(content: @Composable () -> Unit) = scene.setContent(content = content)
 
     fun frame(): IntArray {
         Snapshot.sendApplyNotifications()
         surface.canvas.clear(0)
-        scene.render(surface.canvas.asComposeCanvas(), time)
+        frameRecomposer.performFrame(time)
+        scene.measureAndLayout()
+        scene.draw(surface.canvas.asComposeCanvas())
         time += 16_666_667L
         return surface.makeImageSnapshot().use { image ->
             Bitmap.makeFromImage(image).use { bitmap ->
@@ -447,6 +453,7 @@ private class IconScene(
 
     override fun close() {
         scene.close()
+        frameRecomposer.close()
         surface.close()
     }
 }

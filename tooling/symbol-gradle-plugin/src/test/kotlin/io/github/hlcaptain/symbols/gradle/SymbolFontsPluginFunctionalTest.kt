@@ -209,6 +209,78 @@ class SymbolFontsPluginFunctionalTest {
     }
 
     @Test
+    fun androidAndKmpPluginsWireGeneratedSourcesAndResources() {
+        listOf(false, true).forEach { multiplatform ->
+            val plugins = if (multiplatform) {
+                "id 'org.jetbrains.kotlin.multiplatform'\n" +
+                    "id 'com.android.kotlin.multiplatform.library'"
+            } else {
+                "id 'com.android.library'"
+            }
+            val android = "namespace 'com.example.icons'; compileSdk 36; " +
+                if (multiplatform) "minSdk 23" else "defaultConfig { minSdk 23 }"
+            val project = fixture(
+                """
+                import io.github.hlcaptain.symbols.gradle.GenerateSymbolFontTask
+
+                plugins {
+                    $plugins
+                    id 'io.github.hlcaptain.symbol-fonts'
+                }
+                ${if (multiplatform) "kotlin { android { $android } }" else "android { $android }"}
+                symbolFonts {
+                    iconSet('AppIcons') {
+                        style('Outlined') {
+                            svgDirectory.set(file('icons'))
+                            imageVectors()
+                            androidDrawables()
+                        }
+                    }
+                }
+                configurations.named('symbolFontGeneratorRuntimeClasspath') {
+                    dependencies.clear()
+                }
+                tasks.withType(GenerateSymbolFontTask).configureEach {
+                    generatorClasspath.setFrom(files(file('generator-classpath.txt').readLines()))
+                }
+                androidComponents.onVariants(androidComponents.selector().all()) { variant ->
+                    tasks.register('assertGeneratedSources' + variant.name.capitalize()) {
+                        def res = files(variant.sources.res.all)
+                        def sources = ${if (multiplatform) "kotlin.sourceSets.commonMain.kotlin" else "files(variant.sources.kotlin.all)"}
+                        dependsOn(res, sources)
+                        doLast {
+                            assert res.asFileTree.files.any { it.name == 'app_icons_outlined_check.xml' }
+                            assert sources.asFileTree.files.any { it.name.endsWith('.kt') }
+                            assert tasks.named('generateAppIconsOutlinedSymbolFonts')
+                                .get().packageName.get() == 'com.example.icons.generated'
+                        }
+                    }
+                }
+                tasks.register('assertAllGeneratedAndroidSources') {
+                    dependsOn(tasks.matching { it.name.startsWith('assertGeneratedSources') })
+                }
+                """,
+                files = mapOf(
+                    "icons/check.svg" to tablerSvg("M5 12l4 4L19 6"),
+                    "generator-classpath.txt" to generatorTestClasspath(),
+                ),
+            )
+            configureAndroidSdk(project)
+
+            val result = androidRunner(project, "assertAllGeneratedAndroidSources").build()
+
+            assertEquals(
+                TaskOutcome.SUCCESS,
+                result.task(":generateAppIconsOutlinedSymbolFonts")?.outcome,
+            )
+            assertEquals(
+                if (multiplatform) 1 else 2,
+                result.tasks.count { it.path.startsWith(":assertGeneratedSources") },
+            )
+        }
+    }
+
+    @Test
     fun androidVariantsUseMainFontThenObserveResourceOverlays() {
         val project = fixture(
             """
@@ -232,7 +304,6 @@ class SymbolFontsPluginFunctionalTest {
             }
 
             tasks.register('assertAndroidVariantFontTasks') {
-                dependsOn('generateDebugResValues', 'generateReleaseResValues')
                 doLast {
                     def shared = tasks.named(
                         'generateAppIconsRoundedSymbolFonts'
@@ -1813,6 +1884,7 @@ class SymbolFontsPluginFunctionalTest {
         configurationCacheArgument: String,
     ): GradleRunner =
         GradleRunner.create()
+            .withGradleVersion(requireNotNull(System.getProperty("symbols.fixtureGradleVersion")))
             .withProjectDir(project)
             .withTestKitDir(project.resolve(".test-kit"))
             .withPluginClasspath(androidPluginClasspath())

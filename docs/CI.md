@@ -6,7 +6,7 @@ or another self-hosted host.
 | Jobs | Runner | Reason |
 | --- | --- | --- |
 | Generators, JVM/Android, web, publication, release bookkeeping | `ubuntu-24.04` | 4 CPUs/16 GB RAM for this public repository |
-| Apple sample framework and screenshots | `macos-15-intel` | Apple SDK and consistent screenshot baselines |
+| Apple sample framework and screenshots | `macos-26-intel` | Apple SDK and consistent screenshot baselines |
 
 Apple library archives can be cross-compiled on Linux with the current Kotlin
 configuration. The Apple verification job uses Ubuntu for publication-only runs;
@@ -19,9 +19,9 @@ and Kotlin's [publication host requirements](https://kotlinlang.org/docs/multipl
 - Install Python 3.13 and pinned FontTools through `setup-vector-python`.
 - Install JDK 17/21 through the pinned Java action, leaving JDK 21 active.
 - Install Android command-line tools, the version-catalog compile SDK, and Build
-  Tools 35.0.0 (the AGP 8.13 default). Root Gradle builds configure Android projects
+  Tools 35.0.0/36.0.0 (AGP 8 compatibility fixtures and AGP 9 builds). Root Gradle builds configure Android projects
   even when the selected task targets web or Apple.
-- Select Xcode 26.0.1 through `DEVELOPER_DIR` on macOS. It matches the Kotlin 2.3.21
+- Select Xcode 26.4.1 through `DEVELOPER_DIR` on macOS. It matches the Kotlin 2.4.20
   [compatibility line](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html).
 - Configure one Gradle worker and in-process Kotlin compilation. Heavy jobs have
   a 6 GB shared heap; Ubuntu tooling publication uses 4 GB. These overrides are

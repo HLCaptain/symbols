@@ -13,6 +13,8 @@ kotlin {
     }
 }
 
-android {
-    namespace = "io.github.hlcaptain.symbols.material.vectors.themed"
+kotlin {
+    android {
+        namespace = "io.github.hlcaptain.symbols.material.vectors.themed"
+    }
 }

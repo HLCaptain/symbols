@@ -37,8 +37,8 @@ except ImportError as error:
 
 
 EXPECTED_VERSIONS = {
-    "fonttools": "4.60.2",
-    "picosvg": "0.22.3",
+    "fonttools": "4.66.0",
+    "picosvg": "0.23.0",
     "skia-pathops": "0.9.2",
 }
 UNITS_PER_EM = 1000

@@ -160,7 +160,12 @@ def main() -> int:
     mapping_dir = args.build_dir / "outputs" / "mapping" / "shrunk"
     mapping = (mapping_dir / "mapping.txt").read_text()
     usage = (mapping_dir / "usage.txt").read_text()
-    resource_report = (mapping_dir / "resources.txt").read_text()
+    # AGP 9 also lists dead resources explicitly; only retained entries are evidence
+    # of a resource leak. APK payload/resource-table checks below remain authoritative.
+    resource_report = "\n".join(
+        line for line in (mapping_dir / "resources.txt").read_text().splitlines()
+        if not line.endswith(" is not reachable.")
+    )
 
     evidence = {
         "unshrunk_contains_check_backing_class": CHECK_CLASS in unshrunk_dex,

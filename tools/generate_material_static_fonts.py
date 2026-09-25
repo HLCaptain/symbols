@@ -31,7 +31,7 @@ except ImportError as error:
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parent.parent
-EXPECTED_FONTTOOLS_VERSION = "4.60.2"
+EXPECTED_FONTTOOLS_VERSION = "4.66.0"
 DEFAULT_AXES = {
     "FILL": 0.0,
     "GRAD": 0.0,

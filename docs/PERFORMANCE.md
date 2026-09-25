@@ -72,7 +72,7 @@ symbols.forEach { symbol ->
 The reusable family and capability APIs live in
 `io.github.hlcaptain.symbols.font`. `SymbolsRuntime.variableFontsSupported`
 reports whether the current platform can apply variable-font settings; on
-Android API 21–25, use a `SymbolFont.Regular` or generated vector/drawable
+Android API 23–25, use a `SymbolFont.Regular` or generated vector/drawable
 instead. Material descriptors use the same `variationAxes` and
 `SymbolFontSettings` contract as custom fonts. `MaterialSymbolsTheme` can
 supply generic settings while selecting a theme-aware vector style.
@@ -162,7 +162,7 @@ sample includes a stopped-by-default **Combined effects** card with Run/Stop.
 
 On asynchronous targets, the fixed square stays empty until the font is ready.
 Variable fonts retain the Android API 26 minimum; use a regular font or generated
-vector on API 21–25. This renderer draws a single symbol codepoint, not arbitrary
+vector on API 23–25. This renderer draws a single symbol codepoint, not arbitrary
 paragraph text or independently animated characters.
 
 The component owns that layer and defaults to `CompositingStrategy.ModulateAlpha`,

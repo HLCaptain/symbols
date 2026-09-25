@@ -1,5 +1,6 @@
 import org.gradle.plugin.compatibility.compatibility
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
 
 fun skikoRuntimeTarget(): String {
     val os = System.getProperty("os.name").lowercase()
@@ -86,6 +87,18 @@ tasks.test {
     systemProperty(
         "symbols.generatorTestClasspath",
         configurations.testRuntimeClasspath.get().asPath,
+    )
+    // Functional AGP tests use the application toolchain, while this artifact
+    // is built with tooling/gradlew to retain its Gradle 8 API baseline.
+    val applicationWrapper = Properties().apply {
+        rootProject.file("../gradle/wrapper/gradle-wrapper.properties")
+            .inputStream().use(::load)
+    }
+    systemProperty(
+        "symbols.fixtureGradleVersion",
+        Regex("gradle-([0-9.]+)-").find(
+            applicationWrapper.getProperty("distributionUrl"),
+        )!!.groupValues[1],
     )
     systemProperty(
         "symbols.powerlineTestFont",

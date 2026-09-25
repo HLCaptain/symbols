@@ -13,7 +13,9 @@ own font or SVG assets.
 
 The Material catalog contains all 4,102 upstream names across Outlined,
 Rounded, and Sharp styles. The same project also supports generated custom icon
-sets, Compose Multiplatform, Android API 21+, and legacy Android Views and XML.
+sets, Compose Multiplatform (Android API 23+), and legacy Android Views and XML (API 21+).
+Compose consumers require AGP 9.1+, compile SDK 37 and Kotlin 2.4; XML-only
+consumers can keep AGP 8.13/Gradle 8. See the [toolchain migration](docs/TOOLCHAIN_UPGRADE.md).
 
 ## Add Symbols
 
@@ -35,7 +37,7 @@ the local Maven repository:
 
 ```shell
 ./gradlew publishToMavenLocal
-./gradlew -p tooling publishToMavenLocal
+./tooling/gradlew -p tooling publishToMavenLocal
 ```
 
 Add `mavenLocal()` before `mavenCentral()` while testing that snapshot.
@@ -52,7 +54,7 @@ Pick the artifact that matches how the application renders icons:
 | Android XML and Views | `symbols-material-drawables-{outlined|rounded|sharp}` | Native `VectorDrawable` resources; unused resources can be removed by Android resource shrinking |
 | Runtime custom regular or variable fonts | `symbols-variant-font-core` | Generic Compose theme and code-point renderer; no bundled font or catalog |
 | Material vector style and font-settings theming | `symbols-material-compose` | Material style plus generic font settings; no bundled font |
-| Font icons on Android API 21+ | `symbols-material-{outlined|rounded|sharp}-static` | One indivisible regular font at the default axes |
+| Font icons on Android API 23+ | `symbols-material-{outlined|rounded|sharp}-static` | One indivisible regular font at the default axes |
 | Live fill, weight, grade, or optical size | `symbols-material-{outlined|rounded|sharp}` | One indivisible variable font; variable axes require Android API 26+ |
 
 For example:
@@ -226,10 +228,10 @@ binding.favorite.setImageDrawable(
 ```
 
 The focused Android sample includes
-[plain XML](samples/android-views/src/androidMain/res/layout/android_views_content.xml),
-[Data Binding](samples/android-views/src/androidMain/res/layout/data_binding_icon.xml),
-[View Binding inside Compose](samples/android-views/src/androidMain/kotlin/io/github/hlcaptain/symbols/sample/androidviews/AndroidViewsPlatformContent.android.kt),
-and a [custom `ImageView`](samples/android-views/src/androidMain/kotlin/io/github/hlcaptain/symbols/sample/androidviews/GeneratedSymbolView.kt).
+[plain XML](samples/android-views-platform/src/main/res/layout/android_views_content.xml),
+[Data Binding](samples/android-views-platform/src/main/res/layout/data_binding_icon.xml),
+[View Binding inside Compose](samples/android-views-platform/src/main/kotlin/io/github/hlcaptain/symbols/sample/androidviews/AndroidViewsContent.kt),
+and a [custom `ImageView`](samples/android-views-platform/src/main/kotlin/io/github/hlcaptain/symbols/sample/androidviews/GeneratedSymbolView.kt).
 Compose hosts the View hierarchy with `AndroidView`; no second Activity is
 needed. The same layout consumes generated Tabler SVG resources through plain
 XML, `AppCompatResources`, and the custom View attribute. These are Android
@@ -457,11 +459,11 @@ font-agnostic; prefer `fontSettings(...)` when values need descriptor validation
 `SymbolFontIcon` removes the private-use glyph from semantics and exposes only a
 supplied, localized description. Use `contentDescription = null` for a
 decorative icon. A `SymbolFont.Regular` declares one fixed `fontSettings` point;
-it renders on Android API 21 and rejects other requested settings.
+it renders on Android API 23 and rejects other requested settings.
 
 Variable-font APIs start on Android API 26. Check
 `SymbolsRuntime.variableFontsSupported` before selecting a variable font, and
-use a regular font or generated vector/drawable as the Android API 21–25
+use a regular font or generated vector/drawable as the Android API 23–25
 fallback.
 
 For animated axes, pass a settings producer to the same `SymbolFontIcon` API:
@@ -547,7 +549,7 @@ MaterialSymbolsTheme(
 ```
 
 A regular Material font artifact provides a fixed default-axis fallback on
-Android API 21–25:
+Android API 23–25:
 
 Add both `symbols-material-rounded` and `symbols-material-rounded-static` when
 the application selects between these paths.
@@ -630,7 +632,7 @@ For source builds, first configure the pinned Python/FontTools environment in
 generated under `build/`. Published artifact consumers need no Python.
 
 Run `./gradlew :composeApp:run` for the desktop sample launcher, then select the
-focused module to preview. Use `./gradlew :composeApp:assembleDebug` for the
+focused module to preview. Use `./gradlew :androidApp:assembleDebug` for the
 Android launcher and its Android Views sample. Maintainer generator,
 font-conformance, and shrink-test commands live in the linked guides and CI.
 

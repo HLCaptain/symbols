@@ -32,6 +32,8 @@ kotlin {
     }
 }
 
-android {
-    namespace = "io.github.hlcaptain.symbols.font.core"
+kotlin {
+    android {
+        namespace = "io.github.hlcaptain.symbols.font.core"
+    }
 }

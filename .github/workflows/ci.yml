@@ -38,6 +38,46 @@ concurrency:
   cancel-in-progress: ${{ !startsWith(inputs.invocation, 'package-publish-') }}
 
 jobs:
+  published-consumers:
+    name: Published consumer compatibility
+    if: ${{ !inputs.publication-only }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.ref || github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: |
+            17
+            21
+      - uses: ./.github/actions/setup-ci-android
+      - uses: ./.github/actions/setup-ci-gradle
+        with:
+          heap: 4g
+      - name: Publish isolated candidate artifacts
+        run: |
+          ./tooling/gradlew -p tooling publishToMavenLocal \
+            -PVERSION_NAME=0.0.0-consumer-check -Dmaven.repo.local="$RUNNER_TEMP/symbols-consumers" \
+            --max-workers=1 --no-daemon --stacktrace
+          ./gradlew :modules:symbols-core:publishToMavenLocal \
+            :modules:material-drawables-outlined:publishToMavenLocal \
+            -PVERSION_NAME=0.0.0-consumer-check -Dmaven.repo.local="$RUNNER_TEMP/symbols-consumers" \
+            --max-workers=1 --no-daemon --stacktrace
+      - name: Test modern and legacy consumers of the same plugin
+        run: |
+          for profile in android-app android-java android-library kmp jvm; do
+            python3 tooling/compatibility/check.py --profile "$profile" --gradle ./gradlew \
+              --repository "$RUNNER_TEMP/symbols-consumers" --version 0.0.0-consumer-check
+          done
+          python3 tooling/compatibility/check.py --profile android-java --gradle ./tooling/gradlew \
+            --repository "$RUNNER_TEMP/symbols-consumers" --version 0.0.0-consumer-check \
+            --agp-version 8.13.2 --compile-sdk 36 \
+            --output build/reports/tooling-compatibility-legacy
+
   generated-sources-and-fonts:
     name: Generated sources and fonts
     runs-on: ubuntu-24.04
@@ -110,7 +150,7 @@ jobs:
 
       - name: Test and validate font generator publications
         run: >-
-          ./gradlew
+          ./tooling/gradlew
           -p tooling
           test
           :symbol-gradle-plugin:validatePlugins
@@ -131,7 +171,7 @@ jobs:
         run: |
           targets=(verifyLibraryJvm)
           if [[ "$PUBLICATION_ONLY" != "true" ]]; then
-            targets=(jvmTest assembleRelease lintRelease verifyJvmAndAndroidPublishedArchives)
+            targets=(jvmTest assembleRelease lintRelease lintAndroidMain verifyLibraryJvm :benchmarks:animated-font:assembleBenchmark)
           fi
           python3 tools/ci_metrics.py --label "JVM and Android verification" -- \
             ./gradlew "${targets[@]}" --max-workers=1 --no-daemon --stacktrace
@@ -221,7 +261,7 @@ jobs:
 
   apple:
     name: ${{ inputs.publication-only && 'Apple library archives' || 'Apple libraries and sample framework' }}
-    runs-on: ${{ inputs.publication-only && 'ubuntu-24.04' || 'macos-15-intel' }}
+    runs-on: ${{ inputs.publication-only && 'ubuntu-24.04' || 'macos-26-intel' }}
     timeout-minutes: 90
 
     steps:

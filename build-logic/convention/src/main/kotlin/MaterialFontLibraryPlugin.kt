@@ -1,4 +1,4 @@
-import com.android.build.api.dsl.LibraryExtension
+import com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryTarget
 import io.github.hlcaptain.symbols.gradle.SymbolFontsExtension
 import io.github.hlcaptain.symbols.gradle.SymbolFontsPlugin
 import org.gradle.api.Project
@@ -17,13 +17,13 @@ class MaterialFontLibraryPlugin : ComposeMultiplatformLibraryPlugin() {
         pluginManager.apply(SymbolFontsPlugin::class.java)
 
         extensions.configure<KotlinMultiplatformExtension> {
+            targets.withType(KotlinMultiplatformAndroidLibraryTarget::class.java).configureEach { android ->
+                android.namespace = convention.namespace
+            }
             sourceSets.commonMain.dependencies {
                 api(dependencies.project(mapOf("path" to ":modules:material-compose")))
                 implementation(defaultLibs.findLibrary("compose-resources").get())
             }
-        }
-        extensions.configure<LibraryExtension> {
-            namespace = convention.namespace
         }
         extensions
             .getByType<ComposeExtension>()

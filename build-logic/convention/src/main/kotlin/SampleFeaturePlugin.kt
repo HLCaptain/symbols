@@ -1,4 +1,4 @@
-import com.android.build.api.dsl.LibraryExtension
+import com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryTarget
 import com.github.gmazzo.buildconfig.BuildConfigExtension
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -16,6 +16,13 @@ class SampleFeaturePlugin : ComposeMultiplatformLibraryPlugin() {
         val namespace = "io.github.hlcaptain.symbols.sample.$packageSuffix"
 
         extensions.configure<KotlinMultiplatformExtension> {
+            targets.withType(KotlinMultiplatformAndroidLibraryTarget::class.java).configureEach { android ->
+                android.namespace = namespace
+                android.minSdk = defaultLibs.findVersion("sample-android-minSdk")
+                    .get()
+                    .requiredVersion
+                    .toInt()
+            }
             compilerOptions {
                 optIn.add("org.koin.core.annotation.KoinExperimentalAPI")
             }
@@ -28,17 +35,6 @@ class SampleFeaturePlugin : ComposeMultiplatformLibraryPlugin() {
                 implementation(defaultLibs.findLibrary("compose-material3").get())
                 implementation(defaultLibs.findLibrary("koin-annotations").get())
                 implementation(defaultLibs.findLibrary("koin-core").get())
-            }
-        }
-
-        extensions.configure<LibraryExtension> {
-            this.namespace = namespace
-
-            defaultConfig {
-                minSdk = defaultLibs.findVersion("sample-android-minSdk")
-                    .get()
-                    .requiredVersion
-                    .toInt()
             }
         }
 

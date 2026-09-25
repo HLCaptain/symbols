@@ -13,6 +13,8 @@ class PublishedAndroidLibraryPlugin : Plugin<Project> {
 
         extensions.configure<LibraryExtension> {
             configureAndroidLibrary(this)
+            // These publications contain Android drawable resources only.
+            enableKotlin = false
             publishing {
                 singleVariant("release") {
                     withSourcesJar()
