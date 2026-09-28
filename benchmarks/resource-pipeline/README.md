@@ -12,6 +12,9 @@ SDK packages. Provision each revision's `tools/requirements-font-verification.tx
 in a separate virtualenv before measuring. Keep dependency download caches warm
 and stop unrelated heavy builds. All worktrees must be clean; temporary source
 edits are restored even when a build fails. Do not use an active development tree.
+Before warm-up, the runner imports FontTools, PicoSVG and skia-pathops through
+each selected interpreter and records their actual versions and executable path.
+Virtualenv executable symlinks are preserved so this check uses the intended environment.
 
 After this directory is added to the repository:
 
@@ -80,6 +83,11 @@ This timing runner does not establish automatic font subsetting or successful
 unused-resource removal. The independent consumers below cover usage counts;
 existing shrinking assertions and runtime rendering checks remain necessary. A
 shorter build or APK alone is insufficient evidence for an optimization.
+
+The separate [generated Kotlin source registration candidate](GENERATED_SOURCES.md)
+uses the public KGP API to preserve authored lint coverage while classifying build
+outputs correctly. Its targeted source-archive/lint regression is awaiting Gradle
+validation and controlled measurements.
 
 ## Fast integrity checks
 

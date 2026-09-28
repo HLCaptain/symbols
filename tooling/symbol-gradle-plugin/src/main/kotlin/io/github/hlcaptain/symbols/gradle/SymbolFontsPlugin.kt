@@ -24,6 +24,7 @@ import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.TaskProvider
 import org.jetbrains.compose.ComposeExtension
 import org.jetbrains.compose.resources.ResourcesExtension
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
@@ -420,6 +421,7 @@ private fun Project.wireAndroidResourceSettings(extension: SymbolFontsExtension)
     }
 }
 
+@OptIn(ExperimentalKotlinGradlePluginApi::class)
 private fun <TaskT : Task> Project.wireGeneratedKotlin(
     task: TaskProvider<TaskT>,
     directory: (TaskT) -> DirectoryProperty,
@@ -431,7 +433,7 @@ private fun <TaskT : Task> Project.wireGeneratedKotlin(
             .sourceSets
             .named("commonMain")
             .configure { sourceSet ->
-                sourceSet.kotlin.srcDir(
+                sourceSet.generatedKotlin.srcDir(
                     sourceDirectory,
                 )
             }
@@ -442,7 +444,7 @@ private fun <TaskT : Task> Project.wireGeneratedKotlin(
             .sourceSets
             .named("main")
             .configure { sourceSet ->
-                sourceSet.kotlin.srcDir(
+                sourceSet.generatedKotlin.srcDir(
                     sourceDirectory,
                 )
             }

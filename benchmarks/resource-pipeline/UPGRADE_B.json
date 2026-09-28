@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "cohort": "B",
-  "revision": "3aea238f2b6877fef005e26d8547cd7fcebfc129",
+  "revision": "8fb5fce52537d300bf1127fdc8361f9b15c0d620",
   "version": "0.0.0-study-b",
   "build_dates": [
     "2026-09-25",
@@ -874,5 +874,11 @@
         }
       }
     }
-  ]
+  ],
+  "publication_evidence": {
+    "published_at": "2026-09-25T14:26:42+02:00",
+    "benchmark_checkout_advanced_at": "2026-09-28T11:36:01+02:00",
+    "later_checkout_revision": "3aea238f2b6877fef005e26d8547cd7fcebfc129",
+    "basis": "Publication log and native AAR timestamps precede the checkout reflog change from 8fb5fce to 3aea238. The B library binaries were not republished."
+  }
 }

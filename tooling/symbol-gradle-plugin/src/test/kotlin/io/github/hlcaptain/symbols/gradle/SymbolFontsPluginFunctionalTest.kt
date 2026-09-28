@@ -2,6 +2,7 @@ package io.github.hlcaptain.symbols.gradle
 
 import java.io.File
 import java.util.Properties
+import java.util.zip.ZipFile
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -246,7 +247,7 @@ class SymbolFontsPluginFunctionalTest {
                 androidComponents.onVariants(androidComponents.selector().all()) { variant ->
                     tasks.register('assertGeneratedSources' + variant.name.capitalize()) {
                         def res = files(variant.sources.res.all)
-                        def sources = ${if (multiplatform) "kotlin.sourceSets.commonMain.kotlin" else "files(variant.sources.kotlin.all)"}
+                        def sources = ${if (multiplatform) "kotlin.sourceSets.commonMain.allKotlinSources" else "files(variant.sources.kotlin.all)"}
                         dependsOn(res, sources)
                         doLast {
                             assert res.asFileTree.files.any { it.name == 'app_icons_outlined_check.xml' }
@@ -277,6 +278,110 @@ class SymbolFontsPluginFunctionalTest {
                 if (multiplatform) 1 else 2,
                 result.tasks.count { it.path.startsWith(":assertGeneratedSources") },
             )
+        }
+    }
+
+    @Test
+    fun generatedKotlinCompilesAndShipsInSourcesWithoutHidingAuthoredLintInputs() {
+        listOf(false, true).forEach { multiplatform ->
+            val plugins = if (multiplatform) {
+                """
+                id 'org.jetbrains.kotlin.multiplatform'
+                id 'com.android.kotlin.multiplatform.library'
+                id 'com.android.lint'
+                id 'maven-publish'
+                """
+            } else {
+                "id 'org.jetbrains.kotlin.jvm'"
+            }
+            val platform = if (multiplatform) {
+                """
+                kotlin {
+                    android { namespace 'com.example.catalogs'; compileSdk 36; minSdk 21 }
+                    jvm()
+                }
+                """
+            } else {
+                "java { withSourcesJar() }"
+            }
+            val sourceSet = if (multiplatform) "commonMain" else "main"
+            val project = fixture(
+                """
+                plugins {
+                    $plugins
+                    id 'io.github.hlcaptain.symbol-fonts'
+                }
+                repositories { google(); mavenCentral() }
+                $platform
+                symbolFonts {
+                    catalogPackageName.set('com.example.catalogs')
+                    catalog('TestCatalog') { codepoints.set(file('icons.codepoints')) }
+                }
+                configurations.named('symbolFontGeneratorRuntimeClasspath') {
+                    dependencies.clear()
+                }
+                tasks.register('assertGeneratedClassification') {
+                    dependsOn('generateSymbolCatalogs')
+                    doLast {
+                        def sourceSet = kotlin.sourceSets.getByName('$sourceSet')
+                        def generated = file('build/generated/symbolFonts/catalogs/kotlin')
+                        assert generated in sourceSet.generatedKotlin.srcDirs
+                        assert !(generated in sourceSet.kotlin.srcDirs)
+                        assert sourceSet.allKotlinSources.files.any {
+                            it.name == 'SymbolCatalogs.generated.kt'
+                        }
+                        assert sourceSet.allKotlinSources.files.any { it.name == 'Consumer.kt' }
+                    }
+                }
+                """,
+                files = mapOf(
+                    "src/$sourceSet/kotlin/com/example/catalogs/Consumer.kt" to """
+                        package com.example.catalogs
+                        fun firstCodePoint(): Int = TestCatalog.first().codePoint
+                    """.trimIndent(),
+                    "src/androidMain/AndroidManifest.xml" to "<manifest />",
+                ),
+            )
+            if (multiplatform) configureAndroidSdk(project)
+            val compilation = if (multiplatform) "compileAndroidMain" else "compileKotlin"
+            val tasks = mutableListOf(compilation, "sourcesJar", "assertGeneratedClassification")
+            if (multiplatform) {
+                tasks += listOf(
+                    "compileKotlinJvm",
+                    "androidSourcesJar",
+                    "jvmSourcesJar",
+                    "generateAndroidMainLintModel",
+                )
+            }
+
+            val result = androidRunner(project, *tasks.toTypedArray()).build()
+
+            assertEquals(TaskOutcome.SUCCESS, result.task(":$compilation")?.outcome)
+            val sourceJars = project.resolve("build/libs").listFiles().orEmpty()
+                .filter { it.name.endsWith("-sources.jar") }
+            assertEquals(if (multiplatform) 3 else 1, sourceJars.size)
+            sourceJars.forEach { archive ->
+                ZipFile(archive).use { jar ->
+                    val entries = jar.entries().asSequence().map { it.name }.toList()
+                    assertEquals(
+                        1,
+                        entries.count { it.endsWith("SymbolCatalogs.generated.kt") },
+                        archive.name,
+                    )
+                    assertEquals(1, entries.count { it.endsWith("Consumer.kt") }, archive.name)
+                }
+            }
+            if (multiplatform) {
+                val model = project.resolve(
+                    "build/intermediates/lint_model/androidMain/" +
+                        "generateAndroidMainLintModel/androidMain.xml",
+                ).readText()
+                val javaDirectories = Regex("""javaDirectories="([^"]*)"""")
+                    .findAll(model).joinToString(":") { it.groupValues[1] }
+                assertTrue("src/commonMain/kotlin" in javaDirectories, model)
+                assertTrue("src/androidMain/kotlin" in javaDirectories, model)
+                assertFalse("build/generated/symbolFonts" in javaDirectories, model)
+            }
         }
     }
 

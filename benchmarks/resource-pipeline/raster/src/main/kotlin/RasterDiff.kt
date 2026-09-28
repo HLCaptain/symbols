@@ -93,8 +93,8 @@ fun main(args: Array<String>) {
         check(names.isNotEmpty() && names == names(b)) { "Drawable resource sets differ" }
         check(names.all { it.matches(Regex("res/drawable/[a-z0-9_]+\\.xml")) }) { "Unexpected resource filename" }
         names.forEachIndexed { index, name ->
-            read(a.getInputStream(a.getEntry(name)).readBytes()).use { va ->
-                read(b.getInputStream(b.getEntry(name)).readBytes()).use { vb ->
+            read(a.getInputStream(a.getEntry(name)).use { it.readBytes() }).use { va ->
+                read(b.getInputStream(b.getEntry(name)).use { it.readBytes() }).use { vb ->
                     check(va.width == vb.width && va.height == vb.height)
                     for (size in listOf(48, 96)) {
                         val pa = raster(va, size); val pb = raster(vb, size)

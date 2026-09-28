@@ -8,11 +8,12 @@ checks; build timings collected under concurrent load are excluded.
 | Cohort | Publication revision | Toolchain | Local artifact version |
 | --- | --- | --- | --- |
 | A | `20339e8` | Gradle 8.14.5 / AGP 8.13.2 / Kotlin 2.3.21 / Compose 1.11.1 | `0.0.0-study-a` |
-| B | `3aea238` | Gradle 9.7.0 / AGP 9.4.1 / Kotlin 2.4.20 / Compose 1.12.1 | `0.0.0-study-b` |
+| B | `8fb5fce` | Gradle 9.7.0 / AGP 9.4.1 / Kotlin 2.4.20 / Compose 1.12.1 | `0.0.0-study-b` |
 
 Both use JDK 21, the same signing key and the same glyph selections. B artifacts
-remain pinned to the measured publication revision; subsequent PR1 harness/CI
-fixes did not replace these local binaries. [Reproduction](README.md). Exact bytes,
+were published on September 25 from `8fb5fce`. The checkout advanced to
+`3aea238` on September 28 for separate sample/timing runs without republishing
+these binaries; those later runs retain their own revision metadata. [Reproduction](README.md). Exact bytes,
 hashes and counts: [A](BASELINE_A.json), [B](UPGRADE_B.json),
 [A/B deltas](APK_COMPARISON.json).
 

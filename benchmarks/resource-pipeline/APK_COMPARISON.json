@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "a_revision": "20339e8bb5bc787a569516dc78dda0cce5bdb6da",
-  "b_revision": "3aea238f2b6877fef005e26d8547cd7fcebfc129",
+  "b_revision": "8fb5fce52537d300bf1127fdc8361f9b15c0d620",
   "interpretation": "Aggregate toolchain/dependency/generator upgrade effects, not a new Android shrinking optimization. Old Skia XML geometry errors were corrected in B; see RASTER_RESULTS.md. No controlled build-time claim.",
   "cases": [
     {

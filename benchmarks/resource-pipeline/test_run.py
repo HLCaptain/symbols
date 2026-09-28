@@ -11,6 +11,18 @@ spec.loader.exec_module(study)
 
 
 class IntegrityTest(unittest.TestCase):
+    def test_python_assignment_preserves_virtualenv_executable_symlink(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            executable = root / "base-python"
+            executable.touch()
+            virtualenv_python = root / "venv/bin/python"
+            virtualenv_python.parent.mkdir(parents=True)
+            virtualenv_python.symlink_to(executable)
+            assignment = [f"A={virtualenv_python}"]
+            self.assertEqual(study.assignments(assignment, resolve_symlinks=False)["A"], virtualenv_python)
+            self.assertEqual(study.assignments(assignment)["A"], executable)
+
     def test_edit_restores_exact_bytes_after_build_failure(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "source"

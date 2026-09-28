@@ -38,13 +38,14 @@ def output(root, *args, env=None):
     return subprocess.check_output(args, cwd=root, env=env, text=True, stderr=subprocess.STDOUT).strip()
 
 
-def assignments(values):
+def assignments(values, *, resolve_symlinks=True):
     result = {}
     for item in values:
         label, separator, value = item.partition("=")
         if not separator or not re.fullmatch(r"[A-Za-z0-9_-]+", label) or label in result:
             raise ValueError(f"Expected a unique LABEL=PATH, got {item!r}")
-        result[label] = Path(value).expanduser().resolve()
+        path = Path(value).expanduser().absolute()
+        result[label] = path.resolve() if resolve_symlinks else path
     return result
 
 
@@ -167,7 +168,9 @@ def main():
         parser.error("--repeat and --max-workers must be positive")
     if not os.environ.get("JAVA_HOME"):
         parser.error("Set JAVA_HOME to the same JDK 21 for every revision")
-    revisions, pythons = assignments(args.revision), assignments(args.python)
+    revisions = assignments(args.revision)
+    # A venv's python is commonly a symlink; resolving it selects the base interpreter.
+    pythons = assignments(args.python, resolve_symlinks=False)
     if set(pythons) - revisions.keys():
         parser.error("Each --python label must match --revision")
     destination = args.output.expanduser().resolve()
@@ -196,7 +199,15 @@ def main():
             env["PATH"] = str(pythons[label].parent) + os.pathsep + env["PATH"]
             env["SYMBOLS_PYTHON"] = str(pythons[label])
         environments[label] = env
-        report["revisions"][label] = {"root": str(root), "sha": output(root, "git", "rev-parse", "HEAD"), "gradle": output(root, str(root / "gradlew"), "--version", env=env), "python": output(root, str(pythons[label]) if label in pythons else "python3", "--version", env=env), "versions": tomllib.loads((root / "gradle/libs.versions.toml").read_text())["versions"], "generator_requirements": (root / "tools/requirements-font-verification.txt").read_text()}
+        python_executable = str(pythons[label]) if label in pythons else "python3"
+        generator_environment = json.loads(output(root, python_executable, "-c", """
+import json, sys, fontTools, picosvg, pathops
+from importlib.metadata import version
+print(json.dumps({"executable": sys.executable, "python": sys.version.split()[0],
+                  "fonttools": fontTools.__version__, "picosvg": version("picosvg"),
+                  "skia-pathops": version("skia-pathops")}))
+""", env=env))
+        report["revisions"][label] = {"root": str(root), "sha": output(root, "git", "rev-parse", "HEAD"), "gradle": output(root, str(root / "gradlew"), "--version", env=env), "python": f"Python {generator_environment['python']}", "generator_environment": generator_environment, "versions": tomllib.loads((root / "gradle/libs.versions.toml").read_text())["versions"], "generator_requirements": (root / "tools/requirements-font-verification.txt").read_text()}
     if len(set(info["root"] for info in report["revisions"].values())) != len(revisions):
         raise ValueError("Use distinct worktrees per revision")
 
