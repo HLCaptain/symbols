@@ -140,3 +140,9 @@ compose.desktop {
         }
     }
 }
+
+// Webpack emits and references its hashed Skiko WASM asset. Compose also copies
+// the raw file as a resource; omit only that unused production deployment copy.
+tasks.named<Sync>("jsBrowserDistribution") {
+    exclude("skiko.wasm")
+}

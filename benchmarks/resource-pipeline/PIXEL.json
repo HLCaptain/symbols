@@ -1,0 +1,419 @@
+{
+  "schema_version": 1,
+  "measured_date": "2026-09-25",
+  "device": "Pixel 6a / Android API 37",
+  "scenario": "draw",
+  "iterations_per_case": 5,
+  "baseline_commit": "20339e8",
+  "upgrade_commit": "8fb5fce",
+  "upgrade_note": "Includes the validated AGP 9 benchmark argument workaround and resource wiring fixes; runtime renderer implementation unchanged from the migration commit.",
+  "limitation": "One six-case run per revision, five iterations per case. Differences within a few percent are not evidence of a speedup. This checks animated fonts, not generated XML geometry.",
+  "runs": {
+    "A": {
+      "timing": [
+        {
+          "renderer": "shared",
+          "count": 1,
+          "frame_cpu_ms": {
+            "P50": 8.748880499999999,
+            "P90": 10.463362199999999,
+            "P95": 10.891246899999999,
+            "P99": 11.767541519999998
+          },
+          "frame_overrun_ms": {
+            "P50": -6.4955245,
+            "P90": -4.6488617,
+            "P95": -4.317955199999999,
+            "P99": -3.405486820000001
+          },
+          "positive_overrun_frames": 1,
+          "overrun_sampled_frames": 600,
+          "median_counters": {
+            "hostCompositions": 0,
+            "groupCompositions": 121,
+            "iconCompositions": 121,
+            "measures": 0,
+            "placements": 0,
+            "draws": 121,
+            "updates": 121,
+            "layerUpdates": 121,
+            "effectEvaluations": 121
+          },
+          "rendered_update_coverage": 1.0,
+          "layer_update_coverage": 1.0,
+          "thermal_throttle_sleep_seconds": 0
+        },
+        {
+          "renderer": "shared",
+          "count": 100,
+          "frame_cpu_ms": {
+            "P50": 18.027913,
+            "P90": 19.333064,
+            "P95": 23.087133399999935,
+            "P99": 34.44083931999997
+          },
+          "frame_overrun_ms": {
+            "P50": 2.875395,
+            "P90": 9.094337800000002,
+            "P95": 12.85006799999999,
+            "P99": 35.083467240000004
+          },
+          "positive_overrun_frames": 585,
+          "overrun_sampled_frames": 585,
+          "median_counters": {
+            "hostCompositions": 0,
+            "groupCompositions": 1180,
+            "iconCompositions": 11800,
+            "measures": 0,
+            "placements": 0,
+            "draws": 11800,
+            "updates": 118,
+            "layerUpdates": 11800,
+            "effectEvaluations": 1180
+          },
+          "rendered_update_coverage": 1.0,
+          "layer_update_coverage": 1.0,
+          "thermal_throttle_sleep_seconds": 0
+        },
+        {
+          "renderer": "value",
+          "count": 1,
+          "frame_cpu_ms": {
+            "P50": 9.007425999999999,
+            "P90": 10.3459068,
+            "P95": 10.803641849999993,
+            "P99": 11.876053779999998
+          },
+          "frame_overrun_ms": {
+            "P50": -6.1472765,
+            "P90": -4.5904348,
+            "P95": -4.27720195,
+            "P99": -3.3250056400000005
+          },
+          "positive_overrun_frames": 2,
+          "overrun_sampled_frames": 600,
+          "median_counters": {
+            "hostCompositions": 0,
+            "groupCompositions": 0,
+            "iconCompositions": 121,
+            "measures": 0,
+            "placements": 0,
+            "draws": 121,
+            "updates": 121,
+            "layerUpdates": 121,
+            "effectEvaluations": 121
+          },
+          "rendered_update_coverage": 1.0,
+          "layer_update_coverage": 1.0,
+          "thermal_throttle_sleep_seconds": 0
+        },
+        {
+          "renderer": "value",
+          "count": 100,
+          "frame_cpu_ms": {
+            "P50": 14.232096,
+            "P90": 15.205037800000003,
+            "P95": 17.795878,
+            "P99": 26.26482447999994
+          },
+          "frame_overrun_ms": {
+            "P50": -1.652217,
+            "P90": -0.2741201999999976,
+            "P95": 8.865799299999995,
+            "P99": 24.99247943999998
+          },
+          "positive_overrun_frames": 53,
+          "overrun_sampled_frames": 595,
+          "median_counters": {
+            "hostCompositions": 0,
+            "groupCompositions": 0,
+            "iconCompositions": 12000,
+            "measures": 0,
+            "placements": 0,
+            "draws": 12000,
+            "updates": 120,
+            "layerUpdates": 12000,
+            "effectEvaluations": 1200
+          },
+          "rendered_update_coverage": 1.0,
+          "layer_update_coverage": 1.0,
+          "thermal_throttle_sleep_seconds": 0
+        },
+        {
+          "renderer": "native",
+          "count": 1,
+          "frame_cpu_ms": {
+            "P50": 8.9282635,
+            "P90": 10.3580565,
+            "P95": 10.76624705,
+            "P99": 11.71586505
+          },
+          "frame_overrun_ms": {
+            "P50": -6.463756,
+            "P90": -4.817672899999999,
+            "P95": -4.3337621,
+            "P99": -3.0775020200000016
+          },
+          "positive_overrun_frames": 0,
+          "overrun_sampled_frames": 600,
+          "median_counters": {
+            "hostCompositions": 0,
+            "groupCompositions": 0,
+            "iconCompositions": 0,
+            "measures": 0,
+            "placements": 0,
+            "draws": 121,
+            "updates": 121,
+            "layerUpdates": 121,
+            "effectEvaluations": 121
+          },
+          "rendered_update_coverage": 1.0,
+          "layer_update_coverage": 1.0,
+          "thermal_throttle_sleep_seconds": 0
+        },
+        {
+          "renderer": "native",
+          "count": 100,
+          "frame_cpu_ms": {
+            "P50": 13.753662,
+            "P90": 14.972941200000001,
+            "P95": 16.701403699999997,
+            "P99": 25.79462983999998
+          },
+          "frame_overrun_ms": {
+            "P50": -2.10265,
+            "P90": -0.8493817999999995,
+            "P95": 4.12139009999998,
+            "P99": 22.062118279999968
+          },
+          "positive_overrun_frames": 39,
+          "overrun_sampled_frames": 595,
+          "median_counters": {
+            "hostCompositions": 0,
+            "groupCompositions": 0,
+            "iconCompositions": 0,
+            "measures": 0,
+            "placements": 0,
+            "draws": 12000,
+            "updates": 120,
+            "layerUpdates": 12000,
+            "effectEvaluations": 1200
+          },
+          "rendered_update_coverage": 1.0,
+          "layer_update_coverage": 1.0,
+          "thermal_throttle_sleep_seconds": 0
+        }
+      ],
+      "geometry": {
+        "renderers": 4,
+        "positions_per_renderer": 4,
+        "max_ink_bound_delta_px": 0,
+        "max_mean_rgb_delta": 0,
+        "native_compositions_measures_placements": 0
+      }
+    },
+    "B": {
+      "timing": [
+        {
+          "renderer": "shared",
+          "count": 1,
+          "frame_cpu_ms": {
+            "P50": 9.007547500000001,
+            "P90": 10.656567900000002,
+            "P95": 11.0112507,
+            "P99": 12.28442454
+          },
+          "frame_overrun_ms": {
+            "P50": -6.1479435,
+            "P90": -4.4825031,
+            "P95": -4.100738050000003,
+            "P99": -3.2848009000000022
+          },
+          "positive_overrun_frames": 1,
+          "overrun_sampled_frames": 600,
+          "median_counters": {
+            "hostCompositions": 0,
+            "groupCompositions": 121,
+            "iconCompositions": 121,
+            "measures": 0,
+            "placements": 0,
+            "draws": 121,
+            "updates": 121,
+            "layerUpdates": 121,
+            "effectEvaluations": 121
+          },
+          "rendered_update_coverage": 1.0,
+          "layer_update_coverage": 1.0,
+          "thermal_throttle_sleep_seconds": 0
+        },
+        {
+          "renderer": "shared",
+          "count": 100,
+          "frame_cpu_ms": {
+            "P50": 18.042521,
+            "P90": 19.6259765,
+            "P95": 22.71812925,
+            "P99": 34.61156349999999
+          },
+          "frame_overrun_ms": {
+            "P50": 3.090547,
+            "P90": 11.6189035,
+            "P95": 18.1529645,
+            "P99": 35.81147135
+          },
+          "positive_overrun_frames": 586,
+          "overrun_sampled_frames": 586,
+          "median_counters": {
+            "hostCompositions": 0,
+            "groupCompositions": 1180,
+            "iconCompositions": 11800,
+            "measures": 0,
+            "placements": 0,
+            "draws": 11800,
+            "updates": 118,
+            "layerUpdates": 11800,
+            "effectEvaluations": 1180
+          },
+          "rendered_update_coverage": 1.0,
+          "layer_update_coverage": 1.0,
+          "thermal_throttle_sleep_seconds": 0
+        },
+        {
+          "renderer": "value",
+          "count": 1,
+          "frame_cpu_ms": {
+            "P50": 9.212321,
+            "P90": 10.4481935,
+            "P95": 10.8018431,
+            "P99": 11.62551595
+          },
+          "frame_overrun_ms": {
+            "P50": -6.2495895,
+            "P90": -4.8209835,
+            "P95": -4.373393950000001,
+            "P99": -3.01952446
+          },
+          "positive_overrun_frames": 1,
+          "overrun_sampled_frames": 600,
+          "median_counters": {
+            "hostCompositions": 0,
+            "groupCompositions": 0,
+            "iconCompositions": 121,
+            "measures": 0,
+            "placements": 0,
+            "draws": 121,
+            "updates": 121,
+            "layerUpdates": 121,
+            "effectEvaluations": 121
+          },
+          "rendered_update_coverage": 1.0,
+          "layer_update_coverage": 1.0,
+          "thermal_throttle_sleep_seconds": 0
+        },
+        {
+          "renderer": "value",
+          "count": 100,
+          "frame_cpu_ms": {
+            "P50": 14.285523,
+            "P90": 15.2708004,
+            "P95": 18.190250699999975,
+            "P99": 26.98230621999997
+          },
+          "frame_overrun_ms": {
+            "P50": -1.570661,
+            "P90": -0.22620519999999933,
+            "P95": 10.813023699999999,
+            "P99": 24.684078279999984
+          },
+          "positive_overrun_frames": 54,
+          "overrun_sampled_frames": 595,
+          "median_counters": {
+            "hostCompositions": 0,
+            "groupCompositions": 0,
+            "iconCompositions": 12000,
+            "measures": 0,
+            "placements": 0,
+            "draws": 12000,
+            "updates": 120,
+            "layerUpdates": 12000,
+            "effectEvaluations": 1200
+          },
+          "rendered_update_coverage": 1.0,
+          "layer_update_coverage": 1.0,
+          "thermal_throttle_sleep_seconds": 0
+        },
+        {
+          "renderer": "native",
+          "count": 1,
+          "frame_cpu_ms": {
+            "P50": 8.940389,
+            "P90": 10.201741200000003,
+            "P95": 10.6463252,
+            "P99": 11.57042452
+          },
+          "frame_overrun_ms": {
+            "P50": -6.57325,
+            "P90": -4.890441599999999,
+            "P95": -4.3771588999999995,
+            "P99": -3.616975160000001
+          },
+          "positive_overrun_frames": 0,
+          "overrun_sampled_frames": 599,
+          "median_counters": {
+            "hostCompositions": 0,
+            "groupCompositions": 0,
+            "iconCompositions": 0,
+            "measures": 0,
+            "placements": 0,
+            "draws": 121,
+            "updates": 121,
+            "layerUpdates": 121,
+            "effectEvaluations": 121
+          },
+          "rendered_update_coverage": 1.0,
+          "layer_update_coverage": 1.0,
+          "thermal_throttle_sleep_seconds": 0
+        },
+        {
+          "renderer": "native",
+          "count": 100,
+          "frame_cpu_ms": {
+            "P50": 13.657308,
+            "P90": 15.1240232,
+            "P95": 16.031888199999994,
+            "P99": 25.79724331999995
+          },
+          "frame_overrun_ms": {
+            "P50": -2.15376,
+            "P90": -0.6579977999999997,
+            "P95": 0.4402104999999915,
+            "P99": 21.104107339999963
+          },
+          "positive_overrun_frames": 32,
+          "overrun_sampled_frames": 595,
+          "median_counters": {
+            "hostCompositions": 0,
+            "groupCompositions": 0,
+            "iconCompositions": 0,
+            "measures": 0,
+            "placements": 0,
+            "draws": 12000,
+            "updates": 120,
+            "layerUpdates": 12000,
+            "effectEvaluations": 1200
+          },
+          "rendered_update_coverage": 1.0,
+          "layer_update_coverage": 1.0,
+          "thermal_throttle_sleep_seconds": 0
+        }
+      ],
+      "geometry": {
+        "renderers": 4,
+        "positions_per_renderer": 4,
+        "max_ink_bound_delta_px": 0,
+        "max_mean_rgb_delta": 0,
+        "native_compositions_measures_placements": 0
+      }
+    }
+  }
+}

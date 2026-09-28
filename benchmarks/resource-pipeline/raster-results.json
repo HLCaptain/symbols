@@ -1,0 +1,183 @@
+{
+  "measured": "2026-09-28",
+  "renderer": "Skiko 0.150.1 CPU, antialiased black fill on transparent background",
+  "font_reference": {
+    "fonttools": "4.66.0",
+    "font_sha256": "f73c7bcb7dbeab41fe741cbc3dd73f8fd3d0569c386ca82ceee60ccf5c1fbc52",
+    "glyphs": 3802,
+    "transform": [
+      0.025,
+      0,
+      0,
+      -0.025,
+      0,
+      24
+    ],
+    "codepoints_sha256": "3e5293b71c38cb0487ab5fc5de293956aab4f96f445ae482849cce3df345aec9",
+    "font_bytes": 1303612
+  },
+  "acceptance_limit_mean_alpha_error_fraction": 0.005,
+  "archive_sha256": {
+    "A": "0fe9093b99bfa0a25ce966ea494eaa88b79e42fbcd9773a06a4a6a031caf418c",
+    "B": "133eee1c04e3dfc57b95584652cac01af439c13bbe909a6be5ccde52ff92bbe7",
+    "fonttools_reference": "5a047acc49f641223b372bf5c96ef47039babc579668faef66704bc3252de64d"
+  },
+  "comparisons": {
+    "A_vs_B_diagnostic": [
+      {
+        "size": 48,
+        "glyphs": 3802,
+        "exact_matches": 3366,
+        "different": 436,
+        "glyphs_delta_gt8": 214,
+        "glyphs_delta_gt32": 76,
+        "glyphs_delta_gt128": 38,
+        "glyphs_bounds_changed": 4,
+        "total_changed_pixels": 12435,
+        "max_changed_pixels": 261,
+        "max_alpha_delta": 255,
+        "max_canvas_difference_fraction": 0.08626089324618737
+      },
+      {
+        "size": 96,
+        "glyphs": 3802,
+        "exact_matches": 3349,
+        "different": 453,
+        "glyphs_delta_gt8": 221,
+        "glyphs_delta_gt32": 88,
+        "glyphs_delta_gt128": 37,
+        "glyphs_bounds_changed": 5,
+        "total_changed_pixels": 29616,
+        "max_changed_pixels": 948,
+        "max_alpha_delta": 255,
+        "max_canvas_difference_fraction": 0.08671619689542484
+      }
+    ],
+    "FontTools_vs_A_negative_control": [
+      {
+        "size": 48,
+        "glyphs": 3802,
+        "glyphs_exceeding_limit": 36,
+        "exact_matches": 36,
+        "different": 3766,
+        "glyphs_delta_gt8": 1722,
+        "glyphs_delta_gt32": 427,
+        "glyphs_delta_gt128": 39,
+        "glyphs_bounds_changed": 1048,
+        "total_changed_pixels": 363264,
+        "max_changed_pixels": 357,
+        "max_alpha_delta": 255,
+        "max_canvas_difference_fraction": 0.08707618464052287
+      },
+      {
+        "size": 96,
+        "glyphs": 3802,
+        "glyphs_exceeding_limit": 36,
+        "exact_matches": 33,
+        "different": 3769,
+        "glyphs_delta_gt8": 2625,
+        "glyphs_delta_gt32": 1011,
+        "glyphs_delta_gt128": 37,
+        "glyphs_bounds_changed": 1064,
+        "total_changed_pixels": 881872,
+        "max_changed_pixels": 1234,
+        "max_alpha_delta": 255,
+        "max_canvas_difference_fraction": 0.08704001565904139
+      }
+    ],
+    "FontTools_vs_B_acceptance": [
+      {
+        "size": 48,
+        "glyphs": 3802,
+        "glyphs_exceeding_limit": 0,
+        "exact_matches": 36,
+        "different": 3766,
+        "glyphs_delta_gt8": 1641,
+        "glyphs_delta_gt32": 362,
+        "glyphs_delta_gt128": 1,
+        "glyphs_bounds_changed": 1045,
+        "total_changed_pixels": 354966,
+        "max_changed_pixels": 255,
+        "max_alpha_delta": 135,
+        "max_canvas_difference_fraction": 0.0035981753812636165
+      },
+      {
+        "size": 96,
+        "glyphs": 3802,
+        "glyphs_exceeding_limit": 0,
+        "exact_matches": 33,
+        "different": 3769,
+        "glyphs_delta_gt8": 2590,
+        "glyphs_delta_gt32": 962,
+        "glyphs_delta_gt128": 0,
+        "glyphs_bounds_changed": 1063,
+        "total_changed_pixels": 860284,
+        "max_changed_pixels": 560,
+        "max_alpha_delta": 98,
+        "max_canvas_difference_fraction": 0.0022709865196078433
+      }
+    ],
+    "raw_old_Skia_vs_A_diagnostic": [
+      {
+        "size": 48,
+        "glyphs": 3802,
+        "exact_matches": 43,
+        "different": 3759,
+        "glyphs_delta_gt8": 628,
+        "glyphs_delta_gt32": 44,
+        "glyphs_delta_gt128": 0,
+        "glyphs_bounds_changed": 2,
+        "total_changed_pixels": 185725,
+        "max_changed_pixels": 155,
+        "max_alpha_delta": 85,
+        "max_canvas_difference_fraction": 0.000976988017429194
+      },
+      {
+        "size": 96,
+        "glyphs": 3802,
+        "exact_matches": 38,
+        "different": 3764,
+        "glyphs_delta_gt8": 949,
+        "glyphs_delta_gt32": 209,
+        "glyphs_delta_gt128": 0,
+        "glyphs_bounds_changed": 7,
+        "total_changed_pixels": 393612,
+        "max_changed_pixels": 323,
+        "max_alpha_delta": 72,
+        "max_canvas_difference_fraction": 0.0004004119008714597
+      }
+    ],
+    "raw_new_Skia_vs_B_diagnostic": [
+      {
+        "size": 48,
+        "glyphs": 3802,
+        "exact_matches": 43,
+        "different": 3759,
+        "glyphs_delta_gt8": 643,
+        "glyphs_delta_gt32": 44,
+        "glyphs_delta_gt128": 0,
+        "glyphs_bounds_changed": 2,
+        "total_changed_pixels": 185784,
+        "max_changed_pixels": 157,
+        "max_alpha_delta": 85,
+        "max_canvas_difference_fraction": 0.0009531590413943355
+      },
+      {
+        "size": 96,
+        "glyphs": 3802,
+        "exact_matches": 38,
+        "different": 3764,
+        "glyphs_delta_gt8": 953,
+        "glyphs_delta_gt32": 212,
+        "glyphs_delta_gt128": 0,
+        "glyphs_bounds_changed": 8,
+        "total_changed_pixels": 393529,
+        "max_changed_pixels": 338,
+        "max_alpha_delta": 72,
+        "max_canvas_difference_fraction": 0.0004004119008714597
+      }
+    ]
+  },
+  "acceptance_candidate_passed": true,
+  "negative_control_baseline_rejected": true
+}

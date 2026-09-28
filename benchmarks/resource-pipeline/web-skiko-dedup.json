@@ -1,0 +1,107 @@
+{
+  "verified_on": "2026-09-28",
+  "baseline": "Upgraded production bundle built on 2026-09-25; same webpack output reused for this packaging-only change.",
+  "versions": {
+    "gradle": "9.7.0",
+    "kotlin": "2.4.20",
+    "compose_multiplatform": "1.12.1",
+    "skiko": "0.150.1",
+    "webpack": "5.108.1"
+  },
+  "change": "jsBrowserDistribution Sync.exclude(\"skiko.wasm\")",
+  "method": "Deployment file totals. Gzip is summed per file at level 9, mtime=0. This is not measured initial-page transfer or build-time improvement.",
+  "removed_file": {
+    "path": "skiko.wasm",
+    "bytes": 8640316,
+    "gzip_bytes": 3324678
+  },
+  "before": {
+    "all_files": {
+      "files": 3926,
+      "bytes": 55805879,
+      "gzip_bytes": 20205680
+    },
+    "without_source_maps": {
+      "files": 3925,
+      "bytes": 47431204,
+      "gzip_bytes": 18005389
+    }
+  },
+  "after": {
+    "all_files": {
+      "files": 3925,
+      "bytes": 47165563,
+      "gzip_bytes": 16881002
+    },
+    "without_source_maps": {
+      "files": 3924,
+      "bytes": 38790888,
+      "gzip_bytes": 14680711
+    }
+  },
+  "unchanged_bundle": {
+    "path": "composeApp.js",
+    "sha256": "3d6cf02949324b5762e95ab473f2266e1051210252d68d24ee14ef82af6ffe96"
+  },
+  "retained_wasm": {
+    "path": "bfa5198fb2fe683c613a.wasm",
+    "sha256": "089052ba37e2a6e8345117bf6fe0f5730cfc8de1eb4c2bbc8921cf8e457ae3cb",
+    "bytes": 8640316
+  },
+  "validation": {
+    "gradle_distribution": "passed",
+    "webpack_up_to_date": true,
+    "linker_up_to_date": true,
+    "raw_linker_input_retained": true,
+    "remaining_distribution_files_byte_identical": true,
+    "browser": "HeadlessChrome/151.0.0.0 via agent-browser",
+    "cold_session": true,
+    "console_errors": 0,
+    "pages": [
+      "home navigation",
+      "static Material font and Compose drawable",
+      "variable Material font with FILL animation",
+      "typed ImageVector and painter migration"
+    ],
+    "successful_requests": [
+      {
+        "path": "/",
+        "status": 200
+      },
+      {
+        "path": "/styles.css",
+        "status": 200
+      },
+      {
+        "path": "/composeApp.js",
+        "status": 200
+      },
+      {
+        "path": "/bfa5198fb2fe683c613a.wasm",
+        "status": 200
+      },
+      {
+        "path": "/composeResources/io.github.hlcaptain.symbols.material.rounded.staticfont.resources/font/material_symbols_rounded_regular.ttf",
+        "status": 200
+      },
+      {
+        "path": "/composeResources/io.github.hlcaptain.symbols.material.rounded.compose.drawables.resources/drawable/material_symbols_rounded_home_ue9b2.xml",
+        "status": 200
+      },
+      {
+        "path": "/composeResources/io.github.hlcaptain.symbols.material.rounded.resources/font/material_symbols_rounded_variable.ttf",
+        "status": 200
+      },
+      {
+        "path": "/composeResources/io.github.hlcaptain.image_vector_migration.generated.resources/drawable/academmunicons_default_orcid_uf04f.xml",
+        "status": 200
+      },
+      {
+        "path": "/composeResources/io.github.hlcaptain.image_vector_migration.generated.resources/drawable/tabler_outline_hierarchy_2.xml",
+        "status": 200
+      }
+    ]
+  },
+  "scope": "Only this sample production JS distribution. No published Skiko artifacts, compiler/linker inputs, development server files, or WasmJS distribution files are removed.",
+  "fallback_boundary": "The sample uses the default webpack loader. A future custom Skiko locateFile override that requires raw /skiko.wasm must retain that file or remove this exclusion."
+}
