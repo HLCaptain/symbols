@@ -1,0 +1,42 @@
+--- a/androidMain/org/jetbrains/compose/resources/ResourceReader.android.kt
++++ b/androidMain/org/jetbrains/compose/resources/ResourceReader.android.kt
+@@ -3,0 +4 @@
++import android.content.res.Resources
+@@ -5,0 +7 @@
++import android.util.TypedValue
+@@ -61,0 +64,11 @@
++        nativeResourceId(path)?.let { id ->
++            val context = androidContext ?: throwMissingResourceException(path)
++            try {
++                context.resources.getValue(id, TypedValue(), true)
++            } catch (_: Resources.NotFoundException) {
++                throwMissingResourceException(path)
++            }
++            // Use the installed application identity, not the publishing library namespace.
++            return "android.resource://${context.packageName}/$id"
++        }
++
+@@ -72,0 +86,9 @@
++        nativeResourceId(path)?.let { id ->
++            val context = androidContext ?: throwMissingResourceException(path)
++            try {
++                return context.resources.openRawResource(id)
++            } catch (_: Resources.NotFoundException) {
++                throwMissingResourceException(path)
++            }
++        }
++
+@@ -82,0 +105,13 @@
++    }
++
++    // Prototype-only location emitted by Android accessors. Construction needs no Context.
++    // The .xml suffix preserves painterResource's existing format selection.
++    private fun nativeResourceId(path: String): Int? {
++        val prefix = "compose-android-resource://"
++        if (!path.startsWith(prefix)) return null
++        val payload = path.removePrefix(prefix)
++        val id = payload.substringBefore('/').toIntOrNull()
++        if (id == null || id <= 0 || payload.substringAfter('/', "") != "drawable.xml") {
++            throwMissingResourceException(path)
++        }
++        return id

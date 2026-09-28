@@ -1,0 +1,391 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-09-28",
+  "verified": true,
+  "resource_coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-native-full07",
+  "runtime_coordinates": "org.jetbrains.compose.components:components-resources:1.12.2-native-raw01",
+  "abi": {
+    "runtime": {
+      "schema_version": 1,
+      "verified": true,
+      "method": "javap -protected -s -constants; every original class header/member retained, additive helpers allowed",
+      "stock": {
+        "aar": "components-resources-android-1.12.1.aar",
+        "aar_sha256": "04812fff18c192cd6415cbb155894de06093e9f4299595139cece32e3c932f20",
+        "class_count": 117,
+        "member_count": 460,
+        "kotlin_modules": [
+          "META-INF/library_release.kotlin_module"
+        ],
+        "declarations_sha256": "5afb169389175a2dfed40d06e6310a325b8cc28e1d0485c4aa35149f0f1db1cb"
+      },
+      "candidate": {
+        "aar": "components-resources-android-1.12.2-native-raw01.aar",
+        "aar_sha256": "f13b37bd4a4a7fd759367c5606b8be48e55af49518904c9a18edacf47b72fc63",
+        "class_count": 117,
+        "member_count": 460,
+        "kotlin_modules": [
+          "META-INF/library_release.kotlin_module"
+        ],
+        "declarations_sha256": "5afb169389175a2dfed40d06e6310a325b8cc28e1d0485c4aa35149f0f1db1cb"
+      },
+      "kotlin_module_names_preserved": true,
+      "removed_classes": [],
+      "changed_class_headers": [],
+      "removed_or_changed_members": {},
+      "added_classes": [],
+      "added_members_in_existing_classes": 0,
+      "bounds": "JVM declaration and Kotlin module-name check; source/metadata consumption and runtime behavior are tested separately"
+    },
+    "pack": {
+      "schema_version": 1,
+      "verified": true,
+      "method": "javap -protected -s -constants; every original class header/member retained, additive helpers allowed",
+      "stock": {
+        "aar": "symbols-material-compose-drawables-outlined-android-0.0.0-study-b.aar",
+        "aar_sha256": "5e1c6d5ab22c8766b6238b33abdbcfbcb3210fecb855256411e251a70a726e00",
+        "class_count": 46,
+        "member_count": 3860,
+        "kotlin_modules": [
+          "META-INF/io.github.hlcaptain_material-compose-drawables-outlined.kotlin_module"
+        ],
+        "declarations_sha256": "dfc4b7847c6c0670097b33516d5be631f2d6db38da3a80d5b6d74100671553da"
+      },
+      "candidate": {
+        "aar": "symbols-material-compose-drawables-outlined-android-0.0.0-native-full07.aar",
+        "aar_sha256": "826a5713e5ce4fdd9c90dbc6eecbb9014c7b14ae44d29e0e16d2972eef2ee97a",
+        "class_count": 47,
+        "member_count": 7663,
+        "kotlin_modules": [
+          "META-INF/io.github.hlcaptain_material-compose-drawables-outlined.kotlin_module"
+        ],
+        "declarations_sha256": "265a7bb97e745fa9e3ed4b47f34bcdbb9dc1f02cdbef6fe1f2e8a1787f34aeeb"
+      },
+      "kotlin_module_names_preserved": true,
+      "removed_classes": [],
+      "changed_class_headers": [],
+      "removed_or_changed_members": {},
+      "added_classes": [
+        "io.github.hlcaptain.symbols.material.outlined.compose.drawables.resources.NativeResourcePathsKt"
+      ],
+      "added_members_in_existing_classes": 0,
+      "bounds": "JVM declaration and Kotlin module-name check; source/metadata consumption and runtime behavior are tested separately"
+    }
+  },
+  "precompiled_stock_client": {
+    "verified": true,
+    "helper": {
+      "source_sha256": "619193db2dbe0f56cfe2af6052cbd2a47e05926601d719b5ecc69dd791c5a3f6",
+      "class_sha256": "eee51e1dc7b88a2d982f0319e3d2d61186f943a35b63770f8448b6f1f3e13bd0",
+      "jar_sha256": "3c91f5dff4dfb2c790d09c8b5d3de98a7f82bfe900266208d932c1564a1f6ce8",
+      "stock_pack_aar": "symbols-material-compose-drawables-outlined-android-0.0.0-study-b.aar",
+      "stock_pack_aar_sha256": "5e1c6d5ab22c8766b6238b33abdbcfbcb3210fecb855256411e251a70a726e00",
+      "stock_runtime_aar": "components-resources-android-1.12.1.aar",
+      "stock_runtime_aar_sha256": "04812fff18c192cd6415cbb155894de06093e9f4299595139cece32e3c932f20",
+      "stdlib_sha256": "2226de463d309d4a5500a481320b3dea515a6981dcae1def531fbc158884e25f",
+      "java_release": 11,
+      "compile_contract": "Stock pack + stock runtime + Kotlin stdlib only; never recompiled against candidate"
+    },
+    "apk_sha256": "cefb3229923b206403767f4ea10acdbe31e5b0013d6206183d698f8bfd26800b",
+    "retained_resource_count": 1,
+    "configuration_cache_reused": true
+  },
+  "published_kmp_bridge": {
+    "coordinates": "io.github.hlcaptain:symbols-native-raw-bridge:0.0.0-compat-full07",
+    "artifacts": {
+      "symbols-native-raw-bridge-0.0.0-compat-full07-sources.jar": "038661377a155b84d7e94f93db284820b6b9da08e56d75de678e58b8fb659023",
+      "symbols-native-raw-bridge-0.0.0-compat-full07.module": "a8fbc354d77977745df37995dc3d53cccbb24bc4002b92b61820e9d4cd20ed1e",
+      "symbols-native-raw-bridge-0.0.0-compat-full07.pom": "61845d8973cb62b5f1ce9c0898c1a1c10e2778cc4c356f40a381cd778f784fcd",
+      "symbols-native-raw-bridge-0.0.0-compat-full07.jar": "d52cba9609f6594502fd8e28d53098de289bd1dc26de32723ea45ad826f9d649",
+      "symbols-native-raw-bridge-jvm-0.0.0-compat-full07.module": "29ee47380461d3b60f65842d4e41f11bc7c0c4d31b56a7d337566b0c8b0ad249",
+      "symbols-native-raw-bridge-jvm-0.0.0-compat-full07-sources.jar": "038661377a155b84d7e94f93db284820b6b9da08e56d75de678e58b8fb659023",
+      "symbols-native-raw-bridge-jvm-0.0.0-compat-full07.pom": "15486fba8fa1bbfec75db093f154765525f62e236eeacf18b7715d8e5178c17a",
+      "symbols-native-raw-bridge-jvm-0.0.0-compat-full07.jar": "81f16e75d62330fae74695eef3fc76dca1065cc4835d6e12c544cf8cfdd6a434",
+      "symbols-native-raw-bridge-android-0.0.0-compat-full07-sources.jar": "038661377a155b84d7e94f93db284820b6b9da08e56d75de678e58b8fb659023",
+      "symbols-native-raw-bridge-android-0.0.0-compat-full07.module": "4a91df80e7d9e8abf202619f9b6e9d7a45976e4287d87ecf8c62cd7254e94b44",
+      "symbols-native-raw-bridge-android-0.0.0-compat-full07.pom": "46baa4b6d1ead9fb8e59277f5fa318b2882f63ad318f666ca790c4a75f404f15",
+      "symbols-native-raw-bridge-android-0.0.0-compat-full07.aar": "ff1891e836aec487d7522811b527ae993d38d825682f0e6aedbf98b8d9bb03f8"
+    },
+    "android_verified": true,
+    "android_apk_sha256": "ca058a8a0d6229e0e48f62067eaeaff55bf4edde6fed665f837c7e5a816fe259",
+    "android_retained_resource_count": 1,
+    "configuration_cache_reused": true,
+    "jvm_verified": true,
+    "jvm_resource_sha256": "674fb702b0c5d74346b3bc95621387f2607453a9ded445281dfe1de2ba55c003",
+    "jvm_uri_scheme": "jar:file:",
+    "contract": "Both apps depend only on the published bridge; bridge has common code, Android and JVM targets, no Symbols/Compose Gradle plugin and no androidResources.enable flag"
+  },
+  "api23_runtime": [
+    {
+      "case": "android",
+      "sdk": 23,
+      "apk": "symbols-usage-compose-direct-1-shrunk.apk",
+      "apk_sha256": "ca058a8a0d6229e0e48f62067eaeaff55bf4edde6fed665f837c7e5a816fe259",
+      "activity": "io.github.hlcaptain.symbols.usage.compose.direct/study.MainActivity",
+      "foreground": true,
+      "errors": [],
+      "raw": null,
+      "screenshot_sha256": "ac20411f1ee8faaf4f795d425f977c3848076a7d55da02b0bbd137e1a74b13ef",
+      "pixel_comparison": {
+        "reference": "original assets-direct1 screenshot on sameAPI23",
+        "bounds": [
+          0,
+          72,
+          270,
+          264
+        ],
+        "changed_pixels": 0
+      }
+    },
+    {
+      "case": "native-agp91-direct-1",
+      "sdk": 23,
+      "apk": "symbols-usage-compose-direct-1-shrunk.apk",
+      "apk_sha256": "263a7f1b8143358a62ee30df37c8977b63272754e8a8a95ef14634fe6e0d3d4c",
+      "activity": "io.github.hlcaptain.symbols.usage.compose.direct/study.MainActivity",
+      "foreground": true,
+      "errors": [],
+      "raw": null,
+      "screenshot_sha256": "0004fd8f219f704bda7a071fe9bd16b23ac01bc88acb13ea4a4f5398632a2bdd",
+      "pixel_comparison": {
+        "reference": "original assets-direct1 screenshot on sameAPI23",
+        "bounds": [
+          0,
+          72,
+          270,
+          264
+        ],
+        "changed_pixels": 0
+      }
+    },
+    {
+      "case": "native-direct-1",
+      "sdk": 23,
+      "apk": "symbols-usage-compose-direct-1-shrunk.apk",
+      "apk_sha256": "414edb7c62455f206d869bca49885d216e642d37061cbcda41441eb036d60080",
+      "activity": "io.github.hlcaptain.symbols.usage.compose.direct/study.MainActivity",
+      "foreground": true,
+      "errors": [],
+      "raw": null,
+      "screenshot_sha256": "7025ba0130c948e548a94751ba60da976ffef71eb188ecdd9a7f4183053b2a74",
+      "pixel_comparison": {
+        "reference": "original assets-direct1 screenshot on sameAPI23",
+        "bounds": [
+          0,
+          72,
+          270,
+          264
+        ],
+        "changed_pixels": 0
+      }
+    },
+    {
+      "case": "native-direct-all",
+      "sdk": 23,
+      "apk": "symbols-usage-compose-direct-3802-shrunk.apk",
+      "apk_sha256": "59a54eea89cafec8e58885a890d85b7c29b669551d5b77c3e7e8e4538bda360f",
+      "activity": "io.github.hlcaptain.symbols.usage.compose.direct/study.MainActivity",
+      "foreground": true,
+      "errors": [],
+      "raw": null,
+      "screenshot_sha256": "c31edacd9d77ef110914a86a0388bf00ab3b8480cbe48a58b5cee77c78d3127f",
+      "pixel_comparison": {
+        "reference": "original assets-direct1 screenshot on sameAPI23",
+        "bounds": [
+          0,
+          72,
+          270,
+          264
+        ],
+        "changed_pixels": 0
+      }
+    },
+    {
+      "case": "native-dynamic-1",
+      "sdk": 23,
+      "apk": "symbols-usage-compose-dynamic-1-shrunk.apk",
+      "apk_sha256": "6147982534a109358354f02086f0774477250b22a4958b77d172b4346a787423",
+      "activity": "io.github.hlcaptain.symbols.usage.compose.dynamic/study.MainActivity",
+      "foreground": true,
+      "errors": [],
+      "raw": null,
+      "screenshot_sha256": "7025ba0130c948e548a94751ba60da976ffef71eb188ecdd9a7f4183053b2a74",
+      "pixel_comparison": {
+        "reference": "original assets-direct1 screenshot on sameAPI23",
+        "bounds": [
+          0,
+          72,
+          270,
+          264
+        ],
+        "changed_pixels": 0
+      }
+    },
+    {
+      "case": "native-full07-alias-1",
+      "sdk": 23,
+      "apk": "symbols-usage-compose-direct-1-shrunk.apk",
+      "apk_sha256": "cefb3229923b206403767f4ea10acdbe31e5b0013d6206183d698f8bfd26800b",
+      "activity": "io.github.hlcaptain.symbols.usage.compose.direct/study.MainActivity",
+      "foreground": true,
+      "errors": [],
+      "raw": null,
+      "screenshot_sha256": "ac20411f1ee8faaf4f795d425f977c3848076a7d55da02b0bbd137e1a74b13ef",
+      "pixel_comparison": {
+        "reference": "original assets-direct1 screenshot on sameAPI23",
+        "bounds": [
+          0,
+          72,
+          270,
+          264
+        ],
+        "changed_pixels": 0
+      }
+    },
+    {
+      "case": "native-raw-1",
+      "sdk": 23,
+      "apk": "symbols-usage-compose-dynamic-1-shrunk.apk",
+      "apk_sha256": "7753c40c1fb6edd8d704a54c93897c81d7010c2630bff2b9991ebdbf17375036",
+      "activity": "io.github.hlcaptain.symbols.usage.compose.dynamic/study.MainActivity",
+      "foreground": true,
+      "errors": [],
+      "raw": {
+        "sha256": "674fb702b0c5d74346b3bc95621387f2607453a9ded445281dfe1de2ba55c003",
+        "uri": "android.resource://io.github.hlcaptain.symbols.usage.compose.dynamic/2131230720"
+      },
+      "screenshot_sha256": "7025ba0130c948e548a94751ba60da976ffef71eb188ecdd9a7f4183053b2a74",
+      "pixel_comparison": {
+        "reference": "original assets-direct1 screenshot on sameAPI23",
+        "bounds": [
+          0,
+          72,
+          270,
+          264
+        ],
+        "changed_pixels": 0
+      }
+    }
+  ],
+  "qualifier_and_reader_contract": {
+    "schema_version": 1,
+    "verified": true,
+    "sdk": 23,
+    "apk": "symbols-usage-compose-dynamic-1-shrunk.apk",
+    "apk_sha256": "2e67cbd517b5929092753ca41f8530cc5cd8cd28b4112b1b363f48ff9d97d070",
+    "fixture_sha256": "21f7760e8443206873667242f4a2c7ed5b6b725924c24ff4a5568e3634b1e3d1",
+    "variants": [
+      {
+        "theme": "LIGHT",
+        "logical_path": "drawable/material_symbols_outlined_10k_ue951.xml",
+        "raw_resource": "symbols_probe_material_symbols_outlined_10k_ue951",
+        "xml_sha256": "674fb702b0c5d74346b3bc95621387f2607453a9ded445281dfe1de2ba55c003",
+        "xml_bytes": 1327
+      },
+      {
+        "theme": "DARK",
+        "logical_path": "drawable-dark/material_symbols_outlined_10k_ue951.xml",
+        "raw_resource": "symbols_probe_material_symbols_outlined_10k_ue951_dark",
+        "xml_sha256": "dbf5b2ef49bececd25938bd5a59f6a4bad68cc0d274c83142e52247f6a840185",
+        "xml_bytes": 1327
+      }
+    ],
+    "pre_context_descriptor": true,
+    "foreground": true,
+    "errors": [],
+    "visual_pixels": {
+      "LIGHT": {
+        "bounds": [
+          0,
+          72,
+          288,
+          360
+        ],
+        "black_pixels": 25383,
+        "blue_pixels": 0
+      },
+      "DARK": {
+        "bounds": [
+          0,
+          360,
+          288,
+          648
+        ],
+        "black_pixels": 0,
+        "blue_pixels": 25309
+      }
+    },
+    "checks": [
+      "Compose light/dark ResourceItem selection through LocalConfiguration",
+      "Res.readBytes bytes equal selected qualifier",
+      "Res.getUri opens identical bytes through ContentResolver",
+      "readPart normal, empty and EOF behavior",
+      "malformed and missing native IDs",
+      "existing asset read/getUri fallback"
+    ],
+    "bounds": "Actual API23 runtime; no Android Studio/Layoutlib preview claim"
+  },
+  "bundle_split_runtime": {
+    "verified": true,
+    "sdk": 23,
+    "case": "bundle-full07-installed-splits",
+    "pixel_comparison": {
+      "reference": "assets-direct-1",
+      "bounds": [
+        0,
+        72,
+        270,
+        264
+      ],
+      "changed_pixels": 0
+    },
+    "installed_splits": [
+      "base.apk",
+      "split_config.en.apk",
+      "split_config.x86_64.apk"
+    ],
+    "source_report_sha256": "49c474d0d0f752c694e421e263a33b278662345db0b7b8a0510e85257ec3de0e",
+    "foreground": true,
+    "errors": [],
+    "aab_sha256": "164efc361feff39f26841a80714b833865241c2bf036258103757f55d820f89b"
+  },
+  "full_catalog_last_page": {
+    "verified": true,
+    "requested_first_index": 3790,
+    "total_icons": 3802,
+    "screenshot_sha256": "3f13d8f0978a21b1e9d04a1459b415179fc4950664076a040086b92a7f80d015",
+    "review": "Last viewport visibly renders through zoom_out_map; no app crash/resource/linkage errors"
+  },
+  "pixel_reference": {
+    "case": "stock-assets-direct-1",
+    "apk_sha256": "9181432e847e1e1af4c630f1fdaf019b247e372e78735adc6b2349b536e30ff3",
+    "screen_size": [
+      1080,
+      1920
+    ],
+    "bounds": [
+      0,
+      72,
+      270,
+      264
+    ]
+  },
+  "cleanup": {
+    "emulator_stopped": true,
+    "temporary_avd_preserved": true,
+    "physical_pixel_untouched": true
+  },
+  "bounds": [
+    "ABI checks JVM declarations/constants and Kotlin module names; published KMP/JVM consumers separately check metadata use.",
+    "Exact pixel comparisons cover the 10K icon rectangle; full-catalog first/last screens are smoke checks, not exhaustive glyph raster tests.",
+    "Qualifier checks use public LocalConfiguration on Android 6; Android Studio/Layoutlib preview was not rendered.",
+    "Build durations were diagnostic and may overlap other functional builds; they are not controlled performance measurements."
+  ],
+  "reproduction": {
+    "abi": "abi.py --stock-aar <stock.aar> --candidate-aar <candidate.aar> --javap <JDK>/bin/javap",
+    "binary_client": "alias.py prepares a stock-compiled helper and candidate app; run.py verifies its release shrink/cache behavior",
+    "kmp_jvm": "compatibility.py emits the intermediate publication plus Android/JVM apps and exact build commands in compatibility.json",
+    "qualifiers": "contracts.py prepares the qualifier/reader fixture; require PRE_CONTEXT_DESCRIPTOR_OK, both CONTRACT_OK messages and CONTRACT_ALL_OK",
+    "runtime": "Run the signed shrunk APKs on API23, require a resumed activity/no fatal resource or linkage errors, then capture and compare the fixed icon rectangle; screenshots/logs remain local"
+  }
+}

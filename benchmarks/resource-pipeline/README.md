@@ -13,6 +13,11 @@ the library API or invent a second app benchmark.
 and 28 separate cache probes. See the [overall results](RESULTS.md) for APK size,
 web distribution, consumer compatibility and rendering checks.
 
+The separate [native Compose XML prototype](native-raw/README.md) tests whether
+an upstream generator/runtime change can expose individual XML resources to
+Android shrinking while preserving ordinary `Res`/`painterResource` calls. It
+uses isolated local publications; it does not enable a production backend.
+
 Use Python 3.11+ on Linux or macOS, the same JDK 21, and the same installed Android
 SDK packages. Provision each revision's `tools/requirements-font-verification.txt`
 in a separate virtualenv before measuring. Keep dependency download caches warm

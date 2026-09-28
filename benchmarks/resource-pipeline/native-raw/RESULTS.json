@@ -1,0 +1,1151 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-09-28",
+  "status": "Bounded upstream prototype; production backend unchanged",
+  "base_revision": "72d6093428b1c0d6ae0f94a42171653ca357e9db",
+  "input_sources_jar_sha256": "4e8c31348b6d99286be7a703c321dd8721a6bae3aa717b940cb29ee6741bbaad",
+  "runtime_version": "1.12.2-native-raw01",
+  "publication_integrity": {
+    "schema_version": 1,
+    "verified": true,
+    "reference": "Direct bytes from the original stock AAR, independent of publisher manifests",
+    "stock": {
+      "archive_sha256": "5e1c6d5ab22c8766b6238b33abdbcfbcb3210fecb855256411e251a70a726e00",
+      "archive_bytes": 4509679,
+      "xml_files": 3802,
+      "xml_bytes": 5291056,
+      "xml_compressed_bytes": 2290566,
+      "xml_inventory_sha256": "d4c26f950885cf52428f728a19155a14edc21f5256b5bdebd66c6f61b2b7f014",
+      "android_asset_files": 3802
+    },
+    "publications": {
+      "native_android": {
+        "archive_sha256": "826a5713e5ce4fdd9c90dbc6eecbb9014c7b14ae44d29e0e16d2972eef2ee97a",
+        "archive_bytes": 4123976,
+        "xml_files": 3802,
+        "xml_bytes": 5291056,
+        "xml_compressed_bytes": 2290566,
+        "xml_inventory_sha256": "d4c26f950885cf52428f728a19155a14edc21f5256b5bdebd66c6f61b2b7f014",
+        "android_asset_files": 0,
+        "notices": {
+          "META-INF/material-compose-drawables-outlined/LICENSE": {
+            "sha256": "5c9817c129b98e7bb966bca028c43c19107102ef8e03fe799bffb4354f4ef015",
+            "container": "classes.jar"
+          },
+          "META-INF/material-compose-drawables-outlined/THIRD_PARTY_NOTICES.md": {
+            "sha256": "67fde1ad8060d70b8787ae046533ba93556b5178d91077ebaf674a4a3a3dee05",
+            "container": "classes.jar"
+          }
+        },
+        "different_xml_files": 0
+      },
+      "native_jvm": {
+        "archive_sha256": "3781c41b4b74c9f54c9818667582371cdad77596f6da9e9c98f1e68875a41497",
+        "archive_bytes": 4611767,
+        "xml_files": 3802,
+        "xml_bytes": 5291056,
+        "xml_compressed_bytes": 2290566,
+        "xml_inventory_sha256": "d4c26f950885cf52428f728a19155a14edc21f5256b5bdebd66c6f61b2b7f014",
+        "android_asset_files": 0,
+        "notices": {
+          "META-INF/material-compose-drawables-outlined/LICENSE": {
+            "sha256": "5c9817c129b98e7bb966bca028c43c19107102ef8e03fe799bffb4354f4ef015",
+            "container": "archive"
+          },
+          "META-INF/material-compose-drawables-outlined/THIRD_PARTY_NOTICES.md": {
+            "sha256": "67fde1ad8060d70b8787ae046533ba93556b5178d91077ebaf674a4a3a3dee05",
+            "container": "archive"
+          }
+        },
+        "different_xml_files": 0
+      },
+      "control_android": {
+        "archive_sha256": "05c72e75f2842ce6fded6aa76fed1cd5bcfc9c8c3ff474aa0bd625214252def7",
+        "archive_bytes": 4508249,
+        "xml_files": 3802,
+        "xml_bytes": 5291056,
+        "xml_compressed_bytes": 2290566,
+        "xml_inventory_sha256": "d4c26f950885cf52428f728a19155a14edc21f5256b5bdebd66c6f61b2b7f014",
+        "android_asset_files": 3802,
+        "notices": {
+          "META-INF/material-compose-drawables-outlined/LICENSE": {
+            "sha256": "5c9817c129b98e7bb966bca028c43c19107102ef8e03fe799bffb4354f4ef015",
+            "container": "classes.jar"
+          },
+          "META-INF/material-compose-drawables-outlined/THIRD_PARTY_NOTICES.md": {
+            "sha256": "67fde1ad8060d70b8787ae046533ba93556b5178d91077ebaf674a4a3a3dee05",
+            "container": "classes.jar"
+          }
+        },
+        "different_xml_files": 0
+      },
+      "control_jvm": {
+        "archive_sha256": "ea7108e3e7f5d40fbbb834a18f950437bb3ec1e0d6be4e4bc610803a6d3efd88",
+        "archive_bytes": 4481097,
+        "xml_files": 3802,
+        "xml_bytes": 5291056,
+        "xml_compressed_bytes": 2290566,
+        "xml_inventory_sha256": "d4c26f950885cf52428f728a19155a14edc21f5256b5bdebd66c6f61b2b7f014",
+        "android_asset_files": 0,
+        "notices": {
+          "META-INF/material-compose-drawables-outlined/LICENSE": {
+            "sha256": "5c9817c129b98e7bb966bca028c43c19107102ef8e03fe799bffb4354f4ef015",
+            "container": "archive"
+          },
+          "META-INF/material-compose-drawables-outlined/THIRD_PARTY_NOTICES.md": {
+            "sha256": "67fde1ad8060d70b8787ae046533ba93556b5178d91077ebaf674a4a3a3dee05",
+            "container": "archive"
+          }
+        },
+        "different_xml_files": 0
+      }
+    }
+  },
+  "full_pack_cases": {
+    "assets-direct-0": {
+      "toolchain": {
+        "agp": "9.4.1",
+        "kotlin": "2.4.20",
+        "composeMultiplatform": "1.12.1"
+      },
+      "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-assets-full07",
+      "input_sha256": "c05d705b415536f6a622e77f1397a844c30c4d3e06f3566d16b51f7adf62a15e",
+      "aar_sha256": "05c72e75f2842ce6fded6aa76fed1cd5bcfc9c8c3ff474aa0bd625214252def7",
+      "publication_sha256": "ca09c39840ca82b5fe3dbcd0e14293b781ef4821cdcecb0d59392d6ea229ef46",
+      "prototype_backend": "assets",
+      "access": "direct",
+      "count": 0,
+      "apk_sha256": "eb0a38f8e1b5d85955513a34a41ea9b82a9c3019ead430c4e71fcb2544cae361",
+      "success": true,
+      "configuration_cache_reused": true,
+      "retention": {
+        "backend": "compose",
+        "access": "direct",
+        "count": 0,
+        "apk_bytes": 5087184,
+        "zip_entries": 3882,
+        "payload_bytes": 3560707,
+        "dex_bytes": 1316492,
+        "retained_icon_resources": 3802,
+        "retained_selected": 0,
+        "retained_unused": 3802,
+        "missing_selected": []
+      }
+    },
+    "assets-direct-1": {
+      "toolchain": {
+        "agp": "9.4.1",
+        "kotlin": "2.4.20",
+        "composeMultiplatform": "1.12.1"
+      },
+      "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-assets-full07",
+      "input_sha256": "86a83e416f6ddc939963de406917df041e481986694dc5a1e8c5883a511db814",
+      "aar_sha256": "05c72e75f2842ce6fded6aa76fed1cd5bcfc9c8c3ff474aa0bd625214252def7",
+      "publication_sha256": "ca09c39840ca82b5fe3dbcd0e14293b781ef4821cdcecb0d59392d6ea229ef46",
+      "prototype_backend": "assets",
+      "access": "direct",
+      "count": 1,
+      "apk_sha256": "3454a2cc68fa3cdc2acdb66a567e7ffc49932b0eb966028b4691bfb12edb8b5e",
+      "success": true,
+      "configuration_cache_reused": true,
+      "retention": {
+        "backend": "compose",
+        "access": "direct",
+        "count": 1,
+        "apk_bytes": 5136367,
+        "zip_entries": 3882,
+        "payload_bytes": 3609113,
+        "dex_bytes": 1398532,
+        "retained_icon_resources": 3802,
+        "retained_selected": 1,
+        "retained_unused": 3801,
+        "missing_selected": []
+      }
+    },
+    "assets-direct-200": {
+      "toolchain": {
+        "agp": "9.4.1",
+        "kotlin": "2.4.20",
+        "composeMultiplatform": "1.12.1"
+      },
+      "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-assets-full07",
+      "input_sha256": "29e343d5ca11dcad8cb9b81a46f6420eaa4a689d0fd2d5dbf160d907d50cf156",
+      "aar_sha256": "05c72e75f2842ce6fded6aa76fed1cd5bcfc9c8c3ff474aa0bd625214252def7",
+      "publication_sha256": "ca09c39840ca82b5fe3dbcd0e14293b781ef4821cdcecb0d59392d6ea229ef46",
+      "prototype_backend": "assets",
+      "access": "direct",
+      "count": 200,
+      "apk_sha256": "e8619596f326496252104424ce5c1ca2ff599ea344f82df1f62b3dd1a940c882",
+      "success": true,
+      "configuration_cache_reused": true,
+      "retention": {
+        "backend": "compose",
+        "access": "direct",
+        "count": 200,
+        "apk_bytes": 5138521,
+        "zip_entries": 3882,
+        "payload_bytes": 3622981,
+        "dex_bytes": 1468432,
+        "retained_icon_resources": 3802,
+        "retained_selected": 200,
+        "retained_unused": 3602,
+        "missing_selected": []
+      }
+    },
+    "assets-direct-25": {
+      "toolchain": {
+        "agp": "9.4.1",
+        "kotlin": "2.4.20",
+        "composeMultiplatform": "1.12.1"
+      },
+      "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-assets-full07",
+      "input_sha256": "83e31dc9c1b9f6d801f975f631f4190d0a9a82bd5395d69d2cd2614b120c0158",
+      "aar_sha256": "05c72e75f2842ce6fded6aa76fed1cd5bcfc9c8c3ff474aa0bd625214252def7",
+      "publication_sha256": "ca09c39840ca82b5fe3dbcd0e14293b781ef4821cdcecb0d59392d6ea229ef46",
+      "prototype_backend": "assets",
+      "access": "direct",
+      "count": 25,
+      "apk_sha256": "1b0cd7d5e2fada2cd4037df4b06f930a875f827713b786684c16227d237c9e38",
+      "success": true,
+      "configuration_cache_reused": true,
+      "retention": {
+        "backend": "compose",
+        "access": "direct",
+        "count": 25,
+        "apk_bytes": 5136576,
+        "zip_entries": 3882,
+        "payload_bytes": 3610748,
+        "dex_bytes": 1406452,
+        "retained_icon_resources": 3802,
+        "retained_selected": 25,
+        "retained_unused": 3777,
+        "missing_selected": []
+      }
+    },
+    "assets-direct-all": {
+      "toolchain": {
+        "agp": "9.4.1",
+        "kotlin": "2.4.20",
+        "composeMultiplatform": "1.12.1"
+      },
+      "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-assets-full07",
+      "input_sha256": "92c5542cdce9d6396aae25756093813fde4f5b4bf36ee1a9e44f906747eb9328",
+      "aar_sha256": "05c72e75f2842ce6fded6aa76fed1cd5bcfc9c8c3ff474aa0bd625214252def7",
+      "publication_sha256": "ca09c39840ca82b5fe3dbcd0e14293b781ef4821cdcecb0d59392d6ea229ef46",
+      "prototype_backend": "assets",
+      "access": "direct",
+      "count": 3802,
+      "apk_sha256": "a62edf15fa44ae1c31c4ddc28ffe6933b267780f6e49c15e70e84ca45864f3a6",
+      "success": true,
+      "configuration_cache_reused": true,
+      "retention": {
+        "backend": "compose",
+        "access": "direct",
+        "count": 3802,
+        "apk_bytes": 5358987,
+        "zip_entries": 3882,
+        "payload_bytes": 3836785,
+        "dex_bytes": 2693008,
+        "retained_icon_resources": 3802,
+        "retained_selected": 3802,
+        "retained_unused": 0,
+        "missing_selected": []
+      }
+    },
+    "assets-dynamic-1": {
+      "toolchain": {
+        "agp": "9.4.1",
+        "kotlin": "2.4.20",
+        "composeMultiplatform": "1.12.1"
+      },
+      "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-assets-full07",
+      "input_sha256": "be96397a9db990bb253a28e0e110e78146cb22a467fc9865213f17a85510486c",
+      "aar_sha256": "05c72e75f2842ce6fded6aa76fed1cd5bcfc9c8c3ff474aa0bd625214252def7",
+      "publication_sha256": "ca09c39840ca82b5fe3dbcd0e14293b781ef4821cdcecb0d59392d6ea229ef46",
+      "prototype_backend": "assets",
+      "access": "dynamic",
+      "count": 1,
+      "apk_sha256": "eb6a25c0df1512ad48e940109d89912709f743006c2855457516b31906874cc3",
+      "success": true,
+      "configuration_cache_reused": true,
+      "retention": {
+        "backend": "compose",
+        "access": "dynamic",
+        "count": 1,
+        "apk_bytes": 5365655,
+        "zip_entries": 3882,
+        "payload_bytes": 3835923,
+        "dex_bytes": 2795504,
+        "retained_icon_resources": 3802,
+        "retained_selected": 1,
+        "retained_unused": 3801,
+        "missing_selected": []
+      }
+    },
+    "assets-raw-1": {
+      "toolchain": {
+        "agp": "9.4.1",
+        "kotlin": "2.4.20",
+        "composeMultiplatform": "1.12.1"
+      },
+      "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-assets-full07",
+      "input_sha256": "537e8d4c52d0a9b0911496f5685b7da346fb587b880af6e750300dffc8628cec",
+      "aar_sha256": "05c72e75f2842ce6fded6aa76fed1cd5bcfc9c8c3ff474aa0bd625214252def7",
+      "publication_sha256": "ca09c39840ca82b5fe3dbcd0e14293b781ef4821cdcecb0d59392d6ea229ef46",
+      "prototype_backend": "assets",
+      "access": "raw",
+      "count": 1,
+      "apk_sha256": "f70aa281b1b11baf99561a1500c64d3e88d110a57d7453c8924bfb43784b87cd",
+      "success": true,
+      "configuration_cache_reused": true,
+      "retention": {
+        "backend": "compose",
+        "access": "raw",
+        "count": 1,
+        "apk_bytes": 5136386,
+        "zip_entries": 3882,
+        "payload_bytes": 3610583,
+        "dex_bytes": 1401048,
+        "retained_icon_resources": 3802,
+        "retained_selected": 1,
+        "retained_unused": 3801,
+        "missing_selected": []
+      }
+    },
+    "native-direct-0": {
+      "toolchain": {
+        "agp": "9.4.1",
+        "kotlin": "2.4.20",
+        "composeMultiplatform": "1.12.1"
+      },
+      "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-native-full07",
+      "input_sha256": "170405eb7228dac5411919038966ce624e26c9009504bf9aa7c5ca2644d332aa",
+      "aar_sha256": "826a5713e5ce4fdd9c90dbc6eecbb9014c7b14ae44d29e0e16d2972eef2ee97a",
+      "publication_sha256": "e1f518bd1cbeff6aaabc1ad67d29f492d5ee1e2822b75fcebdd19df0473e0ab6",
+      "prototype_backend": "native",
+      "access": "direct",
+      "count": 0,
+      "apk_sha256": "1414826e355348da4cb288ef19bd2ff441624a8d1b621ca52bd62ebbd1240242",
+      "success": true,
+      "configuration_cache_reused": true,
+      "retention": {
+        "schema_version": 1,
+        "verified": true,
+        "fixture_sha256": "54a2f477aabab233c1b35b2487f5fe0dbc1daee24fda0a663a76744b1c2ba88b",
+        "apk_sha256": "1414826e355348da4cb288ef19bd2ff441624a8d1b621ca52bd62ebbd1240242",
+        "apk_bytes": 879148,
+        "published_aar_sha256": "826a5713e5ce4fdd9c90dbc6eecbb9014c7b14ae44d29e0e16d2972eef2ee97a",
+        "published_resource_count": 3802,
+        "expected_resource_count": 0,
+        "retained_resource_count": 0,
+        "retained_file_count": 0,
+        "retained_raw_bytes": 0,
+        "retained_raw_compressed_bytes": 0,
+        "retained_inventory_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "forbidden_asset_count": 0,
+        "byte_reference": "Published AAR raw entries; producer validation separately compares them with stock assets"
+      }
+    },
+    "native-direct-1": {
+      "toolchain": {
+        "agp": "9.4.1",
+        "kotlin": "2.4.20",
+        "composeMultiplatform": "1.12.1"
+      },
+      "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-native-full07",
+      "input_sha256": "fde2f0cf10e5d87750a8239491a8ccfe2b49af0484f7fbe655c665155adccf21",
+      "aar_sha256": "826a5713e5ce4fdd9c90dbc6eecbb9014c7b14ae44d29e0e16d2972eef2ee97a",
+      "publication_sha256": "e1f518bd1cbeff6aaabc1ad67d29f492d5ee1e2822b75fcebdd19df0473e0ab6",
+      "prototype_backend": "native",
+      "access": "direct",
+      "count": 1,
+      "apk_sha256": "414edb7c62455f206d869bca49885d216e642d37061cbcda41441eb036d60080",
+      "success": true,
+      "configuration_cache_reused": true,
+      "retention": {
+        "schema_version": 1,
+        "verified": true,
+        "fixture_sha256": "ebcf009c336f8118cae4f2d3ed5765a0fc56cac7c197560fd1f2722123401254",
+        "apk_sha256": "414edb7c62455f206d869bca49885d216e642d37061cbcda41441eb036d60080",
+        "apk_bytes": 929296,
+        "published_aar_sha256": "826a5713e5ce4fdd9c90dbc6eecbb9014c7b14ae44d29e0e16d2972eef2ee97a",
+        "published_resource_count": 3802,
+        "expected_resource_count": 1,
+        "retained_resource_count": 1,
+        "retained_file_count": 1,
+        "retained_raw_bytes": 1327,
+        "retained_raw_compressed_bytes": 550,
+        "retained_inventory_sha256": "e854ab2b7ac738d41e798410ca1c75adef28cac4d356467ebfca181a06044579",
+        "forbidden_asset_count": 0,
+        "byte_reference": "Published AAR raw entries; producer validation separately compares them with stock assets"
+      }
+    },
+    "native-direct-200": {
+      "toolchain": {
+        "agp": "9.4.1",
+        "kotlin": "2.4.20",
+        "composeMultiplatform": "1.12.1"
+      },
+      "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-native-full07",
+      "input_sha256": "86879a72e8ca79afd19035a14484ac71f481a89847b41a59dc38d616a0421454",
+      "aar_sha256": "826a5713e5ce4fdd9c90dbc6eecbb9014c7b14ae44d29e0e16d2972eef2ee97a",
+      "publication_sha256": "e1f518bd1cbeff6aaabc1ad67d29f492d5ee1e2822b75fcebdd19df0473e0ab6",
+      "prototype_backend": "native",
+      "access": "direct",
+      "count": 200,
+      "apk_sha256": "53483092a1c42204ae7b4df7cd48c87bdd9c36f34ae1b8447911b46efadb7c58",
+      "success": true,
+      "configuration_cache_reused": true,
+      "retention": {
+        "schema_version": 1,
+        "verified": true,
+        "fixture_sha256": "9d03ea6e52ba77b18a7fdd7f9452bec96d2118ab1a48dcbeac7cc890403d0218",
+        "apk_sha256": "53483092a1c42204ae7b4df7cd48c87bdd9c36f34ae1b8447911b46efadb7c58",
+        "apk_bytes": 1099012,
+        "published_aar_sha256": "826a5713e5ce4fdd9c90dbc6eecbb9014c7b14ae44d29e0e16d2972eef2ee97a",
+        "published_resource_count": 3802,
+        "expected_resource_count": 200,
+        "retained_resource_count": 200,
+        "retained_file_count": 200,
+        "retained_raw_bytes": 260446,
+        "retained_raw_compressed_bytes": 108618,
+        "retained_inventory_sha256": "d2658d8f50b67f6620db65fe9462899c8e0e8bb43f8fb85dc32714bdb4a2f79c",
+        "forbidden_asset_count": 0,
+        "byte_reference": "Published AAR raw entries; producer validation separately compares them with stock assets"
+      }
+    },
+    "native-direct-25": {
+      "toolchain": {
+        "agp": "9.4.1",
+        "kotlin": "2.4.20",
+        "composeMultiplatform": "1.12.1"
+      },
+      "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-native-full07",
+      "input_sha256": "cae5271764b14f34abce29aa0ef0569262620417094e5b9c48ec6a9d351cf8c9",
+      "aar_sha256": "826a5713e5ce4fdd9c90dbc6eecbb9014c7b14ae44d29e0e16d2972eef2ee97a",
+      "publication_sha256": "e1f518bd1cbeff6aaabc1ad67d29f492d5ee1e2822b75fcebdd19df0473e0ab6",
+      "prototype_backend": "native",
+      "access": "direct",
+      "count": 25,
+      "apk_sha256": "0a0c448fec70b9838602e172ec81f74349a035e479285334a116a9e0fdc4ff72",
+      "success": true,
+      "configuration_cache_reused": true,
+      "retention": {
+        "schema_version": 1,
+        "verified": true,
+        "fixture_sha256": "27d193dcc26ad90aaa4d1f4e160282f2eae13c1cd4469cd5d526fc6aafcea8c8",
+        "apk_sha256": "0a0c448fec70b9838602e172ec81f74349a035e479285334a116a9e0fdc4ff72",
+        "apk_bytes": 950679,
+        "published_aar_sha256": "826a5713e5ce4fdd9c90dbc6eecbb9014c7b14ae44d29e0e16d2972eef2ee97a",
+        "published_resource_count": 3802,
+        "expected_resource_count": 25,
+        "retained_resource_count": 25,
+        "retained_file_count": 25,
+        "retained_raw_bytes": 38399,
+        "retained_raw_compressed_bytes": 14620,
+        "retained_inventory_sha256": "6c30b1b90ce6461e705fdb2d56b7e0324823c9111aec847cf5209bf704814ce0",
+        "forbidden_asset_count": 0,
+        "byte_reference": "Published AAR raw entries; producer validation separately compares them with stock assets"
+      }
+    },
+    "native-direct-all": {
+      "toolchain": {
+        "agp": "9.4.1",
+        "kotlin": "2.4.20",
+        "composeMultiplatform": "1.12.1"
+      },
+      "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-native-full07",
+      "input_sha256": "5f4cd1994b9a41d04591ccd123b0326479393d9708f52710f262233a15f7efe6",
+      "aar_sha256": "826a5713e5ce4fdd9c90dbc6eecbb9014c7b14ae44d29e0e16d2972eef2ee97a",
+      "publication_sha256": "e1f518bd1cbeff6aaabc1ad67d29f492d5ee1e2822b75fcebdd19df0473e0ab6",
+      "prototype_backend": "native",
+      "access": "direct",
+      "count": 3802,
+      "apk_sha256": "59a54eea89cafec8e58885a890d85b7c29b669551d5b77c3e7e8e4538bda360f",
+      "success": true,
+      "configuration_cache_reused": true,
+      "retention": {
+        "schema_version": 1,
+        "verified": true,
+        "fixture_sha256": "254309daa3fa5d892aae2c07515fd70937b95264bc5fb8806a4efc761172ef7b",
+        "apk_sha256": "59a54eea89cafec8e58885a890d85b7c29b669551d5b77c3e7e8e4538bda360f",
+        "apk_bytes": 4513978,
+        "published_aar_sha256": "826a5713e5ce4fdd9c90dbc6eecbb9014c7b14ae44d29e0e16d2972eef2ee97a",
+        "published_resource_count": 3802,
+        "expected_resource_count": 3802,
+        "retained_resource_count": 3802,
+        "retained_file_count": 3802,
+        "retained_raw_bytes": 5291056,
+        "retained_raw_compressed_bytes": 2271643,
+        "retained_inventory_sha256": "536aa4bc49f3d326a41d3c30db8381c61dd31afa35734814a1b29a9bd2e7a4b4",
+        "forbidden_asset_count": 0,
+        "byte_reference": "Published AAR raw entries; producer validation separately compares them with stock assets"
+      }
+    },
+    "native-dynamic-1": {
+      "toolchain": {
+        "agp": "9.4.1",
+        "kotlin": "2.4.20",
+        "composeMultiplatform": "1.12.1"
+      },
+      "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-native-full07",
+      "input_sha256": "2467b54012997cdea762645c04f46abd5618d1547aa8b6d52fd77c8e35265ed0",
+      "aar_sha256": "826a5713e5ce4fdd9c90dbc6eecbb9014c7b14ae44d29e0e16d2972eef2ee97a",
+      "publication_sha256": "e1f518bd1cbeff6aaabc1ad67d29f492d5ee1e2822b75fcebdd19df0473e0ab6",
+      "prototype_backend": "native",
+      "access": "dynamic",
+      "count": 1,
+      "apk_sha256": "6147982534a109358354f02086f0774477250b22a4958b77d172b4346a787423",
+      "success": true,
+      "configuration_cache_reused": true,
+      "retention": {
+        "schema_version": 1,
+        "verified": true,
+        "fixture_sha256": "c5da3c490cde8dd176e4182aeeb45d0014055881d2e7a6e52c9add942fb5a9fa",
+        "apk_sha256": "6147982534a109358354f02086f0774477250b22a4958b77d172b4346a787423",
+        "apk_bytes": 4504356,
+        "published_aar_sha256": "826a5713e5ce4fdd9c90dbc6eecbb9014c7b14ae44d29e0e16d2972eef2ee97a",
+        "published_resource_count": 3802,
+        "expected_resource_count": 3802,
+        "retained_resource_count": 3802,
+        "retained_file_count": 3802,
+        "retained_raw_bytes": 5291056,
+        "retained_raw_compressed_bytes": 2271643,
+        "retained_inventory_sha256": "536aa4bc49f3d326a41d3c30db8381c61dd31afa35734814a1b29a9bd2e7a4b4",
+        "forbidden_asset_count": 0,
+        "byte_reference": "Published AAR raw entries; producer validation separately compares them with stock assets"
+      }
+    },
+    "native-raw-1": {
+      "toolchain": {
+        "agp": "9.4.1",
+        "kotlin": "2.4.20",
+        "composeMultiplatform": "1.12.1"
+      },
+      "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-native-full07",
+      "input_sha256": "895c13350140201d96df5c385ab8549fd619214096e5922f2ec8e53f21b1e617",
+      "aar_sha256": "826a5713e5ce4fdd9c90dbc6eecbb9014c7b14ae44d29e0e16d2972eef2ee97a",
+      "publication_sha256": "e1f518bd1cbeff6aaabc1ad67d29f492d5ee1e2822b75fcebdd19df0473e0ab6",
+      "prototype_backend": "native",
+      "access": "raw",
+      "count": 1,
+      "apk_sha256": "7753c40c1fb6edd8d704a54c93897c81d7010c2630bff2b9991ebdbf17375036",
+      "success": true,
+      "configuration_cache_reused": true,
+      "retention": {
+        "schema_version": 1,
+        "verified": true,
+        "fixture_sha256": "f3d497ef01527afa17f3a49532820d9c1f6c443a2f1d51f4064e5eecc773d0a3",
+        "apk_sha256": "7753c40c1fb6edd8d704a54c93897c81d7010c2630bff2b9991ebdbf17375036",
+        "apk_bytes": 4422442,
+        "published_aar_sha256": "826a5713e5ce4fdd9c90dbc6eecbb9014c7b14ae44d29e0e16d2972eef2ee97a",
+        "published_resource_count": 3802,
+        "expected_resource_count": 3802,
+        "retained_resource_count": 3802,
+        "retained_file_count": 3802,
+        "retained_raw_bytes": 5291056,
+        "retained_raw_compressed_bytes": 2271643,
+        "retained_inventory_sha256": "536aa4bc49f3d326a41d3c30db8381c61dd31afa35734814a1b29a9bd2e7a4b4",
+        "forbidden_asset_count": 0,
+        "byte_reference": "Published AAR raw entries; producer validation separately compares them with stock assets"
+      }
+    }
+  },
+  "additional_cases": {
+    "agp91": {
+      "native-agp91-direct-1": {
+        "toolchain": {
+          "agp": "9.1.0",
+          "kotlin": "2.4.20",
+          "composeMultiplatform": "1.12.1"
+        },
+        "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-native-small04",
+        "input_sha256": "1ff4f96d157008b2c8269f42b2d8250009231c8c87344a05179af4d0ee18b7ed",
+        "aar_sha256": "0dcd329e73c6b63ee6f72e68e3c265b17496f249871d2064a9ca37f04ec96cb7",
+        "publication_sha256": "8d58c6fa84170c95dc39917d421aaeebc21e15dd3837a6984218d9b971565b30",
+        "prototype_backend": "native",
+        "access": "direct",
+        "count": 1,
+        "apk_sha256": "263a7f1b8143358a62ee30df37c8977b63272754e8a8a95ef14634fe6e0d3d4c",
+        "success": true,
+        "configuration_cache_reused": true,
+        "retention": {
+          "schema_version": 1,
+          "verified": true,
+          "fixture_sha256": "c411ffeb5717bb0816b0c8557a7b3d3abd4db703d7cea1d5ae40ec43108ce85c",
+          "apk_sha256": "263a7f1b8143358a62ee30df37c8977b63272754e8a8a95ef14634fe6e0d3d4c",
+          "apk_bytes": 929302,
+          "published_aar_sha256": "0dcd329e73c6b63ee6f72e68e3c265b17496f249871d2064a9ca37f04ec96cb7",
+          "published_resource_count": 3,
+          "expected_resource_count": 1,
+          "retained_resource_count": 1,
+          "retained_file_count": 1,
+          "retained_raw_bytes": 1327,
+          "retained_raw_compressed_bytes": 550,
+          "retained_inventory_sha256": "e854ab2b7ac738d41e798410ca1c75adef28cac4d356467ebfca181a06044579",
+          "forbidden_asset_count": 0,
+          "byte_reference": "Published AAR raw entries; producer validation separately compares them with stock assets"
+        }
+      }
+    },
+    "binary_alias": {
+      "native-full07-alias-1": {
+        "toolchain": {
+          "agp": "9.4.1",
+          "kotlin": "2.4.20",
+          "composeMultiplatform": "1.12.1"
+        },
+        "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-native-full07",
+        "input_sha256": "967b2a086696bb79bfde59cbae2ddba42c3be0325c1be04e913f0a739d1b7c22",
+        "aar_sha256": "826a5713e5ce4fdd9c90dbc6eecbb9014c7b14ae44d29e0e16d2972eef2ee97a",
+        "publication_sha256": "e1f518bd1cbeff6aaabc1ad67d29f492d5ee1e2822b75fcebdd19df0473e0ab6",
+        "prototype_backend": "native",
+        "access": "direct",
+        "count": 1,
+        "apk_sha256": "cefb3229923b206403767f4ea10acdbe31e5b0013d6206183d698f8bfd26800b",
+        "success": true,
+        "configuration_cache_reused": true,
+        "retention": {
+          "schema_version": 1,
+          "verified": true,
+          "fixture_sha256": "62d77851c47d65f4386d49f7e21aabe2def161bf620e8364b6371115c8394d2e",
+          "apk_sha256": "cefb3229923b206403767f4ea10acdbe31e5b0013d6206183d698f8bfd26800b",
+          "apk_bytes": 929302,
+          "published_aar_sha256": "826a5713e5ce4fdd9c90dbc6eecbb9014c7b14ae44d29e0e16d2972eef2ee97a",
+          "published_resource_count": 3802,
+          "expected_resource_count": 1,
+          "retained_resource_count": 1,
+          "retained_file_count": 1,
+          "retained_raw_bytes": 1327,
+          "retained_raw_compressed_bytes": 550,
+          "retained_inventory_sha256": "e854ab2b7ac738d41e798410ca1c75adef28cac4d356467ebfca181a06044579",
+          "forbidden_asset_count": 0,
+          "byte_reference": "Published AAR raw entries; producer validation separately compares them with stock assets"
+        }
+      }
+    },
+    "transitive_android": {
+      "android": {
+        "toolchain": {
+          "agp": "9.4.1",
+          "kotlin": "2.4.20",
+          "composeMultiplatform": "1.12.1"
+        },
+        "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-native-full07",
+        "input_sha256": "11b0d0eb35da62930ba28a32c60f7ff4fab376f7d8629e4ba4d2f623f04e65f4",
+        "aar_sha256": "826a5713e5ce4fdd9c90dbc6eecbb9014c7b14ae44d29e0e16d2972eef2ee97a",
+        "publication_sha256": "fc6f39fd14eb48354eaf5f1aeb8bdb9e8c3bfcd24fb3ba15f2cd4992590bcb60",
+        "prototype_backend": "native",
+        "access": "direct",
+        "count": 1,
+        "apk_sha256": "ca058a8a0d6229e0e48f62067eaeaff55bf4edde6fed665f837c7e5a816fe259",
+        "success": true,
+        "configuration_cache_reused": true,
+        "retention": {
+          "schema_version": 1,
+          "verified": true,
+          "fixture_sha256": "47ef14aabbf892b53a1c52bbed4f73ad8a41b320f579b8e1cbe2f448b7be3862",
+          "apk_sha256": "ca058a8a0d6229e0e48f62067eaeaff55bf4edde6fed665f837c7e5a816fe259",
+          "apk_bytes": 929290,
+          "published_aar_sha256": "826a5713e5ce4fdd9c90dbc6eecbb9014c7b14ae44d29e0e16d2972eef2ee97a",
+          "published_resource_count": 3802,
+          "expected_resource_count": 1,
+          "retained_resource_count": 1,
+          "retained_file_count": 1,
+          "retained_raw_bytes": 1327,
+          "retained_raw_compressed_bytes": 550,
+          "retained_inventory_sha256": "e854ab2b7ac738d41e798410ca1c75adef28cac4d356467ebfca181a06044579",
+          "forbidden_asset_count": 0,
+          "byte_reference": "Published AAR raw entries; producer validation separately compares them with stock assets"
+        }
+      }
+    },
+    "reader_contract": {
+      "consumer": {
+        "toolchain": {
+          "agp": "9.4.1",
+          "kotlin": "2.4.20",
+          "composeMultiplatform": "1.12.1"
+        },
+        "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-native-raw-contracts03",
+        "input_sha256": "02d6054ce411fd3b909a093e401b47e3b0c71c34c57497a88bd38c86a2c12ce8",
+        "aar_sha256": "1865e5da281f2c51626bf924f79b4de811ffe0a7cdb8b6d6d1c4ac85042a7f99",
+        "publication_sha256": "c7aee905a39ecbc417787665478b648e7fc21770184d899311861a19f544d6b3",
+        "prototype_backend": "native",
+        "access": "raw",
+        "count": 1,
+        "apk_sha256": "2e67cbd517b5929092753ca41f8530cc5cd8cd28b4112b1b363f48ff9d97d070",
+        "success": true,
+        "configuration_cache_reused": true,
+        "retention": {
+          "schema_version": 1,
+          "verified": true,
+          "fixture_sha256": "21f7760e8443206873667242f4a2c7ed5b6b725924c24ff4a5568e3634b1e3d1",
+          "apk_sha256": "2e67cbd517b5929092753ca41f8530cc5cd8cd28b4112b1b363f48ff9d97d070",
+          "apk_bytes": 785269,
+          "published_aar_sha256": "1865e5da281f2c51626bf924f79b4de811ffe0a7cdb8b6d6d1c4ac85042a7f99",
+          "published_resource_count": 4,
+          "expected_resource_count": 4,
+          "retained_resource_count": 4,
+          "retained_file_count": 4,
+          "retained_raw_bytes": 6012,
+          "retained_raw_compressed_bytes": 2335,
+          "retained_inventory_sha256": "eb5b69a01bf24c7a1fee32adb3439761227573b5b811928e304194b777aa17b9",
+          "forbidden_asset_count": 0,
+          "byte_reference": "Published AAR raw entries; producer validation separately compares them with stock assets"
+        }
+      }
+    }
+  },
+  "abi_and_runtime_evidence": "COMPATIBILITY.json",
+  "apk_rebuild_evidence": "APK_REPRODUCIBILITY.json",
+  "bundle": {
+    "schema_version": 1,
+    "bundletool_sha256": "a099cfa1543f55593bc2ed16a70a7c67fe54b1747bb7301f37fdfd6d91028e29",
+    "aab_sha256": "164efc361feff39f26841a80714b833865241c2bf036258103757f55d820f89b",
+    "aab_bytes": 2229165,
+    "device_spec": {
+      "supportedAbis": [
+        "x86_64",
+        "x86"
+      ],
+      "supportedLocales": [
+        "en-US"
+      ],
+      "screenDensity": 480,
+      "sdkVersion": 23
+    },
+    "unshrunk": {
+      "schema_version": 1,
+      "verified": true,
+      "fixture_sha256": "931443ddb7c387fdfa87a4a37238d77d4dc17620675b4c0a0cdd9e0396330c5f",
+      "apk_sha256": "46ba19755f6a5a40faf7d831a35ebfd8ceb484eb12168bbdf3b0696f4e7e726e",
+      "apk_bytes": 11114984,
+      "published_aar_sha256": "826a5713e5ce4fdd9c90dbc6eecbb9014c7b14ae44d29e0e16d2972eef2ee97a",
+      "published_resource_count": 3802,
+      "expected_resource_count": 3802,
+      "retained_resource_count": 3802,
+      "retained_file_count": 3802,
+      "retained_raw_bytes": 5291056,
+      "retained_raw_compressed_bytes": 2271643,
+      "retained_inventory_sha256": "536aa4bc49f3d326a41d3c30db8381c61dd31afa35734814a1b29a9bd2e7a4b4",
+      "forbidden_asset_count": 0,
+      "byte_reference": "Published AAR raw entries; producer validation separately compares them with stock assets"
+    },
+    "split": {
+      "schema_version": 1,
+      "verified": true,
+      "fixture_sha256": "ebcf009c336f8118cae4f2d3ed5765a0fc56cac7c197560fd1f2722123401254",
+      "apk_sha256": "b2a0b9aee7fcc04449ea207c1ed71956a253237c83297120f3f5452e2e3ce37a",
+      "apk_bytes": 814041,
+      "published_aar_sha256": "826a5713e5ce4fdd9c90dbc6eecbb9014c7b14ae44d29e0e16d2972eef2ee97a",
+      "published_resource_count": 3802,
+      "expected_resource_count": 1,
+      "retained_resource_count": 1,
+      "retained_file_count": 1,
+      "retained_raw_bytes": 1327,
+      "retained_raw_compressed_bytes": 550,
+      "retained_inventory_sha256": "e854ab2b7ac738d41e798410ca1c75adef28cac4d356467ebfca181a06044579",
+      "forbidden_asset_count": 0,
+      "byte_reference": "Published AAR raw entries; producer validation separately compares them with stock assets"
+    },
+    "installed": true,
+    "rendering": "Installed API23 split-set rendering passed; see COMPATIBILITY.json"
+  },
+  "checks": {
+    "native_helper_tests": 7,
+    "existing_resource_pipeline_tests": 10
+  },
+  "scope": [
+    "Android/JVM producer model plus actual patched Android runtime, not a patched Compose Gradle plugin",
+    "No consumer backend plugin, opt-in flag, keep rule or custom initializer",
+    "Dynamic/raw access conservatively retains owning pack; no font subsetting",
+    "Actual Layoutlib preview, custom readers, Apple/web producer variants and arbitrary split configurations remain adoption gates",
+    "Functional build times are excluded from performance results"
+  ],
+  "timing": {
+    "method": "One excluded warm-up per backend; alternating order per repeat; clean then no-change; single-use daemon, one worker, in-process Kotlin, no build/configuration cache; downloaded dependencies/transforms remain warm",
+    "environment": {
+      "platform": "Linux-7.2.6-1-cachyos-x86_64-with-glibc2.44",
+      "logical_cpus": 32,
+      "java": "openjdk version \"21.0.12.1\" 2026-08-18 LTS\nOpenJDK Runtime Environment Zulu21.52+203-CA (build 21.0.12.1+1-LTS)\nOpenJDK 64-Bit Server VM Zulu21.52+203-CA (build 21.0.12.1+1-LTS, mixed mode, sharing)",
+      "versions": {
+        "agp": "9.4.1",
+        "kotlin": "2.4.20",
+        "composeMultiplatform": "1.12.1",
+        "android-compileSdk": "37"
+      },
+      "wrapper_properties": "distributionBase=GRADLE_USER_HOME\ndistributionPath=wrapper/dists\ndistributionUrl=https\\://services.gradle.org/distributions/gradle-9.7.0-bin.zip\ndistributionSha256Sum=84fbba45c7f4c64abc77460e1c00f541e9f960e3c7ed2538f1ede19eacd873ae\nnetworkTimeout=10000\nvalidateDistributionUrl=true\nzipStoreBase=GRADLE_USER_HOME\nzipStorePath=wrapper/dists\n"
+    },
+    "inputs": {
+      "assets": {
+        "fixture_sha256": "83e31dc9c1b9f6d801f975f631f4190d0a9a82bd5395d69d2cd2614b120c0158",
+        "publication_sha256": "ca09c39840ca82b5fe3dbcd0e14293b781ef4821cdcecb0d59392d6ea229ef46"
+      },
+      "native": {
+        "fixture_sha256": "cae5271764b14f34abce29aa0ef0569262620417094e5b9c48ec6a9d351cf8c9",
+        "publication_sha256": "e1f518bd1cbeff6aaabc1ad67d29f492d5ee1e2822b75fcebdd19df0473e0ab6"
+      }
+    },
+    "summary": {
+      "assets-clean": {
+        "wall_seconds": {
+          "median": 27.665,
+          "minimum": 27.615,
+          "maximum": 28.051
+        },
+        "peak_descendant_rss_bytes_sampled": {
+          "median": 3404558336,
+          "minimum": 3378483200,
+          "maximum": 3427192832
+        }
+      },
+      "assets-noop": {
+        "wall_seconds": {
+          "median": 5.054,
+          "minimum": 4.862,
+          "maximum": 5.067
+        },
+        "peak_descendant_rss_bytes_sampled": {
+          "median": 937910272,
+          "minimum": 921604096,
+          "maximum": 1023291392
+        }
+      },
+      "native-clean": {
+        "wall_seconds": {
+          "median": 27.291,
+          "minimum": 27.139,
+          "maximum": 27.998
+        },
+        "peak_descendant_rss_bytes_sampled": {
+          "median": 2891571200,
+          "minimum": 2589753344,
+          "maximum": 3094945792
+        }
+      },
+      "native-noop": {
+        "wall_seconds": {
+          "median": 4.973,
+          "minimum": 4.818,
+          "maximum": 5.077
+        },
+        "peak_descendant_rss_bytes_sampled": {
+          "median": 932659200,
+          "minimum": 905428992,
+          "maximum": 956899328
+        }
+      }
+    },
+    "memory_method": "Peak 100ms sample of summed Gradle launcher/descendant RSS; not JVM heap or unique memory",
+    "host_controls": "No other benchmark builds or owned emulator during measured samples; one excluded clean warm-up per backend",
+    "consumer": "direct25, complete 3802-resource publication, AGP9.4.1; publisher compilation is outside the measured interval",
+    "samples": [
+      {
+        "backend": "assets",
+        "phase": "warmup",
+        "iteration": 0,
+        "measured": false,
+        "wall_seconds": 28.427,
+        "peak_descendant_rss_bytes_sampled": 3980247040,
+        "apk_bytes": 5136576,
+        "apk_sha256": "375095e9aefd766e2607bd538f114b18d311537a6cc1b7cecd6301256e1b2dd5"
+      },
+      {
+        "backend": "native",
+        "phase": "warmup",
+        "iteration": 0,
+        "measured": false,
+        "wall_seconds": 27.779,
+        "peak_descendant_rss_bytes_sampled": 2731896832,
+        "apk_bytes": 950679,
+        "apk_sha256": "b9d8748edb0a80cb62b95c895a7572ce6242c6596656ccea42b66a4341a7d558"
+      },
+      {
+        "backend": "assets",
+        "phase": "clean",
+        "iteration": 1,
+        "measured": true,
+        "wall_seconds": 27.615,
+        "peak_descendant_rss_bytes_sampled": 3378483200,
+        "apk_bytes": 5136576,
+        "apk_sha256": "7ebafd564c33b945fcaf660f69d32a4818cc1b7c2515e803832bb578abd15ce7"
+      },
+      {
+        "backend": "assets",
+        "phase": "noop",
+        "iteration": 1,
+        "measured": true,
+        "wall_seconds": 4.862,
+        "peak_descendant_rss_bytes_sampled": 921604096,
+        "apk_bytes": 5136576,
+        "apk_sha256": "7ebafd564c33b945fcaf660f69d32a4818cc1b7c2515e803832bb578abd15ce7"
+      },
+      {
+        "backend": "native",
+        "phase": "clean",
+        "iteration": 1,
+        "measured": true,
+        "wall_seconds": 27.998,
+        "peak_descendant_rss_bytes_sampled": 2589753344,
+        "apk_bytes": 950679,
+        "apk_sha256": "cf071f3d4c88320f36618e82386d07e7428635e95e6cc11bc2bea544fa6f48f2"
+      },
+      {
+        "backend": "native",
+        "phase": "noop",
+        "iteration": 1,
+        "measured": true,
+        "wall_seconds": 4.818,
+        "peak_descendant_rss_bytes_sampled": 956899328,
+        "apk_bytes": 950679,
+        "apk_sha256": "cf071f3d4c88320f36618e82386d07e7428635e95e6cc11bc2bea544fa6f48f2"
+      },
+      {
+        "backend": "native",
+        "phase": "clean",
+        "iteration": 2,
+        "measured": true,
+        "wall_seconds": 27.139,
+        "peak_descendant_rss_bytes_sampled": 3094945792,
+        "apk_bytes": 950679,
+        "apk_sha256": "55a4b0f1548785ec11e3f352ad9f298ba6511703999984a3a5b2db93dcf0eefe"
+      },
+      {
+        "backend": "native",
+        "phase": "noop",
+        "iteration": 2,
+        "measured": true,
+        "wall_seconds": 4.973,
+        "peak_descendant_rss_bytes_sampled": 905428992,
+        "apk_bytes": 950679,
+        "apk_sha256": "55a4b0f1548785ec11e3f352ad9f298ba6511703999984a3a5b2db93dcf0eefe"
+      },
+      {
+        "backend": "assets",
+        "phase": "clean",
+        "iteration": 2,
+        "measured": true,
+        "wall_seconds": 28.051,
+        "peak_descendant_rss_bytes_sampled": 3427192832,
+        "apk_bytes": 5136576,
+        "apk_sha256": "0056a7de8f9fbcf1c1200b9cc3a67a895dcaee963b37cf9748b515d509373de9"
+      },
+      {
+        "backend": "assets",
+        "phase": "noop",
+        "iteration": 2,
+        "measured": true,
+        "wall_seconds": 5.054,
+        "peak_descendant_rss_bytes_sampled": 937910272,
+        "apk_bytes": 5136576,
+        "apk_sha256": "0056a7de8f9fbcf1c1200b9cc3a67a895dcaee963b37cf9748b515d509373de9"
+      },
+      {
+        "backend": "assets",
+        "phase": "clean",
+        "iteration": 3,
+        "measured": true,
+        "wall_seconds": 27.665,
+        "peak_descendant_rss_bytes_sampled": 3404558336,
+        "apk_bytes": 5136576,
+        "apk_sha256": "dadc0ff0c23e44ff9da03905eed0194310866953ac077a82b9c20cbecb7a4afd"
+      },
+      {
+        "backend": "assets",
+        "phase": "noop",
+        "iteration": 3,
+        "measured": true,
+        "wall_seconds": 5.067,
+        "peak_descendant_rss_bytes_sampled": 1023291392,
+        "apk_bytes": 5136576,
+        "apk_sha256": "dadc0ff0c23e44ff9da03905eed0194310866953ac077a82b9c20cbecb7a4afd"
+      },
+      {
+        "backend": "native",
+        "phase": "clean",
+        "iteration": 3,
+        "measured": true,
+        "wall_seconds": 27.291,
+        "peak_descendant_rss_bytes_sampled": 2891571200,
+        "apk_bytes": 950679,
+        "apk_sha256": "22bb7c88e7efd5315af264c941aff285f7880cd92cbf9c59d693f906e8a8b609"
+      },
+      {
+        "backend": "native",
+        "phase": "noop",
+        "iteration": 3,
+        "measured": true,
+        "wall_seconds": 5.077,
+        "peak_descendant_rss_bytes_sampled": 932659200,
+        "apk_bytes": 950679,
+        "apk_sha256": "22bb7c88e7efd5315af264c941aff285f7880cd92cbf9c59d693f906e8a8b609"
+      }
+    ],
+    "clean_task_seconds": {
+      ":minifyShrunkWithR8": {
+        "assets": {
+          "samples": [
+            11.475,
+            11.827,
+            11.816
+          ],
+          "median": 11.816
+        },
+        "native": {
+          "samples": [
+            12.264,
+            11.835,
+            12.127
+          ],
+          "median": 12.127
+        }
+      },
+      ":compileShrunkKotlin": {
+        "assets": {
+          "samples": [
+            3.285,
+            3.286,
+            3.3
+          ],
+          "median": 3.286
+        },
+        "native": {
+          "samples": [
+            3.329,
+            3.369,
+            3.332
+          ],
+          "median": 3.332
+        }
+      },
+      ":mergeShrunkAssets": {
+        "assets": {
+          "samples": [
+            0.359,
+            0.365,
+            0.342
+          ],
+          "median": 0.359
+        },
+        "native": {
+          "samples": [
+            0.073,
+            0.073,
+            0.068
+          ],
+          "median": 0.073
+        }
+      },
+      ":compressShrunkAssets": {
+        "assets": {
+          "samples": [
+            0.773,
+            0.764,
+            0.763
+          ],
+          "median": 0.764
+        },
+        "native": {
+          "samples": [
+            0.01,
+            0.009,
+            0.009
+          ],
+          "median": 0.009
+        }
+      },
+      ":mergeShrunkResources": {
+        "assets": {
+          "samples": [
+            0.381,
+            0.394,
+            0.407
+          ],
+          "median": 0.394
+        },
+        "native": {
+          "samples": [
+            0.398,
+            0.403,
+            0.4
+          ],
+          "median": 0.4
+        }
+      },
+      ":processShrunkResources": {
+        "assets": {
+          "samples": [
+            0.143,
+            0.145,
+            0.146
+          ],
+          "median": 0.145
+        },
+        "native": {
+          "samples": [
+            0.512,
+            0.508,
+            0.501
+          ],
+          "median": 0.508
+        }
+      },
+      ":lintVitalAnalyzeShrunk": {
+        "assets": {
+          "samples": [
+            4.293,
+            4.356,
+            4.154
+          ],
+          "median": 4.293
+        },
+        "native": {
+          "samples": [
+            4.539,
+            4.338,
+            4.092
+          ],
+          "median": 4.338
+        }
+      },
+      ":packageShrunk": {
+        "assets": {
+          "samples": [
+            0.264,
+            0.259,
+            0.249
+          ],
+          "median": 0.259
+        },
+        "native": {
+          "samples": [
+            0.122,
+            0.129,
+            0.113
+          ],
+          "median": 0.122
+        }
+      }
+    },
+    "interpretation": "Clean median -1.4%, no-change median -1.6% with overlapping ranges; no material speedup claimed. Clean sampled peak RSS median -15.1%. APK sizes/retained XML bytes stable; whole signed-APK hashes vary across clean builds."
+  },
+  "script_sha256": {
+    "abi.py": "2b1fc94b4891a234393e059dc1e8c14f46c1d77fc8844eae32b0c95c87f9735e",
+    "alias.py": "7a903c476f798e8046b6cb300ac611afd867d916b2eb01ea05efba4565d1884f",
+    "bundle.py": "6c32556f291b90e96ee63b350b8c8dcfb48b998c9c64a2ce621e188b4bf069cb",
+    "compatibility.py": "63c8cbc04b9e12bfbc884694340dc5904d7415bc8ed73363e3b20775ccdf50d5",
+    "consumer.py": "6a96b52ff0857a9f565196a68dce906b863d8b952470c79bc98a56c10590ec32",
+    "contracts.py": "bd4486f4c0629676ff4ee1ed84500c2b5ae27e219df49efc7591fa06f0067e7f",
+    "publisher.py": "c6b103100c6869775ac50de4d54da2b99b29786c2d0099d90d93eebc9191afc3",
+    "resource-reader.patch": "9d08dfee2ab9ef87b4a74be4c1c25622ee7e0c4466562ca976801d79cb82e68e",
+    "run.py": "1d4267399b226b5e1e450c9f1a909a37fa83ea9f9e37d05f4b67234c25436054",
+    "runtime.py": "61334aedbb3c6ccf95b53395ed78ef534e6b8c735be7e48efe786e187bd5e7b5",
+    "test_contracts.py": "7f2e5de239a5136ae5f3539608e2432886ac8e7e20c9ea95f0c5448aefdd1cb7",
+    "test_publisher.py": "96cc795083172a72e88ce5117c909c9563ebf74db05e0276f8a898be470eda55",
+    "test_runtime.py": "3c14ee2afef78dffc2d8abf0279fcdabd335b1ea7b02d02f0f0705e62ecc975c",
+    "test_verify.py": "c808424e7a4bd1ca5f9af456bf4a031872655cab4c80be875f6da05fd9396b08",
+    "timing.py": "770ca93e7532fc97f7235da794002a1517b085790e372d970fe3130572cffdc6",
+    "verify.py": "ab1d1305460dac4afd45fbd7374d04ef4698a3ca5f817259a2295134173475d5"
+  }
+}
