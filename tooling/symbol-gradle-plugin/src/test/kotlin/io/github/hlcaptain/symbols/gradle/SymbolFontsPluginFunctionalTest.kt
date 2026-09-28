@@ -354,7 +354,12 @@ class SymbolFontsPluginFunctionalTest {
                 )
             }
 
-            val result = androidRunner(project, *tasks.toTypedArray()).build()
+            val fixtureRunner = androidRunner(project, *tasks.toTypedArray())
+            // Unlike the wiring-only fixtures, this compiles against the real stdlib.
+            // Its isolated TestKit cache starts empty, so resolve normal dependencies.
+            val result = fixtureRunner
+                .withArguments(fixtureRunner.arguments.filterNot { it == "--offline" })
+                .build()
 
             assertEquals(TaskOutcome.SUCCESS, result.task(":$compilation")?.outcome)
             val sourceJars = project.resolve("build/libs").listFiles().orEmpty()

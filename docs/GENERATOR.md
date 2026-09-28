@@ -434,7 +434,9 @@ stable `ImageVector.name`; no such map API is implemented yet.
 
 The plugin wires:
 
-- generated Kotlin into Kotlin Multiplatform `commonMain` or Kotlin/JVM `main`;
+- generated Kotlin into Kotlin Multiplatform `commonMain` or Kotlin/JVM `main`
+  through `KotlinSourceSet.generatedKotlin`, keeping generated files distinct
+  from authored lint inputs while including them in compilation and source JARs;
 - native vector XML into every Android variant through the Android Components
   generated-resources API; and
 - Compose XML into a generated `commonMain` custom resource directory.

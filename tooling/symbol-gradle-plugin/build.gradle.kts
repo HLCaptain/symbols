@@ -1,3 +1,4 @@
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.plugin.compatibility.compatibility
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.util.Properties
@@ -84,6 +85,7 @@ tasks.jar {
 
 tasks.test {
     useJUnit()
+    testLogging.exceptionFormat = TestExceptionFormat.FULL
     systemProperty(
         "symbols.generatorTestClasspath",
         configurations.testRuntimeClasspath.get().asPath,

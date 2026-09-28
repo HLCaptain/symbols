@@ -66,7 +66,7 @@ class IntegrityTest(unittest.TestCase):
     def test_profile_task_duration_parsing(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "profile.html"
-            path.write_text('<table><tr><td>:app:compileKotlin</td><td>1m2.50s</td><td>UP-TO-DATE</td></tr><tr><td>project total</td><td>2m</td></tr></table>')
+            path.write_text('<table><tr><td>:app</td><td>1m2.50s</td><td>(total)</td></tr><tr><td>:app:compileKotlin</td><td>1m2.50s</td><td>UP-TO-DATE</td></tr><tr><td>project total</td><td>2m</td></tr></table>')
             self.assertEqual(study.profile_tasks(path), [dict(path=":app:compileKotlin", seconds=62.5, result="UP-TO-DATE")])
 
 

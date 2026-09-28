@@ -1,9 +1,11 @@
 # Resource pipeline comparison
 
-Compare committed, disposable worktrees: A is the pre-upgrade baseline and B
-contains the toolchain migration. Add C only for a separate optimization that
-actually affects the measured Android build. The web distribution optimization
-is measured separately; it does not change Android APKs.
+Compare committed, disposable worktrees: A is the pre-upgrade baseline, B
+contains the toolchain migration, and C contains the separate Android resource
+ownership and generated-source registration changes. Record the exact commit
+for each run; the ownership-only size study and later source-registration study
+use different C revisions. The web distribution optimization is measured
+separately; it does not change Android APKs.
 The runner uses the existing sample profiles and APK analyzer; it does not modify
 the library API or invent a second app benchmark.
 
@@ -86,8 +88,8 @@ shorter build or APK alone is insufficient evidence for an optimization.
 
 The separate [generated Kotlin source registration candidate](GENERATED_SOURCES.md)
 uses the public KGP API to preserve authored lint coverage while classifying build
-outputs correctly. Its targeted source-archive/lint regression is awaiting Gradle
-validation and controlled measurements.
+outputs correctly. Its targeted JVM/KMP compilation, source-archive and lint-input
+regression passes; full-module validation and controlled measurements are pending.
 
 ## Fast integrity checks
 

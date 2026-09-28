@@ -101,7 +101,7 @@ def profile_tasks(path):
     parser.feed(path.read_text())
     tasks = []
     for row in parser.rows:
-        if len(row) >= 3 and row[0].startswith(":"):
+        if len(row) >= 3 and row[0].startswith(":") and row[2] != "(total)":
             parts = re.findall(r"([\d.]+)\s*(h|m|s)", row[1])
             if parts:
                 tasks.append({"path": row[0], "seconds": sum(float(value) * {"h": 3600, "m": 60, "s": 1}[unit] for value, unit in parts), "result": row[2]})
