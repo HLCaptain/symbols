@@ -1,7 +1,7 @@
 # Mark generated Kotlin through the public source API
 
 The built-in Material vector generator and the public Symbols plugin previously
-registered generated files in `KotlinSourceSet.kotlin`. The candidate changes
+registered generated files in `KotlinSourceSet.kotlin`. The change moves
 those registrations to `generatedKotlin` for KMP/common and Kotlin/JVM sources.
 The task-backed directory providers stay the same. Android-only projects keep
 using AGP's `addGeneratedSourceDirectory`; KMP files are registered only once.
@@ -65,5 +65,21 @@ Reproduce the focused regression with the tooling wrapper:
 The real-module validation uses `compileAndroidMain`, `compileKotlinJvm`,
 `sourcesJar`, `androidSourcesJar`, `jvmSourcesJar` and
 `generateAndroidMainLintModel` on `:modules:material-vectors-rounded`.
-Performance savings remain unproven until the controlled timing comparison runs;
-these checks establish compilation, archive and lint-input correctness.
+
+## Measured effect
+
+Three controlled shell-profile repetitions compare upgrade-only `3aea238` with
+the optimization at `108fa6d`. Median clean build time falls from 109.922 to
+87.704 seconds (−20.2%), and peak process-tree RSS from 6,790.3 to 5,883.8 MiB
+(−13.4%). Rounded-vector lint falls from 24.127 to 2.011 seconds; Kotlin
+compilation remains similar at 34.113 versus 33.449 seconds. No-op and code-edit
+differences are small.
+
+All clean APK hashes and generated inventories match between these revisions.
+The improvement comes from classifying generated code correctly for lint;
+authored common/Android lint inputs remain present. Both configuration-cache
+reuse and build-cache restoration passed separate probes. See the
+[measurement method](README.md#measurement-method); cache probes are single
+checks and are kept separate from the repeated timing results.
+The [complete controlled report](CONTROLLED_BUILDS.md) includes sample ranges,
+task attribution, memory and integrity checks.

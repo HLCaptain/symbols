@@ -9,6 +9,10 @@ separately; it does not change Android APKs.
 The runner uses the existing sample profiles and APK analyzer; it does not modify
 the library API or invent a second app benchmark.
 
+[Completed measurements](CONTROLLED_BUILDS.md) cover 144 repeated build samples
+and 28 separate cache probes. See the [overall results](RESULTS.md) for APK size,
+web distribution, consumer compatibility and rendering checks.
+
 Use Python 3.11+ on Linux or macOS, the same JDK 21, and the same installed Android
 SDK packages. Provision each revision's `tools/requirements-font-verification.txt`
 in a separate virtualenv before measuring. Keep dependency download caches warm
@@ -111,10 +115,11 @@ unused-resource removal. The independent consumers below cover usage counts;
 existing shrinking assertions and runtime rendering checks remain necessary. A
 shorter build or APK alone is insufficient evidence for an optimization.
 
-The separate [generated Kotlin source registration candidate](GENERATED_SOURCES.md)
+The [generated Kotlin source registration change](GENERATED_SOURCES.md)
 uses the public KGP API to preserve authored lint coverage while classifying build
 outputs correctly. Its targeted JVM/KMP compilation, source-archive and lint-input
-regression and full Material module validation pass; controlled measurements are pending.
+regression and full Material module validation pass. The controlled comparison
+records the timing, memory, output-integrity and cache results.
 
 ## Fast integrity checks
 

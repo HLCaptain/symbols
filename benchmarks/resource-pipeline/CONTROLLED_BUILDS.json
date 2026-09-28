@@ -1,0 +1,6514 @@
+{
+  "schema_version": 1,
+  "protocol": {
+    "resumed_runner_revision": "9e4f43ef7adb435a4279bde3b5c121e8470605b3",
+    "resumed_runner_sha256": "0b0e3fff2b0ea04c261277a8a127dc5451f827715a757905f2954cc338fa4925",
+    "earlier_collection": "A/B shell and material-static were completed before the profile-warm-up reset and subtotal-parser fixes. Their measured build commands are identical; selected original profiles are reparsed with the corrected parser.",
+    "variant": "shrunk",
+    "ordinary_repeats": 3,
+    "cache_probes_per_case": 1,
+    "revision_order": "Rotated per repetition; comparisons remain within each cohort/profile.",
+    "workers": 1,
+    "gradle_heap_gib": 4,
+    "single_use_daemon": true,
+    "host_hardware": {
+      "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+      "logical_cpus": 32,
+      "kernel_reported_ram_bytes": 66510098432
+    },
+    "host_isolation": "Exclusive local agent build slot; emulators stopped. Normal desktop/browser activity remained; no CPU governor or thermal controls were changed.",
+    "ordinary_build_cache": false,
+    "ordinary_configuration_cache": false,
+    "kotlin_compilation": "In-process; incremental compilation enabled.",
+    "target_clean": "Root-project build outputs removed; included tooling builds/dependency downloads preserved.",
+    "scope": "Monorepo sample app plus its project dependencies; these timings are not the cost of consuming precompiled Maven artifacts.",
+    "warmups": "Excluded. Later cohorts reset root outputs before profile warm-up to avoid observed Koin profile-switch stale output; all valid measured series already start target-clean.",
+    "edits": "Back content-description and consumed Tabler SVG stroke width; exact source bytes restored with an unmeasured rebuild.",
+    "resource_edit_scope": "Only profiles consuming the edited SVG; other cases are N/A, not zero-time samples.",
+    "rss": "100 ms sampled sum of launcher/descendant RSS, including shared pages; not unique resident memory or Java heap.",
+    "timed_interval": "Gradle process launch to exit; cleanup, source editing, APK analysis and restoration excluded.",
+    "task_durations": "Elapsed Gradle task durations, not CPU time or a partition of total build wall time. Only task rows; project subtotals excluded.",
+    "excluded": [
+      "Failed v1 environment setup",
+      "Interrupted v2 warm-up",
+      "Partial material-variable rows in v3",
+      "Failed initial B/C2 profile-switch warm-up",
+      "Unmeasured builds",
+      "Failed cache validation (none occurred in selected data)",
+      "Gradle project subtotal rows from task-stage analysis"
+    ]
+  },
+  "cohorts": {
+    "toolchain_upgrade": {
+      "labels": [
+        "A",
+        "B"
+      ],
+      "ordinary_samples": 102,
+      "cache_probes": 20,
+      "environment": {
+        "platform": "Linux-7.2.6-1-cachyos-x86_64-with-glibc2.44",
+        "cpu_count": 32,
+        "java_version": "openjdk version \"21.0.12.1\" 2026-08-18 LTS\nOpenJDK Runtime Environment Zulu21.52+203-CA (build 21.0.12.1+1-LTS)\nOpenJDK 64-Bit Server VM Zulu21.52+203-CA (build 21.0.12.1+1-LTS, mixed mode, sharing)"
+      },
+      "revisions": {
+        "A": {
+          "sha": "20339e8bb5bc787a569516dc78dda0cce5bdb6da",
+          "versions": {
+            "pluginPublish": "2.2.1",
+            "agp": "8.13.2",
+            "android-compileSdk": "36",
+            "android-minSdk": "21",
+            "sample-android-minSdk": "23",
+            "android-targetSdk": "36",
+            "androidx-activity": "1.13.0",
+            "androidx-appcompat": "1.8.0",
+            "buildconfig": "6.0.10",
+            "composeMultiplatform": "1.11.1",
+            "composeMaterial3": "1.11.0-alpha07",
+            "composeMaterialIconsExtended": "1.7.3",
+            "koin": "4.2.2",
+            "koin-compiler": "1.1.0",
+            "kotlin": "2.3.21",
+            "kotlinx-coroutines": "1.11.0",
+            "navigation3": "1.1.1",
+            "navigation3-runtime": "1.1.6",
+            "androidx-compose": "1.11.4",
+            "androidx-test": "1.7.0",
+            "androidx-benchmark": "1.4.1",
+            "androidx-uiautomator": "2.3.0",
+            "androidx-profileinstaller": "1.4.1",
+            "composePreviewScanner": "0.9.1",
+            "junit": "4.13.2",
+            "robolectric": "4.16.1",
+            "roborazzi": "1.72.0",
+            "skiko": "0.9.22.2"
+          },
+          "generator_environment": {
+            "python": "3.12.14",
+            "fonttools": "4.60.2",
+            "picosvg": "0.22.3",
+            "skia-pathops": "0.9.2"
+          }
+        },
+        "B": {
+          "sha": "3aea238f2b6877fef005e26d8547cd7fcebfc129",
+          "versions": {
+            "pluginPublish": "2.2.1",
+            "agp": "9.4.1",
+            "agpPluginApi": "8.13.2",
+            "android-compileSdk": "37",
+            "android-minSdk": "21",
+            "compose-android-minSdk": "23",
+            "sample-android-minSdk": "23",
+            "android-targetSdk": "36",
+            "androidx-activity": "1.13.0",
+            "androidx-appcompat": "1.8.0",
+            "buildconfig": "6.1.1",
+            "composeMultiplatform": "1.12.1",
+            "composeMaterial3": "1.12.0-alpha03",
+            "composeMaterialIconsExtended": "1.7.3",
+            "koin": "4.2.2",
+            "koin-compiler": "1.2.1",
+            "kotlin": "2.4.20",
+            "kotlinx-coroutines": "1.11.0",
+            "navigation3": "1.1.2",
+            "navigation3-runtime": "1.1.7",
+            "androidx-compose": "1.12.1",
+            "androidx-test": "1.7.0",
+            "androidx-benchmark": "1.5.0",
+            "androidx-uiautomator": "2.4.0",
+            "androidx-profileinstaller": "1.4.1",
+            "composePreviewScanner": "0.9.3",
+            "junit": "4.13.2",
+            "robolectric": "4.17",
+            "roborazzi": "1.75.0",
+            "skiko": "0.150.1"
+          },
+          "generator_environment": {
+            "python": "3.12.14",
+            "fonttools": "4.66.0",
+            "picosvg": "0.23.0",
+            "skia-pathops": "0.9.2"
+          }
+        }
+      },
+      "source_result_sets": [
+        {
+          "name": "symbols-controlled-android-timings-20260928-v3",
+          "created_at": "2026-09-28T10:27:10.823591+00:00",
+          "sha256": "c2b4ac343fa561427bbb278011e0d209f64b9ebeec3a907e445824a10969c1af",
+          "included_profiles": [
+            "material-static",
+            "shell"
+          ]
+        },
+        {
+          "name": "symbols-controlled-android-timings-20260928-v4",
+          "created_at": "2026-09-28T12:43:59.427748+00:00",
+          "sha256": "ed5f464f5bcd141b58b987679838609e7e1af2bdc01293c0794b7cbd96b5b433",
+          "included_profiles": [
+            "all",
+            "image-vector-migration",
+            "material-variable"
+          ]
+        }
+      ],
+      "cache_created_at": "2026-09-28T14:17:13.753137+00:00",
+      "cache_result_sha256": "67eccc5211bb58021bc2f2ea5536f054d0d49fb9e227f84a821c16b0ad4685c4",
+      "integrity_checks": {
+        "all_builds_successful": true,
+        "rss_sampling_errors": 0,
+        "identical_heap_worker_incremental_and_cache_controls": true,
+        "one_stable_clean_apk_hash_per_revision_profile": true,
+        "edits_changed_apk_hash": 42,
+        "noop_and_edit_restores_reproduced_clean_apk_hash": 72,
+        "cache_probes_reproduced_clean_apk_hash": 20,
+        "original_html_profiles_checked_without_subtotal_rows": 204
+      },
+      "ordinary_summary": [
+        {
+          "revision": "A",
+          "profile": "all",
+          "variant": "shrunk",
+          "scenario": "code-edit",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 44.1,
+            "min": 43.83,
+            "max": 44.115,
+            "samples": [
+              44.115,
+              44.1,
+              43.83
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 4080619520,
+            "min": 4038180864,
+            "max": 4112150528,
+            "samples": [
+              4112150528,
+              4080619520,
+              4038180864
+            ]
+          },
+          "apk_bytes": {
+            "median": 22967644,
+            "min": 22967644,
+            "max": 22967644,
+            "samples": [
+              22967644,
+              22967644,
+              22967644
+            ]
+          }
+        },
+        {
+          "revision": "A",
+          "profile": "all",
+          "variant": "shrunk",
+          "scenario": "noop",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 15.828,
+            "min": 15.825,
+            "max": 15.94,
+            "samples": [
+              15.828,
+              15.94,
+              15.825
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 1744224256,
+            "min": 1671172096,
+            "max": 1767546880,
+            "samples": [
+              1767546880,
+              1744224256,
+              1671172096
+            ]
+          },
+          "apk_bytes": {
+            "median": 22967644,
+            "min": 22967644,
+            "max": 22967644,
+            "samples": [
+              22967644,
+              22967644,
+              22967644
+            ]
+          }
+        },
+        {
+          "revision": "A",
+          "profile": "all",
+          "variant": "shrunk",
+          "scenario": "resource-edit",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 49.123,
+            "min": 48.374,
+            "max": 49.205,
+            "samples": [
+              49.123,
+              49.205,
+              48.374
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 4299378688,
+            "min": 4162707456,
+            "max": 4612440064,
+            "samples": [
+              4299378688,
+              4162707456,
+              4612440064
+            ]
+          },
+          "apk_bytes": {
+            "median": 22967584,
+            "min": 22967584,
+            "max": 22967584,
+            "samples": [
+              22967584,
+              22967584,
+              22967584
+            ]
+          }
+        },
+        {
+          "revision": "A",
+          "profile": "all",
+          "variant": "shrunk",
+          "scenario": "target-clean",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 120.538,
+            "min": 120.299,
+            "max": 122.845,
+            "samples": [
+              120.538,
+              122.845,
+              120.299
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 8331870208,
+            "min": 7704248320,
+            "max": 8344940544,
+            "samples": [
+              7704248320,
+              8344940544,
+              8331870208
+            ]
+          },
+          "apk_bytes": {
+            "median": 22967644,
+            "min": 22967644,
+            "max": 22967644,
+            "samples": [
+              22967644,
+              22967644,
+              22967644
+            ]
+          }
+        },
+        {
+          "revision": "A",
+          "profile": "image-vector-migration",
+          "variant": "shrunk",
+          "scenario": "code-edit",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 40.224,
+            "min": 40.133,
+            "max": 40.397,
+            "samples": [
+              40.224,
+              40.397,
+              40.133
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 4266901504,
+            "min": 3832762368,
+            "max": 4288466944,
+            "samples": [
+              4288466944,
+              4266901504,
+              3832762368
+            ]
+          },
+          "apk_bytes": {
+            "median": 16299006,
+            "min": 16299006,
+            "max": 16299006,
+            "samples": [
+              16299006,
+              16299006,
+              16299006
+            ]
+          }
+        },
+        {
+          "revision": "A",
+          "profile": "image-vector-migration",
+          "variant": "shrunk",
+          "scenario": "noop",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 13.74,
+            "min": 13.396,
+            "max": 14.117,
+            "samples": [
+              13.74,
+              14.117,
+              13.396
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 1516584960,
+            "min": 1487855616,
+            "max": 1544851456,
+            "samples": [
+              1544851456,
+              1487855616,
+              1516584960
+            ]
+          },
+          "apk_bytes": {
+            "median": 16299006,
+            "min": 16299006,
+            "max": 16299006,
+            "samples": [
+              16299006,
+              16299006,
+              16299006
+            ]
+          }
+        },
+        {
+          "revision": "A",
+          "profile": "image-vector-migration",
+          "variant": "shrunk",
+          "scenario": "resource-edit",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 44.31,
+            "min": 44.151,
+            "max": 44.819,
+            "samples": [
+              44.819,
+              44.31,
+              44.151
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 4263530496,
+            "min": 4138160128,
+            "max": 4629516288,
+            "samples": [
+              4263530496,
+              4138160128,
+              4629516288
+            ]
+          },
+          "apk_bytes": {
+            "median": 16299006,
+            "min": 16299006,
+            "max": 16299006,
+            "samples": [
+              16299006,
+              16299006,
+              16299006
+            ]
+          }
+        },
+        {
+          "revision": "A",
+          "profile": "image-vector-migration",
+          "variant": "shrunk",
+          "scenario": "target-clean",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 104.506,
+            "min": 100.769,
+            "max": 120.359,
+            "samples": [
+              104.506,
+              120.359,
+              100.769
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 6759399424,
+            "min": 6604472320,
+            "max": 6987227136,
+            "samples": [
+              6759399424,
+              6987227136,
+              6604472320
+            ]
+          },
+          "apk_bytes": {
+            "median": 16299006,
+            "min": 16299006,
+            "max": 16299006,
+            "samples": [
+              16299006,
+              16299006,
+              16299006
+            ]
+          }
+        },
+        {
+          "revision": "A",
+          "profile": "material-static",
+          "variant": "shrunk",
+          "scenario": "code-edit",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 40.174,
+            "min": 39.719,
+            "max": 42.78,
+            "samples": [
+              39.719,
+              40.174,
+              42.78
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 3637448704,
+            "min": 3581755392,
+            "max": 3757527040,
+            "samples": [
+              3581755392,
+              3757527040,
+              3637448704
+            ]
+          },
+          "apk_bytes": {
+            "median": 7711960,
+            "min": 7711960,
+            "max": 7711960,
+            "samples": [
+              7711960,
+              7711960,
+              7711960
+            ]
+          }
+        },
+        {
+          "revision": "A",
+          "profile": "material-static",
+          "variant": "shrunk",
+          "scenario": "noop",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 14.483,
+            "min": 13.687,
+            "max": 15.285,
+            "samples": [
+              13.687,
+              15.285,
+              14.483
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 1581015040,
+            "min": 1557573632,
+            "max": 1623572480,
+            "samples": [
+              1557573632,
+              1581015040,
+              1623572480
+            ]
+          },
+          "apk_bytes": {
+            "median": 7711960,
+            "min": 7711960,
+            "max": 7711960,
+            "samples": [
+              7711960,
+              7711960,
+              7711960
+            ]
+          }
+        },
+        {
+          "revision": "A",
+          "profile": "material-static",
+          "variant": "shrunk",
+          "scenario": "target-clean",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 107.357,
+            "min": 106.073,
+            "max": 108.047,
+            "samples": [
+              106.073,
+              108.047,
+              107.357
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 7311507456,
+            "min": 6745739264,
+            "max": 7399624704,
+            "samples": [
+              7311507456,
+              6745739264,
+              7399624704
+            ]
+          },
+          "apk_bytes": {
+            "median": 7711960,
+            "min": 7711960,
+            "max": 7711960,
+            "samples": [
+              7711960,
+              7711960,
+              7711960
+            ]
+          }
+        },
+        {
+          "revision": "A",
+          "profile": "material-variable",
+          "variant": "shrunk",
+          "scenario": "code-edit",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 38.937,
+            "min": 37.765,
+            "max": 39.508,
+            "samples": [
+              37.765,
+              39.508,
+              38.937
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 3678511104,
+            "min": 3394916352,
+            "max": 3753152512,
+            "samples": [
+              3394916352,
+              3753152512,
+              3678511104
+            ]
+          },
+          "apk_bytes": {
+            "median": 16131536,
+            "min": 16131536,
+            "max": 16131536,
+            "samples": [
+              16131536,
+              16131536,
+              16131536
+            ]
+          }
+        },
+        {
+          "revision": "A",
+          "profile": "material-variable",
+          "variant": "shrunk",
+          "scenario": "noop",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 13.458,
+            "min": 13.029,
+            "max": 13.823,
+            "samples": [
+              13.029,
+              13.458,
+              13.823
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 1511374848,
+            "min": 1504534528,
+            "max": 1549717504,
+            "samples": [
+              1549717504,
+              1504534528,
+              1511374848
+            ]
+          },
+          "apk_bytes": {
+            "median": 16131536,
+            "min": 16131536,
+            "max": 16131536,
+            "samples": [
+              16131536,
+              16131536,
+              16131536
+            ]
+          }
+        },
+        {
+          "revision": "A",
+          "profile": "material-variable",
+          "variant": "shrunk",
+          "scenario": "target-clean",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 94.462,
+            "min": 93.941,
+            "max": 95.116,
+            "samples": [
+              93.941,
+              94.462,
+              95.116
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 6638288896,
+            "min": 6484312064,
+            "max": 6724173824,
+            "samples": [
+              6638288896,
+              6724173824,
+              6484312064
+            ]
+          },
+          "apk_bytes": {
+            "median": 16131536,
+            "min": 16131536,
+            "max": 16131536,
+            "samples": [
+              16131536,
+              16131536,
+              16131536
+            ]
+          }
+        },
+        {
+          "revision": "A",
+          "profile": "shell",
+          "variant": "shrunk",
+          "scenario": "code-edit",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 38.056,
+            "min": 37.455,
+            "max": 38.406,
+            "samples": [
+              38.406,
+              37.455,
+              38.056
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 3884060672,
+            "min": 3376427008,
+            "max": 3884740608,
+            "samples": [
+              3884060672,
+              3376427008,
+              3884740608
+            ]
+          },
+          "apk_bytes": {
+            "median": 1495397,
+            "min": 1495397,
+            "max": 1495397,
+            "samples": [
+              1495397,
+              1495397,
+              1495397
+            ]
+          }
+        },
+        {
+          "revision": "A",
+          "profile": "shell",
+          "variant": "shrunk",
+          "scenario": "noop",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 12.848,
+            "min": 12.738,
+            "max": 12.9,
+            "samples": [
+              12.9,
+              12.848,
+              12.738
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 1461624832,
+            "min": 1460867072,
+            "max": 1508098048,
+            "samples": [
+              1461624832,
+              1508098048,
+              1460867072
+            ]
+          },
+          "apk_bytes": {
+            "median": 1495397,
+            "min": 1495397,
+            "max": 1495397,
+            "samples": [
+              1495397,
+              1495397,
+              1495397
+            ]
+          }
+        },
+        {
+          "revision": "A",
+          "profile": "shell",
+          "variant": "shrunk",
+          "scenario": "target-clean",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 92.164,
+            "min": 89.052,
+            "max": 92.853,
+            "samples": [
+              92.164,
+              92.853,
+              89.052
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 6329884672,
+            "min": 6162685952,
+            "max": 6438600704,
+            "samples": [
+              6438600704,
+              6329884672,
+              6162685952
+            ]
+          },
+          "apk_bytes": {
+            "median": 1495397,
+            "min": 1495397,
+            "max": 1495397,
+            "samples": [
+              1495397,
+              1495397,
+              1495397
+            ]
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "all",
+          "variant": "shrunk",
+          "scenario": "code-edit",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 37.924,
+            "min": 37.53,
+            "max": 39.841,
+            "samples": [
+              37.53,
+              39.841,
+              37.924
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 4397817856,
+            "min": 3932086272,
+            "max": 4633018368,
+            "samples": [
+              4397817856,
+              4633018368,
+              3932086272
+            ]
+          },
+          "apk_bytes": {
+            "median": 22980545,
+            "min": 22980545,
+            "max": 22980545,
+            "samples": [
+              22980545,
+              22980545,
+              22980545
+            ]
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "all",
+          "variant": "shrunk",
+          "scenario": "noop",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 13.344,
+            "min": 13.019,
+            "max": 13.587,
+            "samples": [
+              13.019,
+              13.344,
+              13.587
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 1572945920,
+            "min": 1571401728,
+            "max": 1654665216,
+            "samples": [
+              1654665216,
+              1572945920,
+              1571401728
+            ]
+          },
+          "apk_bytes": {
+            "median": 22980545,
+            "min": 22980545,
+            "max": 22980545,
+            "samples": [
+              22980545,
+              22980545,
+              22980545
+            ]
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "all",
+          "variant": "shrunk",
+          "scenario": "resource-edit",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 46.34,
+            "min": 45.785,
+            "max": 46.587,
+            "samples": [
+              46.34,
+              46.587,
+              45.785
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 4131463168,
+            "min": 4083449856,
+            "max": 4141924352,
+            "samples": [
+              4141924352,
+              4083449856,
+              4131463168
+            ]
+          },
+          "apk_bytes": {
+            "median": 22980549,
+            "min": 22980549,
+            "max": 22980549,
+            "samples": [
+              22980549,
+              22980549,
+              22980549
+            ]
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "all",
+          "variant": "shrunk",
+          "scenario": "target-clean",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 143.751,
+            "min": 141.562,
+            "max": 145.514,
+            "samples": [
+              143.751,
+              141.562,
+              145.514
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 7440482304,
+            "min": 7006539776,
+            "max": 8306221056,
+            "samples": [
+              7006539776,
+              8306221056,
+              7440482304
+            ]
+          },
+          "apk_bytes": {
+            "median": 22980545,
+            "min": 22980545,
+            "max": 22980545,
+            "samples": [
+              22980545,
+              22980545,
+              22980545
+            ]
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "image-vector-migration",
+          "variant": "shrunk",
+          "scenario": "code-edit",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 35.489,
+            "min": 35.074,
+            "max": 56.89,
+            "samples": [
+              56.89,
+              35.074,
+              35.489
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 3717406720,
+            "min": 3606851584,
+            "max": 4630462464,
+            "samples": [
+              4630462464,
+              3606851584,
+              3717406720
+            ]
+          },
+          "apk_bytes": {
+            "median": 16313031,
+            "min": 16313031,
+            "max": 16313031,
+            "samples": [
+              16313031,
+              16313031,
+              16313031
+            ]
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "image-vector-migration",
+          "variant": "shrunk",
+          "scenario": "noop",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 11.751,
+            "min": 11.323,
+            "max": 18.807,
+            "samples": [
+              18.807,
+              11.751,
+              11.323
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 1441595392,
+            "min": 1405931520,
+            "max": 1445224448,
+            "samples": [
+              1405931520,
+              1445224448,
+              1441595392
+            ]
+          },
+          "apk_bytes": {
+            "median": 16313031,
+            "min": 16313031,
+            "max": 16313031,
+            "samples": [
+              16313031,
+              16313031,
+              16313031
+            ]
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "image-vector-migration",
+          "variant": "shrunk",
+          "scenario": "resource-edit",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 42.387,
+            "min": 42.198,
+            "max": 42.909,
+            "samples": [
+              42.387,
+              42.198,
+              42.909
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 4017233920,
+            "min": 3805564928,
+            "max": 4126601216,
+            "samples": [
+              4017233920,
+              4126601216,
+              3805564928
+            ]
+          },
+          "apk_bytes": {
+            "median": 16313031,
+            "min": 16313031,
+            "max": 16313031,
+            "samples": [
+              16313031,
+              16313031,
+              16313031
+            ]
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "image-vector-migration",
+          "variant": "shrunk",
+          "scenario": "target-clean",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 118.283,
+            "min": 116.862,
+            "max": 152.276,
+            "samples": [
+              118.283,
+              152.276,
+              116.862
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 7189798912,
+            "min": 6958596096,
+            "max": 7320383488,
+            "samples": [
+              6958596096,
+              7189798912,
+              7320383488
+            ]
+          },
+          "apk_bytes": {
+            "median": 16313031,
+            "min": 16313031,
+            "max": 16313031,
+            "samples": [
+              16313031,
+              16313031,
+              16313031
+            ]
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "material-static",
+          "variant": "shrunk",
+          "scenario": "code-edit",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 38.461,
+            "min": 35.056,
+            "max": 47.717,
+            "samples": [
+              47.717,
+              35.056,
+              38.461
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 3792805888,
+            "min": 3554312192,
+            "max": 3831164928,
+            "samples": [
+              3831164928,
+              3554312192,
+              3792805888
+            ]
+          },
+          "apk_bytes": {
+            "median": 7747649,
+            "min": 7747649,
+            "max": 7747649,
+            "samples": [
+              7747649,
+              7747649,
+              7747649
+            ]
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "material-static",
+          "variant": "shrunk",
+          "scenario": "noop",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 12.196,
+            "min": 11.969,
+            "max": 12.333,
+            "samples": [
+              11.969,
+              12.333,
+              12.196
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 1478836224,
+            "min": 1384722432,
+            "max": 1544130560,
+            "samples": [
+              1384722432,
+              1544130560,
+              1478836224
+            ]
+          },
+          "apk_bytes": {
+            "median": 7747649,
+            "min": 7747649,
+            "max": 7747649,
+            "samples": [
+              7747649,
+              7747649,
+              7747649
+            ]
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "material-static",
+          "variant": "shrunk",
+          "scenario": "target-clean",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 127.3,
+            "min": 126.918,
+            "max": 129.821,
+            "samples": [
+              126.918,
+              127.3,
+              129.821
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 8029609984,
+            "min": 7794929664,
+            "max": 8130600960,
+            "samples": [
+              8029609984,
+              8130600960,
+              7794929664
+            ]
+          },
+          "apk_bytes": {
+            "median": 7747649,
+            "min": 7747649,
+            "max": 7747649,
+            "samples": [
+              7747649,
+              7747649,
+              7747649
+            ]
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "material-variable",
+          "variant": "shrunk",
+          "scenario": "code-edit",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 33.082,
+            "min": 32.709,
+            "max": 33.463,
+            "samples": [
+              33.082,
+              32.709,
+              33.463
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 3681673216,
+            "min": 3533864960,
+            "max": 4257263616,
+            "samples": [
+              4257263616,
+              3533864960,
+              3681673216
+            ]
+          },
+          "apk_bytes": {
+            "median": 16145561,
+            "min": 16145561,
+            "max": 16145561,
+            "samples": [
+              16145561,
+              16145561,
+              16145561
+            ]
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "material-variable",
+          "variant": "shrunk",
+          "scenario": "noop",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 11.102,
+            "min": 10.812,
+            "max": 11.164,
+            "samples": [
+              10.812,
+              11.164,
+              11.102
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 1440456704,
+            "min": 1361600512,
+            "max": 1443864576,
+            "samples": [
+              1443864576,
+              1440456704,
+              1361600512
+            ]
+          },
+          "apk_bytes": {
+            "median": 16145561,
+            "min": 16145561,
+            "max": 16145561,
+            "samples": [
+              16145561,
+              16145561,
+              16145561
+            ]
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "material-variable",
+          "variant": "shrunk",
+          "scenario": "target-clean",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 111.601,
+            "min": 109.378,
+            "max": 113.526,
+            "samples": [
+              109.378,
+              111.601,
+              113.526
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 7219593216,
+            "min": 7089426432,
+            "max": 7323119616,
+            "samples": [
+              7219593216,
+              7323119616,
+              7089426432
+            ]
+          },
+          "apk_bytes": {
+            "median": 16145561,
+            "min": 16145561,
+            "max": 16145561,
+            "samples": [
+              16145561,
+              16145561,
+              16145561
+            ]
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "shell",
+          "variant": "shrunk",
+          "scenario": "code-edit",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 32.832,
+            "min": 32.749,
+            "max": 33.137,
+            "samples": [
+              32.749,
+              33.137,
+              32.832
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 3291107328,
+            "min": 3284312064,
+            "max": 3460018176,
+            "samples": [
+              3284312064,
+              3460018176,
+              3291107328
+            ]
+          },
+          "apk_bytes": {
+            "median": 1509422,
+            "min": 1509422,
+            "max": 1509422,
+            "samples": [
+              1509422,
+              1509422,
+              1509422
+            ]
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "shell",
+          "variant": "shrunk",
+          "scenario": "noop",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 10.791,
+            "min": 10.583,
+            "max": 11.332,
+            "samples": [
+              10.583,
+              11.332,
+              10.791
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 1375891456,
+            "min": 1341972480,
+            "max": 1395097600,
+            "samples": [
+              1341972480,
+              1395097600,
+              1375891456
+            ]
+          },
+          "apk_bytes": {
+            "median": 1509422,
+            "min": 1509422,
+            "max": 1509422,
+            "samples": [
+              1509422,
+              1509422,
+              1509422
+            ]
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "shell",
+          "variant": "shrunk",
+          "scenario": "target-clean",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 108.387,
+            "min": 108.099,
+            "max": 113.433,
+            "samples": [
+              108.099,
+              113.433,
+              108.387
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 7095328768,
+            "min": 7061454848,
+            "max": 7102443520,
+            "samples": [
+              7095328768,
+              7061454848,
+              7102443520
+            ]
+          },
+          "apk_bytes": {
+            "median": 1509422,
+            "min": 1509422,
+            "max": 1509422,
+            "samples": [
+              1509422,
+              1509422,
+              1509422
+            ]
+          }
+        }
+      ],
+      "comparisons": [
+        {
+          "before": "A",
+          "after": "B",
+          "profile": "all",
+          "variant": "shrunk",
+          "scenario": "code-edit",
+          "delta": {
+            "wall_seconds": {
+              "absolute": -6.176000000000002,
+              "percent": -14.004535147392293
+            },
+            "peak_process_tree_rss_bytes_sampled": {
+              "absolute": 317198336,
+              "percent": 7.773288699064989
+            },
+            "apk_bytes": {
+              "absolute": 12901,
+              "percent": 0.05617032378244804
+            }
+          }
+        },
+        {
+          "before": "A",
+          "after": "B",
+          "profile": "all",
+          "variant": "shrunk",
+          "scenario": "noop",
+          "delta": {
+            "wall_seconds": {
+              "absolute": -2.484,
+              "percent": -15.693707354056103
+            },
+            "peak_process_tree_rss_bytes_sampled": {
+              "absolute": -171278336,
+              "percent": -9.819742811786698
+            },
+            "apk_bytes": {
+              "absolute": 12901,
+              "percent": 0.05617032378244804
+            }
+          }
+        },
+        {
+          "before": "A",
+          "after": "B",
+          "profile": "all",
+          "variant": "shrunk",
+          "scenario": "resource-edit",
+          "delta": {
+            "wall_seconds": {
+              "absolute": -2.782999999999994,
+              "percent": -5.665370600329772
+            },
+            "peak_process_tree_rss_bytes_sampled": {
+              "absolute": -167915520,
+              "percent": -3.905576414300726
+            },
+            "apk_bytes": {
+              "absolute": 12965,
+              "percent": 0.056449124122067
+            }
+          }
+        },
+        {
+          "before": "A",
+          "after": "B",
+          "profile": "all",
+          "variant": "shrunk",
+          "scenario": "target-clean",
+          "delta": {
+            "wall_seconds": {
+              "absolute": 23.213000000000008,
+              "percent": 19.25782740712473
+            },
+            "peak_process_tree_rss_bytes_sampled": {
+              "absolute": -891387904,
+              "percent": -10.698533243402151
+            },
+            "apk_bytes": {
+              "absolute": 12901,
+              "percent": 0.05617032378244804
+            }
+          }
+        },
+        {
+          "before": "A",
+          "after": "B",
+          "profile": "image-vector-migration",
+          "variant": "shrunk",
+          "scenario": "code-edit",
+          "delta": {
+            "wall_seconds": {
+              "absolute": -4.734999999999999,
+              "percent": -11.771579156722355
+            },
+            "peak_process_tree_rss_bytes_sampled": {
+              "absolute": -549494784,
+              "percent": -12.878075190741502
+            },
+            "apk_bytes": {
+              "absolute": 14025,
+              "percent": 0.08604819214128763
+            }
+          }
+        },
+        {
+          "before": "A",
+          "after": "B",
+          "profile": "image-vector-migration",
+          "variant": "shrunk",
+          "scenario": "noop",
+          "delta": {
+            "wall_seconds": {
+              "absolute": -1.9890000000000008,
+              "percent": -14.475982532751098
+            },
+            "peak_process_tree_rss_bytes_sampled": {
+              "absolute": -74989568,
+              "percent": -4.944633500783233
+            },
+            "apk_bytes": {
+              "absolute": 14025,
+              "percent": 0.08604819214128763
+            }
+          }
+        },
+        {
+          "before": "A",
+          "after": "B",
+          "profile": "image-vector-migration",
+          "variant": "shrunk",
+          "scenario": "resource-edit",
+          "delta": {
+            "wall_seconds": {
+              "absolute": -1.9230000000000018,
+              "percent": -4.339878131347329
+            },
+            "peak_process_tree_rss_bytes_sampled": {
+              "absolute": -246296576,
+              "percent": -5.776822195386497
+            },
+            "apk_bytes": {
+              "absolute": 14025,
+              "percent": 0.08604819214128763
+            }
+          }
+        },
+        {
+          "before": "A",
+          "after": "B",
+          "profile": "image-vector-migration",
+          "variant": "shrunk",
+          "scenario": "target-clean",
+          "delta": {
+            "wall_seconds": {
+              "absolute": 13.777000000000001,
+              "percent": 13.18297514018334
+            },
+            "peak_process_tree_rss_bytes_sampled": {
+              "absolute": 430399488,
+              "percent": 6.36742202971197
+            },
+            "apk_bytes": {
+              "absolute": 14025,
+              "percent": 0.08604819214128763
+            }
+          }
+        },
+        {
+          "before": "A",
+          "after": "B",
+          "profile": "material-static",
+          "variant": "shrunk",
+          "scenario": "code-edit",
+          "delta": {
+            "wall_seconds": {
+              "absolute": -1.713000000000001,
+              "percent": -4.26395180962812
+            },
+            "peak_process_tree_rss_bytes_sampled": {
+              "absolute": 155357184,
+              "percent": 4.271048106579705
+            },
+            "apk_bytes": {
+              "absolute": 35689,
+              "percent": 0.46277470318829456
+            }
+          }
+        },
+        {
+          "before": "A",
+          "after": "B",
+          "profile": "material-static",
+          "variant": "shrunk",
+          "scenario": "noop",
+          "delta": {
+            "wall_seconds": {
+              "absolute": -2.287000000000001,
+              "percent": -15.790927294068913
+            },
+            "peak_process_tree_rss_bytes_sampled": {
+              "absolute": -102178816,
+              "percent": -6.462861732169227
+            },
+            "apk_bytes": {
+              "absolute": 35689,
+              "percent": 0.46277470318829456
+            }
+          }
+        },
+        {
+          "before": "A",
+          "after": "B",
+          "profile": "material-static",
+          "variant": "shrunk",
+          "scenario": "target-clean",
+          "delta": {
+            "wall_seconds": {
+              "absolute": 19.942999999999998,
+              "percent": 18.576338757603136
+            },
+            "peak_process_tree_rss_bytes_sampled": {
+              "absolute": 718102528,
+              "percent": 9.821538613226847
+            },
+            "apk_bytes": {
+              "absolute": 35689,
+              "percent": 0.46277470318829456
+            }
+          }
+        },
+        {
+          "before": "A",
+          "after": "B",
+          "profile": "material-variable",
+          "variant": "shrunk",
+          "scenario": "code-edit",
+          "delta": {
+            "wall_seconds": {
+              "absolute": -5.854999999999997,
+              "percent": -15.037111230962829
+            },
+            "peak_process_tree_rss_bytes_sampled": {
+              "absolute": 3162112,
+              "percent": 0.08596173589258792
+            },
+            "apk_bytes": {
+              "absolute": 14025,
+              "percent": 0.08694150389646714
+            }
+          }
+        },
+        {
+          "before": "A",
+          "after": "B",
+          "profile": "material-variable",
+          "variant": "shrunk",
+          "scenario": "noop",
+          "delta": {
+            "wall_seconds": {
+              "absolute": -2.356,
+              "percent": -17.50631594590578
+            },
+            "peak_process_tree_rss_bytes_sampled": {
+              "absolute": -70918144,
+              "percent": -4.692293516320314
+            },
+            "apk_bytes": {
+              "absolute": 14025,
+              "percent": 0.08694150389646714
+            }
+          }
+        },
+        {
+          "before": "A",
+          "after": "B",
+          "profile": "material-variable",
+          "variant": "shrunk",
+          "scenario": "target-clean",
+          "delta": {
+            "wall_seconds": {
+              "absolute": 17.138999999999996,
+              "percent": 18.14380385763587
+            },
+            "peak_process_tree_rss_bytes_sampled": {
+              "absolute": 581304320,
+              "percent": 8.7568397384795
+            },
+            "apk_bytes": {
+              "absolute": 14025,
+              "percent": 0.08694150389646714
+            }
+          }
+        },
+        {
+          "before": "A",
+          "after": "B",
+          "profile": "shell",
+          "variant": "shrunk",
+          "scenario": "code-edit",
+          "delta": {
+            "wall_seconds": {
+              "absolute": -5.223999999999997,
+              "percent": -13.727138953121706
+            },
+            "peak_process_tree_rss_bytes_sampled": {
+              "absolute": -592953344,
+              "percent": -15.266325479274078
+            },
+            "apk_bytes": {
+              "absolute": 14025,
+              "percent": 0.9378780350635985
+            }
+          }
+        },
+        {
+          "before": "A",
+          "after": "B",
+          "profile": "shell",
+          "variant": "shrunk",
+          "scenario": "noop",
+          "delta": {
+            "wall_seconds": {
+              "absolute": -2.0570000000000004,
+              "percent": -16.010273972602743
+            },
+            "peak_process_tree_rss_bytes_sampled": {
+              "absolute": -85733376,
+              "percent": -5.865621199298289
+            },
+            "apk_bytes": {
+              "absolute": 14025,
+              "percent": 0.9378780350635985
+            }
+          }
+        },
+        {
+          "before": "A",
+          "after": "B",
+          "profile": "shell",
+          "variant": "shrunk",
+          "scenario": "target-clean",
+          "delta": {
+            "wall_seconds": {
+              "absolute": 16.223,
+              "percent": 17.60231760774272
+            },
+            "peak_process_tree_rss_bytes_sampled": {
+              "absolute": 765444096,
+              "percent": 12.092544108835227
+            },
+            "apk_bytes": {
+              "absolute": 14025,
+              "percent": 0.9378780350635985
+            }
+          }
+        }
+      ],
+      "task_stage_timings": [
+        {
+          "revision": "A",
+          "profile": "all",
+          "scenario": "code-edit",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.106,
+              "min": 0.103,
+              "max": 0.109
+            },
+            "rounded_vector_lint": {
+              "median": 0.006,
+              "min": 0.004,
+              "max": 0.007
+            },
+            "app_r8": {
+              "median": 18.667,
+              "min": 18.415,
+              "max": 18.912
+            },
+            "app_lint": {
+              "median": 2.901,
+              "min": 2.872,
+              "max": 2.94
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":composeApp:minifyShrunkWithR8",
+              "median": 18.667,
+              "min": 18.415,
+              "max": 18.912
+            },
+            {
+              "path": ":composeApp:compileShrunkKotlinAndroid",
+              "median": 3.631,
+              "min": 3.588,
+              "max": 3.648
+            },
+            {
+              "path": ":composeApp:lintVitalAnalyzeShrunk",
+              "median": 2.901,
+              "min": 2.872,
+              "max": 2.94
+            },
+            {
+              "path": ":composeApp:produceShrunkComposeMapping",
+              "median": 1.651,
+              "min": 1.438,
+              "max": 1.688
+            }
+          ]
+        },
+        {
+          "revision": "A",
+          "profile": "all",
+          "scenario": "noop",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.103,
+              "min": 0.1,
+              "max": 0.109
+            },
+            "rounded_vector_lint": {
+              "median": 0.005,
+              "min": 0.005,
+              "max": 0.006
+            },
+            "app_r8": {
+              "median": 0.038,
+              "min": 0.031,
+              "max": 0.038
+            },
+            "app_lint": {
+              "median": 0.011,
+              "min": 0.009,
+              "max": 0.011
+            }
+          },
+          "top_task_seconds": []
+        },
+        {
+          "revision": "A",
+          "profile": "all",
+          "scenario": "resource-edit",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.113,
+              "min": 0.1,
+              "max": 0.121
+            },
+            "rounded_vector_lint": {
+              "median": 0.006,
+              "min": 0.005,
+              "max": 0.006
+            },
+            "app_r8": {
+              "median": 18.402,
+              "min": 18.397,
+              "max": 18.645
+            },
+            "app_lint": {
+              "median": 0.764,
+              "min": 0.762,
+              "max": 0.781
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":composeApp:minifyShrunkWithR8",
+              "median": 18.402,
+              "min": 18.397,
+              "max": 18.645
+            },
+            {
+              "path": ":samples:image-vector-migration:compileReleaseKotlinAndroid",
+              "median": 6.094,
+              "min": 6.051,
+              "max": 6.287
+            },
+            {
+              "path": ":samples:android-views:lintVitalAnalyzeRelease",
+              "median": 2.458,
+              "min": 2.442,
+              "max": 2.459
+            },
+            {
+              "path": ":composeApp:produceShrunkComposeMapping",
+              "median": 1.522,
+              "min": 1.418,
+              "max": 1.624
+            }
+          ]
+        },
+        {
+          "revision": "A",
+          "profile": "all",
+          "scenario": "target-clean",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 32.795,
+              "min": 32.707,
+              "max": 32.819
+            },
+            "rounded_vector_lint": {
+              "median": 1.955,
+              "min": 1.949,
+              "max": 1.973
+            },
+            "app_r8": {
+              "median": 18.932,
+              "min": 18.673,
+              "max": 19.095
+            },
+            "app_lint": {
+              "median": 5.815,
+              "min": 5.549,
+              "max": 5.97
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":modules:material-vectors-rounded:compileReleaseKotlinAndroid",
+              "median": 32.795,
+              "min": 32.707,
+              "max": 32.819
+            },
+            {
+              "path": ":composeApp:minifyShrunkWithR8",
+              "median": 18.932,
+              "min": 18.673,
+              "max": 19.095
+            },
+            {
+              "path": ":composeApp:lintVitalAnalyzeShrunk",
+              "median": 5.815,
+              "min": 5.549,
+              "max": 5.97
+            },
+            {
+              "path": ":modules:material-compose-drawables-rounded:compileReleaseKotlinAndroid",
+              "median": 4.85,
+              "min": 4.836,
+              "max": 4.857
+            },
+            {
+              "path": ":modules:material-vectors-rounded:generateMaterialVectors",
+              "median": 3.997,
+              "min": 3.979,
+              "max": 4.12
+            },
+            {
+              "path": ":modules:material-core:compileReleaseKotlinAndroid",
+              "median": 3.142,
+              "min": 3.134,
+              "max": 4.793
+            },
+            {
+              "path": ":modules:material-vectors-rounded:lintVitalAnalyzeRelease",
+              "median": 1.955,
+              "min": 1.949,
+              "max": 1.973
+            },
+            {
+              "path": ":modules:symbols-core:compileReleaseKotlinAndroid",
+              "median": 1.874,
+              "min": 1.863,
+              "max": 1.877
+            }
+          ]
+        },
+        {
+          "revision": "A",
+          "profile": "image-vector-migration",
+          "scenario": "code-edit",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.111,
+              "min": 0.11,
+              "max": 0.114
+            },
+            "rounded_vector_lint": {
+              "median": 0.007,
+              "min": 0.006,
+              "max": 0.007
+            },
+            "app_r8": {
+              "median": 17.799,
+              "min": 17.771,
+              "max": 17.824
+            },
+            "app_lint": {
+              "median": 2.774,
+              "min": 2.715,
+              "max": 2.815
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":composeApp:minifyShrunkWithR8",
+              "median": 17.799,
+              "min": 17.771,
+              "max": 17.824
+            },
+            {
+              "path": ":composeApp:compileShrunkKotlinAndroid",
+              "median": 3.662,
+              "min": 3.629,
+              "max": 3.709
+            },
+            {
+              "path": ":composeApp:lintVitalAnalyzeShrunk",
+              "median": 2.774,
+              "min": 2.715,
+              "max": 2.815
+            },
+            {
+              "path": ":composeApp:produceShrunkComposeMapping",
+              "median": 1.404,
+              "min": 1.318,
+              "max": 1.409
+            }
+          ]
+        },
+        {
+          "revision": "A",
+          "profile": "image-vector-migration",
+          "scenario": "noop",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.106,
+              "min": 0.105,
+              "max": 0.138
+            },
+            "rounded_vector_lint": {
+              "median": 0.005,
+              "min": 0.004,
+              "max": 0.005
+            },
+            "app_r8": {
+              "median": 0.033,
+              "min": 0.03,
+              "max": 0.046
+            },
+            "app_lint": {
+              "median": 0.005,
+              "min": 0.005,
+              "max": 0.005
+            }
+          },
+          "top_task_seconds": []
+        },
+        {
+          "revision": "A",
+          "profile": "image-vector-migration",
+          "scenario": "resource-edit",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.117,
+              "min": 0.106,
+              "max": 0.142
+            },
+            "rounded_vector_lint": {
+              "median": 0.006,
+              "min": 0.006,
+              "max": 0.008
+            },
+            "app_r8": {
+              "median": 17.844,
+              "min": 17.598,
+              "max": 18.195
+            },
+            "app_lint": {
+              "median": 1.138,
+              "min": 1.054,
+              "max": 1.206
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":composeApp:minifyShrunkWithR8",
+              "median": 17.844,
+              "min": 17.598,
+              "max": 18.195
+            },
+            {
+              "path": ":samples:image-vector-migration:compileReleaseKotlinAndroid",
+              "median": 6.243,
+              "min": 6.095,
+              "max": 6.259
+            },
+            {
+              "path": ":samples:image-vector-migration:lintVitalAnalyzeRelease",
+              "median": 2.182,
+              "min": 2.142,
+              "max": 2.264
+            },
+            {
+              "path": ":composeApp:produceShrunkComposeMapping",
+              "median": 1.423,
+              "min": 1.289,
+              "max": 1.712
+            }
+          ]
+        },
+        {
+          "revision": "A",
+          "profile": "image-vector-migration",
+          "scenario": "target-clean",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 34.35,
+              "min": 33.143,
+              "max": 35.835
+            },
+            "rounded_vector_lint": {
+              "median": 1.954,
+              "min": 1.938,
+              "max": 2.003
+            },
+            "app_r8": {
+              "median": 17.956,
+              "min": 17.533,
+              "max": 18.114
+            },
+            "app_lint": {
+              "median": 5.992,
+              "min": 5.929,
+              "max": 6.329
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":modules:material-vectors-rounded:compileReleaseKotlinAndroid",
+              "median": 34.35,
+              "min": 33.143,
+              "max": 35.835
+            },
+            {
+              "path": ":composeApp:minifyShrunkWithR8",
+              "median": 17.956,
+              "min": 17.533,
+              "max": 18.114
+            },
+            {
+              "path": ":composeApp:lintVitalAnalyzeShrunk",
+              "median": 5.992,
+              "min": 5.929,
+              "max": 6.329
+            },
+            {
+              "path": ":modules:material-vectors-rounded:generateMaterialVectors",
+              "median": 4.103,
+              "min": 3.951,
+              "max": 4.27
+            },
+            {
+              "path": ":modules:material-core:compileReleaseKotlinAndroid",
+              "median": 3.831,
+              "min": 3.729,
+              "max": 5.744
+            },
+            {
+              "path": ":modules:symbols-core:compileReleaseKotlinAndroid",
+              "median": 2.122,
+              "min": 1.974,
+              "max": 3.287
+            },
+            {
+              "path": ":modules:material-vectors-rounded:lintVitalAnalyzeRelease",
+              "median": 1.954,
+              "min": 1.938,
+              "max": 2.003
+            },
+            {
+              "path": ":samples:image-vector-migration:compileReleaseKotlinAndroid",
+              "median": 1.887,
+              "min": 1.719,
+              "max": 1.89
+            }
+          ]
+        },
+        {
+          "revision": "A",
+          "profile": "material-static",
+          "scenario": "code-edit",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.109,
+              "min": 0.103,
+              "max": 0.117
+            },
+            "rounded_vector_lint": {
+              "median": 0.006,
+              "min": 0.006,
+              "max": 0.006
+            },
+            "app_r8": {
+              "median": 16.843,
+              "min": 16.701,
+              "max": 17.587
+            },
+            "app_lint": {
+              "median": 2.887,
+              "min": 2.884,
+              "max": 3.126
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":composeApp:minifyShrunkWithR8",
+              "median": 16.843,
+              "min": 16.701,
+              "max": 17.587
+            },
+            {
+              "path": ":composeApp:compileShrunkKotlinAndroid",
+              "median": 3.644,
+              "min": 3.538,
+              "max": 3.825
+            },
+            {
+              "path": ":composeApp:lintVitalAnalyzeShrunk",
+              "median": 2.887,
+              "min": 2.884,
+              "max": 3.126
+            },
+            {
+              "path": ":composeApp:produceShrunkComposeMapping",
+              "median": 1.046,
+              "min": 1.039,
+              "max": 2.027
+            }
+          ]
+        },
+        {
+          "revision": "A",
+          "profile": "material-static",
+          "scenario": "noop",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.103,
+              "min": 0.099,
+              "max": 0.112
+            },
+            "rounded_vector_lint": {
+              "median": 0.005,
+              "min": 0.005,
+              "max": 0.005
+            },
+            "app_r8": {
+              "median": 0.03,
+              "min": 0.029,
+              "max": 0.032
+            },
+            "app_lint": {
+              "median": 0.008,
+              "min": 0.006,
+              "max": 0.008
+            }
+          },
+          "top_task_seconds": []
+        },
+        {
+          "revision": "A",
+          "profile": "material-static",
+          "scenario": "target-clean",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 32.439,
+              "min": 32.138,
+              "max": 32.706
+            },
+            "rounded_vector_lint": {
+              "median": 1.958,
+              "min": 1.946,
+              "max": 1.969
+            },
+            "app_r8": {
+              "median": 16.936,
+              "min": 16.887,
+              "max": 17.348
+            },
+            "app_lint": {
+              "median": 6.086,
+              "min": 5.876,
+              "max": 6.292
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":modules:material-vectors-rounded:compileReleaseKotlinAndroid",
+              "median": 32.439,
+              "min": 32.138,
+              "max": 32.706
+            },
+            {
+              "path": ":composeApp:minifyShrunkWithR8",
+              "median": 16.936,
+              "min": 16.887,
+              "max": 17.348
+            },
+            {
+              "path": ":modules:material-compose-drawables-rounded:compileReleaseKotlinAndroid",
+              "median": 6.457,
+              "min": 6.359,
+              "max": 6.584
+            },
+            {
+              "path": ":composeApp:lintVitalAnalyzeShrunk",
+              "median": 6.086,
+              "min": 5.876,
+              "max": 6.292
+            },
+            {
+              "path": ":modules:material-vectors-rounded:generateMaterialVectors",
+              "median": 4.014,
+              "min": 3.956,
+              "max": 4.048
+            },
+            {
+              "path": ":modules:material-core:compileReleaseKotlinAndroid",
+              "median": 3.636,
+              "min": 3.561,
+              "max": 3.671
+            },
+            {
+              "path": ":modules:material-vectors-rounded:lintVitalAnalyzeRelease",
+              "median": 1.958,
+              "min": 1.946,
+              "max": 1.969
+            },
+            {
+              "path": ":modules:symbols-core:compileReleaseKotlinAndroid",
+              "median": 1.878,
+              "min": 1.866,
+              "max": 1.914
+            }
+          ]
+        },
+        {
+          "revision": "A",
+          "profile": "material-variable",
+          "scenario": "code-edit",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.117,
+              "min": 0.11,
+              "max": 0.136
+            },
+            "rounded_vector_lint": {
+              "median": 0.007,
+              "min": 0.007,
+              "max": 0.008
+            },
+            "app_r8": {
+              "median": 16.456,
+              "min": 16.402,
+              "max": 17.368
+            },
+            "app_lint": {
+              "median": 2.761,
+              "min": 2.704,
+              "max": 2.825
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":composeApp:minifyShrunkWithR8",
+              "median": 16.456,
+              "min": 16.402,
+              "max": 17.368
+            },
+            {
+              "path": ":composeApp:compileShrunkKotlinAndroid",
+              "median": 3.639,
+              "min": 3.391,
+              "max": 3.729
+            },
+            {
+              "path": ":composeApp:lintVitalAnalyzeShrunk",
+              "median": 2.761,
+              "min": 2.704,
+              "max": 2.825
+            },
+            {
+              "path": ":composeApp:produceShrunkComposeMapping",
+              "median": 1.095,
+              "min": 1.065,
+              "max": 1.107
+            }
+          ]
+        },
+        {
+          "revision": "A",
+          "profile": "material-variable",
+          "scenario": "noop",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.114,
+              "min": 0.108,
+              "max": 0.147
+            },
+            "rounded_vector_lint": {
+              "median": 0.006,
+              "min": 0.005,
+              "max": 0.006
+            },
+            "app_r8": {
+              "median": 0.034,
+              "min": 0.032,
+              "max": 0.044
+            },
+            "app_lint": {
+              "median": 0.004,
+              "min": 0.004,
+              "max": 0.005
+            }
+          },
+          "top_task_seconds": []
+        },
+        {
+          "revision": "A",
+          "profile": "material-variable",
+          "scenario": "target-clean",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 32.735,
+              "min": 32.705,
+              "max": 32.881
+            },
+            "rounded_vector_lint": {
+              "median": 1.986,
+              "min": 1.96,
+              "max": 2.02
+            },
+            "app_r8": {
+              "median": 16.105,
+              "min": 16.052,
+              "max": 16.152
+            },
+            "app_lint": {
+              "median": 5.794,
+              "min": 5.743,
+              "max": 6.09
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":modules:material-vectors-rounded:compileReleaseKotlinAndroid",
+              "median": 32.735,
+              "min": 32.705,
+              "max": 32.881
+            },
+            {
+              "path": ":composeApp:minifyShrunkWithR8",
+              "median": 16.105,
+              "min": 16.052,
+              "max": 16.152
+            },
+            {
+              "path": ":composeApp:lintVitalAnalyzeShrunk",
+              "median": 5.794,
+              "min": 5.743,
+              "max": 6.09
+            },
+            {
+              "path": ":modules:material-vectors-rounded:generateMaterialVectors",
+              "median": 3.977,
+              "min": 3.848,
+              "max": 4.054
+            },
+            {
+              "path": ":modules:material-core:compileReleaseKotlinAndroid",
+              "median": 3.571,
+              "min": 3.523,
+              "max": 3.681
+            },
+            {
+              "path": ":modules:material-vectors-rounded:lintVitalAnalyzeRelease",
+              "median": 1.986,
+              "min": 1.96,
+              "max": 2.02
+            },
+            {
+              "path": ":modules:symbols-core:compileReleaseKotlinAndroid",
+              "median": 1.807,
+              "min": 1.806,
+              "max": 1.853
+            },
+            {
+              "path": ":modules:variant-font-core:compileReleaseKotlinAndroid",
+              "median": 1.773,
+              "min": 1.722,
+              "max": 1.862
+            }
+          ]
+        },
+        {
+          "revision": "A",
+          "profile": "shell",
+          "scenario": "code-edit",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.106,
+              "min": 0.105,
+              "max": 0.115
+            },
+            "rounded_vector_lint": {
+              "median": 0.008,
+              "min": 0.007,
+              "max": 0.011
+            },
+            "app_r8": {
+              "median": 16.608,
+              "min": 16.189,
+              "max": 16.727
+            },
+            "app_lint": {
+              "median": 2.809,
+              "min": 2.772,
+              "max": 2.849
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":composeApp:minifyShrunkWithR8",
+              "median": 16.608,
+              "min": 16.189,
+              "max": 16.727
+            },
+            {
+              "path": ":composeApp:compileShrunkKotlinAndroid",
+              "median": 3.699,
+              "min": 3.636,
+              "max": 3.875
+            },
+            {
+              "path": ":composeApp:lintVitalAnalyzeShrunk",
+              "median": 2.809,
+              "min": 2.772,
+              "max": 2.849
+            },
+            {
+              "path": ":composeApp:produceShrunkComposeMapping",
+              "median": 1.051,
+              "min": 1.01,
+              "max": 1.068
+            }
+          ]
+        },
+        {
+          "revision": "A",
+          "profile": "shell",
+          "scenario": "noop",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.124,
+              "min": 0.107,
+              "max": 0.149
+            },
+            "rounded_vector_lint": {
+              "median": 0.005,
+              "min": 0.005,
+              "max": 0.005
+            },
+            "app_r8": {
+              "median": 0.041,
+              "min": 0.031,
+              "max": 0.043
+            },
+            "app_lint": {
+              "median": 0.004,
+              "min": 0.004,
+              "max": 0.005
+            }
+          },
+          "top_task_seconds": []
+        },
+        {
+          "revision": "A",
+          "profile": "shell",
+          "scenario": "target-clean",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 33.334,
+              "min": 32.182,
+              "max": 33.465
+            },
+            "rounded_vector_lint": {
+              "median": 2.095,
+              "min": 2.075,
+              "max": 2.262
+            },
+            "app_r8": {
+              "median": 16.063,
+              "min": 15.974,
+              "max": 16.245
+            },
+            "app_lint": {
+              "median": 6.359,
+              "min": 6.308,
+              "max": 6.423
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":modules:material-vectors-rounded:compileReleaseKotlinAndroid",
+              "median": 33.334,
+              "min": 32.182,
+              "max": 33.465
+            },
+            {
+              "path": ":composeApp:minifyShrunkWithR8",
+              "median": 16.063,
+              "min": 15.974,
+              "max": 16.245
+            },
+            {
+              "path": ":composeApp:lintVitalAnalyzeShrunk",
+              "median": 6.359,
+              "min": 6.308,
+              "max": 6.423
+            },
+            {
+              "path": ":modules:material-vectors-rounded:generateMaterialVectors",
+              "median": 4.036,
+              "min": 3.971,
+              "max": 4.151
+            },
+            {
+              "path": ":modules:material-core:compileReleaseKotlinAndroid",
+              "median": 2.563,
+              "min": 2.536,
+              "max": 2.674
+            },
+            {
+              "path": ":modules:material-vectors-rounded:lintVitalAnalyzeRelease",
+              "median": 2.095,
+              "min": 2.075,
+              "max": 2.262
+            },
+            {
+              "path": ":modules:symbols-core:compileReleaseKotlinAndroid",
+              "median": 1.991,
+              "min": 1.75,
+              "max": 2.006
+            },
+            {
+              "path": ":modules:material-core:lintVitalAnalyzeRelease",
+              "median": 1.746,
+              "min": 1.656,
+              "max": 1.749
+            }
+          ]
+        },
+        {
+          "revision": "B",
+          "profile": "all",
+          "scenario": "code-edit",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.12,
+              "min": 0.108,
+              "max": 0.133
+            },
+            "rounded_vector_lint": {
+              "median": 0.006,
+              "min": 0.006,
+              "max": 0.007
+            },
+            "app_r8": {
+              "median": 15.914,
+              "min": 15.803,
+              "max": 16.065
+            },
+            "app_lint": {
+              "median": 2.406,
+              "min": 2.383,
+              "max": 2.609
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":androidApp:minifyShrunkWithR8",
+              "median": 15.914,
+              "min": 15.803,
+              "max": 16.065
+            },
+            {
+              "path": ":composeApp:compileAndroidMain",
+              "median": 3.238,
+              "min": 3.174,
+              "max": 3.289
+            },
+            {
+              "path": ":androidApp:lintVitalAnalyzeShrunk",
+              "median": 2.406,
+              "min": 2.383,
+              "max": 2.609
+            },
+            {
+              "path": ":androidApp:produceShrunkComposeMapping",
+              "median": 1.453,
+              "min": 1.279,
+              "max": 1.61
+            }
+          ]
+        },
+        {
+          "revision": "B",
+          "profile": "all",
+          "scenario": "noop",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.136,
+              "min": 0.121,
+              "max": 0.142
+            },
+            "rounded_vector_lint": {
+              "median": 0.006,
+              "min": 0.006,
+              "max": 0.007
+            },
+            "app_r8": {
+              "median": 0.036,
+              "min": 0.036,
+              "max": 0.039
+            },
+            "app_lint": {
+              "median": 0.008,
+              "min": 0.008,
+              "max": 0.009
+            }
+          },
+          "top_task_seconds": []
+        },
+        {
+          "revision": "B",
+          "profile": "all",
+          "scenario": "resource-edit",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.112,
+              "min": 0.108,
+              "max": 0.119
+            },
+            "rounded_vector_lint": {
+              "median": 0.007,
+              "min": 0.006,
+              "max": 0.007
+            },
+            "app_r8": {
+              "median": 15.921,
+              "min": 15.787,
+              "max": 16.022
+            },
+            "app_lint": {
+              "median": 0.391,
+              "min": 0.338,
+              "max": 0.391
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":androidApp:minifyShrunkWithR8",
+              "median": 15.921,
+              "min": 15.787,
+              "max": 16.022
+            },
+            {
+              "path": ":samples:image-vector-migration:compileAndroidMain",
+              "median": 6.317,
+              "min": 6.199,
+              "max": 6.367
+            },
+            {
+              "path": ":samples:image-vector-migration:lintVitalAnalyzeAndroidMain",
+              "median": 2.636,
+              "min": 2.602,
+              "max": 2.846
+            },
+            {
+              "path": ":samples:android-views:lintVitalAnalyzeAndroidMain",
+              "median": 2.12,
+              "min": 2.114,
+              "max": 2.169
+            }
+          ]
+        },
+        {
+          "revision": "B",
+          "profile": "all",
+          "scenario": "target-clean",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 33.45,
+              "min": 32.977,
+              "max": 33.974
+            },
+            "rounded_vector_lint": {
+              "median": 23.192,
+              "min": 23.151,
+              "max": 23.644
+            },
+            "app_r8": {
+              "median": 16.13,
+              "min": 16.122,
+              "max": 18.726
+            },
+            "app_lint": {
+              "median": 0.224,
+              "min": 0.222,
+              "max": 0.258
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":modules:material-vectors-rounded:compileAndroidMain",
+              "median": 33.45,
+              "min": 32.977,
+              "max": 33.974
+            },
+            {
+              "path": ":modules:material-vectors-rounded:lintVitalAnalyzeAndroidMain",
+              "median": 23.192,
+              "min": 23.151,
+              "max": 23.644
+            },
+            {
+              "path": ":androidApp:minifyShrunkWithR8",
+              "median": 16.13,
+              "min": 16.122,
+              "max": 18.726
+            },
+            {
+              "path": ":modules:material-compose-drawables-rounded:lintVitalAnalyzeAndroidMain",
+              "median": 7.512,
+              "min": 7.29,
+              "max": 7.654
+            },
+            {
+              "path": ":modules:material-compose-drawables-rounded:compileAndroidMain",
+              "median": 4.624,
+              "min": 4.614,
+              "max": 4.795
+            },
+            {
+              "path": ":modules:material-vectors-rounded:generateMaterialVectors",
+              "median": 3.985,
+              "min": 3.941,
+              "max": 4.04
+            },
+            {
+              "path": ":modules:material-core:compileAndroidMain",
+              "median": 3.621,
+              "min": 3.598,
+              "max": 3.703
+            },
+            {
+              "path": ":modules:material-core:lintVitalAnalyzeAndroidMain",
+              "median": 3.047,
+              "min": 2.936,
+              "max": 3.165
+            }
+          ]
+        },
+        {
+          "revision": "B",
+          "profile": "image-vector-migration",
+          "scenario": "code-edit",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.124,
+              "min": 0.122,
+              "max": 0.397
+            },
+            "rounded_vector_lint": {
+              "median": 0.008,
+              "min": 0.006,
+              "max": 0.009
+            },
+            "app_r8": {
+              "median": 15.681,
+              "min": 15.448,
+              "max": 24.621
+            },
+            "app_lint": {
+              "median": 2.475,
+              "min": 2.453,
+              "max": 2.968
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":androidApp:minifyShrunkWithR8",
+              "median": 15.681,
+              "min": 15.448,
+              "max": 24.621
+            },
+            {
+              "path": ":composeApp:compileAndroidMain",
+              "median": 3.339,
+              "min": 3.237,
+              "max": 5.302
+            },
+            {
+              "path": ":androidApp:lintVitalAnalyzeShrunk",
+              "median": 2.475,
+              "min": 2.453,
+              "max": 2.968
+            },
+            {
+              "path": ":androidApp:produceShrunkComposeMapping",
+              "median": 1.694,
+              "min": 1.498,
+              "max": 1.749
+            }
+          ]
+        },
+        {
+          "revision": "B",
+          "profile": "image-vector-migration",
+          "scenario": "noop",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.13,
+              "min": 0.121,
+              "max": 0.367
+            },
+            "rounded_vector_lint": {
+              "median": 0.007,
+              "min": 0.005,
+              "max": 0.01
+            },
+            "app_r8": {
+              "median": 0.039,
+              "min": 0.038,
+              "max": 0.093
+            },
+            "app_lint": {
+              "median": 0.005,
+              "min": 0.004,
+              "max": 0.01
+            }
+          },
+          "top_task_seconds": []
+        },
+        {
+          "revision": "B",
+          "profile": "image-vector-migration",
+          "scenario": "resource-edit",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.117,
+              "min": 0.113,
+              "max": 0.13
+            },
+            "rounded_vector_lint": {
+              "median": 0.009,
+              "min": 0.008,
+              "max": 0.01
+            },
+            "app_r8": {
+              "median": 15.832,
+              "min": 15.438,
+              "max": 15.835
+            },
+            "app_lint": {
+              "median": 0.537,
+              "min": 0.499,
+              "max": 0.583
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":androidApp:minifyShrunkWithR8",
+              "median": 15.832,
+              "min": 15.438,
+              "max": 15.835
+            },
+            {
+              "path": ":samples:image-vector-migration:compileAndroidMain",
+              "median": 6.384,
+              "min": 6.202,
+              "max": 6.411
+            },
+            {
+              "path": ":samples:image-vector-migration:lintVitalAnalyzeAndroidMain",
+              "median": 4.955,
+              "min": 4.875,
+              "max": 4.961
+            },
+            {
+              "path": ":androidApp:produceShrunkComposeMapping",
+              "median": 1.477,
+              "min": 1.438,
+              "max": 1.725
+            }
+          ]
+        },
+        {
+          "revision": "B",
+          "profile": "image-vector-migration",
+          "scenario": "target-clean",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 33.607,
+              "min": 33.119,
+              "max": 38.462
+            },
+            "rounded_vector_lint": {
+              "median": 23.29,
+              "min": 23.179,
+              "max": 23.642
+            },
+            "app_r8": {
+              "median": 15.803,
+              "min": 15.645,
+              "max": 25.197
+            },
+            "app_lint": {
+              "median": 0.314,
+              "min": 0.313,
+              "max": 0.467
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":modules:material-vectors-rounded:compileAndroidMain",
+              "median": 33.607,
+              "min": 33.119,
+              "max": 38.462
+            },
+            {
+              "path": ":modules:material-vectors-rounded:lintVitalAnalyzeAndroidMain",
+              "median": 23.29,
+              "min": 23.179,
+              "max": 23.642
+            },
+            {
+              "path": ":androidApp:minifyShrunkWithR8",
+              "median": 15.803,
+              "min": 15.645,
+              "max": 25.197
+            },
+            {
+              "path": ":modules:material-core:lintVitalAnalyzeAndroidMain",
+              "median": 4.318,
+              "min": 4.247,
+              "max": 6.394
+            },
+            {
+              "path": ":modules:material-vectors-rounded:generateMaterialVectors",
+              "median": 4.032,
+              "min": 4.02,
+              "max": 4.293
+            },
+            {
+              "path": ":modules:material-core:compileAndroidMain",
+              "median": 3.605,
+              "min": 3.558,
+              "max": 3.61
+            },
+            {
+              "path": ":modules:material-compose:lintVitalAnalyzeAndroidMain",
+              "median": 2.087,
+              "min": 2.011,
+              "max": 3.879
+            },
+            {
+              "path": ":modules:symbols-core:compileAndroidMain",
+              "median": 2.055,
+              "min": 2.048,
+              "max": 2.068
+            }
+          ]
+        },
+        {
+          "revision": "B",
+          "profile": "material-static",
+          "scenario": "code-edit",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.126,
+              "min": 0.119,
+              "max": 0.127
+            },
+            "rounded_vector_lint": {
+              "median": 0.008,
+              "min": 0.008,
+              "max": 0.012
+            },
+            "app_r8": {
+              "median": 17.847,
+              "min": 14.695,
+              "max": 23.084
+            },
+            "app_lint": {
+              "median": 2.624,
+              "min": 2.456,
+              "max": 4.412
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":androidApp:minifyShrunkWithR8",
+              "median": 17.847,
+              "min": 14.695,
+              "max": 23.084
+            },
+            {
+              "path": ":composeApp:compileAndroidMain",
+              "median": 3.202,
+              "min": 3.169,
+              "max": 3.221
+            },
+            {
+              "path": ":androidApp:lintVitalAnalyzeShrunk",
+              "median": 2.624,
+              "min": 2.456,
+              "max": 4.412
+            },
+            {
+              "path": ":androidApp:produceShrunkComposeMapping",
+              "median": 1.174,
+              "min": 1.108,
+              "max": 1.809
+            }
+          ]
+        },
+        {
+          "revision": "B",
+          "profile": "material-static",
+          "scenario": "noop",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.126,
+              "min": 0.122,
+              "max": 0.144
+            },
+            "rounded_vector_lint": {
+              "median": 0.007,
+              "min": 0.006,
+              "max": 0.007
+            },
+            "app_r8": {
+              "median": 0.042,
+              "min": 0.04,
+              "max": 0.042
+            },
+            "app_lint": {
+              "median": 0.005,
+              "min": 0.004,
+              "max": 0.005
+            }
+          },
+          "top_task_seconds": []
+        },
+        {
+          "revision": "B",
+          "profile": "material-static",
+          "scenario": "target-clean",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 33.462,
+              "min": 33.375,
+              "max": 33.605
+            },
+            "rounded_vector_lint": {
+              "median": 22.876,
+              "min": 21.929,
+              "max": 23.092
+            },
+            "app_r8": {
+              "median": 15.165,
+              "min": 14.948,
+              "max": 15.744
+            },
+            "app_lint": {
+              "median": 0.356,
+              "min": 0.338,
+              "max": 0.374
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":modules:material-vectors-rounded:compileAndroidMain",
+              "median": 33.462,
+              "min": 33.375,
+              "max": 33.605
+            },
+            {
+              "path": ":modules:material-vectors-rounded:lintVitalAnalyzeAndroidMain",
+              "median": 22.876,
+              "min": 21.929,
+              "max": 23.092
+            },
+            {
+              "path": ":androidApp:minifyShrunkWithR8",
+              "median": 15.165,
+              "min": 14.948,
+              "max": 15.744
+            },
+            {
+              "path": ":modules:material-compose-drawables-rounded:lintVitalAnalyzeAndroidMain",
+              "median": 7.552,
+              "min": 7.095,
+              "max": 7.742
+            },
+            {
+              "path": ":modules:material-compose-drawables-rounded:compileAndroidMain",
+              "median": 5.627,
+              "min": 5.59,
+              "max": 5.628
+            },
+            {
+              "path": ":modules:material-vectors-rounded:generateMaterialVectors",
+              "median": 4.005,
+              "min": 4.003,
+              "max": 4.06
+            },
+            {
+              "path": ":modules:material-core:compileAndroidMain",
+              "median": 3.615,
+              "min": 3.565,
+              "max": 3.656
+            },
+            {
+              "path": ":modules:material-core:lintVitalAnalyzeAndroidMain",
+              "median": 3.096,
+              "min": 3.071,
+              "max": 3.109
+            }
+          ]
+        },
+        {
+          "revision": "B",
+          "profile": "material-variable",
+          "scenario": "code-edit",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.121,
+              "min": 0.119,
+              "max": 0.124
+            },
+            "rounded_vector_lint": {
+              "median": 0.008,
+              "min": 0.008,
+              "max": 0.01
+            },
+            "app_r8": {
+              "median": 14.285,
+              "min": 14.06,
+              "max": 14.488
+            },
+            "app_lint": {
+              "median": 2.447,
+              "min": 2.319,
+              "max": 2.502
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":androidApp:minifyShrunkWithR8",
+              "median": 14.285,
+              "min": 14.06,
+              "max": 14.488
+            },
+            {
+              "path": ":composeApp:compileAndroidMain",
+              "median": 3.192,
+              "min": 3.079,
+              "max": 3.225
+            },
+            {
+              "path": ":androidApp:lintVitalAnalyzeShrunk",
+              "median": 2.447,
+              "min": 2.319,
+              "max": 2.502
+            },
+            {
+              "path": ":androidApp:produceShrunkComposeMapping",
+              "median": 1.081,
+              "min": 1.064,
+              "max": 1.18
+            }
+          ]
+        },
+        {
+          "revision": "B",
+          "profile": "material-variable",
+          "scenario": "noop",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.119,
+              "min": 0.116,
+              "max": 0.122
+            },
+            "rounded_vector_lint": {
+              "median": 0.006,
+              "min": 0.006,
+              "max": 0.007
+            },
+            "app_r8": {
+              "median": 0.04,
+              "min": 0.035,
+              "max": 0.046
+            },
+            "app_lint": {
+              "median": 0.005,
+              "min": 0.004,
+              "max": 0.006
+            }
+          },
+          "top_task_seconds": []
+        },
+        {
+          "revision": "B",
+          "profile": "material-variable",
+          "scenario": "target-clean",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 32.969,
+              "min": 32.579,
+              "max": 33.869
+            },
+            "rounded_vector_lint": {
+              "median": 23.297,
+              "min": 23.139,
+              "max": 23.387
+            },
+            "app_r8": {
+              "median": 14.742,
+              "min": 14.365,
+              "max": 14.956
+            },
+            "app_lint": {
+              "median": 0.349,
+              "min": 0.349,
+              "max": 0.367
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":modules:material-vectors-rounded:compileAndroidMain",
+              "median": 32.969,
+              "min": 32.579,
+              "max": 33.869
+            },
+            {
+              "path": ":modules:material-vectors-rounded:lintVitalAnalyzeAndroidMain",
+              "median": 23.297,
+              "min": 23.139,
+              "max": 23.387
+            },
+            {
+              "path": ":androidApp:minifyShrunkWithR8",
+              "median": 14.742,
+              "min": 14.365,
+              "max": 14.956
+            },
+            {
+              "path": ":modules:material-core:lintVitalAnalyzeAndroidMain",
+              "median": 4.267,
+              "min": 4.138,
+              "max": 4.284
+            },
+            {
+              "path": ":modules:material-vectors-rounded:generateMaterialVectors",
+              "median": 3.984,
+              "min": 3.962,
+              "max": 4.024
+            },
+            {
+              "path": ":modules:material-core:compileAndroidMain",
+              "median": 3.547,
+              "min": 3.478,
+              "max": 3.634
+            },
+            {
+              "path": ":modules:material-compose:lintVitalAnalyzeAndroidMain",
+              "median": 1.954,
+              "min": 1.886,
+              "max": 2.062
+            },
+            {
+              "path": ":modules:symbols-core:compileAndroidMain",
+              "median": 1.946,
+              "min": 1.923,
+              "max": 2.064
+            }
+          ]
+        },
+        {
+          "revision": "B",
+          "profile": "shell",
+          "scenario": "code-edit",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.126,
+              "min": 0.123,
+              "max": 0.144
+            },
+            "rounded_vector_lint": {
+              "median": 0.01,
+              "min": 0.009,
+              "max": 0.011
+            },
+            "app_r8": {
+              "median": 14.341,
+              "min": 14.093,
+              "max": 14.444
+            },
+            "app_lint": {
+              "median": 2.384,
+              "min": 2.373,
+              "max": 2.537
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":androidApp:minifyShrunkWithR8",
+              "median": 14.341,
+              "min": 14.093,
+              "max": 14.444
+            },
+            {
+              "path": ":composeApp:compileAndroidMain",
+              "median": 3.26,
+              "min": 3.254,
+              "max": 3.261
+            },
+            {
+              "path": ":androidApp:lintVitalAnalyzeShrunk",
+              "median": 2.384,
+              "min": 2.373,
+              "max": 2.537
+            },
+            {
+              "path": ":androidApp:produceShrunkComposeMapping",
+              "median": 1.016,
+              "min": 1.004,
+              "max": 1.023
+            }
+          ]
+        },
+        {
+          "revision": "B",
+          "profile": "shell",
+          "scenario": "noop",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.121,
+              "min": 0.121,
+              "max": 0.136
+            },
+            "rounded_vector_lint": {
+              "median": 0.007,
+              "min": 0.006,
+              "max": 0.008
+            },
+            "app_r8": {
+              "median": 0.044,
+              "min": 0.037,
+              "max": 0.045
+            },
+            "app_lint": {
+              "median": 0.006,
+              "min": 0.006,
+              "max": 0.009
+            }
+          },
+          "top_task_seconds": []
+        },
+        {
+          "revision": "B",
+          "profile": "shell",
+          "scenario": "target-clean",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 33.765,
+              "min": 33.584,
+              "max": 34.112
+            },
+            "rounded_vector_lint": {
+              "median": 24.056,
+              "min": 23.862,
+              "max": 25.355
+            },
+            "app_r8": {
+              "median": 14.378,
+              "min": 14.262,
+              "max": 17.637
+            },
+            "app_lint": {
+              "median": 0.492,
+              "min": 0.436,
+              "max": 0.506
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":modules:material-vectors-rounded:compileAndroidMain",
+              "median": 33.765,
+              "min": 33.584,
+              "max": 34.112
+            },
+            {
+              "path": ":modules:material-vectors-rounded:lintVitalAnalyzeAndroidMain",
+              "median": 24.056,
+              "min": 23.862,
+              "max": 25.355
+            },
+            {
+              "path": ":androidApp:minifyShrunkWithR8",
+              "median": 14.378,
+              "min": 14.262,
+              "max": 17.637
+            },
+            {
+              "path": ":modules:material-core:lintVitalAnalyzeAndroidMain",
+              "median": 5.95,
+              "min": 5.94,
+              "max": 6.307
+            },
+            {
+              "path": ":modules:material-vectors-rounded:generateMaterialVectors",
+              "median": 4.056,
+              "min": 4.022,
+              "max": 4.062
+            },
+            {
+              "path": ":modules:material-core:compileAndroidMain",
+              "median": 3.623,
+              "min": 3.56,
+              "max": 3.637
+            },
+            {
+              "path": ":modules:symbols-core:compileAndroidMain",
+              "median": 1.995,
+              "min": 1.947,
+              "max": 2.042
+            },
+            {
+              "path": ":samples:ui:components:compileAndroidMain",
+              "median": 1.145,
+              "min": 1.096,
+              "max": 1.194
+            }
+          ]
+        }
+      ],
+      "generated_inventory": [
+        {
+          "revision": "A",
+          "profile": "all",
+          "totals": {
+            "files": 19686,
+            "bytes": 104463281,
+            "kotlin_lines": 459525
+          },
+          "modules": {
+            "composeApp/build/generated": {
+              "files": 8,
+              "bytes": 5063,
+              "kotlin_lines": 0
+            },
+            "samples/android-views/build/generated": {
+              "files": 19,
+              "bytes": 19485,
+              "kotlin_lines": 7
+            },
+            "samples/api/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "samples/custom-static/build/generated": {
+              "files": 46,
+              "bytes": 50254,
+              "kotlin_lines": 538
+            },
+            "samples/custom-variable/build/generated": {
+              "files": 217,
+              "bytes": 1249101,
+              "kotlin_lines": 6597
+            },
+            "samples/image-vector-migration/build/generated": {
+              "files": 252,
+              "bytes": 1029735,
+              "kotlin_lines": 6882
+            },
+            "samples/material-static/build/generated": {
+              "files": 1,
+              "bytes": 196,
+              "kotlin_lines": 7
+            },
+            "samples/material-variable/build/generated": {
+              "files": 1,
+              "bytes": 200,
+              "kotlin_lines": 7
+            },
+            "samples/runtime-axes/build/generated": {
+              "files": 1,
+              "bytes": 190,
+              "kotlin_lines": 7
+            },
+            "samples/theming/build/generated": {
+              "files": 1,
+              "bytes": 181,
+              "kotlin_lines": 7
+            },
+            "samples/ui/components/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-compose/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-compose-drawables-rounded/build/generated": {
+              "files": 15252,
+              "bytes": 30935526,
+              "kotlin_lines": 31862
+            },
+            "symbols/material-core/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-drawables-outlined/build/generated": {
+              "files": 3803,
+              "bytes": 5426528,
+              "kotlin_lines": 0
+            },
+            "symbols/material-rounded/build/generated": {
+              "files": 10,
+              "bytes": 43766452,
+              "kotlin_lines": 172
+            },
+            "symbols/material-rounded-static/build/generated": {
+              "files": 10,
+              "bytes": 5108037,
+              "kotlin_lines": 176
+            },
+            "symbols/material-vectors-rounded/build/generated": {
+              "files": 62,
+              "bytes": 16868767,
+              "kotlin_lines": 413160
+            },
+            "symbols/symbols-core/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/variant-font-core/build/generated": {
+              "files": 3,
+              "bytes": 3566,
+              "kotlin_lines": 103
+            }
+          },
+          "clean_apk_sha256": [
+            "35ba6c8d3679e1dd11027eb0984f4ad419a75c8ae1dc98618d6832a0b3b25cb8"
+          ]
+        },
+        {
+          "revision": "A",
+          "profile": "image-vector-migration",
+          "totals": {
+            "files": 334,
+            "bytes": 61673238,
+            "kotlin_lines": 420317
+          },
+          "modules": {
+            "composeApp/build/generated": {
+              "files": 7,
+              "bytes": 4718,
+              "kotlin_lines": 0
+            },
+            "samples/api/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "samples/image-vector-migration/build/generated": {
+              "files": 252,
+              "bytes": 1029735,
+              "kotlin_lines": 6882
+            },
+            "samples/ui/components/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-compose/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-core/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-rounded/build/generated": {
+              "files": 10,
+              "bytes": 43766452,
+              "kotlin_lines": 172
+            },
+            "symbols/material-vectors-rounded/build/generated": {
+              "files": 62,
+              "bytes": 16868767,
+              "kotlin_lines": 413160
+            },
+            "symbols/symbols-core/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/variant-font-core/build/generated": {
+              "files": 3,
+              "bytes": 3566,
+              "kotlin_lines": 103
+            }
+          },
+          "clean_apk_sha256": [
+            "7471e2dbdcfacabc7b55b322621c82b5a3bb2a853cf3d0316461cd4cd4fd9849"
+          ]
+        },
+        {
+          "revision": "A",
+          "profile": "material-static",
+          "totals": {
+            "files": 15335,
+            "bytes": 52920810,
+            "kotlin_lines": 445308
+          },
+          "modules": {
+            "composeApp/build/generated": {
+              "files": 7,
+              "bytes": 4718,
+              "kotlin_lines": 0
+            },
+            "samples/api/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "samples/material-static/build/generated": {
+              "files": 1,
+              "bytes": 196,
+              "kotlin_lines": 7
+            },
+            "samples/ui/components/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-compose/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-compose-drawables-rounded/build/generated": {
+              "files": 15252,
+              "bytes": 30935526,
+              "kotlin_lines": 31862
+            },
+            "symbols/material-core/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-rounded-static/build/generated": {
+              "files": 10,
+              "bytes": 5108037,
+              "kotlin_lines": 176
+            },
+            "symbols/material-vectors-rounded/build/generated": {
+              "files": 62,
+              "bytes": 16868767,
+              "kotlin_lines": 413160
+            },
+            "symbols/symbols-core/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/variant-font-core/build/generated": {
+              "files": 3,
+              "bytes": 3566,
+              "kotlin_lines": 103
+            }
+          },
+          "clean_apk_sha256": [
+            "737d20e721f950789462bcb65145e29a18c4f14635f12a3b31072eb77ce2aef5"
+          ]
+        },
+        {
+          "revision": "A",
+          "profile": "material-variable",
+          "totals": {
+            "files": 83,
+            "bytes": 60643703,
+            "kotlin_lines": 413442
+          },
+          "modules": {
+            "composeApp/build/generated": {
+              "files": 7,
+              "bytes": 4718,
+              "kotlin_lines": 0
+            },
+            "samples/api/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "samples/material-variable/build/generated": {
+              "files": 1,
+              "bytes": 200,
+              "kotlin_lines": 7
+            },
+            "samples/ui/components/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-compose/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-core/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-rounded/build/generated": {
+              "files": 10,
+              "bytes": 43766452,
+              "kotlin_lines": 172
+            },
+            "symbols/material-vectors-rounded/build/generated": {
+              "files": 62,
+              "bytes": 16868767,
+              "kotlin_lines": 413160
+            },
+            "symbols/symbols-core/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/variant-font-core/build/generated": {
+              "files": 3,
+              "bytes": 3566,
+              "kotlin_lines": 103
+            }
+          },
+          "clean_apk_sha256": [
+            "c2466af5fab2ee4ce661921a0640fbdee9d09b3cc8bccda2da3c2ba9bfd4b93e"
+          ]
+        },
+        {
+          "revision": "A",
+          "profile": "shell",
+          "totals": {
+            "files": 69,
+            "bytes": 16873485,
+            "kotlin_lines": 413160
+          },
+          "modules": {
+            "composeApp/build/generated": {
+              "files": 7,
+              "bytes": 4718,
+              "kotlin_lines": 0
+            },
+            "samples/api/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "samples/ui/components/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-core/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-vectors-rounded/build/generated": {
+              "files": 62,
+              "bytes": 16868767,
+              "kotlin_lines": 413160
+            },
+            "symbols/symbols-core/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            }
+          },
+          "clean_apk_sha256": [
+            "dff95187e0d670b24df375c57d2aaede92209c5e233df6fbedd18eb73dcd32ec"
+          ]
+        },
+        {
+          "revision": "B",
+          "profile": "all",
+          "totals": {
+            "files": 19666,
+            "bytes": 104840667,
+            "kotlin_lines": 459525
+          },
+          "modules": {
+            "androidApp/build/generated": {
+              "files": 8,
+              "bytes": 4971,
+              "kotlin_lines": 0
+            },
+            "composeApp/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "samples/android-views/build/generated": {
+              "files": 1,
+              "bytes": 192,
+              "kotlin_lines": 7
+            },
+            "samples/android-views-platform/build/generated": {
+              "files": 18,
+              "bytes": 19293,
+              "kotlin_lines": 0
+            },
+            "samples/api/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "samples/custom-static/build/generated": {
+              "files": 46,
+              "bytes": 50254,
+              "kotlin_lines": 538
+            },
+            "samples/custom-variable/build/generated": {
+              "files": 217,
+              "bytes": 1249101,
+              "kotlin_lines": 6597
+            },
+            "samples/image-vector-migration/build/generated": {
+              "files": 231,
+              "bytes": 1008386,
+              "kotlin_lines": 6882
+            },
+            "samples/material-static/build/generated": {
+              "files": 1,
+              "bytes": 196,
+              "kotlin_lines": 7
+            },
+            "samples/material-variable/build/generated": {
+              "files": 1,
+              "bytes": 200,
+              "kotlin_lines": 7
+            },
+            "samples/runtime-axes/build/generated": {
+              "files": 1,
+              "bytes": 190,
+              "kotlin_lines": 7
+            },
+            "samples/theming/build/generated": {
+              "files": 1,
+              "bytes": 181,
+              "kotlin_lines": 7
+            },
+            "samples/ui/components/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-compose/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-compose-drawables-rounded/build/generated": {
+              "files": 15252,
+              "bytes": 31248088,
+              "kotlin_lines": 31862
+            },
+            "symbols/material-core/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-drawables-outlined/build/generated": {
+              "files": 3804,
+              "bytes": 5512793,
+              "kotlin_lines": 0
+            },
+            "symbols/material-rounded/build/generated": {
+              "files": 10,
+              "bytes": 43766452,
+              "kotlin_lines": 172
+            },
+            "symbols/material-rounded-static/build/generated": {
+              "files": 10,
+              "bytes": 5108037,
+              "kotlin_lines": 176
+            },
+            "symbols/material-vectors-rounded/build/generated": {
+              "files": 62,
+              "bytes": 16868767,
+              "kotlin_lines": 413160
+            },
+            "symbols/symbols-core/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/variant-font-core/build/generated": {
+              "files": 3,
+              "bytes": 3566,
+              "kotlin_lines": 103
+            }
+          },
+          "clean_apk_sha256": [
+            "8578c847b8a1c4a53245b72fa174c26896c1f279b414e639bc67b66c4bdabeef"
+          ]
+        },
+        {
+          "revision": "B",
+          "profile": "image-vector-migration",
+          "totals": {
+            "files": 313,
+            "bytes": 61651889,
+            "kotlin_lines": 420317
+          },
+          "modules": {
+            "androidApp/build/generated": {
+              "files": 7,
+              "bytes": 4718,
+              "kotlin_lines": 0
+            },
+            "composeApp/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "samples/api/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "samples/image-vector-migration/build/generated": {
+              "files": 231,
+              "bytes": 1008386,
+              "kotlin_lines": 6882
+            },
+            "samples/ui/components/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-compose/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-core/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-rounded/build/generated": {
+              "files": 10,
+              "bytes": 43766452,
+              "kotlin_lines": 172
+            },
+            "symbols/material-vectors-rounded/build/generated": {
+              "files": 62,
+              "bytes": 16868767,
+              "kotlin_lines": 413160
+            },
+            "symbols/symbols-core/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/variant-font-core/build/generated": {
+              "files": 3,
+              "bytes": 3566,
+              "kotlin_lines": 103
+            }
+          },
+          "clean_apk_sha256": [
+            "85ecbb34e467ad0dfe4746c06c40fe34e957c6c166b726a91262f8c15b7d0bb0"
+          ]
+        },
+        {
+          "revision": "B",
+          "profile": "material-static",
+          "totals": {
+            "files": 15335,
+            "bytes": 53233372,
+            "kotlin_lines": 445308
+          },
+          "modules": {
+            "androidApp/build/generated": {
+              "files": 7,
+              "bytes": 4718,
+              "kotlin_lines": 0
+            },
+            "composeApp/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "samples/api/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "samples/material-static/build/generated": {
+              "files": 1,
+              "bytes": 196,
+              "kotlin_lines": 7
+            },
+            "samples/ui/components/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-compose/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-compose-drawables-rounded/build/generated": {
+              "files": 15252,
+              "bytes": 31248088,
+              "kotlin_lines": 31862
+            },
+            "symbols/material-core/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-rounded-static/build/generated": {
+              "files": 10,
+              "bytes": 5108037,
+              "kotlin_lines": 176
+            },
+            "symbols/material-vectors-rounded/build/generated": {
+              "files": 62,
+              "bytes": 16868767,
+              "kotlin_lines": 413160
+            },
+            "symbols/symbols-core/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/variant-font-core/build/generated": {
+              "files": 3,
+              "bytes": 3566,
+              "kotlin_lines": 103
+            }
+          },
+          "clean_apk_sha256": [
+            "00fc4c9bb98cec2589c7621193b8f5f2bb45e042edcd60adb6eb931ca767ca3d"
+          ]
+        },
+        {
+          "revision": "B",
+          "profile": "material-variable",
+          "totals": {
+            "files": 83,
+            "bytes": 60643703,
+            "kotlin_lines": 413442
+          },
+          "modules": {
+            "androidApp/build/generated": {
+              "files": 7,
+              "bytes": 4718,
+              "kotlin_lines": 0
+            },
+            "composeApp/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "samples/api/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "samples/material-variable/build/generated": {
+              "files": 1,
+              "bytes": 200,
+              "kotlin_lines": 7
+            },
+            "samples/ui/components/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-compose/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-core/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-rounded/build/generated": {
+              "files": 10,
+              "bytes": 43766452,
+              "kotlin_lines": 172
+            },
+            "symbols/material-vectors-rounded/build/generated": {
+              "files": 62,
+              "bytes": 16868767,
+              "kotlin_lines": 413160
+            },
+            "symbols/symbols-core/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/variant-font-core/build/generated": {
+              "files": 3,
+              "bytes": 3566,
+              "kotlin_lines": 103
+            }
+          },
+          "clean_apk_sha256": [
+            "2447a4be8536d4c462cbc63a289a596036040fb23aa1996f401410b7d6612587"
+          ]
+        },
+        {
+          "revision": "B",
+          "profile": "shell",
+          "totals": {
+            "files": 69,
+            "bytes": 16873485,
+            "kotlin_lines": 413160
+          },
+          "modules": {
+            "androidApp/build/generated": {
+              "files": 7,
+              "bytes": 4718,
+              "kotlin_lines": 0
+            },
+            "composeApp/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "samples/api/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "samples/ui/components/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-core/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-vectors-rounded/build/generated": {
+              "files": 62,
+              "bytes": 16868767,
+              "kotlin_lines": 413160
+            },
+            "symbols/symbols-core/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            }
+          },
+          "clean_apk_sha256": [
+            "0ff89a089e14e28c93a4e99065a317fe15d9d260e9f1e829bdfb5e2baaf3e6a4"
+          ]
+        }
+      ],
+      "cache_results": [
+        {
+          "revision": "A",
+          "profile": "shell",
+          "scenario": "configuration-cache",
+          "wall_seconds": 4.668,
+          "peak_process_tree_rss_bytes_sampled": 857145344,
+          "configuration_cache_reused": true,
+          "task_outcomes": {
+            "UP-TO-DATE": 256,
+            "NO-SOURCE": 55,
+            "EXECUTED": 8,
+            "SKIPPED": 24
+          }
+        },
+        {
+          "revision": "A",
+          "profile": "shell",
+          "scenario": "build-cache",
+          "wall_seconds": 15.491,
+          "peak_process_tree_rss_bytes_sampled": 1629032448,
+          "configuration_cache_reused": false,
+          "task_outcomes": {
+            "SKIPPED": 27,
+            "UP-TO-DATE": 64,
+            "NO-SOURCE": 59,
+            "EXECUTED": 122,
+            "FROM-CACHE": 92
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "shell",
+          "scenario": "configuration-cache",
+          "wall_seconds": 4.677,
+          "peak_process_tree_rss_bytes_sampled": 841871360,
+          "configuration_cache_reused": true,
+          "task_outcomes": {
+            "UP-TO-DATE": 231,
+            "NO-SOURCE": 25,
+            "EXECUTED": 8,
+            "SKIPPED": 21
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "shell",
+          "scenario": "build-cache",
+          "wall_seconds": 13.439,
+          "peak_process_tree_rss_bytes_sampled": 1562869760,
+          "configuration_cache_reused": false,
+          "task_outcomes": {
+            "SKIPPED": 24,
+            "UP-TO-DATE": 58,
+            "NO-SOURCE": 29,
+            "EXECUTED": 127,
+            "FROM-CACHE": 68
+          }
+        },
+        {
+          "revision": "A",
+          "profile": "material-static",
+          "scenario": "configuration-cache",
+          "wall_seconds": 6.044,
+          "peak_process_tree_rss_bytes_sampled": 1057161216,
+          "configuration_cache_reused": true,
+          "task_outcomes": {
+            "UP-TO-DATE": 478,
+            "NO-SOURCE": 128,
+            "EXECUTED": 13,
+            "SKIPPED": 42
+          }
+        },
+        {
+          "revision": "A",
+          "profile": "material-static",
+          "scenario": "build-cache",
+          "wall_seconds": 18.547,
+          "peak_process_tree_rss_bytes_sampled": 1815150592,
+          "configuration_cache_reused": false,
+          "task_outcomes": {
+            "SKIPPED": 45,
+            "UP-TO-DATE": 111,
+            "NO-SOURCE": 132,
+            "EXECUTED": 230,
+            "FROM-CACHE": 164
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "material-static",
+          "scenario": "configuration-cache",
+          "wall_seconds": 5.817,
+          "peak_process_tree_rss_bytes_sampled": 969900032,
+          "configuration_cache_reused": true,
+          "task_outcomes": {
+            "UP-TO-DATE": 423,
+            "NO-SOURCE": 60,
+            "EXECUTED": 13,
+            "SKIPPED": 37
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "material-static",
+          "scenario": "build-cache",
+          "wall_seconds": 15.625,
+          "peak_process_tree_rss_bytes_sampled": 1700974592,
+          "configuration_cache_reused": false,
+          "task_outcomes": {
+            "SKIPPED": 40,
+            "UP-TO-DATE": 95,
+            "NO-SOURCE": 64,
+            "EXECUTED": 235,
+            "FROM-CACHE": 120
+          }
+        },
+        {
+          "revision": "A",
+          "profile": "material-variable",
+          "scenario": "configuration-cache",
+          "wall_seconds": 5.03,
+          "peak_process_tree_rss_bytes_sampled": 928292864,
+          "configuration_cache_reused": true,
+          "task_outcomes": {
+            "UP-TO-DATE": 428,
+            "NO-SOURCE": 114,
+            "EXECUTED": 12,
+            "SKIPPED": 41
+          }
+        },
+        {
+          "revision": "A",
+          "profile": "material-variable",
+          "scenario": "build-cache",
+          "wall_seconds": 16.463,
+          "peak_process_tree_rss_bytes_sampled": 1727803392,
+          "configuration_cache_reused": false,
+          "task_outcomes": {
+            "SKIPPED": 44,
+            "UP-TO-DATE": 101,
+            "NO-SOURCE": 118,
+            "EXECUTED": 206,
+            "FROM-CACHE": 147
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "material-variable",
+          "scenario": "configuration-cache",
+          "wall_seconds": 4.906,
+          "peak_process_tree_rss_bytes_sampled": 909766656,
+          "configuration_cache_reused": true,
+          "task_outcomes": {
+            "UP-TO-DATE": 379,
+            "NO-SOURCE": 54,
+            "EXECUTED": 12,
+            "SKIPPED": 36
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "material-variable",
+          "scenario": "build-cache",
+          "wall_seconds": 13.673,
+          "peak_process_tree_rss_bytes_sampled": 1640566784,
+          "configuration_cache_reused": false,
+          "task_outcomes": {
+            "SKIPPED": 39,
+            "UP-TO-DATE": 87,
+            "NO-SOURCE": 58,
+            "EXECUTED": 211,
+            "FROM-CACHE": 107
+          }
+        },
+        {
+          "revision": "A",
+          "profile": "image-vector-migration",
+          "scenario": "configuration-cache",
+          "wall_seconds": 5.128,
+          "peak_process_tree_rss_bytes_sampled": 871866368,
+          "configuration_cache_reused": true,
+          "task_outcomes": {
+            "UP-TO-DATE": 440,
+            "NO-SOURCE": 114,
+            "EXECUTED": 12,
+            "SKIPPED": 35
+          }
+        },
+        {
+          "revision": "A",
+          "profile": "image-vector-migration",
+          "scenario": "build-cache",
+          "wall_seconds": 16.162,
+          "peak_process_tree_rss_bytes_sampled": 1752657920,
+          "configuration_cache_reused": false,
+          "task_outcomes": {
+            "SKIPPED": 38,
+            "UP-TO-DATE": 102,
+            "NO-SOURCE": 118,
+            "EXECUTED": 211,
+            "FROM-CACHE": 153
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "image-vector-migration",
+          "scenario": "configuration-cache",
+          "wall_seconds": 4.892,
+          "peak_process_tree_rss_bytes_sampled": 918208512,
+          "configuration_cache_reused": true,
+          "task_outcomes": {
+            "UP-TO-DATE": 391,
+            "NO-SOURCE": 53,
+            "EXECUTED": 12,
+            "SKIPPED": 31
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "image-vector-migration",
+          "scenario": "build-cache",
+          "wall_seconds": 14.948,
+          "peak_process_tree_rss_bytes_sampled": 1627766784,
+          "configuration_cache_reused": false,
+          "task_outcomes": {
+            "SKIPPED": 34,
+            "UP-TO-DATE": 88,
+            "NO-SOURCE": 57,
+            "EXECUTED": 216,
+            "FROM-CACHE": 113
+          }
+        },
+        {
+          "revision": "A",
+          "profile": "all",
+          "scenario": "configuration-cache",
+          "wall_seconds": 7.066,
+          "peak_process_tree_rss_bytes_sampled": 1176367104,
+          "configuration_cache_reused": true,
+          "task_outcomes": {
+            "UP-TO-DATE": 890,
+            "NO-SOURCE": 244,
+            "EXECUTED": 21,
+            "SKIPPED": 81
+          }
+        },
+        {
+          "revision": "A",
+          "profile": "all",
+          "scenario": "build-cache",
+          "wall_seconds": 20.608,
+          "peak_process_tree_rss_bytes_sampled": 2399760384,
+          "configuration_cache_reused": false,
+          "task_outcomes": {
+            "SKIPPED": 84,
+            "UP-TO-DATE": 196,
+            "NO-SOURCE": 248,
+            "EXECUTED": 420,
+            "FROM-CACHE": 309
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "all",
+          "scenario": "configuration-cache",
+          "wall_seconds": 6.496,
+          "peak_process_tree_rss_bytes_sampled": 986357760,
+          "configuration_cache_reused": true,
+          "task_outcomes": {
+            "UP-TO-DATE": 826,
+            "NO-SOURCE": 116,
+            "EXECUTED": 21,
+            "SKIPPED": 72
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "all",
+          "scenario": "build-cache",
+          "wall_seconds": 18.029,
+          "peak_process_tree_rss_bytes_sampled": 1880698880,
+          "configuration_cache_reused": false,
+          "task_outcomes": {
+            "SKIPPED": 75,
+            "UP-TO-DATE": 173,
+            "NO-SOURCE": 120,
+            "EXECUTED": 440,
+            "FROM-CACHE": 248
+          }
+        }
+      ]
+    },
+    "resource_optimization": {
+      "labels": [
+        "B",
+        "C2"
+      ],
+      "ordinary_samples": 42,
+      "cache_probes": 8,
+      "environment": {
+        "platform": "Linux-7.2.6-1-cachyos-x86_64-with-glibc2.44",
+        "cpu_count": 32,
+        "java_version": "openjdk version \"21.0.12.1\" 2026-08-18 LTS\nOpenJDK Runtime Environment Zulu21.52+203-CA (build 21.0.12.1+1-LTS)\nOpenJDK 64-Bit Server VM Zulu21.52+203-CA (build 21.0.12.1+1-LTS, mixed mode, sharing)"
+      },
+      "revisions": {
+        "B": {
+          "sha": "3aea238f2b6877fef005e26d8547cd7fcebfc129",
+          "versions": {
+            "pluginPublish": "2.2.1",
+            "agp": "9.4.1",
+            "agpPluginApi": "8.13.2",
+            "android-compileSdk": "37",
+            "android-minSdk": "21",
+            "compose-android-minSdk": "23",
+            "sample-android-minSdk": "23",
+            "android-targetSdk": "36",
+            "androidx-activity": "1.13.0",
+            "androidx-appcompat": "1.8.0",
+            "buildconfig": "6.1.1",
+            "composeMultiplatform": "1.12.1",
+            "composeMaterial3": "1.12.0-alpha03",
+            "composeMaterialIconsExtended": "1.7.3",
+            "koin": "4.2.2",
+            "koin-compiler": "1.2.1",
+            "kotlin": "2.4.20",
+            "kotlinx-coroutines": "1.11.0",
+            "navigation3": "1.1.2",
+            "navigation3-runtime": "1.1.7",
+            "androidx-compose": "1.12.1",
+            "androidx-test": "1.7.0",
+            "androidx-benchmark": "1.5.0",
+            "androidx-uiautomator": "2.4.0",
+            "androidx-profileinstaller": "1.4.1",
+            "composePreviewScanner": "0.9.3",
+            "junit": "4.13.2",
+            "robolectric": "4.17",
+            "roborazzi": "1.75.0",
+            "skiko": "0.150.1"
+          },
+          "generator_environment": {
+            "python": "3.12.14",
+            "fonttools": "4.66.0",
+            "picosvg": "0.23.0",
+            "skia-pathops": "0.9.2"
+          }
+        },
+        "C2": {
+          "sha": "108fa6dc42563b3dc244375f9de376b2e89dce65",
+          "versions": {
+            "pluginPublish": "2.2.1",
+            "agp": "9.4.1",
+            "agpPluginApi": "8.13.2",
+            "android-compileSdk": "37",
+            "android-minSdk": "21",
+            "compose-android-minSdk": "23",
+            "sample-android-minSdk": "23",
+            "android-targetSdk": "36",
+            "androidx-activity": "1.13.0",
+            "androidx-appcompat": "1.8.0",
+            "buildconfig": "6.1.1",
+            "composeMultiplatform": "1.12.1",
+            "composeMaterial3": "1.12.0-alpha03",
+            "composeMaterialIconsExtended": "1.7.3",
+            "koin": "4.2.2",
+            "koin-compiler": "1.2.1",
+            "kotlin": "2.4.20",
+            "kotlinx-coroutines": "1.11.0",
+            "navigation3": "1.1.2",
+            "navigation3-runtime": "1.1.7",
+            "androidx-compose": "1.12.1",
+            "androidx-test": "1.7.0",
+            "androidx-benchmark": "1.5.0",
+            "androidx-uiautomator": "2.4.0",
+            "androidx-profileinstaller": "1.4.1",
+            "composePreviewScanner": "0.9.3",
+            "junit": "4.13.2",
+            "robolectric": "4.17",
+            "roborazzi": "1.75.0",
+            "skiko": "0.150.1"
+          },
+          "generator_environment": {
+            "python": "3.12.14",
+            "fonttools": "4.66.0",
+            "picosvg": "0.23.0",
+            "skia-pathops": "0.9.2"
+          }
+        }
+      },
+      "source_result_sets": [
+        {
+          "name": "symbols-controlled-bc2-timings-20260928-v2",
+          "created_at": "2026-09-28T11:40:35.620712+00:00",
+          "sha256": "f136ce49306f9b54bdecdef11cdc1e52bdb1a16677dca16a3f76e35a9700b460",
+          "included_profiles": [
+            "android-views",
+            "shell"
+          ]
+        }
+      ],
+      "cache_created_at": "2026-09-28T12:32:04.788328+00:00",
+      "cache_result_sha256": "1a805a288e20aaf94b3e4975aa20e77af7fcdaeb0af36e9c521db246ac400d7a",
+      "integrity_checks": {
+        "all_builds_successful": true,
+        "rss_sampling_errors": 0,
+        "identical_heap_worker_incremental_and_cache_controls": true,
+        "one_stable_clean_apk_hash_per_revision_profile": true,
+        "edits_changed_apk_hash": 18,
+        "noop_and_edit_restores_reproduced_clean_apk_hash": 30,
+        "cache_probes_reproduced_clean_apk_hash": 8,
+        "original_html_profiles_checked_without_subtotal_rows": 84,
+        "shell_apk_and_generated_inventory_identical_between_revisions": true
+      },
+      "ordinary_summary": [
+        {
+          "revision": "B",
+          "profile": "android-views",
+          "variant": "shrunk",
+          "scenario": "code-edit",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 35.217,
+            "min": 34.73,
+            "max": 35.432,
+            "samples": [
+              35.432,
+              35.217,
+              34.73
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 3896238080,
+            "min": 3760857088,
+            "max": 4088356864,
+            "samples": [
+              4088356864,
+              3760857088,
+              3896238080
+            ]
+          },
+          "apk_bytes": {
+            "median": 16457984,
+            "min": 16457984,
+            "max": 16457984,
+            "samples": [
+              16457984,
+              16457984,
+              16457984
+            ]
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "android-views",
+          "variant": "shrunk",
+          "scenario": "noop",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 11.877,
+            "min": 11.805,
+            "max": 12.017,
+            "samples": [
+              11.877,
+              12.017,
+              11.805
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 1446383616,
+            "min": 1399595008,
+            "max": 1458126848,
+            "samples": [
+              1446383616,
+              1399595008,
+              1458126848
+            ]
+          },
+          "apk_bytes": {
+            "median": 16457984,
+            "min": 16457984,
+            "max": 16457984,
+            "samples": [
+              16457984,
+              16457984,
+              16457984
+            ]
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "android-views",
+          "variant": "shrunk",
+          "scenario": "resource-edit",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 44.287,
+            "min": 43.258,
+            "max": 46.591,
+            "samples": [
+              44.287,
+              43.258,
+              46.591
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 3995951104,
+            "min": 3979587584,
+            "max": 4559884288,
+            "samples": [
+              3979587584,
+              4559884288,
+              3995951104
+            ]
+          },
+          "apk_bytes": {
+            "median": 16457984,
+            "min": 16457984,
+            "max": 16457984,
+            "samples": [
+              16457984,
+              16457984,
+              16457984
+            ]
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "android-views",
+          "variant": "shrunk",
+          "scenario": "target-clean",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 123.688,
+            "min": 122.849,
+            "max": 128.81,
+            "samples": [
+              123.688,
+              122.849,
+              128.81
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 7422885888,
+            "min": 7016349696,
+            "max": 7459885056,
+            "samples": [
+              7459885056,
+              7422885888,
+              7016349696
+            ]
+          },
+          "apk_bytes": {
+            "median": 16457984,
+            "min": 16457984,
+            "max": 16457984,
+            "samples": [
+              16457984,
+              16457984,
+              16457984
+            ]
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "shell",
+          "variant": "shrunk",
+          "scenario": "code-edit",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 32.755,
+            "min": 32.472,
+            "max": 33.061,
+            "samples": [
+              32.755,
+              33.061,
+              32.472
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 3200053248,
+            "min": 3169878016,
+            "max": 3670417408,
+            "samples": [
+              3200053248,
+              3169878016,
+              3670417408
+            ]
+          },
+          "apk_bytes": {
+            "median": 1509422,
+            "min": 1509422,
+            "max": 1509422,
+            "samples": [
+              1509422,
+              1509422,
+              1509422
+            ]
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "shell",
+          "variant": "shrunk",
+          "scenario": "noop",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 10.78,
+            "min": 10.684,
+            "max": 11.601,
+            "samples": [
+              11.601,
+              10.684,
+              10.78
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 1371451392,
+            "min": 1350041600,
+            "max": 1437208576,
+            "samples": [
+              1437208576,
+              1371451392,
+              1350041600
+            ]
+          },
+          "apk_bytes": {
+            "median": 1509422,
+            "min": 1509422,
+            "max": 1509422,
+            "samples": [
+              1509422,
+              1509422,
+              1509422
+            ]
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "shell",
+          "variant": "shrunk",
+          "scenario": "target-clean",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 109.922,
+            "min": 109.566,
+            "max": 112.308,
+            "samples": [
+              112.308,
+              109.922,
+              109.566
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 7120154624,
+            "min": 7040983040,
+            "max": 7121383424,
+            "samples": [
+              7040983040,
+              7121383424,
+              7120154624
+            ]
+          },
+          "apk_bytes": {
+            "median": 1509422,
+            "min": 1509422,
+            "max": 1509422,
+            "samples": [
+              1509422,
+              1509422,
+              1509422
+            ]
+          }
+        },
+        {
+          "revision": "C2",
+          "profile": "android-views",
+          "variant": "shrunk",
+          "scenario": "code-edit",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 34.026,
+            "min": 33.396,
+            "max": 34.34,
+            "samples": [
+              34.34,
+              34.026,
+              33.396
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 3407921152,
+            "min": 3246268416,
+            "max": 3463045120,
+            "samples": [
+              3463045120,
+              3246268416,
+              3407921152
+            ]
+          },
+          "apk_bytes": {
+            "median": 1808407,
+            "min": 1808407,
+            "max": 1808407,
+            "samples": [
+              1808407,
+              1808407,
+              1808407
+            ]
+          }
+        },
+        {
+          "revision": "C2",
+          "profile": "android-views",
+          "variant": "shrunk",
+          "scenario": "noop",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 11.327,
+            "min": 11.155,
+            "max": 11.35,
+            "samples": [
+              11.327,
+              11.35,
+              11.155
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 1401380864,
+            "min": 1386835968,
+            "max": 1442439168,
+            "samples": [
+              1386835968,
+              1401380864,
+              1442439168
+            ]
+          },
+          "apk_bytes": {
+            "median": 1808407,
+            "min": 1808407,
+            "max": 1808407,
+            "samples": [
+              1808407,
+              1808407,
+              1808407
+            ]
+          }
+        },
+        {
+          "revision": "C2",
+          "profile": "android-views",
+          "variant": "shrunk",
+          "scenario": "resource-edit",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 31.279,
+            "min": 31.217,
+            "max": 31.522,
+            "samples": [
+              31.217,
+              31.279,
+              31.522
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 3192741888,
+            "min": 3118264320,
+            "max": 3243352064,
+            "samples": [
+              3118264320,
+              3192741888,
+              3243352064
+            ]
+          },
+          "apk_bytes": {
+            "median": 1808347,
+            "min": 1808347,
+            "max": 1808347,
+            "samples": [
+              1808347,
+              1808347,
+              1808347
+            ]
+          }
+        },
+        {
+          "revision": "C2",
+          "profile": "android-views",
+          "variant": "shrunk",
+          "scenario": "target-clean",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 92.216,
+            "min": 91.509,
+            "max": 92.46,
+            "samples": [
+              91.509,
+              92.46,
+              92.216
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 6098546688,
+            "min": 6091091968,
+            "max": 6324211712,
+            "samples": [
+              6324211712,
+              6091091968,
+              6098546688
+            ]
+          },
+          "apk_bytes": {
+            "median": 1808407,
+            "min": 1808407,
+            "max": 1808407,
+            "samples": [
+              1808407,
+              1808407,
+              1808407
+            ]
+          }
+        },
+        {
+          "revision": "C2",
+          "profile": "shell",
+          "variant": "shrunk",
+          "scenario": "code-edit",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 32.974,
+            "min": 32.602,
+            "max": 33.531,
+            "samples": [
+              33.531,
+              32.602,
+              32.974
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 3348824064,
+            "min": 3222364160,
+            "max": 3613761536,
+            "samples": [
+              3222364160,
+              3613761536,
+              3348824064
+            ]
+          },
+          "apk_bytes": {
+            "median": 1509422,
+            "min": 1509422,
+            "max": 1509422,
+            "samples": [
+              1509422,
+              1509422,
+              1509422
+            ]
+          }
+        },
+        {
+          "revision": "C2",
+          "profile": "shell",
+          "variant": "shrunk",
+          "scenario": "noop",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 11.102,
+            "min": 10.561,
+            "max": 11.362,
+            "samples": [
+              11.362,
+              10.561,
+              11.102
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 1344790528,
+            "min": 1339858944,
+            "max": 1355862016,
+            "samples": [
+              1339858944,
+              1344790528,
+              1355862016
+            ]
+          },
+          "apk_bytes": {
+            "median": 1509422,
+            "min": 1509422,
+            "max": 1509422,
+            "samples": [
+              1509422,
+              1509422,
+              1509422
+            ]
+          }
+        },
+        {
+          "revision": "C2",
+          "profile": "shell",
+          "variant": "shrunk",
+          "scenario": "target-clean",
+          "runs": 3,
+          "wall_seconds": {
+            "median": 87.704,
+            "min": 87.413,
+            "max": 87.736,
+            "samples": [
+              87.704,
+              87.413,
+              87.736
+            ]
+          },
+          "peak_process_tree_rss_bytes_sampled": {
+            "median": 6169604096,
+            "min": 6089478144,
+            "max": 6176980992,
+            "samples": [
+              6169604096,
+              6089478144,
+              6176980992
+            ]
+          },
+          "apk_bytes": {
+            "median": 1509422,
+            "min": 1509422,
+            "max": 1509422,
+            "samples": [
+              1509422,
+              1509422,
+              1509422
+            ]
+          }
+        }
+      ],
+      "comparisons": [
+        {
+          "before": "B",
+          "after": "C2",
+          "profile": "android-views",
+          "variant": "shrunk",
+          "scenario": "code-edit",
+          "delta": {
+            "wall_seconds": {
+              "absolute": -1.1909999999999954,
+              "percent": -3.3818894284010432
+            },
+            "peak_process_tree_rss_bytes_sampled": {
+              "absolute": -488316928,
+              "percent": -12.53303617421654
+            },
+            "apk_bytes": {
+              "absolute": -14649577,
+              "percent": -89.01197740865467
+            }
+          }
+        },
+        {
+          "before": "B",
+          "after": "C2",
+          "profile": "android-views",
+          "variant": "shrunk",
+          "scenario": "noop",
+          "delta": {
+            "wall_seconds": {
+              "absolute": -0.5500000000000007,
+              "percent": -4.6307990233223935
+            },
+            "peak_process_tree_rss_bytes_sampled": {
+              "absolute": -45002752,
+              "percent": -3.111398076013604
+            },
+            "apk_bytes": {
+              "absolute": -14649577,
+              "percent": -89.01197740865467
+            }
+          }
+        },
+        {
+          "before": "B",
+          "after": "C2",
+          "profile": "android-views",
+          "variant": "shrunk",
+          "scenario": "resource-edit",
+          "delta": {
+            "wall_seconds": {
+              "absolute": -13.008,
+              "percent": -29.372050488856775
+            },
+            "peak_process_tree_rss_bytes_sampled": {
+              "absolute": -803209216,
+              "percent": -20.100576686135547
+            },
+            "apk_bytes": {
+              "absolute": -14649637,
+              "percent": -89.0123419733547
+            }
+          }
+        },
+        {
+          "before": "B",
+          "after": "C2",
+          "profile": "android-views",
+          "variant": "shrunk",
+          "scenario": "target-clean",
+          "delta": {
+            "wall_seconds": {
+              "absolute": -31.47200000000001,
+              "percent": -25.444667227216872
+            },
+            "peak_process_tree_rss_bytes_sampled": {
+              "absolute": -1324339200,
+              "percent": -17.841298114806747
+            },
+            "apk_bytes": {
+              "absolute": -14649577,
+              "percent": -89.01197740865467
+            }
+          }
+        },
+        {
+          "before": "B",
+          "after": "C2",
+          "profile": "shell",
+          "variant": "shrunk",
+          "scenario": "code-edit",
+          "delta": {
+            "wall_seconds": {
+              "absolute": 0.2189999999999941,
+              "percent": 0.6686002137078128
+            },
+            "peak_process_tree_rss_bytes_sampled": {
+              "absolute": 148770816,
+              "percent": 4.649010640462943
+            },
+            "apk_bytes": {
+              "absolute": 0,
+              "percent": 0.0
+            }
+          }
+        },
+        {
+          "before": "B",
+          "after": "C2",
+          "profile": "shell",
+          "variant": "shrunk",
+          "scenario": "noop",
+          "delta": {
+            "wall_seconds": {
+              "absolute": 0.32200000000000095,
+              "percent": 2.9870129870129962
+            },
+            "peak_process_tree_rss_bytes_sampled": {
+              "absolute": -26660864,
+              "percent": -1.943988985356617
+            },
+            "apk_bytes": {
+              "absolute": 0,
+              "percent": 0.0
+            }
+          }
+        },
+        {
+          "before": "B",
+          "after": "C2",
+          "profile": "shell",
+          "variant": "shrunk",
+          "scenario": "target-clean",
+          "delta": {
+            "wall_seconds": {
+              "absolute": -22.218000000000004,
+              "percent": -20.212514328341918
+            },
+            "peak_process_tree_rss_bytes_sampled": {
+              "absolute": -950550528,
+              "percent": -13.350138841029754
+            },
+            "apk_bytes": {
+              "absolute": 0,
+              "percent": 0.0
+            }
+          }
+        }
+      ],
+      "task_stage_timings": [
+        {
+          "revision": "B",
+          "profile": "android-views",
+          "scenario": "code-edit",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.137,
+              "min": 0.132,
+              "max": 0.142
+            },
+            "rounded_vector_lint": {
+              "median": 0.007,
+              "min": 0.006,
+              "max": 0.007
+            },
+            "app_r8": {
+              "median": 14.903,
+              "min": 14.736,
+              "max": 15.075
+            },
+            "app_lint": {
+              "median": 2.383,
+              "min": 2.367,
+              "max": 2.447
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":androidApp:minifyShrunkWithR8",
+              "median": 14.903,
+              "min": 14.736,
+              "max": 15.075
+            },
+            {
+              "path": ":composeApp:compileAndroidMain",
+              "median": 3.265,
+              "min": 3.189,
+              "max": 3.269
+            },
+            {
+              "path": ":androidApp:lintVitalAnalyzeShrunk",
+              "median": 2.383,
+              "min": 2.367,
+              "max": 2.447
+            },
+            {
+              "path": ":androidApp:produceShrunkComposeMapping",
+              "median": 1.469,
+              "min": 1.362,
+              "max": 1.652
+            }
+          ]
+        },
+        {
+          "revision": "B",
+          "profile": "android-views",
+          "scenario": "noop",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.129,
+              "min": 0.123,
+              "max": 0.13
+            },
+            "rounded_vector_lint": {
+              "median": 0.008,
+              "min": 0.005,
+              "max": 0.008
+            },
+            "app_r8": {
+              "median": 0.037,
+              "min": 0.034,
+              "max": 0.039
+            },
+            "app_lint": {
+              "median": 0.009,
+              "min": 0.008,
+              "max": 0.009
+            }
+          },
+          "top_task_seconds": []
+        },
+        {
+          "revision": "B",
+          "profile": "android-views",
+          "scenario": "resource-edit",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.138,
+              "min": 0.122,
+              "max": 0.142
+            },
+            "rounded_vector_lint": {
+              "median": 0.008,
+              "min": 0.006,
+              "max": 0.008
+            },
+            "app_r8": {
+              "median": 15.174,
+              "min": 14.846,
+              "max": 15.611
+            },
+            "app_lint": {
+              "median": 0.407,
+              "min": 0.34,
+              "max": 0.433
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":androidApp:minifyShrunkWithR8",
+              "median": 15.174,
+              "min": 14.846,
+              "max": 15.611
+            },
+            {
+              "path": ":samples:image-vector-migration:compileAndroidMain",
+              "median": 6.552,
+              "min": 6.314,
+              "max": 7.281
+            },
+            {
+              "path": ":samples:image-vector-migration:lintVitalAnalyzeAndroidMain",
+              "median": 2.725,
+              "min": 2.621,
+              "max": 2.759
+            },
+            {
+              "path": ":samples:android-views:lintVitalAnalyzeAndroidMain",
+              "median": 2.141,
+              "min": 2.059,
+              "max": 2.19
+            }
+          ]
+        },
+        {
+          "revision": "B",
+          "profile": "android-views",
+          "scenario": "target-clean",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 33.317,
+              "min": 33.035,
+              "max": 33.433
+            },
+            "rounded_vector_lint": {
+              "median": 24.396,
+              "min": 24.349,
+              "max": 28.611
+            },
+            "app_r8": {
+              "median": 15.015,
+              "min": 14.701,
+              "max": 15.261
+            },
+            "app_lint": {
+              "median": 0.26,
+              "min": 0.243,
+              "max": 0.301
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":modules:material-vectors-rounded:compileAndroidMain",
+              "median": 33.317,
+              "min": 33.035,
+              "max": 33.433
+            },
+            {
+              "path": ":modules:material-vectors-rounded:lintVitalAnalyzeAndroidMain",
+              "median": 24.396,
+              "min": 24.349,
+              "max": 28.611
+            },
+            {
+              "path": ":androidApp:minifyShrunkWithR8",
+              "median": 15.015,
+              "min": 14.701,
+              "max": 15.261
+            },
+            {
+              "path": ":modules:material-core:lintVitalAnalyzeAndroidMain",
+              "median": 4.432,
+              "min": 4.354,
+              "max": 6.177
+            },
+            {
+              "path": ":modules:material-vectors-rounded:generateMaterialVectors",
+              "median": 3.995,
+              "min": 3.99,
+              "max": 4.122
+            },
+            {
+              "path": ":modules:material-core:compileAndroidMain",
+              "median": 3.571,
+              "min": 3.561,
+              "max": 3.628
+            },
+            {
+              "path": ":modules:symbols-core:compileAndroidMain",
+              "median": 2.106,
+              "min": 2.027,
+              "max": 2.117
+            },
+            {
+              "path": ":modules:material-compose:lintVitalAnalyzeAndroidMain",
+              "median": 2.044,
+              "min": 1.961,
+              "max": 2.098
+            }
+          ]
+        },
+        {
+          "revision": "B",
+          "profile": "shell",
+          "scenario": "code-edit",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.137,
+              "min": 0.125,
+              "max": 0.154
+            },
+            "rounded_vector_lint": {
+              "median": 0.009,
+              "min": 0.009,
+              "max": 0.011
+            },
+            "app_r8": {
+              "median": 14.305,
+              "min": 13.979,
+              "max": 14.44
+            },
+            "app_lint": {
+              "median": 2.413,
+              "min": 2.382,
+              "max": 2.441
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":androidApp:minifyShrunkWithR8",
+              "median": 14.305,
+              "min": 13.979,
+              "max": 14.44
+            },
+            {
+              "path": ":composeApp:compileAndroidMain",
+              "median": 3.207,
+              "min": 3.206,
+              "max": 3.236
+            },
+            {
+              "path": ":androidApp:lintVitalAnalyzeShrunk",
+              "median": 2.413,
+              "min": 2.382,
+              "max": 2.441
+            },
+            {
+              "path": ":androidApp:produceShrunkComposeMapping",
+              "median": 1.134,
+              "min": 0.989,
+              "max": 1.183
+            }
+          ]
+        },
+        {
+          "revision": "B",
+          "profile": "shell",
+          "scenario": "noop",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.132,
+              "min": 0.127,
+              "max": 0.145
+            },
+            "rounded_vector_lint": {
+              "median": 0.007,
+              "min": 0.006,
+              "max": 0.011
+            },
+            "app_r8": {
+              "median": 0.041,
+              "min": 0.041,
+              "max": 0.048
+            },
+            "app_lint": {
+              "median": 0.005,
+              "min": 0.005,
+              "max": 0.005
+            }
+          },
+          "top_task_seconds": []
+        },
+        {
+          "revision": "B",
+          "profile": "shell",
+          "scenario": "target-clean",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 34.113,
+              "min": 33.81,
+              "max": 34.48
+            },
+            "rounded_vector_lint": {
+              "median": 24.127,
+              "min": 23.935,
+              "max": 24.35
+            },
+            "app_r8": {
+              "median": 14.669,
+              "min": 14.492,
+              "max": 14.93
+            },
+            "app_lint": {
+              "median": 0.447,
+              "min": 0.442,
+              "max": 0.538
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":modules:material-vectors-rounded:compileAndroidMain",
+              "median": 34.113,
+              "min": 33.81,
+              "max": 34.48
+            },
+            {
+              "path": ":modules:material-vectors-rounded:lintVitalAnalyzeAndroidMain",
+              "median": 24.127,
+              "min": 23.935,
+              "max": 24.35
+            },
+            {
+              "path": ":androidApp:minifyShrunkWithR8",
+              "median": 14.669,
+              "min": 14.492,
+              "max": 14.93
+            },
+            {
+              "path": ":modules:material-core:lintVitalAnalyzeAndroidMain",
+              "median": 6.1,
+              "min": 6.074,
+              "max": 6.461
+            },
+            {
+              "path": ":modules:material-vectors-rounded:generateMaterialVectors",
+              "median": 4.075,
+              "min": 3.995,
+              "max": 4.111
+            },
+            {
+              "path": ":modules:material-core:compileAndroidMain",
+              "median": 3.578,
+              "min": 3.574,
+              "max": 3.615
+            },
+            {
+              "path": ":modules:symbols-core:compileAndroidMain",
+              "median": 2.063,
+              "min": 2.056,
+              "max": 2.146
+            },
+            {
+              "path": ":samples:ui:components:compileAndroidMain",
+              "median": 1.214,
+              "min": 1.163,
+              "max": 1.262
+            }
+          ]
+        },
+        {
+          "revision": "C2",
+          "profile": "android-views",
+          "scenario": "code-edit",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.08,
+              "min": 0.077,
+              "max": 0.081
+            },
+            "rounded_vector_lint": {
+              "median": 0.008,
+              "min": 0.007,
+              "max": 0.009
+            },
+            "app_r8": {
+              "median": 14.575,
+              "min": 14.558,
+              "max": 14.76
+            },
+            "app_lint": {
+              "median": 2.483,
+              "min": 2.381,
+              "max": 2.491
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":androidApp:minifyShrunkWithR8",
+              "median": 14.575,
+              "min": 14.558,
+              "max": 14.76
+            },
+            {
+              "path": ":composeApp:compileAndroidMain",
+              "median": 3.128,
+              "min": 3.117,
+              "max": 3.25
+            },
+            {
+              "path": ":androidApp:lintVitalAnalyzeShrunk",
+              "median": 2.483,
+              "min": 2.381,
+              "max": 2.491
+            },
+            {
+              "path": ":androidApp:produceShrunkComposeMapping",
+              "median": 1.128,
+              "min": 1.105,
+              "max": 1.139
+            }
+          ]
+        },
+        {
+          "revision": "C2",
+          "profile": "android-views",
+          "scenario": "noop",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.084,
+              "min": 0.083,
+              "max": 0.086
+            },
+            "rounded_vector_lint": {
+              "median": 0.006,
+              "min": 0.006,
+              "max": 0.007
+            },
+            "app_r8": {
+              "median": 0.036,
+              "min": 0.035,
+              "max": 0.038
+            },
+            "app_lint": {
+              "median": 0.006,
+              "min": 0.006,
+              "max": 0.007
+            }
+          },
+          "top_task_seconds": []
+        },
+        {
+          "revision": "C2",
+          "profile": "android-views",
+          "scenario": "resource-edit",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.085,
+              "min": 0.081,
+              "max": 0.088
+            },
+            "rounded_vector_lint": {
+              "median": 0.007,
+              "min": 0.007,
+              "max": 0.009
+            },
+            "app_r8": {
+              "median": 14.286,
+              "min": 14.253,
+              "max": 14.602
+            },
+            "app_lint": {
+              "median": 0.446,
+              "min": 0.442,
+              "max": 0.447
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":androidApp:minifyShrunkWithR8",
+              "median": 14.286,
+              "min": 14.253,
+              "max": 14.602
+            },
+            {
+              "path": ":samples:android-views:lintVitalAnalyzeAndroidMain",
+              "median": 2.225,
+              "min": 2.223,
+              "max": 2.32
+            },
+            {
+              "path": ":samples:android-views-platform:lintVitalAnalyzeRelease",
+              "median": 0.861,
+              "min": 0.733,
+              "max": 0.87
+            },
+            {
+              "path": ":androidApp:processShrunkResources",
+              "median": 0.616,
+              "min": 0.605,
+              "max": 0.644
+            }
+          ]
+        },
+        {
+          "revision": "C2",
+          "profile": "android-views",
+          "scenario": "target-clean",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 33.033,
+              "min": 32.921,
+              "max": 33.33
+            },
+            "rounded_vector_lint": {
+              "median": 2.013,
+              "min": 2.012,
+              "max": 2.076
+            },
+            "app_r8": {
+              "median": 14.503,
+              "min": 14.44,
+              "max": 14.528
+            },
+            "app_lint": {
+              "median": 0.293,
+              "min": 0.287,
+              "max": 0.329
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":modules:material-vectors-rounded:compileAndroidMain",
+              "median": 33.033,
+              "min": 32.921,
+              "max": 33.33
+            },
+            {
+              "path": ":androidApp:minifyShrunkWithR8",
+              "median": 14.503,
+              "min": 14.44,
+              "max": 14.528
+            },
+            {
+              "path": ":modules:material-core:lintVitalAnalyzeAndroidMain",
+              "median": 6.067,
+              "min": 6.009,
+              "max": 6.155
+            },
+            {
+              "path": ":modules:material-vectors-rounded:generateMaterialVectors",
+              "median": 4.043,
+              "min": 3.996,
+              "max": 4.078
+            },
+            {
+              "path": ":modules:material-core:compileAndroidMain",
+              "median": 3.541,
+              "min": 3.467,
+              "max": 3.664
+            },
+            {
+              "path": ":modules:symbols-core:compileAndroidMain",
+              "median": 2.045,
+              "min": 1.95,
+              "max": 2.151
+            },
+            {
+              "path": ":modules:material-vectors-rounded:lintVitalAnalyzeAndroidMain",
+              "median": 2.013,
+              "min": 2.012,
+              "max": 2.076
+            },
+            {
+              "path": ":samples:ui:components:compileAndroidMain",
+              "median": 1.115,
+              "min": 1.052,
+              "max": 1.12
+            }
+          ]
+        },
+        {
+          "revision": "C2",
+          "profile": "shell",
+          "scenario": "code-edit",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.09,
+              "min": 0.079,
+              "max": 0.115
+            },
+            "rounded_vector_lint": {
+              "median": 0.01,
+              "min": 0.009,
+              "max": 0.01
+            },
+            "app_r8": {
+              "median": 14.362,
+              "min": 14.309,
+              "max": 14.67
+            },
+            "app_lint": {
+              "median": 2.423,
+              "min": 2.375,
+              "max": 2.519
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":androidApp:minifyShrunkWithR8",
+              "median": 14.362,
+              "min": 14.309,
+              "max": 14.67
+            },
+            {
+              "path": ":composeApp:compileAndroidMain",
+              "median": 3.329,
+              "min": 3.23,
+              "max": 3.361
+            },
+            {
+              "path": ":androidApp:lintVitalAnalyzeShrunk",
+              "median": 2.423,
+              "min": 2.375,
+              "max": 2.519
+            },
+            {
+              "path": ":androidApp:produceShrunkComposeMapping",
+              "median": 1.11,
+              "min": 1.102,
+              "max": 1.149
+            }
+          ]
+        },
+        {
+          "revision": "C2",
+          "profile": "shell",
+          "scenario": "noop",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 0.098,
+              "min": 0.089,
+              "max": 0.104
+            },
+            "rounded_vector_lint": {
+              "median": 0.006,
+              "min": 0.006,
+              "max": 0.008
+            },
+            "app_r8": {
+              "median": 0.042,
+              "min": 0.04,
+              "max": 0.044
+            },
+            "app_lint": {
+              "median": 0.006,
+              "min": 0.005,
+              "max": 0.006
+            }
+          },
+          "top_task_seconds": []
+        },
+        {
+          "revision": "C2",
+          "profile": "shell",
+          "scenario": "target-clean",
+          "stage_seconds": {
+            "rounded_vector_compile": {
+              "median": 33.449,
+              "min": 33.447,
+              "max": 34.006
+            },
+            "rounded_vector_lint": {
+              "median": 2.011,
+              "min": 1.954,
+              "max": 2.094
+            },
+            "app_r8": {
+              "median": 14.772,
+              "min": 14.565,
+              "max": 14.834
+            },
+            "app_lint": {
+              "median": 0.439,
+              "min": 0.418,
+              "max": 0.458
+            }
+          },
+          "top_task_seconds": [
+            {
+              "path": ":modules:material-vectors-rounded:compileAndroidMain",
+              "median": 33.449,
+              "min": 33.447,
+              "max": 34.006
+            },
+            {
+              "path": ":androidApp:minifyShrunkWithR8",
+              "median": 14.772,
+              "min": 14.565,
+              "max": 14.834
+            },
+            {
+              "path": ":modules:material-core:lintVitalAnalyzeAndroidMain",
+              "median": 6.245,
+              "min": 6.145,
+              "max": 6.265
+            },
+            {
+              "path": ":modules:material-vectors-rounded:generateMaterialVectors",
+              "median": 4.1,
+              "min": 4.087,
+              "max": 4.137
+            },
+            {
+              "path": ":modules:material-core:compileAndroidMain",
+              "median": 3.576,
+              "min": 3.551,
+              "max": 3.647
+            },
+            {
+              "path": ":modules:symbols-core:compileAndroidMain",
+              "median": 2.042,
+              "min": 1.971,
+              "max": 2.051
+            },
+            {
+              "path": ":modules:material-vectors-rounded:lintVitalAnalyzeAndroidMain",
+              "median": 2.011,
+              "min": 1.954,
+              "max": 2.094
+            },
+            {
+              "path": ":samples:ui:components:compileAndroidMain",
+              "median": 1.182,
+              "min": 1.173,
+              "max": 1.213
+            }
+          ]
+        }
+      ],
+      "generated_inventory": [
+        {
+          "revision": "B",
+          "profile": "android-views",
+          "totals": {
+            "files": 4137,
+            "bytes": 67184420,
+            "kotlin_lines": 420324
+          },
+          "modules": {
+            "androidApp/build/generated": {
+              "files": 8,
+              "bytes": 4971,
+              "kotlin_lines": 0
+            },
+            "composeApp/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "samples/android-views/build/generated": {
+              "files": 1,
+              "bytes": 192,
+              "kotlin_lines": 7
+            },
+            "samples/android-views-platform/build/generated": {
+              "files": 18,
+              "bytes": 19293,
+              "kotlin_lines": 0
+            },
+            "samples/api/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "samples/image-vector-migration/build/generated": {
+              "files": 231,
+              "bytes": 1008386,
+              "kotlin_lines": 6882
+            },
+            "samples/ui/components/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-compose/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-core/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-drawables-outlined/build/generated": {
+              "files": 3804,
+              "bytes": 5512793,
+              "kotlin_lines": 0
+            },
+            "symbols/material-rounded/build/generated": {
+              "files": 10,
+              "bytes": 43766452,
+              "kotlin_lines": 172
+            },
+            "symbols/material-vectors-rounded/build/generated": {
+              "files": 62,
+              "bytes": 16868767,
+              "kotlin_lines": 413160
+            },
+            "symbols/symbols-core/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/variant-font-core/build/generated": {
+              "files": 3,
+              "bytes": 3566,
+              "kotlin_lines": 103
+            }
+          },
+          "clean_apk_sha256": [
+            "e5be168e4f74028d0b0ca87e32fff780a6ed264d3d252a2ade2085842250be22"
+          ]
+        },
+        {
+          "revision": "B",
+          "profile": "shell",
+          "totals": {
+            "files": 69,
+            "bytes": 16873485,
+            "kotlin_lines": 413160
+          },
+          "modules": {
+            "androidApp/build/generated": {
+              "files": 7,
+              "bytes": 4718,
+              "kotlin_lines": 0
+            },
+            "composeApp/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "samples/api/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "samples/ui/components/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-core/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-vectors-rounded/build/generated": {
+              "files": 62,
+              "bytes": 16868767,
+              "kotlin_lines": 413160
+            },
+            "symbols/symbols-core/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            }
+          },
+          "clean_apk_sha256": [
+            "0ff89a089e14e28c93a4e99065a317fe15d9d260e9f1e829bdfb5e2baaf3e6a4"
+          ]
+        },
+        {
+          "revision": "C2",
+          "profile": "android-views",
+          "totals": {
+            "files": 3919,
+            "bytes": 22435605,
+            "kotlin_lines": 413167
+          },
+          "modules": {
+            "androidApp/build/generated": {
+              "files": 8,
+              "bytes": 4971,
+              "kotlin_lines": 0
+            },
+            "composeApp/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "samples/android-views/build/generated": {
+              "files": 1,
+              "bytes": 192,
+              "kotlin_lines": 7
+            },
+            "samples/android-views-platform/build/generated": {
+              "files": 44,
+              "bytes": 48882,
+              "kotlin_lines": 0
+            },
+            "samples/api/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "samples/ui/components/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-core/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-drawables-outlined/build/generated": {
+              "files": 3804,
+              "bytes": 5512793,
+              "kotlin_lines": 0
+            },
+            "symbols/material-vectors-rounded/build/generated": {
+              "files": 62,
+              "bytes": 16868767,
+              "kotlin_lines": 413160
+            },
+            "symbols/symbols-core/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            }
+          },
+          "clean_apk_sha256": [
+            "7439c45fd0c8848d62655469a8fc31bd5c6043c2ed2d3d2d9362665f90153a89"
+          ]
+        },
+        {
+          "revision": "C2",
+          "profile": "shell",
+          "totals": {
+            "files": 69,
+            "bytes": 16873485,
+            "kotlin_lines": 413160
+          },
+          "modules": {
+            "androidApp/build/generated": {
+              "files": 7,
+              "bytes": 4718,
+              "kotlin_lines": 0
+            },
+            "composeApp/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "samples/api/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "samples/ui/components/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-core/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            },
+            "symbols/material-vectors-rounded/build/generated": {
+              "files": 62,
+              "bytes": 16868767,
+              "kotlin_lines": 413160
+            },
+            "symbols/symbols-core/build/generated": {
+              "files": 0,
+              "bytes": 0,
+              "kotlin_lines": 0
+            }
+          },
+          "clean_apk_sha256": [
+            "0ff89a089e14e28c93a4e99065a317fe15d9d260e9f1e829bdfb5e2baaf3e6a4"
+          ]
+        }
+      ],
+      "cache_results": [
+        {
+          "revision": "B",
+          "profile": "shell",
+          "scenario": "configuration-cache",
+          "wall_seconds": 4.476,
+          "peak_process_tree_rss_bytes_sampled": 825315328,
+          "configuration_cache_reused": true,
+          "task_outcomes": {
+            "UP-TO-DATE": 231,
+            "NO-SOURCE": 25,
+            "EXECUTED": 8,
+            "SKIPPED": 21
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "shell",
+          "scenario": "build-cache",
+          "wall_seconds": 13.197,
+          "peak_process_tree_rss_bytes_sampled": 1637961728,
+          "configuration_cache_reused": false,
+          "task_outcomes": {
+            "SKIPPED": 24,
+            "UP-TO-DATE": 58,
+            "NO-SOURCE": 29,
+            "EXECUTED": 127,
+            "FROM-CACHE": 68
+          }
+        },
+        {
+          "revision": "C2",
+          "profile": "shell",
+          "scenario": "configuration-cache",
+          "wall_seconds": 4.469,
+          "peak_process_tree_rss_bytes_sampled": 843112448,
+          "configuration_cache_reused": true,
+          "task_outcomes": {
+            "UP-TO-DATE": 231,
+            "NO-SOURCE": 25,
+            "EXECUTED": 8,
+            "SKIPPED": 21
+          }
+        },
+        {
+          "revision": "C2",
+          "profile": "shell",
+          "scenario": "build-cache",
+          "wall_seconds": 13.392,
+          "peak_process_tree_rss_bytes_sampled": 1538727936,
+          "configuration_cache_reused": false,
+          "task_outcomes": {
+            "SKIPPED": 24,
+            "UP-TO-DATE": 58,
+            "NO-SOURCE": 29,
+            "EXECUTED": 127,
+            "FROM-CACHE": 68
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "android-views",
+          "scenario": "configuration-cache",
+          "wall_seconds": 5.391,
+          "peak_process_tree_rss_bytes_sampled": 939667456,
+          "configuration_cache_reused": true,
+          "task_outcomes": {
+            "UP-TO-DATE": 510,
+            "NO-SOURCE": 64,
+            "EXECUTED": 13,
+            "SKIPPED": 38
+          }
+        },
+        {
+          "revision": "B",
+          "profile": "android-views",
+          "scenario": "build-cache",
+          "wall_seconds": 15.738,
+          "peak_process_tree_rss_bytes_sampled": 1691807744,
+          "configuration_cache_reused": false,
+          "task_outcomes": {
+            "SKIPPED": 41,
+            "UP-TO-DATE": 113,
+            "NO-SOURCE": 68,
+            "EXECUTED": 268,
+            "FROM-CACHE": 156
+          }
+        },
+        {
+          "revision": "C2",
+          "profile": "android-views",
+          "scenario": "configuration-cache",
+          "wall_seconds": 5.168,
+          "peak_process_tree_rss_bytes_sampled": 963014656,
+          "configuration_cache_reused": true,
+          "task_outcomes": {
+            "UP-TO-DATE": 352,
+            "NO-SOURCE": 36,
+            "EXECUTED": 9,
+            "SKIPPED": 28
+          }
+        },
+        {
+          "revision": "C2",
+          "profile": "android-views",
+          "scenario": "build-cache",
+          "wall_seconds": 14.381,
+          "peak_process_tree_rss_bytes_sampled": 1671344128,
+          "configuration_cache_reused": false,
+          "task_outcomes": {
+            "SKIPPED": 31,
+            "UP-TO-DATE": 83,
+            "NO-SOURCE": 40,
+            "EXECUTED": 179,
+            "FROM-CACHE": 113
+          }
+        }
+      ]
+    }
+  }
+}

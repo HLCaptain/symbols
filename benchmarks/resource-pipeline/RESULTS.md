@@ -1,4 +1,31 @@
-# Resource usage study
+# Resource pipeline results
+
+The upgrade and resource optimizations are measured separately. Public icon
+accessors and the Symbols DSL stay unchanged.
+
+The [controlled build report](CONTROLLED_BUILDS.md) contains all 144 repeated
+samples and 28 separate cache probes, with ranges, task attribution, memory and
+integrity checks. The upgrade alone adds 13.2–19.3% to clean-build medians because
+the native Android plugin includes more Kotlin in lint; compilation stays similar.
+The generated-source change below addresses that overhead while retaining authored
+common/Android lint inputs.
+
+| Change | Scope and result |
+| --- | --- |
+| [Generated Kotlin registration](GENERATED_SOURCES.md) | Time for clean shell builds falls 20.2% and peak process-tree RSS falls 13.4%, with byte-identical APKs and authored lint coverage retained. |
+| [Android Views resource ownership](ANDROID_VIEWS_RESOURCES.md) | The sample's shrunk APK falls from 16,457,984 to 1,808,407 bytes (−89.0%) by removing an unused transitive font; generated XML is identical. |
+| [Web distribution cleanup](WEB_DISTRIBUTION.md) | Removes an unused duplicate WASM file: 8,640,316 deployed bytes, with the hashed runtime retained and browser-verified. |
+
+Neither the upgrade nor these changes automatically subset fonts or make Compose
+drawable asset packs shrinkable. The full sample still includes the fonts used
+by its enabled features.
+
+The [published-consumer matrix](../../tooling/compatibility/README.md) passes all
+nine configurations, including AGP 9.1.0 Android Compose/KMP consumers and the
+legacy AGP 8.13.2 Java/XML consumer. Minimum-Android runtime checks and Pixel
+rendering results are recorded below.
+
+## Upgrade-only usage comparison
 
 Both cohorts completed all 30 usage cases: **60 cases and 120 APKs** across 0, 1,
 25, 200 and all 3,802 glyphs, three backends, and direct/dynamic access. APK hashes

@@ -46,6 +46,22 @@ The full sample intentionally includes the font-using features, so the
 14.6 MB font saving above applies **only to the `android-views` profile**. This
 change does not make Compose assets shrinkable or alter published library packs.
 
+## Controlled build times
+
+Three repetitions compare upgrade-only `3aea238` with `108fa6d`, which includes
+both this resource ownership change and generated-source classification. Median
+clean build time falls from 123.688 to 92.216 seconds (−25.4%); an SVG stroke edit
+falls from 44.287 to 31.279 seconds (−29.4%). Code-edit and no-op changes are small
+(−3.4% and −4.6%). The separate [shell comparison](GENERATED_SOURCES.md#measured-effect)
+isolates the generated-source classification effect.
+
+Every edited APK differs from its clean APK; restoration and cache probes
+reproduce the clean hashes. Both revisions pass configuration-cache reuse and
+build-cache restoration. The [measurement protocol](README.md#measurement-method)
+keeps these single cache probes separate from the three-repeat timing samples.
+See the [complete controlled report](CONTROLLED_BUILDS.md) for ranges, memory and
+task-level comparisons.
+
 ## Reproduce
 
 From the C checkout, with the documented JDK, SDK, and Python environment:

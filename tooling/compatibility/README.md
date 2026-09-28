@@ -47,12 +47,15 @@ The hosted `published-consumers` job also checks the advertised AGP 9.1 minimum
 with the same published candidate, root Gradle 9.7 wrapper, compile SDK 37, and
 current Kotlin/Compose catalog versions:
 
-| Toolchain | Consumer cases | Validation status |
-| --- | --- | --- |
-| Current catalog / root wrapper | Android app, Java/XML app, Android library, KMP, KMP Compose resources, JVM | Existing hosted checks |
-| AGP 9.1.0 / Gradle 9.7.0 | Android Compose app | Added; pending hosted validation |
-| AGP 9.1.0 / Gradle 9.7.0 | KMP Compose-resource publisher and separate consuming Android app | Added; pending hosted validation |
-| AGP 8.13.2 / Gradle 8.14.5 | Java/XML app | Existing hosted check |
+| Toolchain | Consumer cases |
+| --- | --- |
+| Current catalog / root wrapper | Android app, Java/XML app, Android library, KMP, KMP Compose resources, JVM |
+| AGP 9.1.0 / Gradle 9.7.0 | Android Compose app |
+| AGP 9.1.0 / Gradle 9.7.0 | KMP Compose-resource publisher and separate consuming Android app |
+| AGP 8.13.2 / Gradle 8.14.5 | Java/XML app |
+
+All nine cases passed on September 28 at `9e4f43e`, including configuration-cache
+reuse. [Hosted verification](https://github.com/HLCaptain/symbols/actions/runs/36418737452/job/108916523301).
 
 Reproduce the two minimum-version cases without overwriting the latest-toolchain
 or legacy results:
@@ -73,8 +76,8 @@ Both require configuration-cache reuse; the app checks release shrinking, while
 the KMP case checks generated font/drawable bytes through publication and APK
 packaging. AGP 9.1.0's [published API](https://dl.google.com/dl/android/maven2/com/android/tools/build/gradle-api/9.1.0/gradle-api-9.1.0-sources.jar)
 includes the native KMP components extension, resource opt-in and generated-source
-directory APIs used by the plugin; this does not replace the pending end-to-end
-hosted validation.
+directory APIs used by the plugin. The hosted cases exercise those APIs through
+actual compilation, publication and downstream packaging.
 
 Test the same plugin artifact with the legacy supported Java/XML toolchain
 (Gradle 8.14.5, AGP 8.13.2, API 21). Current Compose artifacts require AGP 9.1+
