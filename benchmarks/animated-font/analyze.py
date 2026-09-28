@@ -265,8 +265,11 @@ def main():
     parser.add_argument("--geometry", type=Path, help="Preserved geometry directory or geometry.json")
     parser.add_argument("--stress-geometry", type=Path, help="Preserved stress geometry directory or stress-geometry.json")
     parser.add_argument("--draw-geometry", type=Path, help="Preserved draw geometry directory or draw-geometry.json")
+    parser.add_argument("--expected-cases", type=int, help="Fail if the timing run contains a different number of cases")
     args = parser.parse_args()
     summary = timing_summary(only_file(args.timing, "*-benchmarkData.json"))
+    if args.expected_cases is not None and len(summary["timing"]) != args.expected_cases:
+        parser.error(f"Expected {args.expected_cases} timing cases, found {len(summary['timing'])}")
     if args.geometry:
         path = args.geometry if args.geometry.is_file() else only_file(args.geometry, "geometry.json")
         summary["geometry"] = geometry_summary(path)

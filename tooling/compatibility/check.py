@@ -5,6 +5,7 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+import shutil
 import subprocess
 import time
 import tomllib
@@ -18,6 +19,7 @@ PROFILES = ("android-app", "android-java", "android-library", "kmp", "jvm")
 def fixture(args, directory):
     android = args.profile != "jvm"
     kmp = args.profile == "kmp"
+    compose_resources = args.compose_resources
     java_only = args.profile == "android-java"
     application = args.profile in ("android-app", "android-java")
     min_sdk = 21 if java_only else 23
@@ -33,6 +35,8 @@ def fixture(args, directory):
     else:
         # Upgrade AGP's built-in Kotlin compiler without applying kotlin-android.
         plugins += [f'kotlin("jvm") version "{args.kotlin_version}" apply false']
+    if compose_resources:
+        plugins += [f'id("org.jetbrains.compose") version "{args.compose_version}"']
     if not java_only:
         plugins += [f'id("org.jetbrains.kotlin.plugin.compose") version "{args.kotlin_version}"']
     if android:
@@ -49,6 +53,11 @@ def fixture(args, directory):
         implementation("org.jetbrains.compose.ui:ui:{args.compose_version}")
         implementation("org.jetbrains.compose.foundation:foundation:{args.compose_version}")
     '''
+    if compose_resources:
+        dependencies += f'''
+            implementation("io.github.hlcaptain:symbols-variant-font-core:{args.version}")
+            implementation("org.jetbrains.compose.components:components-resources:{args.compose_version}")
+        '''
     if java_only:
         dependencies = f'implementation("io.github.hlcaptain:symbols-material-drawables-outlined:{args.version}")'
     settings = f'''
@@ -105,6 +114,19 @@ def fixture(args, directory):
                 url = uri(layout.projectDirectory.dir("published"))
             }
         '''
+    if compose_resources:
+        platform += '''
+            compose.resources {
+                packageOfResClass = "example.resources"
+                publicResClass = true
+                generateResClass = always
+            }
+            val preparedFonts = tasks.register<Sync>("prepareFixtureFonts") {
+                from(layout.projectDirectory.dir("fixture-fonts")) { into("font") }
+                into(layout.buildDirectory.dir("preparedFixtureFonts"))
+            }
+            symbolFonts.composeFontResources.from(preparedFonts.map { it.destinationDir })
+        '''
 
     build = '\n'.join([
         "plugins {", *plugins, "}", platform,
@@ -116,7 +138,7 @@ def fixture(args, directory):
                     svgDirectory.set(layout.projectDirectory.dir("icons"))
         ''',
         "imageVectors()" if not java_only else "",
-        "androidDrawables()" if android else "",
+        "composeDrawables()" if compose_resources else "androidDrawables()" if android else "",
         "} } }",
     ])
     sources = "commonMain" if kmp else "main"
@@ -143,7 +165,7 @@ def fixture(args, directory):
     if android:
         android_sources = "androidMain" if kmp else "main"
         files[f"src/{android_sources}/AndroidManifest.xml"] = '<manifest xmlns:android="http://schemas.android.com/apk/res/android"><application/></manifest>'
-        if not java_only:
+        if not java_only and not compose_resources:
             files[f"src/{android_sources}/kotlin/example/AndroidResource.kt"] = '''
             package example
             fun drawable() = example.consumer.R.drawable.fixture_icons_outlined_check
@@ -173,6 +195,22 @@ def fixture(args, directory):
         target = directory / name
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(contents)
+    if compose_resources:
+        font = directory / "fixture-fonts/powerline_symbols.otf"
+        font.parent.mkdir(exist_ok=True)
+        shutil.copy2(ROOT / "samples/custom-static/src/commonMain/composeResources/font/powerline_symbols.otf", font)
+        source = directory / "src/commonMain/kotlin/example/ResourceConsumer.kt"
+        source.write_text('''
+            package example
+            import example.resources.*
+            fun fontDescriptor() = Res.symbolFonts.powerline_symbols
+            @androidx.compose.runtime.Composable
+            fun ResourcePreview() {
+                androidx.compose.foundation.Image(
+                    org.jetbrains.compose.resources.painterResource(Res.drawable.fixture_icons_outlined_check), null,
+                )
+            }
+        ''')
 
 
 def published_kmp_consumer(args, library):
@@ -223,6 +261,14 @@ def published_kmp_consumer(args, library):
             }
         }
     ''')
+    if args.compose_resources:
+        source = sources / "java/example/ConsumerActivity.java"
+        source.write_text(source.read_text().replace(
+            "image.setImageResource(example.consumer.R.drawable.fixture_icons_outlined_check);",
+            'setTitle(example.ResourceConsumerKt.fontDescriptor().getFamilyName());',
+        ))
+        build = directory / "build.gradle.kts"
+        build.write_text(build.read_text() + f'\ndependencies {{ implementation("io.github.hlcaptain:symbols-variant-font-core:{args.version}") }}\n')
     return directory
 
 
@@ -239,9 +285,12 @@ def main():
     parser.add_argument("--compile-sdk", type=int, default=int(versions["android-compileSdk"]))
     parser.add_argument("--output", type=Path, default=ROOT / "build/reports/tooling-compatibility")
     parser.add_argument("--offline", action="store_true")
+    parser.add_argument("--compose-resources", action="store_true", help="For kmp, test Compose-only resources and font descriptors instead of native XML.")
     args = parser.parse_args()
+    if args.compose_resources and args.profile != "kmp":
+        parser.error("--compose-resources applies only to --profile kmp")
     args.repository = args.repository.resolve()
-    directory = args.output.resolve() / args.profile
+    directory = args.output.resolve() / (args.profile + ("-compose" if args.compose_resources else ""))
     fixture(args, directory)
     (directory / "result.json").unlink(missing_ok=True)
     projects = [(directory, ["assemble"])]
@@ -266,7 +315,20 @@ def main():
                 raise SystemExit(result.returncode)
             if stage == "reuse" and "Configuration cache entry reused." not in log.read_text():
                 raise SystemExit(f"Configuration cache was not reused: {log}")
-        if args.profile in ("android-app", "android-java") or project != directory:
+        if args.compose_resources:
+            archive_path = (
+                next((project / "build/outputs/apk/release").glob("*.apk"))
+                if project != directory else
+                next((project / "published").glob("**/*.aar"))
+            )
+            font = (directory / "fixture-fonts/powerline_symbols.otf").read_bytes()
+            with zipfile.ZipFile(archive_path) as archive:
+                prefix = "assets/composeResources/example.resources/"
+                if archive.read(prefix + "font/powerline_symbols.otf") != font:
+                    raise SystemExit(f"Generated font missing or changed in {archive_path}")
+                if not archive.read(prefix + "drawable/fixture_icons_outlined_check.xml"):
+                    raise SystemExit(f"Generated Compose drawable missing in {archive_path}")
+        elif args.profile in ("android-app", "android-java") or project != directory:
             report = (project / "build/outputs/mapping/release/resources.txt").read_text()
             # R8 9 also lists removed resources; R8 8 only lists reachable ones.
             report = "\n".join(line for line in report.splitlines() if " is not reachable." not in line)
@@ -290,6 +352,7 @@ def main():
                     raise SystemExit(f"Unexpected drawable retention in {apk}: {name}")
     summary = {
         "profile": args.profile, "version": args.version,
+        "compose_resources": args.compose_resources,
         "plugin_sha256": hashlib.sha256((args.repository /
             f"io/github/hlcaptain/symbol-gradle-plugin/{args.version}/"
             f"symbol-gradle-plugin-{args.version}.jar").read_bytes()).hexdigest(),

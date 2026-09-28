@@ -68,6 +68,7 @@ library JVM bytecode remains Java 11.
 | UI Automator | 2.3.0 | 2.4.0 | Stable update |
 | FontTools / PicoSVG | 4.60.2 / 0.22.3 | 4.66.0 / 0.23.0 | Generator toolchain update |
 | Tooling NMCP | 1.6.1 | 1.6.2 | Align with the root publication build |
+| JavaScript webpack / CLI / dev server | 5.101.3 / 6.0.1 / 5.2.3 | 5.108.1 / 7.2.1 / 6.0.0 | Kotlin's tooling versions; regenerate the JS Yarn lock |
 
 Koin 4.2.2, coroutines 1.11.0, Activity 1.13.0, AppCompat 1.8.0, AndroidX Test
 1.7.0, ProfileInstaller 1.4.1, JUnit 4.13.2, Material Icons Extended 1.7.3,
@@ -83,7 +84,14 @@ unchanged; no compatible stable upgrade was selected.
   vectors remain build outputs. Existing font provenance and checksums are retained.
 - The obsolete JS/Wasm incremental-compilation disable flags are removed after
   KT-82395 was fixed. The measured Binaryen inlining bound remains pending a
-  separate comparison; it is not a published-library compiler option.
+  separate comparison; it is not a published-library compiler option. The obsolete
+  webpack watch override for KT-80582 is removed. The minimizer uses webpack's
+  current bundled `minimizer-webpack-plugin`, with parallelism still disabled.
+- AGP 9's test engine splits argument values on commas and forwards values
+  without shell quoting. Benchmark CLI lists therefore use `+`, with commas
+  retained for older/direct-ADB invocations. The [benchmark recipe](../benchmarks/animated-font/README.md#run)
+  verifies actual test cases, and its analyzer can reject incomplete matrices
+  with `--expected-cases`.
 
 Primary references: [Kotlin compatibility](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html),
 [AGP migration](https://kotlinlang.org/docs/multiplatform/multiplatform-project-agp-9-migration.html),
@@ -115,14 +123,16 @@ Local migration checks (2026-09-25):
 | Python generator/report tests | 64 passed; pinned fonts and catalog verified |
 | Convention plugins | Tests and plugin validation passed |
 | Generator/plugin | 32 generator tests and all 35 plugin cases passed; the updated overlay fixture was rerun separately |
-| Independent consumers | JVM Compose, Android Compose app/library, modern Java/XML, legacy Java/XML, and published KMP AAR consumed by a separate app passed |
+| Independent consumers | All seven cases passed: JVM Compose, Android Compose app/library, modern/legacy Java/XML, native KMP AAR to app, and Compose-only KMP font/XML assets to app |
 | Configuration cache | Reused by every independent consumer |
 | Resource shrinking | Used generated/published native drawables retained, unused drawables removed, on AGP 8 and 9 |
 | Publication archives | 105 JVM/Android, 92 web and 126 Apple archives verified with original legal/font/drawable invariants |
 | Signing | 37 artifacts across seven publications verified with a disposable key |
+| JVM library checks and sample | Library tests/lint and full Android app build passed; all five expected font payloads are packaged |
+| Web | Full and incremental Koin compilation passed; JS/Wasm production linking and bundling passed with bounded memory |
 
 The consumer runs used one Gradle-8-built plugin artifact
 (`0.0.0-upgrade-test`, SHA-256
-`910e4b44e4dffcf7706500212384e7dac0cc2fbafd23de77a52c7ed13bc0062a`).
+`9d810b1c9c2b709247a8752f6a4807ac7cdcdf3a576ca7d81108a8108e85111f`).
 Their first-build timings include mixed cache state and are not performance
 benchmarks. Hosted Apple framework linking and visual review are separate gates.

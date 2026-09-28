@@ -1,4 +1,4 @@
-const TerserPlugin = require("terser-webpack-plugin");
+const TerserPlugin = require("minimizer-webpack-plugin");
 
 config.optimization = config.optimization || {};
 config.optimization.minimizer = [

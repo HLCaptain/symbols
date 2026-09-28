@@ -29,6 +29,7 @@ abstract class SymbolFontsExtension @Inject constructor(
      * carried through automatically, and files are copied into the plugin's
      * generated resource root below `build`. Two roots containing the same
      * relative path fail the merge instead of silently replacing one another.
+     * Configuring this collection also enables Android KMP resource processing.
      *
      * Roots added only through Compose's `customDirectory("commonMain", ...)`
      * cannot be discovered through its public API. Register that provider here
@@ -44,6 +45,7 @@ abstract class SymbolFontsExtension @Inject constructor(
      * resources when it is outside `src/commonMain/composeResources`. Task-backed providers retain
      * their producing-task dependency. Qualifier subdirectories are packaged normally but are not
      * scanned for descriptors; only direct TTF, OTF, and TTC files below `font/` are inspected.
+     * Configuring this collection also enables Android KMP resource processing.
      *
      * Every discovered font is exposed on `io.github.hlcaptain.symbols.Symbols` through an
      * UpperCamelCase property in the Compose resource package. Use [fontAccessor] only to override
@@ -569,6 +571,7 @@ abstract class SymbolFontStyle @Inject constructor(
      * `Res.drawable`. The Compose plugin must be applied for that directory to be
      * registered automatically. A duplicate target path in another Compose
      * resource directory fails the merge instead of silently replacing a file.
+     * Android KMP resource processing is enabled automatically for this output.
      *
      * This output uses the explicit [font] property, the conventional file chosen
      * by `font(...)`, or [svgDirectory]. It does not follow Android variant

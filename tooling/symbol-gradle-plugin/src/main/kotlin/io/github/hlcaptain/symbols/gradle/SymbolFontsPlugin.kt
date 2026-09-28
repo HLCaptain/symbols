@@ -405,8 +405,13 @@ private fun Project.wireAndroidResourceSettings(extension: SymbolFontsExtension)
     plugins.withId("com.android.kotlin.multiplatform.library") {
         extensions.getByType(KotlinMultiplatformAndroidComponentsExtension::class.java)
             .finalizeDsl { android ->
-                if (extension.iconSets.any { iconSet ->
-                        iconSet.styles.any { it.generateAndroidDrawables.get() }
+                // Inspect declarations, not task-backed resource provider values.
+                if (extension.composeResourceRoots.from.isNotEmpty() ||
+                    extension.composeFontResources.from.isNotEmpty() ||
+                    extension.iconSets.any { iconSet ->
+                        iconSet.styles.any {
+                            it.generateAndroidDrawables.get() || it.generateComposeDrawables.get()
+                        }
                     }
                 ) {
                     android.androidResources.enable = true
