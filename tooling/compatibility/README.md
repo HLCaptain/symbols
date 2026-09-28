@@ -43,6 +43,39 @@ that the exact font bytes and drawable XML survive both AAR publication and
 downstream APK packaging. Both the library and consuming app must reuse the
 configuration cache.
 
+The hosted `published-consumers` job also checks the advertised AGP 9.1 minimum
+with the same published candidate, root Gradle 9.7 wrapper, compile SDK 37, and
+current Kotlin/Compose catalog versions:
+
+| Toolchain | Consumer cases | Validation status |
+| --- | --- | --- |
+| Current catalog / root wrapper | Android app, Java/XML app, Android library, KMP, KMP Compose resources, JVM | Existing hosted checks |
+| AGP 9.1.0 / Gradle 9.7.0 | Android Compose app | Added; pending hosted validation |
+| AGP 9.1.0 / Gradle 9.7.0 | KMP Compose-resource publisher and separate consuming Android app | Added; pending hosted validation |
+| AGP 8.13.2 / Gradle 8.14.5 | Java/XML app | Existing hosted check |
+
+Reproduce the two minimum-version cases without overwriting the latest-toolchain
+or legacy results:
+
+```shell
+python3 tooling/compatibility/check.py --profile android-app --gradle ./gradlew \
+  --repository /tmp/symbols-upgrade-maven --version 0.0.0-upgrade-test \
+  --agp-version 9.1.0 --compile-sdk 37 \
+  --output build/reports/tooling-compatibility-agp91
+python3 tooling/compatibility/check.py --profile kmp --compose-resources --gradle ./gradlew \
+  --repository /tmp/symbols-upgrade-maven --version 0.0.0-upgrade-test \
+  --agp-version 9.1.0 --compile-sdk 37 \
+  --output build/reports/tooling-compatibility-agp91
+```
+
+The harness gives these cases distinct `android-app` and `kmp-compose` directories.
+Both require configuration-cache reuse; the app checks release shrinking, while
+the KMP case checks generated font/drawable bytes through publication and APK
+packaging. AGP 9.1.0's [published API](https://dl.google.com/dl/android/maven2/com/android/tools/build/gradle-api/9.1.0/gradle-api-9.1.0-sources.jar)
+includes the native KMP components extension, resource opt-in and generated-source
+directory APIs used by the plugin; this does not replace the pending end-to-end
+hosted validation.
+
 Test the same plugin artifact with the legacy supported Java/XML toolchain
 (Gradle 8.14.5, AGP 8.13.2, API 21). Current Compose artifacts require AGP 9.1+
 and API 23, so legacy KMP/Compose consumers are not part of this contract:

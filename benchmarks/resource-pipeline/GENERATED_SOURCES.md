@@ -34,8 +34,36 @@ and Android source roots without classifying generated directories as authored.
 The existing Android/KMP wiring test now examines `allKotlinSources` explicitly.
 
 This does not disable lint, add suppression paths, or restore A's missing authored
-common-source coverage. A/B benchmark revisions remain unchanged. Validate the
-candidate after the baseline measurements: run the targeted functional test,
-check the real Material module's Android/JVM and source archives, then compare
-lint models and repeat the controlled timing series. Savings remain unproven
-until those checks and measurements complete.
+common-source coverage. A/B benchmark revisions remain unchanged.
+
+## Validation
+
+Verified locally on September 28 with JDK 21:
+
+- The focused functional regression passes for both Kotlin/JVM and native Android
+  KMP. Generated declarations compile, source archives contain the generated and
+  authored files once each, and authored common/Android roots remain in lint.
+- The real rounded Material module compiles for Android and JVM. Its common,
+  Android and JVM source JARs each contain all 62 generated Kotlin files exactly
+  once, with byte-identical contents totalling 16,868,767 bytes per archive.
+- Its lint model now lists `src/androidMain/kotlin:src/commonMain/kotlin`; the
+  generated Material vector directory is absent from authored lint inputs.
+
+The compiling TestKit regression allows normal dependency resolution because its
+isolated cache starts empty. Forcing offline mode failed before compilation while
+resolving Kotlin's standard library; the wiring-only tests retain offline mode.
+Full exception logging preserves child-build failures in hosted logs.
+
+Reproduce the focused regression with the tooling wrapper:
+
+```bash
+./tooling/gradlew -p tooling :symbol-gradle-plugin:test \
+  --tests '*SymbolFontsPluginFunctionalTest.generatedKotlinCompilesAndShipsInSourcesWithoutHidingAuthoredLintInputs' \
+  --max-workers=1 --no-daemon
+```
+
+The real-module validation uses `compileAndroidMain`, `compileKotlinJvm`,
+`sourcesJar`, `androidSourcesJar`, `jvmSourcesJar` and
+`generateAndroidMainLintModel` on `:modules:material-vectors-rounded`.
+Performance savings remain unproven until the controlled timing comparison runs;
+these checks establish compilation, archive and lint-input correctness.

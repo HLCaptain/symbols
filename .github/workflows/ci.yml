@@ -81,6 +81,17 @@ jobs:
             --agp-version 8.13.2 --compile-sdk 36 \
             --output build/reports/tooling-compatibility-legacy
 
+      - name: Test Android Compose consumers at the AGP 9.1 floor
+        run: |
+          python3 tooling/compatibility/check.py --profile android-app --gradle ./gradlew \
+            --repository "$RUNNER_TEMP/symbols-consumers" --version 0.0.0-consumer-check \
+            --agp-version 9.1.0 --compile-sdk 37 \
+            --output build/reports/tooling-compatibility-agp91
+          python3 tooling/compatibility/check.py --profile kmp --compose-resources --gradle ./gradlew \
+            --repository "$RUNNER_TEMP/symbols-consumers" --version 0.0.0-consumer-check \
+            --agp-version 9.1.0 --compile-sdk 37 \
+            --output build/reports/tooling-compatibility-agp91
+
   generated-sources-and-fonts:
     name: Generated sources and fonts
     runs-on: ubuntu-24.04

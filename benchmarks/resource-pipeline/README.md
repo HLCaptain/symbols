@@ -41,8 +41,9 @@ merged with this runner's incremental measurements.
 
 ## Measurement method
 
-One uncounted warm-up precedes each profile/variant series. Three repetitions
-rotate revision ordering to reduce host/order bias; increase to five if results are
+Root-project outputs are cleared before one uncounted warm-up for each
+profile/variant series; included tooling builds and dependency caches are preserved.
+Three repetitions rotate revision ordering to reduce host/order bias; increase to five if results are
 noisy. Each repetition measures:
 
 | Case | Preparation and measured work |
@@ -67,6 +68,30 @@ and configuration caches; the two cache cases opt into their respective cache.
 These controls are identical across revisions and are recorded in every command;
 absolute numbers are not a prediction of an IDE's long-lived daemon performance.
 
+The profile reset addresses an observed dependency-switch failure in frozen B:
+after changing `material-variable` to `shell`, `compileAndroidMain` executed, but
+`AppKt` retained references to the removed `MaterialVariableNavigationModule`.
+R8 correctly rejected them. That failed warm-up is excluded from timing samples.
+
+The published [Koin Gradle plugin 1.2.1 source](https://repo.maven.apache.org/maven2/io/insert-koin/koin-compiler-gradle-plugin/1.2.1/koin-compiler-gradle-plugin-1.2.1-sources.jar)
+auto-detects aggregators with identifier-boundary patterns for `startKoin`,
+`koinApplication`, and `@KoinApplication`. It does not resolve annotation aliases
+or recognize `koinConfiguration<>`. Its exact pattern matches none of this app's
+main sources: `@KoinApplicationDefinition` fails the annotation boundary, so the
+default `strictSafety` safeguard is not auto-enabled. Koin documents
+[incremental graph-discovery limitations and explicit strictSafety](https://insert-koin.io/docs/reference/koin-annotations/options/#strictsafety)
+when aggregator detection misses. These facts support stale incremental DI
+state as the inferred cause; an explicit `strictSafety` workaround has not been
+validated for this KMP profile switch and is not introduced here.
+
+The existing size-sweep runner disables Kotlin incremental compilation, so its
+successful builds did not establish profile-switch incremental safety. This
+runner clears root-project outputs only before the excluded profile warm-up and
+for explicit target-clean/cache cases. It retains incremental compilation within
+measured fixed-profile cases and does not suppress R8 diagnostics. This is a
+sample profile-switch limitation, not evidence that normal within-profile
+incremental edits fail.
+
 Memory is the peak 100 ms sample of summed RSS for the Gradle launcher and its
 process descendants, reusing `benchmarks/shrinkable-vectors/measure.py`. Unrelated
 Java processes are excluded. Shared pages can be counted more than once and peaks
@@ -89,7 +114,7 @@ shorter build or APK alone is insufficient evidence for an optimization.
 The separate [generated Kotlin source registration candidate](GENERATED_SOURCES.md)
 uses the public KGP API to preserve authored lint coverage while classifying build
 outputs correctly. Its targeted JVM/KMP compilation, source-archive and lint-input
-regression passes; full-module validation and controlled measurements are pending.
+regression and full Material module validation pass; controlled measurements are pending.
 
 ## Fast integrity checks
 
@@ -102,6 +127,9 @@ warm-ups/failures from summaries, pairwise deltas, and Gradle task-duration pars
 They do not execute Gradle or substitute for real measurements.
 
 ## Pixel rendering check
+
+The separate [API 21/23 runtime smoke checks](RUNTIME_COMPATIBILITY.md) cover the
+minimum Android versions for XML-only and Compose consumers.
 
 After building B's three `dynamic-all` fixtures, install their signed shrunk APKs
 on an unlocked Pixel 6a at its standard 1080×2400 / 420 dpi configuration:

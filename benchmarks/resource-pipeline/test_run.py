@@ -57,6 +57,7 @@ class IntegrityTest(unittest.TestCase):
         for revision, values in (("A", (10, 30, 20)), ("B", (5, 15, 10))):
             for seconds, measured, code in [(999, False, 0), (999, True, 1), *[(value, True, 0) for value in values]]:
                 rows.append(dict(revision=revision, profile="shell", variant="release", scenario="noop", measured=measured, exit_code=code, wall_seconds=seconds, peak_process_tree_rss_bytes_sampled=seconds*100, apk={"apk_bytes": 1000}))
+            rows.append(dict(rows[-1], wall_seconds=999, validation_error="Cache was not reused"))
         summary = study.summarize(rows)
         self.assertEqual(summary[0]["runs"], 3)
         self.assertEqual(summary[0]["wall_seconds"], dict(median=20, min=10, max=30, samples=[10, 30, 20]))

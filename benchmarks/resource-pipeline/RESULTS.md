@@ -80,6 +80,14 @@ correction, not a claim that every A/B bitmap is identical. See the complete
 
 No APKs, raw logs, profiles or traces are included here.
 
+## Minimum Android runtime checks
+
+All five [runtime smoke cases](RUNTIME_COMPATIBILITY.md) passed: Java/XML on
+API 21 with AGP 8.13.2, and native XML, typed vectors, Compose drawable assets
+and the static-font sample on API 23. The expected icons rendered, and captured
+logs contained no app crash/resource/linkage exceptions. These selected cases
+establish runtime compatibility, not full-glyph parity or frame-time performance.
+
 ## Pixel 6a animation regression check
 
 Six cases per revision, five iterations each, on Android API 37. The same fixed-size scenario animates tint, all font axes and transforms. These small timing differences do not establish a speedup. [Compact measurements](PIXEL.json).

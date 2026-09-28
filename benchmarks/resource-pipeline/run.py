@@ -111,7 +111,7 @@ def profile_tasks(path):
 def summarize(rows):
     groups = defaultdict(list)
     for row in rows:
-        if row["measured"] and row["exit_code"] == 0:
+        if row["measured"] and row["exit_code"] == 0 and not row.get("validation_error"):
             groups[(row["revision"], row["profile"], row["variant"], row["scenario"])].append(row)
     summary = []
     for (revision, profile, variant, scenario), samples in sorted(groups.items()):
@@ -265,19 +265,22 @@ print(json.dumps({"executable": sys.executable, "python": sys.version.split()[0]
                 analyzer.ROOT = previous_root
         if scenario == "target-clean" and iteration == 1 and code == 0:
             row["generated"] = generated_inventory(root)
+        if code == 0 and scenario == "configuration-cache" and not row["configuration_cache_reused"]:
+            row["validation_error"] = "Configuration cache was not reused"
+        if code == 0 and scenario == "build-cache" and not row["task_outcomes"].get("FROM-CACHE", 0):
+            row["validation_error"] = "No task restored from the build cache"
         rows.append(row)
         save()
         print(f"{name}: {row['wall_seconds']:.3f}s, exit={code}", flush=True)
         if code:
             raise subprocess.CalledProcessError(code, command)
-        if scenario == "configuration-cache" and not row["configuration_cache_reused"]:
-            raise RuntimeError(f"Configuration cache was not reused; inspect {log_path}")
-        if scenario == "build-cache" and not row["task_outcomes"].get("FROM-CACHE", 0):
-            raise RuntimeError(f"No task restored from the build cache; inspect {log_path}")
+        if row.get("validation_error"):
+            raise RuntimeError(f"{row['validation_error']}; inspect {log_path}")
 
     for profile in profiles:
         for variant in variants:
             for label in revisions:
+                clean_outputs(revisions[label])
                 run(label, profile, variant, "warmup", 0, measured=False)
             order = list(revisions)
             for iteration in range(1, args.repeat + 1):
