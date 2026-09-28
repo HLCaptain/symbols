@@ -1,0 +1,803 @@
+{
+  "schema_version": 1,
+  "purpose": "APK size and content validation only; builds ran concurrently and their timings are not performance comparisons",
+  "revisions": {
+    "A": "20339e8",
+    "B": "3aea238"
+  },
+  "apks": {
+    "A": [
+      {
+        "profile": "all",
+        "variant": "release",
+        "apk_bytes": 44234216,
+        "sha256": "06e073ce445b674b300b0da0372aa41797c2b8c3dbf0c808774fa12beca192b2",
+        "dex_bytes": 68510560,
+        "dex_classes": 45341,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.custom_static.generated.resources/font/powerline_symbols.otf",
+            "bytes": 2264,
+            "compression": "deflated",
+            "sha256": "4a2496a009b1649878ce067a7ec2aed9f79656c90136971e1dba00766515f7a1"
+          },
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.custom_variable.generated.resources/font/academmunicons_variable.ttf",
+            "bytes": 97496,
+            "compression": "stored",
+            "sha256": "b9b5e711a566f16f86dcca0441977c75a88296e0f93e1b847f9e89be55bf622e"
+          },
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.resources/font/material_symbols_rounded_variable.ttf",
+            "bytes": 14586584,
+            "compression": "stored",
+            "sha256": "d719f22fdee27e344b07e46e6fa8b50b1fce3cfcb03d4a84f03fafbf0812fc22"
+          },
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.staticfont.resources/font/material_symbols_rounded_regular.ttf",
+            "bytes": 1700344,
+            "compression": "stored",
+            "sha256": "874908e92b9eb30b225f213980a480e12b8909a283ad3a723b520460d0d5e128"
+          },
+          {
+            "path": "res/cps.otf",
+            "bytes": 2264,
+            "compression": "deflated",
+            "sha256": "4a2496a009b1649878ce067a7ec2aed9f79656c90136971e1dba00766515f7a1"
+          }
+        ],
+        "compose_asset_files": 3913,
+        "native_resource_files": 4191
+      },
+      {
+        "profile": "all",
+        "variant": "shrunk",
+        "apk_bytes": 22967644,
+        "sha256": "35ba6c8d3679e1dd11027eb0984f4ad419a75c8ae1dc98618d6832a0b3b25cb8",
+        "dex_bytes": 2375200,
+        "dex_classes": 2701,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.custom_static.generated.resources/font/powerline_symbols.otf",
+            "bytes": 2264,
+            "compression": "deflated",
+            "sha256": "4a2496a009b1649878ce067a7ec2aed9f79656c90136971e1dba00766515f7a1"
+          },
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.custom_variable.generated.resources/font/academmunicons_variable.ttf",
+            "bytes": 97496,
+            "compression": "stored",
+            "sha256": "b9b5e711a566f16f86dcca0441977c75a88296e0f93e1b847f9e89be55bf622e"
+          },
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.resources/font/material_symbols_rounded_variable.ttf",
+            "bytes": 14586584,
+            "compression": "stored",
+            "sha256": "d719f22fdee27e344b07e46e6fa8b50b1fce3cfcb03d4a84f03fafbf0812fc22"
+          },
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.staticfont.resources/font/material_symbols_rounded_regular.ttf",
+            "bytes": 1700344,
+            "compression": "stored",
+            "sha256": "874908e92b9eb30b225f213980a480e12b8909a283ad3a723b520460d0d5e128"
+          }
+        ],
+        "compose_asset_files": 3913,
+        "native_resource_files": 289
+      },
+      {
+        "profile": "android-views",
+        "variant": "release",
+        "apk_bytes": 37143437,
+        "sha256": "347080e281e6f572b6f43e2542b671fc0d672920feb6f917639f5f9d8671faf4",
+        "dex_bytes": 64353640,
+        "dex_classes": 41267,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.resources/font/material_symbols_rounded_variable.ttf",
+            "bytes": 14586584,
+            "compression": "stored",
+            "sha256": "d719f22fdee27e344b07e46e6fa8b50b1fce3cfcb03d4a84f03fafbf0812fc22"
+          },
+          {
+            "path": "res/cps.otf",
+            "bytes": 2264,
+            "compression": "deflated",
+            "sha256": "4a2496a009b1649878ce067a7ec2aed9f79656c90136971e1dba00766515f7a1"
+          }
+        ],
+        "compose_asset_files": 53,
+        "native_resource_files": 4191
+      },
+      {
+        "profile": "android-views",
+        "variant": "shrunk",
+        "apk_bytes": 16466747,
+        "sha256": "4af02ca533fe267bcc1c47818fe48d4de558e19c579f7488b6cf2455186d75e6",
+        "dex_bytes": 1968712,
+        "dex_classes": 2420,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.resources/font/material_symbols_rounded_variable.ttf",
+            "bytes": 14586584,
+            "compression": "stored",
+            "sha256": "d719f22fdee27e344b07e46e6fa8b50b1fce3cfcb03d4a84f03fafbf0812fc22"
+          }
+        ],
+        "compose_asset_files": 53,
+        "native_resource_files": 289
+      },
+      {
+        "profile": "custom-static",
+        "variant": "release",
+        "apk_bytes": 14244621,
+        "sha256": "6c931472c44df65bc5e2a31e9f98e550d94d17edb9967bd47128e4025e5d5793",
+        "dex_bytes": 41027088,
+        "dex_classes": 29673,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.custom_static.generated.resources/font/powerline_symbols.otf",
+            "bytes": 2264,
+            "compression": "deflated",
+            "sha256": "4a2496a009b1649878ce067a7ec2aed9f79656c90136971e1dba00766515f7a1"
+          }
+        ],
+        "compose_asset_files": 8,
+        "native_resource_files": 356
+      },
+      {
+        "profile": "custom-static",
+        "variant": "shrunk",
+        "apk_bytes": 1551929,
+        "sha256": "203f2e85076b919f2939c7069c6d7cbd89d16eed744276ebeb431163c1f23182",
+        "dex_bytes": 1987824,
+        "dex_classes": 2432,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.custom_static.generated.resources/font/powerline_symbols.otf",
+            "bytes": 2264,
+            "compression": "deflated",
+            "sha256": "4a2496a009b1649878ce067a7ec2aed9f79656c90136971e1dba00766515f7a1"
+          }
+        ],
+        "compose_asset_files": 8,
+        "native_resource_files": 269
+      },
+      {
+        "profile": "custom-variable",
+        "variant": "release",
+        "apk_bytes": 14514447,
+        "sha256": "b953424638b6326b23d3a4f0ad1db0b0df1e1635f14bb34c84ef39bd87ff2620",
+        "dex_bytes": 41306240,
+        "dex_classes": 29790,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.custom_variable.generated.resources/font/academmunicons_variable.ttf",
+            "bytes": 97496,
+            "compression": "stored",
+            "sha256": "b9b5e711a566f16f86dcca0441977c75a88296e0f93e1b847f9e89be55bf622e"
+          }
+        ],
+        "compose_asset_files": 50,
+        "native_resource_files": 356
+      },
+      {
+        "profile": "custom-variable",
+        "variant": "shrunk",
+        "apk_bytes": 1772603,
+        "sha256": "d3cf84152448bcba5a00ec26c016b5d3a6afc08c174dd9473fb657d27f5ec57d",
+        "dex_bytes": 2094972,
+        "dex_classes": 2575,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.custom_variable.generated.resources/font/academmunicons_variable.ttf",
+            "bytes": 97496,
+            "compression": "stored",
+            "sha256": "b9b5e711a566f16f86dcca0441977c75a88296e0f93e1b847f9e89be55bf622e"
+          }
+        ],
+        "compose_asset_files": 50,
+        "native_resource_files": 269
+      },
+      {
+        "profile": "image-vector-migration",
+        "variant": "release",
+        "apk_bytes": 33531119,
+        "sha256": "272217f5bc71e12b60f3749685d5a0ce8bce9f7142424aa80db88645836829a2",
+        "dex_bytes": 64081664,
+        "dex_classes": 41232,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.resources/font/material_symbols_rounded_variable.ttf",
+            "bytes": 14586584,
+            "compression": "stored",
+            "sha256": "d719f22fdee27e344b07e46e6fa8b50b1fce3cfcb03d4a84f03fafbf0812fc22"
+          }
+        ],
+        "compose_asset_files": 53,
+        "native_resource_files": 377
+      },
+      {
+        "profile": "image-vector-migration",
+        "variant": "shrunk",
+        "apk_bytes": 16299006,
+        "sha256": "7471e2dbdcfacabc7b55b322621c82b5a3bb2a853cf3d0316461cd4cd4fd9849",
+        "dex_bytes": 2138204,
+        "dex_classes": 2601,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.resources/font/material_symbols_rounded_variable.ttf",
+            "bytes": 14586584,
+            "compression": "stored",
+            "sha256": "d719f22fdee27e344b07e46e6fa8b50b1fce3cfcb03d4a84f03fafbf0812fc22"
+          }
+        ],
+        "compose_asset_files": 53,
+        "native_resource_files": 269
+      },
+      {
+        "profile": "material-static",
+        "variant": "release",
+        "apk_bytes": 21141932,
+        "sha256": "8237f30f39f8aa35fccdf6785a7195719e183b74d19aebe29c34936583eeaa1b",
+        "dex_bytes": 45118180,
+        "dex_classes": 33594,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.staticfont.resources/font/material_symbols_rounded_regular.ttf",
+            "bytes": 1700344,
+            "compression": "stored",
+            "sha256": "874908e92b9eb30b225f213980a480e12b8909a283ad3a723b520460d0d5e128"
+          }
+        ],
+        "compose_asset_files": 3802,
+        "native_resource_files": 356
+      },
+      {
+        "profile": "material-static",
+        "variant": "shrunk",
+        "apk_bytes": 7711960,
+        "sha256": "737d20e721f950789462bcb65145e29a18c4f14635f12a3b31072eb77ce2aef5",
+        "dex_bytes": 2049060,
+        "dex_classes": 2470,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.staticfont.resources/font/material_symbols_rounded_regular.ttf",
+            "bytes": 1700344,
+            "compression": "stored",
+            "sha256": "874908e92b9eb30b225f213980a480e12b8909a283ad3a723b520460d0d5e128"
+          }
+        ],
+        "compose_asset_files": 3802,
+        "native_resource_files": 269
+      },
+      {
+        "profile": "material-variable",
+        "variant": "release",
+        "apk_bytes": 28856996,
+        "sha256": "579e7c80ac6c0d73402fbc9ffa8e0bc61d2528446d8ce550d443a6fca118895b",
+        "dex_bytes": 41092740,
+        "dex_classes": 29739,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.resources/font/material_symbols_rounded_variable.ttf",
+            "bytes": 14586584,
+            "compression": "stored",
+            "sha256": "d719f22fdee27e344b07e46e6fa8b50b1fce3cfcb03d4a84f03fafbf0812fc22"
+          }
+        ],
+        "compose_asset_files": 0,
+        "native_resource_files": 356
+      },
+      {
+        "profile": "material-variable",
+        "variant": "shrunk",
+        "apk_bytes": 16131536,
+        "sha256": "c2466af5fab2ee4ce661921a0640fbdee9d09b3cc8bccda2da3c2ba9bfd4b93e",
+        "dex_bytes": 1978080,
+        "dex_classes": 2420,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.resources/font/material_symbols_rounded_variable.ttf",
+            "bytes": 14586584,
+            "compression": "stored",
+            "sha256": "d719f22fdee27e344b07e46e6fa8b50b1fce3cfcb03d4a84f03fafbf0812fc22"
+          }
+        ],
+        "compose_asset_files": 0,
+        "native_resource_files": 269
+      },
+      {
+        "profile": "runtime-axes",
+        "variant": "release",
+        "apk_bytes": 28856996,
+        "sha256": "a2467dc1efc54a118453f3017bfa925ecdca69314f2a32f61a8404495e4cee71",
+        "dex_bytes": 41111708,
+        "dex_classes": 29752,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.resources/font/material_symbols_rounded_variable.ttf",
+            "bytes": 14586584,
+            "compression": "stored",
+            "sha256": "d719f22fdee27e344b07e46e6fa8b50b1fce3cfcb03d4a84f03fafbf0812fc22"
+          }
+        ],
+        "compose_asset_files": 0,
+        "native_resource_files": 356
+      },
+      {
+        "profile": "runtime-axes",
+        "variant": "shrunk",
+        "apk_bytes": 16229840,
+        "sha256": "2f530fd4fdd8b4b78d6ac2dece9c45c864c0d9de7f719893ca6a2fbf6030a6fb",
+        "dex_bytes": 2188276,
+        "dex_classes": 2539,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.resources/font/material_symbols_rounded_variable.ttf",
+            "bytes": 14586584,
+            "compression": "stored",
+            "sha256": "d719f22fdee27e344b07e46e6fa8b50b1fce3cfcb03d4a84f03fafbf0812fc22"
+          }
+        ],
+        "compose_asset_files": 0,
+        "native_resource_files": 269
+      },
+      {
+        "profile": "shell",
+        "variant": "release",
+        "apk_bytes": 14155317,
+        "sha256": "3d1b1488143ee61b1a337e6d46431338565443a778e483418718c14b2ffb8cd2",
+        "dex_bytes": 40823920,
+        "dex_classes": 29500,
+        "fonts": [],
+        "compose_asset_files": 0,
+        "native_resource_files": 356
+      },
+      {
+        "profile": "shell",
+        "variant": "shrunk",
+        "apk_bytes": 1495397,
+        "sha256": "dff95187e0d670b24df375c57d2aaede92209c5e233df6fbedd18eb73dcd32ec",
+        "dex_bytes": 1891792,
+        "dex_classes": 2333,
+        "fonts": [],
+        "compose_asset_files": 0,
+        "native_resource_files": 269
+      },
+      {
+        "profile": "theming",
+        "variant": "release",
+        "apk_bytes": 15970778,
+        "sha256": "e997f3742ed38cd5731546d398b53ac6d5b6a30b67c703eae55b067a5265577c",
+        "dex_bytes": 41094832,
+        "dex_classes": 29741,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.staticfont.resources/font/material_symbols_rounded_regular.ttf",
+            "bytes": 1700344,
+            "compression": "stored",
+            "sha256": "874908e92b9eb30b225f213980a480e12b8909a283ad3a723b520460d0d5e128"
+          }
+        ],
+        "compose_asset_files": 0,
+        "native_resource_files": 356
+      },
+      {
+        "profile": "theming",
+        "variant": "shrunk",
+        "apk_bytes": 3245318,
+        "sha256": "f7d2e830077e2ff9a599ad090cb12024bc0feb00a0bece79e8eb6535f4ae3bdf",
+        "dex_bytes": 1975792,
+        "dex_classes": 2417,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.staticfont.resources/font/material_symbols_rounded_regular.ttf",
+            "bytes": 1700344,
+            "compression": "stored",
+            "sha256": "874908e92b9eb30b225f213980a480e12b8909a283ad3a723b520460d0d5e128"
+          }
+        ],
+        "compose_asset_files": 0,
+        "native_resource_files": 269
+      }
+    ],
+    "B": [
+      {
+        "profile": "all",
+        "variant": "release",
+        "apk_bytes": 43849761,
+        "sha256": "654c1bb8760fe23a51cca753c3957927d3b0c5e49ef48a370e6c080f20a1874a",
+        "dex_bytes": 67837068,
+        "dex_classes": 45464,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.custom_static.generated.resources/font/powerline_symbols.otf",
+            "bytes": 2264,
+            "compression": "deflated",
+            "sha256": "4a2496a009b1649878ce067a7ec2aed9f79656c90136971e1dba00766515f7a1"
+          },
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.custom_variable.generated.resources/font/academmunicons_variable.ttf",
+            "bytes": 97496,
+            "compression": "stored",
+            "sha256": "b9b5e711a566f16f86dcca0441977c75a88296e0f93e1b847f9e89be55bf622e"
+          },
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.resources/font/material_symbols_rounded_variable.ttf",
+            "bytes": 14586584,
+            "compression": "stored",
+            "sha256": "d719f22fdee27e344b07e46e6fa8b50b1fce3cfcb03d4a84f03fafbf0812fc22"
+          },
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.staticfont.resources/font/material_symbols_rounded_regular.ttf",
+            "bytes": 1700344,
+            "compression": "stored",
+            "sha256": "874908e92b9eb30b225f213980a480e12b8909a283ad3a723b520460d0d5e128"
+          },
+          {
+            "path": "res/cps.otf",
+            "bytes": 2264,
+            "compression": "deflated",
+            "sha256": "4a2496a009b1649878ce067a7ec2aed9f79656c90136971e1dba00766515f7a1"
+          }
+        ],
+        "compose_asset_files": 3913,
+        "native_resource_files": 4173
+      },
+      {
+        "profile": "all",
+        "variant": "shrunk",
+        "apk_bytes": 22980545,
+        "sha256": "8578c847b8a1c4a53245b72fa174c26896c1f279b414e639bc67b66c4bdabeef",
+        "dex_bytes": 2284428,
+        "dex_classes": 2575,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.custom_static.generated.resources/font/powerline_symbols.otf",
+            "bytes": 2264,
+            "compression": "deflated",
+            "sha256": "4a2496a009b1649878ce067a7ec2aed9f79656c90136971e1dba00766515f7a1"
+          },
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.custom_variable.generated.resources/font/academmunicons_variable.ttf",
+            "bytes": 97496,
+            "compression": "stored",
+            "sha256": "b9b5e711a566f16f86dcca0441977c75a88296e0f93e1b847f9e89be55bf622e"
+          },
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.resources/font/material_symbols_rounded_variable.ttf",
+            "bytes": 14586584,
+            "compression": "stored",
+            "sha256": "d719f22fdee27e344b07e46e6fa8b50b1fce3cfcb03d4a84f03fafbf0812fc22"
+          },
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.staticfont.resources/font/material_symbols_rounded_regular.ttf",
+            "bytes": 1700344,
+            "compression": "stored",
+            "sha256": "874908e92b9eb30b225f213980a480e12b8909a283ad3a723b520460d0d5e128"
+          }
+        ],
+        "compose_asset_files": 3913,
+        "native_resource_files": 277
+      },
+      {
+        "profile": "android-views",
+        "variant": "release",
+        "apk_bytes": 36770144,
+        "sha256": "40a5dc9099b40c153fae6862c41b34fce8a901651fe6c32eb07b9b0c8854d81d",
+        "dex_bytes": 63721152,
+        "dex_classes": 41390,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.resources/font/material_symbols_rounded_variable.ttf",
+            "bytes": 14586584,
+            "compression": "stored",
+            "sha256": "d719f22fdee27e344b07e46e6fa8b50b1fce3cfcb03d4a84f03fafbf0812fc22"
+          },
+          {
+            "path": "res/cps.otf",
+            "bytes": 2264,
+            "compression": "deflated",
+            "sha256": "4a2496a009b1649878ce067a7ec2aed9f79656c90136971e1dba00766515f7a1"
+          }
+        ],
+        "compose_asset_files": 53,
+        "native_resource_files": 4173
+      },
+      {
+        "profile": "android-views",
+        "variant": "shrunk",
+        "apk_bytes": 16457984,
+        "sha256": "e5be168e4f74028d0b0ca87e32fff780a6ed264d3d252a2ade2085842250be22",
+        "dex_bytes": 1927504,
+        "dex_classes": 2315,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.resources/font/material_symbols_rounded_variable.ttf",
+            "bytes": 14586584,
+            "compression": "stored",
+            "sha256": "d719f22fdee27e344b07e46e6fa8b50b1fce3cfcb03d4a84f03fafbf0812fc22"
+          }
+        ],
+        "compose_asset_files": 53,
+        "native_resource_files": 277
+      },
+      {
+        "profile": "custom-static",
+        "variant": "release",
+        "apk_bytes": 13947288,
+        "sha256": "8fa0a9c4233757e9d206ec119d162cb6d88580060f107a488551690ca8a96ae5",
+        "dex_bytes": 40522984,
+        "dex_classes": 29793,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.custom_static.generated.resources/font/powerline_symbols.otf",
+            "bytes": 2264,
+            "compression": "deflated",
+            "sha256": "4a2496a009b1649878ce067a7ec2aed9f79656c90136971e1dba00766515f7a1"
+          }
+        ],
+        "compose_asset_files": 8,
+        "native_resource_files": 356
+      },
+      {
+        "profile": "custom-static",
+        "variant": "shrunk",
+        "apk_bytes": 1582334,
+        "sha256": "b0f45bfae6c1e7bc0fb23d78dd085bd8328cca33d44c716e553e88fa50ef364c",
+        "dex_bytes": 1948672,
+        "dex_classes": 2336,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.custom_static.generated.resources/font/powerline_symbols.otf",
+            "bytes": 2264,
+            "compression": "deflated",
+            "sha256": "4a2496a009b1649878ce067a7ec2aed9f79656c90136971e1dba00766515f7a1"
+          }
+        ],
+        "compose_asset_files": 8,
+        "native_resource_files": 269
+      },
+      {
+        "profile": "custom-variable",
+        "variant": "release",
+        "apk_bytes": 14233498,
+        "sha256": "ed0c1f30e2f05adbf14ecc3efe68257bc9cc9037ef688d30c35c298ee3568271",
+        "dex_bytes": 40803100,
+        "dex_classes": 29910,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.custom_variable.generated.resources/font/academmunicons_variable.ttf",
+            "bytes": 97496,
+            "compression": "stored",
+            "sha256": "b9b5e711a566f16f86dcca0441977c75a88296e0f93e1b847f9e89be55bf622e"
+          }
+        ],
+        "compose_asset_files": 50,
+        "native_resource_files": 356
+      },
+      {
+        "profile": "custom-variable",
+        "variant": "shrunk",
+        "apk_bytes": 1803012,
+        "sha256": "099d9709c051bfef494742197dce48f8f11422e4bc9fb15c108a2eea72e392b3",
+        "dex_bytes": 2047748,
+        "dex_classes": 2472,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.custom_variable.generated.resources/font/academmunicons_variable.ttf",
+            "bytes": 97496,
+            "compression": "stored",
+            "sha256": "b9b5e711a566f16f86dcca0441977c75a88296e0f93e1b847f9e89be55bf622e"
+          }
+        ],
+        "compose_asset_files": 50,
+        "native_resource_files": 269
+      },
+      {
+        "profile": "image-vector-migration",
+        "variant": "release",
+        "apk_bytes": 33154351,
+        "sha256": "df204dd6fa911529d9b5ed8df638a5845913b2c693a1d27daedbfd3642db3feb",
+        "dex_bytes": 63450876,
+        "dex_classes": 41352,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.resources/font/material_symbols_rounded_variable.ttf",
+            "bytes": 14586584,
+            "compression": "stored",
+            "sha256": "d719f22fdee27e344b07e46e6fa8b50b1fce3cfcb03d4a84f03fafbf0812fc22"
+          }
+        ],
+        "compose_asset_files": 53,
+        "native_resource_files": 359
+      },
+      {
+        "profile": "image-vector-migration",
+        "variant": "shrunk",
+        "apk_bytes": 16313031,
+        "sha256": "85ecbb34e467ad0dfe4746c06c40fe34e957c6c166b726a91262f8c15b7d0bb0",
+        "dex_bytes": 2089572,
+        "dex_classes": 2496,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.resources/font/material_symbols_rounded_variable.ttf",
+            "bytes": 14586584,
+            "compression": "stored",
+            "sha256": "d719f22fdee27e344b07e46e6fa8b50b1fce3cfcb03d4a84f03fafbf0812fc22"
+          }
+        ],
+        "compose_asset_files": 53,
+        "native_resource_files": 269
+      },
+      {
+        "profile": "material-static",
+        "variant": "release",
+        "apk_bytes": 20800785,
+        "sha256": "9e8fd40083055467437b1c919c8366be9bd38ced10f369e8266db268ef990356",
+        "dex_bytes": 44456972,
+        "dex_classes": 33714,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.staticfont.resources/font/material_symbols_rounded_regular.ttf",
+            "bytes": 1700344,
+            "compression": "stored",
+            "sha256": "874908e92b9eb30b225f213980a480e12b8909a283ad3a723b520460d0d5e128"
+          }
+        ],
+        "compose_asset_files": 3802,
+        "native_resource_files": 356
+      },
+      {
+        "profile": "material-static",
+        "variant": "shrunk",
+        "apk_bytes": 7747649,
+        "sha256": "00fc4c9bb98cec2589c7621193b8f5f2bb45e042edcd60adb6eb931ca767ca3d",
+        "dex_bytes": 1985200,
+        "dex_classes": 2371,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.staticfont.resources/font/material_symbols_rounded_regular.ttf",
+            "bytes": 1700344,
+            "compression": "stored",
+            "sha256": "874908e92b9eb30b225f213980a480e12b8909a283ad3a723b520460d0d5e128"
+          }
+        ],
+        "compose_asset_files": 3802,
+        "native_resource_files": 269
+      },
+      {
+        "profile": "material-variable",
+        "variant": "release",
+        "apk_bytes": 28559663,
+        "sha256": "ecc0d2bba9c167aeb25fe6397db395020b41e60da3e8f56c634265552b270424",
+        "dex_bytes": 40595816,
+        "dex_classes": 29859,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.resources/font/material_symbols_rounded_variable.ttf",
+            "bytes": 14586584,
+            "compression": "stored",
+            "sha256": "d719f22fdee27e344b07e46e6fa8b50b1fce3cfcb03d4a84f03fafbf0812fc22"
+          }
+        ],
+        "compose_asset_files": 0,
+        "native_resource_files": 356
+      },
+      {
+        "profile": "material-variable",
+        "variant": "shrunk",
+        "apk_bytes": 16145561,
+        "sha256": "2447a4be8536d4c462cbc63a289a596036040fb23aa1996f401410b7d6612587",
+        "dex_bytes": 1939892,
+        "dex_classes": 2323,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.resources/font/material_symbols_rounded_variable.ttf",
+            "bytes": 14586584,
+            "compression": "stored",
+            "sha256": "d719f22fdee27e344b07e46e6fa8b50b1fce3cfcb03d4a84f03fafbf0812fc22"
+          }
+        ],
+        "compose_asset_files": 0,
+        "native_resource_files": 269
+      },
+      {
+        "profile": "runtime-axes",
+        "variant": "release",
+        "apk_bytes": 28576047,
+        "sha256": "0e3d97b857191137b38d1f205c403f601b696e4bec8fd37f32b39e31bcea60d9",
+        "dex_bytes": 40624328,
+        "dex_classes": 29872,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.resources/font/material_symbols_rounded_variable.ttf",
+            "bytes": 14586584,
+            "compression": "stored",
+            "sha256": "d719f22fdee27e344b07e46e6fa8b50b1fce3cfcb03d4a84f03fafbf0812fc22"
+          }
+        ],
+        "compose_asset_files": 0,
+        "native_resource_files": 356
+      },
+      {
+        "profile": "runtime-axes",
+        "variant": "shrunk",
+        "apk_bytes": 16260249,
+        "sha256": "1ad3cd0740359ec8dc8ce884fe4dcc97a17f3bc9e41a6f474bca291c69ff3160",
+        "dex_bytes": 2151072,
+        "dex_classes": 2436,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.resources/font/material_symbols_rounded_variable.ttf",
+            "bytes": 14586584,
+            "compression": "stored",
+            "sha256": "d719f22fdee27e344b07e46e6fa8b50b1fce3cfcb03d4a84f03fafbf0812fc22"
+          }
+        ],
+        "compose_asset_files": 0,
+        "native_resource_files": 269
+      },
+      {
+        "profile": "shell",
+        "variant": "release",
+        "apk_bytes": 13874372,
+        "sha256": "ff4cb7693135186847a2161c2e3a112088139a59692d66f7ddeca06d1222f438",
+        "dex_bytes": 40318908,
+        "dex_classes": 29614,
+        "fonts": [],
+        "compose_asset_files": 0,
+        "native_resource_files": 356
+      },
+      {
+        "profile": "shell",
+        "variant": "shrunk",
+        "apk_bytes": 1509422,
+        "sha256": "0ff89a089e14e28c93a4e99065a317fe15d9d260e9f1e829bdfb5e2baaf3e6a4",
+        "dex_bytes": 1854156,
+        "dex_classes": 2238,
+        "fonts": [],
+        "compose_asset_files": 0,
+        "native_resource_files": 269
+      },
+      {
+        "profile": "theming",
+        "variant": "release",
+        "apk_bytes": 15673445,
+        "sha256": "dba42b43c98e6089d2046bc49a4f0a7af733a01f9eb1419beba8c3fe245153e5",
+        "dex_bytes": 40602240,
+        "dex_classes": 29861,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.staticfont.resources/font/material_symbols_rounded_regular.ttf",
+            "bytes": 1700344,
+            "compression": "stored",
+            "sha256": "874908e92b9eb30b225f213980a480e12b8909a283ad3a723b520460d0d5e128"
+          }
+        ],
+        "compose_asset_files": 0,
+        "native_resource_files": 356
+      },
+      {
+        "profile": "theming",
+        "variant": "shrunk",
+        "apk_bytes": 3259343,
+        "sha256": "1f185481835f63aa98e2491fd2aa2202196caa6b4d55763637053ede2ae6f264",
+        "dex_bytes": 1937988,
+        "dex_classes": 2321,
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.staticfont.resources/font/material_symbols_rounded_regular.ttf",
+            "bytes": 1700344,
+            "compression": "stored",
+            "sha256": "874908e92b9eb30b225f213980a480e12b8909a283ad3a723b520460d0d5e128"
+          }
+        ],
+        "compose_asset_files": 0,
+        "native_resource_files": 269
+      }
+    ]
+  },
+  "font_payload_identity": "All corresponding font paths and decoded bytes match across A/B for all ten profiles, both variants."
+}

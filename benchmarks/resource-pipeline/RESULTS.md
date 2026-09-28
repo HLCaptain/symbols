@@ -1,50 +1,83 @@
-# Resource usage baseline A
+# Resource usage study
 
-All 30 baseline consumers built successfully: 60 APKs covering 0, 1, 25, 200 and
-all 3,802 glyphs, three backends, and direct/dynamic access. Counts and artifact
-hashes were verified after the builds. This is APK/archive validation, not device
-rendering validation or a controlled timing benchmark.
+Both cohorts completed all 30 usage cases: **60 cases and 120 APKs** across 0, 1,
+25, 200 and all 3,802 glyphs, three backends, and direct/dynamic access. APK hashes
+and retention counts were verified after the builds. These are size and archive
+checks; build timings collected under concurrent load are excluded.
 
-Revision: `20339e8bb5bc787a569516dc78dda0cce5bdb6da`; locally published version
-`0.0.0-study-a`. Toolchain: Gradle 8.14.5, AGP 8.13.2, Kotlin 2.3.21, Compose
-Multiplatform 1.11.1 and JDK 21. Sources and commands are in the [README](README.md);
-exact APK bytes, hashes and retention counts are in [BASELINE_A.json](BASELINE_A.json).
+| Cohort | Publication revision | Toolchain | Local artifact version |
+| --- | --- | --- | --- |
+| A | `20339e8` | Gradle 8.14.5 / AGP 8.13.2 / Kotlin 2.3.21 / Compose 1.11.1 | `0.0.0-study-a` |
+| B | `3aea238` | Gradle 9.7.0 / AGP 9.4.1 / Kotlin 2.4.20 / Compose 1.12.1 | `0.0.0-study-b` |
+
+Both use JDK 21, the same signing key and the same glyph selections. B artifacts
+remain pinned to the measured publication revision; subsequent PR1 harness/CI
+fixes did not replace these local binaries. [Reproduction](README.md). Exact bytes,
+hashes and counts: [A](BASELINE_A.json), [B](UPGRADE_B.json),
+[A/B deltas](APK_COMPARISON.json).
 
 ## R8-shrunk APK bytes
 
+### Cohort A
+
 | Backend / access | 0 | 1 | 25 | 200 | All 3,802 |
-|---|---:|---:|---:|---:|---:|
-|vectors/direct|856,410|872,833|889,434|940,531|2,373,419|
-|vectors/dynamic|2,396,503|2,396,546|2,396,760|2,398,712|2,438,949|
-|android/direct|856,412|907,998|931,165|1,092,039|4,673,909|
-|android/dynamic|4,664,231|4,664,267|4,664,490|4,666,429|4,706,671|
-|compose/direct|5,042,018|5,091,211|5,091,422|5,109,758|5,313,852|
-|compose/dynamic|5,320,560|5,320,594|5,320,808|5,322,750|5,362,996|
+| --- | ---: | ---: | ---: | ---: | ---: |
+| vectors / direct | 856,410 | 872,833 | 889,434 | 940,531 | 2,373,419 |
+| vectors / dynamic | 2,396,503 | 2,396,546 | 2,396,760 | 2,398,712 | 2,438,949 |
+| android / direct | 856,412 | 907,998 | 931,165 | 1,092,039 | 4,673,909 |
+| android / dynamic | 4,664,231 | 4,664,267 | 4,664,490 | 4,666,429 | 4,706,671 |
+| compose / direct | 5,042,018 | 5,091,211 | 5,091,422 | 5,109,758 | 5,313,852 |
+| compose / dynamic | 5,320,560 | 5,320,594 | 5,320,808 | 5,322,750 | 5,362,996 |
+
+### Cohort B
+
+| Backend / access | 0 | 1 | 25 | 200 | All 3,802 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| vectors / direct | 869,212 | 885,635 | 885,853 | 953,326 | 2,386,210 |
+| vectors / dynamic | 2,409,303 | 2,409,350 | 2,409,563 | 2,411,509 | 2,451,747 |
+| android / direct | 869,196 | 903,507 | 926,785 | 1,105,071 | 4,688,170 |
+| android / dynamic | 4,694,876 | 4,694,927 | 4,695,131 | 4,697,081 | 4,737,311 |
+| compose / direct | 5,077,335 | 5,126,534 | 5,126,745 | 5,128,685 | 5,349,154 |
+| compose / dynamic | 5,355,770 | 5,355,815 | 5,356,023 | 5,357,963 | 5,398,216 |
+
+## Upgrade deltas for one selected icon
+
+| Backend / access | B minus A bytes | Change |
+| --- | ---: | ---: |
+| vectors / direct | +12,802 | +1.47% |
+| vectors / dynamic | +12,804 | +0.53% |
+| android / direct | -4,491 | -0.49% |
+| android / dynamic | +30,660 | +0.66% |
+| compose / direct | +35,323 | +0.69% |
+| compose / dynamic | +35,221 | +0.66% |
+
+These are aggregate upgrade effects, including changed dependencies and corrected
+font-derived XML outlines. They do not demonstrate an additional Android resource
+shrinking optimization from upgrading Gradle.
 
 ## Retention findings
 
-- Direct native XML retains exactly the selected resource count after shrinking;
-  direct vectors retain exactly that many vector-name markers in DEX. The markers
-  are diagnostic and do not prove pixel correctness.
+- Direct native XML retains exactly the selected resource count after shrinking
+  in both cohorts. Direct vectors retain exactly that many vector-name markers
+  in DEX; markers are diagnostic rather than a pixel correctness proof.
 - Dynamic cases retain all 3,802 glyphs at every selected count, including zero.
   They keep a complete catalog reachable and load the selection at runtime.
-- Compose XML assets retain all 3,802 files even with zero direct references.
-  Updating Gradle alone is not proof that R8 can shrink assets.
+- Compose XML assets retain all 3,802 files even with zero direct references in
+  both cohorts. The toolchain upgrade does not make these assets shrinkable.
 - Preliminary native `getIdentifier()` and reflection-based catalogs lost
   referenced icons under R8. Final native dynamic cases use an app-owned map of
   explicit `R.drawable` references. This is consumer fixture code; arbitrary
   runtime-string lookup still requires an app-owned resource-keep contract.
 
-## Remaining comparison gates
+## Geometry validation
 
-The six initial B one-icon probes built and passed archive checks, but the full
-B matrix is pending font-outline validation. A/B XML path strings differ for
-3,787 glyphs; contour ordering alone is not a pixel comparison. B results must
-not be interpreted as acceptance of visual parity until the independent font
-reference, raster and device checks finish.
+A/B XML path strings differ for 3,787 glyphs. Independent FontTools outlines and
+raster comparisons show that upgraded B corrects filled-area errors already
+present in old Skia output; the source TTF is byte-identical. This is a visual
+correction, not a claim that every A/B bitmap is identical. See the complete
+[raster findings and reproduction](RASTER_RESULTS.md).
 
-No APKs, raw logs, profiles or traces are included here. Original build timings
-were collected under concurrent load and are excluded from this summary.
+No APKs, raw logs, profiles or traces are included here.
 
 ## Pixel 6a animation regression check
 

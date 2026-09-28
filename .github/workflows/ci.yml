@@ -99,6 +99,10 @@ jobs:
       - name: Run all Python generator and verifier tests
         run: python -m unittest discover -s tools/tests -p "test_*.py"
 
+      - name: Check resource benchmark helpers
+        if: ${{ !inputs.publication-only }}
+        run: python -m unittest discover -s benchmarks/resource-pipeline -p "test_*.py"
+
       - name: Check generated symbol catalog
         run: python tools/generate_material_symbols.py --check
 
