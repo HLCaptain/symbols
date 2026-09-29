@@ -24,6 +24,9 @@ object Icons {
 
     /** Explicitly opt-in vectors that mirror in right-to-left layouts. */
     object AutoMirrored {
+        /** Theme-selected Material Symbols vectors with automatic RTL mirroring. */
+        object Themed
+
         /** Material Symbols Outlined vectors with automatic RTL mirroring. */
         object Outlined
 
@@ -58,6 +61,10 @@ val MaterialSymbols.Sharp: Icons.Sharp
 /** Explicitly opt-in vectors that mirror in right-to-left layouts. */
 val MaterialSymbols.AutoMirrored: Icons.AutoMirrored
     get() = Icons.AutoMirrored
+
+/** Theme-selected Material Symbols vectors with automatic RTL mirroring. */
+val Icons.AutoMirrored.Themed: Icons.AutoMirrored.Themed
+    get() = Icons.AutoMirrored.Themed
 
 /** Material Symbols Outlined vectors with automatic RTL mirroring. */
 val Icons.AutoMirrored.Outlined: Icons.AutoMirrored.Outlined

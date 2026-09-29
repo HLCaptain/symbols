@@ -21,7 +21,7 @@ val LocalMaterialSymbolStyle: ProvidableCompositionLocal<MaterialSymbolStyle> =
 
 /** Access to the Material style supplied by [MaterialSymbolsTheme]. */
 object MaterialSymbolsTheme {
-    /** The style used by composable `Symbols.Material.Themed.*` vectors. */
+    /** The style used by `Symbols.Material.Themed.*` and `Symbols.Material.AutoMirrored.Themed.*`. */
     val style: MaterialSymbolStyle
         @Composable
         @ReadOnlyComposable
@@ -34,6 +34,10 @@ object MaterialSymbolsTheme {
  * Both values are limited to this composable subtree and do not change global state. The style
  * selects Outlined, Rounded, or Sharp theme-aware vectors. The font settings are forwarded to
  * [SymbolsTheme] for regular and variable symbol fonts.
+ *
+ * `Symbols.Material.AutoMirrored.Themed.*` opts into right-to-left mirroring for any named icon.
+ * Both themed namespaces return standard ImageVectors from the corresponding per-style caches;
+ * ordinary `Symbols.Material.Themed.*` vectors remain unmirrored.
  *
  * Changing [style] recomposes themed-vector readers and selects the corresponding cached vector.
  * Changing [fontSettings] updates runtime font renderers and may cause their text to be measured,

@@ -606,28 +606,29 @@ def render_themed_icon_file(
 
     for name, _ in entries:
         identifier = kotlin_identifier(name)
-        lines.extend(
-            (
-                f"val Icons.Themed.{identifier}: ImageVector",
-                "    @Composable",
-                "    @ReadOnlyComposable",
-                "    get() = when (SymbolsTheme.style) {",
+        for root in ("Icons", "Icons.AutoMirrored"):
+            lines.extend(
                 (
-                    "        MaterialSymbolStyle.Outlined -> "
-                    f"Icons.Outlined.Outlined{identifier}"
-                ),
-                (
-                    "        MaterialSymbolStyle.Rounded -> "
-                    f"Icons.Rounded.Rounded{identifier}"
-                ),
-                (
-                    "        MaterialSymbolStyle.Sharp -> "
-                    f"Icons.Sharp.Sharp{identifier}"
-                ),
-                "    }",
-                "",
+                    f"val {root}.Themed.{identifier}: ImageVector",
+                    "    @Composable",
+                    "    @ReadOnlyComposable",
+                    "    get() = when (SymbolsTheme.style) {",
+                    (
+                        "        MaterialSymbolStyle.Outlined -> "
+                        f"{root}.Outlined.Outlined{identifier}"
+                    ),
+                    (
+                        "        MaterialSymbolStyle.Rounded -> "
+                        f"{root}.Rounded.Rounded{identifier}"
+                    ),
+                    (
+                        "        MaterialSymbolStyle.Sharp -> "
+                        f"{root}.Sharp.Sharp{identifier}"
+                    ),
+                    "    }",
+                    "",
+                )
             )
-        )
     return "\n".join(lines)
 
 
