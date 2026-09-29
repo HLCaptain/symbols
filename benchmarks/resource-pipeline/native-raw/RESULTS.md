@@ -39,6 +39,82 @@ The native Android AAR is 4,123,976 bytes versus the rebuilt asset control's
 this model adds platform-location helpers while retaining every JVM asset.
 These publication sizes are separate from APK savings and consumer build time.
 
+## Comparison with native Android resources
+
+A fresh September 29 comparison uses the **same Android Compose screen** with
+native `androidx.compose.ui.res.painterResource(R.drawable...)`. This isolates
+resource backends; it is not an Android Views-versus-Compose app-size comparison.
+Both builds enable code/resource shrinking on AGP 9.4.1, Kotlin 2.4.20 and
+Compose 1.12.1, using the same 3,802 source XMLs, SDK, wrapper and selections.
+
+| Access / selected icons | Native Android `R.drawable`, bytes | CMP prototype, bytes | Prototype vs native Android | Icons retained by both |
+| --- | ---: | ---: | ---: | ---: |
+| direct-0 | 879,027 | 879,148 | +0.01% | 0 |
+| direct-1 | 913,328 | 929,296 | +1.75% | 1 |
+| direct-25 | 936,609 | 950,679 | +1.50% | 25 |
+| direct-200 | 1,114,903 | 1,099,012 | −1.43% | 200 |
+| direct-all | 4,697,983 | 4,513,978 | −3.92% | 3,802 |
+| dynamic-1 | 4,704,742 | 4,504,356 | −4.26% | 3,802 |
+
+**The pruning matches native Android.** The previously reported 81.9% saving is
+relative to the CMP asset control, which retains the entire pack. It is not an
+81.9% improvement over native Android's already-shrunk output. Native resources
+use AAPT2-compiled drawable XML; the CMP prototype keeps original text XML in
+`res/raw` for its existing byte/URI/qualifier APIs. Decoder/runtime code and
+resource encoding therefore differ, even with identical retained icon counts.
+
+The table preserves both packs' original license/notice contents in the APK.
+This matters because the prototype's rebuilt libraries carry them through Java
+resources, while the stock native AAR stores them at its root. Without this
+normalization, the stock native single-icon APK is 903,502 bytes. The matched
+control is 913,328 bytes; notice handling must not be attributed to renderer or
+shrinker overhead. No extra CMP runtime dependency or keep rule was added to the
+native control. The original and matched values, artifact hashes, exact counts
+and byte checks are in [NATIVE_ANDROID_COMPARISON.json](NATIVE_ANDROID_COMPARISON.json).
+
+For Compose Multiplatform, this result applies to **Android output using the
+prototype's generator/runtime integration**. Its common `Res` API and published
+KMP intermediary are already covered by the compatibility checks. Stock CMP
+1.12.1 continues to package these drawable XMLs as assets, so production behavior
+is unchanged. R8 does not provide the same resource pruning on iOS, desktop or
+web, and this study does not subset font glyphs. Dynamic catalogs keep every
+entry reachable on both backends.
+
+Native shrinking is the normal
+[Android code/resource optimization pipeline](https://developer.android.com/topic/performance/app-optimization/enable-app-optimization).
+The extra benchmark option below only preserves legal files for the comparison;
+it is not a consuming-app integration requirement.
+
+To reproduce, use the original native AAR and matching Maven version alongside
+the already measured CMP controls. Keep generated fixtures outside the checkout:
+
+```bash
+NATIVE_ANDROID_REPO=/path/to/stock-maven
+NATIVE_ANDROID_VERSION=0.0.0-study-b
+NATIVE_ANDROID_AAR="$NATIVE_ANDROID_REPO/io/github/hlcaptain/symbols-material-drawables-outlined/$NATIVE_ANDROID_VERSION/symbols-material-drawables-outlined-$NATIVE_ANDROID_VERSION.aar"
+NATIVE_ANDROID_CASES=/path/to/fresh/native-android-controls
+python3 benchmarks/resource-pipeline/fixtures.py \
+  --repository "$NATIVE_ANDROID_REPO" --version "$NATIVE_ANDROID_VERSION" \
+  --output "$NATIVE_ANDROID_CASES" --backend android --access direct \
+  --preserve-aar-notices "$NATIVE_ANDROID_AAR"
+python3 benchmarks/resource-pipeline/fixtures.py \
+  --repository "$NATIVE_ANDROID_REPO" --version "$NATIVE_ANDROID_VERSION" \
+  --output "$NATIVE_ANDROID_CASES" --backend android --access dynamic --count 1 \
+  --preserve-aar-notices "$NATIVE_ANDROID_AAR"
+for native_android_case in "$NATIVE_ANDROID_CASES"/*; do
+  "$native_android_case/gradlew" -p "$native_android_case" assembleShrunk \
+    --no-daemon --no-build-cache --no-configuration-cache --max-workers=1 \
+    -Pkotlin.compiler.execution.strategy=in-process
+  python3 benchmarks/resource-pipeline/retention.py --fixture "$native_android_case" \
+    --apk "$native_android_case/build/outputs/apk/shrunk/"*.apk \
+    --aapt2 "$ANDROID_HOME/build-tools/36.1.0/aapt2"
+done
+```
+
+The six original controls passed release/shrunk checks, and all six normalized
+controls passed exact shrink counts and notice-byte checks. This addition is a
+size/retention comparison; no new runtime-speed or build-time claim is made.
+
 ## Consumer build measurements
 
 The 25-icon consumer was measured with three alternating repetitions per backend,
@@ -121,7 +197,7 @@ durations are excluded because some checks ran concurrently.
   minimum-AGP and installed-bundle paths, plus the full pack's first/last pages.
   The light/dark contract renders black/blue variants correctly. This is not a
   new frame-time benchmark or a claim that every icon was visually inspected.
-- **Fast checks:** seven new Python checks plus ten existing resource-pipeline
+- **Fast checks:** seven native-prototype Python checks plus eleven resource-pipeline
   checks pass. CI runs the small helpers on normal PR verification, without
   adding this local prototype build matrix to publishing jobs.
 

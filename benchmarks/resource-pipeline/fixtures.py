@@ -9,6 +9,7 @@ from pathlib import Path
 import re
 import shutil
 import tomllib
+import zipfile
 
 ROOT = Path(__file__).resolve().parents[2]
 BACKENDS = {"vectors": "symbols-material-vectors-outlined", "android": "symbols-material-drawables-outlined", "compose": "symbols-material-compose-drawables-outlined"}
@@ -18,6 +19,28 @@ RESOURCE_PACKAGE = "io.github.hlcaptain.symbols.material.outlined.compose.drawab
 
 def kotlin_string(value):
     return json.dumps(value).replace("$", "\\$")
+
+
+def preserve_aar_notices(aar, fixture):
+    """Match controls that carry the original AAR notices into the final APK."""
+    entries = {}
+    with zipfile.ZipFile(aar) as archive:
+        for info in archive.infolist():
+            name = info.filename
+            if info.is_dir() or not name.startswith("META-INF/") or Path(name).name not in {"LICENSE", "THIRD_PARTY_NOTICES.md"}:
+                continue
+            if ".." in Path(name).parts or name in entries:
+                raise ValueError(f"Unsafe or duplicate AAR notice: {name}")
+            entries[name] = archive.read(info)
+    if not entries:
+        raise ValueError(f"No original AAR license/notices found: {aar}")
+    for name, data in entries.items():
+        target = fixture / "src/main/resources" / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(data)
+    return {"aar_sha256": hashlib.sha256(aar.read_bytes()).hexdigest(),
+            "entries": {name: {"bytes": len(data), "sha256": hashlib.sha256(data).hexdigest()}
+                        for name, data in entries.items()}}
 
 
 def catalog(path):
@@ -235,6 +258,8 @@ def main():
     parser.add_argument("--backend", action="append", choices=BACKENDS)
     parser.add_argument("--access", action="append", choices=("direct", "dynamic"))
     parser.add_argument("--count", action="append", choices=COUNTS)
+    parser.add_argument("--preserve-aar-notices", type=Path,
+                        help="Benchmark normalization: copy this AAR's original META-INF legal notices into app Java resources")
     args = parser.parse_args()
     root = args.source_root.resolve()
     repository = args.repository.resolve()
@@ -247,6 +272,9 @@ def main():
             for count in dict.fromkeys(args.count or COUNTS):
                 path = args.output.resolve() / f"{backend}-{access}-{count}"
                 manifest = generate(root, path, repository, args.version, backend, access, count, versions, (args.wrapper_from or root).resolve())
+                if args.preserve_aar_notices:
+                    manifest["preserved_aar_notices"] = preserve_aar_notices(args.preserve_aar_notices.resolve(), path)
+                    (path / "fixture.json").write_text(json.dumps(manifest, indent=2) + "\n")
                 print(f"Generated {path}: {manifest['count']} unique glyphs; {manifest['coordinates']}")
 
 

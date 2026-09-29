@@ -1,4 +1,5 @@
 import importlib.util
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -22,6 +23,31 @@ ROOT = Path(os.environ.get("SYMBOLS_SOURCE_ROOT", fixtures.ROOT))
 
 
 class FixtureTest(unittest.TestCase):
+    def test_preserves_only_original_aar_notices_without_copying_resources(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            aar, fixture = root / "library.aar", root / "consumer"
+            notices = {"META-INF/material-drawables-outlined/LICENSE": b"license\n",
+                       "META-INF/material-drawables-outlined/THIRD_PARTY_NOTICES.md": b"notices\n"}
+            with zipfile.ZipFile(aar, "w") as archive:
+                for name, data in notices.items():
+                    archive.writestr(name, data)
+                archive.writestr("res/drawable/icon.xml", "<vector/>")
+                archive.writestr("META-INF/unrelated.txt", "unrelated")
+            result = fixtures.preserve_aar_notices(aar, fixture)
+            self.assertEqual(result["aar_sha256"], hashlib.sha256(aar.read_bytes()).hexdigest())
+            self.assertEqual(set(result["entries"]), set(notices))
+            self.assertEqual({p.relative_to(fixture / "src/main/resources").as_posix()
+                              for p in fixture.rglob("*") if p.is_file()}, set(notices))
+            for name, data in notices.items():
+                self.assertEqual((fixture / "src/main/resources" / name).read_bytes(), data)
+                self.assertEqual(result["entries"][name], {"bytes": len(data), "sha256": hashlib.sha256(data).hexdigest()})
+            with zipfile.ZipFile(aar, "w") as archive:
+                archive.writestr("META-INF/../LICENSE", "unsafe")
+            with self.assertRaisesRegex(ValueError, "Unsafe or duplicate"):
+                fixtures.preserve_aar_notices(aar, root / "invalid")
+            self.assertFalse((root / "invalid").exists())
+
     def test_real_catalog_selection_has_unique_glyphs_and_known_api_names(self):
         icons = fixtures.catalog(ROOT / "fonts/material/MaterialSymbols.codepoints")
         self.assertEqual(len(icons), 3802)
