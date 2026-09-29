@@ -2,6 +2,8 @@ package io.github.hlcaptain.symbols.material.sharp.vectors
 
 import androidx.compose.ui.unit.dp
 import io.github.hlcaptain.symbols.Symbols
+import io.github.hlcaptain.symbols.material.ArrowBack
+import io.github.hlcaptain.symbols.material.AutoMirrored
 import io.github.hlcaptain.symbols.material.Grade
 import io.github.hlcaptain.symbols.material.Material
 import io.github.hlcaptain.symbols.material.Sharp
@@ -58,6 +60,26 @@ class MaterialSymbolsSharpVectorsTest {
         assertSame(
             Symbols.Material.Grade.asSharpImageVector(autoMirror = true),
             Symbols.Material.Star.asSharpImageVector(autoMirror = true),
+        )
+    }
+
+    @Test
+    fun typedMirroredGettersShareExistingCaches() {
+        val normal = Symbols.Material.Sharp.ArrowBack
+        val mirrored = Symbols.Material.AutoMirrored.Sharp.ArrowBack
+
+        assertFalse(normal.autoMirror)
+        assertTrue(mirrored.autoMirror)
+        assertNotSame(normal, mirrored)
+        assertSame(mirrored, Symbols.Material.AutoMirrored.Sharp.ArrowBack)
+        assertSame(mirrored, Symbols.Material.ArrowBack.asSharpImageVector(autoMirror = true))
+        assertSame(
+            Symbols.Material.AutoMirrored.Sharp.Grade,
+            Symbols.Material.AutoMirrored.Sharp.Star,
+        )
+        assertSame(
+            Symbols.Material.AutoMirrored.Sharp.Grade,
+            Symbols.Material.Grade.asSharpImageVector(autoMirror = true),
         )
     }
 

@@ -1,11 +1,13 @@
 # Shrinkable typed-vector Android benchmark
 
 This fixture measures a full `material-vectors-outlined` Android dependency
-while consuming exactly one typed vector property:
-`Symbols.Material.Outlined.Check`.
-`MainActivity.java` calls the static JVM form of that Kotlin extension getter
-and passes the resulting vector name to `Activity.setTitle`, making the value
-observable to R8.
+while consuming exactly two typed vector properties:
+`Symbols.Material.Outlined.Check` and
+`Symbols.Material.AutoMirrored.Outlined.ArrowBack`.
+`MainActivity.java` calls the static JVM forms of those Kotlin extension getters
+and passes both vector names and `autoMirror` flags to `Activity.setTitle`,
+making the ordinary and mirrored values observable to R8. Neither call uses the
+dynamic catalog dispatcher.
 
 The same application uses the generator's variant-aware Android font-resource
 mode. Powerline lives under `src/main/res/font`, one generated drawable is
@@ -47,7 +49,9 @@ python3 benchmarks/shrinkable-vectors/verify.py
   definitions, including the exact 32-byte-per-entry class-definition table
   size;
 - reports ZIP sizes for `resources.arsc`, `res/`, and native libraries;
-- confirms the Check backing class `OutlinedVectorE5CA` is in both APKs;
+- confirms the Check backing class `OutlinedVectorE5CA` and the mirrored
+  ArrowBack backing class `OutlinedVectorE5C4` are in both APKs and retained in
+  R8's mapping;
 - confirms the unrelated Home backing class `OutlinedVectorE9B2` is in the
   unshrunk APK but absent from every shrunk DEX;
 - corroborates that result with R8's mapping and usage reports;
@@ -62,7 +66,10 @@ python3 benchmarks/shrinkable-vectors/verify.py
 
 An analysis exits nonzero unless every retention/removal assertion holds.
 
-## Recorded resource-overlay result: 2026-09-02
+## Recorded resource-overlay result: 2026-09-02 (Check-only)
+
+This historical run predates the mirrored ArrowBack consumer. Its measurements
+do not describe the current two-vector fixture.
 
 The paired APKs were built locally with Gradle 8.14.5, Android Gradle Plugin
 8.13.2, JDK 21, compile SDK 36, one worker, and configuration cache disabled.
@@ -119,7 +126,7 @@ caches, JDK, and hardware. The paired build definition, commands, and DEX/APK
 measurements are the reproducible result; the numbers below are one recorded
 run, not universal performance guarantees.
 
-## Recorded result: 2026-07-29
+## Recorded result: 2026-07-29 (Check-only)
 
 The worktree was based on Git revision
 `b579cd59ab0b7691f4135338861f7e40492a5870` and contained the feature changes

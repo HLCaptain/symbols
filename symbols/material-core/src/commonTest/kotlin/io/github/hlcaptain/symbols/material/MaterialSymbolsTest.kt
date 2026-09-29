@@ -18,6 +18,10 @@ class MaterialSymbolsTest {
         assertSame(Icons.Rounded, Symbols.Material.Rounded)
         assertSame(Icons.Sharp, Symbols.Material.Sharp)
         assertSame(Icons.Themed, Symbols.Material.Themed)
+        assertSame(Icons.AutoMirrored, Symbols.Material.AutoMirrored)
+        assertSame(Icons.AutoMirrored.Outlined, Symbols.Material.AutoMirrored.Outlined)
+        assertSame(Icons.AutoMirrored.Rounded, Symbols.Material.AutoMirrored.Rounded)
+        assertSame(Icons.AutoMirrored.Sharp, Symbols.Material.AutoMirrored.Sharp)
     }
 
     @Test

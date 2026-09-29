@@ -2,6 +2,8 @@ package io.github.hlcaptain.symbols.material.outlined.vectors
 
 import androidx.compose.ui.unit.dp
 import io.github.hlcaptain.symbols.Symbols
+import io.github.hlcaptain.symbols.material.ArrowBack
+import io.github.hlcaptain.symbols.material.AutoMirrored
 import io.github.hlcaptain.symbols.material.Grade
 import io.github.hlcaptain.symbols.material.Material
 import io.github.hlcaptain.symbols.material.Outlined
@@ -58,6 +60,26 @@ class MaterialSymbolsOutlinedVectorsTest {
         assertSame(
             Symbols.Material.Grade.asOutlinedImageVector(autoMirror = true),
             Symbols.Material.Star.asOutlinedImageVector(autoMirror = true),
+        )
+    }
+
+    @Test
+    fun typedMirroredGettersShareExistingCaches() {
+        val normal = Symbols.Material.Outlined.ArrowBack
+        val mirrored = Symbols.Material.AutoMirrored.Outlined.ArrowBack
+
+        assertFalse(normal.autoMirror)
+        assertTrue(mirrored.autoMirror)
+        assertNotSame(normal, mirrored)
+        assertSame(mirrored, Symbols.Material.AutoMirrored.Outlined.ArrowBack)
+        assertSame(mirrored, Symbols.Material.ArrowBack.asOutlinedImageVector(autoMirror = true))
+        assertSame(
+            Symbols.Material.AutoMirrored.Outlined.Grade,
+            Symbols.Material.AutoMirrored.Outlined.Star,
+        )
+        assertSame(
+            Symbols.Material.AutoMirrored.Outlined.Grade,
+            Symbols.Material.Grade.asOutlinedImageVector(autoMirror = true),
         )
     }
 

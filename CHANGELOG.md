@@ -96,6 +96,12 @@ artifacts are released.
 
 ### Added
 
+- Opt-in typed `Icons.AutoMirrored.{Outlined|Rounded|Sharp}.{Name}` and
+  `Symbols.Material.AutoMirrored.{Style}.{Name}` vector getters in the existing
+  style artifacts. They reach cached per-icon builders directly, preserving R8
+  shrinkability without dynamic catalog dispatch; ordinary getters remain
+  unmirrored.
+
 - Settings/tint producer overloads and an optional standard `GraphicsLayerScope`
   block for `SymbolFontIcon`, plus rendering regressions and reproducible Android
   frame, geometry, and combined-effects benchmarks. Generated measurements,

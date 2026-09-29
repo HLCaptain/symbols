@@ -22,6 +22,11 @@ CHECK_CLASS = (
     b"OutlinedVectorE5CA"
 )
 CHECK_CLASS_NAME = CHECK_CLASS.decode().replace("/", ".")
+ARROW_BACK_CLASS = (
+    b"io/github/hlcaptain/symbols/material/outlined/vectors/"
+    b"OutlinedVectorE5C4"
+)
+ARROW_BACK_CLASS_NAME = ARROW_BACK_CLASS.decode().replace("/", ".")
 UNUSED_HOME_CLASS = (
     b"io/github/hlcaptain/symbols/material/outlined/vectors/"
     b"OutlinedVectorE9B2"
@@ -164,10 +169,16 @@ def main() -> int:
 
     evidence = {
         "unshrunk_contains_check_backing_class": CHECK_CLASS in unshrunk_dex,
+        "unshrunk_contains_mirrored_arrow_back_backing_class": (
+            ARROW_BACK_CLASS in unshrunk_dex
+        ),
         "unshrunk_contains_unused_home_backing_class": (
             UNUSED_HOME_CLASS in unshrunk_dex
         ),
         "shrunk_contains_check_backing_class": CHECK_CLASS in shrunk_dex,
+        "shrunk_contains_mirrored_arrow_back_backing_class": (
+            ARROW_BACK_CLASS in shrunk_dex
+        ),
         "shrunk_contains_unused_home_backing_class": (
             UNUSED_HOME_CLASS in shrunk_dex
         ),
@@ -179,6 +190,9 @@ def main() -> int:
         ),
         "r8_mapping_retains_check_backing_class": (
             f"{CHECK_CLASS_NAME} -> " in mapping
+        ),
+        "r8_mapping_retains_mirrored_arrow_back_backing_class": (
+            f"{ARROW_BACK_CLASS_NAME} -> " in mapping
         ),
         "r8_mapping_retains_unused_home_backing_class": (
             f"{UNUSED_HOME_CLASS_NAME} -> " in mapping
@@ -224,12 +238,15 @@ def main() -> int:
     }
     expected = {
         "unshrunk_contains_check_backing_class": True,
+        "unshrunk_contains_mirrored_arrow_back_backing_class": True,
         "unshrunk_contains_unused_home_backing_class": True,
         "shrunk_contains_check_backing_class": True,
+        "shrunk_contains_mirrored_arrow_back_backing_class": True,
         "shrunk_contains_unused_home_backing_class": False,
         "unshrunk_contains_unused_resource_name": True,
         "shrunk_contains_unused_resource_name": False,
         "r8_mapping_retains_check_backing_class": True,
+        "r8_mapping_retains_mirrored_arrow_back_backing_class": True,
         "r8_mapping_retains_unused_home_backing_class": False,
         "r8_usage_reports_unused_home_backing_class": True,
         "optimized_resource_report_omits_unused_marker": True,
