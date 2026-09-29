@@ -136,6 +136,7 @@ Use the themed vector artifact when style is selected at runtime:
 import androidx.compose.material3.Icon
 import io.github.hlcaptain.symbols.Symbols
 import io.github.hlcaptain.symbols.material.*
+import io.github.hlcaptain.symbols.material.vectors.themed.ArrowBack
 import io.github.hlcaptain.symbols.material.vectors.themed.Home
 
 MaterialSymbolsTheme(style = MaterialSymbolStyle.Rounded) {
@@ -143,14 +144,26 @@ MaterialSymbolsTheme(style = MaterialSymbolStyle.Rounded) {
         imageVector = Symbols.Material.Themed.Home,
         contentDescription = "Home",
     )
+    Icon(
+        imageVector = Symbols.Material.AutoMirrored.Themed.ArrowBack,
+        contentDescription = "Back",
+    )
 }
 ```
 
-`Symbols.Material.Themed.*` values are composable read-only properties.
-`MaterialSymbolsTheme` selects their Outlined, Rounded, or Sharp snapshot and
-can forward generic font settings to a runtime renderer. Axis definitions come
-from each font descriptor. Fixed vectors ignore font settings; regular fonts
-accept only the settings declared by their descriptor.
+`Symbols.Material.Themed.*` and `Symbols.Material.AutoMirrored.Themed.*` are
+composable read-only properties that return standard `ImageVector` values.
+`MaterialSymbolsTheme` selects their Outlined, Rounded, or Sharp fixed snapshot;
+font settings do not change vector axes. Every named icon supports opt-in
+mirroring through `AutoMirrored.Themed` (also available as
+`Icons.AutoMirrored.Themed`); ordinary themed getters remain unmirrored. These
+typed getters select cached per-style vectors directly, without dynamic catalog
+dispatch.
+
+The theme also forwards generic font settings to runtime font renderers. Axis
+definitions come from each font descriptor; regular fonts accept only the
+settings declared by their descriptor. The mirrored vector API does not change
+font rendering.
 
 For a symbol selected dynamically, use the equivalent composable-scoped lookup:
 

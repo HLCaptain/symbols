@@ -96,6 +96,11 @@ artifacts are released.
 
 ### Added
 
+- Opt-in typed `Symbols.Material.AutoMirrored.Themed.*` and
+  `Icons.AutoMirrored.Themed.*` getters for every named icon. They select cached
+  mirrored fixed vectors using `MaterialSymbolsTheme.style`, without dynamic
+  catalog dispatch; ordinary vectors and font rendering are unchanged.
+
 - Opt-in typed `Icons.AutoMirrored.{Outlined|Rounded|Sharp}.{Name}` and
   `Symbols.Material.AutoMirrored.{Style}.{Name}` vector getters in the existing
   style artifacts. They reach cached per-icon builders directly, preserving R8

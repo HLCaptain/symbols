@@ -217,6 +217,35 @@ class VectorGeneratorTest(unittest.TestCase):
         )
         self.assertNotIn("outlinedVectorAt", rendered)
 
+    def test_mirrored_themed_getters_select_direct_mirrored_style_properties(self) -> None:
+        rendered = generator.render_themed_icon_file(
+            entries=(("arrow_back", 0xE5C4),),
+        )
+
+        self.assertIn(
+            "val Icons.AutoMirrored.Themed.ArrowBack: ImageVector\n"
+            "    @Composable\n"
+            "    @ReadOnlyComposable\n"
+            "    get() = when (SymbolsTheme.style)",
+            rendered,
+        )
+        for style in generator.STYLES:
+            with self.subTest(style=style.name):
+                self.assertEqual(
+                    1,
+                    rendered.count(
+                        f"import {style.package_name}.ArrowBack as {style.title}ArrowBack"
+                    ),
+                )
+                self.assertIn(
+                    f"MaterialSymbolStyle.{style.title} -> "
+                    f"Icons.AutoMirrored.{style.title}.{style.title}ArrowBack",
+                    rendered,
+                )
+                self.assertNotIn(f"{style.name}VectorAt", rendered)
+                self.assertNotIn(f"as{style.title}ImageVector", rendered)
+        self.assertNotIn("asThemedImageVector", rendered)
+
     def test_legacy_api_uses_separate_index_dispatch(self) -> None:
         style = generator.Style("rounded", "Rounded")
         public_api = generator.render_public_api(style)
