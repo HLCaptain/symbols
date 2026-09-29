@@ -2,6 +2,8 @@ package io.github.hlcaptain.symbols.material.rounded.vectors
 
 import androidx.compose.ui.unit.dp
 import io.github.hlcaptain.symbols.Symbols
+import io.github.hlcaptain.symbols.material.ArrowBack
+import io.github.hlcaptain.symbols.material.AutoMirrored
 import io.github.hlcaptain.symbols.material.Grade
 import io.github.hlcaptain.symbols.material.Material
 import io.github.hlcaptain.symbols.material.Rounded
@@ -58,6 +60,26 @@ class MaterialSymbolsRoundedVectorsTest {
         assertSame(
             Symbols.Material.Grade.asRoundedImageVector(autoMirror = true),
             Symbols.Material.Star.asRoundedImageVector(autoMirror = true),
+        )
+    }
+
+    @Test
+    fun typedMirroredGettersShareExistingCaches() {
+        val normal = Symbols.Material.Rounded.ArrowBack
+        val mirrored = Symbols.Material.AutoMirrored.Rounded.ArrowBack
+
+        assertFalse(normal.autoMirror)
+        assertTrue(mirrored.autoMirror)
+        assertNotSame(normal, mirrored)
+        assertSame(mirrored, Symbols.Material.AutoMirrored.Rounded.ArrowBack)
+        assertSame(mirrored, Symbols.Material.ArrowBack.asRoundedImageVector(autoMirror = true))
+        assertSame(
+            Symbols.Material.AutoMirrored.Rounded.Grade,
+            Symbols.Material.AutoMirrored.Rounded.Star,
+        )
+        assertSame(
+            Symbols.Material.AutoMirrored.Rounded.Grade,
+            Symbols.Material.Grade.asRoundedImageVector(autoMirror = true),
         )
     }
 

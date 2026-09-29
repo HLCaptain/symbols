@@ -98,6 +98,38 @@ registry on this path, so full-mode R8 can reason about icons independently.
 Vectors are created and cached on first use; aliases that share a code point
 share the cached vector.
 
+For a named icon that should mirror in right-to-left layouts, opt in through
+the typed `AutoMirrored` namespace:
+
+```kotlin
+import androidx.compose.material3.Icon
+import io.github.hlcaptain.symbols.Symbols
+import io.github.hlcaptain.symbols.material.AutoMirrored
+import io.github.hlcaptain.symbols.material.Icons
+import io.github.hlcaptain.symbols.material.Material
+import io.github.hlcaptain.symbols.material.Outlined
+import io.github.hlcaptain.symbols.material.outlined.vectors.ArrowBack
+
+Icon(
+    imageVector = Symbols.Material.AutoMirrored.Outlined.ArrowBack,
+    contentDescription = "Back",
+)
+
+// Equivalent namespace for migration from material-icons-extended:
+val back = Icons.AutoMirrored.Outlined.ArrowBack
+```
+
+Every named icon has an opt-in mirrored getter in Outlined, Rounded, and Sharp.
+Import it from the same style's `vectors` package as its ordinary getter; use
+the existing per-style artifact. Choose mirroring only when the icon's meaning
+should follow layout direction. Ordinary `Symbols.Material.{Style}.{Name}` and
+`Icons.{Style}.{Name}` getters remain unmirrored.
+
+Typed mirrored getters directly reach the same per-icon builder with
+`autoMirror = true`, preserving independent R8 removal of unused icons. Mirrored
+and unmirrored instances are cached separately, with aliases sharing each
+variant's cache. This adds no runtime dispatcher, renderer, or artifact.
+
 Use the themed vector artifact when style is selected at runtime:
 
 ```kotlin
@@ -136,15 +168,17 @@ catalog bridge:
 import io.github.hlcaptain.symbols.material.outlined.vectors.asOutlinedImageVector
 
 Icon(
-    imageVector = Symbols.Material.ArrowBack.asOutlinedImageVector(
+    imageVector = symbol.asOutlinedImageVector(
         autoMirror = true,
     ),
-    contentDescription = "Back",
+    contentDescription = symbol.name,
 )
 ```
 
 Dynamic lookup keeps the pack index and dispatcher reachable. Prefer direct
-`Symbols.Material.{Style}.{Name}` properties when minimum APK size matters.
+`Symbols.Material.{Style}.{Name}` or
+`Symbols.Material.AutoMirrored.{Style}.{Name}` properties when the icon is known
+at compile time and minimum APK size matters.
 
 ## Use Compose Multiplatform drawable resources
 

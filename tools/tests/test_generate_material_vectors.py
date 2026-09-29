@@ -156,6 +156,39 @@ class VectorGeneratorTest(unittest.TestCase):
             icon_file,
         )
         self.assertIn("val Glyphs.Outlined.Check", icon_file)
+        self.assertIn("val Glyphs.AutoMirrored.Outlined.Check", icon_file)
+
+    def test_typed_mirrored_getters_share_direct_caches_for_every_style(self) -> None:
+        entries = (("arrow_back", 0xE5C4), ("grade", 0xF09A), ("star", 0xF09A))
+        for style in generator.STYLES:
+            with self.subTest(style=style.name):
+                rendered = generator.render_icon_file(
+                    style=style,
+                    chunk_index=0,
+                    start=0,
+                    code_points=(0xE5C4, 0xF09A),
+                    paths=("M1 2L3 4Z", "M5 6Q7 8 9 10Z"),
+                    names_by_code_point=generator.group_names_by_code_point(entries),
+                )
+
+                for name, code_point in entries:
+                    identifier = generator.kotlin_identifier(name)
+                    self.assertIn(
+                        f"val Icons.AutoMirrored.{style.title}.{identifier}: ImageVector\n"
+                        f"    get() = {style.title}Vector{code_point:X}.value(autoMirror = true)",
+                        rendered,
+                    )
+                    self.assertIn(
+                        f"val Icons.{style.title}.{identifier}: ImageVector\n"
+                        f"    get() = {style.title}Vector{code_point:X}.value(autoMirror = false)",
+                        rendered,
+                    )
+                self.assertEqual(
+                    1, rendered.count(f"private object {style.title}VectorF09A {{"),
+                )
+                self.assertNotIn(f"{style.name}VectorAt", rendered)
+                self.assertNotIn(f"{style.name}VectorIndex", rendered)
+                self.assertNotIn(f"as{style.title}ImageVector", rendered)
 
     def test_themed_getters_select_direct_style_properties(self) -> None:
         rendered = generator.render_themed_icon_file(

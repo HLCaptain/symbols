@@ -508,6 +508,9 @@ def render_icon_file(
                     f"val {style.typed_root}.{title}.{identifier}: ImageVector",
                     f"    get() = {object_name}.value(autoMirror = false)",
                     "",
+                    f"val {style.typed_root}.AutoMirrored.{title}.{identifier}: ImageVector",
+                    f"    get() = {object_name}.value(autoMirror = true)",
+                    "",
                 )
             )
 
