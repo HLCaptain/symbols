@@ -70,7 +70,7 @@ Regenerate every style or byte-compare the checked-in results:
 /tmp/symbols-fonttools/bin/python tools/generate_material_static_fonts.py --check
 ```
 
-The script requires FontTools 4.60.2 exactly, removes variable tables, disables
+The script requires FontTools 4.66.0 exactly, removes variable tables, disables
 timestamp recalculation, and writes a stable table order.
 
 The same tool can freeze one custom variable font before runtime. Every omitted
@@ -180,7 +180,7 @@ without packaging the input font. See
 Run the tooling tests from the repository root:
 
 ```shell
-./gradlew -p tooling :symbol-generator-core:test \
+./tooling/gradlew -p tooling :symbol-generator-core:test \
   :symbol-gradle-plugin:test
 ```
 

@@ -30,7 +30,7 @@ THEMED_SOURCE_DIRECTORY = (
     / "symbols/material-vectors-themed/build/generated/materialVectors/commonMain/kotlin"
     / THEMED_PACKAGE.replace(".", "/")
 )
-PINNED_FONTTOOLS_VERSION = "4.60.2"
+PINNED_FONTTOOLS_VERSION = "4.66.0"
 EXPECTED_NAME_COUNT = 4_102
 EXPECTED_CODE_POINT_COUNT = 3_802
 UNITS_PER_EM = 960

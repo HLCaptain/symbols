@@ -121,7 +121,7 @@ def preview_details(name):
     source = ""
     if all(part.isidentifier() for part in parts[:class_index + 1]):
         package = Path(*parts[:class_index]) / file_name
-        for source_set in ("commonMain", "androidMain", "iosMain", "commonTest", "androidUnitTest"):
+        for source_set in ("commonMain", "androidMain", "iosMain", "commonTest", "androidHostTest", "androidUnitTest"):
             candidate = Path("samples/image-vector-migration/src") / source_set / "kotlin" / package
             if candidate.is_file():
                 source = candidate.as_posix()

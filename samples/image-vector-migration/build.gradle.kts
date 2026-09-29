@@ -11,7 +11,11 @@ plugins {
 kotlin {
     jvmToolchain(21)
 
-    androidTarget {
+    android {
+        androidResources.enable = true
+        withHostTest {
+            isIncludeAndroidResources = true
+        }
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_17)
         }
@@ -24,7 +28,7 @@ kotlin {
             implementation(libs.compose.material.icons.extended)
             implementation(libs.compose.resources)
         }
-        androidUnitTest.dependencies {
+        getByName("androidHostTest").dependencies {
             implementation(libs.androidx.compose.ui.test.junit4)
             implementation(libs.androidx.compose.ui.test.manifest)
             implementation(libs.androidx.test.core)
@@ -38,20 +42,9 @@ kotlin {
     }
 }
 
-android {
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-            all {
-                it.maxHeapSize = "4096m"
-                it.systemProperties["robolectric.pixelCopyRenderMode"] = "hardware"
-            }
-        }
-    }
+tasks.withType<Test>().matching { it.name == "testAndroidHostTest" }.configureEach {
+    maxHeapSize = "4096m"
+    systemProperty("robolectric.pixelCopyRenderMode", "hardware")
 }
 
 @OptIn(ExperimentalRoborazziApi::class)

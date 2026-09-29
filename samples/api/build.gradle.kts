@@ -9,6 +9,8 @@ kotlin {
     }
 }
 
-android {
-    namespace = "io.github.hlcaptain.symbols.sample.api"
+kotlin {
+    android {
+        namespace = "io.github.hlcaptain.symbols.sample.api"
+    }
 }

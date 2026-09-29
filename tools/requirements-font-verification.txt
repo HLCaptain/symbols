@@ -1,5 +1,5 @@
 # Maintainer/CI-only dependencies for deterministic font generation.
-fonttools==4.60.2
-picosvg==0.22.3
+fonttools==4.66.0
+picosvg==0.23.0
 # PicoSVG delegates stroke and clip boolean operations to this engine.
 skia-pathops==0.9.2

@@ -5,7 +5,7 @@ import org.jetbrains.kotlin.gradle.targets.wasm.binaryen.BinaryenExec
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.androidMultiplatformLibrary)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.koinCompiler)
@@ -38,13 +38,13 @@ val enabledSampleProfiles = when (symbolsSampleProfile) {
     "all" -> featureSampleProfiles.toSet()
     else -> setOf(symbolsSampleProfile)
 }
-val compressSymbolFonts = providers
-    .gradleProperty("compressSymbolFonts")
-    .map(String::toBoolean)
-    .orElse(false)
 
 kotlin {
-    androidTarget {
+    android {
+        namespace = "io.github.hlcaptain.symbols.sample.shared"
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.sample.android.minSdk.get().toInt()
+        androidResources.enable = true
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
@@ -74,10 +74,6 @@ kotlin {
     }
 
     sourceSets {
-        androidMain.dependencies {
-            implementation(libs.androidx.activity.compose)
-            implementation(libs.androidx.appcompat)
-        }
         commonMain.dependencies {
             implementation(projects.samples.api)
             implementation(projects.samples.ui.components)
@@ -130,56 +126,6 @@ kotlin {
 // This bounds inlining while retaining Kotlin's complete optimization pass sequence.
 tasks.withType<BinaryenExec>().configureEach {
     binaryenArgs.add(0, "--inline-max-combined-binary-size=32768")
-}
-
-android {
-    namespace = "io.github.hlcaptain.symbols.sample"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
-
-    defaultConfig {
-        applicationId = "io.github.hlcaptain.symbols.sample"
-        minSdk = libs.versions.sample.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "0.1.0"
-    }
-    buildFeatures {
-        dataBinding = true
-    }
-    androidResources {
-        // Typeface.Builder can mmap uncompressed font assets; compressed variable fonts are
-        // inflated into a full-size buffer for every variation, exhausting small heaps quickly.
-        if (!compressSymbolFonts.get()) {
-            noCompress += "ttf"
-        }
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
-    buildTypes {
-        val release = getByName("release") {
-            isMinifyEnabled = false
-        }
-        create("shrunk") {
-            initWith(release)
-            matchingFallbacks += listOf("release")
-            isMinifyEnabled = true
-            isShrinkResources = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-            )
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-}
-
-dependencies {
-    debugImplementation(libs.compose.ui.tooling)
 }
 
 compose.desktop {

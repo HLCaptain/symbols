@@ -154,8 +154,12 @@ Compose Multiplatform resources. Compose therefore generates
 Use Android resource-overlay mode only when a build type, product flavor, or
 full variant intentionally replaces the font. The overload is the per-style
 opt-in toggle; no global Gradle property or different plugin is required. It
-requires `com.android.application` or `com.android.library`; otherwise the
-plugin warns that no variant native drawables can be generated.
+supports `com.android.application`, `com.android.library`, and
+`com.android.kotlin.multiplatform.library`. The native KMP plugin has a single
+Android variant; build types and flavor overlays belong in ordinary Android
+application/library modules. Android resource processing is enabled automatically
+when native drawables are requested. Without an Android plugin, the generator
+warns that variant native drawables cannot be attached.
 
 ```kotlin
 symbolFonts {
@@ -535,7 +539,7 @@ and SVGs share the renderer tests in `tooling/symbol-generator-core`.
 From a source checkout:
 
 ```shell
-./gradlew -p tooling :symbol-generator-core:test \
+./tooling/gradlew -p tooling :symbol-generator-core:test \
   :symbol-gradle-plugin:test
 ```
 
@@ -543,7 +547,7 @@ The lower-level CLI is available through the core application for integrations
 that cannot use the Gradle plugin:
 
 ```shell
-./gradlew -p tooling :symbol-generator-core:run --args="--help"
+./tooling/gradlew -p tooling :symbol-generator-core:run --args="--help"
 ```
 
 Its required metadata is `--package`, `--set`, and `--style`. Choose exactly one

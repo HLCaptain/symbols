@@ -1,32 +1,38 @@
 [versions]
 pluginPublish = "2.2.1"
-agp = "8.13.2"
-android-compileSdk = "36"
+agp = "9.4.1"
+# Public tooling remains compatible with AGP 8.13 consumers.
+agpPluginApi = "8.13.2"
+android-compileSdk = "37"
 android-minSdk = "21"
+compose-android-minSdk = "23"
 sample-android-minSdk = "23"
 android-targetSdk = "36"
 androidx-activity = "1.13.0"
 androidx-appcompat = "1.8.0"
-buildconfig = "6.0.10"
-composeMultiplatform = "1.11.1"
-composeMaterial3 = "1.11.0-alpha07"
+buildconfig = "6.1.1"
+composeMultiplatform = "1.12.1"
+# Material3 1.13 also pulls Compose UI/runtime onto 1.13 alpha; retain stable Compose 1.12.
+composeMaterial3 = "1.12.0-alpha03"
 composeMaterialIconsExtended = "1.7.3"
 koin = "4.2.2"
-koin-compiler = "1.1.0"
-kotlin = "2.3.21"
+koin-compiler = "1.2.1"
+kotlin = "2.4.20"
 kotlinx-coroutines = "1.11.0"
-navigation3 = "1.1.1"
-navigation3-runtime = "1.1.6"
-androidx-compose = "1.11.4"
+navigation3 = "1.1.2"
+# Navigation 1.2 raises Android minSdk to 24; samples retain API 23.
+navigation3-runtime = "1.1.7"
+androidx-compose = "1.12.1"
 androidx-test = "1.7.0"
-androidx-benchmark = "1.4.1"
-androidx-uiautomator = "2.3.0"
+androidx-benchmark = "1.5.0"
+androidx-uiautomator = "2.4.0"
 androidx-profileinstaller = "1.4.1"
-composePreviewScanner = "0.9.1"
+composePreviewScanner = "0.9.3"
 junit = "4.13.2"
-robolectric = "4.16.1"
-roborazzi = "1.72.0"
-skiko = "0.9.22.2"
+robolectric = "4.17"
+roborazzi = "1.75.0"
+# Align with Compose 1.12.1's Skiko runtime to avoid native/JVM ABI mismatches.
+skiko = "0.150.1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -61,7 +67,7 @@ roborazzi-compose = { module = "io.github.takahirom.roborazzi:roborazzi-compose"
 roborazzi-composePreviewScannerSupport = { module = "io.github.takahirom.roborazzi:roborazzi-compose-preview-scanner-support", version.ref = "roborazzi" }
 skiko-awt = { module = "org.jetbrains.skiko:skiko-awt", version.ref = "skiko" }
 skiko = { module = "org.jetbrains.skiko:skiko", version.ref = "skiko" }
-android-gradleApi = { module = "com.android.tools.build:gradle-api", version.ref = "agp" }
+android-gradleApi = { module = "com.android.tools.build:gradle-api", version.ref = "agpPluginApi" }
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 buildconfig-gradlePlugin = { module = "com.github.gmazzo.buildconfig:plugin", version.ref = "buildconfig" }
 compose-gradlePlugin = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "composeMultiplatform" }
@@ -77,11 +83,12 @@ gradlePluginPublish = { id = "com.gradle.plugin-publish", version.ref = "pluginP
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidTest = { id = "com.android.test", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
+androidMultiplatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
+androidLint = { id = "com.android.lint", version.ref = "agp" }
 buildConfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildconfig" }
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 koinCompiler = { id = "io.insert-koin.compiler.plugin", version.ref = "koin-compiler" }
 roborazzi = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }

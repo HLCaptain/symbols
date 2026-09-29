@@ -19,7 +19,9 @@ Small corrections and focused tests can be submitted directly.
 
 ## Development environment
 
-The build uses the checked-in Gradle wrapper. A compatible JDK and the Android
+The application/library build uses the root Gradle 9.7 wrapper. Public tooling
+uses `./tooling/gradlew -p tooling` (Gradle 8.14.5) to preserve consumer compatibility.
+See [the toolchain migration](docs/TOOLCHAIN_UPGRADE.md) for the dependency decisions. A compatible JDK and the Android
 SDK required by the current version catalog are needed for the full build.
 Apple-target builds additionally require macOS and Xcode.
 
@@ -118,7 +120,7 @@ python3 tools/generate_material_symbols.py --check
 /tmp/symbols-fonttools/bin/python tools/generate_material_vectors.py
 /tmp/symbols-fonttools/bin/python tools/generate_material_vectors.py --check
 
-./gradlew -p tooling test \
+./tooling/gradlew -p tooling test \
   :symbol-gradle-plugin:validatePlugins \
   :symbol-generator-core:generatePomFileForMavenPublication \
   :symbol-gradle-plugin:generatePomFileForPluginMavenPublication \

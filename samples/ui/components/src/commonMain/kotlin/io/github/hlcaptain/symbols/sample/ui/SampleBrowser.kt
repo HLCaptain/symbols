@@ -15,7 +15,6 @@ import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontFamily
@@ -30,7 +29,7 @@ fun SampleBrowser(
     onItemClick: (SampleItem) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    remember(items) { requireUniqueSampleIds(items) }
+    requireUniqueSampleIds(items)
 
     LazyColumn(
         modifier = modifier.fillMaxSize(),

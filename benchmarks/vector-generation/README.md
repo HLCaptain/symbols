@@ -22,7 +22,8 @@ another commit that still contains the static snapshots, without changing the ch
 export JAVA_HOME=/path/to/jdk-21
 export ANDROID_HOME=/path/to/Android/Sdk
 python3 -m venv /tmp/vector-study-python
-/tmp/vector-study-python/bin/pip install -r tools/requirements-font-verification.txt
+# This historical study uses the pinned baseline's generator, not current main.
+/tmp/vector-study-python/bin/pip install fonttools==4.60.2
 python3 benchmarks/vector-generation/study.py prepare --work /tmp/vector-study \
   --ref 02ff132ae044343352318306448edc5c17b6792d
 python3 benchmarks/vector-generation/study.py measure \

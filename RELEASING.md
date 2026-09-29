@@ -170,7 +170,7 @@ Local checks that do not publish:
 ```shell
 python3 -m unittest discover -s tools/tests -p test_release.py
 python3 tools/check_signed_publications.py
-./gradlew -p tooling -PVERSION_NAME=0.1.0 \
+./tooling/gradlew -p tooling -PVERSION_NAME=0.1.0 \
   :symbol-gradle-plugin:validatePlugins \
   :symbol-gradle-plugin:generatePomFileForPluginMavenPublication \
   :symbol-gradle-plugin:generatePomFileForSymbolFontsPluginMarkerMavenPublication \

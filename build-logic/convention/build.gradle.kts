@@ -1,5 +1,5 @@
 plugins {
-    // Gradle 8's bundled Kotlin 2.0 cannot read the project's Kotlin 2.3 plugin metadata.
+    // Compile conventions with the same Kotlin version as their plugin dependencies.
     alias(libs.plugins.kotlinJvm)
     `java-gradle-plugin`
 }

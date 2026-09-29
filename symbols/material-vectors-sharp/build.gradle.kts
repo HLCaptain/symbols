@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.symbolsMaterialVectorLibrary)
 }
 
-android {
-    namespace = "io.github.hlcaptain.symbols.material.sharp.vectors"
+kotlin {
+    android {
+        namespace = "io.github.hlcaptain.symbols.material.sharp.vectors"
+    }
 }

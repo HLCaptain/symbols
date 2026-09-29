@@ -54,6 +54,7 @@ nmcpSettings {
 }
 
 include(":composeApp")
+include(":androidApp")
 include(":benchmarks:shrinkable-vectors")
 include(":benchmarks:animated-font-app", ":benchmarks:animated-font")
 include(
@@ -65,6 +66,7 @@ include(
     ":samples:custom-variable",
     ":samples:image-vector-migration",
     ":samples:android-views",
+    ":samples:android-views-platform",
     ":samples:theming",
     ":samples:runtime-axes",
 )
@@ -91,6 +93,7 @@ include(
     ":modules:material-vectors-themed",
 )
 
+project(":modules").projectDir = file("symbols")
 project(":modules:symbols-core").projectDir = file("symbols/symbols-core")
 project(":modules:variant-font-core").projectDir = file("symbols/variant-font-core")
 project(":modules:material-core").projectDir = file("symbols/material-core")

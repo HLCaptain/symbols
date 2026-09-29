@@ -40,8 +40,19 @@ Use the repository's compatible JDK 21, select one device with `ANDROID_SERIAL`,
 ./gradlew :benchmarks:animated-font:connectedBenchmarkAndroidTest \
   -Pandroid.testInstrumentationRunnerArguments.class=io.github.hlcaptain.symbols.benchmark.animatedfont.AnimatedFontBenchmark \
   -Pandroid.testInstrumentationRunnerArguments.axes=all \
-  -Pandroid.testInstrumentationRunnerArguments.counts=1,100
+  "-Pandroid.testInstrumentationRunnerArguments.counts=1+100"
 ```
+
+Use **quoted plus-separated lists** for Gradle arguments. AGP 9.4.1's Android
+test engine serializes its argument map with commas and then splits every comma,
+so a value such as `shared,value,native` silently becomes `shared`. It also forwards
+values without shell quoting, so semicolons are unsafe even when the Gradle argument
+is quoted. Use `shared+value+native` and `1+100`. The harness accepts plus and comma
+separators; defaults and direct ADB comma lists remain supported.
+The affected parser is `AndroidTestConfiguration.kt` in the [official Android test
+engine 1.0.1 sources](https://dl.google.com/dl/android/maven2/com/android/tools/androidtest/android-test-engine/1.0.1/android-test-engine-1.0.1-sources.jar).
+Use the analyzer's `--expected-cases` option to reject an incomplete matrix (four
+cases for the command above; six for three renderers at both counts).
 
 This focused run compares both renderers at both counts with all four axes changing
 together. Five iterations of a two-second animation are captured per case, excluding
@@ -60,7 +71,7 @@ Omit `axes` for the full matrix of `wght,FILL,GRAD,opsz,all`. Further optional a
 | `scenario` | `axes` | `axes`, combined-effects `stress`, or fixed-size `draw` |
 | `diagnostics` | `false` | Enable per-icon custom phase traces for a separate diagnostic run |
 
-For the optimized 100-icon comparison, pass `renderers=shared,native` and `counts=100`.
+For the optimized 100-icon comparison, pass `renderers=shared+native` and `counts=100`.
 
 Normal runs retain phase counters, first-icon content/layer update coverage and screenshot
 checks, but omit per-icon custom trace sections. They collect frame timing and existing
@@ -107,7 +118,7 @@ Run screenshot checks separately:
 ```
 
 This captures one baseline/native icon at progress 0, 0.25, 0.5 and 0.75; pass
-`renderers=baseline,shared,value,native` to include every mode. Separate
+`renderers=baseline+shared+value+native` to include every mode. Separate
 `stress-geometry.json` and PNGs record actual untransformed `measuredSizes`, icon `bounds`,
 fixed-cell `captureBounds`, and first-icon `effects` values including all four `effects.axes`
 coordinates. Every axis and other effect must change across the four poses and match
@@ -236,30 +247,48 @@ run can replace it**:
 set -eu
 benchmark_module=benchmarks/animated-font
 benchmark_outputs="$benchmark_module/build/outputs/connected_android_test_additional_output/benchmark/connected"
+benchmark_results="$benchmark_module/build/outputs/androidTest-results/connected/benchmark"
 mkdir -p "$benchmark_module/build/measurements"
 benchmark_capture=$(mktemp -d "$PWD/$benchmark_module/build/measurements/run-XXXXXX")
 
+rm -rf "$benchmark_outputs" "$benchmark_results"
 ./gradlew :benchmarks:animated-font:connectedBenchmarkAndroidTest \
   -Pandroid.testInstrumentationRunnerArguments.class=io.github.hlcaptain.symbols.benchmark.animatedfont.AnimatedFontBenchmark \
   -Pandroid.testInstrumentationRunnerArguments.scenario=draw \
-  -Pandroid.testInstrumentationRunnerArguments.renderers=baseline,shared,value,native \
+  "-Pandroid.testInstrumentationRunnerArguments.renderers=baseline+shared+value+native" \
   -Pandroid.testInstrumentationRunnerArguments.counts=100
+python3 - "$benchmark_results" <<'PY'
+from pathlib import Path
+import sys
+import xml.etree.ElementTree as ET
+
+cases = [case for path in Path(sys.argv[1]).glob("TEST-*.xml")
+         for case in ET.parse(path).iter("testcase")]
+expected = {f"animateAxes[{renderer}-all-100-draw-core]"
+            for renderer in ("baseline", "shared", "value", "native")}
+assert len(cases) == 4 and {case.get("name") for case in cases} == expected, "Incomplete benchmark matrix"
+assert all(not any(child.tag in ("failure", "error", "skipped") for child in case)
+           for case in cases), "A benchmark case failed or was skipped"
+PY
 cp -R "$benchmark_outputs" "$benchmark_capture/timing"
 
 ./gradlew :benchmarks:animated-font:connectedBenchmarkAndroidTest \
   -Pandroid.testInstrumentationRunnerArguments.class=io.github.hlcaptain.symbols.benchmark.animatedfont.AnimatedFontStressTest \
   -Pandroid.testInstrumentationRunnerArguments.scenario=draw \
-  -Pandroid.testInstrumentationRunnerArguments.renderers=baseline,shared,value,native
+  "-Pandroid.testInstrumentationRunnerArguments.renderers=baseline+shared+value+native"
 cp -R "$benchmark_outputs" "$benchmark_capture/geometry"
 
 python3 "$benchmark_module/analyze.py" "$benchmark_capture/timing" \
   --draw-geometry "$benchmark_capture/geometry" \
+  --expected-cases 4 \
   --output "$benchmark_capture/summary"
 )
 ```
 
-Stop if a test command fails; retain its outputs for diagnosis rather than presenting them
-as a successful capture. For a separate diagnostic timing study, add
+Stop if a test command or the XML assertion fails; AGP 9 can report success even
+when argument forwarding prevents tests from running. Adjust the expected names
+and count when intentionally choosing another matrix. Retain failed-run outputs
+for diagnosis rather than presenting them as a successful capture. For a separate diagnostic timing study, add
 `-Pandroid.testInstrumentationRunnerArguments.diagnostics=true` and use a new capture
 directory. For resizing, select `scenario=stress` in both test commands and analyze with
 `--stress-geometry`. For axes-only timing, select `scenario=axes` and `axes=all`, run

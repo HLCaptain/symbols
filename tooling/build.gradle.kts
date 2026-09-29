@@ -5,6 +5,10 @@ import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.plugins.signing.SigningExtension
 
+plugins {
+    alias(libs.plugins.kotlinJvm) apply false
+}
+
 allprojects {
     group = providers.gradleProperty("GROUP")
         .orElse("io.github.hlcaptain")

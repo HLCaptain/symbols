@@ -43,7 +43,7 @@ def command_output(*command: str) -> str:
 
 
 def find_apk(variant: str) -> Path:
-    output_directory = ROOT / "composeApp/build/outputs/apk" / variant
+    output_directory = ROOT / "androidApp/build/outputs/apk" / variant
     candidates = sorted(output_directory.glob("*.apk"))
     if len(candidates) != 1:
         raise FileNotFoundError(
@@ -60,7 +60,7 @@ def build(
     repetition: int,
     repetitions: int,
 ) -> dict[str, Any]:
-    task = f":composeApp:assemble{variant.capitalize()}"
+    task = f":androidApp:assemble{variant.capitalize()}"
     command = [
         str(ROOT / "gradlew"),
         task,

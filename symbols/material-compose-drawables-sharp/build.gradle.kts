@@ -38,6 +38,8 @@ symbolFonts {
     }
 }
 
-android {
-    namespace = "io.github.hlcaptain.symbols.material.sharp.compose.drawables"
+kotlin {
+    android {
+        namespace = "io.github.hlcaptain.symbols.material.sharp.compose.drawables"
+    }
 }

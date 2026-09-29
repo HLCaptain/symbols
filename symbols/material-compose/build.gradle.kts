@@ -10,6 +10,8 @@ kotlin {
     }
 }
 
-android {
-    namespace = "io.github.hlcaptain.symbols.material.compose"
+kotlin {
+    android {
+        namespace = "io.github.hlcaptain.symbols.material.compose"
+    }
 }

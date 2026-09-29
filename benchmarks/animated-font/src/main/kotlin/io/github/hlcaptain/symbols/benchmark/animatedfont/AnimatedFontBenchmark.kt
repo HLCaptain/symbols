@@ -389,7 +389,11 @@ private fun inkBounds(bitmap: Bitmap, bounds: JSONArray, colored: Boolean = fals
         }
 }
 
-private fun selected(argument: String, default: String) = (arguments.getString(argument) ?: default).split(',')
+// AGP 9's test engine splits its complete argument map on commas without escaping values.
+// Use shell-safe '+' CLI lists: the engine also forwards values without shell quoting.
+// Retain commas for direct ADB and older AGP.
+// https://dl.google.com/dl/android/maven2/com/android/tools/androidtest/android-test-engine/1.0.1/android-test-engine-1.0.1-sources.jar
+private fun selected(argument: String, default: String) = (arguments.getString(argument) ?: default).split(',', '+')
 private val arguments get() = InstrumentationRegistry.getArguments()
 private val diagnosticsEnabled get() = (arguments.getString("diagnostics") ?: "false").toBooleanStrict()
 private fun outputFile(name: String): File {

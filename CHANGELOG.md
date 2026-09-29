@@ -11,6 +11,15 @@ artifacts are released.
 
 ### Changed
 
+- Migrate source builds to AGP 9.4.1, Kotlin 2.4.20 and Gradle 9.7.0, with
+  Compose 1.12.1 and native Android KMP libraries. Compose consumers now need
+  AGP 9.1+, compile SDK 37 and Android API 23+; XML-only consumers retain
+  AGP 8.13/Gradle 8 and API 21 support. The published generator plugin is
+  still built with Gradle 8.14.5 and uses the same DSL.
+- Wire generated Kotlin and native resources into Android-only and native
+  Android KMP consumers automatically. Split the Android sample launcher and
+  View/data-binding implementation out of shared KMP modules.
+
 - Wait for Maven Central availability separately from upload/validation, allowing
   asynchronous publication without failing on NMCP's former 30-minute status wait.
   Document fresh-run recovery so retries recheck already-published coordinates.

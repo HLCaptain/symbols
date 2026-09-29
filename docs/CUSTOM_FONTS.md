@@ -179,7 +179,7 @@ symbolFonts {
 ```
 
 The renderer never attaches `FontVariation.Settings` to a regular resource, so
-it can render on Android API 21. It verifies that requested settings equal the
+it can render on Android API 23 with the current Compose dependencies. It verifies that requested settings equal the
 declared fixed value; pass it explicitly or provide it through `SymbolsTheme`.
 
 `tools/generate_material_static_fonts.py --input ... --output ... --axis
