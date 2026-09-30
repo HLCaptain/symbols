@@ -61,3 +61,61 @@ to JDK 21 and `ANDROID_HOME` to the SDK installation before running. The script
 keeps logs, timings, and the exact command locally; do not upload its generated
 build artifacts to Actions storage. These tiny fixtures test compatibility,
 not full-catalog performance or shrinker effectiveness.
+
+## Built-in vector consumers
+
+`--built-in-vectors` additionally resolves the published Rounded and Themed packs.
+The consumer uses ordinary `ImageVector` values from
+`Symbols.Material.AutoMirrored.Rounded.ArrowBack` and
+`Symbols.Material.AutoMirrored.Themed.ArrowBack`. The JVM case runs the existing
+public themed-vector tests against those artifacts, checking mirror flags, cached
+identity, changing styles, and nested theme inheritance. The Android app references
+both paths from its activity so R8 must retain the used code.
+
+The regular seven-case plugin matrix remains unchanged. The JVM/Android CI job
+publishes only Kotlin metadata, JVM, and Android variants after compiling the
+libraries; the Apple job publishes only Kotlin metadata and the two iOS variants.
+Both use the eight modules `symbols-core`, `variant-font-core`, `material-core`,
+`material-compose`, and the four `material-vectors-*` packs. This reuses each job's
+compiled outputs and avoids adding web/native publication to the 45-minute plugin
+matrix. Candidate artifacts remain in the workspace's ignored `build/` directory.
+These CI publications retain the development version from `gradle.properties`,
+matching the preceding verification build. Overriding it for publication changes
+native compilation inputs and rebuilds the same libraries; the private Maven
+directory provides isolation without a second version.
+
+After publishing those candidates, run:
+
+```shell
+candidate_version=$(sed -n 's/^VERSION_NAME=//p' gradle.properties)
+python3 tooling/compatibility/check.py --profile jvm --built-in-vectors \
+  --gradle ./gradlew --repository build/vector-consumer-maven \
+  --version "$candidate_version" --output build/reports/builtin-compatibility
+JAVA_HOME=/path/to/jdk-17 python3 tooling/compatibility/check.py --profile android-app --built-in-vectors \
+  --gradle /path/to/gradle-9.3.1/bin/gradle --agp-version 9.1.1 --compile-sdk 37 \
+  --repository build/vector-consumer-maven --version "$candidate_version" \
+  --output build/reports/builtin-compatibility-minimum
+```
+
+The minimum Android case retains API 23 and the existing resource-shrinking
+assertions. It qualifies the vendor-supported AGP 9.1.1 / Gradle 9.3.1 boundary
+separately from the repository's newer producer toolchain. Dependency metadata
+permits AGP 9.1.0, but that version warns that SDK 37 exceeds its tested SDK 36.1
+maximum. CI runs this consumer on JDK 17 while building the candidate libraries
+and plugin on JDK 21.
+
+On macOS with the repository's Xcode version:
+
+```shell
+candidate_version=$(sed -n 's/^VERSION_NAME=//p' gradle.properties)
+python3 tooling/compatibility/check.py --profile ios --gradle ./gradlew \
+  --repository build/apple-consumer-maven --version "$candidate_version" \
+  --output build/reports/builtin-compatibility
+```
+
+The iOS case consumes compiled libraries without applying the Symbols generator
+plugin. Its exported `String` function keeps the fixed and themed vector calls
+reachable when linking device and simulator frameworks. `xcrun vtool` must report
+the Kotlin 2.4 default minimum of iOS 15.0 for both binaries; no deployment-target
+override is used. This verifies native linking and deployment metadata, not
+execution on an iOS 15 device. Every case still requires configuration-cache reuse.

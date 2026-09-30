@@ -1,8 +1,7 @@
 # Contributing
 
-Thank you for helping improve Symbols. The project is still under active
-development and has not published its first stable release, so APIs and module
-boundaries may change while the initial design is completed.
+Thank you for helping improve Symbols. Published APIs and consumer requirements
+follow semantic versioning; document compatibility changes before releasing them.
 
 By participating, you agree to follow [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 Security vulnerabilities must be reported through the private process in
