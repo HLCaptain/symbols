@@ -16,12 +16,14 @@ import shutil
 import tomllib
 import zipfile
 
+import runtime as reader_runtime
+
 ROOT = Path(__file__).resolve().parents[3]
 PACKAGE = "io.github.hlcaptain.symbols.material.outlined.compose.drawables.resources"
 NAMESPACE = "io.github.hlcaptain.symbols.material.outlined.compose.drawables"
 PREFIX = f"composeResources/{PACKAGE}/"
 RAW_PREFIX = "symbols_probe_"
-RUNTIME_VERSION = "1.12.2-native-raw01"
+RUNTIME_VERSION = reader_runtime.VERSION
 PROTOCOL = "compose-android-resource://"
 
 

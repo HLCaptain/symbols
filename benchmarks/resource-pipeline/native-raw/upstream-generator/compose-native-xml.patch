@@ -1,0 +1,462 @@
+--- a/org/jetbrains/compose/resources/AndroidResources.kt
++++ b/org/jetbrains/compose/resources/AndroidResources.kt
+@@ -10,6 +10,7 @@
+ import org.gradle.api.DefaultTask
+ import org.gradle.api.Project
+ import org.gradle.api.file.DirectoryProperty
++import org.gradle.api.file.ConfigurableFileCollection
+ import org.gradle.api.file.FileCollection
+ import org.gradle.api.file.FileSystemOperations
+ import org.gradle.api.provider.Property
+@@ -34,18 +36,19 @@
+ //copy all compose resources to android assets
+ internal fun Project.configureAndroidComposeResources(
+     agpPluginId: String,
+-    moduleResourceDir: Provider<File>? = null
++    moduleResourceDir: Provider<File>? = null,
++    config: Provider<ResourcesExtension>
+ ) {
+     val kotlinExtension = extensions.findByType(KotlinMultiplatformExtension::class.java) ?: return
+
+     if (agpPluginId != AGP_KMP_LIB_ID) {
+         extensions.findByType(AndroidComponentsExtension::class.java)?.let { androidComponents ->
+-            configureAndroidComposeResources(kotlinExtension, androidComponents, moduleResourceDir)
++            configureAndroidComposeResources(kotlinExtension, androidComponents, moduleResourceDir, config)
+         }
+     } else {
+         @Suppress("UnstableApiUsage")
+         extensions.findByType(KotlinMultiplatformAndroidComponentsExtension::class.java)?.let { androidComponents ->
+-            configureAndroidComposeResources(kotlinExtension, androidComponents, moduleResourceDir)
++            configureAndroidComposeResources(kotlinExtension, androidComponents, moduleResourceDir, config)
+         }
+     }
+ }
+@@ -53,17 +56,26 @@
+ private fun Project.configureAndroidComposeResources(
+     kotlinExtension: KotlinMultiplatformExtension,
+     androidComponents: AndroidComponentsExtension<*, *, *>,
+-    moduleResourceDir: Provider<File>?
++    moduleResourceDir: Provider<File>?,
++    config: Provider<ResourcesExtension>
+ ) {
+     logger.info("Configure compose resources with AndroidComponentsExtension")
+     androidComponents.onVariants { variant ->
++        config.get().closeNativeXmlRegistration()
+         val componentAssets = getAndroidComponentComposeResources(kotlinExtension, variant.name)
+-        configureGeneratedAndroidComponentAssets(
++        val copyAssets = configureGeneratedAndroidComponentAssets(
+             variant.name,
+             variant.sources,
+             componentAssets,
+             moduleResourceDir
+         )
++        if (config.get().androidNativeXmlDirectories.isNotEmpty()) {
++            val sourceSets = kotlinExtension.targets.withType(KotlinAndroidTarget::class.java).flatMap { target ->
++                target.compilations.filter { it.androidVariant?.name == variant.name }.flatMap { it.allKotlinSourceSets }
++            }
++            configureNativeAndroidXmlResources(kotlinExtension, config, variant.name, sourceSets,
++                variant.sources, variant.namespace, copyAssets, moduleResourceDir)
++        }
+
+         if (variant is HasAndroidTest) {
+             variant.androidTest?.let { androidTest ->
+@@ -85,7 +97,7 @@
+ ): FileCollection = project.files({
+     kotlinExtension.targets.withType(KotlinAndroidTarget::class.java).flatMap { androidTarget ->
+         androidTarget.compilations.flatMap { compilation ->
+-            if (compilation.androidVariant.name == componentName) {
++            if (compilation.androidVariant?.name == componentName) {
+                 compilation.allKotlinSourceSets.map { kotlinSourceSet ->
+                     getPreparedComposeResourcesDir(kotlinSourceSet)
+                 }
+@@ -100,7 +112,8 @@
+ private fun Project.configureAndroidComposeResources(
+     kotlinExtension: KotlinMultiplatformExtension,
+     androidComponents: KotlinMultiplatformAndroidComponentsExtension,
+-    moduleResourceDir: Provider<File>?
++    moduleResourceDir: Provider<File>?,
++    config: Provider<ResourcesExtension>
+ ) {
+
+     // AGP 8.10 introduced new onVariantS {} API
+@@ -111,13 +124,20 @@
+     if (agpVersion >= Version.fromString(AGP_8_10)) {
+         logger.info("Configure compose resources with KotlinMultiplatformAndroidComponentsExtension")
+         androidComponents.onVariants { variant ->
++        config.get().closeNativeXmlRegistration()
+             val variantAssets = getAndroidKmpComponentComposeResources(kotlinExtension, variant.name)
+-            configureGeneratedAndroidComponentAssets(
++            val copyAssets = configureGeneratedAndroidComponentAssets(
+                 variant.name,
+                 variant.sources,
+                 variantAssets,
+                 moduleResourceDir
+             )
++            if (config.get().androidNativeXmlDirectories.isNotEmpty()) {
++                val sourceSets = kotlinExtension.targets.withType(KotlinMultiplatformAndroidLibraryTarget::class.java)
++                    .flatMap { target -> target.compilations.filter { it.componentName == variant.name }.flatMap { it.allKotlinSourceSets } }
++                configureNativeAndroidXmlResources(kotlinExtension, config, variant.name, sourceSets,
++                    variant.sources, provider { kotlinExtension.targets.withType(KotlinMultiplatformAndroidLibraryTarget::class.java).single().namespace }, copyAssets, moduleResourceDir)
++            }
+
+             variant.androidTest?.let { androidTest ->
+                 val androidTestAssets = getAndroidKmpComponentComposeResources(kotlinExtension, androidTest.name)
+@@ -132,13 +152,20 @@
+     } else {
+         logger.info("Configure compose resources with outdated KotlinMultiplatformAndroidComponentsExtension < 8.10")
+         androidComponents.onVariant { variant ->
++        config.get().closeNativeXmlRegistration()
+             val variantAssets = getAndroidKmpComponentComposeResources(kotlinExtension, variant.name)
+-            configureGeneratedAndroidComponentAssets(
++            val copyAssets = configureGeneratedAndroidComponentAssets(
+                 variant.name,
+                 variant.sources,
+                 variantAssets,
+                 moduleResourceDir
+             )
++            if (config.get().androidNativeXmlDirectories.isNotEmpty()) {
++                val sourceSets = kotlinExtension.targets.withType(KotlinMultiplatformAndroidLibraryTarget::class.java)
++                    .flatMap { target -> target.compilations.filter { it.componentName == variant.name }.flatMap { it.allKotlinSourceSets } }
++                configureNativeAndroidXmlResources(kotlinExtension, config, variant.name, sourceSets,
++                    variant.sources, provider { kotlinExtension.targets.withType(KotlinMultiplatformAndroidLibraryTarget::class.java).single().namespace }, copyAssets, moduleResourceDir)
++            }
+
+             variant.androidTest?.let { androidTest ->
+                 val androidTestAssets = getAndroidKmpComponentComposeResources(kotlinExtension, androidTest.name)
+@@ -175,7 +202,7 @@
+     componentSources: Sources,
+     componentAssets: FileCollection,
+     moduleResourceDir: Provider<File>?
+-) {
++) : TaskProvider<CopyResourcesToAndroidAssetsTask> {
+     logger.info("Configure $componentName resources for 'android' target")
+
+     val camelComponentName = componentName.uppercaseFirstChar()
+@@ -200,6 +227,7 @@
+             task.mustRunAfter(copyComponentAssets)
+         }
+     }
++    return copyComponentAssets
+ }
+
+ //Copy task doesn't work with 'variant.sources?.assets?.addGeneratedSourceDirectory' API
+@@ -217,14 +245,33 @@
+     @get:Optional
+     abstract val relativeResourcePlacement: Property<File>
+
++    @get:InputFiles
++    @get:PathSensitive(PathSensitivity.NONE)
++    abstract val nativeXmlLocations: ConfigurableFileCollection
++
+     @get:OutputDirectory
+     abstract val outputDirectory: DirectoryProperty
+
+     @TaskAction
+     fun action() {
++        val nativeLocations = readNativeXmlLocations(nativeXmlLocations.files)
++        val excluded = nativeLocations.map { it.relativePath }.toSet()
++        nativeLocations.forEach { location ->
++            from.get().files.forEach { root ->
++                val candidate = root.resolve(location.relativePath)
++                require(!candidate.isFile || location.matches(candidate)) {
++                    "Enrolled native XML is shadowed by different Compose resource bytes: ${location.relativePath}"
++                }
++            }
++        }
++        if (!nativeXmlLocations.isEmpty) {
++            // Switching from assets to native XML must remove the previously copied owned assets.
++            fileSystem.delete { it.delete(outputDirectory) }
++        }
+         fileSystem.copy {
+             it.includeEmptyDirs = false
+             it.from(from)
++            it.exclude { file -> file.relativePath.pathString in excluded }
+             if (relativeResourcePlacement.isPresent) {
+                 it.into(outputDirectory.dir(relativeResourcePlacement.get().path))
+             } else {
+--- a/org/jetbrains/compose/resources/ComposeResourcesGeneration.kt
++++ b/org/jetbrains/compose/resources/ComposeResourcesGeneration.kt
+@@ -165,7 +165,7 @@
+     )
+ }
+
+-private fun KotlinSourceSet.getResourceAccessorsGenerationTaskName(): String {
++internal fun KotlinSourceSet.getResourceAccessorsGenerationTaskName(): String {
+     return "generateResourceAccessorsFor${this.name.uppercaseFirstChar()}"
+ }
+
+@@ -306,4 +306,4 @@
+             if (flag) listOf(task.codeDir) else emptyList()
+         }
+     )
+-}
+\ No newline at end of file
++}
+--- a/org/jetbrains/compose/resources/GenerateResClassTask.kt
++++ b/org/jetbrains/compose/resources/GenerateResClassTask.kt
+@@ -24,6 +24,13 @@
+     @get:Input
+     abstract val makeAccessorsPublic: Property<Boolean>
+
++    @get:Input
++    abstract val nativeXmlResources: Property<Boolean>
++
++    init {
++        nativeXmlResources.convention(false)
++    }
++
+     @get:OutputDirectory
+     abstract val codeDir: DirectoryProperty
+
+@@ -38,6 +45,6 @@
+         val pkgName = packageName.get()
+         val moduleDirectory = packagingDir.getOrNull()?.let { it.invariantSeparatorsPath + "/" } ?: ""
+         val isPublic = makeAccessorsPublic.get()
+-        getResFileSpec(pkgName, resClassName, moduleDirectory, isPublic).writeTo(dir)
++        getResFileSpec(pkgName, resClassName, moduleDirectory, isPublic, nativeXmlResources.get()).writeTo(dir)
+     }
+ }
+--- a/org/jetbrains/compose/resources/GenerateResourceAccessorsTask.kt
++++ b/org/jetbrains/compose/resources/GenerateResourceAccessorsTask.kt
+@@ -1,8 +1,10 @@
+ package org.jetbrains.compose.resources
+
+ import org.gradle.api.file.DirectoryProperty
++import org.gradle.api.file.RegularFileProperty
+ import org.gradle.api.provider.Property
+ import org.gradle.api.tasks.Input
++import org.gradle.api.tasks.InputFile
+ import org.gradle.api.tasks.InputFiles
+ import org.gradle.api.tasks.Optional
+ import org.gradle.api.tasks.OutputDirectory
+@@ -38,6 +40,18 @@
+     @get:Input
+     abstract val disableResourceContentHashGeneration: Property<Boolean>
+
++    @get:InputFile
++    @get:Optional
++    @get:PathSensitive(PathSensitivity.NONE)
++    abstract val nativeXmlLocations: RegularFileProperty
++
++    @get:Input
++    abstract val nativeXmlExpectDeclarations: Property<Boolean>
++
++    init {
++        nativeXmlExpectDeclarations.convention(true)
++    }
++
+     @get:InputFiles
+     @get:SkipWhenEmpty
+     @get:PathSensitive(PathSensitivity.RELATIVE)
+@@ -88,7 +102,11 @@
+             moduleDirectory,
+             resClassName,
+             isPublic,
+-            generateResourceContentHashAnnotation
++            generateResourceContentHashAnnotation,
++            nativeXmlLocations.orNull?.let { file ->
++                readNativeXmlLocations(listOf(file.asFile)).associateBy { it.relativePath }
++            }.orEmpty(),
++            nativeXmlExpectDeclarations.get()
+         ).forEach { it.writeTo(kotlinDir) }
+     }
+
+--- a/org/jetbrains/compose/resources/GeneratedResClassSpec.kt
++++ b/org/jetbrains/compose/resources/GeneratedResClassSpec.kt
+@@ -190,7 +190,8 @@
+     packageName: String,
+     className: String,
+     moduleDir: String,
+-    isPublic: Boolean
++    isPublic: Boolean,
++    nativeXmlResources: Boolean = false
+ ): FileSpec {
+     val resModifier = if (isPublic) KModifier.PUBLIC else KModifier.INTERNAL
+     return FileSpec.builder(packageName, className).also { file ->
+@@ -225,7 +226,10 @@
+                     .addParameter("path", String::class)
+                     .addModifiers(KModifier.SUSPEND)
+                     .returns(ByteArray::class)
+-                    .addStatement("""return %M("$moduleDir" + path)""", readResourceBytes)
++                    .apply {
++                        if (nativeXmlResources) addStatement("return %M(%N(path))", readResourceBytes, nativeXmlRawPathFunction(className))
++                        else addStatement("""return %M("$moduleDir" + path)""", readResourceBytes)
++                    }
+                     .build()
+             )
+
+@@ -245,7 +249,10 @@
+                     )
+                     .addParameter("path", String::class)
+                     .returns(String::class)
+-                    .addStatement("""return %M("$moduleDir" + path)""", getResourceUri)
++                    .apply {
++                        if (nativeXmlResources) addStatement("return %M(%N(path))", getResourceUri, nativeXmlRawPathFunction(className))
++                        else addStatement("""return %M("$moduleDir" + path)""", getResourceUri)
++                    }
+                     .build()
+             )
+
+@@ -253,6 +260,11 @@
+                 resObject.addType(TypeSpec.objectBuilder(type.accessorName).build())
+             }
+         }.build())
++        if (nativeXmlResources) {
++            file.addFunction(FunSpec.builder(nativeXmlRawPathFunction(className))
++                .addModifiers(KModifier.INTERNAL, KModifier.EXPECT)
++                .addParameter("path", String::class).returns(String::class).build())
++        }
+     }.build()
+ }
+
+@@ -273,7 +285,9 @@
+     moduleDir: String,
+     resClassName: String,
+     isPublic: Boolean,
+-    generateResourceContentHashAnnotation: Boolean
++    generateResourceContentHashAnnotation: Boolean,
++    nativeXmlLocations: Map<String, NativeXmlLocation> = emptyMap(),
++    nativeXmlExpectDeclarations: Boolean = true
+ ): List<FileSpec> {
+     val resModifier = if (isPublic) KModifier.PUBLIC else KModifier.INTERNAL
+     val files = mutableListOf<FileSpec>()
+@@ -293,7 +307,9 @@
+                     resClassName,
+                     resModifier,
+                     idToResources.subMap(ids.first(), true, ids.last(), true),
+-                    generateResourceContentHashAnnotation
++                    generateResourceContentHashAnnotation,
++                    nativeXmlLocations,
++                    nativeXmlExpectDeclarations
+                 )
+             )
+         }
+@@ -311,7 +327,9 @@
+     resClassName: String,
+     resModifier: KModifier,
+     idToResources: Map<String, List<ResourceItem>>,
+-    generateResourceContentHashAnnotation: Boolean
++    generateResourceContentHashAnnotation: Boolean,
++    nativeXmlLocations: Map<String, NativeXmlLocation>,
++    nativeXmlExpectDeclarations: Boolean
+ ): FileSpec {
+     return FileSpec.builder(packageName, fileName).also { chunkFile ->
+         chunkFile.addAnnotation(
+@@ -341,7 +359,12 @@
+                         addQualifiers(item)
+                         add("), ")
+                         //file separator should be '/' on all platforms
+-                        add("\"${'$'}{MD}${item.path.invariantSeparatorsPathString}\", ${item.offset}, ${item.size}")
++                        val nativeLocation = nativeXmlLocations[item.path.invariantSeparatorsPathString]
++                        if (nativeLocation == null) {
++                            add("\"${'$'}{MD}${item.path.invariantSeparatorsPathString}\", ${item.offset}, ${item.size}")
++                        } else {
++                            add("%N(), %L, %L", nativeLocation.factoryName, item.offset, item.size)
++                        }
+                         add("),\n")
+                     }
+                     add("))\n")
+@@ -351,16 +374,38 @@
+
+             val accessorBuilder = PropertySpec.builder(resName, type.getClassName(), resModifier)
+                 .receiver(ClassName(packageName, resClassName, type.accessorName))
+-                .delegate(initializer)
++            val hasNativeXml = items.any { it.path.invariantSeparatorsPathString in nativeXmlLocations }
++            // Isolate native descriptor initialization. A shared facade <clinit>
++            // can keep unused lazy lambdas (and their R references) alive in R8.
++            val holderName = "_NativeXml_${chunkClassName}_$resName"
++            val valueBuilder = if (hasNativeXml) {
++                PropertySpec.builder("value", type.getClassName()).delegate(initializer)
++            } else {
++                accessorBuilder.delegate(initializer)
++            }
+             if (generateResourceContentHashAnnotation) {
+-                accessorBuilder.addAnnotation(
++                valueBuilder.addAnnotation(
+                     AnnotationSpec.builder(resourceContentHashAnnotationClass)
+                         .useSiteTarget(AnnotationSpec.UseSiteTarget.DELEGATE)
+                         .addMember("%L", items.fold(0) { acc, item -> ((acc * 31) + item.contentHash) })
+                         .build()
+                 )
+             }
++            if (hasNativeXml) {
++                chunkFile.addType(TypeSpec.objectBuilder(holderName).addModifiers(KModifier.PRIVATE)
++                    .addProperty(valueBuilder.build()).build())
++                accessorBuilder.getter(FunSpec.getterBuilder()
++                    .addStatement("return %N.value", holderName).build())
++            }
+             chunkFile.addProperty(accessorBuilder.build())
++        }
++
++        if (nativeXmlExpectDeclarations) {
++            idToResources.values.flatten().mapNotNull { nativeXmlLocations[it.path.invariantSeparatorsPathString] }
++                .distinctBy { it.factoryName }.forEach { location ->
++                    chunkFile.addFunction(FunSpec.builder(location.factoryName)
++                        .addModifiers(KModifier.INTERNAL, KModifier.EXPECT).returns(String::class).build())
++                }
+         }
+
+         //__collect${chunkClassName}Resources function
+--- a/org/jetbrains/compose/resources/MultimoduleResources.kt
++++ b/org/jetbrains/compose/resources/MultimoduleResources.kt
+@@ -39,7 +39,7 @@
+
+     //configure ANDROID resources
+     onAgpApplied { agpId ->
+-        configureAndroidComposeResources(agpId, moduleIsolationDirectory)
++        configureAndroidComposeResources(agpId, moduleIsolationDirectory, config)
+         fixAndroidLintTaskDependencies()
+     }
+ }
+@@ -163,4 +163,4 @@
+             processResourcesTask.dependsOn(directoryWithAllResourcesForCompilation)
+         }
+     }
+-}
+\ No newline at end of file
++}
+--- a/org/jetbrains/compose/resources/ResourcesDSL.kt
++++ b/org/jetbrains/compose/resources/ResourcesDSL.kt
+@@ -46,6 +46,29 @@
+
+     internal val customResourceDirectories: MutableMap<String, Provider<Directory>> = mutableMapOf()
+
++    internal val androidNativeXmlDirectories: MutableMap<String, MutableList<Provider<Directory>>> = mutableMapOf()
++
++    private var nativeXmlRegistrationClosed = false
++
++    internal fun closeNativeXmlRegistration() {
++        nativeXmlRegistrationClosed = true
++    }
++
++    /**
++     * Enrolls this producer's drawable XML files in experimental native Android packaging.
++     *
++     * The directory must already be part of this source set's Compose resource root.
++     * Only XML files directly inside drawable/qualifier directories are enrolled; fonts, other files,
++     * authored resources outside these directories and other targets keep their existing paths.
++     * Multiple calls add directories. Empty enrollment leaves the existing pipeline unchanged.
++     * Call before Android variants are finalized. The selected Android resource runtime must
++     * advertise the `components-resources-native-xml-v1` capability.
++     */
++    fun experimentalAndroidNativeXmlResources(sourceSetName: String, directoryProvider: Provider<Directory>) {
++        check(!nativeXmlRegistrationClosed) { "Register native XML resources before Android variants are finalized" }
++        androidNativeXmlDirectories.getOrPut(sourceSetName) { mutableListOf() }.add(directoryProvider)
++    }
++
+     /**
+      * Associates a custom resource directory with a specific source set.
+      *
+--- a/org/jetbrains/compose/resources/SinglemoduleResources.kt
++++ b/org/jetbrains/compose/resources/SinglemoduleResources.kt
+@@ -28,7 +28,7 @@
+     }
+
+     onAgpApplied { agpId ->
+-        configureAndroidComposeResources(agpId)
++        configureAndroidComposeResources(agpId, config = config)
+         fixAndroidLintTaskDependencies()
+     }
+-}
+\ No newline at end of file
++}

@@ -20,6 +20,64 @@ class SymbolFontsPluginFunctionalTest {
     val temporaryFolder: TemporaryFolder = TemporaryFolder()
 
     @Test
+    fun experimentalComposePruningIsAnExplicitProducerOptIn() {
+        val project = ProjectBuilder.builder()
+            .withProjectDir(temporaryFolder.newFolder())
+            .build()
+        val extension = project.extensions.create(
+            "symbolFonts",
+            SymbolFontsExtension::class.java,
+        )
+        assertFalse(extension.experimentalComposeResourcePruning.get())
+        extension.experimentalComposeResourcePruning.set(project.providers.provider { true })
+        assertTrue(extension.experimentalComposeResourcePruning.get())
+    }
+
+    @Test
+    fun unsupportedComposePruningFailsBeforeGenerationInEitherPluginOrder() {
+        for (symbolsFirst in listOf(false, true)) {
+            val android = "id 'com.android.kotlin.multiplatform.library'"
+            val symbols = "id 'io.github.hlcaptain.symbol-fonts'"
+            val project = fixture(
+                """
+                plugins {
+                    id 'org.jetbrains.kotlin.multiplatform'
+                    id 'org.jetbrains.kotlin.plugin.compose'
+                    id 'org.jetbrains.compose'
+                    ${if (symbolsFirst) symbols else android}
+                    ${if (symbolsFirst) android else symbols}
+                }
+                kotlin {
+                    android {
+                        namespace = 'example.pruning'
+                        compileSdk = ${System.getProperty("symbols.fixtureCompileSdk")}
+                        minSdk = 23
+                    }
+                    jvm()
+                }
+                symbolFonts {
+                    experimentalComposeResourcePruning.set(true)
+                    iconSet('FixtureIcons') {
+                        packageName.set('example.generated')
+                        style('Outlined') {
+                            svgDirectory.set(file('icons'))
+                            composeDrawables()
+                        }
+                    }
+                }
+                """,
+                files = mapOf("icons/check.svg" to tablerSvg("M5 12L9 16L19 6")),
+            )
+            configureAndroidSdk(project)
+            val result = androidRunner(project, "help").buildAndFail()
+            assertTrue("experimentalComposeResourcePruning requires" in result.output)
+            assertTrue("experimentalAndroidNativeXmlResources" in result.output)
+            assertTrue("https://github.com/HLCaptain/symbols/issues/41" in result.output)
+            assertFalse(project.resolve("build/generated/symbolFonts").exists())
+        }
+    }
+
+    @Test
     fun androidDrawablesOverloadIsAnExplicitModeToggle() {
         val project = ProjectBuilder.builder()
             .withProjectDir(temporaryFolder.newFolder())
@@ -320,6 +378,16 @@ class SymbolFontsPluginFunctionalTest {
                 configurations.named('symbolFontGeneratorRuntimeClasspath') {
                     dependencies.clear()
                 }
+                // Materialize the unrelated source after generation, so the source-JAR
+                // check does not depend on Gradle preserving pre-existing task outputs.
+                tasks.named('generateSymbolCatalogs') {
+                    doLast { generator ->
+                        def unrelated = new File(generator.outputDirectory.get().asFile,
+                            'com/example/catalogs/Unrelated.kt')
+                        unrelated.parentFile.mkdirs()
+                        unrelated.text = 'package com.example.catalogs\ninternal const val unrelatedValue = 42\n'
+                    }
+                }
                 tasks.register('assertGeneratedClassification') {
                     dependsOn('generateSymbolCatalogs')
                     doLast {
@@ -362,6 +430,19 @@ class SymbolFontsPluginFunctionalTest {
                 .build()
 
             assertEquals(TaskOutcome.SUCCESS, result.task(":$compilation")?.outcome)
+            val ownershipState = project.resolve(
+                "build/generated/symbolFonts/catalogs/kotlin/.symbols-generated-files",
+            )
+            assertTrue(
+                ownershipState.isFile,
+                "Source publication must preserve the generator's ownership state on disk",
+            )
+            assertFalse("Unrelated.kt" in ownershipState.readText())
+            assertTrue(
+                project.resolve(
+                    "build/generated/symbolFonts/catalogs/kotlin/com/example/catalogs/Unrelated.kt",
+                ).isFile,
+            )
             val sourceJars = project.resolve("build/libs").listFiles().orEmpty()
                 .filter { it.name.endsWith("-sources.jar") }
             assertEquals(if (multiplatform) 3 else 1, sourceJars.size)
@@ -374,6 +455,11 @@ class SymbolFontsPluginFunctionalTest {
                         archive.name,
                     )
                     assertEquals(1, entries.count { it.endsWith("Consumer.kt") }, archive.name)
+                    assertEquals(1, entries.count { it.endsWith("Unrelated.kt") }, archive.name)
+                    assertFalse(
+                        entries.any { it.substringAfterLast('/') == ".symbols-generated-files" },
+                        archive.name,
+                    )
                 }
             }
             if (multiplatform) {
@@ -1278,6 +1364,13 @@ class SymbolFontsPluginFunctionalTest {
 
         val second = runner(project, taskName).build()
         assertEquals(TaskOutcome.UP_TO_DATE, second.task(":$taskName")?.outcome)
+
+        project.resolve("build.gradle").appendText(
+            "\nsymbolFonts.experimentalComposeResourcePruning.set(false)\n",
+        )
+        val explicitlyDisabled = runner(project, taskName).build()
+        assertEquals(TaskOutcome.UP_TO_DATE, explicitlyDisabled.task(":$taskName")?.outcome)
+        assertEquals(kotlinContents, kotlinSource.readText())
     }
 
     @Test

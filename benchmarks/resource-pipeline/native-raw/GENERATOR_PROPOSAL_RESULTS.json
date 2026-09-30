@@ -1,0 +1,232 @@
+{
+  "schema_version": 1,
+  "status": "Local upstream contribution verified in bounded Android/JVM integrations for both baselines, with candidate04 Pixel API37 rendering. Official activation remains unavailable.",
+  "official_upstream_activation_available": false,
+  "scope": {
+    "producer_targets": [
+      "Android KMP",
+      "JVM"
+    ],
+    "consumer": "Separate published-artifact Android Compose app",
+    "owned_xml": 2,
+    "authored_drawable": 1,
+    "unrelated_raw_file": 1,
+    "app_backend_plugin": false,
+    "app_backend_opt_in": false,
+    "custom_app_initializer": false,
+    "special_keep_rules": false
+  },
+  "source_inputs": {
+    "compose-native-xml.patch": "167de543635e071075e94ab93949d07481446361c2a5f26c1c9e8bb1c24d974f",
+    "imports-1.11.1.patch": "c6b1ce70d8cfb786465e3e035143ffd2111aeca9135c44489c473b57e0aa911f",
+    "imports-1.12.1.patch": "f1fa9b29dca229536c9333d88b6ba23789e507b111747bb8cdc3dc83de3e9d69",
+    "NativeAndroidXmlResources.kt": "bd1da974501361854752497625b112b7821b9fa1458050cd18b964a8c9212e8f",
+    "NativeAndroidXmlResourcesTest.kt": "bcec091f73213da3ffd2ee0f740bd12eaa3a3eb6ccecdaa968f15e72de4c4f5b"
+  },
+  "baselines": {
+    "1.11.1": {
+      "generator_candidate": "1.11.2-native-xml04",
+      "runtime_candidate": "1.11.2-native-raw02",
+      "symbols_candidate": "0.0.0-pruning-api02",
+      "upstream_source_sha256": "c5140e825fc0ee7cd037b942e5807e293d90b4d39a52e5edbba1b551dac8fb48",
+      "effective_patch_sha256": "654c8cb0f5383eff13abdb0b806901fe7e623a4e2c87c53b5e2035a08e115b9c",
+      "generator_jar_sha256": "e23a5282c010c392e2331debe8ce97128505c8d16222e63201c906caac60032a",
+      "rebuilt_resource_classes": 52,
+      "focused_tests": {
+        "passed": 2,
+        "failures": 0,
+        "disabled_output_oracle": "Byte-for-byte comparison against the original published generator"
+      },
+      "integration": {
+        "passed": true,
+        "stages": [
+          "disabled",
+          "enabled",
+          "disabled-again",
+          "publish-enabled",
+          "reuse-enabled",
+          "cache-seed",
+          "cache-restore",
+          "consumer",
+          "consumer-reuse"
+        ],
+        "checks": [
+          "false -> true -> false -> true without manual cleanup",
+          "unchanged disabled accessor/asset output",
+          "native task build-cache restoration",
+          "configuration-cache reuse",
+          "published Android and JVM artifacts",
+          "JVM XML byte parity",
+          "APK and AAB: used owned XML exactly once; unused owned XML absent",
+          "authored drawable and unrelated file preserved"
+        ],
+        "evidence_directory": "native-generator-1111-02",
+        "result_sha256": "d0260f25c4f201d06f26f1c360e2904a092425362e3c8dfda3f74b1d0ed53e6d",
+        "archives": [
+          {
+            "format": "apk",
+            "bytes": 742234,
+            "sha256": "50d1cbc675f31caec962758d2f9a2f2eee18303cfaa5ead4687473d2f04be048"
+          },
+          {
+            "format": "aab",
+            "bytes": 1662033,
+            "sha256": "a3112fc83b7954b0e05305c3d8a0672f99ea01573fda06580a9f4a66f2589851"
+          }
+        ]
+      }
+    },
+    "1.12.1": {
+      "generator_candidate": "1.12.2-native-xml04",
+      "runtime_candidate": "1.12.2-native-raw02",
+      "symbols_candidate": "0.0.0-pruning-api02",
+      "upstream_source_sha256": "2fdf6513d875644c2fcde80d5b5816c9fae6a8a6205ebc8a09407708698a67eb",
+      "effective_patch_sha256": "d7af047d9d97cad1010fbf635e069adf866eeeeb0bf5f2047a3046a5279971f0",
+      "generator_jar_sha256": "caf3b6f807f5f332c374b1b9f8117e6197f8892aace1863d3d671781b723d702",
+      "rebuilt_resource_classes": 52,
+      "focused_tests": {
+        "passed": 2,
+        "failures": 0,
+        "disabled_output_oracle": "Byte-for-byte comparison against the original published generator"
+      },
+      "integration": {
+        "passed": true,
+        "stages": [
+          "disabled",
+          "enabled",
+          "disabled-again",
+          "publish-enabled",
+          "reuse-enabled",
+          "cache-seed",
+          "cache-restore",
+          "consumer",
+          "consumer-reuse"
+        ],
+        "checks": [
+          "false -> true -> false -> true without manual cleanup",
+          "unchanged disabled accessor/asset output",
+          "native task build-cache restoration",
+          "configuration-cache reuse",
+          "published Android and JVM artifacts",
+          "JVM XML byte parity",
+          "APK and AAB: used owned XML exactly once; unused owned XML absent",
+          "authored drawable and unrelated file preserved"
+        ],
+        "evidence_directory": "native-generator-1121-05",
+        "result_sha256": "8b2271f256046182bdfc4b506c52015c7218b9efbc3361a4e09ce9fb9cc570e4",
+        "archives": [
+          {
+            "format": "apk",
+            "bytes": 755522,
+            "sha256": "148284f22c2f6d7a71a84d1845a57b688ac4daa5205123db013e7a762e05444e"
+          },
+          {
+            "format": "aab",
+            "bytes": 1671309,
+            "sha256": "6f1cdc62d9d3c58d5447c39488e23397f35d60b45091b6c53757ff1f8ce36f0c"
+          }
+        ]
+      }
+    }
+  },
+  "holder_tradeoff": {
+    "private_classes_per_enrolled_logical_resource": 1,
+    "extra_kotlin_files_in_checked_fixture": 0,
+    "fixture_source_files_before": 10,
+    "fixture_source_files_after": 10,
+    "fixture_private_holders_added": 2,
+    "public_drawable_facade_signatures_unchanged": true,
+    "abi_comparison": "1.11.1 producer candidate03 vs04; public drawable facade only",
+    "full_pack_timings_remeasured": false
+  },
+  "device": {
+    "candidate04_api37": "passed",
+    "device": "Google Pixel 6a",
+    "android_api": 37,
+    "generator_candidate": "1.12.2-native-xml04",
+    "runtime_candidate": "1.12.2-native-raw02",
+    "apk_sha256": "148284f22c2f6d7a71a84d1845a57b688ac4daa5205123db013e7a762e05444e",
+    "cold_launch_succeeded": true,
+    "selected_icon_visually_confirmed": true,
+    "resource_or_fatal_error_in_app_log": false,
+    "screenshot_sha256": "a3edcd3e20ec379c5aa0e78449d8b8680ac996b9daa9c3454f367f8dc107906a",
+    "log_sha256": "04e16c703064af85c7a5830baed3ea72991e08012440b8f46f4db54ffee3e036",
+    "device_settings_changed": false,
+    "scope": "Standard painterResource render on API37; not a performance measurement or API23 test",
+    "evidence_sha256": "2f491b1da18ef9fbf675c58dd4fcba697241db0a3bbd8119a4a410e8cdfec6d7",
+    "prior_candidate03_pixel_evidence_reused": false
+  },
+  "remaining_actual_generator_gates": [
+    "Physical qualifier variants in a running consumer",
+    "Res.readBytes/getUri/readPart through generated raw dispatch",
+    "IDE preview and actual Hot Reload",
+    "Android API23 rendering",
+    "Apple and web producer targets",
+    "full-pack performance and size remeasurement with private holders"
+  ],
+  "capability_scope": "native-xml-v1 promises the Android helper/protocol only, not universal Compose ABI between version families. See RUNTIME_PROPOSAL_RESULTS.json.",
+  "precompiled_cross_family_consumer": {
+    "status": "passed for the generated XML resource-pack subset",
+    "producer_compose_baseline": "1.11.1",
+    "generator_candidate": "1.11.2-native-xml04",
+    "producer_runtime_candidate": "1.11.2-native-raw02",
+    "consumer_compose_baseline": "1.12.1",
+    "consumer_runtime_candidate": "1.12.2-native-raw02",
+    "producer_rebuilt": false,
+    "unchanged_producer_aar_sha256": "8d2f14febc55d13c1cb734dbbd8bfa82f82f7defc53c8cf9d3f9c116deee73a4",
+    "stages_passed": 11,
+    "checks": [
+      "ordinary consumer dependency upgrade; no resolution forcing/substitution",
+      "precompiled published AAR unchanged",
+      "coherent UI/foundation/runtime resolution",
+      "APK/AAB exact used/unused owned XML retention",
+      "configuration-cache reuse"
+    ],
+    "resolved_runtime": {
+      "androidx.compose.ui:ui-android": "1.12.1",
+      "androidx.compose.foundation:foundation-android": "1.12.1",
+      "androidx.compose.runtime:runtime-android": "1.12.1",
+      "org.jetbrains.compose.components:components-resources-android": "1.12.2-native-raw02"
+    },
+    "archives": [
+      {
+        "format": "apk",
+        "bytes": 755522,
+        "sha256": "cf28466835299b688ac73b652d5e7470f43f1b175a07ddf184ed938a24c8436d"
+      },
+      {
+        "format": "aab",
+        "bytes": 1671311,
+        "sha256": "47f39184c453427a8ef4d98f84cb762a4ad5d4b124db9bf06084b8302ce7989b"
+      }
+    ],
+    "evidence_directory": "native-generator-1111-03",
+    "result_sha256": "327b04c2bf1b7b2abed6e8803b99db6f87ef030d356b156e0e1600c1a1666a34",
+    "reproduce_flags": [
+      "--upgrade-consumer-to",
+      "1.12.1",
+      "--upgrade-runtime-to",
+      "1.12.2-native-raw02"
+    ],
+    "ci": "published-consumers runs the same upgrade case; hosted pass status is separate",
+    "scope": "This validates the generated XML resource-pack subset, not universal Compose framework ABI compatibility across release families. API37 rendering is functional evidence, not a performance measurement or API23 result.",
+    "device": {
+      "device": "Google Pixel 6a",
+      "android_api": 37,
+      "producer_baseline": "1.11.1",
+      "consumer_baseline": "1.12.1",
+      "generator_candidate": "1.11.2-native-xml04",
+      "runtime_candidate": "1.12.2-native-raw02",
+      "apk_sha256": "cf28466835299b688ac73b652d5e7470f43f1b175a07ddf184ed938a24c8436d",
+      "producer_rebuilt": false,
+      "cold_launch_succeeded": true,
+      "selected_icon_visually_confirmed": true,
+      "resource_or_fatal_error_in_app_log": false,
+      "screenshot_sha256": "ddc04ed6279d5ab4b92017f6201413fe3a0cd78183cadcfc169a4cb59614a4e8",
+      "log_sha256": "e980708d9697ea03806bb152a95ecef455d2dbe5a5573d0fd0eb47ca0715017f",
+      "device_settings_changed": false,
+      "scope": "Precompiled generated resource pack on newer consumer runtime; not whole-framework ABI compatibility or a performance measurement",
+      "evidence_sha256": "ea7a3b8c7cff1395486db31041fd674adfb7b01ecb8ee25739a9f3c1d238207a"
+    }
+  }
+}

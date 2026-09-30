@@ -4,7 +4,24 @@
 +import android.content.res.Resources
 @@ -5,0 +7 @@
 +import android.util.TypedValue
-@@ -61,0 +64,11 @@
+@@ -9,0 +12,16 @@
++
++private const val ANDROID_RESOURCE_PATH_PREFIX = "compose-android-resource://"
++
++/**
++ * Creates a context-free location for original XML stored in an Android raw resource.
++ *
++ * Intended for generated Android resource accessors. [logicalPath] retains the original
++ * XML path, including qualifiers and extension; callers must not depend on its encoding.
++ * Resource existence is checked when reading, not when constructing the descriptor.
++ */
++@InternalResourceApi
++fun getAndroidResourcePath(resourceId: Int, logicalPath: String): String {
++    require(resourceId != 0) { "An Android raw resource ID must not be zero." }
++    require(logicalPath.endsWith(".xml", ignoreCase = true)) { "An XML resource path is required." }
++    return "$ANDROID_RESOURCE_PATH_PREFIX$resourceId/$logicalPath"
++}
+@@ -61,0 +80,11 @@
 +        nativeResourceId(path)?.let { id ->
 +            val context = androidContext ?: throwMissingResourceException(path)
 +            try {
@@ -16,7 +33,7 @@
 +            return "android.resource://${context.packageName}/$id"
 +        }
 +
-@@ -72,0 +86,9 @@
+@@ -72,0 +102,9 @@
 +        nativeResourceId(path)?.let { id ->
 +            val context = androidContext ?: throwMissingResourceException(path)
 +            try {
@@ -26,17 +43,14 @@
 +            }
 +        }
 +
-@@ -82,0 +105,13 @@
+@@ -82,0 +121,10 @@
 +    }
 +
-+    // Prototype-only location emitted by Android accessors. Construction needs no Context.
-+    // The .xml suffix preserves painterResource's existing format selection.
 +    private fun nativeResourceId(path: String): Int? {
-+        val prefix = "compose-android-resource://"
-+        if (!path.startsWith(prefix)) return null
-+        val payload = path.removePrefix(prefix)
++        if (!path.startsWith(ANDROID_RESOURCE_PATH_PREFIX)) return null
++        val payload = path.removePrefix(ANDROID_RESOURCE_PATH_PREFIX)
 +        val id = payload.substringBefore('/').toIntOrNull()
-+        if (id == null || id <= 0 || payload.substringAfter('/', "") != "drawable.xml") {
++        if (id == null || id == 0 || !payload.substringAfter('/', "").endsWith(".xml", ignoreCase = true)) {
 +            throwMissingResourceException(path)
 +        }
 +        return id

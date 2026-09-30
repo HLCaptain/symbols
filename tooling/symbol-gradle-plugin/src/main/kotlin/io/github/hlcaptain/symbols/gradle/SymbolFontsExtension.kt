@@ -38,6 +38,21 @@ abstract class SymbolFontsExtension @Inject constructor(
     val composeResourceRoots: ConfigurableFileCollection = objects.fileCollection()
 
     /**
+     * Opts this producer's generated Compose XML into Android resource shrinking.
+     *
+     * Disabled by default. Requires Compose generator/runtime support for native
+     * XML locations; unsupported versions fail without replacing dependencies.
+     * Consumers of published libraries do not set this property. Their app must
+     * still enable ordinary Android code and resource shrinking.
+     *
+     * Fonts, authored resource roots and other targets retain their existing
+     * packaging. Backend selection is tracked by the resource-generation tasks,
+     * without regenerating unchanged font outlines or SVG geometry.
+     */
+    val experimentalComposeResourcePruning: Property<Boolean> =
+        objects.property(Boolean::class.java).convention(false)
+
+    /**
      * Compose resource roots whose direct `font/` files receive generated descriptors and public
      * accessors.
      *

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build a local-only Compose 1.12.1 Android reader experiment from pinned sources.
+"""Prepare local-only upstream reader candidates from pinned official Compose sources.
 
 The published KMP bridge preserves upstream common metadata and non-Android
 variants. Only the Android AAR is rebuilt; this is not an upstream release.
@@ -12,39 +12,39 @@ import io
 import json
 import os
 from pathlib import Path
+import re
 import subprocess
 import urllib.request
 import xml.etree.ElementTree as ET
 import zipfile
 
 UPSTREAM = "1.12.1"
-VERSION = "1.12.2-native-raw01"
+VERSION = "1.12.2-native-raw02"
 GROUP = "org.jetbrains.compose.components"
+CAPABILITY = "components-resources-native-xml-v1"
 BASE = "https://repo.maven.apache.org/maven2/org/jetbrains/compose/components"
 HERE = Path(__file__).resolve().parent
-PINS = {
-    "components-resources-android-1.12.1-sources.jar": "847c6151711087a5ce752651084d9436ebbe4938374e9272dfa9d94c7f106783",
-    "components-resources-android-1.12.1.aar": "04812fff18c192cd6415cbb155894de06093e9f4299595139cece32e3c932f20",
-    "components-resources-android-1.12.1.pom": "526d52894c87ee49f9190ccf3f4a5e856a473a7a05a521e3c416b7a1761685f8",
-    "components-resources-android-1.12.1.module": "2cd6b9436e31201678bad05c6f43b3a8d432fcd68a6aeb5154fa8eef218d90fa",
-    "components-resources-1.12.1.module": "347aabc4ab9b743af73200c1055d07819dc3bc7003c2089a5d62ee0045beac57",
-    "components-resources-1.12.1.jar": "fa8ea0bf4dc142596c3a65875d610b12fed6f8996d3f1863cdf39d3fbbd0cb08",
-    "components-resources-1.12.1-sources.jar": "b46023a05206426795ac4029b3189f73db1b0c45038cdf927da31675b926cae0",
-    "components-resources-1.12.1.pom": "a6760beb28b4289716b8b7949559125659c88698ec2c66c290b83d06458cc034",
-}
+PINS_BY_VERSION = json.loads((HERE / "runtime-inputs.json").read_text())
+PINS = PINS_BY_VERSION[UPSTREAM]
 
 
-def fetch(directory: Path, filename: str) -> bytes:
+def candidate_version(upstream: str) -> str:
+    major, minor, patch = upstream.split(".")
+    return f"{major}.{minor}.{int(patch) + 1}-native-raw02"
+
+
+def fetch(directory: Path, filename: str, upstream: str = UPSTREAM) -> bytes:
+    expected = PINS_BY_VERSION[upstream][filename]
     target = directory / filename
     if not target.exists():
-        module = filename.split(f"-{UPSTREAM}")[0]
-        with urllib.request.urlopen(f"{BASE}/{module}/{UPSTREAM}/{filename}", timeout=60) as response:
+        module = filename.split(f"-{upstream}")[0]
+        with urllib.request.urlopen(f"{BASE}/{module}/{upstream}/{filename}", timeout=60) as response:
             data = response.read()
-        if hashlib.sha256(data).hexdigest() != PINS[filename]:
+        if hashlib.sha256(data).hexdigest() != expected:
             raise ValueError(f"Checksum mismatch: {filename}")
         target.write_bytes(data)
     data = target.read_bytes()
-    if hashlib.sha256(data).hexdigest() != PINS[filename]:
+    if hashlib.sha256(data).hexdigest() != expected:
         raise ValueError(f"Checksum mismatch: {target}")
     return data
 
@@ -57,12 +57,12 @@ def write(path: Path, data: str | bytes) -> None:
         path.write_text(data)
 
 
-def prepare(directory: Path) -> None:
+def prepare(directory: Path, upstream: str = UPSTREAM) -> None:
     directory.mkdir(parents=True, exist_ok=True)
     downloads = directory / "downloads"
     downloads.mkdir(exist_ok=True)
-    inputs = {name: fetch(downloads, name) for name in PINS}
-    with zipfile.ZipFile(io.BytesIO(inputs[f"components-resources-android-{UPSTREAM}-sources.jar"])) as archive:
+    inputs = {name: fetch(downloads, name, upstream) for name in PINS_BY_VERSION[upstream]}
+    with zipfile.ZipFile(io.BytesIO(inputs[f"components-resources-android-{upstream}-sources.jar"])) as archive:
         for name in archive.namelist():
             if name.endswith(".kt"):
                 if ".." in Path(name).parts or Path(name).is_absolute():
@@ -70,7 +70,7 @@ def prepare(directory: Path) -> None:
                 write(directory / "upstream" / name, archive.read(name))
     subprocess.run(["patch", "--batch", "--fuzz=0", "-p1", "-i", str(HERE / "resource-reader.patch")],
                    cwd=directory / "upstream", check=True)
-    with zipfile.ZipFile(io.BytesIO(inputs[f"components-resources-android-{UPSTREAM}.aar"])) as archive:
+    with zipfile.ZipFile(io.BytesIO(inputs[f"components-resources-android-{upstream}.aar"])) as archive:
         manifest = archive.read("AndroidManifest.xml").decode()
         manifest = manifest.replace('    package="org.jetbrains.compose.components.resources" ', " ")
         write(directory / "src/androidMain/AndroidManifest.xml", manifest)
@@ -80,7 +80,12 @@ def prepare(directory: Path) -> None:
 dependencyResolutionManagement { repositories { google(); mavenCentral() } }
 rootProject.name = "compose-native-raw-runtime"
 ''')
-    write(directory / "build.gradle.kts", '''import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+    metadata = json.loads(inputs[f"components-resources-android-{upstream}.module"])
+    runtime_variant = next(v for v in metadata["variants"]
+                           if v["attributes"].get("org.gradle.category") == "library"
+                           and v["attributes"].get("org.gradle.usage") == "java-runtime")
+    dependencies = {d["module"]: d["version"]["requires"] for d in runtime_variant["dependencies"]}
+    script = '''import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     kotlin("multiplatform") version "2.4.20"
@@ -128,7 +133,11 @@ kotlin {
         }
     }
 }
-''')
+'''
+    script = script.replace("runtime:1.12.1", "runtime:" + dependencies["runtime"])
+    script = script.replace("foundation:1.12.1", "foundation:" + dependencies["foundation"])
+    script = script.replace("kotlinx-coroutines-core:1.9.0", "kotlinx-coroutines-core:" + dependencies["kotlinx-coroutines-core"])
+    write(directory / "build.gradle.kts", script)
     write(directory / "gradle.properties", '''org.gradle.jvmargs=-Xmx2g -Dfile.encoding=UTF-8
 org.gradle.workers.max=2
 org.gradle.parallel=false
@@ -143,29 +152,47 @@ def checksums(data: bytes) -> dict:
             for algorithm in ("sha512", "sha256", "sha1", "md5")}
 
 
-def candidate_pom(original: bytes) -> bytes:
+def candidate_pom(original: bytes, upstream: str = UPSTREAM, candidate: str | None = None) -> bytes:
+    candidate = candidate or candidate_version(upstream)
     namespace = "http://maven.apache.org/POM/4.0.0"
     ET.register_namespace("", namespace)
     ET.register_namespace("xsi", "http://www.w3.org/2001/XMLSchema-instance")
     root = ET.fromstring(original)
-    root.find(f"{{{namespace}}}version").text = VERSION
+    root.find(f"{{{namespace}}}version").text = candidate
     root.find(f"{{{namespace}}}description").text = (
-        "LOCAL EXPERIMENT: Compose 1.12.1 with an Android native-raw reader patch; not an upstream release."
+        f"LOCAL UPSTREAM PROPOSAL: Compose {upstream} with an Android native-XML reader; not an upstream release."
     )
     # Keep the Gradle metadata marker, otherwise some consumers will ignore variants.
     root.insert(0, ET.Comment(" do_not_remove: published-with-gradle-metadata "))
     return ET.tostring(root, encoding="utf-8", xml_declaration=True)
 
 
-def require_fresh_repository(repository: Path) -> None:
+def require_fresh_repository(repository: Path, candidate: str = VERSION) -> None:
     for module in ("components-resources", "components-resources-android"):
-        coordinate = repository / GROUP.replace(".", "/") / module / VERSION
+        coordinate = repository / GROUP.replace(".", "/") / module / candidate
         if coordinate.exists():
             raise FileExistsError(f"Refusing to overwrite published runtime {coordinate}; use a fresh repository")
 
 
-def publish(directory: Path, repository: Path) -> dict:
-    require_fresh_repository(repository)
+def add_android_capability(metadata: dict, candidate: str, module: str) -> None:
+    """Advertise only on the Android leaf; root redirects must not duplicate the capability."""
+    if module != "components-resources-android":
+        return
+    # KMP leaf metadata points component.module at its owner; its implicit
+    # capability nevertheless uses the physical publication's coordinates.
+    default_capability = module
+    for variant in metadata["variants"]:
+        if variant.get("attributes", {}).get("org.jetbrains.kotlin.platform.type") != "androidJvm":
+            continue
+        capabilities = variant.setdefault("capabilities", [])
+        for name in (default_capability, CAPABILITY):
+            if not any(c["group"] == GROUP and c["name"] == name for c in capabilities):
+                capabilities.append(dict(group=GROUP, name=name, version=candidate))
+
+
+def publish(directory: Path, repository: Path, upstream: str = UPSTREAM, candidate: str | None = None) -> dict:
+    candidate = candidate or candidate_version(upstream)
+    require_fresh_repository(repository, candidate)
     downloads = directory / "downloads"
     built = list((directory / "build/outputs/aar").glob("*.aar"))
     if len(built) != 1:
@@ -178,36 +205,38 @@ def publish(directory: Path, repository: Path) -> dict:
             archive.writestr(info, path.read_bytes(), compress_type=zipfile.ZIP_DEFLATED)
     artifacts = {}
     for module in ("components-resources", "components-resources-android"):
-        target = repository / GROUP.replace(".", "/") / module / VERSION
+        target = repository / GROUP.replace(".", "/") / module / candidate
         target.mkdir(parents=True, exist_ok=True)
-        metadata = json.loads(fetch(downloads, f"{module}-{UPSTREAM}.module"))
-        metadata["component"]["version"] = VERSION
+        metadata = json.loads(fetch(downloads, f"{module}-{upstream}.module", upstream))
+        metadata["component"]["version"] = candidate
         if "url" in metadata["component"]:
-            metadata["component"]["url"] = metadata["component"]["url"].replace(UPSTREAM, VERSION)
+            metadata["component"]["url"] = metadata["component"]["url"].replace(upstream, candidate)
+        add_android_capability(metadata, candidate, module)
         for variant in metadata["variants"]:
             reference = variant.get("available-at")
             if reference and reference["module"] == "components-resources-android":
-                reference["version"] = VERSION
-                reference["url"] = reference["url"].replace(UPSTREAM, VERSION)
+                reference["version"] = candidate
+                reference["url"] = reference["url"].replace(upstream, candidate)
             for item in variant.get("files", []):
                 if module.endswith("-android"):
                     data = aar if item["url"].endswith(".aar") else source_buffer.getvalue()
                 else:
-                    data = fetch(downloads, item["url"])
-                name = item["url"].replace(UPSTREAM, VERSION)
+                    data = fetch(downloads, item["url"], upstream)
+                name = item["url"].replace(upstream, candidate)
                 item.update(name=name, url=name, size=len(data), **checksums(data))
                 write(target / name, data)
                 artifacts[str((target / name).relative_to(repository))] = checksums(data)["sha256"]
-        write(target / f"{module}-{VERSION}.module", json.dumps(metadata, indent=2) + "\n")
-        write(target / f"{module}-{VERSION}.pom", candidate_pom(fetch(downloads, f"{module}-{UPSTREAM}.pom")))
+        write(target / f"{module}-{candidate}.module", json.dumps(metadata, indent=2) + "\n")
+        write(target / f"{module}-{candidate}.pom", candidate_pom(fetch(downloads, f"{module}-{upstream}.pom", upstream), upstream, candidate))
     evidence = {
-        "upstreamVersion": UPSTREAM,
-        "candidateVersion": VERSION,
-        "upstreamInputsSha256": PINS,
+        "upstreamVersion": upstream,
+        "candidateVersion": candidate,
+        "upstreamInputsSha256": PINS_BY_VERSION[upstream],
         "patchSha256": hashlib.sha256((HERE / "resource-reader.patch").read_bytes()).hexdigest(),
         "toolchain": {"kotlin": "2.4.20", "agp": "9.4.1", "compileSdk": 37, "minSdk": 23},
         "artifactsSha256": artifacts,
-        "scope": "Local Android reader prototype. Common metadata and non-Android runtime variants remain upstream 1.12.1.",
+        "androidCapability": f"{GROUP}:{CAPABILITY}",
+        "scope": f"Local upstream Android reader proposal. Common metadata and non-Android variants remain upstream {upstream}.",
     }
     write(directory / "publication.json", json.dumps(evidence, indent=2) + "\n")
     return evidence
@@ -219,22 +248,28 @@ def main() -> None:
     parser.add_argument("--repository", type=Path, required=True)
     parser.add_argument("--gradle", type=Path, required=True, help="Symbols' Gradle 9.7 wrapper")
     parser.add_argument("--prepare-only", action="store_true")
+    parser.add_argument("--upstream-version", choices=sorted(PINS_BY_VERSION), default=UPSTREAM)
+    parser.add_argument("--candidate-version", help="Local-only prerelease coordinate; defaults to the next patch's native-raw02")
     args = parser.parse_args()
     directory = args.output.resolve()
+    candidate = args.candidate_version or candidate_version(args.upstream_version)
+    if not re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+-native-raw[0-9A-Za-z.-]+", candidate):
+        parser.error("--candidate-version must be explicitly marked as a native-raw prerelease")
     if not args.prepare_only:
-        require_fresh_repository(args.repository.resolve())
-    prepare(directory)
+        require_fresh_repository(args.repository.resolve(), candidate)
+    prepare(directory, args.upstream_version)
     if args.prepare_only:
         print(f"Prepared {directory}")
         return
-    command = [str(args.gradle.resolve()), "-p", str(directory), "assemble", "--console=plain", "--no-daemon"]
+    command = [str(args.gradle.resolve()), "-p", str(directory), "assemble", "--console=plain", "--no-daemon",
+               "--max-workers=1", "-Pkotlin.compiler.execution.strategy=in-process"]
     write(directory / "build-command.json", json.dumps(command, indent=2) + "\n")
     with (directory / "build.log").open("w") as log:
         completed = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT, env=os.environ.copy())
     if completed.returncode:
         raise SystemExit(f"Runtime build failed ({completed.returncode}); see {directory / 'build.log'}")
-    evidence = publish(directory, args.repository.resolve())
-    print(json.dumps({"candidateVersion": VERSION, "report": str(directory / "publication.json"),
+    evidence = publish(directory, args.repository.resolve(), args.upstream_version, candidate)
+    print(json.dumps({"candidateVersion": candidate, "report": str(directory / "publication.json"),
                       "artifacts": len(evidence["artifactsSha256"])}))
 
 

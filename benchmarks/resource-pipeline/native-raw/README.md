@@ -1,9 +1,10 @@
 # Dependency-only Compose drawable shrinking prototype
 
-**Production integration is deferred**, tracked in [feature request #41](https://github.com/HLCaptain/symbols/issues/41).
-The [upcoming feature plan](#upcoming-feature-deferred-producer-opt-in) proposes a
-disabled-by-default producer flag. That property is not implemented; the current
-sample apps and published libraries do not use this backend.
+**Production activation requires official Compose support**, tracked in
+[feature request #41](https://github.com/HLCaptain/symbols/issues/41).
+The disabled-by-default producer flag and [upstream contribution candidates](upstream-generator/README.md)
+are being implemented and tested. Current official Compose releases cannot enable
+this backend; normal sample apps and published libraries keep using assets.
 
 This is an isolated upstream experiment for Android XML drawables consumed through
 Compose Multiplatform's existing resource API. The normal call remains:
@@ -25,7 +26,7 @@ apply; this experiment adds no backend opt-in.
 The producer script's `--backend` argument only constructs the experiment's asset
 control and native candidate. It is not a consuming-app flag or production DSL.
 
-Production Symbols generation and the upstream Compose distribution are unchanged.
+Default Symbols generation and the upstream Compose distribution are unchanged.
 Measured outcomes and the status of individual gates belong in [RESULTS.md](RESULTS.md)
 and [RESULTS.json](RESULTS.json). First-build durations printed by `run.py` are
 diagnostic; repeated consumer timings are collected separately by `timing.py`.
@@ -37,7 +38,8 @@ There are two separate parts:
 | Part | Actual implementation here | Boundary |
 | --- | --- | --- |
 | Producer model: `publisher.py` | Reads a stock published Symbols Android AAR and its sources JAR, retains the selected common `Res` getter declarations/file layout, and generates per-resource `expect`/`actual` location functions. | It rewrites an existing generator's output. It is not a patched or released Compose Gradle plugin. The parser intentionally targets this published outlined XML pack. |
-| Runtime patch: `runtime.py` and `resource-reader.patch` | Fetches checksum-pinned Compose 1.12.1 sources/artifacts and rebuilds its Android resource-reader AAR with a small source patch. | This is an actual runtime change. Common metadata and non-Android runtime variants still come from upstream 1.12.1. |
+| Runtime patch: `runtime.py` and `resource-reader.patch` | Fetches checksum-pinned Compose 1.11.1, 1.12.0 or 1.12.1 sources/artifacts and rebuilds the Android resource-reader AAR with a small source patch. | This is an actual local runtime change. Common metadata and non-Android variants retain the selected upstream baseline. |
+| Upstream generator contribution: `upstream-generator/` | Patches the actual Compose resource generator and packaging tasks, exercised through the Symbols producer flag. | Local proposal candidates, separate from the original model and historical measurements; no official release currently implements this API. |
 
 On Android, each location function references one generated `R.raw` field and
 returns `compose-android-resource://<resource-id>/drawable.xml`. Original XML
@@ -89,7 +91,7 @@ change behavior for callers selecting a different environment.
 | --- | --- |
 | Input | Published outlined drawable XML and generated sources from the same stock Symbols version. `--limit 3` bounds the first gate; omitting the limit models all 3,802 distinct glyphs. |
 | Consumers | Separate Gradle projects resolving Maven publications, with no project substitution or app-side generator/backend plugin. Direct-zero, direct-one, dynamic-one and raw-path cases have explicit retention contracts. |
-| Runtime selection | `org.jetbrains.compose.components:components-resources:1.12.2-native-raw01`, resolved transitively through the native pack. This version is local-only, not a JetBrains release or a coordinate to upload. |
+| Runtime selection | Historical measurements use `1.12.2-native-raw01`; the current reader harness defaults to `1.12.2-native-raw02`. Both are local-only proposals, not JetBrains releases or coordinates to upload. Use fresh cohorts when reproducing. |
 | Toolchain | The prepared runtime uses Kotlin 2.4.20, AGP 9.4.1, compile SDK 37 and min SDK 23. Producer/consumer versions come from this checkout's catalog; additional supported-version checks need their own evidence. |
 | Qualifiers and lifecycle | `contracts.py` prepares a separate small light/dark, pre-context descriptor, byte-range, missing-resource, URI and asset-fallback fixture. Its results do not establish support for every locale/density qualifier, overlay or split configuration. |
 | Preview and custom readers | Existing lifecycle hooks remain in place, but IDE previews and callers replacing `LocalResourceReader` remain separate gates. A custom reader receiving the prototype location token is not automatically compatible. |
@@ -350,13 +352,14 @@ Fast generator/parser contract checks do not invoke Gradle:
 python3 -m unittest discover -s "$NATIVE_RAW_SCRIPTS" -p 'test_*.py'
 ```
 
-## Upcoming feature: deferred producer opt-in
+## Upcoming feature: producer opt-in
 
-Status: **upcoming feature; implementation deferred**. This plan does not enable
-pruning, introduce a production Compose fork, or change sample applications.
-Existing prototype code and measurements remain experimental evidence.
+Status: **implementation and upstream preparation in progress; official support
+required before production activation**. The producer property is present, but
+current official Compose releases reject the opt-in. Local proposal candidates
+and historical prototype measurements are experimental evidence.
 
-Proposed API in the existing `symbolFonts` extension, **not currently available**:
+Producer API in the existing `symbolFonts` extension:
 
 ```kotlin
 symbolFonts {
@@ -364,7 +367,7 @@ symbolFonts {
 }
 ```
 
-The proposed property is a `Property<Boolean>` with a default of `false`.
+The property is a `Property<Boolean>` with a default of `false`.
 
 - Unset or `false` preserves existing packaging and compatibility, without
   requiring the experimental backend's runtime support.
@@ -388,7 +391,7 @@ retaining Android API 23 and the existing toolchain support boundaries. Neither
 the existing local runtime coordinate nor a maintained Compose fork is selected
 for production. The opt-in is a future producer-only exception to the earlier
 version-only plan; consumers of published libraries still use ordinary version
-upgrades. Upgrading versions alone does not activate this unimplemented feature.
+upgrades. Upgrading to currently released versions does not activate pruning.
 
 Future acceptance checks:
 
@@ -402,8 +405,15 @@ Future acceptance checks:
 - Track the flag as a generation-task input and test configuration/build caches
   and `false -> true -> false` transitions without stale or duplicate resources.
 
-Only this plan and its feature request are being updated now. No production
-implementation, sample configuration or dependency change is part of this work.
+The [upstream contribution harness](upstream-generator/README.md) tests the real
+producer hook and uses explicit local candidates. No production dependency or
+sample configuration selects these candidates. Positive local tests do not
+satisfy the official-upstream acceptance requirement.
+
+The proposed native-XML capability covers its helper/reader contract, not full
+Compose ABI compatibility across release families. The [runtime evidence](RUNTIME_PROPOSAL_RESULTS.json)
+separates passing per-baseline patch checks from upstream 1.11-to-1.12 ABI changes;
+the higher-candidate resolution check is not a binary-compatibility guarantee.
 
 ## Upstream integration proposal
 

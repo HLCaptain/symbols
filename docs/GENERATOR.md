@@ -149,6 +149,32 @@ time; the result is not variable at runtime.
 Compose Multiplatform resources. Compose therefore generates
 `Res.drawable.<resource_name>` accessors consumable with `painterResource`.
 
+### Experimental Android pruning proposal
+
+`symbolFonts.experimentalComposeResourcePruning` is a producer-side
+`Property<Boolean>` that defaults to `false`. Leave it disabled with current
+official Compose releases: their generator and Android reader do not implement
+the required integration. Explicitly enabling it fails with a compatibility
+message; Symbols does not install a fork or substitute dependencies.
+
+The [upstream proposal and local verification harness](../benchmarks/resource-pipeline/native-raw/upstream-generator/README.md)
+prepare support for generated XML in native Android resources. Once compatible
+official generator/runtime support exists, a generating project can opt in with:
+
+```kotlin
+symbolFonts {
+    experimentalComposeResourcePruning.set(true)
+}
+```
+
+Consumers of a published, opted-in resource library retain their ordinary
+`Res.drawable`, `DrawableResource` and `painterResource` calls. They need no
+Symbols plugin or producer flag; removal still requires normal Android code
+and resource shrinking. This setting does not retrofit old publications, subset
+fonts, enroll authored resource roots, or change non-Android packaging.
+[Issue #41](https://github.com/HLCaptain/symbols/issues/41) remains the production
+acceptance gate. Normal library and sample builds keep the setting disabled.
+
 ## Variant-aware Android font resources
 
 Use Android resource-overlay mode only when a build type, product flavor, or

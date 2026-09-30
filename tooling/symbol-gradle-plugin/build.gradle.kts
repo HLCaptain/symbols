@@ -86,6 +86,7 @@ tasks.jar {
 tasks.test {
     useJUnit()
     testLogging.exceptionFormat = TestExceptionFormat.FULL
+    systemProperty("symbols.fixtureCompileSdk", libs.versions.android.compileSdk.get())
     systemProperty(
         "symbols.generatorTestClasspath",
         configurations.testRuntimeClasspath.get().asPath,

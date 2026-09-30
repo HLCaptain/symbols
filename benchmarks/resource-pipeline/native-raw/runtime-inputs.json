@@ -1,0 +1,32 @@
+{
+  "1.11.1": {
+    "components-resources-android-1.11.1-sources.jar": "1247bcf2a5ae321ed5fc4489bbcf2d1b495c80312019ad33cc1ffb79a74a7524",
+    "components-resources-android-1.11.1.aar": "adff60e5b8c40161cd49f8df4c3de2d84465528a8291ffed1596f620c705c132",
+    "components-resources-android-1.11.1.pom": "2d98b29f3666b8ebe267a5f0faf19fa9beae80ff62d91e08287c99258b6f8a54",
+    "components-resources-android-1.11.1.module": "3d68572be0b94a016f277df3920d92b449f727445188707f08ff3ba3f04bbf5d",
+    "components-resources-1.11.1.module": "158d143d3f415d5b27f271d13f8c1aab06df97765e0937f230ef07dd9d4bf33a",
+    "components-resources-1.11.1.jar": "6ab4a950f0663d763ce6a66c367d9fe54776553f6c92bceb6ce5d328db44588e",
+    "components-resources-1.11.1-sources.jar": "903b3396e34da8c11c64af72a59a57653f4759096fccb8c76ee9b338b564f303",
+    "components-resources-1.11.1.pom": "712bae3c122876f607cb591e970859b4b7e80ac70d89a8418229843d8edfbff7"
+  },
+  "1.12.0": {
+    "components-resources-android-1.12.0-sources.jar": "847c6151711087a5ce752651084d9436ebbe4938374e9272dfa9d94c7f106783",
+    "components-resources-android-1.12.0.aar": "04812fff18c192cd6415cbb155894de06093e9f4299595139cece32e3c932f20",
+    "components-resources-android-1.12.0.pom": "a67f1fa4fdccf3abe57a7a85a42ab11b3cd6cbed11012d1568583b4ef2531be7",
+    "components-resources-android-1.12.0.module": "3fc73981245cc20ea1d4dfba71f0b01c4c66338193e67b858d91e556eb55614e",
+    "components-resources-1.12.0.module": "9733e0b46497ea868f665fdee7c60a4fee340865315ef698f54e88f9871eeee1",
+    "components-resources-1.12.0.jar": "fa8ea0bf4dc142596c3a65875d610b12fed6f8996d3f1863cdf39d3fbbd0cb08",
+    "components-resources-1.12.0-sources.jar": "b46023a05206426795ac4029b3189f73db1b0c45038cdf927da31675b926cae0",
+    "components-resources-1.12.0.pom": "bb09f91c667ef7af8953296f0cff5cf59e9d56cae4663a476bef9d0d1ddd4014"
+  },
+  "1.12.1": {
+    "components-resources-android-1.12.1-sources.jar": "847c6151711087a5ce752651084d9436ebbe4938374e9272dfa9d94c7f106783",
+    "components-resources-android-1.12.1.aar": "04812fff18c192cd6415cbb155894de06093e9f4299595139cece32e3c932f20",
+    "components-resources-android-1.12.1.pom": "526d52894c87ee49f9190ccf3f4a5e856a473a7a05a521e3c416b7a1761685f8",
+    "components-resources-android-1.12.1.module": "2cd6b9436e31201678bad05c6f43b3a8d432fcd68a6aeb5154fa8eef218d90fa",
+    "components-resources-1.12.1.module": "347aabc4ab9b743af73200c1055d07819dc3bc7003c2089a5d62ee0045beac57",
+    "components-resources-1.12.1.jar": "fa8ea0bf4dc142596c3a65875d610b12fed6f8996d3f1863cdf39d3fbbd0cb08",
+    "components-resources-1.12.1-sources.jar": "b46023a05206426795ac4029b3189f73db1b0c45038cdf927da31675b926cae0",
+    "components-resources-1.12.1.pom": "a6760beb28b4289716b8b7949559125659c88698ec2c66c290b83d06458cc034"
+  }
+}
