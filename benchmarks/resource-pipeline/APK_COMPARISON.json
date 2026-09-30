@@ -1,0 +1,758 @@
+{
+  "schema_version": 1,
+  "a_revision": "20339e8bb5bc787a569516dc78dda0cce5bdb6da",
+  "b_revision": "8fb5fce52537d300bf1127fdc8361f9b15c0d620",
+  "interpretation": "Aggregate toolchain/dependency/generator upgrade effects, not a new Android shrinking optimization. Old Skia XML geometry errors were corrected in B; see RASTER_RESULTS.md. No controlled build-time claim.",
+  "cases": [
+    {
+      "backend": "android",
+      "access": "direct",
+      "count": 0,
+      "artifacts": {
+        "release": {
+          "a_apk_bytes": 10647344,
+          "b_apk_bytes": 10646076,
+          "apk_delta_bytes": -1268,
+          "apk_delta_percent": -0.0119,
+          "dex_delta_bytes": 69404,
+          "a_retained": 3802,
+          "b_retained": 3802
+        },
+        "shrunk": {
+          "a_apk_bytes": 856412,
+          "b_apk_bytes": 869196,
+          "apk_delta_bytes": 12784,
+          "apk_delta_percent": 1.4927,
+          "dex_delta_bytes": -36996,
+          "a_retained": 0,
+          "b_retained": 0
+        }
+      }
+    },
+    {
+      "backend": "android",
+      "access": "direct",
+      "count": 1,
+      "artifacts": {
+        "release": {
+          "a_apk_bytes": 10647384,
+          "b_apk_bytes": 10646133,
+          "apk_delta_bytes": -1251,
+          "apk_delta_percent": -0.0117,
+          "dex_delta_bytes": 81404,
+          "a_retained": 3802,
+          "b_retained": 3802
+        },
+        "shrunk": {
+          "a_apk_bytes": 907998,
+          "b_apk_bytes": 903507,
+          "apk_delta_bytes": -4491,
+          "apk_delta_percent": -0.4946,
+          "dex_delta_bytes": -37576,
+          "a_retained": 1,
+          "b_retained": 1
+        }
+      }
+    },
+    {
+      "backend": "android",
+      "access": "direct",
+      "count": 25,
+      "artifacts": {
+        "release": {
+          "a_apk_bytes": 10647597,
+          "b_apk_bytes": 10646343,
+          "apk_delta_bytes": -1254,
+          "apk_delta_percent": -0.0118,
+          "dex_delta_bytes": 69956,
+          "a_retained": 3802,
+          "b_retained": 3802
+        },
+        "shrunk": {
+          "a_apk_bytes": 931165,
+          "b_apk_bytes": 926785,
+          "apk_delta_bytes": -4380,
+          "apk_delta_percent": -0.4704,
+          "dex_delta_bytes": -37176,
+          "a_retained": 25,
+          "b_retained": 25
+        }
+      }
+    },
+    {
+      "backend": "android",
+      "access": "direct",
+      "count": 200,
+      "artifacts": {
+        "release": {
+          "a_apk_bytes": 10649534,
+          "b_apk_bytes": 10648285,
+          "apk_delta_bytes": -1249,
+          "apk_delta_percent": -0.0117,
+          "dex_delta_bytes": 69960,
+          "a_retained": 3802,
+          "b_retained": 3802
+        },
+        "shrunk": {
+          "a_apk_bytes": 1092039,
+          "b_apk_bytes": 1105071,
+          "apk_delta_bytes": 13032,
+          "apk_delta_percent": 1.1934,
+          "dex_delta_bytes": -37364,
+          "a_retained": 200,
+          "b_retained": 200
+        }
+      }
+    },
+    {
+      "backend": "android",
+      "access": "direct",
+      "count": 3802,
+      "artifacts": {
+        "release": {
+          "a_apk_bytes": 10771707,
+          "b_apk_bytes": 10770455,
+          "apk_delta_bytes": -1252,
+          "apk_delta_percent": -0.0116,
+          "dex_delta_bytes": 69996,
+          "a_retained": 3802,
+          "b_retained": 3802
+        },
+        "shrunk": {
+          "a_apk_bytes": 4673909,
+          "b_apk_bytes": 4688170,
+          "apk_delta_bytes": 14261,
+          "apk_delta_percent": 0.3051,
+          "dex_delta_bytes": -13856,
+          "a_retained": 3802,
+          "b_retained": 3802
+        }
+      }
+    },
+    {
+      "backend": "android",
+      "access": "dynamic",
+      "count": 0,
+      "artifacts": {
+        "release": {
+          "a_apk_bytes": 10663719,
+          "b_apk_bytes": 10662481,
+          "apk_delta_bytes": -1238,
+          "apk_delta_percent": -0.0116,
+          "dex_delta_bytes": 69516,
+          "a_retained": 3802,
+          "b_retained": 3802
+        },
+        "shrunk": {
+          "a_apk_bytes": 4664231,
+          "b_apk_bytes": 4694876,
+          "apk_delta_bytes": 30645,
+          "apk_delta_percent": 0.657,
+          "dex_delta_bytes": -37784,
+          "a_retained": 3802,
+          "b_retained": 3802
+        }
+      }
+    },
+    {
+      "backend": "android",
+      "access": "dynamic",
+      "count": 1,
+      "artifacts": {
+        "release": {
+          "a_apk_bytes": 10663768,
+          "b_apk_bytes": 10662518,
+          "apk_delta_bytes": -1250,
+          "apk_delta_percent": -0.0117,
+          "dex_delta_bytes": 69516,
+          "a_retained": 3802,
+          "b_retained": 3802
+        },
+        "shrunk": {
+          "a_apk_bytes": 4664267,
+          "b_apk_bytes": 4694927,
+          "apk_delta_bytes": 30660,
+          "apk_delta_percent": 0.6573,
+          "dex_delta_bytes": -37784,
+          "a_retained": 3802,
+          "b_retained": 3802
+        }
+      }
+    },
+    {
+      "backend": "android",
+      "access": "dynamic",
+      "count": 25,
+      "artifacts": {
+        "release": {
+          "a_apk_bytes": 10663981,
+          "b_apk_bytes": 10662737,
+          "apk_delta_bytes": -1244,
+          "apk_delta_percent": -0.0117,
+          "dex_delta_bytes": 69516,
+          "a_retained": 3802,
+          "b_retained": 3802
+        },
+        "shrunk": {
+          "a_apk_bytes": 4664490,
+          "b_apk_bytes": 4695131,
+          "apk_delta_bytes": 30641,
+          "apk_delta_percent": 0.6569,
+          "dex_delta_bytes": -37784,
+          "a_retained": 3802,
+          "b_retained": 3802
+        }
+      }
+    },
+    {
+      "backend": "android",
+      "access": "dynamic",
+      "count": 200,
+      "artifacts": {
+        "release": {
+          "a_apk_bytes": 10665927,
+          "b_apk_bytes": 10664677,
+          "apk_delta_bytes": -1250,
+          "apk_delta_percent": -0.0117,
+          "dex_delta_bytes": 69512,
+          "a_retained": 3802,
+          "b_retained": 3802
+        },
+        "shrunk": {
+          "a_apk_bytes": 4666429,
+          "b_apk_bytes": 4697081,
+          "apk_delta_bytes": 30652,
+          "apk_delta_percent": 0.6569,
+          "dex_delta_bytes": -37784,
+          "a_retained": 3802,
+          "b_retained": 3802
+        }
+      }
+    },
+    {
+      "backend": "android",
+      "access": "dynamic",
+      "count": 3802,
+      "artifacts": {
+        "release": {
+          "a_apk_bytes": 10706160,
+          "b_apk_bytes": 10704915,
+          "apk_delta_bytes": -1245,
+          "apk_delta_percent": -0.0116,
+          "dex_delta_bytes": 69512,
+          "a_retained": 3802,
+          "b_retained": 3802
+        },
+        "shrunk": {
+          "a_apk_bytes": 4706671,
+          "b_apk_bytes": 4737311,
+          "apk_delta_bytes": 30640,
+          "apk_delta_percent": 0.651,
+          "dex_delta_bytes": -37784,
+          "a_retained": 3802,
+          "b_retained": 3802
+        }
+      }
+    },
+    {
+      "backend": "compose",
+      "access": "direct",
+      "count": 0,
+      "artifacts": {
+        "release": {
+          "a_apk_bytes": 11767264,
+          "b_apk_bytes": 11687926,
+          "apk_delta_bytes": -79338,
+          "apk_delta_percent": -0.6742,
+          "dex_delta_bytes": -25956,
+          "a_retained": 3802,
+          "b_retained": 3802
+        },
+        "shrunk": {
+          "a_apk_bytes": 5042018,
+          "b_apk_bytes": 5077335,
+          "apk_delta_bytes": 35317,
+          "apk_delta_percent": 0.7005,
+          "dex_delta_bytes": -37032,
+          "a_retained": 3802,
+          "b_retained": 3802
+        }
+      }
+    },
+    {
+      "backend": "compose",
+      "access": "direct",
+      "count": 1,
+      "artifacts": {
+        "release": {
+          "a_apk_bytes": 11767308,
+          "b_apk_bytes": 11687961,
+          "apk_delta_bytes": -79347,
+          "apk_delta_percent": -0.6743,
+          "dex_delta_bytes": -25796,
+          "a_retained": 3802,
+          "b_retained": 3802
+        },
+        "shrunk": {
+          "a_apk_bytes": 5091211,
+          "b_apk_bytes": 5126534,
+          "apk_delta_bytes": 35323,
+          "apk_delta_percent": 0.6938,
+          "dex_delta_bytes": -64808,
+          "a_retained": 3802,
+          "b_retained": 3802
+        }
+      }
+    },
+    {
+      "backend": "compose",
+      "access": "direct",
+      "count": 25,
+      "artifacts": {
+        "release": {
+          "a_apk_bytes": 11767516,
+          "b_apk_bytes": 11688182,
+          "apk_delta_bytes": -79334,
+          "apk_delta_percent": -0.6742,
+          "dex_delta_bytes": -25840,
+          "a_retained": 3802,
+          "b_retained": 3802
+        },
+        "shrunk": {
+          "a_apk_bytes": 5091422,
+          "b_apk_bytes": 5126745,
+          "apk_delta_bytes": 35323,
+          "apk_delta_percent": 0.6938,
+          "dex_delta_bytes": -58528,
+          "a_retained": 3802,
+          "b_retained": 3802
+        }
+      }
+    },
+    {
+      "backend": "compose",
+      "access": "direct",
+      "count": 200,
+      "artifacts": {
+        "release": {
+          "a_apk_bytes": 11769463,
+          "b_apk_bytes": 11690122,
+          "apk_delta_bytes": -79341,
+          "apk_delta_percent": -0.6741,
+          "dex_delta_bytes": -26036,
+          "a_retained": 3802,
+          "b_retained": 3802
+        },
+        "shrunk": {
+          "a_apk_bytes": 5109758,
+          "b_apk_bytes": 5128685,
+          "apk_delta_bytes": 18927,
+          "apk_delta_percent": 0.3704,
+          "dex_delta_bytes": -36696,
+          "a_retained": 3802,
+          "b_retained": 3802
+        }
+      }
+    },
+    {
+      "backend": "compose",
+      "access": "direct",
+      "count": 3802,
+      "artifacts": {
+        "release": {
+          "a_apk_bytes": 11908015,
+          "b_apk_bytes": 11812287,
+          "apk_delta_bytes": -95728,
+          "apk_delta_percent": -0.8039,
+          "dex_delta_bytes": -32332,
+          "a_retained": 3802,
+          "b_retained": 3802
+        },
+        "shrunk": {
+          "a_apk_bytes": 5313852,
+          "b_apk_bytes": 5349154,
+          "apk_delta_bytes": 35302,
+          "apk_delta_percent": 0.6643,
+          "dex_delta_bytes": -29856,
+          "a_retained": 3802,
+          "b_retained": 3802
+        }
+      }
+    },
+    {
+      "backend": "compose",
+      "access": "dynamic",
+      "count": 0,
+      "artifacts": {
+        "release": {
+          "a_apk_bytes": 11767263,
+          "b_apk_bytes": 11687929,
+          "apk_delta_bytes": -79334,
+          "apk_delta_percent": -0.6742,
+          "dex_delta_bytes": -25796,
+          "a_retained": 3802,
+          "b_retained": 3802
+        },
+        "shrunk": {
+          "a_apk_bytes": 5320560,
+          "b_apk_bytes": 5355770,
+          "apk_delta_bytes": 35210,
+          "apk_delta_percent": 0.6618,
+          "dex_delta_bytes": -31844,
+          "a_retained": 3802,
+          "b_retained": 3802
+        }
+      }
+    },
+    {
+      "backend": "compose",
+      "access": "dynamic",
+      "count": 1,
+      "artifacts": {
+        "release": {
+          "a_apk_bytes": 11767306,
+          "b_apk_bytes": 11687968,
+          "apk_delta_bytes": -79338,
+          "apk_delta_percent": -0.6742,
+          "dex_delta_bytes": -25796,
+          "a_retained": 3802,
+          "b_retained": 3802
+        },
+        "shrunk": {
+          "a_apk_bytes": 5320594,
+          "b_apk_bytes": 5355815,
+          "apk_delta_bytes": 35221,
+          "apk_delta_percent": 0.662,
+          "dex_delta_bytes": -31844,
+          "a_retained": 3802,
+          "b_retained": 3802
+        }
+      }
+    },
+    {
+      "backend": "compose",
+      "access": "dynamic",
+      "count": 25,
+      "artifacts": {
+        "release": {
+          "a_apk_bytes": 11767518,
+          "b_apk_bytes": 11688182,
+          "apk_delta_bytes": -79336,
+          "apk_delta_percent": -0.6742,
+          "dex_delta_bytes": -25788,
+          "a_retained": 3802,
+          "b_retained": 3802
+        },
+        "shrunk": {
+          "a_apk_bytes": 5320808,
+          "b_apk_bytes": 5356023,
+          "apk_delta_bytes": 35215,
+          "apk_delta_percent": 0.6618,
+          "dex_delta_bytes": -31844,
+          "a_retained": 3802,
+          "b_retained": 3802
+        }
+      }
+    },
+    {
+      "backend": "compose",
+      "access": "dynamic",
+      "count": 200,
+      "artifacts": {
+        "release": {
+          "a_apk_bytes": 11769463,
+          "b_apk_bytes": 11690137,
+          "apk_delta_bytes": -79326,
+          "apk_delta_percent": -0.674,
+          "dex_delta_bytes": -25792,
+          "a_retained": 3802,
+          "b_retained": 3802
+        },
+        "shrunk": {
+          "a_apk_bytes": 5322750,
+          "b_apk_bytes": 5357963,
+          "apk_delta_bytes": 35213,
+          "apk_delta_percent": 0.6616,
+          "dex_delta_bytes": -31844,
+          "a_retained": 3802,
+          "b_retained": 3802
+        }
+      }
+    },
+    {
+      "backend": "compose",
+      "access": "dynamic",
+      "count": 3802,
+      "artifacts": {
+        "release": {
+          "a_apk_bytes": 11809706,
+          "b_apk_bytes": 11730375,
+          "apk_delta_bytes": -79331,
+          "apk_delta_percent": -0.6717,
+          "dex_delta_bytes": -25792,
+          "a_retained": 3802,
+          "b_retained": 3802
+        },
+        "shrunk": {
+          "a_apk_bytes": 5362996,
+          "b_apk_bytes": 5398216,
+          "apk_delta_bytes": 35220,
+          "apk_delta_percent": 0.6567,
+          "dex_delta_bytes": -31844,
+          "a_retained": 3802,
+          "b_retained": 3802
+        }
+      }
+    },
+    {
+      "backend": "vectors",
+      "access": "direct",
+      "count": 0,
+      "artifacts": {
+        "release": {
+          "a_apk_bytes": 10006642,
+          "b_apk_bytes": 9691786,
+          "apk_delta_bytes": -314856,
+          "apk_delta_percent": -3.1465,
+          "dex_delta_bytes": -569224,
+          "a_retained": 3802,
+          "b_retained": 3802
+        },
+        "shrunk": {
+          "a_apk_bytes": 856410,
+          "b_apk_bytes": 869212,
+          "apk_delta_bytes": 12802,
+          "apk_delta_percent": 1.4948,
+          "dex_delta_bytes": -36996,
+          "a_retained": 0,
+          "b_retained": 0
+        }
+      }
+    },
+    {
+      "backend": "vectors",
+      "access": "direct",
+      "count": 1,
+      "artifacts": {
+        "release": {
+          "a_apk_bytes": 10006675,
+          "b_apk_bytes": 9691821,
+          "apk_delta_bytes": -314854,
+          "apk_delta_percent": -3.1464,
+          "dex_delta_bytes": -569232,
+          "a_retained": 3802,
+          "b_retained": 3802
+        },
+        "shrunk": {
+          "a_apk_bytes": 872833,
+          "b_apk_bytes": 885635,
+          "apk_delta_bytes": 12802,
+          "apk_delta_percent": 1.4667,
+          "dex_delta_bytes": -38164,
+          "a_retained": 1,
+          "b_retained": 1
+        }
+      }
+    },
+    {
+      "backend": "vectors",
+      "access": "direct",
+      "count": 25,
+      "artifacts": {
+        "release": {
+          "a_apk_bytes": 10006895,
+          "b_apk_bytes": 9692043,
+          "apk_delta_bytes": -314852,
+          "apk_delta_percent": -3.1464,
+          "dex_delta_bytes": -569364,
+          "a_retained": 3802,
+          "b_retained": 3802
+        },
+        "shrunk": {
+          "a_apk_bytes": 889434,
+          "b_apk_bytes": 885853,
+          "apk_delta_bytes": -3581,
+          "apk_delta_percent": -0.4026,
+          "dex_delta_bytes": -38248,
+          "a_retained": 25,
+          "b_retained": 25
+        }
+      }
+    },
+    {
+      "backend": "vectors",
+      "access": "direct",
+      "count": 200,
+      "artifacts": {
+        "release": {
+          "a_apk_bytes": 10008832,
+          "b_apk_bytes": 9710363,
+          "apk_delta_bytes": -298469,
+          "apk_delta_percent": -2.9821,
+          "dex_delta_bytes": -574240,
+          "a_retained": 3802,
+          "b_retained": 3802
+        },
+        "shrunk": {
+          "a_apk_bytes": 940531,
+          "b_apk_bytes": 953326,
+          "apk_delta_bytes": 12795,
+          "apk_delta_percent": 1.3604,
+          "dex_delta_bytes": -38392,
+          "a_retained": 200,
+          "b_retained": 200
+        }
+      }
+    },
+    {
+      "backend": "vectors",
+      "access": "direct",
+      "count": 3802,
+      "artifacts": {
+        "release": {
+          "a_apk_bytes": 10130996,
+          "b_apk_bytes": 9816143,
+          "apk_delta_bytes": -314853,
+          "apk_delta_percent": -3.1078,
+          "dex_delta_bytes": -604580,
+          "a_retained": 3802,
+          "b_retained": 3802
+        },
+        "shrunk": {
+          "a_apk_bytes": 2373419,
+          "b_apk_bytes": 2386210,
+          "apk_delta_bytes": 12791,
+          "apk_delta_percent": 0.5389,
+          "dex_delta_bytes": -57792,
+          "a_retained": 3802,
+          "b_retained": 3802
+        }
+      }
+    },
+    {
+      "backend": "vectors",
+      "access": "dynamic",
+      "count": 0,
+      "artifacts": {
+        "release": {
+          "a_apk_bytes": 10006639,
+          "b_apk_bytes": 9691787,
+          "apk_delta_bytes": -314852,
+          "apk_delta_percent": -3.1464,
+          "dex_delta_bytes": -569216,
+          "a_retained": 3802,
+          "b_retained": 3802
+        },
+        "shrunk": {
+          "a_apk_bytes": 2396503,
+          "b_apk_bytes": 2409303,
+          "apk_delta_bytes": 12800,
+          "apk_delta_percent": 0.5341,
+          "dex_delta_bytes": -57420,
+          "a_retained": 3802,
+          "b_retained": 3802
+        }
+      }
+    },
+    {
+      "backend": "vectors",
+      "access": "dynamic",
+      "count": 1,
+      "artifacts": {
+        "release": {
+          "a_apk_bytes": 10006679,
+          "b_apk_bytes": 9691825,
+          "apk_delta_bytes": -314854,
+          "apk_delta_percent": -3.1464,
+          "dex_delta_bytes": -569216,
+          "a_retained": 3802,
+          "b_retained": 3802
+        },
+        "shrunk": {
+          "a_apk_bytes": 2396546,
+          "b_apk_bytes": 2409350,
+          "apk_delta_bytes": 12804,
+          "apk_delta_percent": 0.5343,
+          "dex_delta_bytes": -57420,
+          "a_retained": 3802,
+          "b_retained": 3802
+        }
+      }
+    },
+    {
+      "backend": "vectors",
+      "access": "dynamic",
+      "count": 25,
+      "artifacts": {
+        "release": {
+          "a_apk_bytes": 10006895,
+          "b_apk_bytes": 9692046,
+          "apk_delta_bytes": -314849,
+          "apk_delta_percent": -3.1463,
+          "dex_delta_bytes": -569212,
+          "a_retained": 3802,
+          "b_retained": 3802
+        },
+        "shrunk": {
+          "a_apk_bytes": 2396760,
+          "b_apk_bytes": 2409563,
+          "apk_delta_bytes": 12803,
+          "apk_delta_percent": 0.5342,
+          "dex_delta_bytes": -57420,
+          "a_retained": 3802,
+          "b_retained": 3802
+        }
+      }
+    },
+    {
+      "backend": "vectors",
+      "access": "dynamic",
+      "count": 200,
+      "artifacts": {
+        "release": {
+          "a_apk_bytes": 10008835,
+          "b_apk_bytes": 9693988,
+          "apk_delta_bytes": -314847,
+          "apk_delta_percent": -3.1457,
+          "dex_delta_bytes": -569212,
+          "a_retained": 3802,
+          "b_retained": 3802
+        },
+        "shrunk": {
+          "a_apk_bytes": 2398712,
+          "b_apk_bytes": 2411509,
+          "apk_delta_bytes": 12797,
+          "apk_delta_percent": 0.5335,
+          "dex_delta_bytes": -57420,
+          "a_retained": 3802,
+          "b_retained": 3802
+        }
+      }
+    },
+    {
+      "backend": "vectors",
+      "access": "dynamic",
+      "count": 3802,
+      "artifacts": {
+        "release": {
+          "a_apk_bytes": 10049087,
+          "b_apk_bytes": 9734230,
+          "apk_delta_bytes": -314857,
+          "apk_delta_percent": -3.1332,
+          "dex_delta_bytes": -569212,
+          "a_retained": 3802,
+          "b_retained": 3802
+        },
+        "shrunk": {
+          "a_apk_bytes": 2438949,
+          "b_apk_bytes": 2451747,
+          "apk_delta_bytes": 12798,
+          "apk_delta_percent": 0.5247,
+          "dex_delta_bytes": -57420,
+          "a_retained": 3802,
+          "b_retained": 3802
+        }
+      }
+    }
+  ]
+}

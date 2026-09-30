@@ -17,10 +17,12 @@ import org.gradle.api.tasks.TaskAction
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.register
 import org.gradle.process.ExecOperations
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 /** Generates the built-in Material vectors without changing their published API. */
 class MaterialVectorSourcesPlugin : Plugin<Project> {
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
     override fun apply(target: Project) = with(target) {
         val style = name.removePrefix("material-vectors-")
         require(style in setOf("outlined", "rounded", "sharp", "themed")) {
@@ -46,7 +48,7 @@ class MaterialVectorSourcesPlugin : Plugin<Project> {
         pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform") {
             extensions.configure<KotlinMultiplatformExtension> {
                 sourceSets.named("commonMain") { sourceSet ->
-                    sourceSet.kotlin.srcDir(sources.flatMap { it.outputDirectory })
+                    sourceSet.generatedKotlin.srcDir(sources.flatMap { it.outputDirectory })
                 }
             }
             tasks.matching { it.name == "prepareKotlinIdeaImport" }.configureEach { task ->

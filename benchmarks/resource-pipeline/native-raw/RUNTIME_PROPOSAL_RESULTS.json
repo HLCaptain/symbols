@@ -1,0 +1,302 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-09-30",
+  "status": "Local upstream proposal; no official release or production runtime substitution",
+  "proposed_api": "@InternalResourceApi fun getAndroidResourcePath(resourceId: Int, logicalPath: String): String (Android only)",
+  "proposed_capability": "org.jetbrains.compose.components:components-resources-native-xml-v1",
+  "capability_owner": "components-resources-android API/runtime/sources variants; root redirects and other targets do not advertise it",
+  "generator_requirement": "Android-only dependency on components-resources-android requires the capability; ordinary version conflict resolution remains in effect",
+  "source_patch": "resource-reader.patch",
+  "source_pins": "runtime-inputs.json",
+  "script_sha256": {
+    "runtime.py": "a7de2dce1124309ae2d92ef77b3cce65ff490c2e5cd56c4e694deb16001f4790",
+    "runtime_resolution.py": "17aea3d6e83af4cd8c355cacea17375d18ab622647c803ef1dcb1ba3ea0e51a0",
+    "runtime_helper.py": "d1c00f7805bb6c62dd3a2250bedad7b4c6f18769de8be93bb8b942c7235e571c",
+    "resource-reader.patch": "33b08e6984f6be1ec02eef1f4a9489dcdcfdee3808312c9ef5e39b9b05417e4b",
+    "runtime-inputs.json": "4e44756d1966f437473100159fc7f11a95cc6238b78200dc75d555e99aa1180f"
+  },
+  "candidates": [
+    {
+      "upstream": "1.11.1",
+      "candidate": "1.11.2-native-raw02",
+      "min_sdk": 23,
+      "aar_sha256": "9c1adbe354d6b9e6066bcc937fc09b74d12b8136e2ee5c8bc7aae1dfbda18121",
+      "module_sha256": {
+        "root": "2dcd413d1dcfb1a67c6eba55d4a4850740e246228f098f9dacd2992f60c732e6",
+        "android": "ba3f6ff0c3685ec7e7e5c48a6b42b887a0fff38f5c7b537635a42a17a490720f"
+      },
+      "abi": {
+        "verified": true,
+        "original_classes": 112,
+        "original_members": 447,
+        "removed_or_changed_members": 0,
+        "added_members": 1,
+        "kotlin_module_names_preserved": true,
+        "comparison": "Official 1.11.1 versus its same-baseline proposal"
+      },
+      "helper": {
+        "verified": true,
+        "without_android_context_or_sdk_classpath": true,
+        "checks": [
+          "context-free XML path construction",
+          "uppercase XML extension preserved",
+          "signed Int resource ID accepted",
+          "zero ID rejected",
+          "non-XML path rejected"
+        ]
+      },
+      "metadata": {
+        "verified": true,
+        "feature_capability_android_leaf_only": true,
+        "android_variant_count": 3,
+        "unchanged_non_android_redirects": 23
+      },
+      "resolution_cases": [
+        {
+          "name": "nativeApi",
+          "expected_resolution": true,
+          "resolved": true,
+          "verified": true,
+          "components": [
+            "org.jetbrains.compose.components:components-resources-android:1.11.2-native-raw02"
+          ]
+        },
+        {
+          "name": "nativeRuntime",
+          "expected_resolution": true,
+          "resolved": true,
+          "verified": true,
+          "components": [
+            "org.jetbrains.compose.components:components-resources-android:1.11.2-native-raw02"
+          ]
+        },
+        {
+          "name": "nativeSources",
+          "expected_resolution": true,
+          "resolved": true,
+          "verified": true,
+          "components": [
+            "org.jetbrains.compose.components:components-resources-android:1.11.2-native-raw02"
+          ]
+        },
+        {
+          "name": "rootDefault",
+          "expected_resolution": true,
+          "resolved": true,
+          "verified": true,
+          "components": [
+            "org.jetbrains.compose.components:components-resources-android:1.11.2-native-raw02",
+            "org.jetbrains.compose.components:components-resources:1.11.2-native-raw02"
+          ]
+        },
+        {
+          "name": "androidDefault",
+          "expected_resolution": true,
+          "resolved": true,
+          "verified": true,
+          "components": [
+            "org.jetbrains.compose.components:components-resources-android:1.11.2-native-raw02"
+          ]
+        },
+        {
+          "name": "jvmDefault",
+          "expected_resolution": true,
+          "resolved": true,
+          "verified": true,
+          "components": [
+            "org.jetbrains.compose.components:components-resources-desktop:1.11.1",
+            "org.jetbrains.compose.components:components-resources:1.11.2-native-raw02"
+          ]
+        },
+        {
+          "name": "stockUnsupported",
+          "expected_resolution": false,
+          "resolved": false,
+          "verified": true
+        },
+        {
+          "name": "higherUnsupported",
+          "expected_resolution": false,
+          "resolved": false,
+          "verified": true
+        },
+        {
+          "name": "higherAndroidUnsupported",
+          "expected_resolution": false,
+          "resolved": false,
+          "verified": true
+        },
+        {
+          "name": "jvmCapabilityRejected",
+          "expected_resolution": false,
+          "resolved": false,
+          "verified": true
+        },
+        {
+          "name": "higherSupported",
+          "expected_resolution": true,
+          "resolved": true,
+          "verified": true,
+          "components": [
+            "org.jetbrains.compose.components:components-resources-android:1.12.2-native-raw02",
+            "org.jetbrains.compose.components:components-resources:1.12.2-native-raw02"
+          ],
+          "scope": "Dependency resolution and native-XML capability selection only; not cross-family Compose ABI verification"
+        }
+      ]
+    },
+    {
+      "upstream": "1.12.1",
+      "candidate": "1.12.2-native-raw02",
+      "min_sdk": 23,
+      "aar_sha256": "044ba3ea9d72c8e5d2b104028b25cc5d87ba2e64d3548e7a814809dcca7f1486",
+      "module_sha256": {
+        "root": "487c660efaddf12c76ba285e95ed3d114828559258c0f862c36ff7d35fd0b44b",
+        "android": "944faad07a761268e433dd1b09d0f285aee0b6504fc0481ba62ffce10cf13924"
+      },
+      "abi": {
+        "verified": true,
+        "original_classes": 117,
+        "original_members": 460,
+        "removed_or_changed_members": 0,
+        "added_members": 1,
+        "kotlin_module_names_preserved": true,
+        "comparison": "Official 1.12.1 versus its same-baseline proposal"
+      },
+      "helper": {
+        "verified": true,
+        "without_android_context_or_sdk_classpath": true,
+        "checks": [
+          "context-free XML path construction",
+          "uppercase XML extension preserved",
+          "signed Int resource ID accepted",
+          "zero ID rejected",
+          "non-XML path rejected"
+        ]
+      },
+      "metadata": {
+        "verified": true,
+        "feature_capability_android_leaf_only": true,
+        "android_variant_count": 3,
+        "unchanged_non_android_redirects": 23
+      },
+      "resolution_cases": [
+        {
+          "name": "nativeApi",
+          "expected_resolution": true,
+          "resolved": true,
+          "verified": true,
+          "components": [
+            "org.jetbrains.compose.components:components-resources-android:1.12.2-native-raw02"
+          ]
+        },
+        {
+          "name": "nativeRuntime",
+          "expected_resolution": true,
+          "resolved": true,
+          "verified": true,
+          "components": [
+            "org.jetbrains.compose.components:components-resources-android:1.12.2-native-raw02"
+          ]
+        },
+        {
+          "name": "nativeSources",
+          "expected_resolution": true,
+          "resolved": true,
+          "verified": true,
+          "components": [
+            "org.jetbrains.compose.components:components-resources-android:1.12.2-native-raw02"
+          ]
+        },
+        {
+          "name": "rootDefault",
+          "expected_resolution": true,
+          "resolved": true,
+          "verified": true,
+          "components": [
+            "org.jetbrains.compose.components:components-resources-android:1.12.2-native-raw02",
+            "org.jetbrains.compose.components:components-resources:1.12.2-native-raw02"
+          ]
+        },
+        {
+          "name": "androidDefault",
+          "expected_resolution": true,
+          "resolved": true,
+          "verified": true,
+          "components": [
+            "org.jetbrains.compose.components:components-resources-android:1.12.2-native-raw02"
+          ]
+        },
+        {
+          "name": "jvmDefault",
+          "expected_resolution": true,
+          "resolved": true,
+          "verified": true,
+          "components": [
+            "org.jetbrains.compose.components:components-resources-desktop:1.12.1",
+            "org.jetbrains.compose.components:components-resources:1.12.2-native-raw02"
+          ]
+        },
+        {
+          "name": "stockUnsupported",
+          "expected_resolution": false,
+          "resolved": false,
+          "verified": true
+        },
+        {
+          "name": "higherUnsupported",
+          "expected_resolution": false,
+          "resolved": false,
+          "verified": true
+        },
+        {
+          "name": "higherAndroidUnsupported",
+          "expected_resolution": false,
+          "resolved": false,
+          "verified": true
+        },
+        {
+          "name": "jvmCapabilityRejected",
+          "expected_resolution": false,
+          "resolved": false,
+          "verified": true
+        }
+      ]
+    }
+  ],
+  "additional_source_baseline": {
+    "version": "1.12.0",
+    "patch_applies": true,
+    "android_aar_and_sources_byte_identical_to": "1.12.1",
+    "separate_compile_performed": false
+  },
+  "bounds": [
+    "Official Compose 1.11.1, 1.12.0, 1.12.1 and 1.13.0-alpha01 do not provide this proposed helper/capability.",
+    "This report checks runtime compilation, preserved JVM declarations, context-free helper execution and actual published dependency resolution.",
+    "The initial metadata-only design probes are excluded; these resolution results use the two compiled candidate AARs.",
+    "End-to-end generated APK resource retention, reader contracts and device rendering require separate integration evidence.",
+    "Cross-family capability resolution is not full Compose ABI compatibility; the separate strict comparison records upstream differences without changing the passing per-baseline patch checks."
+  ],
+  "capability_contract": "The new getAndroidResourcePath helper and native-XML reader protocol only; not universal compatibility of unrelated Compose APIs across release families.",
+  "cross_family_abi": {
+    "comparison": "Official Compose 1.11.1 versus proposal based on Compose 1.12.1 (1.12.2-native-raw02)",
+    "fully_abi_compatible": false,
+    "stock_aar_sha256": "adff60e5b8c40161cd49f8df4c3de2d84465528a8291ffed1596f620c705c132",
+    "candidate_aar_sha256": "044ba3ea9d72c8e5d2b104028b25cc5d87ba2e64d3548e7a814809dcca7f1486",
+    "removed_classes": [
+      "org.jetbrains.compose.resources.AsyncCache$getOrLoad$2",
+      "org.jetbrains.compose.resources.AsyncCache$getOrLoad$2$deferred$1$1"
+    ],
+    "removed_or_changed_members": {
+      "org.jetbrains.compose.resources.AsyncCache": [
+        "public static final java.util.Map access$getCache$p(org.jetbrains.compose.resources.AsyncCache);\ndescriptor: (Lorg/jetbrains/compose/resources/AsyncCache;)Ljava/util/Map;",
+        "public static final kotlinx.coroutines.sync.Mutex access$getMutex$p(org.jetbrains.compose.resources.AsyncCache);\ndescriptor: (Lorg/jetbrains/compose/resources/AsyncCache;)Lkotlinx/coroutines/sync/Mutex;"
+      ],
+      "org.jetbrains.compose.resources.ResourceEnvironment": [
+        "public org.jetbrains.compose.resources.ResourceEnvironment(org.jetbrains.compose.resources.LanguageQualifier, org.jetbrains.compose.resources.RegionQualifier, org.jetbrains.compose.resources.ThemeQualifier, org.jetbrains.compose.resources.DensityQualifier);\ndescriptor: (Lorg/jetbrains/compose/resources/LanguageQualifier;Lorg/jetbrains/compose/resources/RegionQualifier;Lorg/jetbrains/compose/resources/ThemeQualifier;Lorg/jetbrains/compose/resources/DensityQualifier;)V"
+      ]
+    },
+    "attribution": "These differences are upstream Compose-family changes, including the public four-argument ResourceEnvironment constructor and internal AsyncCache machinery. The proposal preserves all original declarations within each tested baseline.",
+    "dependency_resolution_implication": "A native-XML-capable higher version can resolve while unrelated cross-family ABI differences remain; no force, new constraint, or universal ABI guarantee is introduced."
+  }
+}

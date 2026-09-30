@@ -1,0 +1,12 @@
+--- a/org/jetbrains/compose/resources/AndroidResources.kt
++++ b/org/jetbrains/compose/resources/AndroidResources.kt
+@@ -20,6 +21,9 @@
+ import org.gradle.api.tasks.Optional
+ import org.gradle.api.tasks.OutputDirectory
+ import org.gradle.api.tasks.TaskAction
++import org.gradle.api.tasks.TaskProvider
++import org.gradle.api.tasks.PathSensitive
++import org.gradle.api.tasks.PathSensitivity
+ import org.jetbrains.compose.internal.Version
+ import org.jetbrains.compose.internal.utils.registerTask
+ import org.jetbrains.compose.internal.utils.uppercaseFirstChar

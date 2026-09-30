@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "verified": true,
+  "scope": "One additional unmeasured native-direct-25 clean rebuild; excluded from the 12 controlled samples and two warmups",
+  "toolchain": {
+    "agp": "9.4.1",
+    "gradle": "9.7.0",
+    "java": "Azul21",
+    "workers": 1,
+    "gradle_heap_mib": 4096,
+    "kotlin_compiler": "in-process",
+    "build_cache": false,
+    "configuration_cache": false
+  },
+  "command": [
+    "clean",
+    "assembleShrunk",
+    "--console=plain",
+    "--quiet",
+    "--no-daemon",
+    "--no-configuration-cache",
+    "--max-workers=1",
+    "--no-build-cache",
+    "--profile",
+    "-Pkotlin.compiler.execution.strategy=in-process",
+    "-Dorg.gradle.jvmargs=-Xmx4096M -Dfile.encoding=UTF-8"
+  ],
+  "before_apk": {
+    "bytes": 950679,
+    "sha256": "22bb7c88e7efd5315af264c941aff285f7880cd92cbf9c59d693f906e8a8b609"
+  },
+  "after_apk": {
+    "bytes": 950679,
+    "sha256": "627181f16c90ff5504b13428a4fe82cef086999a4c502d7f3d95ce560a1a187b"
+  },
+  "zip": {
+    "entry_count": 105,
+    "all_uncompressed_payloads_identical": true,
+    "all_zip_entry_metadata_identical": true,
+    "entry_order_identical": true,
+    "added_entries": 0,
+    "removed_entries": 0,
+    "payload_inventory_sha256": "28272577e3a308bb801873f01dc03d26db086c8a06babdf4e471b1dc6e5f9c1d",
+    "inventory_hash_definition": "SHA-256 of UTF-8 compact JSON, sorted keys, listing ZIP entries sorted by name with name/bytes/sha256 of uncompressed content"
+  },
+  "signing_block": {
+    "start_offset": 933793,
+    "end_offset_exclusive": 941985,
+    "changed_id": "0x504b4453",
+    "changed_id_name": "SDK dependency information",
+    "changed_payload_bytes": 5661,
+    "differing_bytes": 5630,
+    "before_payload_sha256": "1ee86cc203044fcccf9604782b6be0314ef079d96d3223c51b3a741d0931df7e",
+    "after_payload_sha256": "5b3e8fa65066a5e81a2e1d50ef99f972115a79463ea17c3b39ada24b6b8b0ca8",
+    "every_byte_outside_this_payload_identical": true,
+    "unchanged_ids": [
+      "0x7109871a (APK Signature Scheme v2)",
+      "0x42726577 (padding)"
+    ]
+  },
+  "signatures": {
+    "both_verify": true,
+    "v1": true,
+    "v2": true,
+    "verifier_output_identical": true,
+    "signer_certificate_sha256": "52d1216f0ac4d1ccfb9c98b75a172604bba939d29acd9b42e15bc2e2262f1b6c"
+  },
+  "conclusion": "Whole-APK SHA variation is confined to regenerated encrypted SDK dependency metadata. In this pair the compiled code, resources, ZIP contents/metadata, APK size and actual signing signatures are unchanged.",
+  "sources": [
+    {
+      "url": "https://developer.android.com/build/dependencies#dependency-info",
+      "supports": "AGP compresses/encrypts SDK dependency metadata and stores it in the release signing block"
+    },
+    {
+      "artifact": "com.android.tools.build:apkzlib:9.4.1",
+      "declaration": "com.android.tools.build.apkzlib.sign.SigningExtension.DEPENDENCY_INFO_BLOCK_ID = 1347109971 (0x504b4453)",
+      "verification": "javap -p -constants on the installed AGP implementation"
+    }
+  ],
+  "prototype_configuration_changed": false,
+  "private_artifacts": "Both APKs, signatures and diagnostic build log preserved only under /tmp/symbols-native-raw-apk-determinism",
+  "remaining_verification": "None for this bounded diagnosis; no general bit-identical APK guarantee is claimed"
+}

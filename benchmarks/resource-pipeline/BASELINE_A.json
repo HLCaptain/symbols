@@ -1,0 +1,875 @@
+{
+  "schema_version": 1,
+  "cohort": "A",
+  "revision": "20339e8bb5bc787a569516dc78dda0cce5bdb6da",
+  "version": "0.0.0-study-a",
+  "built_at": "2026-09-25",
+  "verified_at": "2026-09-28",
+  "purpose": "APK size and archive-retention baseline; no controlled timing or runtime-rendering claim",
+  "completion": {
+    "cases": 30,
+    "apks": 60,
+    "expected_cases": 30
+  },
+  "toolchain": {
+    "agp": "8.13.2",
+    "kotlin": "2.3.21",
+    "composeMultiplatform": "1.11.1",
+    "android-compileSdk": "36",
+    "android-targetSdk": "36",
+    "skiko": "0.9.22.2"
+  },
+  "gradle": "8.14.5",
+  "build_jdk": "Azul21.0.12.1",
+  "generator_python_requirements": [
+    "# Maintainer/CI-only dependencies for deterministic font generation.",
+    "fonttools==4.60.2",
+    "picosvg==0.22.3",
+    "# PicoSVG delegates stroke and clip boolean operations to this engine.",
+    "skia-pathops==0.9.2"
+  ],
+  "glyph_count": 3802,
+  "selection": "Canonical first alias per codepoint, sorted by name; counts 0/1/25/200/all use identical glyphs across backends",
+  "rows": [
+    {
+      "backend": "android",
+      "access": "direct",
+      "count": 0,
+      "coordinates": "io.github.hlcaptain:symbols-material-drawables-outlined:0.0.0-study-a",
+      "input_sha256": "009501977241ff2654e0166a872b2a5e002ce0de401af2535d188bc5337909d8",
+      "retention_measure": "Android resource table names",
+      "artifacts": {
+        "release": {
+          "apk_bytes": 10647344,
+          "dex_bytes": 18459936,
+          "payload_bytes": 10217066,
+          "zip_entries": 3930,
+          "sha256": "0876b5ae6bf03799b061157945416de4b7f17336d57b36f804c2c8ef5c3d4516",
+          "retained": 3802,
+          "missing_selected": 0
+        },
+        "shrunk": {
+          "apk_bytes": 856412,
+          "dex_bytes": 1352688,
+          "payload_bytes": 809648,
+          "zip_entries": 88,
+          "sha256": "8b87a860ff38c480ccb3ac6126c1a3faaf2de027a5f14510d1922315082ad35a",
+          "retained": 0,
+          "missing_selected": 0
+        }
+      }
+    },
+    {
+      "backend": "android",
+      "access": "direct",
+      "count": 1,
+      "coordinates": "io.github.hlcaptain:symbols-material-drawables-outlined:0.0.0-study-a",
+      "input_sha256": "a45be3112880d698a19b38274eeebcac1ae1ea12edcd0794ad23014b6a2a75e6",
+      "retention_measure": "Android resource table names",
+      "artifacts": {
+        "release": {
+          "apk_bytes": 10647384,
+          "dex_bytes": 18460664,
+          "payload_bytes": 10217718,
+          "zip_entries": 3930,
+          "sha256": "ff17fe16604e66027ac28900871e5d209488c9ff9fa69f05a1a59d068ce59e11",
+          "retained": 3802,
+          "missing_selected": 0
+        },
+        "shrunk": {
+          "apk_bytes": 907998,
+          "dex_bytes": 1425140,
+          "payload_bytes": 853044,
+          "zip_entries": 89,
+          "sha256": "f1d9d309f2faddb25f9277fafa0ec5498b92ec20f5b769715837d4cdaa52ddcd",
+          "retained": 1,
+          "missing_selected": 0
+        }
+      }
+    },
+    {
+      "backend": "android",
+      "access": "direct",
+      "count": 25,
+      "coordinates": "io.github.hlcaptain:symbols-material-drawables-outlined:0.0.0-study-a",
+      "input_sha256": "ebc0ad2ef8ba5818434a9436f3abb046938dadcdad7d547f80d37267503cc38e",
+      "retention_measure": "Android resource table names",
+      "artifacts": {
+        "release": {
+          "apk_bytes": 10647597,
+          "dex_bytes": 18462276,
+          "payload_bytes": 10218482,
+          "zip_entries": 3930,
+          "sha256": "b0354f0f8b488ce8f9587270dedb4e487208a6fcd4674946e6a77042b3b33248",
+          "retained": 3802,
+          "missing_selected": 0
+        },
+        "shrunk": {
+          "apk_bytes": 931165,
+          "dex_bytes": 1425568,
+          "payload_bytes": 873945,
+          "zip_entries": 113,
+          "sha256": "4a530bd054aa578b7d90d97c34b6f4feeec2405d92ecb4679e231910aab786ed",
+          "retained": 25,
+          "missing_selected": 0
+        }
+      }
+    },
+    {
+      "backend": "android",
+      "access": "direct",
+      "count": 200,
+      "coordinates": "io.github.hlcaptain:symbols-material-drawables-outlined:0.0.0-study-a",
+      "input_sha256": "cc00ca3f25218697dc578d6817ae08ae1a53d0ddab3bc06e66bd48ee286ac02d",
+      "retention_measure": "Android resource table names",
+      "artifacts": {
+        "release": {
+          "apk_bytes": 10649534,
+          "dex_bytes": 18475352,
+          "payload_bytes": 10223346,
+          "zip_entries": 3930,
+          "sha256": "56f0d1c153e58ade7bdcb9ac53245e84044e939bff06be2dab8cbb5260c22e65",
+          "retained": 3802,
+          "missing_selected": 0
+        },
+        "shrunk": {
+          "apk_bytes": 1092039,
+          "dex_bytes": 1429400,
+          "payload_bytes": 1019543,
+          "zip_entries": 288,
+          "sha256": "2483c3d4be65e8a98a68404d16ed68983bf69561cba81f12b795520e1c511bc4",
+          "retained": 200,
+          "missing_selected": 0
+        }
+      }
+    },
+    {
+      "backend": "android",
+      "access": "direct",
+      "count": 3802,
+      "coordinates": "io.github.hlcaptain:symbols-material-drawables-outlined:0.0.0-study-a",
+      "input_sha256": "acf812177a6f6bc290fc90ae6ec18fd29c9e0a3398f5ad8ab3f3e2aebacd0bb4",
+      "retention_measure": "Android resource table names",
+      "artifacts": {
+        "release": {
+          "apk_bytes": 10771707,
+          "dex_bytes": 18751112,
+          "payload_bytes": 10339747,
+          "zip_entries": 3930,
+          "sha256": "0baafe226a2b8014cfe1890704769a6b9288080463805cbd8c8c2f87fd305649",
+          "retained": 3802,
+          "missing_selected": 0
+        },
+        "shrunk": {
+          "apk_bytes": 4673909,
+          "dex_bytes": 1505360,
+          "payload_bytes": 4248606,
+          "zip_entries": 3890,
+          "sha256": "f554db045b684be048a8a5f7c65d2d730cb41481905c30d5d2fedf3a1ec793b9",
+          "retained": 3802,
+          "missing_selected": 0
+        }
+      }
+    },
+    {
+      "backend": "android",
+      "access": "dynamic",
+      "count": 0,
+      "coordinates": "io.github.hlcaptain:symbols-material-drawables-outlined:0.0.0-study-a",
+      "input_sha256": "c810c21d3ec661d58a76b197202581b38ee25f35088da1dd5e5cd45a14ac2f3f",
+      "retention_measure": "Android resource table names",
+      "artifacts": {
+        "release": {
+          "apk_bytes": 10663719,
+          "dex_bytes": 18554632,
+          "payload_bytes": 10235420,
+          "zip_entries": 3930,
+          "sha256": "43924b0d03e48fcb66f0d8a9faf650af8f7aa57cacf6de95aa8f0c910103f117",
+          "retained": 3802,
+          "missing_selected": 0
+        },
+        "shrunk": {
+          "apk_bytes": 4664231,
+          "dex_bytes": 1668740,
+          "payload_bytes": 4243497,
+          "zip_entries": 3890,
+          "sha256": "ace3e7c0a20197e1e54508e629853543ee23129c405d0c79dd3157e2b89bb55e",
+          "retained": 3802,
+          "missing_selected": 0
+        }
+      }
+    },
+    {
+      "backend": "android",
+      "access": "dynamic",
+      "count": 1,
+      "coordinates": "io.github.hlcaptain:symbols-material-drawables-outlined:0.0.0-study-a",
+      "input_sha256": "3f190aadc55245618cd1a8c0e07d631fe43fb5a7866302043be298b8ad93e32d",
+      "retention_measure": "Android resource table names",
+      "artifacts": {
+        "release": {
+          "apk_bytes": 10663768,
+          "dex_bytes": 18554632,
+          "payload_bytes": 10235468,
+          "zip_entries": 3930,
+          "sha256": "ed281b7feb7d809c07816abfaaa49c4ae7bddba526f6b2bee60d4e351fc604f3",
+          "retained": 3802,
+          "missing_selected": 0
+        },
+        "shrunk": {
+          "apk_bytes": 4664267,
+          "dex_bytes": 1668740,
+          "payload_bytes": 4243533,
+          "zip_entries": 3890,
+          "sha256": "f56b3bf59bb7313808c6933bf564c6ef91c21aa53ef2b120f047ef0db4ff3d67",
+          "retained": 3802,
+          "missing_selected": 0
+        }
+      }
+    },
+    {
+      "backend": "android",
+      "access": "dynamic",
+      "count": 25,
+      "coordinates": "io.github.hlcaptain:symbols-material-drawables-outlined:0.0.0-study-a",
+      "input_sha256": "c8d0cb953a426eec3b513d21a3424585449213ed790a1bd4a2032141c420b2b7",
+      "retention_measure": "Android resource table names",
+      "artifacts": {
+        "release": {
+          "apk_bytes": 10663981,
+          "dex_bytes": 18554632,
+          "payload_bytes": 10235698,
+          "zip_entries": 3930,
+          "sha256": "d5c093ab582e2adfbc7152edfe3a4b887257ea8e041fc490ec374d36bbd7eeeb",
+          "retained": 3802,
+          "missing_selected": 0
+        },
+        "shrunk": {
+          "apk_bytes": 4664490,
+          "dex_bytes": 1668740,
+          "payload_bytes": 4243753,
+          "zip_entries": 3890,
+          "sha256": "690c6e45d5c09481b155dd32bb0f6c38b6da9442d8d90779289018e740badee6",
+          "retained": 3802,
+          "missing_selected": 0
+        }
+      }
+    },
+    {
+      "backend": "android",
+      "access": "dynamic",
+      "count": 200,
+      "coordinates": "io.github.hlcaptain:symbols-material-drawables-outlined:0.0.0-study-a",
+      "input_sha256": "df6de696221c4984c7d0549ba34ea74debc0dd1e340c4634e97126e0930fbcf0",
+      "retention_measure": "Android resource table names",
+      "artifacts": {
+        "release": {
+          "apk_bytes": 10665927,
+          "dex_bytes": 18554636,
+          "payload_bytes": 10237590,
+          "zip_entries": 3930,
+          "sha256": "d26d880854a991459994e9e548930c5ea1e1e3d5740348a564802ef8c0a34a2b",
+          "retained": 3802,
+          "missing_selected": 0
+        },
+        "shrunk": {
+          "apk_bytes": 4666429,
+          "dex_bytes": 1668740,
+          "payload_bytes": 4245695,
+          "zip_entries": 3890,
+          "sha256": "ca50c7826e57d3da9ef99b953a96b79280cba64fa370aa3be3e47f8be6547cf9",
+          "retained": 3802,
+          "missing_selected": 0
+        }
+      }
+    },
+    {
+      "backend": "android",
+      "access": "dynamic",
+      "count": 3802,
+      "coordinates": "io.github.hlcaptain:symbols-material-drawables-outlined:0.0.0-study-a",
+      "input_sha256": "aca452f8a2d6de22093df9a6cf9b686f0d57184d48776df18d570c568898a0c9",
+      "retention_measure": "Android resource table names",
+      "artifacts": {
+        "release": {
+          "apk_bytes": 10706160,
+          "dex_bytes": 18554636,
+          "payload_bytes": 10277822,
+          "zip_entries": 3930,
+          "sha256": "b7db64cd7d5a2e9e42017d1382dbe684a1e26b7c05245cf8353fd9e1ea1972f2",
+          "retained": 3802,
+          "missing_selected": 0
+        },
+        "shrunk": {
+          "apk_bytes": 4706671,
+          "dex_bytes": 1668740,
+          "payload_bytes": 4285936,
+          "zip_entries": 3890,
+          "sha256": "a6edb5388a40239692f358ab45f8f625ed965638c2219c2e2dc646d91da10514",
+          "retained": 3802,
+          "missing_selected": 0
+        }
+      }
+    },
+    {
+      "backend": "compose",
+      "access": "direct",
+      "count": 0,
+      "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-study-a",
+      "input_sha256": "ca83d12c2893a4656efd5c96bb04032742063f883e6e98906835cbd704f66e3a",
+      "retention_measure": "Compose drawable XML asset files",
+      "artifacts": {
+        "release": {
+          "apk_bytes": 11767264,
+          "dex_bytes": 22219676,
+          "payload_bytes": 10239630,
+          "zip_entries": 3930,
+          "sha256": "63e2f6cc0e7a0e0578d96d4a693d49521b77012034f095903f6004902c1bd816",
+          "retained": 3802,
+          "missing_selected": 0
+        },
+        "shrunk": {
+          "apk_bytes": 5042018,
+          "dex_bytes": 1353524,
+          "payload_bytes": 3525590,
+          "zip_entries": 3890,
+          "sha256": "33a5201da526f91f35f832a54fdfd215f33f557c4b57b2be309c28f678edb842",
+          "retained": 3802,
+          "missing_selected": 0
+        }
+      }
+    },
+    {
+      "backend": "compose",
+      "access": "direct",
+      "count": 1,
+      "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-study-a",
+      "input_sha256": "79945ac8213aebe76a8961a753f991e0f2fbdc8b220ba0f8b9c3ed1e7783dfec",
+      "retention_measure": "Compose drawable XML asset files",
+      "artifacts": {
+        "release": {
+          "apk_bytes": 11767308,
+          "dex_bytes": 22220292,
+          "payload_bytes": 10240176,
+          "zip_entries": 3930,
+          "sha256": "6b2783e174ee6824900a1a57e420b7d25147140cd768814ed2d8d05368fb4afb",
+          "retained": 3802,
+          "missing_selected": 0
+        },
+        "shrunk": {
+          "apk_bytes": 5091211,
+          "dex_bytes": 1463340,
+          "payload_bytes": 3574075,
+          "zip_entries": 3890,
+          "sha256": "c8028ca24448489afc155837cb42aee83bc9add818e81ae87c6b74e86132244d",
+          "retained": 3802,
+          "missing_selected": 0
+        }
+      }
+    },
+    {
+      "backend": "compose",
+      "access": "direct",
+      "count": 25,
+      "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-study-a",
+      "input_sha256": "a56f9c005101ea74dca1a677fbbea0f86ae3115eb971b9751d206b8b1f224395",
+      "retention_measure": "Compose drawable XML asset files",
+      "artifacts": {
+        "release": {
+          "apk_bytes": 11767516,
+          "dex_bytes": 22222140,
+          "payload_bytes": 10241408,
+          "zip_entries": 3930,
+          "sha256": "a703b47a0d35e952a9b6dd21224f58eba55e256301487de00aa62404c95ca65c",
+          "retained": 3802,
+          "missing_selected": 0
+        },
+        "shrunk": {
+          "apk_bytes": 5091422,
+          "dex_bytes": 1464980,
+          "payload_bytes": 3575154,
+          "zip_entries": 3890,
+          "sha256": "2d6fe3873969ebef6a86c32e1ea45cc49888dadb644509c300a18a4cd1d95ccc",
+          "retained": 3802,
+          "missing_selected": 0
+        }
+      }
+    },
+    {
+      "backend": "compose",
+      "access": "direct",
+      "count": 200,
+      "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-study-a",
+      "input_sha256": "9a6cb2551df0cf0330c907576e45b041432598660380fae725124c1de7940c39",
+      "retention_measure": "Compose drawable XML asset files",
+      "artifacts": {
+        "release": {
+          "apk_bytes": 11769463,
+          "dex_bytes": 22236816,
+          "payload_bytes": 10248418,
+          "zip_entries": 3930,
+          "sha256": "9687dacf9bf312dbb4563cc524656643786ba7eb95dbac5b715cd57cb8dd7c29",
+          "retained": 3802,
+          "missing_selected": 0
+        },
+        "shrunk": {
+          "apk_bytes": 5109758,
+          "dex_bytes": 1505128,
+          "payload_bytes": 3584343,
+          "zip_entries": 3890,
+          "sha256": "fe525def73c4d6738a69fc1161769ebcad40663ddbf7efbca4e67f9089c6b833",
+          "retained": 3802,
+          "missing_selected": 0
+        }
+      }
+    },
+    {
+      "backend": "compose",
+      "access": "direct",
+      "count": 3802,
+      "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-study-a",
+      "input_sha256": "ab08d60abddb638c92fa41d262c535439f993f1f9fec9a384ae810a4758ac5ed",
+      "retention_measure": "Compose drawable XML asset files",
+      "artifacts": {
+        "release": {
+          "apk_bytes": 11908015,
+          "dex_bytes": 22552232,
+          "payload_bytes": 10372226,
+          "zip_entries": 3930,
+          "sha256": "581659f47398ca5120358720d5e693bac723317790ee16fbe21249763e0c0b1b",
+          "retained": 3802,
+          "missing_selected": 0
+        },
+        "shrunk": {
+          "apk_bytes": 5313852,
+          "dex_bytes": 2722864,
+          "payload_bytes": 3795175,
+          "zip_entries": 3890,
+          "sha256": "0946271d6845bfcc0cf437a4b51ee186c487a0ef6241c3def00843970eef78c7",
+          "retained": 3802,
+          "missing_selected": 0
+        }
+      }
+    },
+    {
+      "backend": "compose",
+      "access": "dynamic",
+      "count": 0,
+      "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-study-a",
+      "input_sha256": "12148400962b5d0da244cba98c28642b0c2c438287819644ebea78a94baf2b57",
+      "retention_measure": "Compose drawable XML asset files",
+      "artifacts": {
+        "release": {
+          "apk_bytes": 11767263,
+          "dex_bytes": 22219688,
+          "payload_bytes": 10240049,
+          "zip_entries": 3930,
+          "sha256": "fa97d6fb0a455184bec531000a9e6c7a10c4750d4b1c741d368c2df824b44716",
+          "retained": 3802,
+          "missing_selected": 0
+        },
+        "shrunk": {
+          "apk_bytes": 5320560,
+          "dex_bytes": 2827348,
+          "payload_bytes": 3793644,
+          "zip_entries": 3890,
+          "sha256": "97a8e784331758e82ca52cd2f0b8086ceb9c14b8dbabe7584d913f161fddd383",
+          "retained": 3802,
+          "missing_selected": 0
+        }
+      }
+    },
+    {
+      "backend": "compose",
+      "access": "dynamic",
+      "count": 1,
+      "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-study-a",
+      "input_sha256": "a55e99b30a68818add9603e457f65d629e83b455fdae792f0ff26667a86269b2",
+      "retention_measure": "Compose drawable XML asset files",
+      "artifacts": {
+        "release": {
+          "apk_bytes": 11767306,
+          "dex_bytes": 22219688,
+          "payload_bytes": 10240093,
+          "zip_entries": 3930,
+          "sha256": "2e0f8f0b3cc52930e0aec106b28fd010c1bd9178937560d2437721ea4d56f71e",
+          "retained": 3802,
+          "missing_selected": 0
+        },
+        "shrunk": {
+          "apk_bytes": 5320594,
+          "dex_bytes": 2827348,
+          "payload_bytes": 3793678,
+          "zip_entries": 3890,
+          "sha256": "a4f6cb85ea9715d16133e44fc78c41f1052498aa91694e7aa8fc6d815a17dd12",
+          "retained": 3802,
+          "missing_selected": 0
+        }
+      }
+    },
+    {
+      "backend": "compose",
+      "access": "dynamic",
+      "count": 25,
+      "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-study-a",
+      "input_sha256": "9bc6341f56fa622118e96d9f29fd00c6a19d201281a374056a3c65b32ac1c20f",
+      "retention_measure": "Compose drawable XML asset files",
+      "artifacts": {
+        "release": {
+          "apk_bytes": 11767518,
+          "dex_bytes": 22219688,
+          "payload_bytes": 10240337,
+          "zip_entries": 3930,
+          "sha256": "05e253e86925de21294d4393338c37e8e2b6ab6c34a6f5b38f4d4641f154c9f9",
+          "retained": 3802,
+          "missing_selected": 0
+        },
+        "shrunk": {
+          "apk_bytes": 5320808,
+          "dex_bytes": 2827348,
+          "payload_bytes": 3793889,
+          "zip_entries": 3890,
+          "sha256": "4c54c4152c34707212276d6fa9ab41898bd7a17a8c5699b81cdd25948cd2ee32",
+          "retained": 3802,
+          "missing_selected": 0
+        }
+      }
+    },
+    {
+      "backend": "compose",
+      "access": "dynamic",
+      "count": 200,
+      "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-study-a",
+      "input_sha256": "b54394054b032433f30157775d545f469f3579c4bdda00672c240193be7e96a4",
+      "retention_measure": "Compose drawable XML asset files",
+      "artifacts": {
+        "release": {
+          "apk_bytes": 11769463,
+          "dex_bytes": 22219692,
+          "payload_bytes": 10242091,
+          "zip_entries": 3930,
+          "sha256": "9ec0f204d6008e906233c853e6b4e3ed256b9347d441aa999e76c053e27747eb",
+          "retained": 3802,
+          "missing_selected": 0
+        },
+        "shrunk": {
+          "apk_bytes": 5322750,
+          "dex_bytes": 2827348,
+          "payload_bytes": 3795834,
+          "zip_entries": 3890,
+          "sha256": "afd487732bdb2a2276dd0ba0d38bdf8560b0b5feb71532378186c41b462cc747",
+          "retained": 3802,
+          "missing_selected": 0
+        }
+      }
+    },
+    {
+      "backend": "compose",
+      "access": "dynamic",
+      "count": 3802,
+      "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-study-a",
+      "input_sha256": "6dc29663903b27507be39fa47836b7746ee5a9e1543192ff36d76e131962bcf4",
+      "retention_measure": "Compose drawable XML asset files",
+      "artifacts": {
+        "release": {
+          "apk_bytes": 11809706,
+          "dex_bytes": 22219692,
+          "payload_bytes": 10282330,
+          "zip_entries": 3930,
+          "sha256": "6a75c4dc9dfeefd2ce9f5f235051ad23c25d6e8a474199f639b9c79e13f9847b",
+          "retained": 3802,
+          "missing_selected": 0
+        },
+        "shrunk": {
+          "apk_bytes": 5362996,
+          "dex_bytes": 2827348,
+          "payload_bytes": 3836079,
+          "zip_entries": 3890,
+          "sha256": "95dc8c2fe294d4035328815673f9a54b534b356034170408a6982e50d6225256",
+          "retained": 3802,
+          "missing_selected": 0
+        }
+      }
+    },
+    {
+      "backend": "vectors",
+      "access": "direct",
+      "count": 0,
+      "coordinates": "io.github.hlcaptain:symbols-material-vectors-outlined:0.0.0-study-a",
+      "input_sha256": "732f9b9f76a94552c9aa9859d64274692e032f9908e69a7f6838a1d4cdbbf91e",
+      "retention_measure": "DEX vector-name markers (diagnostic only)",
+      "artifacts": {
+        "release": {
+          "apk_bytes": 10006642,
+          "dex_bytes": 31291996,
+          "payload_bytes": 9941122,
+          "zip_entries": 129,
+          "sha256": "5fb59069ae9666bdd4bee039cc54d81b0bd990172bd5979677a7ca7cbffc992b",
+          "retained": 3802,
+          "missing_selected": 0
+        },
+        "shrunk": {
+          "apk_bytes": 856410,
+          "dex_bytes": 1352688,
+          "payload_bytes": 809644,
+          "zip_entries": 88,
+          "sha256": "7ce1790084002329856fad70af03b12db196688d938a31c10b50b8e7194b1763",
+          "retained": 0,
+          "missing_selected": 0
+        }
+      }
+    },
+    {
+      "backend": "vectors",
+      "access": "direct",
+      "count": 1,
+      "coordinates": "io.github.hlcaptain:symbols-material-vectors-outlined:0.0.0-study-a",
+      "input_sha256": "806f3a38191febbf0db39018d7e6f7bfdd86f423b298e59467c9981c7b85d392",
+      "retention_measure": "DEX vector-name markers (diagnostic only)",
+      "artifacts": {
+        "release": {
+          "apk_bytes": 10006675,
+          "dex_bytes": 31293028,
+          "payload_bytes": 9941867,
+          "zip_entries": 129,
+          "sha256": "1359c87e4e4434c474bb8f6c5eab9438cd279026d24525c1f0eb071236c93550",
+          "retained": 3802,
+          "missing_selected": 0
+        },
+        "shrunk": {
+          "apk_bytes": 872833,
+          "dex_bytes": 1384880,
+          "payload_bytes": 824999,
+          "zip_entries": 88,
+          "sha256": "cbda0e5e2b923640f88d4f370a9e220e4c38943e2b2bd1a39afb702e61177206",
+          "retained": 1,
+          "missing_selected": 0
+        }
+      }
+    },
+    {
+      "backend": "vectors",
+      "access": "direct",
+      "count": 25,
+      "coordinates": "io.github.hlcaptain:symbols-material-vectors-outlined:0.0.0-study-a",
+      "input_sha256": "e9bcbe192c64ddbed9022c02257ba8e1583b490216aebfe1b21299f3bdd367b9",
+      "retention_measure": "DEX vector-name markers (diagnostic only)",
+      "artifacts": {
+        "release": {
+          "apk_bytes": 10006895,
+          "dex_bytes": 31296168,
+          "payload_bytes": 9942539,
+          "zip_entries": 129,
+          "sha256": "c1f96e9ecbb4507ab1c0eebfc1d985e89fcebe49659a5716d427ac616d5fc888",
+          "retained": 3802,
+          "missing_selected": 0
+        },
+        "shrunk": {
+          "apk_bytes": 889434,
+          "dex_bytes": 1410376,
+          "payload_bytes": 833914,
+          "zip_entries": 88,
+          "sha256": "d78e26bd2fbec26e3af5f9619de02c2a42c7d5d5d8d64e6e1859e3a2fc656e01",
+          "retained": 25,
+          "missing_selected": 0
+        }
+      }
+    },
+    {
+      "backend": "vectors",
+      "access": "direct",
+      "count": 200,
+      "coordinates": "io.github.hlcaptain:symbols-material-vectors-outlined:0.0.0-study-a",
+      "input_sha256": "b5b072cd0b35b1163e5ee257249ee448e8786525a0e9b3d110b31284633eedd3",
+      "retention_measure": "DEX vector-name markers (diagnostic only)",
+      "artifacts": {
+        "release": {
+          "apk_bytes": 10008832,
+          "dex_bytes": 31319012,
+          "payload_bytes": 9952030,
+          "zip_entries": 129,
+          "sha256": "5a4dc398a23fc2d66c61a627c33d9bd31375423d0ca4315e0b575db95fcfbc6e",
+          "retained": 3802,
+          "missing_selected": 0
+        },
+        "shrunk": {
+          "apk_bytes": 940531,
+          "dex_bytes": 1576580,
+          "payload_bytes": 893427,
+          "zip_entries": 88,
+          "sha256": "fb525a657f1a50380ad1ee10dd544e70392c45d961ce1210ef4b1b797cb8af9b",
+          "retained": 200,
+          "missing_selected": 0
+        }
+      }
+    },
+    {
+      "backend": "vectors",
+      "access": "direct",
+      "count": 3802,
+      "coordinates": "io.github.hlcaptain:symbols-material-vectors-outlined:0.0.0-study-a",
+      "input_sha256": "342345c4f650ef4e84badf57eea8eba2665c1e282ec04f850f1573e29d70e686",
+      "retention_measure": "DEX vector-name markers (diagnostic only)",
+      "artifacts": {
+        "release": {
+          "apk_bytes": 10130996,
+          "dex_bytes": 31725884,
+          "payload_bytes": 10077614,
+          "zip_entries": 129,
+          "sha256": "53b94ff3481203661f81c71e54c083e2d8173c90b3c1e8d323bbf78b7c820d47",
+          "retained": 3802,
+          "missing_selected": 0
+        },
+        "shrunk": {
+          "apk_bytes": 2373419,
+          "dex_bytes": 5506316,
+          "payload_bytes": 2318781,
+          "zip_entries": 88,
+          "sha256": "7909d2e50269fd652f407fe5c8d4ff5bb30d5543c842b749ac9989c6c17dca5c",
+          "retained": 3802,
+          "missing_selected": 0
+        }
+      }
+    },
+    {
+      "backend": "vectors",
+      "access": "dynamic",
+      "count": 0,
+      "coordinates": "io.github.hlcaptain:symbols-material-vectors-outlined:0.0.0-study-a",
+      "input_sha256": "df6ee04fb3177ab39b9e4cae251a9fa3e9d2e18e38470307443978c87457c43b",
+      "retention_measure": "DEX vector-name markers (diagnostic only)",
+      "artifacts": {
+        "release": {
+          "apk_bytes": 10006639,
+          "dex_bytes": 31293024,
+          "payload_bytes": 9941598,
+          "zip_entries": 129,
+          "sha256": "2f2f7fa9201dd07df3c82b4e283c90169125766f987d013246f31345f1b9704b",
+          "retained": 3802,
+          "missing_selected": 0
+        },
+        "shrunk": {
+          "apk_bytes": 2396503,
+          "dex_bytes": 5563788,
+          "payload_bytes": 2337013,
+          "zip_entries": 88,
+          "sha256": "623bf7680846ec5e945a4bd7a1bd18117037d64c50ae2619d274e1dd535774c1",
+          "retained": 3802,
+          "missing_selected": 0
+        }
+      }
+    },
+    {
+      "backend": "vectors",
+      "access": "dynamic",
+      "count": 1,
+      "coordinates": "io.github.hlcaptain:symbols-material-vectors-outlined:0.0.0-study-a",
+      "input_sha256": "58b4a1e1d5e79320e85afe4924b69fc3b5a325fe0a458f978d4922fb4de25246",
+      "retention_measure": "DEX vector-name markers (diagnostic only)",
+      "artifacts": {
+        "release": {
+          "apk_bytes": 10006679,
+          "dex_bytes": 31293024,
+          "payload_bytes": 9941639,
+          "zip_entries": 129,
+          "sha256": "2256c7aadc358c08232b192835c014e36328ace88d0748264d1d2ad425541c40",
+          "retained": 3802,
+          "missing_selected": 0
+        },
+        "shrunk": {
+          "apk_bytes": 2396546,
+          "dex_bytes": 5563788,
+          "payload_bytes": 2337056,
+          "zip_entries": 88,
+          "sha256": "91dd72f87ff8ebcf106379368909f9e2de3ec3c5cb47b6e571835158d939c3e4",
+          "retained": 3802,
+          "missing_selected": 0
+        }
+      }
+    },
+    {
+      "backend": "vectors",
+      "access": "dynamic",
+      "count": 25,
+      "coordinates": "io.github.hlcaptain:symbols-material-vectors-outlined:0.0.0-study-a",
+      "input_sha256": "68e08fa8ce1f45719f33eccd78aa803efdca07b6675511f2e1e4040770673f12",
+      "retention_measure": "DEX vector-name markers (diagnostic only)",
+      "artifacts": {
+        "release": {
+          "apk_bytes": 10006895,
+          "dex_bytes": 31293024,
+          "payload_bytes": 9941844,
+          "zip_entries": 129,
+          "sha256": "69950bb2ff6c671f6eff57b3e75a1f51286813a629fa594db1f3c030a5a3e7c8",
+          "retained": 3802,
+          "missing_selected": 0
+        },
+        "shrunk": {
+          "apk_bytes": 2396760,
+          "dex_bytes": 5563788,
+          "payload_bytes": 2337271,
+          "zip_entries": 88,
+          "sha256": "fc26c6bd883fe26fd2c51624ffec735def3e462947012bec3bc0f3d663510663",
+          "retained": 3802,
+          "missing_selected": 0
+        }
+      }
+    },
+    {
+      "backend": "vectors",
+      "access": "dynamic",
+      "count": 200,
+      "coordinates": "io.github.hlcaptain:symbols-material-vectors-outlined:0.0.0-study-a",
+      "input_sha256": "0d4b59cc7d8a684cb70942145fdbb6790ee0a85d16780a3a8a9e6bde5d853ff7",
+      "retention_measure": "DEX vector-name markers (diagnostic only)",
+      "artifacts": {
+        "release": {
+          "apk_bytes": 10008835,
+          "dex_bytes": 31293024,
+          "payload_bytes": 9943806,
+          "zip_entries": 129,
+          "sha256": "0069ac2ea58940a723968a9cb323af9b221d5c749486782614d6cc485c0bf3d6",
+          "retained": 3802,
+          "missing_selected": 0
+        },
+        "shrunk": {
+          "apk_bytes": 2398712,
+          "dex_bytes": 5563788,
+          "payload_bytes": 2339222,
+          "zip_entries": 88,
+          "sha256": "849fed41e17413c1024c939154764f0f0c9459022b6ba6cde22a0046e971b2bb",
+          "retained": 3802,
+          "missing_selected": 0
+        }
+      }
+    },
+    {
+      "backend": "vectors",
+      "access": "dynamic",
+      "count": 3802,
+      "coordinates": "io.github.hlcaptain:symbols-material-vectors-outlined:0.0.0-study-a",
+      "input_sha256": "c710f8162b2e876305032c7c094582323f6a51af4d29b0ee212e63eb3065f807",
+      "retention_measure": "DEX vector-name markers (diagnostic only)",
+      "artifacts": {
+        "release": {
+          "apk_bytes": 10049087,
+          "dex_bytes": 31293024,
+          "payload_bytes": 9984059,
+          "zip_entries": 129,
+          "sha256": "50771d04b0993ea3e998d370817aabbdc5325e253c3e223c569b81262ec90c0f",
+          "retained": 3802,
+          "missing_selected": 0
+        },
+        "shrunk": {
+          "apk_bytes": 2438949,
+          "dex_bytes": 5563788,
+          "payload_bytes": 2379458,
+          "zip_entries": 88,
+          "sha256": "dcd82a620679236ba91d23e359e6e144a0dbba029633ea6622eabc51eb22d241",
+          "retained": 3802,
+          "missing_selected": 0
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,358 @@
+{
+  "schema_version": 2,
+  "candidate": "05",
+  "status": "Local upstream candidate05 passes bounded Android/JVM integrations, API23 reader/qualifier rendering, upstream Kotlin2.2 focused tests, and JS/Wasm library packaging. Official activation remains unavailable.",
+  "official_upstream_activation_available": false,
+  "scope": {
+    "producer_targets": [
+      "Android KMP",
+      "JVM",
+      "JS IR library",
+      "WasmJS library"
+    ],
+    "consumer": "Separate published-artifact Android Compose app",
+    "bounded_typed_fixture": {
+      "owned_xml": 2,
+      "authored_drawable": 1,
+      "unrelated_raw_file": 1
+    },
+    "reader_contract_fixture": {
+      "owned_xml": 4,
+      "physical_theme_variants": 2
+    },
+    "app_backend_plugin": false,
+    "app_backend_opt_in": false,
+    "custom_app_initializer": false,
+    "special_keep_rules": false
+  },
+  "source_inputs": {
+    "compose-native-xml.patch": "7f09d1fd016103704ad25636f684cbc77dbb85dabe9484f63cba0465e58630f9",
+    "imports-1.11.1.patch": "c6b1ce70d8cfb786465e3e035143ffd2111aeca9135c44489c473b57e0aa911f",
+    "imports-1.12.1.patch": "f1fa9b29dca229536c9333d88b6ba23789e507b111747bb8cdc3dc83de3e9d69",
+    "NativeAndroidXmlResources.kt": "bd1da974501361854752497625b112b7821b9fa1458050cd18b964a8c9212e8f",
+    "NativeAndroidXmlResourcesTest.kt": "53b2ebf909eda015a4fa306dd709dccb48a05055f70e941225a68e9e614384c7"
+  },
+  "baselines": {
+    "1.11.1": {
+      "generator_candidate": "1.11.2-native-xml05",
+      "runtime_candidate": "1.11.2-native-raw02",
+      "symbols_candidate": "0.0.0-pruning-api02",
+      "upstream_source_sha256": "c5140e825fc0ee7cd037b942e5807e293d90b4d39a52e5edbba1b551dac8fb48",
+      "effective_patch_sha256": "b7430345d68e6d228526b4df3d050c47977b3fbe2c1e21db8532c300206276d1",
+      "generator_jar_sha256": "1e782d29eb2be59c8413ae6270d0371acf578b5fdb396808dee27ec2981f3d8a",
+      "rebuilt_resource_classes": 52,
+      "focused_tests": {
+        "passed": 2,
+        "failures": 0,
+        "disabled_output_oracle": "Byte-for-byte comparison against the original published generator",
+        "test_results_sha256": "d0eb0fcc77f175d2d4bac4a7eba7e4295be365a9b084cb4618163a5428b2e4c8"
+      },
+      "integration": {
+        "passed": true,
+        "stages": [
+          "disabled",
+          "enabled",
+          "disabled-again",
+          "publish-enabled",
+          "reuse-enabled",
+          "cache-seed",
+          "cache-restore",
+          "consumer",
+          "consumer-reuse"
+        ],
+        "checks": [
+          "false -> true -> false -> true without manual cleanup",
+          "unchanged disabled accessor/asset output",
+          "native task build-cache restoration",
+          "configuration-cache reuse",
+          "published Android and JVM artifacts",
+          "JVM XML byte parity",
+          "APK and AAB: used owned XML exactly once; unused owned XML absent",
+          "authored drawable and unrelated file preserved"
+        ],
+        "evidence_directory": "native-generator-1111-05",
+        "result_sha256": "5a153a6ae975f513fd8ccab24bbdc4050c409225144bd80c0fe491738a6c4684",
+        "archives": [
+          {
+            "format": "apk",
+            "bytes": 742238,
+            "sha256": "e57d0d2ba508de839b127062a3a3990ff0e8316e23938d885e55c6d719e97d88"
+          },
+          {
+            "format": "aab",
+            "bytes": 1661871,
+            "sha256": "43650c06abfc97ef23dc27e534b87fcab6e02d29d3f2e7afab553d4dd08b4bb7"
+          }
+        ]
+      }
+    },
+    "1.12.1": {
+      "generator_candidate": "1.12.2-native-xml05",
+      "runtime_candidate": "1.12.2-native-raw02",
+      "symbols_candidate": "0.0.0-pruning-api02",
+      "upstream_source_sha256": "2fdf6513d875644c2fcde80d5b5816c9fae6a8a6205ebc8a09407708698a67eb",
+      "effective_patch_sha256": "0290de7e52ecc080d22b74b7ebcdc990fd311fd94aa8ea86b4976a534f8c82e5",
+      "generator_jar_sha256": "d3767ffd518af1d1eb0d1e18feb06436852f22fd77d82650532200cdb523ec33",
+      "rebuilt_resource_classes": 52,
+      "focused_tests": {
+        "passed": 2,
+        "failures": 0,
+        "disabled_output_oracle": "Byte-for-byte comparison against the original published generator",
+        "test_results_sha256": "dc31116c89572b685a461a14d881501ecab52e7f924661ca00877a9f49a68187"
+      },
+      "integration": {
+        "passed": true,
+        "gate": "Actual-generator physical qualifier and reader contracts",
+        "stages": [
+          "producer",
+          "producer-reuse",
+          "consumer",
+          "consumer-reuse"
+        ],
+        "configuration_cache_reused": true,
+        "enrolled_xml": 4,
+        "retained_xml": 4,
+        "dynamic_raw_dispatch_retains_complete_pack": true,
+        "apk_sha256": "0c1dd85d572a7b3c70b701fdd3ffd7a7d9fbb5f1b7abc3a1b2eeda0c43062a95",
+        "evidence_directory": "native-generator-contracts-03",
+        "result_sha256": "04b1258ec54d39825ea376261a8014fcd13aea082f06f2a530d6d02fa01c0206",
+        "scope": "Separate four-stage reader/qualifier fixture; no relabeling of candidate04 nine-stage integration. Full-pack retention is recorded separately."
+      }
+    }
+  },
+  "holder_tradeoff": {
+    "private_classes_per_enrolled_logical_resource": 1,
+    "initialization": "Plain eager val inside a private object; the object initializes once on first use. No second lazy delegate or per-access descriptor allocation.",
+    "resource_content_hash": "Same folded hash stored on @field for native holders; original @delegate output retained for non-enrolled resources.",
+    "class_count_reduction_claimed": false,
+    "unshrunk_aar_remains_larger_than_assets": true,
+    "full_pack_results": "GENERATOR_FULL_PACK_RESULTS.json",
+    "full_pack_timing_and_size_claims_recorded_separately": true
+  },
+  "source_and_bytecode_abi": {
+    "baseline": "1.11.1",
+    "before_generator": "1.11.2-native-xml04",
+    "after_generator": "1.11.2-native-xml05",
+    "public_class_count": 17,
+    "public_declarations_identical": true,
+    "method": "javap -protected -s -constants for all public classes; javap -p -v -c for both private holders",
+    "kotlin_modules_identical": true,
+    "holder_count": 2,
+    "field_hashes_preserved": {
+      "example.resources._NativeXml_CommonMainDrawable0_fixture_icons_outlined_check": -258640827,
+      "example.resources._NativeXml_CommonMainDrawable0_fixture_icons_outlined_unused": 907290317
+    },
+    "private_backing_fields_are_eager_DrawableResource": true,
+    "getters_only_read_cached_static_value": true,
+    "Lazy_delegates_and_lambda_methods_absent": true,
+    "aar_sha256": {
+      "04": "8d2f14febc55d13c1cb734dbbd8bfa82f82f7defc53c8cf9d3f9c116deee73a4",
+      "05": "8ab9f8a97d9211da0878fa9205801d2e17b2b476287c06412c40173f0ebfda45"
+    },
+    "scope": "Bytecode/source evidence. JVM property caching is verified structurally; no claim of Hot Reload UI validation.",
+    "evidence_directory": "upstream-generator-candidate05/abi",
+    "result_sha256": "ca414ba1cba568cb56d8e96100e6829f717e43ea813054aa754e8f4597acf0b6"
+  },
+  "upstream_compiler_validation": {
+    "base_commit": "d337cc6de4528678e58f007ae8f7796dc300717b",
+    "candidate_generator": "1.12.2-native-xml05",
+    "runtime_candidate": "1.12.2-native-raw02",
+    "candidate04_directory_unchanged": true,
+    "source_patch_sha256": "abfbd1aa5f2c20208232b0ce54a8f6314ecada50c4228682768f6ff534ad1f82",
+    "test_patch_sha256": "769875473f00ba3193c806b60a2396e423560b42411899d9aaaa83f7c2150cf5",
+    "git_apply_check_passed": true,
+    "build_status": "passed",
+    "compiler": "Kotlin2.2.0 (unchanged upstream catalog)",
+    "language_api": "2.0",
+    "jvm_target": 11,
+    "gradle": "9.5.0",
+    "jdk": 21,
+    "passed": 2,
+    "failed": 0,
+    "tests": [
+      "disabledGeneratorMatchesStockExpectedResources(kotlin=2.4.20)",
+      "enrollmentPreservesOwnershipQualifiersAndNonAndroidPaths(kotlin=2.4.20)"
+    ],
+    "test_xml_sha256": "feab3ff907db2345ad0a832d6f0915f55cefecee33d70c93d3ba78a690ac9b45",
+    "log_sha256": "8db02f150a5e9d8055a804d53be13993b96dde41dc1f4efece397554f286a766",
+    "candidate04_export_files_unchanged": 9,
+    "bounds": "Actual complete Gradle plugin compile and focused JUnit5 tests; not a reader rebuild, browser runtime, or Hot Reload UI test.",
+    "evidence_directory": "upstream-handoff-05",
+    "result_sha256": "033807f05c4fe660924a3114ec9d8e0be8e1a8e2d8cb1092d6ae7c38de38449a",
+    "test_label_note": "The kotlin=2.4.20 test-name suffix comes from the upstream integration-fixture property; the actual compiler was Kotlin2.2.0."
+  },
+  "non_android_library_validation": {
+    "generator_candidate": "1.12.2-native-xml05",
+    "android_native_flag_enabled": true,
+    "reference_jar_sha256": "ebf3a2c3c20824f1aae8b5e826880555cae11facbda5c4ff09e033e6f691da5d",
+    "targets": {
+      "js": {
+        "library_compiled": true,
+        "owned_path_factories": 2,
+        "original_asset_paths": true,
+        "xml_files": 3,
+        "unrelated_files": 1,
+        "exact_reference_resource_bytes": true,
+        "resource_zip_bytes": 2314,
+        "resource_zip_sha256": "cda68153c420d8089e424de2c26f97720e2ae3eceea389be2d88a06b70f0e24e",
+        "klib_bytes": 3548813,
+        "klib_sha256": "3105e9829828c0cdaeca811c9b2596df0d4a9f22710f4cbb06caf3f69978ab43"
+      },
+      "wasmJs": {
+        "library_compiled": true,
+        "owned_path_factories": 2,
+        "original_asset_paths": true,
+        "xml_files": 3,
+        "unrelated_files": 1,
+        "exact_reference_resource_bytes": true,
+        "resource_zip_bytes": 2314,
+        "resource_zip_sha256": "cda68153c420d8089e424de2c26f97720e2ae3eceea389be2d88a06b70f0e24e",
+        "klib_bytes": 28269,
+        "klib_sha256": "d8123ebd866626cbb0686e476e80e1224d7847ab1b40a258e007304fd1f26884"
+      }
+    },
+    "scope": "Two owned XML files, one authored drawable, one unrelated file. No executable bundling, browser rendering, Apple compilation, or performance claim.",
+    "evidence_directory": "native-generator-web-1121-05",
+    "result_sha256": "fadc7ae8d690106d77120c769409fe2ea92512fa57dfb8b045d32eef59ade96a"
+  },
+  "precompiled_cross_family_consumer": {
+    "status": "passed for the generated XML resource-pack subset",
+    "producer_compose_baseline": "1.11.1",
+    "generator_candidate": "1.11.2-native-xml05",
+    "producer_runtime_candidate": "1.11.2-native-raw02",
+    "consumer_compose_baseline": "1.12.1",
+    "consumer_runtime_candidate": "1.12.2-native-raw02",
+    "producer_rebuilt": false,
+    "unchanged_producer_aar_sha256": "8ab9f8a97d9211da0878fa9205801d2e17b2b476287c06412c40173f0ebfda45",
+    "stages_passed": 11,
+    "checks": [
+      "ordinary consumer dependency upgrade; no resolution forcing/substitution",
+      "precompiled published AAR unchanged",
+      "coherent UI/foundation/runtime resolution",
+      "APK/AAB exact used/unused owned XML retention",
+      "configuration-cache reuse"
+    ],
+    "resolved_runtime": {
+      "androidx.compose.ui:ui-android": "1.12.1",
+      "androidx.compose.foundation:foundation-android": "1.12.1",
+      "androidx.compose.runtime:runtime-android": "1.12.1",
+      "org.jetbrains.compose.components:components-resources-android": "1.12.2-native-raw02"
+    },
+    "archives": [
+      {
+        "format": "apk",
+        "bytes": 755515,
+        "sha256": "82cc4ece0ddef584c90b1ab871eb0cb5726fa621ef4d42de6ab97ff99b6e03a9"
+      },
+      {
+        "format": "aab",
+        "bytes": 1671237,
+        "sha256": "df1344704a0d90ce3af6f0f5f86f8787360ce7de81fbb136bd967eb57a2e327b"
+      }
+    ],
+    "evidence_directory": "native-generator-1111-05",
+    "result_sha256": "5a153a6ae975f513fd8ccab24bbdc4050c409225144bd80c0fe491738a6c4684",
+    "reproduce_flags": [
+      "--upgrade-consumer-to",
+      "1.12.1",
+      "--upgrade-runtime-to",
+      "1.12.2-native-raw02"
+    ],
+    "scope": "Generated resource-pack subset only; not universal Compose framework ABI. No candidate05 Pixel/API37 upgrade claim."
+  },
+  "device": {
+    "generator_candidate": "1.12.2-native-xml05",
+    "runtime_candidate": "1.12.2-native-raw02",
+    "android_api": 23,
+    "device": "Android x86_64 emulator",
+    "passed": true,
+    "apk_sha256": "0c1dd85d572a7b3c70b701fdd3ffd7a7d9fbb5f1b7abc3a1b2eeda0c43062a95",
+    "markers": [
+      "PRE_CONTEXT_DESCRIPTOR_OK",
+      "CONTRACT_OK theme=LIGHT",
+      "CONTRACT_OK theme=DARK",
+      "CONTRACT_ALL_OK"
+    ],
+    "visual_check": "Screenshot inspected: separate black LIGHT and blue DARK drawings rendered.",
+    "cleanup": {
+      "fixture_uninstalled": true,
+      "isolated_emulator_stopped": true,
+      "pixel_touched": false
+    },
+    "screenshot_sha256": "7752ca70975151e7377a45e5f7066e4de05d295823712114528fc53c1bde9fc7",
+    "log_sha256": "5c1066d66f4c65d17ec1453086447142b6191702b6b48bf79cad27b3a47b1638",
+    "evidence_directory": "native-generator-contracts-03",
+    "device_result_sha256": "3c3c35556eb44cafee392b850a1e1d4330647ae72caacf8fcb5486b5ee27c48c",
+    "scope": "Functional generated-descriptor, physical qualifier and reader checks; not a performance measurement, Pixel37 run, or preview/Hot Reload test."
+  },
+  "reader_contracts": {
+    "reproducer": "upstream-generator/contracts.py",
+    "checks": [
+      "descriptor getter before Android context-provider installation",
+      "LIGHT/DARK physical XML selection by source hash",
+      "Res.readBytes equals the selected XML bytes",
+      "Res.getUri uses app identity and ContentResolver returns identical bytes",
+      "readPart normal/empty/short-read behavior",
+      "malformed and missing native IDs rejected",
+      "untouched asset fallback",
+      "runtime raw paths retain every owned XML exactly once"
+    ],
+    "variant_hashes": [
+      {
+        "theme": "LIGHT",
+        "path": "drawable-light/contract.xml",
+        "sha256": "b8d44813356f88c5294663dc7af8fb634e45275f33f143a7290aef7ad3fbc53d"
+      },
+      {
+        "theme": "DARK",
+        "path": "drawable-dark/contract.xml",
+        "sha256": "d28c59d4af35a9e5f27ffc54768a2574545fb95f18eae3834eaa217d2658bca0"
+      }
+    ],
+    "result_sha256": "04b1258ec54d39825ea376261a8014fcd13aea082f06f2a530d6d02fa01c0206",
+    "actual_generated_accessors": true,
+    "handwritten_resource_facades": false,
+    "configuration_cache_reuses": 2,
+    "evidence_sha256": {
+      "result.json": "04b1258ec54d39825ea376261a8014fcd13aea082f06f2a530d6d02fa01c0206",
+      "device-result.json": "3c3c35556eb44cafee392b850a1e1d4330647ae72caacf8fcb5486b5ee27c48c",
+      "device-contracts.log": "5c1066d66f4c65d17ec1453086447142b6191702b6b48bf79cad27b3a47b1638",
+      "device-contracts.png": "7752ca70975151e7377a45e5f7066e4de05d295823712114528fc53c1bde9fc7"
+    },
+    "reproducer_sha256": "9fd637ea44b2e7e21a2aefa0b09b84672a43bb41b4a0657055a010c69ba05904"
+  },
+  "capability_scope": "native-xml-v1 promises the Android helper/protocol only, not universal Compose ABI between version families. See RUNTIME_PROPOSAL_RESULTS.json.",
+  "remaining_actual_generator_gates": [
+    "IDE preview and actual Hot Reload UI",
+    "Apple library compilation and runtime",
+    "JS/Wasm browser execution",
+    "Custom readers, test compilations, and split-delivery configurations",
+    "Supported official upstream generator/runtime releases before production activation"
+  ],
+  "hosted_ci": {
+    "candidate05": "not yet verified",
+    "historical_commit": "a8b8dacee527486706256c6be74733180f8a87b5",
+    "historical_candidate": "04",
+    "historical_status": "all hosted jobs passed; this does not validate uncommitted candidate05"
+  },
+  "previous_candidate_04": {
+    "report_commit": "a8b8dacee527486706256c6be74733180f8a87b5",
+    "report_url": "https://github.com/HLCaptain/symbols/blob/a8b8dacee527486706256c6be74733180f8a87b5/benchmarks/resource-pipeline/native-raw/GENERATOR_PROPOSAL_RESULTS.json",
+    "report_sha256": "2a60f980da24b16f3558f2df8689cee5b3fce577089fb27d806b45a86177c6ac",
+    "generator_candidates": [
+      "1.11.2-native-xml04",
+      "1.12.2-native-xml04"
+    ],
+    "historical_pixel37_checks": [
+      "matched1.12.1 consumer",
+      "precompiled1.11.1 resource pack under1.12.1 consumer"
+    ],
+    "pixel_apk_sha256": [
+      "148284f22c2f6d7a71a84d1845a57b688ac4daa5205123db013e7a762e05444e",
+      "cf28466835299b688ac73b652d5e7470f43f1b175a07ddf184ed938a24c8436d"
+    ],
+    "frozen_publication_files_unchanged": 12,
+    "scope": "Immutable prior evidence; no candidate04 result is relabeled as candidate05."
+  },
+  "upstream_submission_status": "local proposal; not submitted"
+}

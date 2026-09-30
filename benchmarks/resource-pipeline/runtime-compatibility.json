@@ -1,0 +1,165 @@
+{
+  "measured": "2026-09-28",
+  "scope": "Runtime smoke checks, not rendering equivalence or performance measurements",
+  "emulator": "37.2.5.0, KVM, x86_64, SwiftShader, one emulator at a time",
+  "device_profile": "Nexus 5, 1080x1920, 480 dpi, 1536 MB RAM, two virtual CPU cores, 1 GB userdata",
+  "system_images": {
+    "21": {
+      "sdk_package": "system-images/android-21/default/x86_64",
+      "revision": 5,
+      "fingerprint": "generic_x86_64/sdk_phone_x86_64/generic_x86_64:5.0.2/LSY66K/4174711:eng/test-keys"
+    },
+    "23": {
+      "sdk_package": "system-images/android-23/default/x86_64",
+      "revision": 10,
+      "fingerprint": "Android/sdk_phone_x86_64/generic_x86_64:6.0/MASTER/4174734:userdebug/test-keys"
+    }
+  },
+  "cases": [
+    {
+      "api": 23,
+      "case": "android-direct-1",
+      "apk_sha256": "57c0e00ab7c1d3d04f287425a52bde60cfd4f2161e57bd50420bcf886c9e9e26",
+      "shrunk": true,
+      "foreground_activity_confirmed": true,
+      "visual_observation": "Expected 10K icon visibly rendered",
+      "icon_roi": [
+        24,
+        96,
+        246,
+        240
+      ],
+      "dark_pixels_in_roi": 6299,
+      "runtime_error_matches": 0,
+      "provenance": {
+        "library_source_commit": "8fb5fce52537d300bf1127fdc8361f9b15c0d620",
+        "publication_coordinates": "io.github.hlcaptain:symbols-material-drawables-outlined:0.0.0-study-b",
+        "android_archive_sha256": "133eee1c04e3dfc57b95584652cac01af439c13bbe909a6be5ccde52ff92bbe7",
+        "fixture_recipe": "README.md#independent-usage-count-fixtures",
+        "fixture_selection": {
+          "backend": "android",
+          "access": "direct",
+          "count": 1
+        }
+      }
+    },
+    {
+      "api": 23,
+      "case": "vectors-direct-1",
+      "apk_sha256": "26ba58a4c5c99f820ed6dd961dd66504825b3500284c55c32cee219f1f747bea",
+      "shrunk": true,
+      "foreground_activity_confirmed": true,
+      "visual_observation": "Expected 10K icon visibly rendered",
+      "icon_roi": [
+        24,
+        96,
+        246,
+        240
+      ],
+      "dark_pixels_in_roi": 6300,
+      "runtime_error_matches": 0,
+      "provenance": {
+        "library_source_commit": "8fb5fce52537d300bf1127fdc8361f9b15c0d620",
+        "publication_coordinates": "io.github.hlcaptain:symbols-material-vectors-outlined:0.0.0-study-b",
+        "android_archive_sha256": "62391ed14c44107371b288cabff0891581778528efe9c5c63e67930987c0434c",
+        "fixture_recipe": "README.md#independent-usage-count-fixtures",
+        "fixture_selection": {
+          "backend": "vectors",
+          "access": "direct",
+          "count": 1
+        }
+      }
+    },
+    {
+      "api": 23,
+      "case": "compose-direct-1",
+      "apk_sha256": "ef5a70d460dc93237e8cbd29a828cf418a7673f05e0058ff831ec0dff68bacb1",
+      "shrunk": true,
+      "foreground_activity_confirmed": true,
+      "visual_observation": "Expected 10K icon visibly rendered",
+      "icon_roi": [
+        24,
+        96,
+        246,
+        240
+      ],
+      "dark_pixels_in_roi": 6299,
+      "runtime_error_matches": 0,
+      "provenance": {
+        "library_source_commit": "8fb5fce52537d300bf1127fdc8361f9b15c0d620",
+        "publication_coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-study-b",
+        "android_archive_sha256": "5e1c6d5ab22c8766b6238b33abdbcfbcb3210fecb855256411e251a70a726e00",
+        "fixture_recipe": "README.md#independent-usage-count-fixtures",
+        "fixture_selection": {
+          "backend": "compose",
+          "access": "direct",
+          "count": 1
+        }
+      }
+    },
+    {
+      "api": 23,
+      "case": "material-static",
+      "apk_sha256": "e6e50022eb9ce0bc7900422763184d24bf323981ef22bfc2dae96d341ac079d7",
+      "shrunk": true,
+      "temporary_debug_signed_copy": true,
+      "foreground_activity_confirmed": true,
+      "visual_observation": "Static-font Home, Search, Favorite and Compose-resource Home visibly rendered",
+      "foreground_pixels_by_icon_roi": {
+        "Home": 4016,
+        "Search": 2796,
+        "Favorite": 3555,
+        "Home Compose drawable": 3967
+      },
+      "runtime_error_matches": 0,
+      "provenance": {
+        "source_commit": "3aea238f2b6877fef005e26d8547cd7fcebfc129",
+        "sample_profile": "material-static",
+        "variant": "shrunk",
+        "unsigned_apk_sha256": "00fc4c9bb98cec2589c7621193b8f5f2bb45e042edcd60adb6eb931ca767ca3d",
+        "build_recipe": "../sample-app/README.md",
+        "copy_changes": [
+          "debug signing; original APK unchanged"
+        ]
+      }
+    },
+    {
+      "api": 21,
+      "case": "legacy-java-xml",
+      "apk_sha256": "b96ceeddaf7136b318c451c2c49c6c628eef8eebb7e92c7e42ea285ed85920a3",
+      "shrunk": true,
+      "gradle": "8.14.5",
+      "agp": "8.13.2",
+      "min_sdk": 21,
+      "isolated_copy_changes": [
+        "exported test Activity",
+        "debug-sign release"
+      ],
+      "foreground_activity_confirmed": true,
+      "visual_observation": "Published Material Home and generated native SVG foreground visibly rendered",
+      "dark_pixels_in_content_roi": 435696,
+      "runtime_error_matches": 0,
+      "layout_inspector": "Android CLI helper unsupported; activity state and screenshot used",
+      "provenance": {
+        "tooling_source_commit": "3aea238f2b6877fef005e26d8547cd7fcebfc129",
+        "plugin_id": "io.github.hlcaptain.symbol-fonts",
+        "publication_version": "0.0.0-upgrade-test",
+        "plugin_jar_sha256": "9d810b1c9c2b709247a8752f6a4807ac7cdcdf3a576ca7d81108a8108e85111f",
+        "library_coordinates": "io.github.hlcaptain:symbols-material-drawables-outlined:0.0.0-upgrade-test",
+        "android_archive_sha256": "133eee1c04e3dfc57b95584652cac01af439c13bbe909a6be5ccde52ff92bbe7",
+        "fixture_recipe": "../../tooling/compatibility/README.md",
+        "fixture_profile": "android-java",
+        "copy_changes": [
+          "exported test Activity",
+          "debug-sign release"
+        ]
+      }
+    }
+  ],
+  "cleanup": {
+    "temporary_emulators_stopped": true,
+    "physical_pixel_untouched": true,
+    "temporary_avds_removed": true
+  },
+  "raw_evidence": "Screenshots, hierarchy dumps, and logs remain local under /tmp/symbols-api21-* and /tmp/symbols-api23-*."
+}

@@ -1,0 +1,127 @@
+{
+  "measured": "2026-09-28",
+  "scope": "preparatory payload/resource validation; no controlled timing claims",
+  "profile": "android-views",
+  "change": "Generate the existing Tabler SVGs as native XML in android-views-platform instead of depending on the image-vector-migration sample.",
+  "xml_sha256_identical_B_C": {
+    "tabler_outline_home.xml": "a2534ef6ec864fd292c86f641f3b8f8f749a5e975a7b97591abd46b0474cc01d",
+    "tabler_outline_hierarchy_2.xml": "8c015976e14bec7af9b6226572aacae468c8cc260f32bdcc8383c24b9a7f21c1",
+    "tabler_outline_settings.xml": "de8d3e0fc5e0328d2d360ba3a4029e7d788bd8ef4e067d0cfceca41ce691ec66"
+  },
+  "variants": {
+    "release": {
+      "B": {
+        "apk_bytes": 36770144,
+        "sha256": "40a5dc9099b40c153fae6862c41b34fce8a901651fe6c32eb07b9b0c8854d81d",
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.resources/font/material_symbols_rounded_variable.ttf",
+            "compressed_bytes": 14586584,
+            "uncompressed_bytes": 14586584,
+            "compression": "stored"
+          },
+          {
+            "path": "res/cps.otf",
+            "compressed_bytes": 1317,
+            "uncompressed_bytes": 2264,
+            "compression": "deflated"
+          }
+        ],
+        "retained_drawables": [
+          "android_view_icons_regular_branch_ue0a0",
+          "google_home_f0_w400_g0_opsz24",
+          "material_symbols_outlined_favorite_ue87e",
+          "material_symbols_outlined_home_ue9b2",
+          "tabler_outline_hierarchy_2",
+          "tabler_outline_home"
+        ]
+      },
+      "C": {
+        "apk_bytes": 17523059,
+        "sha256": "4745e443dae99a2bbec3382b1548f06b92ffaefca5d2ea801c7062f9ad5e3943",
+        "fonts": [
+          {
+            "path": "res/cps.otf",
+            "compressed_bytes": 1317,
+            "uncompressed_bytes": 2264,
+            "compression": "deflated"
+          }
+        ],
+        "retained_drawables": [
+          "android_view_icons_regular_branch_ue0a0",
+          "google_home_f0_w400_g0_opsz24",
+          "material_symbols_outlined_favorite_ue87e",
+          "material_symbols_outlined_home_ue9b2",
+          "tabler_outline_hierarchy_2",
+          "tabler_outline_home"
+        ]
+      },
+      "delta_bytes": -19247085,
+      "delta_percent": -52.34432859441617
+    },
+    "shrunk": {
+      "B": {
+        "apk_bytes": 16457984,
+        "sha256": "e5be168e4f74028d0b0ca87e32fff780a6ed264d3d252a2ade2085842250be22",
+        "fonts": [
+          {
+            "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.resources/font/material_symbols_rounded_variable.ttf",
+            "compressed_bytes": 14586584,
+            "uncompressed_bytes": 14586584,
+            "compression": "stored"
+          }
+        ],
+        "retained_drawables": [
+          "android_view_icons_regular_branch_ue0a0",
+          "google_home_f0_w400_g0_opsz24",
+          "material_symbols_outlined_favorite_ue87e",
+          "material_symbols_outlined_home_ue9b2",
+          "tabler_outline_hierarchy_2",
+          "tabler_outline_home"
+        ]
+      },
+      "C": {
+        "apk_bytes": 1808407,
+        "sha256": "7439c45fd0c8848d62655469a8fc31bd5c6043c2ed2d3d2d9362665f90153a89",
+        "fonts": [],
+        "retained_drawables": [
+          "android_view_icons_regular_branch_ue0a0",
+          "google_home_f0_w400_g0_opsz24",
+          "material_symbols_outlined_favorite_ue87e",
+          "material_symbols_outlined_home_ue9b2",
+          "tabler_outline_hierarchy_2",
+          "tabler_outline_home"
+        ]
+      },
+      "delta_bytes": -14649577,
+      "delta_percent": -89.01197740865467
+    }
+  },
+  "full_app_resource_merge": {
+    "native_resource_merge": "passed",
+    "compose_asset_merge": "passed",
+    "compose_assets_byte_identical": 3917,
+    "fonts": [
+      {
+        "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.resources/font/material_symbols_rounded_variable.ttf",
+        "bytes": 14586584,
+        "sha256": "d719f22fdee27e344b07e46e6fa8b50b1fce3cfcb03d4a84f03fafbf0812fc22"
+      },
+      {
+        "path": "assets/composeResources/io.github.hlcaptain.symbols.material.rounded.staticfont.resources/font/material_symbols_rounded_regular.ttf",
+        "bytes": 1700344,
+        "sha256": "874908e92b9eb30b225f213980a480e12b8909a283ad3a723b520460d0d5e128"
+      },
+      {
+        "path": "assets/composeResources/io.github.hlcaptain.custom_variable.generated.resources/font/academmunicons_variable.ttf",
+        "bytes": 97496,
+        "sha256": "b9b5e711a566f16f86dcca0441977c75a88296e0f93e1b847f9e89be55bf622e"
+      },
+      {
+        "path": "assets/composeResources/io.github.hlcaptain.custom_static.generated.resources/font/powerline_symbols.otf",
+        "bytes": 2264,
+        "sha256": "4a2496a009b1649878ce067a7ec2aed9f79656c90136971e1dba00766515f7a1"
+      }
+    ]
+  }
+}

@@ -58,6 +58,8 @@ jobs:
       - uses: ./.github/actions/setup-ci-gradle
         with:
           heap: 4g
+      - name: Check compatibility fixture helpers
+        run: python3 -m unittest discover -s tooling/compatibility -p "test_*.py"
       - name: Publish isolated candidate artifacts
         run: |
           ./tooling/gradlew -p tooling publishToMavenLocal \
@@ -81,6 +83,76 @@ jobs:
             --agp-version 8.13.2 --compile-sdk 36 \
             --output build/reports/tooling-compatibility-legacy
 
+      - name: Test published plugin with official Compose runtimes
+        run: |
+          current_compose="$(python3 -c 'import tomllib; print(tomllib.load(open("gradle/libs.versions.toml", "rb"))["versions"]["composeMultiplatform"])')"
+          for compose_version in 1.11.1 "$current_compose"; do
+            python3 tooling/compatibility/check.py --profile kmp --compose-drawables-only --gradle ./gradlew \
+              --repository "$RUNNER_TEMP/symbols-consumers" --version 0.0.0-consumer-check \
+              --compose-version "$compose_version" \
+              --output "build/reports/tooling-compatibility-compose-$compose_version"
+          done
+
+      - name: Test Android Compose consumers at the AGP 9.1 floor
+        run: |
+          python3 tooling/compatibility/check.py --profile android-app --gradle ./gradlew \
+            --repository "$RUNNER_TEMP/symbols-consumers" --version 0.0.0-consumer-check \
+            --agp-version 9.1.0 --compile-sdk 37 \
+            --output build/reports/tooling-compatibility-agp91
+          python3 tooling/compatibility/check.py --profile kmp --compose-resources --gradle ./gradlew \
+            --repository "$RUNNER_TEMP/symbols-consumers" --version 0.0.0-consumer-check \
+            --agp-version 9.1.0 --compile-sdk 37 \
+            --output build/reports/tooling-compatibility-agp91
+
+      - name: Verify local upstream Compose pruning proposals
+        run: |
+          set -euo pipefail
+          scripts=benchmarks/resource-pipeline/native-raw
+          proposal="$RUNNER_TEMP/symbols-upstream-proposal"
+          show_failed_builds() {
+            while IFS= read -r log; do
+              tail -n 100 "$log"
+            done < <(rg -l --glob '*.log' 'BUILD FAILED' "$proposal" || true)
+          }
+          trap show_failed_builds ERR
+          for baseline in 1.11.1 1.12.1; do
+            runtime_version="$(python3 -c 'import sys; sys.path.insert(0, sys.argv[1]); import runtime; print(runtime.candidate_version(sys.argv[2]))' "$scripts" "$baseline")"
+            plugin_version="$baseline-native-xml-ci"
+            python3 "$scripts/runtime.py" --upstream-version "$baseline" \
+              --output "$proposal/runtime-$baseline" --repository "$proposal/maven" --gradle ./gradlew
+            python3 "$scripts/upstream-generator/bootstrap.py" --baseline "$baseline" \
+              --output "$proposal/generator-$baseline" --build --repository "$proposal/maven" \
+              --candidate-version "$plugin_version" --gradle ./tooling/gradlew
+            candidate_aar="$proposal/maven/org/jetbrains/compose/components/components-resources-android/$runtime_version/components-resources-android-$runtime_version.aar"
+            python3 "$scripts/abi.py" \
+              --stock-aar "$proposal/runtime-$baseline/downloads/components-resources-android-$baseline.aar" \
+              --candidate-aar "$candidate_aar" --javap "$JAVA_HOME/bin/javap"
+            python3 "$scripts/runtime_helper.py" --aar "$candidate_aar" --jdk "$JAVA_HOME"
+          done
+          higher_version="$(python3 -c 'import sys; sys.path.insert(0, sys.argv[1]); import runtime; print(runtime.candidate_version("1.12.1"))' "$scripts")"
+          for baseline in 1.11.1 1.12.1; do
+            runtime_version="$(python3 -c 'import sys; sys.path.insert(0, sys.argv[1]); import runtime; print(runtime.candidate_version(sys.argv[2]))' "$scripts" "$baseline")"
+            plugin_version="$baseline-native-xml-ci"
+            extra=()
+            upgrade=()
+            if [[ "$baseline" == 1.11.1 ]]; then
+              extra=(--higher-supported-version "$higher_version")
+              upgrade=(--upgrade-consumer-to 1.12.1 --upgrade-runtime-to "$higher_version")
+            fi
+            python3 "$scripts/upstream-generator/verify.py" \
+              --repository "$RUNNER_TEMP/symbols-consumers" --symbols-version 0.0.0-consumer-check \
+              --upstream-repository "$proposal/maven" --baseline "$baseline" \
+              --plugin-version "$plugin_version" --runtime-version "$runtime_version" \
+              --output "$proposal/integration-$baseline" --gradle ./gradlew "${upgrade[@]}"
+            python3 "$scripts/runtime_resolution.py" --repository "$proposal/maven" \
+              --candidate-version "$runtime_version" --output "$proposal/resolution-$baseline" \
+              --gradle ./gradlew "${extra[@]}"
+          done
+          python3 "$scripts/upstream-generator/contracts.py" \
+            --repository "$RUNNER_TEMP/symbols-consumers" --symbols-version 0.0.0-consumer-check \
+            --upstream-repository "$proposal/maven" --plugin-version 1.12.1-native-xml-ci \
+            --runtime-version "$higher_version" --output "$proposal/contracts" --gradle ./gradlew
+
   generated-sources-and-fonts:
     name: Generated sources and fonts
     runs-on: ubuntu-24.04
@@ -98,6 +170,12 @@ jobs:
 
       - name: Run all Python generator and verifier tests
         run: python -m unittest discover -s tools/tests -p "test_*.py"
+
+      - name: Check resource benchmark helpers
+        if: ${{ !inputs.publication-only }}
+        run: |
+          python -m unittest discover -s benchmarks/resource-pipeline -p "test_*.py"
+          python -m unittest discover -s benchmarks/resource-pipeline/native-raw -p "test_*.py"
 
       - name: Check generated symbol catalog
         run: python tools/generate_material_symbols.py --check

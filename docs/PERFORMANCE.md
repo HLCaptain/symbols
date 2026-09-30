@@ -255,6 +255,16 @@ checked-in files. Visual font/SVG comparisons use the same-runner
 
 ### Full sample APK matrix
 
+The September 2026 [toolchain and resource study](../benchmarks/resource-pipeline/RESULTS.md)
+compares AGP 8/Kotlin 2.3 with AGP 9/Kotlin 2.4 using 120 independent consumer
+APKs and [all ten sample profiles](../benchmarks/resource-pipeline/SAMPLE_APPS.md).
+Direct native drawables remain shrinkable; Compose drawable assets still retain
+the complete pack, even with no selected icons. Upgrading Gradle does not change
+that resource representation or subset fonts. The separate
+[Android Views dependency fix](../benchmarks/resource-pipeline/ANDROID_VIEWS_RESOURCES.md)
+removes an unused font, and the [web distribution fix](../benchmarks/resource-pipeline/WEB_DISTRIBUTION.md)
+removes a duplicate runtime file. These savings have distinct causes and scopes.
+
 [`benchmarks/sample-app`](../benchmarks/sample-app/README.md) builds the same
 launcher shell with either one sample feature or all eight features. This avoids
 comparing unrelated application scaffolds: every profile retains Material 3,

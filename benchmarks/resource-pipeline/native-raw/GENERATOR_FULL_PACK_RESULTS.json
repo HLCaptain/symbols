@@ -1,0 +1,381 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-09-30",
+  "scope": "Actual Symbols plugin and upstream generator candidates; local-only, not an official Compose release",
+  "symbols_plugin_version": "0.0.0-pruning-api02",
+  "compose_baseline": "1.12.1",
+  "generator_candidate": "1.12.2-native-xml05",
+  "runtime_candidate": "1.12.2-native-raw02",
+  "corpus": "3802 unique Outlined Material Symbols; identical source font, codepoints, XML bytes and legal notices",
+  "producer_publications": {
+    "assets": {
+      "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-full-generator-assets01",
+      "aar_bytes": 4510014,
+      "aar_sha256": "67b6216b8ed0153c8f6250d29b9fd1944e7c94a59c84980ef2a854922f8645eb",
+      "classes_jar_bytes": 764636,
+      "classes_jar_compressed_bytes": 738009,
+      "jvm_class_count": 46,
+      "jvm_jar_sha256": "2146c3d8ba2dc377f00e3b0c197e9b91e171273351b7934699000ec35beeff27",
+      "xml_count": 3802,
+      "xml_inventory_sha256": "cf0794224cfe379918e778049c57a5102f6e380e580b7d1eb89e82c6b4cc273d",
+      "source_inputs_sha256": {
+        "LICENSE": "5c9817c129b98e7bb966bca028c43c19107102ef8e03fe799bffb4354f4ef015",
+        "MaterialSymbols.codepoints": "3e5293b71c38cb0487ab5fc5de293956aab4f96f445ae482849cce3df345aec9",
+        "THIRD_PARTY_NOTICES.md": "67fde1ad8060d70b8787ae046533ba93556b5178d91077ebaf674a4a3a3dee05",
+        "material_symbols_outlined_regular.ttf": "f73c7bcb7dbeab41fe741cbc3dd73f8fd3d0569c386ca82ceee60ccf5c1fbc52"
+      },
+      "compose_plugin_version": "1.12.2-native-xml04",
+      "runtime_version": "1.12.1"
+    },
+    "native_lazy_04": {
+      "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-full-generator-native01",
+      "aar_bytes": 9539719,
+      "aar_sha256": "78e16aed5d65d75bf32117bb10280f700a1477e301e032451e86adb97590f55f",
+      "classes_jar_bytes": 7789298,
+      "classes_jar_compressed_bytes": 6087395,
+      "jvm_class_count": 3948,
+      "jvm_jar_sha256": "12360b0bf4288b9ca052a1d7eb139bfe9a30cb750996bee9a998987a5503ff56",
+      "xml_count": 3802,
+      "xml_inventory_sha256": "cf0794224cfe379918e778049c57a5102f6e380e580b7d1eb89e82c6b4cc273d",
+      "source_inputs_sha256": {
+        "LICENSE": "5c9817c129b98e7bb966bca028c43c19107102ef8e03fe799bffb4354f4ef015",
+        "MaterialSymbols.codepoints": "3e5293b71c38cb0487ab5fc5de293956aab4f96f445ae482849cce3df345aec9",
+        "THIRD_PARTY_NOTICES.md": "67fde1ad8060d70b8787ae046533ba93556b5178d91077ebaf674a4a3a3dee05",
+        "material_symbols_outlined_regular.ttf": "f73c7bcb7dbeab41fe741cbc3dd73f8fd3d0569c386ca82ceee60ccf5c1fbc52"
+      },
+      "compose_plugin_version": "1.12.2-native-xml04",
+      "runtime_version": "1.12.2-native-raw02"
+    },
+    "native_eager_05": {
+      "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-full-generator-native02",
+      "aar_bytes": 8580874,
+      "aar_sha256": "deefe5695a743bfecdafc7e784d8c64ab813a08c4ca5c934d822de31fbc13943",
+      "classes_jar_bytes": 6686220,
+      "classes_jar_compressed_bytes": 5128550,
+      "jvm_class_count": 3948,
+      "jvm_jar_sha256": "6dfb69e16a4a716e419a973f6ea2d0877f76c62f7c2a5f1ec898f4d110975f31",
+      "xml_count": 3802,
+      "xml_inventory_sha256": "cf0794224cfe379918e778049c57a5102f6e380e580b7d1eb89e82c6b4cc273d",
+      "source_inputs_sha256": {
+        "LICENSE": "5c9817c129b98e7bb966bca028c43c19107102ef8e03fe799bffb4354f4ef015",
+        "MaterialSymbols.codepoints": "3e5293b71c38cb0487ab5fc5de293956aab4f96f445ae482849cce3df345aec9",
+        "THIRD_PARTY_NOTICES.md": "67fde1ad8060d70b8787ae046533ba93556b5178d91077ebaf674a4a3a3dee05",
+        "material_symbols_outlined_regular.ttf": "f73c7bcb7dbeab41fe741cbc3dd73f8fd3d0569c386ca82ceee60ccf5c1fbc52"
+      },
+      "compose_plugin_version": "1.12.2-native-xml05",
+      "runtime_version": "1.12.2-native-raw02"
+    }
+  },
+  "retention": {
+    "assets-direct-1": {
+      "apk_bytes": 5136367,
+      "apk_sha256": "be9fb1fffee957ba8295fa34aa1bef28b606aafc281bbb000b24e8a743bc97a0",
+      "expected_icon_count": 3802,
+      "retained_icon_count": 3802,
+      "configuration_cache_reused": true,
+      "byte_parity_verified": true,
+      "notice_inputs_preserved": true
+    },
+    "assets-direct-all": {
+      "apk_bytes": 5358987,
+      "apk_sha256": "8e7dab3528026ce0e58d1ae45f92932342231b0dd5a70d9a340a8943fa97541a",
+      "expected_icon_count": 3802,
+      "retained_icon_count": 3802,
+      "configuration_cache_reused": true,
+      "byte_parity_verified": true,
+      "notice_inputs_preserved": true
+    },
+    "native-direct-0": {
+      "apk_bytes": 879148,
+      "apk_sha256": "5acf02f951e5695f81a735d4215dadd326924ad656ec4a4fab010de17a5e3f27",
+      "expected_icon_count": 0,
+      "retained_icon_count": 0,
+      "configuration_cache_reused": true,
+      "byte_parity_verified": true,
+      "notice_inputs_preserved": true
+    },
+    "native-direct-1": {
+      "apk_bytes": 958803,
+      "apk_sha256": "e1164c9da77ebdc57060e5762bcc6f1b23cedcdd699ec04cab5e012564b2c3d3",
+      "expected_icon_count": 1,
+      "retained_icon_count": 1,
+      "configuration_cache_reused": true,
+      "byte_parity_verified": true,
+      "notice_inputs_preserved": true
+    },
+    "native-direct-200": {
+      "apk_bytes": 1149346,
+      "apk_sha256": "a3f966b0168ff9ad140affb263732c6ccf0ed28b9e1e57b88e6a81a678308e11",
+      "expected_icon_count": 200,
+      "retained_icon_count": 200,
+      "configuration_cache_reused": true,
+      "byte_parity_verified": true,
+      "notice_inputs_preserved": true
+    },
+    "native-direct-25": {
+      "apk_bytes": 980736,
+      "apk_sha256": "b23079d1ad7efd98155cca56e545cd4c984ce845e795abc3a73b249c75b590b6",
+      "expected_icon_count": 25,
+      "retained_icon_count": 25,
+      "configuration_cache_reused": true,
+      "byte_parity_verified": true,
+      "notice_inputs_preserved": true
+    },
+    "native-direct-all": {
+      "apk_bytes": 4755264,
+      "apk_sha256": "4fa9bed191b842c79196bca3afe8e0dea60710a0cb5e4c2585417aa517f08a3c",
+      "expected_icon_count": 3802,
+      "retained_icon_count": 3802,
+      "configuration_cache_reused": true,
+      "byte_parity_verified": true,
+      "notice_inputs_preserved": true
+    },
+    "native-dynamic-1": {
+      "apk_bytes": 4762023,
+      "apk_sha256": "8b7bb2a02fbe761357ef5e9633040cd212c61b303cacf9d28a8fa17a67823e21",
+      "expected_icon_count": 3802,
+      "retained_icon_count": 3802,
+      "configuration_cache_reused": true,
+      "byte_parity_verified": true,
+      "notice_inputs_preserved": true
+    },
+    "native-raw-1": {
+      "apk_bytes": 4598187,
+      "apk_sha256": "b792162fc0f1a2d7134104f3edf3e1252a81a6211151e842b6afb6974122a8ea",
+      "expected_icon_count": 3802,
+      "retained_icon_count": 3802,
+      "configuration_cache_reused": true,
+      "byte_parity_verified": true,
+      "notice_inputs_preserved": true
+    },
+    "assets-direct-25": {
+      "apk_bytes": 5136576,
+      "expected_icon_count": 3802,
+      "retained_icon_count": 3802,
+      "byte_parity_verified": true,
+      "notice_inputs_preserved": true,
+      "scope": "Each timing sample also reverified the full asset inventory"
+    }
+  },
+  "timing": {
+    "method": "One excluded warm-up per backend; alternating order per repeat; clean then no-change; single-use daemon, one worker, in-process Kotlin, no build/configuration cache; downloaded dependencies/transforms remain warm",
+    "consumer_icons": 25,
+    "warmups_excluded": 2,
+    "measured_builds": 12,
+    "toolchain": {
+      "agp": "9.4.1",
+      "kotlin": "2.4.20",
+      "composeMultiplatform": "1.12.1",
+      "android-compileSdk": "37"
+    },
+    "java": "openjdk version \"21.0.12.1\" 2026-08-18 LTS\nOpenJDK Runtime Environment Zulu21.52+203-CA (build 21.0.12.1+1-LTS)\nOpenJDK 64-Bit Server VM Zulu21.52+203-CA (build 21.0.12.1+1-LTS, mixed mode, sharing)",
+    "logical_cpus": 32,
+    "summary": {
+      "assets-clean": {
+        "wall_seconds": {
+          "median": 33.814,
+          "minimum": 32.72,
+          "maximum": 47.799
+        },
+        "peak_descendant_rss_bytes_sampled": {
+          "median": 3872182272,
+          "minimum": 3424927744,
+          "maximum": 3982598144
+        }
+      },
+      "assets-noop": {
+        "wall_seconds": {
+          "median": 5.146,
+          "minimum": 5.12,
+          "maximum": 9.06
+        },
+        "peak_descendant_rss_bytes_sampled": {
+          "median": 932941824,
+          "minimum": 925843456,
+          "maximum": 946921472
+        }
+      },
+      "native-clean": {
+        "wall_seconds": {
+          "median": 33.039,
+          "minimum": 32.164,
+          "maximum": 33.21
+        },
+        "peak_descendant_rss_bytes_sampled": {
+          "median": 2756673536,
+          "minimum": 2723975168,
+          "maximum": 3172147200
+        }
+      },
+      "native-noop": {
+        "wall_seconds": {
+          "median": 5.132,
+          "minimum": 5.08,
+          "maximum": 5.33
+        },
+        "peak_descendant_rss_bytes_sampled": {
+          "median": 907091968,
+          "minimum": 822775808,
+          "maximum": 919273472
+        }
+      }
+    },
+    "samples": [
+      {
+        "backend": "assets",
+        "phase": "warmup",
+        "iteration": 0,
+        "measured": false,
+        "wall_seconds": 35.489,
+        "peak_descendant_rss_bytes_sampled": 3677659136,
+        "apk_bytes": 5136576
+      },
+      {
+        "backend": "native",
+        "phase": "warmup",
+        "iteration": 0,
+        "measured": false,
+        "wall_seconds": 32.822,
+        "peak_descendant_rss_bytes_sampled": 2976280576,
+        "apk_bytes": 980736
+      },
+      {
+        "backend": "assets",
+        "phase": "clean",
+        "iteration": 1,
+        "measured": true,
+        "wall_seconds": 47.799,
+        "peak_descendant_rss_bytes_sampled": 3424927744,
+        "apk_bytes": 5136576
+      },
+      {
+        "backend": "assets",
+        "phase": "noop",
+        "iteration": 1,
+        "measured": true,
+        "wall_seconds": 9.06,
+        "peak_descendant_rss_bytes_sampled": 932941824,
+        "apk_bytes": 5136576
+      },
+      {
+        "backend": "native",
+        "phase": "clean",
+        "iteration": 1,
+        "measured": true,
+        "wall_seconds": 33.21,
+        "peak_descendant_rss_bytes_sampled": 2723975168,
+        "apk_bytes": 980736
+      },
+      {
+        "backend": "native",
+        "phase": "noop",
+        "iteration": 1,
+        "measured": true,
+        "wall_seconds": 5.08,
+        "peak_descendant_rss_bytes_sampled": 822775808,
+        "apk_bytes": 980736
+      },
+      {
+        "backend": "native",
+        "phase": "clean",
+        "iteration": 2,
+        "measured": true,
+        "wall_seconds": 33.039,
+        "peak_descendant_rss_bytes_sampled": 2756673536,
+        "apk_bytes": 980736
+      },
+      {
+        "backend": "native",
+        "phase": "noop",
+        "iteration": 2,
+        "measured": true,
+        "wall_seconds": 5.33,
+        "peak_descendant_rss_bytes_sampled": 907091968,
+        "apk_bytes": 980736
+      },
+      {
+        "backend": "assets",
+        "phase": "clean",
+        "iteration": 2,
+        "measured": true,
+        "wall_seconds": 33.814,
+        "peak_descendant_rss_bytes_sampled": 3982598144,
+        "apk_bytes": 5136576
+      },
+      {
+        "backend": "assets",
+        "phase": "noop",
+        "iteration": 2,
+        "measured": true,
+        "wall_seconds": 5.146,
+        "peak_descendant_rss_bytes_sampled": 946921472,
+        "apk_bytes": 5136576
+      },
+      {
+        "backend": "assets",
+        "phase": "clean",
+        "iteration": 3,
+        "measured": true,
+        "wall_seconds": 32.72,
+        "peak_descendant_rss_bytes_sampled": 3872182272,
+        "apk_bytes": 5136576
+      },
+      {
+        "backend": "assets",
+        "phase": "noop",
+        "iteration": 3,
+        "measured": true,
+        "wall_seconds": 5.12,
+        "peak_descendant_rss_bytes_sampled": 925843456,
+        "apk_bytes": 5136576
+      },
+      {
+        "backend": "native",
+        "phase": "clean",
+        "iteration": 3,
+        "measured": true,
+        "wall_seconds": 32.164,
+        "peak_descendant_rss_bytes_sampled": 3172147200,
+        "apk_bytes": 980736
+      },
+      {
+        "backend": "native",
+        "phase": "noop",
+        "iteration": 3,
+        "measured": true,
+        "wall_seconds": 5.132,
+        "peak_descendant_rss_bytes_sampled": 919273472,
+        "apk_bytes": 980736
+      }
+    ],
+    "inputs": {
+      "assets": {
+        "fixture_sha256": "9c388a4a68137fc2202c7bf5167a7123340d121a83424500a93e606c3868899b",
+        "publication_sha256": "acc85cc601cdafb5a69cab3cf613546ff34e44fc120f5785e5a5c85682bca8f8"
+      },
+      "native": {
+        "fixture_sha256": "24a3a24b3c781f169a5c1c5e25888177d704c84e51db7b915834f9fbabed7318",
+        "publication_sha256": "5b292d3ddbc53ea3baab4891416e01b08488029d9bdd718eff43ad13b7458192"
+      }
+    },
+    "source_report_sha256": "68fa8a6ced16888cdc93be9d398d577fc5bdc6018b8bdbad8f3f1d0ebc5eec37"
+  },
+  "comparisons": {
+    "single_icon_apk_reduction_percent": 81.33,
+    "all_icons_apk_reduction_percent": 11.27,
+    "native_aar_reduction_from_lazy_to_eager_percent": 10.05,
+    "native_aar_increase_over_assets_percent": 90.26,
+    "sampled_clean_peak_rss_median_reduction_percent": 28.81,
+    "clean_timing_conclusion": "Ranges overlap; no material build-time improvement established",
+    "producer_cost_bound": "Producer build duration was not measured under controlled repetition. Unshrunk native AAR/class count is larger despite the eager-holder reduction."
+  },
+  "bounds": [
+    "APK sizes include identical original license/notice normalization; glyph/font source bytes unchanged.",
+    "Native direct0/1/25/200/all retain exactly that number; dynamic/raw lookup retain the owning 3,802-resource pack.",
+    "No duplicated owned Compose assets in native APKs; retained raw bytes checked against the actual published AAR and resource table.",
+    "No raw APKs, traces, screenshots or generated icon packs are checked in.",
+    "This is an Android experiment. It does not subset fonts or establish automatic official runtime/publication support.",
+    "Peak RSS sums sampled descendant-process resident sets; it is not a system-wide unique-memory measurement.",
+    "The frozen asset control was generated with candidate04 disabled. Candidate05 preserves the default-off generator branch byte-for-byte in the stock oracle; all 3,802 published XML hashes match across all three producers. No old successful publication was overwritten."
+  ]
+}

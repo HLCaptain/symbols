@@ -11,7 +11,7 @@ repository's consumer matrix is required for the newer AGP combination.
 | --- | --- |
 | Compose Android | AGP 9.1+, compile SDK 37, Android API 23+, Kotlin 2.4 |
 | Android XML only | AGP 8.13.2+, Gradle 8.14.5+, compile SDK 36, API 21+; no Kotlin/Compose plugin required |
-| JVM | JVM 11 library bytecode; Gradle plugin requires Java 17 |
+| JVM / shared Kotlin | Kotlin 2.4; JVM 11 library bytecode; Gradle plugin requires Java 17 |
 | Apple source build | Xcode 26.4.1 on macOS; device and simulator targets retained |
 
 The AndroidX artifacts used by Compose 1.12.1 declare their AGP/SDK floors in
@@ -19,6 +19,10 @@ The AndroidX artifacts used by Compose 1.12.1 declare their AGP/SDK floors in
 The previous Compose 1.11 dependencies already required API 23: the old blanket
 API 21 claim described the native renderer's capability, not the resolved
 Compose dependency graph. Native XML remains usable on API 21.
+
+The Kotlin 2.4 requirement applies to JVM and KMP consumers as well as Android
+Compose. Java/XML-only consumers need no Kotlin plugin. AGP and Android SDK
+requirements apply only to Android targets.
 
 Public icon accessors and the `symbolFonts` DSL are unchanged. Android applications
 use AGP's built-in Kotlin; KMP libraries use

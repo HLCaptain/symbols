@@ -1,0 +1,261 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-09-29",
+  "purpose": "Matched native Android R.drawable versus CMP native-raw prototype: signed APK size and exact retention; no new timing claims",
+  "source_xml": {
+    "count": 3802,
+    "bytes": 5291056,
+    "identical_across_native_and_cmp": true,
+    "native_aar_sha256": "133eee1c04e3dfc57b95584652cac01af439c13bbe909a6be5ccde52ff92bbe7",
+    "cmp_source_aar_sha256": "5e1c6d5ab22c8766b6238b33abdbcfbcb3210fecb855256411e251a70a726e00"
+  },
+  "toolchain": {
+    "agp": "9.4.1",
+    "android-compileSdk": "37",
+    "android-targetSdk": "36",
+    "androidx-activity": "1.13.0",
+    "composeMultiplatform": "1.12.1",
+    "kotlin": "2.4.20"
+  },
+  "normalized_notices": {
+    "META-INF/material-drawables-outlined/LICENSE": {
+      "bytes": 11356,
+      "sha256": "5c9817c129b98e7bb966bca028c43c19107102ef8e03fe799bffb4354f4ef015"
+    },
+    "META-INF/material-drawables-outlined/THIRD_PARTY_NOTICES.md": {
+      "bytes": 14251,
+      "sha256": "67fde1ad8060d70b8787ae046533ba93556b5178d91077ebaf674a4a3a3dee05"
+    }
+  },
+  "controls": "Same MainActivity, selection, manifest, wrapper, Gradle properties and toolchain; backend-specific painter, library dependency and seven-character backend app ID. Both code and resource shrinking enabled. Each pack keeps its original identical notice contents under its own META-INF path.",
+  "cases": [
+    {
+      "case": "direct-0",
+      "count": 0,
+      "access": "direct",
+      "expected_retained": 0,
+      "native_android": {
+        "apk_bytes": 879027,
+        "apk_sha256": "8e1d896206c3d4c83041c7fca227a126093e760069962de0de7a9dab8ea7c777",
+        "retained": 0,
+        "fixture_sha256": "cc4cef0006f69555cfc39ba0a986e44415028ee49e0806b01cb011a56fb2bdca",
+        "notice_bytes_preserved": true,
+        "coordinates": "io.github.hlcaptain:symbols-material-drawables-outlined:0.0.0-study-b"
+      },
+      "cmp_prototype": {
+        "apk_bytes": 879148,
+        "apk_sha256": "1414826e355348da4cb288ef19bd2ff441624a8d1b621ca52bd62ebbd1240242",
+        "retained": 0,
+        "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-native-full07"
+      },
+      "stock_cmp_assets": {
+        "apk_bytes": 5087184,
+        "retained": 3802,
+        "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-assets-full07"
+      },
+      "unnormalized_native": {
+        "apk_bytes": 869206,
+        "apk_sha256": "77ff152c91adfa448307858e1eadb66fc94e1d75431c51e70a1d3ef186208e65",
+        "retained": 0
+      },
+      "unnormalized_native_unshrunk": {
+        "apk_bytes": 10646082,
+        "retained": 3802
+      },
+      "prototype_minus_matched_native_bytes": 121,
+      "prototype_minus_matched_native_percent": 0.0138
+    },
+    {
+      "case": "direct-1",
+      "count": 1,
+      "access": "direct",
+      "expected_retained": 1,
+      "native_android": {
+        "apk_bytes": 913328,
+        "apk_sha256": "d763cdfcb36462327e5708229ac759af04c49840dbbed2609f1eb3e897ca23fb",
+        "retained": 1,
+        "fixture_sha256": "42e49a8025fc61250553b96e542cbd7c1c842f2190be7fa67b1e622aaab48d9f",
+        "notice_bytes_preserved": true,
+        "coordinates": "io.github.hlcaptain:symbols-material-drawables-outlined:0.0.0-study-b"
+      },
+      "cmp_prototype": {
+        "apk_bytes": 929296,
+        "apk_sha256": "414edb7c62455f206d869bca49885d216e642d37061cbcda41441eb036d60080",
+        "retained": 1,
+        "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-native-full07"
+      },
+      "stock_cmp_assets": {
+        "apk_bytes": 5136367,
+        "retained": 3802,
+        "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-assets-full07"
+      },
+      "unnormalized_native": {
+        "apk_bytes": 903502,
+        "apk_sha256": "8ac0c853078886c786f8df7f03e4588528b4dd8f7b7f847476907538b882adfe",
+        "retained": 1
+      },
+      "unnormalized_native_unshrunk": {
+        "apk_bytes": 10646128,
+        "retained": 3802
+      },
+      "prototype_minus_matched_native_bytes": 15968,
+      "prototype_minus_matched_native_percent": 1.7483
+    },
+    {
+      "case": "direct-25",
+      "count": 25,
+      "access": "direct",
+      "expected_retained": 25,
+      "native_android": {
+        "apk_bytes": 936609,
+        "apk_sha256": "5798dbf8639d39c21d388f32a6eb8e1153e5011e3d7942eb784c926193aad0e4",
+        "retained": 25,
+        "fixture_sha256": "03d40c1a8d4c0eb28cd812f15f2ea94b7fdec81f02b2d32e37d19267a47fa332",
+        "notice_bytes_preserved": true,
+        "coordinates": "io.github.hlcaptain:symbols-material-drawables-outlined:0.0.0-study-b"
+      },
+      "cmp_prototype": {
+        "apk_bytes": 950679,
+        "apk_sha256": "0a0c448fec70b9838602e172ec81f74349a035e479285334a116a9e0fdc4ff72",
+        "retained": 25,
+        "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-native-full07"
+      },
+      "stock_cmp_assets": {
+        "apk_bytes": 5136576,
+        "retained": 3802,
+        "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-assets-full07"
+      },
+      "unnormalized_native": {
+        "apk_bytes": 926788,
+        "apk_sha256": "8f7073246695c4f8b0b158961bc841899196895b3c8cb8406890f30d42d4b8fd",
+        "retained": 25
+      },
+      "unnormalized_native_unshrunk": {
+        "apk_bytes": 10646343,
+        "retained": 3802
+      },
+      "prototype_minus_matched_native_bytes": 14070,
+      "prototype_minus_matched_native_percent": 1.5022
+    },
+    {
+      "case": "direct-200",
+      "count": 200,
+      "access": "direct",
+      "expected_retained": 200,
+      "native_android": {
+        "apk_bytes": 1114903,
+        "apk_sha256": "00cbbbdb7b8858d0eca4e4ff9ac3a53048a68b8f13cab06e62ac745d76107dad",
+        "retained": 200,
+        "fixture_sha256": "ae3f41816dd256db93294552d2f13cdbe577f074ef5b7e3b99c90603864caeaa",
+        "notice_bytes_preserved": true,
+        "coordinates": "io.github.hlcaptain:symbols-material-drawables-outlined:0.0.0-study-b"
+      },
+      "cmp_prototype": {
+        "apk_bytes": 1099012,
+        "apk_sha256": "53483092a1c42204ae7b4df7cd48c87bdd9c36f34ae1b8447911b46efadb7c58",
+        "retained": 200,
+        "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-native-full07"
+      },
+      "stock_cmp_assets": {
+        "apk_bytes": 5138521,
+        "retained": 3802,
+        "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-assets-full07"
+      },
+      "unnormalized_native": {
+        "apk_bytes": 1105069,
+        "apk_sha256": "c5a630e293f85a643675611a3aa039632a7659114009eade4337d1ca4c94b607",
+        "retained": 200
+      },
+      "unnormalized_native_unshrunk": {
+        "apk_bytes": 10648287,
+        "retained": 3802
+      },
+      "prototype_minus_matched_native_bytes": -15891,
+      "prototype_minus_matched_native_percent": -1.4253
+    },
+    {
+      "case": "direct-all",
+      "count": 3802,
+      "access": "direct",
+      "expected_retained": 3802,
+      "native_android": {
+        "apk_bytes": 4697983,
+        "apk_sha256": "2fe09310864a9726fa38df942360bc3c3dd9a126526e295c506ddb2f465a7c3c",
+        "retained": 3802,
+        "fixture_sha256": "7686c942b5134806cb6955c79fa318deded9a846916b7edcd9fa4c7eb4a72969",
+        "notice_bytes_preserved": true,
+        "coordinates": "io.github.hlcaptain:symbols-material-drawables-outlined:0.0.0-study-b"
+      },
+      "cmp_prototype": {
+        "apk_bytes": 4513978,
+        "apk_sha256": "59a54eea89cafec8e58885a890d85b7c29b669551d5b77c3e7e8e4538bda360f",
+        "retained": 3802,
+        "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-native-full07"
+      },
+      "stock_cmp_assets": {
+        "apk_bytes": 5358987,
+        "retained": 3802,
+        "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-assets-full07"
+      },
+      "unnormalized_native": {
+        "apk_bytes": 4688168,
+        "apk_sha256": "fe8114480d52e49dbfc0f822314ca5ee76de82112ca009e9e8c3a187595448b7",
+        "retained": 3802
+      },
+      "unnormalized_native_unshrunk": {
+        "apk_bytes": 10770447,
+        "retained": 3802
+      },
+      "prototype_minus_matched_native_bytes": -184005,
+      "prototype_minus_matched_native_percent": -3.9167
+    },
+    {
+      "case": "dynamic-1",
+      "count": 1,
+      "access": "dynamic",
+      "expected_retained": 3802,
+      "native_android": {
+        "apk_bytes": 4704742,
+        "apk_sha256": "178eec641b5606714ac267d04aa9d902c0a9878992663dd42181b89fb0e8ab46",
+        "retained": 3802,
+        "fixture_sha256": "f7435f985fc21bb8f780deffc1057f0f7403aab01b264a71aa87aeccdd308874",
+        "notice_bytes_preserved": true,
+        "coordinates": "io.github.hlcaptain:symbols-material-drawables-outlined:0.0.0-study-b"
+      },
+      "cmp_prototype": {
+        "apk_bytes": 4504356,
+        "apk_sha256": "6147982534a109358354f02086f0774477250b22a4958b77d172b4346a787423",
+        "retained": 3802,
+        "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-native-full07"
+      },
+      "stock_cmp_assets": {
+        "apk_bytes": 5365655,
+        "retained": 3802,
+        "coordinates": "io.github.hlcaptain:symbols-material-compose-drawables-outlined:0.0.0-assets-full07"
+      },
+      "unnormalized_native": {
+        "apk_bytes": 4694927,
+        "apk_sha256": "aea5469b4c7d0ab83447e76ad1e7fd867dd6c8d32e901c62f93f397553a7d886",
+        "retained": 3802
+      },
+      "unnormalized_native_unshrunk": {
+        "apk_bytes": 10662518,
+        "retained": 3802
+      },
+      "prototype_minus_matched_native_bytes": -200386,
+      "prototype_minus_matched_native_percent": -4.2592
+    }
+  ],
+  "interpretation": [
+    "Both native Android and the prototype prune exact unused-icon counts; 81.9% was relative to CMP assets, not native Android.",
+    "Benchmark uses the same Android Compose UI for both resource APIs; this is not a Compose versus Android Views app-size study.",
+    "R.drawable consumes AAPT2-compiled XML; prototype R.raw keeps text XML for Compose byte/URI/qualifier semantics. Runtime/DEX and resource encoding differ.",
+    "KMP Android consumers can benefit; stock CMP1.12.1 asset packaging is unchanged in production. No R8 claims for iOS/JVM/web or font glyph subsetting.",
+    "Native dynamic map and CMP dynamic catalog retain all3802 entries; visually unused does not mean unreachable.",
+    "The native comparison has six default release+shrunk builds plus six notice-normalized shrunk builds, all verified. Fresh device rendering and repeated timings were not rerun for the notice-only fixture change."
+  ],
+  "checks": {
+    "resource_pipeline_python_tests": 11,
+    "native_prototype_python_tests": 7
+  }
+}

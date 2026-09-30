@@ -14,7 +14,8 @@ own font or SVG assets.
 The Material catalog contains all 4,102 upstream names across Outlined,
 Rounded, and Sharp styles. The same project also supports generated custom icon
 sets, Compose Multiplatform (Android API 23+), and legacy Android Views and XML (API 21+).
-Compose consumers require AGP 9.1+, compile SDK 37 and Kotlin 2.4; XML-only
+Kotlin consumers require Kotlin 2.4. Android Compose additionally requires
+AGP 9.1+, compile SDK 37 and Android API 23+; Java/XML-only
 consumers can keep AGP 8.13/Gradle 8. See the [toolchain migration](docs/TOOLCHAIN_UPGRADE.md).
 
 ## Add Symbols

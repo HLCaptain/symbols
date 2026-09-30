@@ -1,0 +1,64 @@
+{
+  "device": "Pixel 6a, 1080x2400, 420dpi",
+  "reference": "FontTools-generated typed vectors",
+  "max_cell_error_bound": 0.005,
+  "accepted": true,
+  "results": [
+    {
+      "backend": "android",
+      "first": 1008,
+      "cells": 48,
+      "mean_absolute_rgb_error": 0.00010460073947274383,
+      "max_cell_mean_absolute_rgb_error": 0.00025114984265311064
+    },
+    {
+      "backend": "compose",
+      "first": 1008,
+      "cells": 48,
+      "mean_absolute_rgb_error": 0.00010460073947274383,
+      "max_cell_mean_absolute_rgb_error": 0.00025114984265311064
+    },
+    {
+      "backend": "android",
+      "first": 1808,
+      "cells": 48,
+      "mean_absolute_rgb_error": 0.00011299401447821928,
+      "max_cell_mean_absolute_rgb_error": 0.00045838088321748454
+    },
+    {
+      "backend": "compose",
+      "first": 1808,
+      "cells": 48,
+      "mean_absolute_rgb_error": 0.00011299401447821928,
+      "max_cell_mean_absolute_rgb_error": 0.00045838088321748454
+    },
+    {
+      "backend": "android",
+      "first": 2308,
+      "cells": 48,
+      "mean_absolute_rgb_error": 0.00013976964242487118,
+      "max_cell_mean_absolute_rgb_error": 0.0005167375592212193
+    },
+    {
+      "backend": "compose",
+      "first": 2308,
+      "cells": 48,
+      "mean_absolute_rgb_error": 0.00013976964242487118,
+      "max_cell_mean_absolute_rgb_error": 0.0005167375592212193
+    },
+    {
+      "backend": "android",
+      "first": 2364,
+      "cells": 48,
+      "mean_absolute_rgb_error": 0.00015005590713651715,
+      "max_cell_mean_absolute_rgb_error": 0.0003582667634955217
+    },
+    {
+      "backend": "compose",
+      "first": 2364,
+      "cells": 48,
+      "mean_absolute_rgb_error": 0.00015005590713651715,
+      "max_cell_mean_absolute_rgb_error": 0.0003582667634955217
+    }
+  ]
+}

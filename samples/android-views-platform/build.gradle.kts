@@ -34,10 +34,17 @@ dependencies {
     implementation(libs.compose.runtime)
     implementation(projects.samples.ui.components)
     implementation(projects.modules.materialDrawablesOutlined)
-    implementation(projects.samples.imageVectorMigration)
 }
 
 symbolFonts {
+    iconSet("Tabler") {
+        style("Outline") {
+            svgDirectory.set(
+                layout.projectDirectory.dir("../image-vector-migration/src/commonMain/svg/tabler"),
+            )
+            androidDrawables()
+        }
+    }
     iconSet("AndroidViewIcons") {
         style("Regular") {
             codepoints.set(layout.projectDirectory.file("src/main/PowerlineSymbols.codepoints"))

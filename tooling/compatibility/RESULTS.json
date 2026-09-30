@@ -1,0 +1,396 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-09-30",
+  "scope": "Local independent published-plugin checks with official Compose releases; ordinary asset backend, no pruning support or runtime rendering claim",
+  "gradle": "9.7.0",
+  "java": "Zulu21.0.12.1",
+  "compile_sdk": 37,
+  "min_sdk": 23,
+  "cases": [
+    {
+      "profile": "kmp",
+      "version": "0.0.0-pruning-api02",
+      "compose_resources": true,
+      "compose_drawables_only": true,
+      "plugin_sha256": "062846ebee4dab4d0cf98099294f4d92743439ee30cb4d1048e82cc5ed5e3a73",
+      "kotlin": "2.4.20",
+      "agp": "9.4.1",
+      "compose": "1.11.1",
+      "resolved_compose": {
+        "producer-jvm": {
+          "androidx.compose.runtime:runtime-annotation-jvm": "1.11.2",
+          "androidx.compose.runtime:runtime-desktop": "1.11.2",
+          "androidx.compose.runtime:runtime-retain-desktop": "1.11.2",
+          "androidx.compose.runtime:runtime-saveable-desktop": "1.11.2",
+          "org.jetbrains.compose.animation:animation-core-desktop": "1.11.1",
+          "org.jetbrains.compose.animation:animation-desktop": "1.11.1",
+          "org.jetbrains.compose.components:components-resources-desktop": "1.11.1",
+          "org.jetbrains.compose.foundation:foundation-desktop": "1.11.1",
+          "org.jetbrains.compose.foundation:foundation-layout-desktop": "1.11.1",
+          "org.jetbrains.compose.runtime:runtime-desktop": "1.11.1",
+          "org.jetbrains.compose.runtime:runtime-saveable-desktop": "1.11.1",
+          "org.jetbrains.compose.ui:ui-backhandler-desktop": "1.11.1",
+          "org.jetbrains.compose.ui:ui-desktop": "1.11.1",
+          "org.jetbrains.compose.ui:ui-geometry-desktop": "1.11.1",
+          "org.jetbrains.compose.ui:ui-graphics-desktop": "1.11.1",
+          "org.jetbrains.compose.ui:ui-text-desktop": "1.11.1",
+          "org.jetbrains.compose.ui:ui-unit-desktop": "1.11.1",
+          "org.jetbrains.compose.ui:ui-util-desktop": "1.11.1"
+        },
+        "consumer-android": {
+          "androidx.compose.animation:animation-android": "1.11.2",
+          "androidx.compose.animation:animation-core-android": "1.11.2",
+          "androidx.compose.foundation:foundation-android": "1.11.2",
+          "androidx.compose.foundation:foundation-layout-android": "1.11.2",
+          "androidx.compose.runtime:runtime-android": "1.11.2",
+          "androidx.compose.runtime:runtime-annotation-android": "1.11.2",
+          "androidx.compose.runtime:runtime-retain-android": "1.11.2",
+          "androidx.compose.runtime:runtime-saveable-android": "1.11.2",
+          "androidx.compose.ui:ui-android": "1.11.2",
+          "androidx.compose.ui:ui-geometry-android": "1.11.2",
+          "androidx.compose.ui:ui-graphics-android": "1.11.2",
+          "androidx.compose.ui:ui-text-android": "1.11.2",
+          "androidx.compose.ui:ui-unit-android": "1.11.2",
+          "androidx.compose.ui:ui-util-android": "1.11.2",
+          "org.jetbrains.compose.components:components-resources-android": "1.11.1"
+        }
+      },
+      "case": "1.11.1-svg",
+      "raw_report_sha256": "13d764f527d2982e1517e6eb07723bb336e958cc2178a83c3bb05a5fc9b0386f",
+      "builds": [
+        {
+          "project": "producer",
+          "stage": "first",
+          "exit_code": 0,
+          "configuration_cache_reused": false
+        },
+        {
+          "project": "producer",
+          "stage": "reuse",
+          "exit_code": 0,
+          "configuration_cache_reused": true
+        },
+        {
+          "project": "consumer",
+          "stage": "first",
+          "exit_code": 0,
+          "configuration_cache_reused": false
+        },
+        {
+          "project": "consumer",
+          "stage": "reuse",
+          "exit_code": 0,
+          "configuration_cache_reused": true
+        }
+      ],
+      "source_archives": {
+        "checked": 3,
+        "private_state_absent": true,
+        "ownership_state_preserved_on_disk": true
+      },
+      "packaging": "Published Android AAR and consuming APK contain generated drawable XML; font mode also verifies exact prepared font bytes."
+    },
+    {
+      "profile": "kmp",
+      "version": "0.0.0-pruning-api02",
+      "compose_resources": true,
+      "compose_drawables_only": true,
+      "plugin_sha256": "062846ebee4dab4d0cf98099294f4d92743439ee30cb4d1048e82cc5ed5e3a73",
+      "kotlin": "2.4.20",
+      "agp": "9.4.1",
+      "compose": "1.12.1",
+      "resolved_compose": {
+        "producer-jvm": {
+          "androidx.compose.runtime:runtime-annotation-jvm": "1.12.1",
+          "androidx.compose.runtime:runtime-desktop": "1.12.1",
+          "androidx.compose.runtime:runtime-retain-desktop": "1.12.1",
+          "androidx.compose.runtime:runtime-saveable-desktop": "1.12.1",
+          "org.jetbrains.compose.animation:animation-core-desktop": "1.12.1",
+          "org.jetbrains.compose.animation:animation-desktop": "1.12.1",
+          "org.jetbrains.compose.components:components-resources-desktop": "1.12.1",
+          "org.jetbrains.compose.foundation:foundation-desktop": "1.12.1",
+          "org.jetbrains.compose.foundation:foundation-layout-desktop": "1.12.1",
+          "org.jetbrains.compose.runtime:runtime-desktop": "1.12.1",
+          "org.jetbrains.compose.runtime:runtime-saveable-desktop": "1.12.1",
+          "org.jetbrains.compose.ui:ui-desktop": "1.12.1",
+          "org.jetbrains.compose.ui:ui-geometry-desktop": "1.12.1",
+          "org.jetbrains.compose.ui:ui-graphics-desktop": "1.12.1",
+          "org.jetbrains.compose.ui:ui-text-desktop": "1.12.1",
+          "org.jetbrains.compose.ui:ui-unit-desktop": "1.12.1",
+          "org.jetbrains.compose.ui:ui-util-desktop": "1.12.1"
+        },
+        "consumer-android": {
+          "androidx.compose.animation:animation-android": "1.12.1",
+          "androidx.compose.animation:animation-core-android": "1.12.1",
+          "androidx.compose.foundation:foundation-android": "1.12.1",
+          "androidx.compose.foundation:foundation-layout-android": "1.12.1",
+          "androidx.compose.runtime:runtime-android": "1.12.1",
+          "androidx.compose.runtime:runtime-annotation-android": "1.12.1",
+          "androidx.compose.runtime:runtime-retain-android": "1.12.1",
+          "androidx.compose.runtime:runtime-saveable-android": "1.12.1",
+          "androidx.compose.ui:ui-android": "1.12.1",
+          "androidx.compose.ui:ui-geometry-android": "1.12.1",
+          "androidx.compose.ui:ui-graphics-android": "1.12.1",
+          "androidx.compose.ui:ui-text-android": "1.12.1",
+          "androidx.compose.ui:ui-unit-android": "1.12.1",
+          "androidx.compose.ui:ui-util-android": "1.12.1",
+          "org.jetbrains.compose.animation:animation-android": "1.12.1",
+          "org.jetbrains.compose.animation:animation-core-android": "1.12.1",
+          "org.jetbrains.compose.components:components-resources-android": "1.12.1",
+          "org.jetbrains.compose.foundation:foundation-android": "1.12.1",
+          "org.jetbrains.compose.foundation:foundation-layout-android": "1.12.1",
+          "org.jetbrains.compose.runtime:runtime-android": "1.12.1",
+          "org.jetbrains.compose.runtime:runtime-saveable-android": "1.12.1",
+          "org.jetbrains.compose.ui:ui-android": "1.12.1",
+          "org.jetbrains.compose.ui:ui-geometry-android": "1.12.1",
+          "org.jetbrains.compose.ui:ui-graphics-android": "1.12.1",
+          "org.jetbrains.compose.ui:ui-text-android": "1.12.1",
+          "org.jetbrains.compose.ui:ui-unit-android": "1.12.1",
+          "org.jetbrains.compose.ui:ui-util-android": "1.12.1"
+        }
+      },
+      "case": "1.12.1-svg",
+      "raw_report_sha256": "dab3bce95f020fafb8f765713586ede6bb38416b7c886e1c74ee5a46f5620703",
+      "builds": [
+        {
+          "project": "producer",
+          "stage": "first",
+          "exit_code": 0,
+          "configuration_cache_reused": false
+        },
+        {
+          "project": "producer",
+          "stage": "reuse",
+          "exit_code": 0,
+          "configuration_cache_reused": true
+        },
+        {
+          "project": "consumer",
+          "stage": "first",
+          "exit_code": 0,
+          "configuration_cache_reused": false
+        },
+        {
+          "project": "consumer",
+          "stage": "reuse",
+          "exit_code": 0,
+          "configuration_cache_reused": true
+        }
+      ],
+      "source_archives": {
+        "checked": 3,
+        "private_state_absent": true,
+        "ownership_state_preserved_on_disk": true
+      },
+      "packaging": "Published Android AAR and consuming APK contain generated drawable XML; font mode also verifies exact prepared font bytes."
+    },
+    {
+      "profile": "kmp",
+      "version": "0.0.0-pruning-api02",
+      "compose_resources": true,
+      "compose_drawables_only": false,
+      "plugin_sha256": "062846ebee4dab4d0cf98099294f4d92743439ee30cb4d1048e82cc5ed5e3a73",
+      "kotlin": "2.4.20",
+      "agp": "9.4.1",
+      "compose": "1.12.1",
+      "resolved_compose": {
+        "producer-jvm": {
+          "androidx.compose.runtime:runtime-annotation-jvm": "1.12.1",
+          "androidx.compose.runtime:runtime-desktop": "1.12.1",
+          "androidx.compose.runtime:runtime-retain-desktop": "1.12.1",
+          "androidx.compose.runtime:runtime-saveable-desktop": "1.12.1",
+          "org.jetbrains.compose.animation:animation-core-desktop": "1.12.1",
+          "org.jetbrains.compose.animation:animation-desktop": "1.12.1",
+          "org.jetbrains.compose.components:components-resources-desktop": "1.12.1",
+          "org.jetbrains.compose.foundation:foundation-desktop": "1.12.1",
+          "org.jetbrains.compose.foundation:foundation-layout-desktop": "1.12.1",
+          "org.jetbrains.compose.runtime:runtime-desktop": "1.12.1",
+          "org.jetbrains.compose.runtime:runtime-saveable-desktop": "1.12.1",
+          "org.jetbrains.compose.ui:ui-desktop": "1.12.1",
+          "org.jetbrains.compose.ui:ui-geometry-desktop": "1.12.1",
+          "org.jetbrains.compose.ui:ui-graphics-desktop": "1.12.1",
+          "org.jetbrains.compose.ui:ui-text-desktop": "1.12.1",
+          "org.jetbrains.compose.ui:ui-unit-desktop": "1.12.1",
+          "org.jetbrains.compose.ui:ui-util-desktop": "1.12.1"
+        },
+        "consumer-android": {
+          "androidx.compose.animation:animation-android": "1.12.1",
+          "androidx.compose.animation:animation-core-android": "1.12.1",
+          "androidx.compose.foundation:foundation-android": "1.12.1",
+          "androidx.compose.foundation:foundation-layout-android": "1.12.1",
+          "androidx.compose.runtime:runtime-android": "1.12.1",
+          "androidx.compose.runtime:runtime-annotation-android": "1.12.1",
+          "androidx.compose.runtime:runtime-retain-android": "1.12.1",
+          "androidx.compose.runtime:runtime-saveable-android": "1.12.1",
+          "androidx.compose.ui:ui-android": "1.12.1",
+          "androidx.compose.ui:ui-geometry-android": "1.12.1",
+          "androidx.compose.ui:ui-graphics-android": "1.12.1",
+          "androidx.compose.ui:ui-text-android": "1.12.1",
+          "androidx.compose.ui:ui-unit-android": "1.12.1",
+          "androidx.compose.ui:ui-util-android": "1.12.1",
+          "org.jetbrains.compose.animation:animation-android": "1.12.1",
+          "org.jetbrains.compose.animation:animation-core-android": "1.12.1",
+          "org.jetbrains.compose.components:components-resources-android": "1.12.1",
+          "org.jetbrains.compose.foundation:foundation-android": "1.12.1",
+          "org.jetbrains.compose.foundation:foundation-layout-android": "1.12.1",
+          "org.jetbrains.compose.runtime:runtime-android": "1.12.1",
+          "org.jetbrains.compose.runtime:runtime-saveable-android": "1.12.1",
+          "org.jetbrains.compose.ui:ui-android": "1.12.1",
+          "org.jetbrains.compose.ui:ui-geometry-android": "1.12.1",
+          "org.jetbrains.compose.ui:ui-graphics-android": "1.12.1",
+          "org.jetbrains.compose.ui:ui-text-android": "1.12.1",
+          "org.jetbrains.compose.ui:ui-unit-android": "1.12.1",
+          "org.jetbrains.compose.ui:ui-util-android": "1.12.1"
+        }
+      },
+      "case": "1.12.1-font",
+      "raw_report_sha256": "d42c27d9e0b11dd9a33bc2079337777486ebc7d37200ba293c9693b1f74a6f49",
+      "builds": [
+        {
+          "project": "producer",
+          "stage": "first",
+          "exit_code": 0,
+          "configuration_cache_reused": false
+        },
+        {
+          "project": "producer",
+          "stage": "reuse",
+          "exit_code": 0,
+          "configuration_cache_reused": true
+        },
+        {
+          "project": "consumer",
+          "stage": "first",
+          "exit_code": 0,
+          "configuration_cache_reused": false
+        },
+        {
+          "project": "consumer",
+          "stage": "reuse",
+          "exit_code": 0,
+          "configuration_cache_reused": true
+        }
+      ],
+      "source_archives": {
+        "checked": 3,
+        "private_state_absent": true,
+        "ownership_state_preserved_on_disk": true
+      },
+      "packaging": "Published Android AAR and consuming APK contain generated drawable XML; font mode also verifies exact prepared font bytes."
+    },
+    {
+      "profile": "kmp",
+      "version": "0.0.0-pruning-api02",
+      "compose_resources": true,
+      "compose_drawables_only": false,
+      "plugin_sha256": "062846ebee4dab4d0cf98099294f4d92743439ee30cb4d1048e82cc5ed5e3a73",
+      "kotlin": "2.4.20",
+      "agp": "9.1.0",
+      "compose": "1.12.1",
+      "resolved_compose": {
+        "producer-jvm": {
+          "androidx.compose.runtime:runtime-annotation-jvm": "1.12.1",
+          "androidx.compose.runtime:runtime-desktop": "1.12.1",
+          "androidx.compose.runtime:runtime-retain-desktop": "1.12.1",
+          "androidx.compose.runtime:runtime-saveable-desktop": "1.12.1",
+          "org.jetbrains.compose.animation:animation-core-desktop": "1.12.1",
+          "org.jetbrains.compose.animation:animation-desktop": "1.12.1",
+          "org.jetbrains.compose.components:components-resources-desktop": "1.12.1",
+          "org.jetbrains.compose.foundation:foundation-desktop": "1.12.1",
+          "org.jetbrains.compose.foundation:foundation-layout-desktop": "1.12.1",
+          "org.jetbrains.compose.runtime:runtime-desktop": "1.12.1",
+          "org.jetbrains.compose.runtime:runtime-saveable-desktop": "1.12.1",
+          "org.jetbrains.compose.ui:ui-desktop": "1.12.1",
+          "org.jetbrains.compose.ui:ui-geometry-desktop": "1.12.1",
+          "org.jetbrains.compose.ui:ui-graphics-desktop": "1.12.1",
+          "org.jetbrains.compose.ui:ui-text-desktop": "1.12.1",
+          "org.jetbrains.compose.ui:ui-unit-desktop": "1.12.1",
+          "org.jetbrains.compose.ui:ui-util-desktop": "1.12.1"
+        },
+        "consumer-android": {
+          "androidx.compose.animation:animation-android": "1.12.1",
+          "androidx.compose.animation:animation-core-android": "1.12.1",
+          "androidx.compose.foundation:foundation-android": "1.12.1",
+          "androidx.compose.foundation:foundation-layout-android": "1.12.1",
+          "androidx.compose.runtime:runtime-android": "1.12.1",
+          "androidx.compose.runtime:runtime-annotation-android": "1.12.1",
+          "androidx.compose.runtime:runtime-retain-android": "1.12.1",
+          "androidx.compose.runtime:runtime-saveable-android": "1.12.1",
+          "androidx.compose.ui:ui-android": "1.12.1",
+          "androidx.compose.ui:ui-geometry-android": "1.12.1",
+          "androidx.compose.ui:ui-graphics-android": "1.12.1",
+          "androidx.compose.ui:ui-text-android": "1.12.1",
+          "androidx.compose.ui:ui-unit-android": "1.12.1",
+          "androidx.compose.ui:ui-util-android": "1.12.1",
+          "org.jetbrains.compose.animation:animation-android": "1.12.1",
+          "org.jetbrains.compose.animation:animation-core-android": "1.12.1",
+          "org.jetbrains.compose.components:components-resources-android": "1.12.1",
+          "org.jetbrains.compose.foundation:foundation-android": "1.12.1",
+          "org.jetbrains.compose.foundation:foundation-layout-android": "1.12.1",
+          "org.jetbrains.compose.runtime:runtime-android": "1.12.1",
+          "org.jetbrains.compose.runtime:runtime-saveable-android": "1.12.1",
+          "org.jetbrains.compose.ui:ui-android": "1.12.1",
+          "org.jetbrains.compose.ui:ui-geometry-android": "1.12.1",
+          "org.jetbrains.compose.ui:ui-graphics-android": "1.12.1",
+          "org.jetbrains.compose.ui:ui-text-android": "1.12.1",
+          "org.jetbrains.compose.ui:ui-unit-android": "1.12.1",
+          "org.jetbrains.compose.ui:ui-util-android": "1.12.1"
+        }
+      },
+      "case": "1.12.1-font-agp9.1",
+      "raw_report_sha256": "a5ae67032f29e81ec8d500c2f13505166d1a3981c4b03bfce10ce4613baa16fd",
+      "builds": [
+        {
+          "project": "producer",
+          "stage": "first",
+          "exit_code": 0,
+          "configuration_cache_reused": false
+        },
+        {
+          "project": "producer",
+          "stage": "reuse",
+          "exit_code": 0,
+          "configuration_cache_reused": true
+        },
+        {
+          "project": "consumer",
+          "stage": "first",
+          "exit_code": 0,
+          "configuration_cache_reused": false
+        },
+        {
+          "project": "consumer",
+          "stage": "reuse",
+          "exit_code": 0,
+          "configuration_cache_reused": true
+        }
+      ],
+      "source_archives": {
+        "checked": 3,
+        "private_state_absent": true,
+        "ownership_state_preserved_on_disk": true
+      },
+      "packaging": "Published Android AAR and consuming APK contain generated drawable XML and exact prepared font bytes."
+    }
+  ],
+  "negative_transitive_upgrade": {
+    "status": "verified expected failure",
+    "case": "Full font fixture requested with official Compose 1.11.1 and the current Symbols font runtime",
+    "symbols_version": "0.0.0-pruning-api02",
+    "plugin_sha256": "062846ebee4dab4d0cf98099294f4d92743439ee30cb4d1048e82cc5ed5e3a73",
+    "requested_compose": "1.11.1",
+    "resolved_resources": {
+      "module": "org.jetbrains.compose.components:components-resources-desktop",
+      "version": "1.12.1"
+    },
+    "producer_builds_passed": 2,
+    "producer_configuration_cache_reused": true,
+    "verifier_exit_code": 1,
+    "failure": "Compose runtime mismatch: requested 1.11.1 resolved 1.12.1 via the current font runtime",
+    "consumer_build_started": false,
+    "success_report_written": false,
+    "raw_log_sha256": "f8991345aa0a03fdb36ff56534c307a05430c6e67e39343484637fdcaa13bb7e",
+    "raw_resolution_report_sha256": "4e10b7ecb9e45c747564c2ebd3b38d3a455f24775172dba5513b337710e67d3f"
+  },
+  "hosted_verification": "Pending for the changed fixture code; September28 hosted results cover the prior nine-case matrix only."
+}

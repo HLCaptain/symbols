@@ -11,6 +11,7 @@ import io.github.hlcaptain.symbols.generator.SymbolManifestParser
 import io.github.hlcaptain.symbols.generator.SymbolNames
 import io.github.hlcaptain.symbols.generator.SvgIconExtractor
 import java.io.File
+import java.lang.reflect.InvocationTargetException
 import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -22,8 +23,10 @@ import org.gradle.api.file.FileCollection
 import org.gradle.api.file.RegularFile
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.TaskProvider
+import org.gradle.jvm.tasks.Jar
 import org.jetbrains.compose.ComposeExtension
 import org.jetbrains.compose.resources.ResourcesExtension
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
@@ -35,6 +38,12 @@ class SymbolFontsPlugin : Plugin<Project> {
             "symbolFonts",
             SymbolFontsExtension::class.java,
         )
+        // Keep ownership state beside generated files for cleanup, not in source archives.
+        project.tasks.withType(Jar::class.java).configureEach { jar ->
+            if (jar.name == "sourcesJar" || jar.name.endsWith("SourcesJar")) {
+                jar.exclude(".symbols-generated-files", "**/.symbols-generated-files")
+            }
+        }
         val catalogs = project.registerCatalogsTask(extension)
         var catalogsWired = false
         extension.catalogs.all {
@@ -57,6 +66,9 @@ class SymbolFontsPlugin : Plugin<Project> {
         project.wireFontDescriptorResourceSettings(fontDescriptors, extension)
         project.wireAndroidResourceSettings(extension)
         val derivedNames = DerivedNameRegistry()
+        val generatedComposeDirectories =
+            mutableListOf<Pair<SymbolFontStyle, Provider<Directory>>>()
+        project.wireExperimentalComposeResourcePruning(extension, generatedComposeDirectories)
         val conventionalComposeResources = project.layout.projectDirectory
             .dir("src/commonMain/composeResources")
             .asFile
@@ -112,6 +124,7 @@ class SymbolFontsPlugin : Plugin<Project> {
                     style = style,
                     generatorClasspath = generatorClasspath,
                 )
+                generatedComposeDirectories += style to task.flatMap { it.composeOutputDirectory }
                 project.afterEvaluate {
                     if (style.generateComposeDrawables.get()) {
                         composeResources.configure {
@@ -420,6 +433,7 @@ private fun Project.wireAndroidResourceSettings(extension: SymbolFontsExtension)
     }
 }
 
+@OptIn(ExperimentalKotlinGradlePluginApi::class)
 private fun <TaskT : Task> Project.wireGeneratedKotlin(
     task: TaskProvider<TaskT>,
     directory: (TaskT) -> DirectoryProperty,
@@ -431,7 +445,7 @@ private fun <TaskT : Task> Project.wireGeneratedKotlin(
             .sourceSets
             .named("commonMain")
             .configure { sourceSet ->
-                sourceSet.kotlin.srcDir(
+                sourceSet.generatedKotlin.srcDir(
                     sourceDirectory,
                 )
             }
@@ -442,7 +456,7 @@ private fun <TaskT : Task> Project.wireGeneratedKotlin(
             .sourceSets
             .named("main")
             .configure { sourceSet ->
-                sourceSet.kotlin.srcDir(
+                sourceSet.generatedKotlin.srcDir(
                     sourceDirectory,
                 )
             }
@@ -467,6 +481,56 @@ private fun Project.withAndroidPlugin(action: () -> Unit) {
     ).forEach { pluginId ->
         plugins.withId(pluginId) {
             action()
+        }
+    }
+}
+
+private fun Project.wireExperimentalComposeResourcePruning(
+    extension: SymbolFontsExtension,
+    generatedDirectories: List<Pair<SymbolFontStyle, Provider<Directory>>>,
+) {
+    withAndroidPlugin {
+        extensions.getByType(AndroidComponentsExtension::class.java).finalizeDsl {
+            if (!extension.experimentalComposeResourcePruning.get()) return@finalizeDsl
+            val directories = generatedDirectories.filter { (style, _) ->
+                style.generateComposeDrawables.get()
+            }.map { (_, directory) -> directory }
+            if (directories.isEmpty()) return@finalizeDsl
+            if (!plugins.hasPlugin("org.jetbrains.compose")) {
+                throw InvalidUserDataException(
+                    "experimentalComposeResourcePruning requires the Compose Gradle plugin " +
+                        "in the resource-producing project.",
+                )
+            }
+            val resources = composeResourcesExtension()
+            // Probe the public producer API only when opted in. This keeps the
+            // ordinary asset backend compatible with older Compose plugins.
+            // The proposed upstream API is tracked in HLCaptain/symbols#41;
+            // no released Compose plugin currently exposes it.
+            val register = try {
+                resources.javaClass.getMethod(
+                    "experimentalAndroidNativeXmlResources",
+                    String::class.java,
+                    Provider::class.java,
+                )
+            } catch (missing: NoSuchMethodException) {
+                throw InvalidUserDataException(
+                    "experimentalComposeResourcePruning requires a Compose Gradle plugin " +
+                        "with native Android XML resource support and a compatible resource runtime. " +
+                        "The installed plugin does not expose " +
+                        "experimentalAndroidNativeXmlResources. Keep this option disabled " +
+                        "until compatible upstream support is available: " +
+                        "https://github.com/HLCaptain/symbols/issues/41",
+                    missing,
+                )
+            }
+            directories.forEach { directory ->
+                try {
+                    register.invoke(resources, "commonMain", directory)
+                } catch (failure: InvocationTargetException) {
+                    throw failure.targetException
+                }
+            }
         }
     }
 }
