@@ -79,16 +79,21 @@ Both use the eight modules `symbols-core`, `variant-font-core`, `material-core`,
 `material-compose`, and the four `material-vectors-*` packs. This reuses each job's
 compiled outputs and avoids adding web/native publication to the 45-minute plugin
 matrix. Candidate artifacts remain in the workspace's ignored `build/` directory.
+These CI publications retain the development version from `gradle.properties`,
+matching the preceding verification build. Overriding it for publication changes
+native compilation inputs and rebuilds the same libraries; the private Maven
+directory provides isolation without a second version.
 
 After publishing those candidates, run:
 
 ```shell
+candidate_version=$(sed -n 's/^VERSION_NAME=//p' gradle.properties)
 python3 tooling/compatibility/check.py --profile jvm --built-in-vectors \
   --gradle ./gradlew --repository build/vector-consumer-maven \
-  --version 0.0.0-consumer-check --output build/reports/builtin-compatibility
+  --version "$candidate_version" --output build/reports/builtin-compatibility
 JAVA_HOME=/path/to/jdk-17 python3 tooling/compatibility/check.py --profile android-app --built-in-vectors \
   --gradle /path/to/gradle-9.3.1/bin/gradle --agp-version 9.1.1 --compile-sdk 37 \
-  --repository build/vector-consumer-maven --version 0.0.0-consumer-check \
+  --repository build/vector-consumer-maven --version "$candidate_version" \
   --output build/reports/builtin-compatibility-minimum
 ```
 
@@ -102,8 +107,9 @@ and plugin on JDK 21.
 On macOS with the repository's Xcode version:
 
 ```shell
+candidate_version=$(sed -n 's/^VERSION_NAME=//p' gradle.properties)
 python3 tooling/compatibility/check.py --profile ios --gradle ./gradlew \
-  --repository build/apple-consumer-maven --version 0.0.0-consumer-check \
+  --repository build/apple-consumer-maven --version "$candidate_version" \
   --output build/reports/builtin-compatibility
 ```
 
