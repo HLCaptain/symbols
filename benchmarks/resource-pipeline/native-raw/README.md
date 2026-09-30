@@ -1,5 +1,10 @@
 # Dependency-only Compose drawable shrinking prototype
 
+**Production integration is deferred**, tracked in [feature request #41](https://github.com/HLCaptain/symbols/issues/41).
+The [upcoming feature plan](#upcoming-feature-deferred-producer-opt-in) proposes a
+disabled-by-default producer flag. That property is not implemented; the current
+sample apps and published libraries do not use this backend.
+
 This is an isolated upstream experiment for Android XML drawables consumed through
 Compose Multiplatform's existing resource API. The normal call remains:
 
@@ -345,6 +350,61 @@ Fast generator/parser contract checks do not invoke Gradle:
 python3 -m unittest discover -s "$NATIVE_RAW_SCRIPTS" -p 'test_*.py'
 ```
 
+## Upcoming feature: deferred producer opt-in
+
+Status: **upcoming feature; implementation deferred**. This plan does not enable
+pruning, introduce a production Compose fork, or change sample applications.
+Existing prototype code and measurements remain experimental evidence.
+
+Proposed API in the existing `symbolFonts` extension, **not currently available**:
+
+```kotlin
+symbolFonts {
+    experimentalComposeResourcePruning.set(true)
+}
+```
+
+The proposed property is a `Property<Boolean>` with a default of `false`.
+
+- Unset or `false` preserves existing packaging and compatibility, without
+  requiring the experimental backend's runtime support.
+- `true` selects shrinkable Android packaging for this project's generated
+  Compose XML drawables, using native `res/raw` references behind the existing
+  `Res.drawable` and `DrawableResource` APIs. Actual unused-resource removal still
+  requires the consuming app's normal code/resource shrinking configuration.
+- Enabling the backend with unsupported official Compose runtime/generator APIs
+  must fail with an actionable compatibility message. It must not silently fall
+  back, install a fork, or add dependency substitutions.
+- This is a **producer setting**. It cannot retrofit an already published AAR.
+  Apps consuming opted-in library versions need no producer flag, reader wrapper,
+  initializer or extra plugin; their existing resource calls remain unchanged.
+  An application generating its own resources is also a producer and would opt in
+  in that generating project.
+- Fonts, native `androidDrawables()` output, unrelated resources and non-Android
+  packaging remain unchanged. This does not provide font glyph subsetting.
+
+Production adoption still requires compatible official Compose integration while
+retaining Android API 23 and the existing toolchain support boundaries. Neither
+the existing local runtime coordinate nor a maintained Compose fork is selected
+for production. The opt-in is a future producer-only exception to the earlier
+version-only plan; consumers of published libraries still use ordinary version
+upgrades. Upgrading versions alone does not activate this unimplemented feature.
+
+Future acceptance checks:
+
+- Verify default-off packaging and compatibility, explicit opt-in, and clear
+  errors for unsupported backend/runtime combinations.
+- Test published Outlined, Rounded and Sharp packs plus custom font/SVG-to-XML
+  generation in independent Android/KMP, transitive and precompiled consumers.
+- Preserve public API/ABI, qualifiers, raw reads, usable URIs, previews and
+  delegating custom readers; verify APK/AAB retention and non-Android behavior.
+- Keep dynamic/raw access conservative and preserve unrelated resources.
+- Track the flag as a generation-task input and test configuration/build caches
+  and `false -> true -> false` transitions without stale or duplicate resources.
+
+Only this plan and its feature request are being updated now. No production
+implementation, sample configuration or dependency change is part of this work.
+
 ## Upstream integration proposal
 
 The source of truth for the investigated seams is the published
@@ -370,7 +430,7 @@ and [Android resource-runtime sources](https://repo.maven.apache.org/maven2/org/
    `ImageResources.kt` selects XML decoding from the location suffix. The current
    string token is a prototype encoding, not a promised public format. Resolve
    preview, custom-reader, URI and external asset-access compatibility before
-   choosing a production default.
+   making the proposed producer opt-in available. Keep it disabled by default.
 4. Gate adoption on published-artifact retention and byte parity, raw/URI and
    qualifier contracts, unchanged public/binary APIs, transitive consumers,
    supported AGP/Kotlin configurations, APK/AAB delivery and actual rendering.
