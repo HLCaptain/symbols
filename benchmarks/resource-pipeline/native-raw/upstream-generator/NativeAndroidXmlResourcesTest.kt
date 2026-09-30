@@ -90,8 +90,8 @@ class NativeAndroidXmlResourcesTest {
             locations.associateBy { it.relativePath }).joinToString("\n")
         assertTrue("private object _NativeXml_CommonMainDrawable0_sample" in nativeAccessors)
         assertTrue("_NativeXml_CommonMainDrawable0_sample.value" in nativeAccessors, nativeAccessors)
-        assertTrue("@delegate:ResourceContentHash(1_344)" in nativeAccessors)
-        assertTrue("by lazy {" in nativeAccessors, nativeAccessors)
+        assertTrue("@field:ResourceContentHash(1_344)" in nativeAccessors)
+        assertFalse("by lazy" in nativeAccessors, nativeAccessors)
         assertFalse("AppRes.drawable.sample: DrawableResource by lazy" in nativeAccessors)
         val task = project.tasks.create("locations", GenerateNativeXmlLocationsTask::class.java).apply {
             manifests.from(index.locationsFile)

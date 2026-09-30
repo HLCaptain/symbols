@@ -342,7 +342,18 @@
  ): FileSpec {
      return FileSpec.builder(packageName, fileName).also { chunkFile ->
          chunkFile.addAnnotation(
-@@ -341,7 +359,12 @@
+@@ -328,8 +346,9 @@
+         )
+
+         idToResources.forEach { (resName, items) ->
++            val hasNativeXml = items.any { it.path.invariantSeparatorsPathString in nativeXmlLocations }
+             val initializer = CodeBlock.builder()
+-                .beginControlFlow("lazy {")
++                .apply { if (!hasNativeXml) beginControlFlow("lazy {") }
+                 .apply {
+                     if (type.requiresKeyName()) {
+                         add("%T(%S, %S, setOf(\n", type.getClassName(), "$type:$resName", resName)
+@@ -341,26 +360,53 @@
                          addQualifiers(item)
                          add("), ")
                          //file separator should be '/' on all platforms
@@ -356,17 +367,20 @@
                          add("),\n")
                      }
                      add("))\n")
-@@ -351,16 +374,38 @@
+                 }
+-                .endControlFlow()
++                .apply { if (!hasNativeXml) endControlFlow() }
+                 .build()
 
              val accessorBuilder = PropertySpec.builder(resName, type.getClassName(), resModifier)
                  .receiver(ClassName(packageName, resClassName, type.accessorName))
 -                .delegate(initializer)
-+            val hasNativeXml = items.any { it.path.invariantSeparatorsPathString in nativeXmlLocations }
 +            // Isolate native descriptor initialization. A shared facade <clinit>
 +            // can keep unused lazy lambdas (and their R references) alive in R8.
 +            val holderName = "_NativeXml_${chunkClassName}_$resName"
 +            val valueBuilder = if (hasNativeXml) {
-+                PropertySpec.builder("value", type.getClassName()).delegate(initializer)
++                // The object already initializes once on first use; no second lazy wrapper is needed.
++                PropertySpec.builder("value", type.getClassName()).initializer(initializer)
 +            } else {
 +                accessorBuilder.delegate(initializer)
 +            }
@@ -374,7 +388,8 @@
 -                accessorBuilder.addAnnotation(
 +                valueBuilder.addAnnotation(
                      AnnotationSpec.builder(resourceContentHashAnnotationClass)
-                         .useSiteTarget(AnnotationSpec.UseSiteTarget.DELEGATE)
+-                        .useSiteTarget(AnnotationSpec.UseSiteTarget.DELEGATE)
++                        .useSiteTarget(if (hasNativeXml) AnnotationSpec.UseSiteTarget.FIELD else AnnotationSpec.UseSiteTarget.DELEGATE)
                          .addMember("%L", items.fold(0) { acc, item -> ((acc * 31) + item.contentHash) })
                          .build()
                  )

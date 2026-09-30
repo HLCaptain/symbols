@@ -70,9 +70,12 @@ import ''' + publisher.PACKAGE + '''.Res''')
                     all_resources=[i["resource"] for i in icons],
                     publisher_sha256=hashlib.sha256((args.publisher / "publisher.json").read_bytes()).hexdigest(),
                     runtime_version=descriptor["runtime_version"])
+    if getattr(args, "preserve_aar_notices", None):
+        manifest["notice_provenance"] = usage.preserve_aar_notices(args.preserve_aar_notices, output)
     if descriptor["backend"] == "native":
         retained = icons if args.access in ("dynamic", "raw") else selected
         manifest["native_raw"] = {
+            "resource_prefix": descriptor.get("raw_resource_prefix", publisher.RAW_PREFIX),
             "expected_resources": [i["raw_resource"] for i in retained],
             "all_resources": [i["raw_resource"] for i in icons],
             "forbidden_asset_prefix": "assets/" + publisher.PREFIX,
@@ -90,6 +93,8 @@ def main():
     parser.add_argument("--access", choices=("direct", "dynamic", "raw"), required=True)
     parser.add_argument("--count", required=True, help="Number of icons, or all")
     parser.add_argument("--agp", help="Consumer AGP override for compatibility checks")
+    parser.add_argument("--preserve-aar-notices", type=Path,
+                        help="Benchmark normalization: retain this AAR's original legal notices in the APK")
     args = parser.parse_args()
     if args.count != "all" and not args.count.isdecimal():
         parser.error("--count must be a nonnegative integer or all")

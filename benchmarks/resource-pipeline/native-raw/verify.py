@@ -14,7 +14,6 @@ import zipfile
 PREFIX = "symbols_probe_"
 RESOURCE = re.compile(r"^\s*resource\s+0x[0-9a-fA-F]+\s+(?:[\w.]+:)?(\w+)/(\w+)\b")
 FILE = re.compile(r"\(file\)\s+(\S+)")
-RAW_FILE = re.compile(r"res/raw(?:-[^/]+)?/(symbols_probe_[a-z0-9_]+)\.[^/]+$")
 DRAWABLE_ASSETS = "composeResources/io.github.hlcaptain.symbols.material.outlined.compose.drawables.resources/drawable/"
 
 
@@ -91,7 +90,7 @@ def publication_bytes(stock_aar, native_aar, native_jvm, control_aar, control_jv
     return report
 
 
-def resource_files(dump):
+def resource_files(dump, prefix=PREFIX):
     """Use the table, because APK resource filenames may be shortened or shared."""
     result = {}
     current = None
@@ -99,7 +98,7 @@ def resource_files(dump):
         match = RESOURCE.match(line)
         if match:
             kind, name = match.groups()
-            current = name if kind == "raw" and name.startswith(PREFIX) else None
+            current = name if kind == "raw" and name.startswith(prefix) else None
             if current is not None:
                 result.setdefault(current, [])
         elif current is not None and (match := FILE.search(line)):
@@ -107,12 +106,14 @@ def resource_files(dump):
     return result
 
 
-def names(values):
+def names(values, prefix=PREFIX):
+    if not isinstance(prefix, str) or not re.fullmatch(r"[a-z][a-z0-9_]*_", prefix):
+        raise ValueError("Expected an Android resource-name prefix ending in an underscore")
     if not isinstance(values, list) or not all(
-        isinstance(value, str) and re.fullmatch(r"symbols_probe_[a-z0-9_]+", value)
+        isinstance(value, str) and re.fullmatch(re.escape(prefix) + r"[a-z0-9_]+", value)
         for value in values
     ) or len(set(values)) != len(values):
-        raise ValueError("Expected a duplicate-free list of symbols_probe_ resource names")
+        raise ValueError(f"Expected a duplicate-free list of {prefix} resource names")
     return set(values)
 
 
@@ -121,8 +122,10 @@ def analyze(fixture, apk_path, aar_path, aapt2):
     manifest_bytes = manifest_path.read_bytes()
     manifest = json.loads(manifest_bytes)
     contract = manifest["native_raw"]
-    expected = names(contract["expected_resources"])
-    catalog = names(contract["all_resources"])
+    prefix = contract.get("resource_prefix", PREFIX)
+    expected = names(contract["expected_resources"], prefix)
+    catalog = names(contract["all_resources"], prefix)
+    raw_file = re.compile(r"res/raw(?:-[^/]+)?/(" + re.escape(prefix) + r"[a-z0-9_]+)\.[^/]+$")
     if not expected <= catalog:
         raise ValueError("Expected resources must belong to the full published catalog")
     forbidden = contract["forbidden_asset_prefix"]
@@ -130,7 +133,7 @@ def analyze(fixture, apk_path, aar_path, aapt2):
         raise ValueError("forbidden_asset_prefix must identify an assets/ directory")
 
     dump = subprocess.check_output([str(aapt2), "dump", "resources", str(apk_path)], text=True)
-    retained = resource_files(dump)
+    retained = resource_files(dump, prefix)
     missing, extra = expected - retained.keys(), retained.keys() - expected
     if missing or extra:
         raise ValueError(f"Raw retention mismatch: missing={sorted(missing)}, unexpected={sorted(extra)}")
@@ -138,7 +141,7 @@ def analyze(fixture, apk_path, aar_path, aapt2):
     with zipfile.ZipFile(aar_path) as aar, zipfile.ZipFile(apk_path) as apk:
         published = {}
         for entry in aar.infolist():
-            if match := RAW_FILE.fullmatch(entry.filename):
+            if match := raw_file.fullmatch(entry.filename):
                 published.setdefault(match.group(1), []).append(entry.filename)
         if published.keys() != catalog:
             raise ValueError("Published AAR raw resource names differ from the full fixture catalog")

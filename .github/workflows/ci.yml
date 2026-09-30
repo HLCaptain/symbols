@@ -148,6 +148,10 @@ jobs:
               --candidate-version "$runtime_version" --output "$proposal/resolution-$baseline" \
               --gradle ./gradlew "${extra[@]}"
           done
+          python3 "$scripts/upstream-generator/contracts.py" \
+            --repository "$RUNNER_TEMP/symbols-consumers" --symbols-version 0.0.0-consumer-check \
+            --upstream-repository "$proposal/maven" --plugin-version 1.12.1-native-xml-ci \
+            --runtime-version "$higher_version" --output "$proposal/contracts" --gradle ./gradlew
 
   generated-sources-and-fonts:
     name: Generated sources and fonts

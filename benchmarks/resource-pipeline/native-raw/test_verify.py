@@ -2,6 +2,8 @@ import importlib.util
 import io
 import json
 from pathlib import Path
+import subprocess
+import sys
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -112,6 +114,43 @@ resource 0x7f010001 raw/unrelated
   () (file) res/d.xml type=STRING
 """
         self.assertEqual(verify.resource_files(dump), {"symbols_probe_day_night": ["res/a.xml", "res/b.xml"]})
+
+
+class NativeResourcePrefixTest(unittest.TestCase):
+    def test_empty_native_manifest_cannot_fall_back_to_asset_packaging(self):
+        script = Path(__file__).with_name("upstream-generator") / "material.py"
+        repository = Path(__file__).resolve().parents[3]
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory)
+            manifest = output / "build/generated/compose/resourceGenerator/nativeAndroidXml/commonMain/locations.tsv"
+            manifest.parent.mkdir(parents=True)
+            manifest.write_text("")
+            result = subprocess.run([
+                sys.executable, str(script), "--source-root", str(repository),
+                "--output", str(output), "--repository", str(output / "repo"),
+                "--plugin-repository", str(output / "plugins"), "--version", "0.0.0-negative",
+                "--backend", "native", "--collect",
+            ], capture_output=True, text=True)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("Native locations must match the complete nonempty catalog", result.stderr)
+            self.assertFalse((output / "publisher.json").exists())
+
+    def test_model_and_actual_generator_names_are_scoped_and_validated(self):
+        dump = """resource 0x7f010001 raw/symbols_probe_example
+  (file) res/a.xml
+resource 0x7f010002 raw/compose_native_xml_012abc
+  (file) res/b.xml
+resource 0x7f010003 raw/authored
+  (file) res/c.xml
+"""
+        self.assertEqual(verify.resource_files(dump), {"symbols_probe_example": ["res/a.xml"]})
+        prefix = "compose_native_xml_"
+        self.assertEqual(verify.resource_files(dump, prefix), {prefix + "012abc": ["res/b.xml"]})
+        self.assertEqual(verify.names([prefix + "012abc"], prefix), {prefix + "012abc"})
+        for values, invalid_prefix in ((["authored"], prefix), ([prefix + "x"] * 2, prefix), ([], "../")):
+            with self.assertRaises(ValueError):
+                verify.names(values, invalid_prefix)
+
 
 
 if __name__ == "__main__":

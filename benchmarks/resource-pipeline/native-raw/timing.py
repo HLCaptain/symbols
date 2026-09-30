@@ -28,7 +28,12 @@ def main():
     retention = run.load(Path(__file__).resolve().parents[1] / "retention.py")
     fixtures = {label: getattr(args, label).resolve() for label in ("assets", "native")}
     manifests = {label: json.loads((path / "fixture.json").read_text()) for label, path in fixtures.items()}
-    for field in ("selected", "access", "count", "all_resources", "all_unique_glyphs", "versions"):
+    selected = {label: [{key: value for key, value in icon.items() if key != "raw_resource"}
+                        for icon in manifest["selected"]]
+                for label, manifest in manifests.items()}
+    if selected["assets"] != selected["native"]:
+        raise ValueError("Compare identical logical resources and XML bytes")
+    for field in ("access", "count", "all_resources", "all_unique_glyphs", "versions"):
         if manifests["assets"][field] != manifests["native"][field]:
             raise ValueError(f"Compare identical consumer inputs: {field}")
     for relative in ("gradle/wrapper/gradle-wrapper.jar", "gradle/wrapper/gradle-wrapper.properties", "gradle.properties"):
