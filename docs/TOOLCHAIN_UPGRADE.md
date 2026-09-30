@@ -1,4 +1,4 @@
-# AGP 9 and Kotlin 2.4 migration
+# Symbols 2.0: AGP 9 and Kotlin 2.4 migration
 
 The repository builds with Gradle 9.7.0, AGP 9.4.1, Kotlin/Compose compiler
 2.4.20, Compose Multiplatform 1.12.1, Koin compiler 1.2.1 and JDK 21.
@@ -9,10 +9,11 @@ repository's consumer matrix is required for the newer AGP combination.
 
 | Consumer | Supported configuration |
 | --- | --- |
-| Compose Android | AGP 9.1+, compile SDK 37, Android API 23+, Kotlin 2.4 |
+| Compose Android | AGP 9.1.1+, Gradle 9.3.1+, compile SDK 37, Android API 23+, Kotlin 2.4 |
 | Android XML only | AGP 8.13.2+, Gradle 8.14.5+, compile SDK 36, API 21+; no Kotlin/Compose plugin required |
 | JVM | JVM 11 library bytecode; Gradle plugin requires Java 17 |
-| Apple source build | Xcode 26.4.1 on macOS; device and simulator targets retained |
+| Apple | Kotlin 2.4 KLIBs; iOS 15 default deployment baseline; device and simulator targets retained |
+| Apple source build | Xcode 26.4.1 on macOS |
 
 The AndroidX artifacts used by Compose 1.12.1 declare their AGP/SDK floors in
 `META-INF/com/android/build/gradle/aar-metadata.properties` and their manifests.
@@ -20,11 +21,39 @@ The previous Compose 1.11 dependencies already required API 23: the old blanket
 API 21 claim described the native renderer's capability, not the resolved
 Compose dependency graph. Native XML remains usable on API 21.
 
+AndroidX AAR metadata declares an AGP 9.1.0 floor. An independent 9.1.0 consumer
+built successfully, but warned that its tested SDK ceiling was 36.1. The supported
+SDK 37 boundary therefore uses AGP 9.1.1 with Gradle 9.3.1 and JDK 17, matching
+[AGP's SDK 37 compatibility table](https://developer.android.com/build/releases/agp-9-1-0-release-notes).
+No unsupported-SDK warning is suppressed.
+
+Core and native XML AARs now explicitly set `minCompileSdk=36`. Their published
+1.2.0 AAR metadata set it to `1`; the new compile SDK floor is a compatibility
+change even though the API 21 device floor is retained. AGP 8.13.2 and Gradle
+8.14.5 are the tested legacy XML combination, not a claim that every earlier
+consumer toolchain remains supported.
+
+Kotlin/Native, JS, and Wasm artifacts move from Kotlin 2.3 to 2.4 metadata. Use
+the tested Kotlin 2.4.20 compiler for those consumers. Library JVM bytecode stays
+at Java 11 and generator/plugin bytecode at Java 17. The root Gradle 9.7.0 / AGP
+9.4.1 / JDK 21 combination builds this repository; those exact producer versions
+are not imposed on all consumers. Kotlin 2.4 raises its default iOS deployment
+version from 14 to 15. Older deployment overrides are outside the 2.0 tested
+support contract; this release adds no such override.
+
 Public icon accessors and the `symbolFonts` DSL are unchanged. Android applications
 use AGP's built-in Kotlin; KMP libraries use
 `com.android.kotlin.multiplatform.library` with `kotlin.android {}`. Generated
 native resources and Kotlin sources are attached through task-backed public
 variant APIs, including Android-only applications.
+
+The 2.0 candidate's 17 JVM JARs were compared with checksum-verified public 1.2.0
+artifacts: both expose 574 JVM-public/protected classes and 49,116 members with
+Java 11 bytecode. All vector signatures are identical. Nine source-declared
+internal methods change their Kotlin module-name suffix; none is inline or
+`@PublishedApi`. Code using reflection or Java to call those internal names must
+not assume compatibility. This linkage check does not substitute for native,
+metadata, dependency-resolution, or runtime consumer tests.
 
 ## Source-build changes
 
@@ -54,7 +83,7 @@ library JVM bytecode remains Java 11.
 | Root Gradle | 8.14.5 | 9.7.0 | Within Kotlin 2.4.20's supported Gradle range; standalone tooling stays on 8.14.5 |
 | AGP | 8.13.2 | 9.4.1 | Native Android KMP; public tooling's compile-only API stays on 8.13.2 |
 | Kotlin / Compose compiler | 2.3.21 | 2.4.20 | Upgrade together |
-| Compose Multiplatform | 1.11.1 | 1.12.1 | Accept the Android API 23 / compile SDK 37 / AGP 9.1 floor |
+| Compose Multiplatform | 1.11.1 | 1.12.1 | API 23 / compile SDK 37; supported AGP 9.1.1 baseline |
 | Material3 | 1.11.0-alpha07 | 1.12.0-alpha03 | Newest compatible Compose 1.12 family |
 | Android Compose test UI | 1.11.4 | 1.12.1 | Match the Android runtime family |
 | Skiko | 0.9.22.2 | 0.150.1 | Match Compose's native runtime |
@@ -105,6 +134,14 @@ publications and legacy consumer checks. See the [runner image inventory](https:
 and [Android SDK repository metadata](https://dl.google.com/android/repository/repository2-3.xml).
 
 ## Verification and measurements
+
+Release qualification on 2026-09-30 additionally passed 70 Python checks,
+workflow validation, and isolated 2.0.0 candidate publication. The independent
+JVM consumer ran all four public themed-vector tests successfully. The minimum
+Android consumer built and passed resource-shrinking checks with AGP 9.1.1,
+Gradle 9.3.1, JDK 17, compile SDK 37, and minimum API 23, with no unsupported-SDK
+warning. Both consumers reused their configuration cache. The added hosted Apple
+consumer separately gates device/simulator linking and iOS 15 Mach-O metadata.
 
 Run the independent published-consumer checks in
 [tooling/compatibility](../tooling/compatibility/README.md). They resolve the

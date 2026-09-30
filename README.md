@@ -9,18 +9,20 @@ own font or SVG assets.
 [![CI](https://github.com/HLCaptain/symbols/actions/workflows/ci.yml/badge.svg)](https://github.com/HLCaptain/symbols/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
-> Symbols is preparing its first `0.1.0` release. Snapshot APIs may still change.
+> Symbols 2.0 upgrades the consumer toolchain. See the
+> [migration requirements](docs/TOOLCHAIN_UPGRADE.md) before upgrading from 1.x.
 
 The Material catalog contains all 4,102 upstream names across Outlined,
 Rounded, and Sharp styles. The same project also supports generated custom icon
 sets, Compose Multiplatform (Android API 23+), and legacy Android Views and XML (API 21+).
-Compose consumers require AGP 9.1+, compile SDK 37 and Kotlin 2.4; XML-only
-consumers can keep AGP 8.13/Gradle 8. See the [toolchain migration](docs/TOOLCHAIN_UPGRADE.md).
+The supported Compose baseline uses AGP 9.1.1+, compile SDK 37 and Kotlin 2.4; XML-only
+consumers can keep AGP 8.13.2/Gradle 8.14.5 with compile SDK 36.
+See the [toolchain migration](docs/TOOLCHAIN_UPGRADE.md).
 
 ## Add Symbols
 
-The first stable release is configured for Maven Central, so release builds only
-need the repositories most Android and Kotlin projects already use:
+Stable releases are published to Maven Central and use the repositories most
+Android and Kotlin projects already use:
 
 ```kotlin
 repositories {
@@ -62,7 +64,7 @@ For example:
 ```kotlin
 dependencies {
     implementation(
-        "io.github.hlcaptain:symbols-material-vectors-rounded:0.1.0-SNAPSHOT",
+        "io.github.hlcaptain:symbols-material-vectors-rounded:2.0.0",
     )
 }
 ```
@@ -70,7 +72,7 @@ dependencies {
 Kotlin Multiplatform projects put the same dependency in
 `commonMain.dependencies`.
 
-Replace the snapshot version with `0.1.0` after the first stable release.
+Use `0.1.0-SNAPSHOT` only for local source-build publications.
 
 ## Migrate from `material-icons-extended`
 
@@ -204,7 +206,7 @@ is more convenient than an `ImageVector`:
 kotlin {
     sourceSets.commonMain.dependencies {
         implementation(
-            "io.github.hlcaptain:symbols-material-compose-drawables-rounded:0.1.0-SNAPSHOT",
+            "io.github.hlcaptain:symbols-material-compose-drawables-rounded:2.0.0",
         )
     }
 }
@@ -242,7 +244,7 @@ one style to an Android module:
 ```kotlin
 dependencies {
     implementation(
-        "io.github.hlcaptain:symbols-material-drawables-outlined:0.1.0-SNAPSHOT",
+        "io.github.hlcaptain:symbols-material-drawables-outlined:2.0.0",
     )
 }
 ```
@@ -297,7 +299,7 @@ included `tooling` build. The complete settings blocks are in the
 
 ```kotlin
 plugins {
-    id("io.github.hlcaptain.symbol-fonts") version "0.1.0"
+    id("io.github.hlcaptain.symbol-fonts") version "2.0.0"
 }
 
 symbolFonts {

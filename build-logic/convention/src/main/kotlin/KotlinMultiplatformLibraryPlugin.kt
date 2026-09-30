@@ -27,7 +27,7 @@ private fun Project.configureLibraryTargets() {
             // Non-Compose libraries retain the SDK supported by AGP 8.13 consumers.
             android.compileSdk = 36
             android.minSdk = defaultLibs.findVersion("android-minSdk").get().requiredVersion.toInt()
-            // Preserve the existing consumer SDK floor when AGP 9 defaults change.
+            // Symbols 2.0 explicitly requires the tested non-Compose compile SDK.
             android.aarMetadata.minCompileSdk = android.compileSdk
             android.compilerOptions { jvmTarget.set(JvmTarget.JVM_11) }
         }

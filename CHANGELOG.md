@@ -4,21 +4,35 @@ All notable user-visible changes to this project will be documented in this
 file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and the project intends to use [Semantic Versioning](https://semver.org/) once
-artifacts are released.
+and the project uses [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
+
+## [2.0.0]
 
 ### Changed
 
 - Migrate source builds to AGP 9.4.1, Kotlin 2.4.20 and Gradle 9.7.0, with
   Compose 1.12.1 and native Android KMP libraries. Compose consumers now need
-  AGP 9.1+, compile SDK 37 and Android API 23+; XML-only consumers retain
-  AGP 8.13/Gradle 8 and API 21 support. The published generator plugin is
+  the supported AGP 9.1.1+ / compile SDK 37 baseline and Android API 23+. API 23 was already required
+  by 1.2.0's Compose dependencies. Core and native XML AARs now explicitly
+  require compile SDK 36; XML-only consumers retain the tested AGP 8.13.2 /
+  Gradle 8.14.5 and API 21 configuration. The published generator plugin is
   still built with Gradle 8.14.5 and uses the same DSL.
+- Publish Kotlin 2.4 KLIBs and adopt Kotlin's default iOS 15 deployment baseline.
+  Library JVM bytecode remains Java 11; the generator/plugin requires Java 17.
+  Public icon accessors, including mirrored/themed vectors, artifact coordinates,
+  font assets, and supported targets are retained.
 - Wire generated Kotlin and native resources into Android-only and native
   Android KMP consumers automatically. Split the Android sample launcher and
   View/data-binding implementation out of shared KMP modules.
+
+## Development history through 1.2.0
+
+These entries were recorded before release-specific changelog sections. They are
+historical changes, not additional changes in 2.0.0.
+
+### Changed
 
 - Wait for Maven Central availability separately from upload/validation, allowing
   asynchronous publication without failing on NMCP's former 30-minute status wait.

@@ -193,6 +193,50 @@ jobs:
         if: ${{ !inputs.publication-only }}
         run: python3 benchmarks/shrinkable-vectors/verify.py
 
+      - name: Publish built-in vector candidates for JVM and Android consumers
+        if: ${{ !inputs.publication-only }}
+        shell: bash
+        run: |
+          candidate_repository="$PWD/build/vector-consumer-maven"
+          ./tooling/gradlew -p tooling publishToMavenLocal \
+            -PVERSION_NAME=0.0.0-consumer-check -Dmaven.repo.local="$candidate_repository" \
+            --max-workers=1 --no-daemon --stacktrace
+          modules=(symbols-core variant-font-core material-core material-compose material-vectors-outlined material-vectors-rounded material-vectors-sharp material-vectors-themed)
+          targets=()
+          for module in "${modules[@]}"; do
+            for publication in KotlinMultiplatform Jvm Android; do
+              targets+=(":modules:$module:publish${publication}PublicationToMavenLocal")
+            done
+          done
+          ./gradlew "${targets[@]}" \
+            -PVERSION_NAME=0.0.0-consumer-check -Dmaven.repo.local="$candidate_repository" \
+            --max-workers=1 --no-daemon --stacktrace
+
+      - name: Test published built-in vector contracts on JVM
+        if: ${{ !inputs.publication-only }}
+        run: >-
+          python3 tooling/compatibility/check.py --profile jvm --built-in-vectors --gradle ./gradlew
+          --repository build/vector-consumer-maven --version 0.0.0-consumer-check
+          --output build/reports/builtin-compatibility
+
+      - name: Install minimum supported Android consumer Gradle
+        if: ${{ !inputs.publication-only }}
+        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
+        with:
+          gradle-version: '9.3.1'
+          cache-disabled: true
+          dependency-graph: disabled
+          build-scan-publish: false
+
+      - name: Verify published vectors with AGP 9.1.1 and Gradle 9.3.1
+        if: ${{ !inputs.publication-only }}
+        run: >-
+          JAVA_HOME="$JAVA_HOME_17_X64"
+          python3 tooling/compatibility/check.py --profile android-app --built-in-vectors
+          --gradle "$(command -v gradle)" --agp-version 9.1.1 --compile-sdk 37
+          --repository build/vector-consumer-maven --version 0.0.0-consumer-check
+          --output build/reports/builtin-compatibility-minimum
+
   web:
     name: ${{ inputs.publication-only && 'JS and Wasm library archives' || 'JS and Wasm production bundles' }}
     runs-on: ubuntu-24.04
@@ -302,3 +346,25 @@ jobs:
           fi
           python3 tools/ci_metrics.py --label "Apple verification" -- \
             ./gradlew "${targets[@]}" --max-workers=1 --no-daemon --stacktrace
+
+      - name: Publish built-in vector candidates for Apple consumers
+        if: ${{ !inputs.publication-only }}
+        shell: bash
+        run: |
+          modules=(symbols-core variant-font-core material-core material-compose material-vectors-outlined material-vectors-rounded material-vectors-sharp material-vectors-themed)
+          targets=()
+          for module in "${modules[@]}"; do
+            for publication in KotlinMultiplatform IosArm64 IosSimulatorArm64; do
+              targets+=(":modules:$module:publish${publication}PublicationToMavenLocal")
+            done
+          done
+          ./gradlew "${targets[@]}" \
+            -PVERSION_NAME=0.0.0-consumer-check -Dmaven.repo.local="$PWD/build/apple-consumer-maven" \
+            --max-workers=1 --no-daemon --stacktrace
+
+      - name: Link published vector consumers at the default iOS 15 minimum
+        if: ${{ !inputs.publication-only }}
+        run: >-
+          python3 tooling/compatibility/check.py --profile ios --gradle ./gradlew
+          --repository build/apple-consumer-maven --version 0.0.0-consumer-check
+          --output build/reports/builtin-compatibility

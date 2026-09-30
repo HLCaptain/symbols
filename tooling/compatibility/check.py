@@ -5,6 +5,7 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+import re
 import shutil
 import subprocess
 import time
@@ -13,20 +14,22 @@ import zipfile
 
 
 ROOT = Path(__file__).resolve().parents[2]
-PROFILES = ("android-app", "android-java", "android-library", "kmp", "jvm")
+PROFILES = ("android-app", "android-java", "android-library", "kmp", "jvm", "ios")
 
 
 def fixture(args, directory):
-    android = args.profile != "jvm"
-    kmp = args.profile == "kmp"
+    ios = args.profile == "ios"
+    android = args.profile not in ("jvm", "ios")
+    kmp = args.profile in ("kmp", "ios")
     compose_resources = args.compose_resources
     java_only = args.profile == "android-java"
     application = args.profile in ("android-app", "android-java")
     min_sdk = 21 if java_only else 23
-    plugins = [f'id("io.github.hlcaptain.symbol-fonts") version "{args.version}"']
+    plugins = [] if ios else [f'id("io.github.hlcaptain.symbol-fonts") version "{args.version}"']
     if kmp:
         plugins += [f'kotlin("multiplatform") version "{args.kotlin_version}"']
-        plugins += ['`maven-publish`']
+        if not ios:
+            plugins += ['`maven-publish`']
     elif java_only:
         pass
     elif not android or args.profile.startswith("android") and args.agp_version.startswith("8."):
@@ -58,6 +61,11 @@ def fixture(args, directory):
             implementation("io.github.hlcaptain:symbols-variant-font-core:{args.version}")
             implementation("org.jetbrains.compose.components:components-resources:{args.compose_version}")
         '''
+    if args.built_in_vectors:
+        dependencies += f'''
+            implementation("io.github.hlcaptain:symbols-material-vectors-rounded:{args.version}")
+            implementation("io.github.hlcaptain:symbols-material-vectors-themed:{args.version}")
+        '''
     if java_only:
         dependencies = f'implementation("io.github.hlcaptain:symbols-material-drawables-outlined:{args.version}")'
     settings = f'''
@@ -78,7 +86,16 @@ def fixture(args, directory):
         }}
         rootProject.name = "symbols-{args.profile}-consumer"
     '''
-    if args.profile == "kmp":
+    if ios:
+        platform = f'''
+            kotlin {{
+                listOf(iosArm64(), iosSimulatorArm64()).forEach {{ target ->
+                    target.binaries.framework {{ baseName = "SymbolsConsumer" }}
+                }}
+                sourceSets.commonMain.dependencies {{ {dependencies} }}
+            }}
+        '''
+    elif kmp:
         platform = f'''
             kotlin {{
                 android {{ namespace = "example.consumer"; compileSdk = {args.compile_sdk}; minSdk = 23 }}
@@ -105,7 +122,7 @@ def fixture(args, directory):
                 proguardFiles(android.getDefaultProguardFile("proguard-android-optimize.txt"))
             }
         '''
-    if kmp:
+    if args.profile == "kmp":
         platform += '''
             group = "example.compatibility"
             version = "1.0"
@@ -127,6 +144,8 @@ def fixture(args, directory):
             }
             symbolFonts.composeFontResources.from(preparedFonts.map { it.destinationDir })
         '''
+    if args.built_in_vectors and args.profile == "jvm":
+        platform += '\ndependencies { testImplementation(kotlin("test-junit")) }\ntasks.test { useJUnit() }\n'
 
     build = '\n'.join([
         "plugins {", *plugins, "}", platform,
@@ -141,6 +160,8 @@ def fixture(args, directory):
         "composeDrawables()" if compose_resources else "androidDrawables()" if android else "",
         "} } }",
     ])
+    if ios:
+        build = '\n'.join(["plugins {", *plugins, "}", platform])
     sources = "commonMain" if kmp else "main"
     files = {
         "settings.gradle.kts": settings,
@@ -151,7 +172,7 @@ def fixture(args, directory):
     }
     if args.agp_version.startswith("8."):
         files["gradle.properties"] += "android.r8.optimizedResourceShrinking=true\n"
-    if not java_only:
+    if not java_only and not ios:
         files[f"src/{sources}/kotlin/example/Consumer.kt"] = '''
             package example
             import example.generated.FixtureIcons
@@ -162,6 +183,16 @@ def fixture(args, directory):
                 androidx.compose.foundation.Image(icon(), contentDescription = null)
             }
         '''
+    if args.built_in_vectors:
+        files[f"src/{sources}/kotlin/example/BuiltInVectors.kt"] = (
+            ROOT / "tooling/compatibility/BuiltInVectors.kt"
+        ).read_text()
+        if args.profile == "jvm":
+            # Reuse the public-API contract tests against published dependencies only.
+            files["src/test/kotlin/MaterialSymbolsThemedVectorsTest.kt"] = (
+                ROOT / "symbols/material-vectors-themed/src/jvmTest/kotlin/io/github/hlcaptain/"
+                "symbols/material/vectors/themed/MaterialSymbolsThemedVectorsTest.kt"
+            ).read_text()
     if android:
         android_sources = "androidMain" if kmp else "main"
         files[f"src/{android_sources}/AndroidManifest.xml"] = '<manifest xmlns:android="http://schemas.android.com/apk/res/android"><application/></manifest>'
@@ -177,6 +208,8 @@ def fixture(args, directory):
             </manifest>
         '''
         title = '"Native drawable"' if java_only else "example.ConsumerKt.icon().getName()"
+        if args.built_in_vectors:
+            title += ' + example.BuiltInVectorsKt.builtInVectorSummary()'
         files["src/main/java/example/ConsumerActivity.java"] = f'''
             package example;
             public final class ConsumerActivity extends android.app.Activity {{
@@ -286,14 +319,22 @@ def main():
     parser.add_argument("--output", type=Path, default=ROOT / "build/reports/tooling-compatibility")
     parser.add_argument("--offline", action="store_true")
     parser.add_argument("--compose-resources", action="store_true", help="For kmp, test Compose-only resources and font descriptors instead of native XML.")
+    parser.add_argument("--built-in-vectors", action="store_true", help="Also consume published rounded/themed vectors; implied for ios.")
     args = parser.parse_args()
     if args.compose_resources and args.profile != "kmp":
         parser.error("--compose-resources applies only to --profile kmp")
+    if args.built_in_vectors and args.profile == "android-java":
+        parser.error("--built-in-vectors requires a Kotlin consumer")
+    args.built_in_vectors = args.built_in_vectors or args.profile == "ios"
     args.repository = args.repository.resolve()
     directory = args.output.resolve() / (args.profile + ("-compose" if args.compose_resources else ""))
     fixture(args, directory)
     (directory / "result.json").unlink(missing_ok=True)
     projects = [(directory, ["assemble"])]
+    if args.profile == "ios":
+        projects = [(directory, ["linkDebugFrameworkIosArm64", "linkDebugFrameworkIosSimulatorArm64"])]
+    elif args.built_in_vectors and args.profile == "jvm":
+        projects[0][1].append("test")
     if args.profile == "kmp":
         projects[0][1].append("publishAllPublicationsToFixtureRepository")
         projects.append((published_kmp_consumer(args, directory), ["assemble"]))
@@ -350,12 +391,24 @@ def main():
             for name, retained in names.items():
                 if (name.encode() in resources) != retained:
                     raise SystemExit(f"Unexpected drawable retention in {apk}: {name}")
+    native_minimum_os = {}
+    if args.profile == "ios":
+        for target in ("iosArm64", "iosSimulatorArm64"):
+            binary = directory / f"build/bin/{target}/debugFramework/SymbolsConsumer.framework/SymbolsConsumer"
+            report = subprocess.check_output(["xcrun", "vtool", "-show-build", str(binary)], text=True)
+            (directory / f"{target}-build-version.txt").write_text(report)
+            minimums = re.findall(r"^\s*minos\s+([0-9.]+)\s*$", report, re.MULTILINE)
+            if not minimums or any(version not in ("15.0", "15.0.0") for version in minimums):
+                raise SystemExit(f"Expected the default iOS 15 deployment target in {binary}: {minimums}")
+            native_minimum_os[target] = minimums
     summary = {
         "profile": args.profile, "version": args.version,
         "compose_resources": args.compose_resources,
+        "built_in_vectors": args.built_in_vectors,
+        "native_minimum_os": native_minimum_os,
         "plugin_sha256": hashlib.sha256((args.repository /
             f"io/github/hlcaptain/symbol-gradle-plugin/{args.version}/"
-            f"symbol-gradle-plugin-{args.version}.jar").read_bytes()).hexdigest(),
+            f"symbol-gradle-plugin-{args.version}.jar").read_bytes()).hexdigest() if args.profile != "ios" else None,
         "kotlin": args.kotlin_version, "agp": args.agp_version,
         "compose": args.compose_version, "runs": results,
     }
