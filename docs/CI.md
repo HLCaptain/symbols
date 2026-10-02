@@ -94,6 +94,28 @@ web compilation took 38m. All 122 local publication coordinates, including 34 Ap
 KLIBs, were checked. These measurements establish feasibility, not predicted hosted
 timings. Hosted checks must finish within the stated limits before merging.
 
+## Main commit snapshots
+
+After `snapshots.yml` is merged, each push to `main` starts a separate snapshot
+publication for its head SHA, without historical backfill. Its concurrency group
+includes the SHA and uses `cancel-in-progress: false`; newer pushes do not replace
+an older commit's run. The trigger is `push`, not completion of normal CI, so a
+cancelled ordinary CI run does not suppress that commit's publication verification.
+
+The workflow creates an immutable `<current-release>-SNAPSHOT-<8sha>` tag, such as
+`2.0.0-SNAPSHOT-b5054e33`, using the highest numeric stable ancestor tag as its
+release prefix. It calls `publish.yml` through `workflow_call` with that tag,
+retaining the same verification, credentials, signing, registry checks and retry
+behavior. Publication still goes to Maven Central and the Plugin Portal using
+the existing `maven-central` environment; no additional endpoint or secrets are
+needed. The resulting GitHub Release is a prerelease with `latest=false`.
+
+Only snapshot tag creation and the existing release bookkeeping need write
+access. Normal PR CI remains read-only. A failed verification can leave the tag
+in place; retry publication from that exact tag rather than moving it. See
+[Releasing](../RELEASING.md#main-commit-snapshots) for version selection and manual
+recovery. This takes effect prospectively when the workflow reaches `main`.
+
 ## Storage
 
 Actions cache reads/writes are disabled. There are no `upload-artifact`,

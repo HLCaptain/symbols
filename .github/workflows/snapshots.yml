@@ -1,0 +1,54 @@
+name: Publish main snapshot
+run-name: Snapshot from main ${{ github.sha }}
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+# Keep every pushed commit; a newer main push must not cancel an older snapshot.
+concurrency:
+  group: snapshots-${{ github.repository }}-${{ github.sha }}
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    name: Select snapshot version
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    outputs:
+      tag: ${{ steps.version.outputs.tag }}
+    steps:
+      - name: Check out the pushed commit and release tags
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Select the current release line and exact commit
+        id: version
+        run: python3 tools/release.py --snapshot
+      - name: Create the immutable snapshot tag
+        if: steps.version.outputs.tag_exists != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SNAPSHOT_TAG: ${{ steps.version.outputs.tag }}
+          SNAPSHOT_COMMIT: ${{ steps.version.outputs.commit }}
+        run: >-
+          gh api --method POST "repos/$GITHUB_REPOSITORY/git/refs"
+          -f "ref=refs/tags/$SNAPSHOT_TAG" -f "sha=$SNAPSHOT_COMMIT"
+
+  publish:
+    name: Publish snapshot
+    needs: snapshot
+    permissions:
+      contents: write
+      checks: read
+    uses: ./.github/workflows/publish.yml
+    with:
+      tag: ${{ needs.snapshot.outputs.tag }}
+    secrets: inherit

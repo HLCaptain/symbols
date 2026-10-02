@@ -2,6 +2,12 @@ name: Publish packages
 run-name: Release ${{ github.event.release.tag_name || inputs.tag || github.ref_name }}
 
 on:
+  workflow_call:
+    inputs:
+      tag:
+        description: Existing immutable tag to publish
+        required: true
+        type: string
   release:
     types: [published]
   workflow_dispatch:

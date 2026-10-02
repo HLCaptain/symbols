@@ -2,8 +2,9 @@
 
 Symbols publishes Kotlin Multiplatform libraries, Android drawable AARs,
 and JVM build tooling automatically to Maven Central when a GitHub Release is
-published. The Gradle plugin is also submitted to the Plugin Portal. The release
-tag supplies the package version, and existing release notes are preserved.
+published, and publishes commit snapshots for pushes to `main`. The Gradle plugin
+is also submitted to the Plugin Portal. The release tag supplies the package
+version, and existing release notes are preserved.
 
 ## Published artifacts
 
@@ -80,11 +81,13 @@ gh release create 0.1.0 --verify-tag --generate-notes --title 0.1.0
 ```
 
 Alternatively, create the tag and publish its GitHub Release in the GitHub UI.
-Only the release `published` event starts automatic package publication; pushing
-a tag alone does not start a second run. This includes prereleases (use
-`gh release create ... --prerelease --latest=false` for a qualifier).
+For manually created releases, the release `published` event starts package
+publication; pushing a tag alone does not start a second run. This includes
+prereleases (use `gh release create ... --prerelease --latest=false` for a qualifier).
 Tags have no `v` prefix, and the three numeric components cannot have leading
-zeros. Qualifiers start with a lowercase letter; `SNAPSHOT` (in any case) and build metadata (`+...`) are rejected. For example,
+zeros. Qualifiers start with a lowercase letter, except for the exact generated
+`-SNAPSHOT-<8 lowercase hex digits>` format described below. A trailing
+`-SNAPSHOT` (in any case) and build metadata (`+...`) are rejected. For example,
 `1.0.0-alpha01` publishes version `1.0.0-alpha01` to both repositories. The complete
 tag supplies `VERSION_NAME` for publication, so no separate edit to
 `gradle.properties` is necessary. Its snapshot version remains the default for
@@ -111,9 +114,38 @@ The **Publish packages** workflow:
    If creating a prerelease in the UI, select **Set as a pre-release** too; it
    already exists while the packages are being published.
 
-No tags are moved and no release is created by PR or branch pushes. Use a new
-version for subsequent releases; registry versions are immutable. Update
-`CHANGELOG.md` before tagging; generated GitHub notes summarize merged PRs.
+No tags are moved. PRs and pushes to branches other than `main` do not publish
+packages or create releases. Use a new version for subsequent releases; registry
+versions are immutable. Update `CHANGELOG.md` before tagging; generated GitHub
+notes summarize merged PRs.
+
+## Main commit snapshots
+
+Once `snapshots.yml` is merged, each push to `main` starts its own snapshot run for
+that push's head commit. It does not backfill historical commits or enumerate
+intermediate commits within a push. Runs are keyed by commit SHA and are not
+cancelled by newer pushes. They start directly from the push event, independently
+of normal CI's cancellation behavior.
+
+The version is `<current-release>-SNAPSHOT-<8sha>`, for example
+`2.0.0-SNAPSHOT-b5054e33`. The release prefix is the highest numeric stable
+`MAJOR.MINOR.PATCH` tag that is an ancestor of the pushed commit, currently
+`2.0.0`. The suffix is the first eight lowercase hexadecimal characters of the
+full commit SHA. This is an immutable version, not Maven's mutable trailing
+`-SNAPSHOT` convention: consumers select the complete version explicitly.
+
+The workflow creates that tag at the exact pushed commit, then calls
+`publish.yml` with the tag. It uses the existing publication verification,
+`maven-central` environment, signing credentials, public-coordinate checks, and
+partial-failure recovery. Packages use the same Maven Central and Plugin Portal
+repositories; no snapshot endpoint or additional secrets are required. After
+publication, the GitHub Release is a prerelease and is not marked latest.
+
+A retry reuses the existing snapshot tag only when it resolves to the same
+commit; it never moves a tag. Tag creation precedes package verification, so a
+failed run can leave its tag without packages or a GitHub Release. Follow the
+recovery procedure below for that exact tag. Merging this workflow enables future
+pushes; this documentation change does not publish a snapshot itself.
 
 ## Retries and partial failures
 
@@ -128,6 +160,12 @@ attached to the released commit:
 
 ```shell
 gh workflow run publish.yml --ref 0.1.0 -f tag=0.1.0
+```
+
+The same recovery applies to a generated commit snapshot, for example:
+
+```shell
+gh workflow run publish.yml --ref 2.0.0-SNAPSHOT-b5054e33 -f tag=2.0.0-SNAPSHOT-b5054e33
 ```
 
 A manual run from a different commit is rejected. Release events and manual retries
