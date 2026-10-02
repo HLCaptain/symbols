@@ -184,7 +184,7 @@ class VectorGeneratorTest(unittest.TestCase):
                         rendered,
                     )
                 self.assertEqual(
-                    1, rendered.count(f"private object {style.title}VectorF09A {{"),
+                    1, rendered.count(f"private object {style.title}VectorF09A "),
                 )
                 self.assertNotIn(f"{style.name}VectorAt", rendered)
                 self.assertNotIn(f"{style.name}VectorIndex", rendered)
@@ -263,6 +263,98 @@ class VectorGeneratorTest(unittest.TestCase):
         self.assertNotIn("public ", public_api)
         self.assertIn("return roundedVectorAt(vectorIndex, autoMirror)", public_api)
         self.assertIn("roundedVectorChunk000(index, autoMirror)", index)
+
+    def test_filled_getters_deduplicate_invariants_and_keep_aliases_direct(self) -> None:
+        style = generator.Style("rounded", "Rounded")
+        source = generator.render_icon_file(
+            style=style, chunk_index=0, start=0,
+            code_points=(0xE5CA, 0xF09A),
+            paths=("M1 2L3 4Z", "M5 6L7 8Z"),
+            filled_paths=("M1 2L3 4Z", "M9 10L11 12Z"),
+            names_by_code_point={0xE5CA: ("check",), 0xF09A: ("grade", "star")},
+        )
+
+        for root, mirror in (("Icons", "false"), ("Icons.AutoMirrored", "true")):
+            self.assertIn(
+                f"val {root}.Rounded.Filled.Check: ImageVector\n"
+                f"    get() = RoundedVectorE5CA.value(autoMirror = {mirror})",
+                source,
+            )
+            for name in ("Grade", "Star"):
+                self.assertIn(
+                    f"val {root}.Rounded.Filled.{name}: ImageVector\n"
+                    f"    get() = RoundedFilledVectorF09A.value(autoMirror = {mirror})",
+                    source,
+                )
+        self.assertNotIn("private object RoundedFilledVectorE5CA", source)
+        self.assertEqual(1, source.count("private object RoundedFilledVectorF09A : RoundedVectorCache("))
+        self.assertIn('"MaterialSymbolsRounded.Filled.U+F09A",', source)
+        self.assertIn('"M9 10L11 12Z",', source)
+        self.assertIn('"M5 6L7 8Z",', source)
+        self.assertNotIn("PathParser", source)
+        self.assertNotIn("roundedFilledVectorAt", source)
+
+    def test_pinned_fill_axis_changes_hearts_but_not_arrows(self) -> None:
+        style = generator.Style("rounded", "Rounded")
+        tt_font, svg_pen, transform_pen, _ = generator.import_fonttools()
+        points = (0xE5C4, 0xE87E, 0xE88E)
+        normal = generator.extract_paths(style, points, tt_font, svg_pen, transform_pen)
+        filled = generator.extract_paths(style, points, tt_font, svg_pen, transform_pen, fill=1.0)
+
+        self.assertEqual(normal[0], filled[0])
+        self.assertNotEqual(normal[1], filled[1])
+        self.assertNotEqual(normal[2], filled[2])
+        self.assertEqual(0.0, generator.AXIS_LOCATION["FILL"])
+
+    def test_filled_paths_require_complete_rounded_input(self) -> None:
+        for style, paths in ((generator.Style("outlined", "Outlined"), ("M1 2Z",)),
+                             (generator.Style("rounded", "Rounded"), ())):
+            with self.subTest(style=style.name), self.assertRaisesRegex(generator.GenerationError, "Filled vectors"):
+                generator.render_style(style, (("check", 0xE5CA),), (0xE5CA,), ("M1 2Z",), paths)
+
+    def test_rounded_backings_keep_per_icon_caches_and_exact_svg(self) -> None:
+        normal = ("M1.2346 2H3V4Q5 6 7 8Z", "M0 0L1 1Z")
+        filled = ("M2 2H3V4Q5 6 7 8Z", normal[1])
+        rendered = generator.render_icon_file(
+            generator.Style("rounded", "Rounded", typed_root="Glyphs"),
+            0, 0, (0xE87E, 0xE5C4), normal,
+            {0xE87E: ("favorite", "favorite_border"), 0xE5C4: ("arrow_back",)}, filled,
+        )
+        self.assertIn('"' + filled[0] + '",', rendered)
+        self.assertIn('"' + normal[0] + '",', rendered)
+        self.assertIn("private object RoundedFilledVectorE87E", rendered)
+        self.assertNotIn("private object RoundedFilledVectorE5C4", rendered)
+        self.assertIn("val Glyphs.AutoMirrored.Rounded.Filled.Favorite", rendered)
+        self.assertEqual(2, rendered.count("get() = RoundedFilledVectorE87E.value(autoMirror = false)"))
+        self.assertNotIn("roundedVectorAt", rendered)
+        self.assertNotIn("moveTo(", rendered)
+
+    def test_shared_cache_keeps_literals_per_icon_and_builder_once(self) -> None:
+        style = generator.Style("rounded", "Rounded")
+        rendered = generator.render_style(
+            style, (("favorite", 0xE87E), ("favorite_border", 0xE87E), ("check", 0xE5CA)),
+            (0xE87E, 0xE5CA), ("M1 2Z", "M3 4Z"), ("M2 3Z", "M3 4Z"),
+        )
+        icons = next(text for path, text in rendered.items() if path.name == "RoundedIcons000.generated.kt")
+        helper = next(text for path, text in rendered.items() if path.name == "RoundedVectorCache.generated.kt")
+        self.assertIn('private object RoundedVectorE87E : RoundedVectorCache(\n    "MaterialSymbolsRounded.U+E87E",\n    "M1 2Z",', icons)
+        self.assertIn('private object RoundedFilledVectorE87E : RoundedVectorCache(', icons)
+        self.assertNotIn('RoundedFilledVectorE5CA', icons)
+        self.assertNotIn('by lazy', icons)
+        self.assertNotIn('ImageVector.Builder', icons)
+        self.assertNotIn('addPathNodes', icons)
+        self.assertEqual(2, helper.count('by lazy'))
+        self.assertEqual(1, helper.count('ImageVector.Builder('))
+        self.assertEqual(1, helper.count('addPathNodes(pathData)'))
+        self.assertNotIn('E87E', helper)
+        self.assertNotIn('IntArray', helper)
+        self.assertNotIn('Map<', helper)
+
+    def test_compact_rejects_oversized_jvm_string_constant(self) -> None:
+        with self.assertRaisesRegex(generator.GenerationError, "single JVM UTF8"):
+            generator.render_cached_vector(
+                "TestVector", "Test", "M1 2" * 17000, cache_class="RoundedVectorCache",
+            )
 
     def test_unsupported_path_syntax_is_rejected(self) -> None:
         with self.assertRaisesRegex(

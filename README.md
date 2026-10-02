@@ -94,10 +94,11 @@ Icon(
 
 The call shape matches `material-icons-extended`; the artwork is Material
 Symbols at `FILL=0, GRAD=0, opsz=24, wght=400`, so it is not always visually
-identical to the legacy icon. Generate another fixed-axis snapshot or use the
-font renderer below when the design needs different axes.
+identical to the legacy icon. Rounded also provides the explicit filled
+snapshot below. Generate another fixed-axis snapshot or use the font renderer
+below when the design needs other axes.
 
-Each typed property directly reaches one vector builder. There is no reflective
+Each typed property directly reaches one icon's cache. There is no reflective
 registry on this path, so full-mode R8 can reason about icons independently.
 Vectors are created and cached on first use; aliases that share a code point
 share the cached vector.
@@ -129,10 +130,46 @@ the existing per-style artifact. Choose mirroring only when the icon's meaning
 should follow layout direction. Ordinary `Symbols.Material.{Style}.{Name}` and
 `Icons.{Style}.{Name}` getters remain unmirrored.
 
-Typed mirrored getters directly reach the same per-icon builder with
+Typed mirrored getters directly reach the same per-icon cache with
 `autoMirror = true`, preserving independent R8 removal of unused icons. Mirrored
 and unmirrored instances are cached separately, with aliases sharing each
 variant's cache. This adds no runtime dispatcher, renderer, or artifact.
+
+### Filled Rounded vectors (unreleased)
+
+The current source version adds `FILL=1` vectors to the existing Rounded
+artifact. Keep the standard Compose `Icon` API and import `Filled` plus the
+same generated icon properties:
+
+```kotlin
+import androidx.compose.material3.Icon
+import io.github.hlcaptain.symbols.Symbols
+import io.github.hlcaptain.symbols.material.AutoMirrored
+import io.github.hlcaptain.symbols.material.Filled
+import io.github.hlcaptain.symbols.material.Material
+import io.github.hlcaptain.symbols.material.Rounded
+import io.github.hlcaptain.symbols.material.rounded.vectors.Favorite
+import io.github.hlcaptain.symbols.material.rounded.vectors.VolumeOff
+
+Icon(Symbols.Material.Rounded.Filled.Favorite, contentDescription = "Favorite")
+Icon(Symbols.Material.AutoMirrored.Rounded.Filled.VolumeOff, contentDescription = "Muted")
+```
+
+`Icons.Rounded.Filled.*` and `Icons.AutoMirrored.Rounded.Filled.*` are equivalent
+entry points. All named Rounded icons support both getters. They snapshot
+`FILL=1, GRAD=0, opsz=24, wght=400`; ordinary getters retain `FILL=0`. Choose the
+fill explicitly for each state. Catalog aliases such as `Favorite` and
+`FavoriteBorder` share the same outline, so changing the name alone does not
+select a different fill.
+
+Rounded outlines are stored as separate per-icon SVG path strings and parsed
+by Compose when that vector is first requested. A shared builder owns each
+icon's cached normal and mirrored instances; there is no runtime font asset or
+catalog-wide path table. Filled aliases share their codepoint's cache, and
+fill-invariant icons such as `Check` and `ArrowBack` reuse the ordinary vector.
+The themed getters continue to select the default `FILL=0` snapshots.
+
+### Theme-selected vectors
 
 Use the themed vector artifact when style is selected at runtime:
 
@@ -688,7 +725,7 @@ font-conformance, and shrink-test commands live in the linked guides and CI.
 ## Asset provenance and licensing
 
 Project source is licensed under Apache License 2.0. Bundled Material Symbols
-variable fonts, derived regular fonts, and derived default-axis paths come from
+variable fonts, derived regular fonts, and derived fixed-axis paths come from
 Google's
 [`material-design-icons`](https://github.com/google/material-design-icons)
 repository and are also Apache-2.0 licensed. This project is independent and is

@@ -66,5 +66,6 @@ catalogs, namespaces, and vectors, run conformance tests, and then update:
 - the version, paths, modification status, and SHA-256 values in
   `THIRD_PARTY_NOTICES.md`.
 
-The normal build must not download fonts or run FontTools. Asset acquisition and
-font mutation belong in explicit maintainer workflows.
+Normal vector source builds use the pinned FontTools version to read the
+checked-in fonts and generate Kotlin. They must not download or modify fonts;
+asset acquisition and font mutation belong in explicit maintainer workflows.

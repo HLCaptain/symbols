@@ -1,9 +1,11 @@
 package io.github.hlcaptain.symbols.material.rounded.vectors
 
+import androidx.compose.ui.graphics.vector.VectorPath
 import androidx.compose.ui.unit.dp
 import io.github.hlcaptain.symbols.Symbols
 import io.github.hlcaptain.symbols.material.ArrowBack
 import io.github.hlcaptain.symbols.material.AutoMirrored
+import io.github.hlcaptain.symbols.material.Filled
 import io.github.hlcaptain.symbols.material.Grade
 import io.github.hlcaptain.symbols.material.Material
 import io.github.hlcaptain.symbols.material.Rounded
@@ -12,6 +14,7 @@ import io.github.hlcaptain.symbols.material.Star
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
+import kotlin.test.assertNotEquals
 import kotlin.test.assertNotSame
 import kotlin.test.assertSame
 import kotlin.test.assertTrue
@@ -80,6 +83,38 @@ class MaterialSymbolsRoundedVectorsTest {
         assertSame(
             Symbols.Material.AutoMirrored.Rounded.Grade,
             Symbols.Material.Grade.asRoundedImageVector(autoMirror = true),
+        )
+    }
+
+    @Test
+    fun filledHeartsHaveDistinctPathsAndPreserveAliasCachesAndMirroring() {
+        val normal = Symbols.Material.Rounded.Favorite
+        val filled = Symbols.Material.Rounded.Filled.Favorite
+        val mirrored = Symbols.Material.AutoMirrored.Rounded.Filled.Favorite
+
+        assertEquals("MaterialSymbolsRounded.Filled.U+E87E", filled.name)
+        assertEquals("MaterialSymbolsRounded.Filled.U+E87E.AutoMirrored", mirrored.name)
+        assertEquals(24.dp, filled.defaultWidth)
+        assertEquals(24.dp, filled.defaultHeight)
+        assertEquals(24f, filled.viewportWidth)
+        assertEquals(24f, filled.viewportHeight)
+        assertFalse(filled.autoMirror)
+        assertTrue(mirrored.autoMirror)
+        assertNotSame(normal, filled)
+        assertNotSame(filled, mirrored)
+        assertNotEquals((normal.root[0] as VectorPath).pathData, (filled.root[0] as VectorPath).pathData)
+        assertSame(filled, Symbols.Material.Rounded.Filled.Favorite)
+        assertSame(filled, Symbols.Material.Rounded.Filled.FavoriteBorder)
+        assertSame(mirrored, Symbols.Material.AutoMirrored.Rounded.Filled.FavoriteBorder)
+        assertSame(Symbols.Material.Rounded.Filled.Grade, Symbols.Material.Rounded.Filled.Star)
+    }
+
+    @Test
+    fun fillInvariantIconsReuseDefaultAndMirroredVectors() {
+        assertSame(Symbols.Material.Rounded.Check, Symbols.Material.Rounded.Filled.Check)
+        assertSame(
+            Symbols.Material.AutoMirrored.Rounded.ArrowBack,
+            Symbols.Material.AutoMirrored.Rounded.Filled.ArrowBack,
         )
     }
 

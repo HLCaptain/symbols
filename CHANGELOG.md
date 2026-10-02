@@ -8,6 +8,19 @@ and the project uses [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- Typed `Symbols.Material.Rounded.Filled.*` and
+  `Symbols.Material.AutoMirrored.Rounded.Filled.*` ImageVectors at
+  `FILL=1, GRAD=0, opsz=24, wght=400`. Aliases share codepoint caches, and
+  fill-invariant icons reuse their existing normal or mirrored vectors.
+
+### Changed
+
+- Store Rounded vector outlines as per-icon SVG path strings, parsed by Compose
+  on first use through a shared cached builder. Existing getters, default
+  geometry, vector names, and explicit RTL behavior are preserved.
+
 ## [2.0.0]
 
 ### Changed
