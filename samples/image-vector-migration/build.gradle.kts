@@ -16,7 +16,13 @@ val generateMaterialGalleryReferences = tasks.register<Exec>("generateMaterialGa
     inputs.file(rootProject.layout.projectDirectory.file("tools/requirements-font-verification.txt"))
     inputs.file(rootProject.layout.projectDirectory.file("fonts/material/MaterialSymbols.codepoints"))
     inputs.files(rootProject.fileTree("fonts/material") { include("**/*_variable.ttf") })
-    outputs.dir(galleryOutput)
+    // AGP infers baselineProfiles beside Kotlin roots; that sibling is not generated here.
+    outputs.dirs(
+        galleryOutput.map { it.dir("commonMain/kotlin") },
+        galleryOutput.map { it.dir("androidMain/composeResources") },
+        galleryOutput.map { it.dir("nonAndroidMain/composeResources") },
+    )
+    outputs.file(galleryOutput.map { it.file("manifest.json") })
     commandLine(
         providers.gradleProperty("symbolsPython")
             .orElse(providers.environmentVariable("SYMBOLS_PYTHON")).orElse("python3").get(),
