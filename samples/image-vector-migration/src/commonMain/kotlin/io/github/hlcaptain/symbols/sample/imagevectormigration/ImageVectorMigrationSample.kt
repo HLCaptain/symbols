@@ -25,7 +25,6 @@ import io.github.hlcaptain.symbols.sample.api.SampleItem
 import io.github.hlcaptain.symbols.sample.imagevectormigration.config.SampleBuildConfig
 import io.github.hlcaptain.symbols.sample.imagevectormigration.generated.Academmunicons
 import io.github.hlcaptain.symbols.sample.imagevectormigration.generated.default.Orcid
-import io.github.hlcaptain.symbols.sample.imagevectormigration.gallery.MaterialVectorGallery
 import io.github.hlcaptain.symbols.sample.ui.ExampleCard
 import io.github.hlcaptain.symbols.sample.ui.PreviewScreenshotBaseline
 import io.github.hlcaptain.symbols.sample.ui.PreviewSymbolsScreen
@@ -106,7 +105,6 @@ private fun ImageVectorMigrationContent() {
         }
         SvgIconExamples()
         SharedWeightAxisExample()
-        MaterialVectorGallery()
     }
 }
 

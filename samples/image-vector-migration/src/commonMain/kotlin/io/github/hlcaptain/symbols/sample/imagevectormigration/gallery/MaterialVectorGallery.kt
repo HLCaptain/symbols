@@ -2,7 +2,6 @@ package io.github.hlcaptain.symbols.sample.imagevectormigration.gallery
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,17 +10,11 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
@@ -41,7 +34,6 @@ import io.github.hlcaptain.symbols.material.MaterialSymbol
 import io.github.hlcaptain.symbols.material.outlined.vectors.asOutlinedImageVector
 import io.github.hlcaptain.symbols.material.rounded.vectors.asRoundedImageVector
 import io.github.hlcaptain.symbols.material.sharp.vectors.asSharpImageVector
-import io.github.hlcaptain.symbols.sample.ui.ExampleCard
 import io.github.hlcaptain.symbols.sample.ui.PreviewScreenshotBaseline
 
 internal enum class MaterialGalleryKind(val resourceStyle: String, val fill: Int) {
@@ -80,32 +72,6 @@ internal class MaterialGalleryPageProvider : PreviewParameterProvider<MaterialGa
 internal expect fun galleryReferencePainters(page: MaterialGalleryPage): List<Painter>
 
 internal expect val galleryReferenceFormat: String
-
-@Composable
-internal fun MaterialVectorGallery() {
-    var selected by remember { mutableIntStateOf(0) }
-    val pages = remember { MaterialGalleryPageProvider().values.toList() }
-    val page = pages[selected]
-    ExampleCard(
-        title = "All Material vectors",
-        description = "15,208 fixed glyphs: Outlined, Rounded, Sharp and Rounded Filled. " +
-            "Each page compares ImageVectors with a pinned-font $galleryReferenceFormat reference. Labels show Unicode codepoints.",
-    ) {
-        Row {
-            MaterialGalleryKind.entries.forEach { kind ->
-                TextButton(onClick = { selected = kind.ordinal * GalleryPagesPerKind + page.number }) {
-                    Text(if (kind == MaterialGalleryKind.RoundedFilled) "Filled" else kind.name)
-                }
-            }
-        }
-        Row {
-            TextButton(onClick = { selected-- }, enabled = page.number > 0) { Text("Previous") }
-            TextButton(onClick = { selected++ }, enabled = page.number < GalleryPagesPerKind - 1) { Text("Next") }
-            Text("${page.number + 1} / $GalleryPagesPerKind", modifier = Modifier.padding(12.dp))
-        }
-        Box(Modifier.horizontalScroll(rememberScrollState())) { MaterialVectorGalleryPage(page) }
-    }
-}
 
 @Composable
 internal fun MaterialVectorGalleryPage(page: MaterialGalleryPage) = key(page) {

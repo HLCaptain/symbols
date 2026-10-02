@@ -48,6 +48,11 @@ of up to 128 glyphs: all 3,802 unique codepoints in Outlined, Rounded and Sharp
 at FILL=0, plus Rounded at FILL=1 (15,208 cases). Aliases are tested separately
 rather than drawing the same glyph repeatedly.
 
+The exhaustive gallery is reached only by previews and tests. Keep it out of
+normal sample navigation so production dead-code elimination can discard the
+catalog-wide selectors. The sample's generated reference resources still ship
+with its platform builds; published vector libraries contain none of them.
+
 Sample-only `expect`/`actual` adapters decode XML with Compose Resources in
 `androidMain` and SVG in `nonAndroidMain`. Each reference glyph is rendered in
 its own 24 × 24 viewport, matching the candidate icon's bitmap-cache origin;
