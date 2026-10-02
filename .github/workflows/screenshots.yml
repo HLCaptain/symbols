@@ -61,12 +61,13 @@ jobs:
           module_path=samples/image-vector-migration
           rm -rf "$module_path/build/roborazzi/baselines" "$module_path/build/outputs/roborazzi"
           ./gradlew :samples:image-vector-migration:recordRoborazziAndroidHostTest \
+            :samples:image-vector-migration:recordRoborazziJvm \
             -Proborazzi.cleanupOldScreenshots=true --max-workers=1 --no-daemon --stacktrace
           if [[ "$GITHUB_EVENT_NAME" == "pull_request" ]]; then
-            mkdir -p "$RUNNER_TEMP/roborazzi-head"
-            if [[ -d "$module_path/build/roborazzi/baselines" ]]; then
-              cp -R "$module_path/build/roborazzi/baselines"/. "$RUNNER_TEMP/roborazzi-head/"
-            fi
+            mkdir -p "$RUNNER_TEMP/roborazzi-head/jvm"
+            # Keep existing Android report keys stable; desktop has its own namespace.
+            cp -R "$module_path/build/roborazzi/baselines/androidHostTest"/. "$RUNNER_TEMP/roborazzi-head/"
+            cp -R "$module_path/build/roborazzi/baselines/jvm"/. "$RUNNER_TEMP/roborazzi-head/jvm/"
           fi
 
       - name: Record base branch baselines on the same runner
@@ -106,12 +107,16 @@ jobs:
             if grep -q 'androidHostTest' "$base_build"; then
               base_task=recordRoborazziAndroidHostTest
             fi
+            base_tasks=(":samples:image-vector-migration:$base_task")
+            if grep -q 'generateComposePreviewDesktopTests' "$base_build"; then
+              base_tasks+=(":samples:image-vector-migration:recordRoborazziJvm")
+            fi
             python3 -m venv "$RUNNER_TEMP/roborazzi-base-python"
             "$RUNNER_TEMP/roborazzi-base-python/bin/pip" install \
               -r tools/requirements-font-verification.txt
             export SYMBOLS_PYTHON="$RUNNER_TEMP/roborazzi-base-python/bin/python"
             ./gradlew \
-              ":samples:image-vector-migration:$base_task" \
+              "${base_tasks[@]}" \
               -Proborazzi.cleanupOldScreenshots=true \
               --max-workers=1 \
               --no-daemon \
@@ -125,9 +130,20 @@ jobs:
           fi
 
           rm -rf "$baseline_path"
-          mkdir -p "$baseline_path"
-          cp -R "$base_baseline_path"/. "$baseline_path"/
-          cp -R "$base_baseline_path"/. "$base_snapshots"/
+          mkdir -p "$baseline_path/androidHostTest"
+          if [[ -d "$base_baseline_path/androidHostTest" ]]; then
+            cp -R "$base_baseline_path/androidHostTest"/. "$baseline_path/androidHostTest/"
+            cp -R "$base_baseline_path/androidHostTest"/. "$base_snapshots/"
+          else
+            # Older bases recorded only Android images directly in the baseline directory.
+            cp -R "$base_baseline_path"/. "$baseline_path/androidHostTest/"
+            cp -R "$base_baseline_path"/. "$base_snapshots/"
+          fi
+          if [[ -d "$base_baseline_path/jvm" ]]; then
+            mkdir -p "$baseline_path/jvm" "$base_snapshots/jvm"
+            cp -R "$base_baseline_path/jvm"/. "$baseline_path/jvm/"
+            cp -R "$base_baseline_path/jvm"/. "$base_snapshots/jvm/"
+          fi
           echo "available=true" >> "$GITHUB_OUTPUT"
 
       - name: Compare pull request against base branch
@@ -137,6 +153,7 @@ jobs:
         run: >-
           ./gradlew
           :samples:image-vector-migration:compareRoborazziAndroidHostTest
+          :samples:image-vector-migration:compareRoborazziJvm
           --rerun-tasks
           --max-workers=1
           --no-daemon
@@ -156,10 +173,19 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p samples/image-vector-migration/build/outputs/roborazzi
+          # Match normalized baseline keys while preserving platform-specific comparisons.
+          diffs=samples/image-vector-migration/build/outputs/roborazzi
+          mkdir -p "$RUNNER_TEMP/roborazzi-diffs/jvm"
+          if [[ -d "$diffs/androidHostTest" ]]; then
+            cp -R "$diffs/androidHostTest"/. "$RUNNER_TEMP/roborazzi-diffs/"
+          fi
+          if [[ -d "$diffs/jvm" ]]; then
+            cp -R "$diffs/jvm"/. "$RUNNER_TEMP/roborazzi-diffs/jvm/"
+          fi
           python3 tools/roborazzi_report.py build \
             --base "$RUNNER_TEMP/roborazzi-base" \
             --head "$RUNNER_TEMP/roborazzi-head" \
-            --diffs samples/image-vector-migration/build/outputs/roborazzi \
+            --diffs "$RUNNER_TEMP/roborazzi-diffs" \
             --report "$RUNNER_TEMP/roborazzi-report" \
             --outcome "$COMPARE_OUTCOME" --base-supported "$BASE_SUPPORTED"
 

@@ -89,6 +89,33 @@ class ReportTest(unittest.TestCase):
                 self.assertEqual(expected, (root / "report" / row["image"]).read_bytes())
             self.assertNotIn(png(64), [path.read_bytes() for path in (root / "report/images").glob("*.png")])
 
+    def test_android_and_jvm_images_keep_independent_baselines(self):
+        with TemporaryDirectory() as d:
+            root = Path(d)
+            for name in ("base", "head", "diffs"):
+                (root / name / "jvm").mkdir(parents=True)
+            for name in ("base", "head"):
+                (root / name / "gallery.png").write_bytes(png(64))
+            (root / "base/jvm/gallery.png").write_bytes(png(0))
+            (root / "head/jvm/gallery.png").write_bytes(png(255))
+            (root / "diffs/jvm/gallery_compare.png").write_bytes(png(128))
+
+            result = report.build_report(root / "base", root / "head", root / "diffs", root / "report",
+                                         "success", True, "a" * 40, "b" * 40)
+
+            self.assertFalse(result["technical_failure"])
+            self.assertEqual(["jvm/gallery.png"], [row["name"] for row in result["changes"]])
+            self.assertEqual("Changed", result["changes"][0]["status"])
+            self.assertIn("JVM / Default", report.markdown(result))
+
+    def test_jvm_preview_label_preserves_common_source_location(self):
+        name = "io.github.hlcaptain.symbols.sample.imagevectormigration.SvgIconExamplesKt.ExamplePreview.Expanded_W1000dp_H700dp.png"
+        android = report.preview_details(name)
+        jvm = report.preview_details("jvm/" + name)
+        self.assertEqual(android[0], jvm[0])
+        self.assertEqual("JVM / " + android[1], jvm[1])
+        self.assertEqual(android[2:], jvm[2:])
+
     def test_comparison_errors_cannot_be_approved_as_visual_differences(self):
         with TemporaryDirectory() as d:
             result = self.fixture(Path(d), "failure")
