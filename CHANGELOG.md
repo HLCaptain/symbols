@@ -10,10 +10,10 @@ and the project uses [Semantic Versioning](https://semver.org/).
 
 ### Added
 
-- Automatic immutable `<current-release>-SNAPSHOT-<8sha>` publications for pushes
-  to `main`, beginning when the workflow is merged. Snapshots reuse release
-  verification and publish to Maven Central and the Plugin Portal, with GitHub
-  prereleases that are not marked latest.
+- Automatic testing snapshots pinned to each main push's commit, using
+  `<current-release>-SNAPSHOT-<8sha>`. They reuse release verification and publish
+  only to authenticated GitHub Packages, with GitHub prereleases that are not
+  marked latest. Normal releases retain Maven Central and the Plugin Portal.
 - Typed `Symbols.Material.Rounded.Filled.*` and
   `Symbols.Material.AutoMirrored.Rounded.Filled.*` ImageVectors at
   `FILL=1, GRAD=0, opsz=24, wght=400`. Aliases share codepoint caches, and
@@ -21,6 +21,10 @@ and the project uses [Semantic Versioning](https://semver.org/).
 
 ### Changed
 
+- Recover testing snapshots using reviewed newer publisher code while preserving
+  the exact source tag and version. Backend-specific successful job receipts
+  permit completed components to be skipped; unconfirmed existing snapshot files
+  stop publication instead of being overwritten or deleted.
 - Store Rounded vector outlines as per-icon SVG path strings, parsed by Compose
   on first use through a shared cached builder. Existing getters, default
   geometry, vector names, and explicit RTL behavior are preserved.

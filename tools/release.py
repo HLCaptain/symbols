@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Release preflight and retry checks; never uploads packages."""
 import argparse
+import base64
 import json
 import os
 from pathlib import Path
@@ -14,6 +15,7 @@ TAG = re.compile(r"(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(?:-[a-z][a-
 SNAPSHOT = re.compile(r"((?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*))-SNAPSHOT-([0-9a-f]{8})\Z")
 GROUP = "io.github.hlcaptain"
 PLUGIN = GROUP + ".symbol-fonts"
+GITHUB_PACKAGES = "https://maven.pkg.github.com/hlcaptain/symbols"
 JOB_NAMES = {
     "libraries": "Publish Central libraries",
     "tooling": "Publish Central tooling and Plugin Portal",
@@ -26,7 +28,7 @@ LIBRARIES += ["symbols-material-vectors-themed"]
 
 
 def version_from_tag(tag):
-    if not SNAPSHOT.fullmatch(tag) and (not TAG.fullmatch(tag) or tag.endswith("-snapshot")):
+    if not SNAPSHOT.fullmatch(tag) and (not TAG.fullmatch(tag) or "snapshot" in tag.lower()):
         raise ValueError("Release tags must use MAJOR.MINOR.PATCH with an optional lowercase qualifier "
                          "(e.g. -alpha01), or MAJOR.MINOR.PATCH-SNAPSHOT-<8 lowercase hex characters>, "
                          "without a v prefix, leading zeros, or a mutable SNAPSHOT suffix.")
@@ -44,7 +46,7 @@ def release_commit(tag):
     snapshot = SNAPSHOT.fullmatch(tag)
     if snapshot and snapshot[2] != commit[:8]:
         raise ValueError("The snapshot tag hash must match its commit's first eight characters.")
-    if (os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch"
+    if (not snapshot and os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch"
             and os.environ.get("GITHUB_SHA") != commit):
         raise ValueError("Manual retries must run from the tag: gh workflow run publish.yml --ref TAG -f tag=TAG")
     if os.environ.get("GITHUB_EVENT_NAME") == "push":
@@ -96,6 +98,19 @@ def pom_url(base, group, artifact, version):
 
 
 def publication_urls(component, version):
+    if SNAPSHOT.fullmatch(version):
+        if component == "portal":
+            return []  # Testing snapshots never go to the Plugin Portal.
+        if component == "libraries":
+            artifacts = list(LIBRARIES)
+            for artifact in LIBRARIES:
+                if not artifact.startswith("symbols-material-drawables-"):
+                    artifacts.extend(f"{artifact}-{target}" for target in
+                                     ("android", "iosarm64", "iossimulatorarm64", "js", "jvm", "wasm-js"))
+            return [pom_url(GITHUB_PACKAGES, GROUP, artifact, version) for artifact in artifacts]
+        return [pom_url(GITHUB_PACKAGES, GROUP, artifact, version)
+                for artifact in ("symbol-generator-core", "symbol-gradle-plugin")] + [
+            pom_url(GITHUB_PACKAGES, PLUGIN, PLUGIN + ".gradle.plugin", version)]
     central = "https://repo.maven.apache.org/maven2"
     if component == "libraries":
         return [pom_url(central, GROUP, artifact, version) for artifact in LIBRARIES]
@@ -109,7 +124,12 @@ def publication_urls(component, version):
 def exists(url):
     try:
         method = "GET" if url.startswith("https://plugins.gradle.org/plugin/") else "HEAD"
-        with urlopen(Request(url, method=method), timeout=30) as response:
+        request = Request(url, method=method)
+        if url.startswith(GITHUB_PACKAGES + "/"):
+            credentials = f"{os.environ['GITHUB_ACTOR']}:{os.environ['GH_TOKEN']}".encode()
+            # Do not forward credentials if the registry redirects to artifact storage.
+            request.add_unredirected_header("Authorization", "Basic " + base64.b64encode(credentials).decode())
+        with urlopen(request, timeout=30) as response:
             return response.status == 200
     except HTTPError as error:
         if error.code == 404:
@@ -120,20 +140,69 @@ def exists(url):
         raise  # Authentication, rate limits and server failures are not "unpublished".
 
 
-def prior_success(component, tag, checks):
-    name = f"{JOB_NAMES[component]} ({tag})"
+def prior_success(component, tag, checks, commit=None):
+    if SNAPSHOT.fullmatch(tag) and not commit:
+        return False
+    name = (f"Publish GitHub {component} ({tag}, {commit})" if SNAPSHOT.fullmatch(tag)
+            else f"{JOB_NAMES[component]} ({tag})")
     return any(c["name"] in {name, f"Publish snapshot / {name}"} and c.get("conclusion") == "success"
                and c.get("app", {}).get("slug") == "github-actions" for c in checks)
 
 
-def publication_done(component, tag, checks):
+def publication_done(component, tag, checks, commit=None):
+    if SNAPSHOT.fullmatch(tag) and component == "portal":
+        return True
     # Successful jobs also cover CDN propagation and a first Portal submission awaiting approval.
-    if prior_success(component, tag, checks):
+    if prior_success(component, tag, checks, commit):
         return True
     present = [exists(url) for url in publication_urls(component, version_from_tag(tag))]
+    if SNAPSHOT.fullmatch(tag) and any(present):
+        raise ValueError(f"Unconfirmed GitHub {component} publication already exists; inspect it before retrying. "
+                         "Do not overwrite a testing snapshot.")
     if any(present) and not all(present):
         raise ValueError(f"Part of the {component} release already exists; inspect the deployment before retrying.")
     return all(present)
+
+
+def require_unpublished_manifest(path, version):
+    if not SNAPSHOT.fullmatch(version):
+        raise ValueError("The GitHub Packages manifest is only for testing snapshots.")
+    manifest = json.loads(Path(path).read_text())
+    if manifest["version"] != version or not manifest["paths"]:
+        raise ValueError("Publication manifest must contain this snapshot's files.")
+    for file in manifest["paths"]:
+        if (not re.fullmatch(r"[A-Za-z0-9_./-]+", file) or ".." in file.split("/")
+                or not file.startswith("io/github/hlcaptain/") or f"/{version}/" not in file):
+            raise ValueError("Unexpected file in publication manifest.")
+        if exists(f"{GITHUB_PACKAGES}/{file}"):
+            raise ValueError(f"A snapshot file already exists: {file}; inspect the partial publication, do not overwrite it.")
+    print(f"Authenticated absence verified for {len(manifest['paths'])} snapshot files.")
+
+
+def github_pages(path):
+    return json.loads(subprocess.check_output(["gh", "api", "--paginate", "--slurp", path], text=True))
+
+
+def publication_checks(repository, commit, tag):
+    checks = [check for page in github_pages(
+        f"repos/{repository}/commits/{commit}/check-runs?filter=all&per_page=100"
+    ) for check in page["check_runs"]]
+    if SNAPSHOT.fullmatch(tag):
+        # Recovery can use newer publisher code while keeping the artifact source tag immutable.
+        runs = [run for page in github_pages(
+            f"repos/{repository}/actions/workflows/publish.yml/runs?event=workflow_dispatch&per_page=100"
+        ) for run in page["workflow_runs"]]
+        for run in runs:
+            if run["display_title"] != f"Release {tag}" or str(run["id"]) == os.environ.get("GITHUB_RUN_ID"):
+                continue
+            jobs = [job for page in github_pages(
+                f"repos/{repository}/actions/runs/{run['id']}/jobs?filter=all&per_page=100"
+            ) for job in page["jobs"]]
+            if not any(job["name"] == "Publication preflight" and job["conclusion"] == "success" for job in jobs):
+                continue
+            checks.extend({"name": job["name"], "conclusion": job["conclusion"],
+                           "app": {"slug": "github-actions"}} for job in jobs)
+    return checks
 
 
 def wait_for_publication(component, version, timeout_seconds=7200):
@@ -148,8 +217,8 @@ def wait_for_publication(component, version, timeout_seconds=7200):
         remaining = deadline - time.monotonic()
         if remaining <= 0:
             raise TimeoutError(
-                "Central publication is still not fully visible. Inspect the existing deployment "
-                "in Central Portal; do not re-upload while it is pending. Once published, start "
+                "Publication is still not fully visible. Inspect the existing registry publication; "
+                "do not re-upload while it is pending. Once published, start "
                 "a fresh tag-scoped workflow run so preflight checks the registries again."
             )
         print(f"{component}: waiting for {len(pending)}/{len(urls)} public Maven coordinates "
@@ -163,27 +232,34 @@ def main():
     selection.add_argument("--tag")
     selection.add_argument("--snapshot", action="store_true", help="Select an immutable snapshot for this main push")
     parser.add_argument("--wait-component", choices=("libraries", "tooling"))
+    parser.add_argument("--check-unpublished-manifest")
     args = parser.parse_args()
     if args.snapshot:
-        if args.wait_component:
-            parser.error("--wait-component requires --tag")
+        if args.wait_component or args.check_unpublished_manifest:
+            parser.error("Registry checks require --tag")
         write_outputs(snapshot_release())
         return
     version = version_from_tag(args.tag)
+    if args.check_unpublished_manifest:
+        if args.wait_component:
+            parser.error("Choose one registry check")
+        require_unpublished_manifest(args.check_unpublished_manifest, version)
+        return
     if args.wait_component:
         wait_for_publication(args.wait_component, version)
         return
     commit = release_commit(args.tag)
     repository = os.environ["GITHUB_REPOSITORY"]
-    pages = json.loads(subprocess.check_output([
-        "gh", "api", "--paginate", "--slurp",
-        f"repos/{repository}/commits/{commit}/check-runs?filter=all&per_page=100",
-    ], text=True))
-    checks = [check for page in pages for check in page["check_runs"]]
-    outputs = {"tag": args.tag, "version": version, "commit": commit}
+    checks = publication_checks(repository, commit, args.tag)
+    outputs = {"tag": args.tag, "version": version, "commit": commit,
+               "snapshot": str(bool(SNAPSHOT.fullmatch(args.tag))).lower()}
     for component in JOB_NAMES:
-        outputs[f"{component}_done"] = str(publication_done(component, args.tag, checks)).lower()
+        outputs[f"{component}_done"] = str(publication_done(component, args.tag, checks, commit)).lower()
     outputs["complete"] = str(all(outputs[f"{c}_done"] == "true" for c in JOB_NAMES)).lower()
+    outputs["github_components"] = json.dumps([
+        component for component in ("libraries", "tooling")
+        if outputs["snapshot"] == "true" and outputs[f"{component}_done"] != "true"
+    ])
     write_outputs(outputs)
 
 

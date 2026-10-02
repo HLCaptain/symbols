@@ -1,4 +1,5 @@
 import importlib.util
+import base64
 from io import BytesIO, StringIO
 from contextlib import chdir, redirect_stderr, redirect_stdout
 import json
@@ -10,6 +11,7 @@ from pathlib import Path
 import unittest
 from unittest.mock import call, patch
 from urllib.error import HTTPError
+from urllib.request import HTTPRedirectHandler
 
 spec = importlib.util.spec_from_file_location("release", Path(__file__).parents[1] / "release.py")
 release = importlib.util.module_from_spec(spec)
@@ -26,7 +28,8 @@ class ReleaseTest(unittest.TestCase):
                     for url in release.publication_urls(component, release.version_from_tag(tag)):
                         self.assertIn(f"/{tag}", url)
         for tag in ("v1.2.3", "01.2.3", "1.02.3", "1.2.03", "1.2", "1.2.3-SNAPSHOT",
-                    "1.2.3-snapshot", "1.2.3-Snapshot", "1.2.3-", "1.2.3-Alpha01", "1.2.3-01",
+                    "1.2.3-snapshot", "1.2.3-Snapshot", "1.2.3-snapshot01", "1.2.3-presnapshot01",
+                    "1.2.3-", "1.2.3-Alpha01", "1.2.3-01",
                     "1.2.3+build", "1.2.3\n", "1.2.3;echo injected",
                     "1.2.3-snapshot-deadbeef", "1.2.3-SNAPSHOT-DEADBEEF", "1.2.3-SNAPSHOT-deadbee",
                     "1.2.3-SNAPSHOT-deadbeef0", "1.2.3-SNAPSHOT-deadbeeg", "1.2.3-alpha01-SNAPSHOT-deadbeef",
@@ -115,26 +118,92 @@ class ReleaseTest(unittest.TestCase):
         checks[0]["conclusion"] = "failure"
         self.assertFalse(release.prior_success("portal", "0.1.0", checks))
 
-    def test_snapshot_retry_accepts_only_expected_reusable_job_receipts(self):
+    def test_snapshot_retry_accepts_only_github_receipts_bound_to_the_full_source_commit(self):
         tag = "2.0.0-SNAPSHOT-deadbeef"
-        name = f"Publish Central tooling and Plugin Portal ({tag})"
-        for prefix in ("", "Publish snapshot / "):
-            checks = [{"name": prefix + name, "conclusion": "success", "app": {"slug": "github-actions"}}]
-            with self.subTest(prefix=prefix), patch.object(
-                release, "exists", side_effect=AssertionError("successful receipt must avoid another registry submission")
-            ):
-                self.assertTrue(release.publication_done("portal", tag, checks))
-                self.assertTrue(release.publication_done("tooling", tag, checks))
+        commit = "deadbeef" + "a" * 32
+        for component in ("libraries", "tooling"):
+            name = f"Publish GitHub {component} ({tag}, {commit})"
+            for prefix in ("", "Publish snapshot / "):
+                checks = [{"name": prefix + name, "conclusion": "success", "app": {"slug": "github-actions"}}]
+                with self.subTest(component=component, prefix=prefix), patch.object(
+                    release, "exists", side_effect=AssertionError("successful receipt must avoid another registry submission")
+                ):
+                    self.assertTrue(release.publication_done(component, tag, checks, commit))
+                self.assertFalse(release.prior_success(component, tag, checks))
+        name = f"Publish GitHub tooling ({tag}, {commit})"
         for actual_name, conclusion, app in (
             ("Other workflow / " + name, "success", "github-actions"),
             ("Publish snapshot / " + name, "failure", "github-actions"),
             ("Publish snapshot / " + name, "success", "other-app"),
             ("Publish snapshot / " + name.replace("deadbeef", "feedface"), "success", "github-actions"),
+            (name.replace(commit, commit[:8]), "success", "github-actions"),
+            (name.replace(commit, "deadbeef" + "b" * 32), "success", "github-actions"),
+            (f"Publish Central tooling and Plugin Portal ({tag})", "success", "github-actions"),
+            (f"Publish snapshot / Publish Central tooling and Plugin Portal ({tag})", "success", "github-actions"),
         ):
             with self.subTest(name=actual_name, conclusion=conclusion, app=app):
-                self.assertFalse(release.prior_success("portal", tag, [
+                self.assertFalse(release.prior_success("tooling", tag, [
                     {"name": actual_name, "conclusion": conclusion, "app": {"slug": app}},
-                ]))
+                ], commit))
+
+    def test_github_snapshot_files_without_successful_receipt_cannot_be_overwritten(self):
+        tag = "2.0.0-SNAPSHOT-deadbeef"
+        commit = "deadbeef" + "a" * 32
+        central = [{"name": f"Publish Central tooling and Plugin Portal ({tag})",
+                    "conclusion": "success", "app": {"slug": "github-actions"}}]
+        with patch.object(release, "exists", return_value=False) as exists:
+            self.assertFalse(release.publication_done("tooling", tag, central, commit))
+            self.assertEqual(3, exists.call_count)
+        for present in ([True, False, False], [True, True, True]):
+            with self.subTest(present=present), patch.object(release, "exists", side_effect=present):
+                with self.assertRaisesRegex(ValueError, "Do not overwrite a testing snapshot"):
+                    release.publication_done("tooling", tag, central, commit)
+        with patch.object(release, "exists", side_effect=AssertionError("snapshots never query the Portal")):
+            self.assertTrue(release.publication_done("portal", tag, []))
+
+    def test_github_registry_authentication_is_not_forwarded_on_redirect(self):
+        url = release.GITHUB_PACKAGES + "/io/github/hlcaptain/example/version/example.pom"
+        with patch.dict(os.environ, {"GITHUB_ACTOR": "test-user", "GH_TOKEN": "test-credential"}), \
+                patch.object(release, "urlopen") as urlopen:
+            urlopen.return_value.__enter__.return_value.status = 200
+            self.assertTrue(release.exists(url))
+        request = urlopen.call_args.args[0]
+        self.assertEqual("HEAD", request.get_method())
+        self.assertEqual({"timeout": 30}, urlopen.call_args.kwargs)
+        expected = "Basic " + base64.b64encode(b"test-user:test-credential").decode()
+        self.assertEqual(expected, request.get_header("Authorization"))
+        for destination in (release.GITHUB_PACKAGES + "/storage/file.pom", "https://storage.example/file.pom"):
+            with self.subTest(destination=destination):
+                redirected = HTTPRedirectHandler().redirect_request(request, None, 302, "Found", {}, destination)
+                self.assertIsNone(redirected.get_header("Authorization"))
+
+    def test_only_the_symbols_github_registry_receives_credentials(self):
+        for url in ("https://repo.maven.apache.org/maven2/example.pom",
+                    "https://plugins.gradle.org/plugin/example/1.0.0",
+                    "https://maven.pkg.github.com/other/repository/example.pom",
+                    release.GITHUB_PACKAGES + "-other/example.pom"):
+            with self.subTest(url=url), patch.dict(os.environ, {}, clear=True), \
+                    patch.object(release, "urlopen") as urlopen:
+                urlopen.return_value.__enter__.return_value.status = 200
+                self.assertTrue(release.exists(url))
+                request = urlopen.call_args.args[0]
+                self.assertIsNone(request.get_header("Authorization"))
+                self.assertEqual("GET" if "plugins.gradle.org" in url else "HEAD", request.get_method())
+
+    def test_github_missing_credentials_and_auth_errors_cannot_mean_unpublished(self):
+        url = release.GITHUB_PACKAGES + "/example.pom"
+        for environment in ({}, {"GITHUB_ACTOR": "test-user"}, {"GH_TOKEN": "test-credential"}):
+            with self.subTest(environment=list(environment)), patch.dict(os.environ, environment, clear=True), \
+                    patch.object(release, "urlopen") as urlopen, self.assertRaises(KeyError):
+                release.exists(url)
+            urlopen.assert_not_called()
+        for code in (401, 403, 429, 500):
+            error = HTTPError(url, code, "failure", {}, None)
+            with self.subTest(code=code), \
+                    patch.dict(os.environ, {"GITHUB_ACTOR": "test-user", "GH_TOKEN": "test-credential"}), \
+                    patch.object(release, "urlopen", side_effect=error), self.assertRaises(HTTPError) as raised:
+                release.exists(url)
+            self.assertIs(error, raised.exception)
 
     def test_wait_checks_only_missing_coordinates_until_they_are_public(self):
         with patch.object(release, "publication_urls", return_value=["first", "second"]), \
@@ -166,6 +235,129 @@ class ReleaseTest(unittest.TestCase):
         self.assertIn("/symbols-core/0.1.0/symbols-core-0.1.0.pom", release.publication_urls("libraries", "0.1.0")[0])
         self.assertEqual(3, len(release.publication_urls("tooling", "0.1.0")))
         self.assertTrue(release.publication_urls("portal", "0.1.0")[0].startswith("https://plugins.gradle.org/plugin/"))
+
+    def test_snapshots_cover_all_platform_publications_only_on_github_packages(self):
+        tag = "2.0.0-SNAPSHOT-deadbeef"
+        roots = {
+            "symbols-core", "symbols-variant-font-core", "symbols-material-core", "symbols-material-compose",
+            "symbols-material-outlined", "symbols-material-rounded", "symbols-material-sharp",
+            "symbols-material-outlined-static", "symbols-material-rounded-static", "symbols-material-sharp-static",
+            "symbols-material-drawables-outlined", "symbols-material-drawables-rounded", "symbols-material-drawables-sharp",
+            "symbols-material-compose-drawables-outlined", "symbols-material-compose-drawables-rounded",
+            "symbols-material-compose-drawables-sharp", "symbols-material-vectors-outlined",
+            "symbols-material-vectors-rounded", "symbols-material-vectors-sharp", "symbols-material-vectors-themed",
+        }
+        targets = {"android", "iosarm64", "iossimulatorarm64", "js", "jvm", "wasm-js"}
+        expected = roots | {f"{root}-{target}" for root in roots for target in targets
+                            if not root.startswith("symbols-material-drawables-")}
+        libraries = release.publication_urls("libraries", tag)
+        self.assertEqual(122, len(libraries))
+        self.assertEqual(expected, {url.split("/")[-3] for url in libraries})
+        tooling = release.publication_urls("tooling", tag)
+        self.assertEqual({"symbol-generator-core", "symbol-gradle-plugin", "io.github.hlcaptain.symbol-fonts.gradle.plugin"},
+                         {url.split("/")[-3] for url in tooling})
+        self.assertEqual(3, len(tooling))
+        self.assertEqual([], release.publication_urls("portal", tag))
+        for url in libraries + tooling:
+            self.assertTrue(url.startswith(release.GITHUB_PACKAGES + "/io/github/hlcaptain/"), url)
+            self.assertTrue(url.endswith(f"-{tag}.pom"), url)
+            self.assertEqual(tag, url.split("/")[-2])
+
+    def test_manifest_checks_every_file_and_refuses_existing_non_pom_files(self):
+        tag = "2.0.0-SNAPSHOT-deadbeef"
+        directory = f"io/github/hlcaptain/symbols-core/{tag}/"
+        files = [directory + f"symbols-core-{tag}{suffix}" for suffix in (".pom", ".module", ".jar")]
+        with TemporaryDirectory() as temporary:
+            manifest = Path(temporary) / "manifest.json"
+            manifest.write_text(json.dumps({"version": tag, "paths": files}))
+            with patch.object(release, "exists", return_value=False) as exists, redirect_stdout(StringIO()):
+                release.require_unpublished_manifest(manifest, tag)
+            self.assertEqual([call(release.GITHUB_PACKAGES + "/" + file) for file in files], exists.call_args_list)
+            with patch.object(release, "exists", side_effect=[False, True]) as exists:
+                with self.assertRaisesRegex(ValueError, "do not overwrite"):
+                    release.require_unpublished_manifest(manifest, tag)
+                self.assertEqual(2, exists.call_count)
+            error = HTTPError(release.GITHUB_PACKAGES, 403, "denied", {}, None)
+            with patch.object(release, "exists", side_effect=error), self.assertRaises(HTTPError) as raised:
+                release.require_unpublished_manifest(manifest, tag)
+            self.assertIs(error, raised.exception)
+
+    def test_manifest_rejects_wrong_version_empty_files_and_paths_outside_the_snapshot(self):
+        tag = "2.0.0-SNAPSHOT-deadbeef"
+        directory = f"io/github/hlcaptain/symbols-core/{tag}/"
+        valid = directory + f"symbols-core-{tag}.pom"
+        invalid_files = ["/" + valid, "https://other.example/" + valid, directory + "../other.pom",
+                         valid.replace("hlcaptain", "other"), valid.replace(tag, "2.0.0"), valid + "?token=x"]
+        manifests = [{"version": "2.0.0-SNAPSHOT-feedface", "paths": [valid]}, {"version": tag, "paths": []}]
+        manifests += [{"version": tag, "paths": [file]} for file in invalid_files]
+        with TemporaryDirectory() as temporary, patch.object(release, "exists") as exists:
+            manifest = Path(temporary) / "manifest.json"
+            for data in manifests:
+                with self.subTest(manifest=data), self.assertRaises(ValueError):
+                    manifest.write_text(json.dumps(data))
+                    release.require_unpublished_manifest(manifest, tag)
+            with self.assertRaisesRegex(ValueError, "only for testing snapshots"):
+                release.require_unpublished_manifest(manifest, "2.0.0")
+            exists.assert_not_called()
+
+    def test_recovery_receipts_require_matching_dispatch_preflight_and_source_commit(self):
+        tag = "2.0.0-SNAPSHOT-deadbeef"
+        commit = "deadbeef" + "a" * 32
+        name = f"Publish GitHub libraries ({tag}, {commit})"
+        preflight = {"name": "Publication preflight", "conclusion": "success"}
+        published = {"name": name, "conclusion": "success"}
+        cases = [
+            ("valid", f"Release {tag}", 10, [preflight, published], True),
+            ("wrong title", "Release 2.0.0-SNAPSHOT-feedface", 10, [preflight, published], False),
+            ("current run", f"Release {tag}", 42, [preflight, published], False),
+            ("missing preflight", f"Release {tag}", 10, [published], False),
+            ("failed preflight", f"Release {tag}", 10, [{**preflight, "conclusion": "failure"}, published], False),
+            ("failed upload", f"Release {tag}", 10, [preflight, {**published, "conclusion": "failure"}], False),
+            ("short hash", f"Release {tag}", 10, [preflight, {**published, "name": name.replace(commit, commit[:8])}], False),
+            ("other source", f"Release {tag}", 10, [preflight, {**published, "name": name.replace(commit, "deadbeef" + "b" * 32)}], False),
+            ("Central receipt", f"Release {tag}", 10, [preflight, {**published, "name": f"Publish Central libraries ({tag})"}], False),
+        ]
+        for label, title, run_id, jobs, expected in cases:
+            # The recovery workflow is newer than the artifact source, and another component may have failed.
+            run = {"id": run_id, "display_title": title, "head_sha": "c" * 40, "conclusion": "failure"}
+            pages = [[{"check_runs": []}], [{"workflow_runs": []}, {"workflow_runs": [run]}], [{"jobs": jobs}]]
+            with self.subTest(case=label), patch.dict(os.environ, {"GITHUB_RUN_ID": "42"}), \
+                    patch.object(release, "github_pages", side_effect=pages) as github_pages:
+                checks = release.publication_checks("owner/symbols", commit, tag)
+            self.assertEqual(expected, release.prior_success("libraries", tag, checks, commit))
+            calls = [call(f"repos/owner/symbols/commits/{commit}/check-runs?filter=all&per_page=100"),
+                     call("repos/owner/symbols/actions/workflows/publish.yml/runs?event=workflow_dispatch&per_page=100")]
+            if title == f"Release {tag}" and run_id != 42:
+                calls.append(call(f"repos/owner/symbols/actions/runs/{run_id}/jobs?filter=all&per_page=100"))
+            self.assertEqual(calls, github_pages.call_args_list)
+
+    def test_stable_check_lookup_does_not_accept_recovery_workflow_receipts(self):
+        check = {"name": "Publish Central libraries (2.0.0)", "conclusion": "success",
+                 "app": {"slug": "github-actions"}}
+        with patch.object(release, "github_pages", return_value=[{"check_runs": []}, {"check_runs": [check]}]) as pages:
+            self.assertEqual([check], release.publication_checks("owner/symbols", "a" * 40, "2.0.0"))
+        pages.assert_called_once_with(f"repos/owner/symbols/commits/{'a' * 40}/check-runs?filter=all&per_page=100")
+
+    def test_snapshot_preflight_emits_only_missing_github_components(self):
+        tag = "2.0.0-SNAPSHOT-deadbeef"
+        commit = "deadbeef" + "a" * 32
+        checks = [{"name": f"Publish GitHub libraries ({tag}, {commit})", "conclusion": "success",
+                   "app": {"slug": "github-actions"}}]
+        with TemporaryDirectory() as temporary:
+            output = Path(temporary) / "output"
+            stdout = StringIO()
+            with patch.dict(os.environ, {"GITHUB_REPOSITORY": "owner/symbols", "GITHUB_OUTPUT": str(output)}), \
+                    patch("sys.argv", ["release.py", "--tag", tag]), \
+                    patch.object(release, "release_commit", return_value=commit), \
+                    patch.object(release, "publication_checks", return_value=checks), \
+                    patch.object(release, "exists", return_value=False) as exists, redirect_stdout(stdout):
+                release.main()
+            values = json.loads(stdout.getvalue())
+            self.assertEqual({"tag": tag, "version": tag, "commit": commit, "snapshot": "true",
+                              "libraries_done": "true", "tooling_done": "false", "portal_done": "true",
+                              "complete": "false", "github_components": '["tooling"]'}, values)
+            self.assertEqual(values, dict(line.split("=", 1) for line in output.read_text().splitlines()))
+            self.assertEqual([call(url) for url in release.publication_urls("tooling", tag)], exists.call_args_list)
 
 
 class SnapshotReleaseTest(unittest.TestCase):
@@ -294,7 +486,7 @@ class SnapshotReleaseTest(unittest.TestCase):
             event_file.write_text(json.dumps({**event, "ref": "refs/heads/other"}))
             release.snapshot_release()
 
-    def test_snapshot_release_commit_binds_suffix_and_preserves_manual_retry_guard(self):
+    def test_snapshot_recovery_can_use_new_workflow_code_but_must_keep_the_source_tag(self):
         self.git("tag", "1.0.0")
         commit = self.commit("snapshot source")
         tag = f"1.0.0-SNAPSHOT-{commit[:8]}"
@@ -302,9 +494,11 @@ class SnapshotReleaseTest(unittest.TestCase):
         self.assertEqual(commit, release.release_commit(tag))
         with patch.dict(os.environ, {"GITHUB_EVENT_NAME": "workflow_dispatch", "GITHUB_SHA": commit}):
             self.assertEqual(commit, release.release_commit(tag))
-        with patch.dict(os.environ, {"GITHUB_EVENT_NAME": "workflow_dispatch", "GITHUB_SHA": self.initial}):
+        newer_workflow = self.commit("GitHub snapshot publisher")
+        with patch.dict(os.environ, {"GITHUB_EVENT_NAME": "workflow_dispatch", "GITHUB_SHA": newer_workflow}):
+            self.assertEqual(commit, release.release_commit(tag))
             with self.assertRaisesRegex(ValueError, "Manual retries must run from the tag"):
-                release.release_commit(tag)
+                release.release_commit("1.0.0")
         other_prefix = ("0" if commit[0] != "0" else "1") + commit[1:8]
         wrong = f"1.0.0-SNAPSHOT-{other_prefix}"
         self.git("tag", wrong)

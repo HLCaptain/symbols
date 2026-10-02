@@ -13,7 +13,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: Existing tag to resume (1.0.0 or 1.0.0-alpha01)
+        description: Existing release or testing-snapshot tag to publish or recover
         required: true
         type: string
 
@@ -32,10 +32,11 @@ jobs:
     name: Publication preflight
     runs-on: ubuntu-24.04
     timeout-minutes: 10
-    environment: maven-central
     permissions:
       contents: read
       checks: read
+      actions: read
+      packages: read
     outputs:
       tag: ${{ steps.release.outputs.tag }}
       version: ${{ steps.release.outputs.version }}
@@ -44,6 +45,8 @@ jobs:
       tooling_done: ${{ steps.release.outputs.tooling_done }}
       portal_done: ${{ steps.release.outputs.portal_done }}
       complete: ${{ steps.release.outputs.complete }}
+      snapshot: ${{ steps.release.outputs.snapshot }}
+      github_components: ${{ steps.release.outputs.github_components }}
     steps:
       - name: Check out release sources
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -51,13 +54,27 @@ jobs:
           ref: refs/tags/${{ env.RELEASE_TAG }}
           fetch-depth: 0
           persist-credentials: false
+      - name: Check out publisher tools
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.workflow_sha }}
+          path: publisher
+          persist-credentials: false
       - name: Validate tag, main ancestry, and existing publications
         id: release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: python3 tools/release.py --tag "$RELEASE_TAG"
+        run: python3 publisher/tools/release.py --tag "$RELEASE_TAG"
+
+  central-credentials:
+    name: Check normal-release credentials
+    needs: preflight
+    if: needs.preflight.outputs.snapshot != 'true' && needs.preflight.outputs.complete != 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    environment: maven-central
+    steps:
       - name: Check publication credentials before releasing any packages
-        if: steps.release.outputs.complete != 'true'
         env:
           MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           MAVEN_CENTRAL_PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
@@ -77,8 +94,11 @@ jobs:
 
   full-verification:
     name: Verify publishable libraries and tooling
-    needs: preflight
-    if: needs.preflight.outputs.complete != 'true'
+    needs: [preflight, central-credentials]
+    if: >-
+      !cancelled() && needs.preflight.result == 'success' &&
+      needs.preflight.outputs.complete != 'true' &&
+      (needs.preflight.outputs.snapshot == 'true' || needs.central-credentials.result == 'success')
     uses: ./.github/workflows/ci.yml
     with:
       publication-only: true
@@ -88,7 +108,7 @@ jobs:
   libraries:
     name: Publish Central libraries (${{ github.event.release.tag_name || inputs.tag || github.ref_name }})
     needs: [preflight, full-verification]
-    if: needs.preflight.outputs.libraries_done != 'true'
+    if: needs.preflight.outputs.snapshot != 'true' && needs.preflight.outputs.libraries_done != 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 240
     environment: maven-central
@@ -132,7 +152,9 @@ jobs:
   tooling:
     name: Publish Central tooling and Plugin Portal (${{ github.event.release.tag_name || inputs.tag || github.ref_name }})
     needs: [preflight, full-verification]
-    if: needs.preflight.outputs.tooling_done != 'true' || needs.preflight.outputs.portal_done != 'true'
+    if: >-
+      needs.preflight.outputs.snapshot != 'true' &&
+      (needs.preflight.outputs.tooling_done != 'true' || needs.preflight.outputs.portal_done != 'true')
     runs-on: ubuntu-24.04
     timeout-minutes: 210
     environment: maven-central
@@ -182,14 +204,97 @@ jobs:
           :symbol-gradle-plugin:publishPlugins
           --max-workers=1 --no-configuration-cache --no-daemon --stacktrace
 
+  github-packages:
+    name: Publish GitHub ${{ matrix.component }} (${{ needs.preflight.outputs.tag }}, ${{ needs.preflight.outputs.commit }})
+    needs: [preflight, full-verification]
+    if: >-
+      !cancelled() && needs.preflight.result == 'success' && needs.full-verification.result == 'success' &&
+      needs.preflight.outputs.snapshot == 'true' && needs.preflight.outputs.complete != 'true'
+    strategy:
+      fail-fast: false
+      matrix:
+        component: ${{ fromJSON(needs.preflight.outputs.github_components) }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    permissions:
+      contents: read
+      packages: write
+    env:
+      PUBLICATION_VERSION: ${{ needs.preflight.outputs.version }}
+      COMPONENT: ${{ matrix.component }}
+      GH_TOKEN: ${{ github.token }}
+      ORG_GRADLE_PROJECT_GitHubPackagesUsername: ${{ github.actor }}
+      ORG_GRADLE_PROJECT_GitHubPackagesPassword: ${{ github.token }}
+    steps:
+      - name: Check out verified artifact sources
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ needs.preflight.outputs.commit }}
+          persist-credentials: false
+      - name: Check out publisher tools
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.workflow_sha }}
+          path: publisher
+          persist-credentials: false
+      - name: Set up vector generation dependencies
+        if: matrix.component == 'libraries'
+        uses: ./publisher/.github/actions/setup-vector-python
+      - name: Set up Java
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: |
+            17
+            21
+      - name: Configure Android SDK
+        if: matrix.component == 'libraries'
+        uses: ./publisher/.github/actions/setup-ci-android
+      - name: Set up Gradle
+        uses: ./publisher/.github/actions/setup-ci-gradle
+      - name: Reject an unconfirmed partial snapshot before uploading
+        shell: bash
+        run: |
+          set -euo pipefail
+          gradle=(./gradlew)
+          manifest=build/github-packages-manifest.json
+          if [[ "$COMPONENT" == tooling ]]; then
+            gradle=(./tooling/gradlew -p tooling)
+            manifest=tooling/build/github-packages-manifest.json
+          fi
+          "${gradle[@]}" "-PVERSION_NAME=$PUBLICATION_VERSION" \
+            --init-script "$GITHUB_WORKSPACE/publisher/tools/github-packages.init.gradle.kts" \
+            githubPackagePublicationManifest --max-workers=1 --no-configuration-cache --no-daemon --stacktrace
+          python3 publisher/tools/release.py --tag "$PUBLICATION_VERSION" \
+            --check-unpublished-manifest "$manifest"
+      - name: Publish testing snapshots to GitHub Packages
+        timeout-minutes: 90
+        shell: bash
+        run: |
+          set -euo pipefail
+          gradle=(./gradlew)
+          if [[ "$COMPONENT" == tooling ]]; then
+            gradle=(./tooling/gradlew -p tooling)
+          fi
+          "${gradle[@]}" "-PVERSION_NAME=$PUBLICATION_VERSION" \
+            --init-script "$GITHUB_WORKSPACE/publisher/tools/github-packages.init.gradle.kts" \
+            publishAllPublicationsToGitHubPackagesRepository \
+            --max-workers=1 --no-configuration-cache --no-daemon --stacktrace
+      - name: Verify authenticated package availability
+        timeout-minutes: 15
+        run: python3 publisher/tools/release.py --tag "$RELEASE_TAG" --wait-component "$COMPONENT"
+
   github-release:
     name: Create GitHub release
-    needs: [preflight, full-verification, libraries, tooling]
+    needs: [preflight, full-verification, libraries, tooling, github-packages]
     if: >-
       !cancelled() && needs.preflight.result == 'success' &&
       (needs.full-verification.result == 'success' || needs.preflight.outputs.complete == 'true') &&
-      (needs.libraries.result == 'success' || needs.preflight.outputs.libraries_done == 'true') &&
-      (needs.tooling.result == 'success' || (needs.preflight.outputs.tooling_done == 'true' && needs.preflight.outputs.portal_done == 'true'))
+      ((needs.preflight.outputs.snapshot == 'true' &&
+        (needs.github-packages.result == 'success' || needs.preflight.outputs.complete == 'true')) ||
+       (needs.preflight.outputs.snapshot != 'true' &&
+        (needs.libraries.result == 'success' || needs.preflight.outputs.libraries_done == 'true') &&
+        (needs.tooling.result == 'success' || (needs.preflight.outputs.tooling_done == 'true' && needs.preflight.outputs.portal_done == 'true'))))
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     permissions:
