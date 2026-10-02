@@ -11,6 +11,7 @@ from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
 TAG = re.compile(r"(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(?:-[a-z][a-z0-9]*)?\Z")
+SNAPSHOT = re.compile(r"((?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*))-SNAPSHOT-([0-9a-f]{8})\Z")
 GROUP = "io.github.hlcaptain"
 PLUGIN = GROUP + ".symbol-fonts"
 JOB_NAMES = {
@@ -25,9 +26,10 @@ LIBRARIES += ["symbols-material-vectors-themed"]
 
 
 def version_from_tag(tag):
-    if not TAG.fullmatch(tag) or tag.endswith("-snapshot"):
+    if not SNAPSHOT.fullmatch(tag) and (not TAG.fullmatch(tag) or tag.endswith("-snapshot")):
         raise ValueError("Release tags must use MAJOR.MINOR.PATCH with an optional lowercase qualifier "
-                         "(e.g. -alpha01), without a v prefix, leading zeros, or SNAPSHOT.")
+                         "(e.g. -alpha01), or MAJOR.MINOR.PATCH-SNAPSHOT-<8 lowercase hex characters>, "
+                         "without a v prefix, leading zeros, or a mutable SNAPSHOT suffix.")
     return tag
 
 
@@ -39,16 +41,54 @@ def release_commit(tag):
     version_from_tag(tag)
     commit = git("rev-parse", "--verify", f"refs/tags/{tag}^{{commit}}")
     subprocess.run(["git", "merge-base", "--is-ancestor", commit, "refs/remotes/origin/main"], check=True)
+    snapshot = SNAPSHOT.fullmatch(tag)
+    if snapshot and snapshot[2] != commit[:8]:
+        raise ValueError("The snapshot tag hash must match its commit's first eight characters.")
     if (os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch"
             and os.environ.get("GITHUB_SHA") != commit):
         raise ValueError("Manual retries must run from the tag: gh workflow run publish.yml --ref TAG -f tag=TAG")
     if os.environ.get("GITHUB_EVENT_NAME") == "push":
         event = json.loads(Path(os.environ["GITHUB_EVENT_PATH"]).read_text())
-        if event.get("deleted") or event.get("forced"):
+        if event.get("deleted") or (event.get("forced") and not (snapshot and event.get("ref") == "refs/heads/main")):
             raise ValueError("Release tags cannot be deleted or moved.")
         if event.get("after") not in {commit, git("rev-parse", f"refs/tags/{tag}")}:
             raise ValueError("The release tag changed after this event.")
     return commit
+
+
+def snapshot_tag(commit):
+    """Choose a stable release line, retaining an already assigned snapshot on retries."""
+    if not re.fullmatch(r"[0-9a-f]{40}", commit):
+        raise ValueError("Snapshots require a full Git commit SHA.")
+    subprocess.run(["git", "merge-base", "--is-ancestor", commit, "refs/remotes/origin/main"], check=True)
+    existing = [tag for tag in git("tag", "--points-at", commit).splitlines() if SNAPSHOT.fullmatch(tag)]
+    if len(existing) > 1:
+        raise ValueError("Multiple snapshot tags point to this commit; inspect them before retrying.")
+    if existing:
+        if SNAPSHOT.fullmatch(existing[0])[2] != commit[:8]:
+            raise ValueError("The existing snapshot tag hash does not match this commit.")
+        return existing[0]
+    stable = [tag for tag in git("tag", "--merged", commit).splitlines() if TAG.fullmatch(tag) and "-" not in tag]
+    if not stable:
+        raise ValueError("A stable release tag on main is required before creating snapshots.")
+    base = max(stable, key=lambda tag: tuple(map(int, tag.split("."))))
+    tag = f"{base}-SNAPSHOT-{commit[:8]}"
+    if git("tag", "--list", tag) and git("rev-parse", f"refs/tags/{tag}^{{commit}}") != commit:
+        raise ValueError("Snapshot tag hash collision; the existing tag must not be moved.")
+    return tag
+
+
+def snapshot_release():
+    if os.environ.get("GITHUB_EVENT_NAME") != "push" or os.environ.get("GITHUB_REF") != "refs/heads/main":
+        raise ValueError("Automatic snapshots require a push to main.")
+    commit = os.environ["GITHUB_SHA"]
+    event = json.loads(Path(os.environ["GITHUB_EVENT_PATH"]).read_text())
+    if (event.get("ref") != "refs/heads/main" or event.get("deleted")
+            or event.get("after") != commit or git("rev-parse", "HEAD") != commit):
+        raise ValueError("The checked-out commit must match the main push event.")
+    tag = snapshot_tag(commit)
+    return {"tag": tag, "version": tag, "commit": commit,
+            "tag_exists": str(bool(git("tag", "--list", tag))).lower()}
 
 
 def pom_url(base, group, artifact, version):
@@ -82,7 +122,7 @@ def exists(url):
 
 def prior_success(component, tag, checks):
     name = f"{JOB_NAMES[component]} ({tag})"
-    return any(c["name"] == name and c.get("conclusion") == "success"
+    return any(c["name"] in {name, f"Publish snapshot / {name}"} and c.get("conclusion") == "success"
                and c.get("app", {}).get("slug") == "github-actions" for c in checks)
 
 
@@ -119,9 +159,16 @@ def wait_for_publication(component, version, timeout_seconds=7200):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--tag", required=True)
+    selection = parser.add_mutually_exclusive_group(required=True)
+    selection.add_argument("--tag")
+    selection.add_argument("--snapshot", action="store_true", help="Select an immutable snapshot for this main push")
     parser.add_argument("--wait-component", choices=("libraries", "tooling"))
     args = parser.parse_args()
+    if args.snapshot:
+        if args.wait_component:
+            parser.error("--wait-component requires --tag")
+        write_outputs(snapshot_release())
+        return
     version = version_from_tag(args.tag)
     if args.wait_component:
         wait_for_publication(args.wait_component, version)
@@ -137,6 +184,10 @@ def main():
     for component in JOB_NAMES:
         outputs[f"{component}_done"] = str(publication_done(component, args.tag, checks)).lower()
     outputs["complete"] = str(all(outputs[f"{c}_done"] == "true" for c in JOB_NAMES)).lower()
+    write_outputs(outputs)
+
+
+def write_outputs(outputs):
     with open(os.environ["GITHUB_OUTPUT"], "a") as output:
         for name, value in outputs.items():
             print(f"{name}={value}", file=output)

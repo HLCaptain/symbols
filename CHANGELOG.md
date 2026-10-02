@@ -10,6 +10,10 @@ and the project uses [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+- Automatic immutable `<current-release>-SNAPSHOT-<8sha>` publications for pushes
+  to `main`, beginning when the workflow is merged. Snapshots reuse release
+  verification and publish to Maven Central and the Plugin Portal, with GitHub
+  prereleases that are not marked latest.
 - Typed `Symbols.Material.Rounded.Filled.*` and
   `Symbols.Material.AutoMirrored.Rounded.Filled.*` ImageVectors at
   `FILL=1, GRAD=0, opsz=24, wght=400`. Aliases share codepoint caches, and
