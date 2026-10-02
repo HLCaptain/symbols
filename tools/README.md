@@ -128,8 +128,12 @@ this manifest/font contract without owning a second compiler.
 `generate_material_vectors.py` instantiates each bundled variable font at
 `FILL=0, GRAD=0, opsz=24, wght=400` and generates the three optional
 `ImageVector` packs. It reads every unique manifest code point, preserves aliases
-through shared per-codepoint builders/caches, and writes direct Compose path
-operations in stable chunks. It also writes the composable
+through per-codepoint caches, and writes stable chunks. Outlined and Sharp use
+direct Compose path operations. Rounded stores one SVG path string per codepoint
+and fill variant, with a shared builder that lazily parses it through Compose.
+Rounded also generates `.Filled` getters at `FILL=1` with the other axes unchanged;
+identical default/filled paths reuse the same cache. No runtime font is required.
+It also writes the composable
 `Symbols.Material.Themed.*`
 getters that select direct Outlined, Rounded, or Sharp properties from the
 theme's style composition local.

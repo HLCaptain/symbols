@@ -3,7 +3,7 @@ package io.github.hlcaptain.symbols.material
 import io.github.hlcaptain.symbols.Symbols
 
 /**
- * Style markers for shrinkable, default-axis Material Symbol vectors.
+ * Style markers for shrinkable, fixed-axis Material Symbol vectors.
  *
  * Add the artifact for each style you use, then import that artifact's generated
  * properties through the common root, for example
@@ -17,7 +17,10 @@ object Icons {
     object Outlined
 
     /** Material Symbols Rounded vectors. */
-    object Rounded
+    object Rounded {
+        /** Rounded vectors at FILL=1, GRAD=0, opsz=24, wght=400. */
+        object Filled
+    }
 
     /** Material Symbols Sharp vectors. */
     object Sharp
@@ -31,7 +34,10 @@ object Icons {
         object Outlined
 
         /** Material Symbols Rounded vectors with automatic RTL mirroring. */
-        object Rounded
+        object Rounded {
+            /** Filled Rounded vectors with automatic RTL mirroring. */
+            object Filled
+        }
 
         /** Material Symbols Sharp vectors with automatic RTL mirroring. */
         object Sharp
@@ -77,3 +83,11 @@ val Icons.AutoMirrored.Rounded: Icons.AutoMirrored.Rounded
 /** Material Symbols Sharp vectors with automatic RTL mirroring. */
 val Icons.AutoMirrored.Sharp: Icons.AutoMirrored.Sharp
     get() = Icons.AutoMirrored.Sharp
+
+/** Rounded vectors at FILL=1; all other axes retain their defaults. */
+val Icons.Rounded.Filled: Icons.Rounded.Filled
+    get() = Icons.Rounded.Filled
+
+/** Filled Rounded vectors with automatic RTL mirroring. */
+val Icons.AutoMirrored.Rounded.Filled: Icons.AutoMirrored.Rounded.Filled
+    get() = Icons.AutoMirrored.Rounded.Filled

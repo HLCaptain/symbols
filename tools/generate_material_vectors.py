@@ -209,6 +209,8 @@ def extract_paths(
     tt_font: Any,
     svg_path_pen: Any,
     transform_pen: Any,
+    *,
+    fill: float = 0.0,
 ) -> tuple[str, ...]:
     if not style.font_path.is_file():
         raise GenerationError(f"Font does not exist: {style.font_path}")
@@ -227,11 +229,12 @@ def extract_paths(
                 f"found {units_per_em}"
             )
 
+        location = {**AXIS_LOCATION, "FILL": fill}
         axes = {axis.axisTag: axis for axis in font["fvar"].axes}
         if set(AXIS_LOCATION) - set(axes):
             missing = ", ".join(sorted(set(AXIS_LOCATION) - set(axes)))
             raise GenerationError(f"{style.font_path}: missing axes: {missing}")
-        for tag, value in AXIS_LOCATION.items():
+        for tag, value in location.items():
             axis = axes[tag]
             if not axis.minValue <= value <= axis.maxValue:
                 raise GenerationError(
@@ -249,7 +252,7 @@ def extract_paths(
                 f"{style.font_path}: missing catalog code points: {rendered}"
             )
 
-        glyph_set = font.getGlyphSet(location=AXIS_LOCATION)
+        glyph_set = font.getGlyphSet(location=location)
         scale = VIEWPORT_SIZE / UNITS_PER_EM
         # Font outlines are y-up in a 960 UPEM square. Compose vector paths are
         # y-down in a 24x24 viewport. Transform only; deliberately do not clamp
@@ -472,6 +475,56 @@ def render_index(style: Style, code_points: Sequence[int], chunk_count: int) -> 
     return "\n".join(lines)
 
 
+def render_cached_vector(
+    object_name: str, vector_name: str, path: str, *, cache_class: str | None = None,
+) -> list[str]:
+    operations = render_path_operations(path)
+    if cache_class is not None:
+        if not path.isascii() or len(path.encode("utf-8")) > 65_535:
+            raise GenerationError("SVG path exceeds a single JVM UTF8 string literal")
+        return [
+            f"private object {object_name} : {cache_class}(",
+            f'    "{vector_name}",',
+            f'    "{path}",',
+            ")",
+            "",
+        ]
+    body = [
+        "        ).apply {",
+        "            path(fill = SolidColor(Color.Black)) {",
+        *(f"                {operation}" for operation in operations),
+        "            }",
+        "        }.build()",
+    ]
+    return [
+        f"private object {object_name} {{",
+        "    private val default: ImageVector by lazy {",
+        "        build(autoMirror = false)",
+        "    }",
+        "",
+        "    private val autoMirrored: ImageVector by lazy {",
+        "        build(autoMirror = true)",
+        "    }",
+        "",
+        "    fun value(autoMirror: Boolean): ImageVector =",
+        "        if (autoMirror) autoMirrored else default",
+        "",
+        "    private fun build(autoMirror: Boolean): ImageVector {",
+        '        val mirrorSuffix = if (autoMirror) ".AutoMirrored" else ""',
+        "        return ImageVector.Builder(",
+        f'            name = "{vector_name}$mirrorSuffix",',
+        "            defaultWidth = 24.dp,",
+        "            defaultHeight = 24.dp,",
+        "            viewportWidth = 24f,",
+        "            viewportHeight = 24f,",
+        "            autoMirror = autoMirror,",
+        *body,
+        "    }",
+        "}",
+        "",
+    ]
+
+
 def render_icon_file(
     style: Style,
     chunk_index: int,
@@ -479,22 +532,27 @@ def render_icon_file(
     code_points: Sequence[int],
     paths: Sequence[str],
     names_by_code_point: dict[int, tuple[str, ...]],
+    filled_paths: Sequence[str] | None = None,
 ) -> str:
     prefix = style.name
     title = style.title
+    header = GENERATED_HEADER
+    if filled_paths is not None:
+        header = header.replace("documented default axes", "documented default axes and FILL=1")
     lines = [
-        GENERATED_HEADER.rstrip(),
+        header.rstrip(),
         f"package {style.package_name}",
         "",
-        "import androidx.compose.ui.graphics.Color",
-        "import androidx.compose.ui.graphics.SolidColor",
+        *(["import androidx.compose.ui.graphics.Color", "import androidx.compose.ui.graphics.SolidColor"]
+          if style.name != "rounded" else []),
         "import androidx.compose.ui.graphics.vector.ImageVector",
-        "import androidx.compose.ui.graphics.vector.path",
-        "import androidx.compose.ui.unit.dp",
+        *(["import androidx.compose.ui.graphics.vector.path"]
+          if style.name != "rounded" else []),
+        *(["import androidx.compose.ui.unit.dp"] if style.name != "rounded" else []),
         f"import io.github.hlcaptain.symbols.material.{style.typed_root}",
         "",
     ]
-    for code_point, path in zip(code_points, paths):
+    for offset, (code_point, path) in enumerate(zip(code_points, paths)):
         object_name = f"{title}Vector{code_point:X}"
         names = names_by_code_point.get(code_point)
         if not names:
@@ -514,48 +572,29 @@ def render_icon_file(
                 )
             )
 
-        mirror_suffix = (
-            'if (autoMirror) ".AutoMirrored" else ""'
-        )
-        lines.extend(
-            (
-                f"private object {object_name} {{",
-                "    private val default: ImageVector by lazy {",
-                "        build(autoMirror = false)",
-                "    }",
-                "",
-                "    private val autoMirrored: ImageVector by lazy {",
-                "        build(autoMirror = true)",
-                "    }",
-                "",
-                "    fun value(autoMirror: Boolean): ImageVector =",
-                "        if (autoMirror) autoMirrored else default",
-                "",
-                "    private fun build(autoMirror: Boolean): ImageVector {",
-                f"        val mirrorSuffix = {mirror_suffix}",
-                "        return ImageVector.Builder(",
-                (
-                    f'            name = "MaterialSymbols{title}.'
-                    f'U+{code_point:X}$mirrorSuffix",'
-                ),
-                "            defaultWidth = 24.dp,",
-                "            defaultHeight = 24.dp,",
-                "            viewportWidth = 24f,",
-                "            viewportHeight = 24f,",
-                "            autoMirror = autoMirror,",
-                "        ).apply {",
-                "            path(fill = SolidColor(Color.Black)) {",
-                *(
-                    f"                {operation}"
-                    for operation in render_path_operations(path)
-                ),
-                "            }",
-                "        }.build()",
-                "    }",
-                "}",
-                "",
+        lines.extend(render_cached_vector(
+            object_name, f"MaterialSymbols{title}.U+{code_point:X}", path,
+            cache_class=f"{title}VectorCache" if style.name == "rounded" else None,
+        ))
+        if filled_paths is not None:
+            filled_path = filled_paths[offset]
+            filled_object = (
+                f"{title}FilledVector{code_point:X}"
+                if filled_path != path else object_name
             )
-        )
+            for name in names:
+                identifier = kotlin_identifier(name)
+                for root, mirrored in ((style.typed_root, "false"), (f"{style.typed_root}.AutoMirrored", "true")):
+                    lines.extend((
+                        f"val {root}.{title}.Filled.{identifier}: ImageVector",
+                        f"    get() = {filled_object}.value(autoMirror = {mirrored})",
+                        "",
+                    ))
+            if filled_path != path:
+                lines.extend(render_cached_vector(
+                    filled_object, f"MaterialSymbols{title}.Filled.U+{code_point:X}", filled_path,
+                    cache_class=f"{title}VectorCache",
+                ))
 
     lines.extend(
         (
@@ -645,16 +684,58 @@ def render_themed(
     }
 
 
+def render_shared_cache(style: Style) -> str:
+    return f'''{GENERATED_HEADER.rstrip()}
+package {style.package_name}
+
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.addPathNodes
+import androidx.compose.ui.unit.dp
+
+internal open class {style.title}VectorCache(
+    private val vectorName: String,
+    private val pathData: String,
+) {{
+    private val default: ImageVector by lazy {{ build(autoMirror = false) }}
+    private val autoMirrored: ImageVector by lazy {{ build(autoMirror = true) }}
+
+    fun value(autoMirror: Boolean): ImageVector =
+        if (autoMirror) autoMirrored else default
+
+    private fun build(autoMirror: Boolean): ImageVector {{
+        val mirrorSuffix = if (autoMirror) ".AutoMirrored" else ""
+        return ImageVector.Builder(
+            name = "$vectorName$mirrorSuffix",
+            defaultWidth = 24.dp,
+            defaultHeight = 24.dp,
+            viewportWidth = 24f,
+            viewportHeight = 24f,
+            autoMirror = autoMirror,
+        ).addPath(
+            pathData = addPathNodes(pathData),
+            fill = SolidColor(Color.Black),
+        ).build()
+    }}
+}}
+'''
+
+
 def render_style(
     style: Style,
     entries: Sequence[tuple[str, int]],
     code_points: Sequence[int],
     paths: Sequence[str],
+    filled_paths: Sequence[str] | None = None,
 ) -> dict[Path, str]:
     if len(paths) != len(code_points):
         raise GenerationError(
             f"{style.name}: {len(paths)} paths for {len(code_points)} code points"
         )
+
+    if filled_paths is not None and (style.name != "rounded" or len(filled_paths) != len(code_points)):
+        raise GenerationError("Filled vectors require a Rounded path for every code point")
 
     chunk_count = (
         len(code_points) + ICONS_PER_FILE - 1
@@ -670,6 +751,9 @@ def render_style(
             chunk_count,
         ),
     }
+    if style.name == "rounded":
+        rendered[style.source_directory / f"{style.title}VectorCache.generated.kt"] = render_shared_cache(style)
+
     for chunk_index, start in enumerate(
         range(0, len(code_points), ICONS_PER_FILE)
     ):
@@ -685,6 +769,7 @@ def render_style(
             chunk_code_points,
             chunk_paths,
             names_by_code_point,
+            filled_paths[start : start + ICONS_PER_FILE] if filled_paths is not None else None,
         )
     return rendered
 
@@ -786,7 +871,11 @@ def main(argv: Sequence[str] | None = None) -> int:
                 svg_path_pen,
                 transform_pen,
             )
-            rendered.update(render_style(style, entries, code_points, paths))
+            filled_paths = (
+                extract_paths(style, code_points, tt_font, svg_path_pen, transform_pen, fill=1.0)
+                if style.name == "rounded" else None
+            )
+            rendered.update(render_style(style, entries, code_points, paths, filled_paths))
         directories = [style.source_directory for style in selected_styles]
         if "themed" in selected_names:
             rendered.update(render_themed(entries, themed_directory))

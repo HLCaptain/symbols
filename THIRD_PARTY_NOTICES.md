@@ -65,13 +65,25 @@ raw source URLs are formed from the revision and upstream filenames:
 - [`MaterialSymbolsSharp[FILL,GRAD,opsz,wght].ttf`](https://raw.githubusercontent.com/google/material-design-icons/bb04090f930e272697f2a1f0d7b352d92dfeee43/variablefont/MaterialSymbolsSharp%5BFILL%2CGRAD%2Copsz%2Cwght%5D.ttf)
 - [`MaterialSymbolsOutlined[FILL,GRAD,opsz,wght].codepoints`](https://raw.githubusercontent.com/google/material-design-icons/bb04090f930e272697f2a1f0d7b352d92dfeee43/variablefont/MaterialSymbolsOutlined%5BFILL%2CGRAD%2Copsz%2Cwght%5D.codepoints)
 
-Generated Kotlin vector operations under `symbols/material-vectors-*` and
+Generated Kotlin vector operations and SVG path strings under
+`symbols/material-vectors-*`, and
 generated Android or Compose XML under `symbols/material-drawables-*` and
 `symbols/material-compose-drawables-*` are deterministic default-axis
-conversions of outlines from those fonts. These outputs are derivative
+conversions of outlines from those fonts. The Rounded `.Filled` vector getters
+also snapshot `FILL=1, GRAD=0, opsz=24, wght=400` from the same pinned Rounded
+font, reusing default vectors when their paths are identical. SVG path strings
+retain the same transformed coordinates as the generated Kotlin operations;
+Compose parses them when constructing a cached vector. These outputs are derivative
 third-party material and remain subject to the upstream Apache License 2.0 and
 Google LLC copyright; they are not represented as project-original icon
 artwork.
+
+The image-vector migration sample's parity sheets are also derived from these
+pinned fonts. `tools/generate_material_gallery.py` writes SVG and Android XML
+under `samples/image-vector-migration/build/generated/materialGallery/` for
+Outlined, Rounded, and Sharp at the default axes and Rounded at `FILL=1`.
+These generated reference images retain the same Google artwork and Apache-2.0
+license; the generator does not modify or redistribute a new font derivative.
 
 The Android Views migration sample also checks in Google's downloaded
 `home` VectorDrawable at

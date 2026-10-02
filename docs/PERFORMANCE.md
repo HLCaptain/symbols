@@ -12,6 +12,30 @@ No mode is universally smallest. Font compression, code shrinking, resource
 shrinking, target packaging, icon count, and keep rules determine the release
 result.
 
+## Rounded Filled vectors
+
+`Symbols.Material.Rounded.Filled` adds FILL=1 without changing existing FILL=0
+getters. Of 3,802 Rounded codepoints, 2,482 have different filled geometry;
+1,320 share their existing paths and lazy caches. Aliases also share caches.
+The pack stores compact path strings with one common builder/cache implementation,
+so adding Filled does not double generated builder code or eagerly allocate icons.
+
+The measured Android AAR is 7,518,448 bytes versus 15,513,985 for public 2.0.0
+(about 51.5% smaller). A same-compression control of the selected prototype
+remained 52.28% smaller. These are library downloads, not APK savings.
+A minified 101-name/99-codepoint consumer using both fills was 753,822 bytes,
+16,384 bytes above its outline-only fixture. A two-icon consumer incurred parser
+overhead, while larger sets amortized it. Actual app sizes depend on R8 and ZIP
+alignment; the fixture is not the complete Fill-the-GAP application.
+
+The [Android runtime study](../benchmarks/vector-runtime/RESULTS.md) compares
+public and compact vectors under ART, including cold construction, cached lookup,
+and prewarmed rendering. Five emulator iterations measured median construction
+of 101 names at 2.043 ms for public outlines and 2.119 ms for compact outlines,
+with overlapping ranges and identical rendered pixels. Frame CPU distributions
+were also close. These measurements establish neither a speedup nor a universal
+regression bound; physical-phone performance remains unmeasured.
+
 ## Checked-in input sizes
 
 Each font artifact carries exactly one TTF:

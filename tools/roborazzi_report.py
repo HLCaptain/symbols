@@ -107,10 +107,11 @@ def escape(text):
 
 
 def preview_details(name):
+    platform_prefix = "JVM / " if Path(name).parts[0] == "jvm" else ""
     parts = Path(name).stem.split(".")
     class_index = next((index for index, part in enumerate(parts) if part.endswith("Kt")), None)
     if class_index is None:
-        return name, "Default", "", ""
+        return name, platform_prefix + "Default", "", ""
     file_name = parts[class_index][:-2] + ".kt"
     preview = parts[class_index + 1] if len(parts) > class_index + 1 else Path(name).stem
     variant = ".".join(parts[class_index + 2:]) or "Default"
@@ -121,12 +122,12 @@ def preview_details(name):
     source = ""
     if all(part.isidentifier() for part in parts[:class_index + 1]):
         package = Path(*parts[:class_index]) / file_name
-        for source_set in ("commonMain", "androidMain", "iosMain", "commonTest", "androidHostTest", "androidUnitTest"):
+        for source_set in ("commonMain", "androidMain", "nonAndroidMain", "jvmMain", "iosMain", "commonTest", "androidHostTest", "jvmTest", "androidUnitTest"):
             candidate = Path("samples/image-vector-migration/src") / source_set / "kotlin" / package
             if candidate.is_file():
                 source = candidate.as_posix()
                 break
-    return file_name, variant, preview, source
+    return file_name, platform_prefix + variant, preview, source
 
 
 def markdown(report, image_root="", source_root=""):
