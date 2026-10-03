@@ -25,6 +25,12 @@ and the project uses [Semantic Versioning](https://semver.org/).
   the exact source tag and version. Backend-specific successful job receipts
   permit completed components to be skipped; unconfirmed existing snapshot files
   stop publication instead of being overwritten or deleted.
+- Allow manual testing-snapshot recovery to select entirely absent library
+  publications through validated native Gradle task paths. Full source
+  verification, selected-file absence checks, and final whole-library availability
+  remain required. Increase the GitHub library publication step/job limits to
+  150/180 minutes after the observed partial-upload timeout; tooling limits stay
+  90/120 minutes.
 - Store Rounded vector outlines as per-icon SVG path strings, parsed by Compose
   on first use through a shared cached builder. Existing getters, default
   geometry, vector names, and explicit RTL behavior are preserved.

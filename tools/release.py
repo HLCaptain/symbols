@@ -233,7 +233,13 @@ def main():
     selection.add_argument("--snapshot", action="store_true", help="Select an immutable snapshot for this main push")
     parser.add_argument("--wait-component", choices=("libraries", "tooling"))
     parser.add_argument("--check-unpublished-manifest")
+    parser.add_argument("--recover-unpublished-libraries", action="store_true")
     args = parser.parse_args()
+    if args.recover_unpublished_libraries:
+        if args.snapshot or args.wait_component or args.check_unpublished_manifest:
+            parser.error("Recovery must be a standalone manual snapshot preflight")
+        if not SNAPSHOT.fullmatch(args.tag) or os.environ.get("GITHUB_EVENT_NAME") != "workflow_dispatch":
+            raise ValueError("Library recovery requires a manually dispatched testing snapshot.")
     if args.snapshot:
         if args.wait_component or args.check_unpublished_manifest:
             parser.error("Registry checks require --tag")
@@ -254,7 +260,10 @@ def main():
     outputs = {"tag": args.tag, "version": version, "commit": commit,
                "snapshot": str(bool(SNAPSHOT.fullmatch(args.tag))).lower()}
     for component in JOB_NAMES:
-        outputs[f"{component}_done"] = str(publication_done(component, args.tag, checks, commit)).lower()
+        # Explicit recovery is checked file-by-file against the selected native publication tasks before upload.
+        done = False if component == "libraries" and args.recover_unpublished_libraries else publication_done(
+            component, args.tag, checks, commit)
+        outputs[f"{component}_done"] = str(done).lower()
     outputs["complete"] = str(all(outputs[f"{c}_done"] == "true" for c in JOB_NAMES)).lower()
     outputs["github_components"] = json.dumps([
         component for component in ("libraries", "tooling")

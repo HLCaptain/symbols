@@ -16,6 +16,10 @@ on:
         description: Existing release or testing-snapshot tag to publish or recover
         required: true
         type: string
+      library-publications:
+        description: Recovery only; newline-separated native GitHub publication task paths verified entirely absent
+        required: false
+        type: string
 
 permissions:
   contents: read
@@ -64,7 +68,14 @@ jobs:
         id: release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: python3 publisher/tools/release.py --tag "$RELEASE_TAG"
+          LIBRARY_PUBLICATIONS: ${{ inputs.library-publications }}
+        shell: bash
+        run: |
+          args=(--tag "$RELEASE_TAG")
+          if [[ -n "$LIBRARY_PUBLICATIONS" ]]; then
+            args+=(--recover-unpublished-libraries)
+          fi
+          python3 publisher/tools/release.py "${args[@]}"
 
   central-credentials:
     name: Check normal-release credentials
@@ -215,7 +226,7 @@ jobs:
       matrix:
         component: ${{ fromJSON(needs.preflight.outputs.github_components) }}
     runs-on: ubuntu-24.04
-    timeout-minutes: 120
+    timeout-minutes: ${{ matrix.component == 'libraries' && 180 || 120 }}
     permissions:
       contents: read
       packages: write
@@ -225,6 +236,7 @@ jobs:
       GH_TOKEN: ${{ github.token }}
       ORG_GRADLE_PROJECT_GitHubPackagesUsername: ${{ github.actor }}
       ORG_GRADLE_PROJECT_GitHubPackagesPassword: ${{ github.token }}
+      ORG_GRADLE_PROJECT_githubPackagePublications: ${{ matrix.component == 'libraries' && inputs.library-publications || '' }}
     steps:
       - name: Check out verified artifact sources
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -267,18 +279,24 @@ jobs:
             githubPackagePublicationManifest --max-workers=1 --no-configuration-cache --no-daemon --stacktrace
           python3 publisher/tools/release.py --tag "$PUBLICATION_VERSION" \
             --check-unpublished-manifest "$manifest"
+          python3 -c 'import json, sys; print("\n".join(json.load(open(sys.argv[1]))["tasks"]))' \
+            "$manifest" > "$manifest.tasks"
       - name: Publish testing snapshots to GitHub Packages
-        timeout-minutes: 90
+        timeout-minutes: ${{ matrix.component == 'libraries' && 150 || 90 }}
         shell: bash
         run: |
           set -euo pipefail
           gradle=(./gradlew)
+          tasks=(publishAllPublicationsToGitHubPackagesRepository)
           if [[ "$COMPONENT" == tooling ]]; then
             gradle=(./tooling/gradlew -p tooling)
+          elif [[ -n "$ORG_GRADLE_PROJECT_githubPackagePublications" ]]; then
+            mapfile -t tasks < build/github-packages-manifest.json.tasks
+            ((${#tasks[@]} > 0))
           fi
           "${gradle[@]}" "-PVERSION_NAME=$PUBLICATION_VERSION" \
             --init-script "$GITHUB_WORKSPACE/publisher/tools/github-packages.init.gradle.kts" \
-            publishAllPublicationsToGitHubPackagesRepository \
+            "${tasks[@]}" \
             --max-workers=1 --no-configuration-cache --no-daemon --stacktrace
       - name: Verify authenticated package availability
         timeout-minutes: 15

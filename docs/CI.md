@@ -41,7 +41,7 @@ optimizer test took 65 seconds; the actual Gradle optimization invocation took
 memory spike.
 This setting affects the sample executable, not published library code.
 
-JVM/Android and web verification have 90-minute limits. Library upload/build also
+JVM/Android and web verification have 90-minute limits. Central library upload/build also
 has a 90-minute step limit. Central publication is asynchronous: after validated
 upload, a separate read-only step waits up to two hours for public coordinates.
 The library/tooling publication jobs allow 240/210 minutes for this server-side
@@ -50,9 +50,10 @@ wrapped by `tools/ci_metrics.py` stream normal output and preserve failure statu
 they report elapsed time and sampled combined Java/wasm-opt RSS and wasm-opt RSS
 in logs and job summaries. Samples cover those processes on the isolated runner,
 not reserved heap sizes, and may miss short-lived peaks. Missing metrics never hide
-a build failure or fail an otherwise successful build. Testing snapshots use
-GitHub Packages jobs with 120-minute limits, including a 90-minute native Gradle
-publication step and a 15-minute authenticated availability check.
+a build failure or fail an otherwise successful build. GitHub Packages testing
+snapshots allow 180 minutes for the library job, including a 150-minute native
+Gradle publication step. Tooling retains 120/90-minute job/publication limits.
+Both finish with a 15-minute authenticated availability check.
 
 ## Verification coverage
 
@@ -127,8 +128,27 @@ succeed, the resulting GitHub Release is a prerelease with `latest=false`.
 Snapshot recovery can run a newer reviewed publisher ref while checking out the
 unchanged source tag separately. Successful GitHub job receipts are matched to
 the component, version, and full artifact source SHA, not just the workflow's
-head SHA. Without such a receipt, any existing expected POM or declared
-publication file aborts the upload; no files are overwritten or deleted.
+head SHA. By default, without such a receipt, any existing expected POM or
+declared publication file aborts the upload.
+
+Manual testing-snapshot recovery can supply `library-publications`: a
+newline-separated list of exact configured native GitHub Maven publication
+task paths. Full source verification remains required. The init script validates
+the selection and produces its file manifest; any existing selected file still
+aborts publication. Only the validated native tasks are executed, leaving
+existing versioned publications and the source tag unchanged. The final check
+still requires all 122 library POMs before a whole-library success receipt or
+GitHub Release. Normal releases and automatic snapshots do not use this mode.
+
+The [first GitHub recovery run](https://github.com/HLCaptain/symbols/actions/runs/37075726956)
+timed out at the former 90-minute library limit after source verification and
+tooling publication passed. Inspection found 105/122 library POMs present;
+Themed common/JVM/Wasm and all Core/Variant Font Core publications were absent.
+All 97 declared paths for those 17 publications returned authenticated 404 at
+2026-10-03 01:28:46 UTC. This is a partial publication, not success. The larger
+library budget and explicit absent-publication recovery preserve the existing
+verification and no-overwrite guards. See
+[the recovery procedure](../RELEASING.md#recover-entirely-absent-library-publications).
 
 Snapshot tag creation/release bookkeeping need `contents: write`; snapshot
 publication needs `packages: write`. Normal PR CI remains read-only. A failed

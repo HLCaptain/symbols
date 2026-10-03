@@ -282,13 +282,70 @@ complete version, and full source SHA permits skipping a completed component.
 Receipt lookup also covers successful manual recovery jobs whose workflow SHA
 differs from the artifact SHA. A prior Central job is not a GitHub receipt.
 
-Without that receipt, any existing expected POM aborts preflight, even if every
+By default, without that receipt, any existing expected POM aborts preflight, even if every
 POM is visible. Before each remaining component uploads, Gradle generates a
 manifest of its declared artifact, POM, and module-metadata paths. Any existing
 file in that manifest aborts publication as an unconfirmed partial upload.
 Authentication failures, rate limits, and registry errors are not interpreted
 as missing files. Inspect an uncertain publication before taking further action;
 there is no automatic overwrite/delete or skip-by-existence recovery path.
+
+#### Recover entirely absent library publications
+
+After inspecting a partial library upload, an operator can explicitly select
+only publications whose versioned files are entirely absent. The optional
+`workflow_dispatch` input `library-publications` is a newline-separated list of
+exact native `PublishToMavenRepository` task paths. This mode is allowed only for
+manual testing-snapshot recovery; normal releases and automatic snapshot runs
+retain the default behavior above.
+
+Create a reviewed task-list file from the configured publication inventory and
+a fresh authenticated absence check. Use full paths, such as
+`:modules:symbols-core:publishAndroidPublicationToGitHubPackagesRepository`,
+not aggregate tasks, artifact names, wildcards, or Gradle options. Then pass the
+file as a workflow input:
+
+```shell
+gh workflow run publish.yml --ref REVIEWED_PUBLISHER_REF \
+  -f tag=2.0.0-SNAPSHOT-b3ad4223 \
+  -F library-publications=@absent-library-publications.txt
+```
+
+Preflight still validates the immutable tag, full source SHA, `main` ancestry,
+and hash suffix. The explicit selection permits existing library publications
+to remain in place; it does not mark the library component complete or skip full
+source verification. The init script validates each selected task against the
+configured GitHub Maven publication tasks and includes only those publications'
+files in the manifest. The existing absence guard rejects the upload if any
+selected file already exists. The workflow executes only the validated task
+paths read back from that manifest, using native Gradle publication.
+
+Completed or partially present publications must not be selected. Existing
+versioned publication files and the source tag are preserved; native Maven
+publishing maintains its shared repository metadata when adding new publications.
+After the selected tasks finish, the workflow still checks **all 122 library
+POMs** before recording a successful whole-library job and allowing the GitHub
+Release. Publishing a smaller subset does not complete the snapshot release.
+If recovery stops partway, refresh the inventory and task list
+before another run.
+
+The [GitHub Packages attempt for the same testing version](https://github.com/HLCaptain/symbols/actions/runs/37075726956)
+passed source verification and published the tooling component, but its library
+publication step timed out after 90 minutes. The subsequent inventory found
+105 of 122 library POMs present and these 17 missing publications:
+
+| Module | Missing publications |
+| --- | --- |
+| `material-vectors-themed` | Common/root (`kotlinMultiplatform`), JVM, Wasm JS |
+| `symbols-core` | All seven: common/root, Android, iOS device, iOS simulator, JS, JVM, Wasm JS |
+| `variant-font-core` | All seven: common/root, Android, iOS device, iOS simulator, JS, JVM, Wasm JS |
+
+At **2026-10-03 01:28:46 UTC**, all 97 declared manifest paths for those 17
+publications returned authenticated 404 responses, with no authentication or
+network errors. This records the inspected partial state, not a completed
+publication or permission to reuse that absence result indefinitely. The 105
+existing POMs were not a new verification of every existing binary. Every
+recovery run checks the selected files again immediately before upload.
 
 ### Normal releases
 
@@ -335,9 +392,12 @@ public-coordinate wait has its own two-hour budget. Overall library/tooling jobs
 allow 240/210 minutes to accommodate Central's remote queue, without changing the
 90-minute CI build limits.
 
-GitHub Packages uses separate Ubuntu jobs for libraries and tooling, each with a
-120-minute limit, a 90-minute native publication step, and a 15-minute
-authenticated availability-check step.
+GitHub Packages uses separate Ubuntu jobs for libraries and tooling. Libraries
+have a 180-minute job limit and a 150-minute native publication step; tooling
+retains its 120-minute job limit and 90-minute publication step. Both have a
+15-minute authenticated availability-check step. The longer library budget
+addresses the observed 90-minute partial upload without relaxing verification
+or existing-file checks.
 
 Publication verification and tooling publication also use Ubuntu; the macOS sample
 framework is checked by normal PR/main CI. No self-hosted runner is needed. Hosted provisioning

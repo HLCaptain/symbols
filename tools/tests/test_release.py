@@ -359,6 +359,66 @@ class ReleaseTest(unittest.TestCase):
             self.assertEqual(values, dict(line.split("=", 1) for line in output.read_text().splitlines()))
             self.assertEqual([call(url) for url in release.publication_urls("tooling", tag)], exists.call_args_list)
 
+    def test_manual_recovery_forces_only_libraries_pending_and_keeps_source_and_receipt_checks(self):
+        tag = "2.0.0-SNAPSHOT-deadbeef"
+        commit = "deadbeef" + "a" * 32
+        checks = [{"name": f"Publish GitHub libraries ({tag}, {commit})", "conclusion": "success",
+                   "app": {"slug": "github-actions"}}]
+        with patch.dict(os.environ, {"GITHUB_EVENT_NAME": "workflow_dispatch", "GITHUB_REPOSITORY": "owner/symbols"}), \
+                patch("sys.argv", ["release.py", "--tag", tag, "--recover-unpublished-libraries"]), \
+                patch.object(release, "release_commit", return_value=commit) as release_commit, \
+                patch.object(release, "publication_checks", return_value=checks) as publication_checks, \
+                patch.object(release, "publication_done", return_value=True) as publication_done, \
+                patch.object(release, "write_outputs") as write_outputs:
+            release.main()
+        release_commit.assert_called_once_with(tag)
+        publication_checks.assert_called_once_with("owner/symbols", commit, tag)
+        self.assertEqual([call("tooling", tag, checks, commit), call("portal", tag, checks, commit)],
+                         publication_done.call_args_list)
+        outputs = write_outputs.call_args.args[0]
+        self.assertEqual(commit, outputs["commit"])
+        self.assertEqual("false", outputs["libraries_done"])
+        self.assertEqual("true", outputs["tooling_done"])
+        self.assertEqual("true", outputs["portal_done"])
+        self.assertEqual("false", outputs["complete"])
+        self.assertEqual(["libraries"], json.loads(outputs["github_components"]))
+
+    def test_manual_recovery_rejects_other_events_tags_and_cli_modes_before_any_work(self):
+        tag = "2.0.0-SNAPSHOT-deadbeef"
+        cases = [(event, ["--tag", tag]) for event in ("push", "pull_request", "release", "")]
+        cases += [("workflow_dispatch", arguments) for arguments in (
+            ["--tag", "2.0.0"], ["--tag", "2.0.0-rc01"],
+            ["--tag", "2.0.0-snapshot01"], ["--tag", "2.0.0-SNAPSHOT-DEADBEEF"],
+            ["--snapshot"], ["--tag", tag, "--wait-component", "libraries"],
+            ["--tag", tag, "--check-unpublished-manifest", "unused.json"],
+        )]
+        for event, arguments in cases:
+            with self.subTest(event=event, arguments=arguments), \
+                    patch.dict(os.environ, {"GITHUB_EVENT_NAME": event}), \
+                    patch("sys.argv", ["release.py", *arguments, "--recover-unpublished-libraries"]), \
+                    patch.object(release, "release_commit", side_effect=AssertionError("must reject before source lookup")), \
+                    patch.object(release, "snapshot_release", side_effect=AssertionError("must not select a new snapshot")), \
+                    patch.object(release, "require_unpublished_manifest", side_effect=AssertionError("must not read a manifest")), \
+                    patch.object(release, "wait_for_publication", side_effect=AssertionError("must not query the registry")), \
+                    patch.object(release, "write_outputs", side_effect=AssertionError("must not emit publication outputs")), \
+                    redirect_stderr(StringIO()), self.assertRaises((SystemExit, ValueError)) as raised:
+                release.main()
+            if isinstance(raised.exception, SystemExit):
+                self.assertEqual(2, raised.exception.code)
+
+    def test_normal_snapshot_preflight_still_rejects_existing_libraries(self):
+        tag = "2.0.0-SNAPSHOT-deadbeef"
+        commit = "deadbeef" + "a" * 32
+        with patch.dict(os.environ, {"GITHUB_EVENT_NAME": "workflow_dispatch", "GITHUB_REPOSITORY": "owner/symbols"}), \
+                patch("sys.argv", ["release.py", "--tag", tag]), \
+                patch.object(release, "release_commit", return_value=commit), \
+                patch.object(release, "publication_checks", return_value=[]), \
+                patch.object(release, "exists", return_value=True), \
+                patch.object(release, "write_outputs") as write_outputs:
+            with self.assertRaisesRegex(ValueError, "Unconfirmed GitHub libraries publication already exists"):
+                release.main()
+            write_outputs.assert_not_called()
+
 
 class SnapshotReleaseTest(unittest.TestCase):
     def setUp(self):
