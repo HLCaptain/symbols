@@ -11,10 +11,17 @@ kotlin {
         api(projects.modules.materialVectorsRounded)
         api(projects.modules.materialVectorsSharp)
     }
+    sourceSets.jvmTest.dependencies {
+        runtimeOnly(compose.desktop.currentOs)
+    }
 }
 
 kotlin {
     android {
         namespace = "io.github.hlcaptain.symbols.material.vectors.themed"
     }
+}
+
+tasks.named<Test>("jvmTest") {
+    systemProperty("java.awt.headless", "true")
 }

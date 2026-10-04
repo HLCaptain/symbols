@@ -43,6 +43,7 @@ android {
 
 dependencies {
     implementation(projects.modules.materialVectorsOutlined)
+    implementation(projects.modules.materialVectorsSharp)
 }
 
 symbolFonts {

@@ -137,11 +137,14 @@ Typed mirrored getters directly reach the same per-icon cache with
 and unmirrored instances are cached separately, with aliases sharing each
 variant's cache. This adds no runtime dispatcher, renderer, or artifact.
 
-### Filled Rounded vectors
+<a id="filled-rounded-vectors"></a>
 
-Symbols 2.1.0 adds `FILL=1` vectors to the existing Rounded
-artifact. Keep the standard Compose `Icon` API and import `Filled` plus the
-same generated icon properties:
+### Filled vectors
+
+Each style's existing vector artifact provides `FILL=1` getters. Rounded is
+available in Symbols 2.1.0; Outlined and Sharp are added in the upcoming release.
+Keep the standard Compose `Icon` API and import `Filled` plus the same generated
+icon properties:
 
 ```kotlin
 import androidx.compose.material3.Icon
@@ -157,18 +160,32 @@ Icon(Symbols.Material.Rounded.Filled.Favorite, contentDescription = "Favorite")
 Icon(Symbols.Material.AutoMirrored.Rounded.Filled.VolumeOff, contentDescription = "Muted")
 ```
 
-`Icons.Rounded.Filled.*` and `Icons.AutoMirrored.Rounded.Filled.*` are equivalent
-entry points. All named Rounded icons support both getters. They snapshot
+The upcoming Outlined and Sharp APIs use the same imports and call shape:
+
+```kotlin
+import io.github.hlcaptain.symbols.material.Outlined
+import io.github.hlcaptain.symbols.material.Sharp
+import io.github.hlcaptain.symbols.material.outlined.vectors.Favorite
+import io.github.hlcaptain.symbols.material.sharp.vectors.VolumeOff
+
+Icon(Symbols.Material.Outlined.Filled.Favorite, contentDescription = "Favorite")
+Icon(Symbols.Material.AutoMirrored.Sharp.Filled.VolumeOff, contentDescription = "Muted")
+```
+
+`Icons.<Style>.Filled.*` and `Icons.AutoMirrored.<Style>.Filled.*` are equivalent
+entry points. All 4,102 names in each style support both getters. They snapshot
 `FILL=1, GRAD=0, opsz=24, wght=400`; ordinary getters retain `FILL=0`. Choose the
 fill explicitly for each state. Catalog aliases such as `Favorite` and
 `FavoriteBorder` share the same outline, so changing the name alone does not
 select a different fill.
 
-Rounded outlines are stored as separate per-icon SVG path strings and parsed
-by Compose when that vector is first requested. A shared builder owns each
+Distinct filled outlines are stored as separate per-icon SVG path strings and
+parsed by Compose when that vector is first requested. A shared builder owns each
 icon's cached normal and mirrored instances; there is no runtime font asset or
-catalog-wide path table. Filled aliases share their codepoint's cache, and
-fill-invariant icons such as `Check` and `ArrowBack` reuse the ordinary vector.
+catalog-wide path table. Rounded also uses this storage for its default outlines;
+the ordinary Outlined and Sharp builders retain their existing path operations.
+Filled aliases share their codepoint's cache, and fill-invariant icons such as
+`Check` and `ArrowBack` reuse the ordinary vector.
 The themed getters continue to select the default `FILL=0` snapshots.
 
 ### Theme-selected vectors
