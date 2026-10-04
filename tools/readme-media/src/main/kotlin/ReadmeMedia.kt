@@ -76,11 +76,11 @@ private val ComparisonStates = listOf(Axes(fill = 1f), Axes()) +
     WeightAndOpticalStates + listOf(Axes(fill = 1f)) +
     WeightAndOpticalStates.map { it.copy(fill = 1f) }
 private val VariableStates = listOf(
-    Axes(fill = 0f, weight = 100f, grade = -50f, opticalSize = 20f),
-    Axes(fill = 0.5f),
+    Axes(),
     Axes(fill = 1f, weight = 700f, grade = 200f, opticalSize = 48f),
-    Axes(fill = 0.5f),
-    Axes(fill = 0f, weight = 100f, grade = -50f, opticalSize = 20f),
+    Axes(),
+    Axes(fill = 1f, weight = 100f, grade = -50f, opticalSize = 20f),
+    Axes(),
 )
 
 // Real Compose state animations, driven by the capture scene's deterministic frame clock.
@@ -156,7 +156,7 @@ private fun VariableFonts(target: Axes) {
     val axes = animatedAxes(target)
     Box(Modifier.size(Width.dp, Height.dp).background(Color.White)) {
         val labels = listOf("Fill", "Weight", "Grade", "Optical size")
-        val ranges = listOf("0 ↔ 0.5 ↔ 1", "100 ↔ 400 ↔ 700", "−50 ↔ 0 ↔ 200", "20 ↔ 24 ↔ 48")
+        val ranges = listOf("0 ↔ 1", "100 ↔ 400 ↔ 700", "−50 ↔ 0 ↔ 200", "20 ↔ 24 ↔ 48")
         val codepoints = listOf(Symbols.Material.Favorite, Symbols.Material.Home, Symbols.Material.AccountTree, Symbols.Material.VolumeOff)
         for (i in 0..3) {
             val x = i * 250
