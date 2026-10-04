@@ -24,7 +24,7 @@ and Kotlin's [publication host requirements](https://kotlinlang.org/docs/multipl
 - Select Xcode 26.4.1 through `DEVELOPER_DIR` on macOS. It matches the Kotlin 2.4.20
   [compatibility line](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html).
 - Configure one Gradle worker and in-process Kotlin compilation. Heavy jobs have
-  a 6 GB shared heap; Ubuntu tooling publication uses 4 GB. These overrides are
+  a 6 GB shared heap; Central tooling publication uses 4 GB. These overrides are
   written into the disposable runner's Gradle user properties, not developer setup.
 
 Web compilation/linking uses 8 GB in separate, terminating Gradle invocations.
@@ -41,7 +41,7 @@ optimizer test took 65 seconds; the actual Gradle optimization invocation took
 memory spike.
 This setting affects the sample executable, not published library code.
 
-JVM/Android and web verification have 90-minute limits. Library upload/build also
+JVM/Android and web verification have 90-minute limits. Central library upload/build also
 has a 90-minute step limit. Central publication is asynchronous: after validated
 upload, a separate read-only step waits up to two hours for public coordinates.
 The library/tooling publication jobs allow 240/210 minutes for this server-side
@@ -50,7 +50,10 @@ wrapped by `tools/ci_metrics.py` stream normal output and preserve failure statu
 they report elapsed time and sampled combined Java/wasm-opt RSS and wasm-opt RSS
 in logs and job summaries. Samples cover those processes on the isolated runner,
 not reserved heap sizes, and may miss short-lived peaks. Missing metrics never hide
-a build failure or fail an otherwise successful build.
+a build failure or fail an otherwise successful build. GitHub Packages testing
+snapshots allow 180 minutes for the library job, including a 150-minute native
+Gradle publication step. Tooling retains 120/90-minute job/publication limits.
+Both finish with a 15-minute authenticated availability check.
 
 ## Verification coverage
 
@@ -96,25 +99,66 @@ timings. Hosted checks must finish within the stated limits before merging.
 
 ## Main commit snapshots
 
-After `snapshots.yml` is merged, each push to `main` starts a separate snapshot
-publication for its head SHA, without historical backfill. Its concurrency group
+`snapshots.yml` starts a testing-snapshot publication pinned to each main push's
+head SHA, without historical backfill. Its concurrency group
 includes the SHA and uses `cancel-in-progress: false`; newer pushes do not replace
 an older commit's run. The trigger is `push`, not completion of normal CI, so a
 cancelled ordinary CI run does not suppress that commit's publication verification.
 
-The workflow creates an immutable `<current-release>-SNAPSHOT-<8sha>` tag, such as
-`2.0.0-SNAPSHOT-b5054e33`, using the highest numeric stable ancestor tag as its
+The workflow creates an immutable source tag named
+`<current-release>-SNAPSHOT-<8sha>`, such as
+`2.0.0-SNAPSHOT-b3ad4223`, using the highest numeric stable ancestor tag as its
 release prefix. It calls `publish.yml` through `workflow_call` with that tag,
-retaining the same verification, credentials, signing, registry checks and retry
-behavior. Publication still goes to Maven Central and the Plugin Portal using
-the existing `maven-central` environment; no additional endpoint or secrets are
-needed. The resulting GitHub Release is a prerelease with `latest=false`.
+retaining publication-only verification of the tag's full source SHA. Preflight
+also checks `main` ancestry and the eight-character hash suffix. These testing
+versions go **only to GitHub Packages** at
+`https://maven.pkg.github.com/hlcaptain/symbols`, through existing native Gradle
+Maven publications in both builds, including the dotted plugin marker.
 
-Only snapshot tag creation and the existing release bookkeeping need write
-access. Normal PR CI remains read-only. A failed verification can leave the tag
-in place; retry publication from that exact tag rather than moving it. See
+Snapshot publisher jobs use `GITHUB_TOKEN` with `packages: write`; they do not
+enter the `maven-central` environment or receive Central/Portal credentials or
+release signing keys. Normal releases retain their Central/Portal route and
+credentials. Central rejected the earlier
+[`2.0.0-SNAPSHOT-b3ad4223` attempt](https://github.com/HLCaptain/symbols/actions/runs/37058789197)
+with "The version cannot be a SNAPSHOT". The testing channel preserves the
+requested version spelling rather than renaming it to bypass that policy.
+
+Tag existence is not publication success. After authenticated package checks
+succeed, the resulting GitHub Release is a prerelease with `latest=false`.
+Snapshot recovery can run a newer reviewed publisher ref while checking out the
+unchanged source tag separately. Successful GitHub job receipts are matched to
+the component, version, and full artifact source SHA, not just the workflow's
+head SHA. By default, without such a receipt, any existing expected POM or
+declared publication file aborts the upload.
+
+Manual testing-snapshot recovery can supply `library-publications`: a
+newline-separated list of exact configured native GitHub Maven publication
+task paths. Full source verification remains required. The init script validates
+the selection and produces its file manifest; any existing selected file still
+aborts publication. Only the validated native tasks are executed, leaving
+existing versioned publications and the source tag unchanged. The final check
+still requires all 122 library POMs before a whole-library success receipt or
+GitHub Release. Normal releases and automatic snapshots do not use this mode.
+
+The [first GitHub recovery run](https://github.com/HLCaptain/symbols/actions/runs/37075726956)
+timed out at the former 90-minute library limit after source verification and
+tooling publication passed. Inspection found 105/122 library POMs present;
+Themed common/JVM/Wasm and all Core/Variant Font Core publications were absent.
+All 97 declared paths for those 17 publications returned authenticated 404 at
+2026-10-03 01:28:46 UTC. This is a partial publication, not success. The larger
+library budget and explicit absent-publication recovery preserve the existing
+verification and no-overwrite guards. See
+[the recovery procedure](../RELEASING.md#recover-entirely-absent-library-publications).
+
+Snapshot tag creation/release bookkeeping need `contents: write`; snapshot
+publication needs `packages: write`. Normal PR CI remains read-only. A failed
+verification can leave the tag in place; recover its exact sources without
+moving it. See
 [Releasing](../RELEASING.md#main-commit-snapshots) for version selection and manual
-recovery. This takes effect prospectively when the workflow reaches `main`.
+recovery, and [consumer setup](../RELEASING.md#consuming-testing-snapshots) for
+authenticated dependency and plugin resolution. New pushes use this route after
+the updated publisher reaches `main`; these instructions do not establish that
+any particular testing version is already available.
 
 ## Storage
 
