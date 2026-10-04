@@ -8,6 +8,12 @@ and the project uses [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Shorten the README around migration from Material Icons Extended, with a
+  separate usage reference and reproducible animated Material Symbols and
+  variable-font demonstrations.
+
 ## [2.1.0] - 2026-10-04
 
 ### Added

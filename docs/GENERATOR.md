@@ -32,12 +32,13 @@ pluginManagement {
 ```kotlin
 // build.gradle.kts
 plugins {
-    id("io.github.hlcaptain.symbol-fonts") version "0.1.0"
+    id("io.github.hlcaptain.symbol-fonts") version "2.1.0"
 }
 ```
 
-Development snapshots are not uploaded to a remote package registry. Inside a
-source checkout, resolve the exact checked-in tooling instead:
+Commit-pinned testing snapshots are published to authenticated GitHub Packages;
+see [snapshot setup](../RELEASING.md#consuming-testing-snapshots). Inside a source
+checkout, resolve the exact checked-in tooling instead:
 
 ```kotlin
 // settings.gradle.kts
@@ -58,7 +59,7 @@ plugins {
 }
 
 dependencies {
-    implementation("io.github.hlcaptain:symbols-core:0.1.0")
+    implementation("io.github.hlcaptain:symbols-core:2.1.0")
 }
 ```
 
