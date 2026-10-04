@@ -109,8 +109,9 @@ font, then use your Material 3 motion scheme:
 [Still image](docs/media/variable-fonts-still.png)
 
 The four columns use one Rounded variable font, varying one axis at a time:
-fill, weight, grade, and optical size. Optical size adjusts glyph detail within
-a fixed layout size.
+fill, weight, grade, and optical size. Each follows small → medium → large →
+medium → small in eight seconds, with numeric axis labels. Optical size adjusts
+glyph detail within a fixed layout size.
 
 Both animations use the actual renderer and Material 3 Expressive default
 spatial motion. [Reproduce the media](tools/readme-media/README.md).

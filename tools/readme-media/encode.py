@@ -50,6 +50,20 @@ def encode(name: str) -> None:
         assert all(ImageChops.difference(a, b).getbbox() for a, b in zip(settled, settled[1:])), "Missing visible transition"
     else:
         crops = [(73 + i * 250, 44, 177 + i * 250, 148) for i in range(4)]
+        expected = [
+            (0, 100, -50, 20), (0.5, 400, 0, 24), (1, 700, 200, 48),
+            (0.5, 400, 0, 24), (0, 100, -50, 20),
+        ]
+        with (paths[0].parent / "states.csv").open() as source:
+            states = list(csv.DictReader(source))
+        assert len(states) == len(expected)
+        for index, (state, axes) in enumerate(zip(states, expected)):
+            assert int(state["frame"]) == index * 96
+            assert tuple(float(state[key]) for key in ("fill", "weight", "grade", "opticalSize")) == axes
+        for crop in crops:
+            settled = [frames[index * 48 + 47].crop(crop) for index in range(len(expected))]
+            assert all(ImageChops.difference(a, b).getbbox() for a, b in zip(settled, settled[1:])), "Each small/medium/large step must render"
+            assert ImageChops.difference(settled[0], settled[2]).getbbox(), "Small and large must differ"
     for crop in crops:
         assert any(ImageChops.difference(first.crop(crop), frame.crop(crop)).getbbox() for frame in frames), f"Icon/axis did not animate: {crop}"
 

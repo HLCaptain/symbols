@@ -75,6 +75,13 @@ private val WeightAndOpticalStates = listOf(
 private val ComparisonStates = listOf(Axes(fill = 1f), Axes()) +
     WeightAndOpticalStates + listOf(Axes(fill = 1f)) +
     WeightAndOpticalStates.map { it.copy(fill = 1f) }
+private val VariableStates = listOf(
+    Axes(fill = 0f, weight = 100f, grade = -50f, opticalSize = 20f),
+    Axes(fill = 0.5f),
+    Axes(fill = 1f, weight = 700f, grade = 200f, opticalSize = 48f),
+    Axes(fill = 0.5f),
+    Axes(fill = 0f, weight = 100f, grade = -50f, opticalSize = 20f),
+)
 
 // Real Compose state animations, driven by the capture scene's deterministic frame clock.
 @Composable
@@ -149,7 +156,7 @@ private fun VariableFonts(target: Axes) {
     val axes = animatedAxes(target)
     Box(Modifier.size(Width.dp, Height.dp).background(Color.White)) {
         val labels = listOf("Fill", "Weight", "Grade", "Optical size")
-        val ranges = listOf("Outline ↔ filled", "Light ↔ bold", "Fine ↔ strong", "Small ↔ large detail")
+        val ranges = listOf("0 ↔ 0.5 ↔ 1", "100 ↔ 400 ↔ 700", "−50 ↔ 0 ↔ 200", "20 ↔ 24 ↔ 48")
         val codepoints = listOf(Symbols.Material.Favorite, Symbols.Material.Home, Symbols.Material.AccountTree, Symbols.Material.VolumeOff)
         for (i in 0..3) {
             val x = i * 250
@@ -180,7 +187,9 @@ private suspend fun capture(name: String, comparison: Boolean) {
     val output = File("build/frames/$name").apply { mkdirs() }
     // The comparison duration can change; don't mix this capture with older frames.
     output.listFiles()?.filter { it.name.matches(Regex("\\d{4}\\.png")) }?.forEach { it.delete() }
-    val initial = if (comparison) Axes(fill = 1f) else Axes()
+    val states = if (comparison) ComparisonStates else VariableStates
+    val framesPerStep = if (comparison) FramesPerStep else 96
+    val initial = states.first()
     val target = mutableStateOf(initial)
     val scene = ImageComposeScene(Width, Height, coroutineContext = Dispatchers.Unconfined) {
         MaterialExpressiveTheme {
@@ -198,25 +207,16 @@ private suspend fun capture(name: String, comparison: Boolean) {
             while (!glyphsReady(frame(), comparison)) delay(5)
         }
         repeat(5) { frame() }
-        val frameCount = if (comparison) ComparisonStates.size * FramesPerStep else 480
-        if (comparison) {
-            check(ComparisonStates.first() == initial && ComparisonStates.last() == initial)
-            File(output, "states.csv").writeText("frame,fill,weight,grade,opticalSize\n" +
-                ComparisonStates.mapIndexed { index, axes ->
-                    "${index * FramesPerStep},${axes.fill},${axes.weight},${axes.grade},${axes.opticalSize}"
-                }.joinToString("\n"))
-        }
+        val frameCount = states.size * framesPerStep
+        check(states.last() == initial)
+        File(output, "states.csv").writeText("frame,fill,weight,grade,opticalSize\n" +
+            states.mapIndexed { index, axes ->
+                "${index * framesPerStep},${axes.fill},${axes.weight},${axes.grade},${axes.opticalSize}"
+            }.joinToString("\n"))
         for (index in 0 until frameCount) {
-            val next = if (comparison) {
-                ComparisonStates[index / FramesPerStep].takeIf { index % FramesPerStep == 0 }
-            } else when (index) {
-                60 -> Axes(1f, 650f, 180f, 44f)
-                180 -> Axes(0f, 150f, -40f, 22f)
-                300 -> Axes(1f, 600f, 140f, 40f)
-                420 -> Axes()
-                else -> null
+            if (index % framesPerStep == 0) {
+                Snapshot.withMutableSnapshot { target.value = states[index / framesPerStep] }
             }
-            if (next != null) Snapshot.withMutableSnapshot { target.value = next }
             val png = frame()
             if (index % 2 == 0) File(output, "%04d.png".format(index / 2)).writeBytes(png)
         }

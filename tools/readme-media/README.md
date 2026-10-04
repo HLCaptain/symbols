@@ -61,9 +61,20 @@ loop. Weight and optical-size transitions run first unfilled, then filled:
 | 19 | 1 | 400 | 24 |
 
 The variable-font image has four columns from one font, isolating fill, weight,
-grade, and optical size. Each column centers its title, glyph, and axis label;
-there is no overall title or subtitle. Optical size adjusts glyph detail within
-a fixed layout size. Explanatory captions live in the README. The font snapshot is documented in
+grade, and optical size. Each follows small → medium → large → medium → small:
+five targets held for 1.6 seconds each, making an eight-second loop.
+
+| Axis | Small | Medium | Large |
+| --- | ---: | ---: | ---: |
+| `FILL` | 0 | 0.5 | 1 |
+| `wght` | 100 | 400 | 700 |
+| `GRAD` | -50 | 0 | 200 |
+| `opsz` | 20 | 24 | 48 |
+
+Medium uses the font's default weight, grade, and optical size, with half fill.
+Each column centers its title, glyph, and numeric axis labels; there is no
+overall title or subtitle. Optical size adjusts glyph detail within a fixed
+layout size. Explanatory captions live in the README. The font snapshot is documented in
 [asset provenance](../../fonts/material/README.md); Google icon attribution and
 Apache 2.0 terms are in [third-party notices](../../THIRD_PARTY_NOTICES.md).
 
