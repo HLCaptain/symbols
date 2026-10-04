@@ -572,24 +572,29 @@ Only generate from fonts and artwork the application is licensed to use. The
 generator does not change or grant rights to its inputs or derived vector
 outlines.
 
-## Rounded native drawable variants
+## Native drawable variants
 
-**Next release:** the same `symbols-material-drawables-rounded` artifact adds
-filled and opt-in mirrored variants; these names are not in published 2.1.0:
+**Next release:** the existing `symbols-material-drawables-{outlined|rounded|sharp}`
+artifacts add filled and opt-in mirrored variants. These names are not in
+published 2.1.0. Replace `{style}` below with `outlined`, `rounded`, or `sharp`:
 
-| Rounded variant | Native drawable name |
+| Variant | Native drawable name |
 | --- | --- |
-| Default | `material_symbols_rounded_home_ue9b2` |
-| Filled | `material_symbols_rounded_filled_home_ue9b2` |
-| Mirrored | `material_symbols_automirrored_rounded_home_ue9b2` |
-| Mirrored and filled | `material_symbols_automirrored_rounded_filled_home_ue9b2` |
+| Default | `material_symbols_{style}_home_ue9b2` |
+| Filled | `material_symbols_{style}_filled_home_ue9b2` |
+| Mirrored | `material_symbols_automirrored_{style}_home_ue9b2` |
+| Mirrored and filled | `material_symbols_automirrored_{style}_filled_home_ue9b2` |
 
 Use any of these names with `@drawable/` in XML or `R.drawable` in code.
 Filled selects `FILL=1`; all variants retain `wght=400, GRAD=0, opsz=24`.
-Mirroring applies only in RTL layouts. Choose it explicitly for directional
-icons; for example, replace `home_ue9b2` with `arrow_back_ue5c4`. Default
-resources stay unchanged, and the resource shrinker can remove unused variants.
-Outlined and Sharp native packs continue to provide only their default variants.
+Mirrored variants set `android:autoMirrored="true"` on the drawable; this is
+not a font axis. The hosting View must receive RTL layout direction, with
+`android:supportsRtl="true"` enabled on the application. Choose mirroring
+explicitly for directional icons; for example, replace `home_ue9b2` with
+`arrow_back_ue5c4`. Default resources stay unchanged, and the resource shrinker
+can remove unused variants.
+Each artifact contains four variants of all 3,802 unique codepoints. Aliases in
+the manifest share one canonical resource per variant; no runtime fonts are packaged.
 
 ```xml
 <ImageView
@@ -598,3 +603,7 @@ Outlined and Sharp native packs continue to provide only their default variants.
     android:contentDescription="@string/home"
     android:src="@drawable/material_symbols_automirrored_rounded_filled_home_ue9b2" />
 ```
+
+The [native drawable consumer check](../tooling/compatibility/native-drawables/README.md)
+verifies complete AAR inventories, LTR/RTL rendering of asymmetric icons, and
+removal of unused variants from a minified Android application.

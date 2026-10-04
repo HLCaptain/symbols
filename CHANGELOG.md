@@ -11,10 +11,10 @@ and the project uses [Semantic Versioning](https://semver.org/).
 ### Added
 
 - Filled and opt-in auto-mirrored native Android drawables in
-  `symbols-material-drawables-rounded`. The existing default resource names and
-  artwork are unchanged; new names include
+  `symbols-material-drawables-{outlined|rounded|sharp}`. The existing default
+  resource names and artwork are unchanged; new names include
   `material_symbols_automirrored_rounded_filled_home_ue9b2`. These variants are
-  not included in published 2.1.0. Outlined and Sharp native packs are unchanged.
+  not included in published 2.1.0.
 - Generator `autoMirror.set(true)` for generated ImageVectors and XML drawables.
   The option defaults to false and leaves resource names and geometry unchanged.
 
