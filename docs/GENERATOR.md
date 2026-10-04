@@ -227,6 +227,19 @@ Optional settings include `packageName`, `rootName`, `fontIndex`,
 `viewportHeight`. Defaults are a 24×24 viewport, four decimal places, and 64
 unique code points per Kotlin file.
 
+The next release adds `autoMirror.set(true)` to each style (not available in
+plugin 2.1.0). It sets `ImageVector.autoMirror` and XML `android:autoMirrored`
+without changing names or path geometry. The default is false. Enable it only
+for icons whose meaning should follow the right-to-left layout direction:
+
+```kotlin
+style("Directional") {
+    svgDirectory.set(layout.projectDirectory.dir("icons/directional"))
+    autoMirror.set(true)
+    androidDrawables()
+}
+```
+
 The default outline transform maps one font em into the smaller viewport
 dimension, starts at `originX = 0`, and places the font baseline at the viewport
 bottom (`baselineY = viewportHeight`). Normally omit all three values. Skia
@@ -558,3 +571,30 @@ generated. Enable at least one of `--kotlin-output`, `--android-output`, or
 Only generate from fonts and artwork the application is licensed to use. The
 generator does not change or grant rights to its inputs or derived vector
 outlines.
+
+## Rounded native drawable variants
+
+**Next release:** the same `symbols-material-drawables-rounded` artifact adds
+filled and opt-in mirrored variants; these names are not in published 2.1.0:
+
+| Rounded variant | Native drawable name |
+| --- | --- |
+| Default | `material_symbols_rounded_home_ue9b2` |
+| Filled | `material_symbols_rounded_filled_home_ue9b2` |
+| Mirrored | `material_symbols_automirrored_rounded_home_ue9b2` |
+| Mirrored and filled | `material_symbols_automirrored_rounded_filled_home_ue9b2` |
+
+Use any of these names with `@drawable/` in XML or `R.drawable` in code.
+Filled selects `FILL=1`; all variants retain `wght=400, GRAD=0, opsz=24`.
+Mirroring applies only in RTL layouts. Choose it explicitly for directional
+icons; for example, replace `home_ue9b2` with `arrow_back_ue5c4`. Default
+resources stay unchanged, and the resource shrinker can remove unused variants.
+Outlined and Sharp native packs continue to provide only their default variants.
+
+```xml
+<ImageView
+    android:layout_width="24dp"
+    android:layout_height="24dp"
+    android:contentDescription="@string/home"
+    android:src="@drawable/material_symbols_automirrored_rounded_filled_home_ue9b2" />
+```

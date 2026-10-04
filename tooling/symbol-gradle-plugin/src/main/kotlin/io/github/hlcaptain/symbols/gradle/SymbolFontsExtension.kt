@@ -373,6 +373,14 @@ abstract class SymbolFontStyle @Inject constructor(
     val resourcePrefix: Property<String> =
         objects.property(String::class.java)
 
+    /**
+     * Mirrors generated ImageVectors and XML drawables in right-to-left layouts.
+     * Defaults to false. Enable only when the icon's meaning follows layout direction;
+     * this changes the generated rendering flag, not resource names or path geometry.
+     */
+    val autoMirror: Property<Boolean> =
+        objects.property(Boolean::class.java).convention(false)
+
     /** Number of unique code points grouped into each generated Kotlin file. */
     val symbolsPerFile: Property<Int> =
         objects.property(Int::class.java).convention(64)

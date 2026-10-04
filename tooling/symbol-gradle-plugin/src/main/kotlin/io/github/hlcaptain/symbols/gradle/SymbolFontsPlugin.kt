@@ -365,6 +365,7 @@ private fun GenerateSymbolFontTask.configureGenerationInputs(
     fontIndex.set(style.fontIndex)
     axes.set(style.axes)
     resourcePrefix.set(style.resourcePrefix)
+    autoMirror.set(style.autoMirror)
     symbolsPerFile.set(style.symbolsPerFile)
     precision.set(style.precision)
     viewportWidth.set(style.viewportWidth)

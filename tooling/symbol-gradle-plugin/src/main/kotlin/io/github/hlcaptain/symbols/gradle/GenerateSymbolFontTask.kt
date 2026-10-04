@@ -81,6 +81,9 @@ abstract class GenerateSymbolFontTask : DefaultTask() {
     abstract val resourcePrefix: Property<String>
 
     @get:Input
+    abstract val autoMirror: Property<Boolean>
+
+    @get:Input
     abstract val symbolsPerFile: Property<Int>
 
     @get:Input
@@ -115,6 +118,7 @@ abstract class GenerateSymbolFontTask : DefaultTask() {
 
     init {
         generatesAndroidDrawablesByVariant.convention(false)
+        autoMirror.convention(false)
     }
 
     @TaskAction
@@ -157,6 +161,7 @@ abstract class GenerateSymbolFontTask : DefaultTask() {
             addAll(listOf("--set", rootName.get()))
             addAll(listOf("--style", styleName.get()))
             addAll(listOf("--resource-prefix", resourcePrefix.get()))
+            if (autoMirror.get()) add("--auto-mirror")
             addAll(listOf("--symbols-per-file", symbolsPerFile.get().toString()))
             addAll(listOf("--precision", precision.get().toString()))
             addAll(listOf("--viewport-width", viewportWidth.get().toString()))
