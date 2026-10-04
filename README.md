@@ -8,20 +8,12 @@ Shrinkable vectors and Android drawables that help keep APKs small.
 [![CI](https://github.com/HLCaptain/symbols/actions/workflows/ci.yml/badge.svg)](https://github.com/HLCaptain/symbols/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
-![Material Icons Extended and Symbols side by side](docs/media/icons-comparison.png)
+![Home, AccountTree, Favorite, and VolumeOff compared side by side. Fixed classic Material Icons Extended vectors are on the left; the Rounded Material Symbols variable font is on the right. Both start filled. Symbols varies weight, optical size, and grade, toggling fill after each axis step with a pause after every transition. The sequence returns to filled icons at default weight, grade, and optical size.](docs/media/icons-comparison.png)
 
-[Still image](docs/media/icons-comparison-still.png)
-
-The left side uses fixed classic Material Icons Extended vectors through
-standard `Icon`; the right uses the live Rounded Material Symbols font. Both
-start filled. Symbols varies weight, optical size, and grade, toggling fill
-after every axis step. Each transition changes one axis and pauses after its
-spring finishes. It begins and ends at `FILL=1, wght=400, GRAD=0, opsz=24`.
-
-Replace `material-icons-extended` while keeping Compose's standard `Icon`.
+Replace the deprecated `material-icons-extended` library while keeping Compose's standard `Icon`.
 Add a pack and use typed names—without per-icon downloads or hand-maintained
 generated sources. Prebuilt packs need no Symbols Gradle plugin.
-Choose Outlined, Rounded, or Sharp Material Symbols, including filled Rounded
+Choose `Outlined`, `Rounded`, or `Sharp` Material Symbols, including filled `Rounded`
 vectors in 2.1.0. The catalog has 4,102 names covering 3,802 unique codepoints
 per style. Use the same `Symbols` root for generated icons from your own assets.
 
@@ -43,13 +35,20 @@ kotlin {
 ```
 
 For an Android-only module, put `implementation(...)` in `dependencies`.
-Compose Multiplatform targets Android, iOS, desktop, JS, and Wasm. Android
-Compose requires API 23+, AGP 9.1.1+, compile SDK 37, and Kotlin 2.4; see the
-[full requirements](docs/TOOLCHAIN_UPGRADE.md) when upgrading from 1.x.
+
+[![Compose Multiplatform: Android, iOS, desktop JVM, JS, and Wasm](https://img.shields.io/badge/Compose%20Multiplatform-Android%20%7C%20iOS%20%7C%20JVM%20%7C%20JS%20%7C%20Wasm-7F52FF?logo=kotlin&logoColor=white)](docs/TOOLCHAIN_UPGRADE.md)
+[![Android Compose minimum API: 23](https://img.shields.io/badge/Android%20Compose-API%2023%2B-3DDC84?logo=android&logoColor=white)](docs/TOOLCHAIN_UPGRADE.md)
+[![Android Compose minimum AGP: 9.1.1](https://img.shields.io/badge/AGP-9.1.1%2B-3DDC84)](docs/TOOLCHAIN_UPGRADE.md)
+[![Android Compose compile SDK: 37](https://img.shields.io/badge/compile%20SDK-37-3DDC84)](docs/TOOLCHAIN_UPGRADE.md)
+[![Kotlin: 2.4](https://img.shields.io/badge/Kotlin-2.4-7F52FF?logo=kotlin&logoColor=white)](docs/TOOLCHAIN_UPGRADE.md)
+
+See the [full requirements](docs/TOOLCHAIN_UPGRADE.md) when upgrading from 1.x.
 
 ## Migrate from `material-icons-extended`
 
 Change the dependency and imports; the `Icon` call stays familiar:
+
+<a id="filled-rounded-vectors"></a>
 
 ```kotlin
 import androidx.compose.material3.Icon
@@ -57,6 +56,12 @@ import io.github.hlcaptain.symbols.material.Icons
 import io.github.hlcaptain.symbols.material.rounded.vectors.Home
 
 Icon(Icons.Rounded.Home, contentDescription = "Home")
+
+// AutoMirrored: opt-in mirroring for right-to-left layouts.
+Icon(Icons.AutoMirrored.Rounded.Home, contentDescription = "Home")
+
+// Filled: the filled style used by some legacy Material Icons.
+Icon(Icons.Rounded.Filled.Home, contentDescription = "Home")
 ```
 
 `Symbols.Material.Rounded.Home` is the equivalent unified namespace. Artwork,
@@ -66,56 +71,36 @@ available styles, and some names differ; review the visual result when migrating
 | --- | --- | --- |
 | Artwork | Classic Material Icons | Modern Material Symbols |
 | Compose API | `Icon(Icons.Rounded.Home, …)` | Same call shape, new imports |
-| Customization | Predefined vector variants | Fixed vectors, live font axes, your own fonts and SVGs |
-| Android size | R8 can remove unused vectors | R8 for typed vectors; resource shrinking for native drawables |
+| Customization | Predefined vector variants | Fixed vectors, variable font, your own fonts and SVGs |
 
 Direct named vectors are cached on first use and allow R8 to remove unused
-icons independently. See Google's [icon-set comparison](https://github.com/google/material-design-icons#material-symbols--material-icons)
-for the difference between classic Material Icons and Material Symbols.
-
-### Filled Rounded vectors
-
-```kotlin
-import io.github.hlcaptain.symbols.material.Filled
-import io.github.hlcaptain.symbols.material.rounded.vectors.Favorite
-
-Icon(Icons.Rounded.Filled.Favorite, contentDescription = "Favorite")
-```
-
-Ordinary getters use `FILL=0`; `.Filled` selects `FILL=1`. Both keep weight 400,
-grade 0, and optical size 24. `Favorite` and `FavoriteBorder` are aliases, so
-choose the fill explicitly. For directional icons, opt into
-`Icons.AutoMirrored.Rounded.ArrowBack` with the corresponding imports.
+icons independently. The artwork comes from Google's
+[Material Symbols repository](https://github.com/google/material-design-icons).
+Ordinary getters use `FILL=0`; `.Filled` selects `FILL=1`.
 
 <a id="theme-selected-vectors"></a>
 
 For runtime style selection, [themed vectors](docs/USAGE.md#theme-selected-vectors)
 follow `MaterialSymbolsTheme` while retaining fixed, unfilled geometry.
-Symbols 2.1.0 also makes the measured Rounded Android AAR about **51.5% smaller
-than 2.0.0**, including Filled. That is the library download size;
-[APK results depend on usage and shrinking](docs/PERFORMANCE.md#rounded-filled-vectors).
+
+In a [recorded Android fixture (September 2026)](benchmarks/shrinkable-vectors/README.md#recorded-resource-overlay-result-2026-09-02-check-only),
+R8 and resource shrinking reduced the APK from **8.01 MB to 220 KB**, retaining
+the used Symbols vector and native drawable while removing unused ones. These
+historical whole-APK figures include transitive code and resources; application
+savings vary. See [shrinking boundaries](docs/PERFORMANCE.md#shrinkability-boundaries).
 
 <a id="advanced-render-directly-from-a-font"></a>
 <a id="material-symbols-font-renderer"></a>
 <a id="material-font-axes"></a>
+<a id="animate-variable-fonts"></a>
 
-## Animate variable fonts
+## Variable font styling
 
 Animate fill, weight, grade, or optical size without generating another vector.
 Add `io.github.hlcaptain:symbols-material-rounded:2.1.0` for the Rounded variable
 font, then use your Material 3 motion scheme:
 
-![Material Symbols with animated font axes](docs/media/variable-fonts.png)
-
-[Still image](docs/media/variable-fonts-still.png)
-
-The four columns use one Rounded variable font, varying one axis at a time.
-Weight, grade, and optical size follow medium → small → medium → large → medium;
-fill alternates 0 → 1 → 0 → 1 → 0. Each loop lasts eight seconds, with numeric
-axis labels. Optical size adjusts glyph detail within a fixed layout size.
-
-Both animations use the actual renderer and Material 3 Expressive default
-spatial motion. [Reproduce the media](tools/readme-media/README.md).
+![Four columns demonstrate fill, weight, grade, and optical size using one Rounded variable font. Weight, grade, and optical size move together from medium to small, medium, large, and medium; fill alternates between outline and filled. Numeric axis values appear below each icon. The eight-second loop uses Material 3 Expressive default spatial motion. Optical size changes glyph detail within a fixed layout size.](docs/media/variable-fonts.png)
 
 ```kotlin
 import androidx.compose.animation.core.animateFloatAsState
