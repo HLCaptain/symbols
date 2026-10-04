@@ -91,9 +91,9 @@ Tag a commit already on `main` using `MAJOR.MINOR.PATCH`, optionally followed by
 a lowercase alphanumeric qualifier such as `-alpha01`, `-beta01`, or `-rc01`:
 
 ```shell
-git tag -a 0.1.0 -m "Symbols 0.1.0"
-git push origin 0.1.0
-gh release create 0.1.0 --verify-tag --generate-notes --title 0.1.0
+git tag -a 2.1.0 -m "Symbols 2.1.0"
+git push origin 2.1.0
+gh release create 2.1.0 --verify-tag --generate-notes --title 2.1.0
 ```
 
 Alternatively, create the tag and publish its GitHub Release in the GitHub UI.
@@ -145,8 +145,8 @@ of normal CI's cancellation behavior.
 
 The version is `<current-release>-SNAPSHOT-<8sha>`, for example
 `2.0.0-SNAPSHOT-b3ad4223`. The release prefix is the highest numeric stable
-`MAJOR.MINOR.PATCH` tag that is an ancestor of the pushed commit, currently
-`2.0.0`. The suffix is the first eight lowercase hexadecimal characters of the
+`MAJOR.MINOR.PATCH` tag that is an ancestor of the pushed commit.
+The suffix is the first eight lowercase hexadecimal characters of the
 full commit SHA. Each testing snapshot is pinned to that commit; consumers select
 the complete version explicitly.
 

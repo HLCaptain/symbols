@@ -9,7 +9,7 @@ own font or SVG assets.
 [![CI](https://github.com/HLCaptain/symbols/actions/workflows/ci.yml/badge.svg)](https://github.com/HLCaptain/symbols/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
-> Symbols 2.0 upgrades the consumer toolchain. See the
+> Symbols 2.x uses a newer consumer toolchain than 1.x. See the
 > [migration requirements](docs/TOOLCHAIN_UPGRADE.md) before upgrading from 1.x.
 
 The Material catalog contains all 4,102 upstream names across Outlined,
@@ -33,9 +33,11 @@ repositories {
 
 When building or publishing from source, configure the [Python/FontTools environment](CONTRIBUTING.md#development-environment) first.
 
-Development snapshots are intentionally not uploaded to a remote package
-registry. To consume the current source from another checkout, publish it to
-the local Maven repository:
+Testing snapshots pinned to main commits are published to authenticated GitHub
+Packages. Follow the [testing snapshot setup](RELEASING.md#consuming-testing-snapshots)
+to select an exact snapshot version.
+
+To test a local source checkout, publish it to the local Maven repository:
 
 ```shell
 ./gradlew publishToMavenLocal
@@ -64,7 +66,7 @@ For example:
 ```kotlin
 dependencies {
     implementation(
-        "io.github.hlcaptain:symbols-material-vectors-rounded:2.0.0",
+        "io.github.hlcaptain:symbols-material-vectors-rounded:2.1.0",
     )
 }
 ```
@@ -135,9 +137,9 @@ Typed mirrored getters directly reach the same per-icon cache with
 and unmirrored instances are cached separately, with aliases sharing each
 variant's cache. This adds no runtime dispatcher, renderer, or artifact.
 
-### Filled Rounded vectors (unreleased)
+### Filled Rounded vectors
 
-The current source version adds `FILL=1` vectors to the existing Rounded
+Symbols 2.1.0 adds `FILL=1` vectors to the existing Rounded
 artifact. Keep the standard Compose `Icon` API and import `Filled` plus the
 same generated icon properties:
 
@@ -243,7 +245,7 @@ is more convenient than an `ImageVector`:
 kotlin {
     sourceSets.commonMain.dependencies {
         implementation(
-            "io.github.hlcaptain:symbols-material-compose-drawables-rounded:2.0.0",
+            "io.github.hlcaptain:symbols-material-compose-drawables-rounded:2.1.0",
         )
     }
 }
@@ -281,7 +283,7 @@ one style to an Android module:
 ```kotlin
 dependencies {
     implementation(
-        "io.github.hlcaptain:symbols-material-drawables-outlined:2.0.0",
+        "io.github.hlcaptain:symbols-material-drawables-outlined:2.1.0",
     )
 }
 ```
@@ -336,7 +338,7 @@ included `tooling` build. The complete settings blocks are in the
 
 ```kotlin
 plugins {
-    id("io.github.hlcaptain.symbol-fonts") version "2.0.0"
+    id("io.github.hlcaptain.symbol-fonts") version "2.1.0"
 }
 
 symbolFonts {
