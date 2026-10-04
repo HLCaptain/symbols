@@ -45,7 +45,7 @@ private val Font = Symbols.Material.Rounded.font
 private const val Width = 1000
 private const val Height = 200
 private const val FrameNanos = 16_666_667L
-private const val FramesPerStep = 48 // 0.8 seconds on the 60 Hz animation clock.
+private const val SettledHoldFrames = 90 // 1.5 seconds after the spring finishes, at 60 Hz.
 
 private data class Example(val name: String, val legacy: ImageVector, val codePoint: Int)
 private val Examples = listOf(
@@ -62,19 +62,22 @@ private data class Axes(
     val opticalSize: Float = 24f,
 )
 
-private val WeightAndOpticalStates = listOf(
+private val AxisSegments = listOf(
     Axes(weight = 700f),
-    Axes(weight = 700f, opticalSize = 20f),
-    Axes(weight = 700f, opticalSize = 48f),
-    Axes(weight = 100f, opticalSize = 48f),
-    Axes(weight = 100f, opticalSize = 20f),
-    Axes(weight = 400f, opticalSize = 20f),
-    Axes(weight = 400f, opticalSize = 48f),
+    Axes(weight = 100f),
+    Axes(),
+    Axes(opticalSize = 20f),
+    Axes(),
+    Axes(opticalSize = 48f),
+    Axes(),
+    Axes(grade = -50f),
+    Axes(),
+    Axes(grade = 200f),
     Axes(),
 )
-private val ComparisonStates = listOf(Axes(fill = 1f), Axes()) +
-    WeightAndOpticalStates + listOf(Axes(fill = 1f)) +
-    WeightAndOpticalStates.map { it.copy(fill = 1f) }
+private val ComparisonStates = listOf(Axes(fill = 1f)) +
+    AxisSegments.map { it.copy(fill = 1f) } + listOf(Axes()) +
+    AxisSegments + listOf(Axes(fill = 1f))
 private val VariableStates = listOf(
     Axes(),
     Axes(fill = 1f, weight = 700f, grade = 200f, opticalSize = 48f),
@@ -85,13 +88,13 @@ private val VariableStates = listOf(
 
 // Real Compose state animations, driven by the capture scene's deterministic frame clock.
 @Composable
-private fun animatedAxes(target: Axes): List<State<Float>> {
+private fun animatedAxes(target: Axes, finishedListener: ((Float) -> Unit)? = null): List<State<Float>> {
     val motion = MaterialTheme.motionScheme.defaultSpatialSpec<Float>()
     return listOf(
-        animateFloatAsState(target.fill, motion, label = "Fill"),
-        animateFloatAsState(target.weight, motion, label = "Weight"),
-        animateFloatAsState(target.grade, motion, label = "Grade"),
-        animateFloatAsState(target.opticalSize, motion, label = "Optical size"),
+        animateFloatAsState(target.fill, motion, label = "Fill", finishedListener = finishedListener),
+        animateFloatAsState(target.weight, motion, label = "Weight", finishedListener = finishedListener),
+        animateFloatAsState(target.grade, motion, label = "Grade", finishedListener = finishedListener),
+        animateFloatAsState(target.opticalSize, motion, label = "Optical size", finishedListener = finishedListener),
     )
 }
 
@@ -135,8 +138,8 @@ private fun Glyph(codePoint: Int, x: Int, y: Int, size: Int, axes: List<State<Fl
 }
 
 @Composable
-private fun Comparison(target: Axes) {
-    val axes = animatedAxes(target)
+private fun Comparison(target: Axes, finishedListener: (Float) -> Unit) {
+    val axes = animatedAxes(target, finishedListener)
     Box(Modifier.size(Width.dp, Height.dp).background(Color.White)) {
         Label("Material Icons Extended", 24, 8, 28, bold = true)
         Label("Symbols", 592, 8, 28, bold = true)
@@ -188,12 +191,19 @@ private suspend fun capture(name: String, comparison: Boolean) {
     // The comparison duration can change; don't mix this capture with older frames.
     output.listFiles()?.filter { it.name.matches(Regex("\\d{4}\\.png")) }?.forEach { it.delete() }
     val states = if (comparison) ComparisonStates else VariableStates
-    val framesPerStep = if (comparison) FramesPerStep else 96
     val initial = states.first()
     val target = mutableStateOf(initial)
+    var animationFinished = true
+    if (comparison) {
+        // One completion callback is sufficient only when exactly one axis changes.
+        check(states.zipWithNext().all { (a, b) ->
+            listOf(a.fill != b.fill, a.weight != b.weight, a.grade != b.grade, a.opticalSize != b.opticalSize)
+                .count { it } == 1
+        })
+    }
     val scene = ImageComposeScene(Width, Height, coroutineContext = Dispatchers.Unconfined) {
         MaterialExpressiveTheme {
-            if (comparison) Comparison(target.value) else VariableFonts(target.value)
+            if (comparison) Comparison(target.value) { animationFinished = true } else VariableFonts(target.value)
         }
     }
     var time = 0L
@@ -207,19 +217,34 @@ private suspend fun capture(name: String, comparison: Boolean) {
             while (!glyphsReady(frame(), comparison)) delay(5)
         }
         repeat(5) { frame() }
-        val frameCount = states.size * framesPerStep
         check(states.last() == initial)
-        File(output, "states.csv").writeText("frame,fill,weight,grade,opticalSize\n" +
-            states.mapIndexed { index, axes ->
-                "${index * framesPerStep},${axes.fill},${axes.weight},${axes.grade},${axes.opticalSize}"
-            }.joinToString("\n"))
-        for (index in 0 until frameCount) {
-            if (index % framesPerStep == 0) {
-                Snapshot.withMutableSnapshot { target.value = states[index / framesPerStep] }
-            }
+        var frameCount = 0
+        fun recordFrame() {
             val png = frame()
-            if (index % 2 == 0) File(output, "%04d.png".format(index / 2)).writeBytes(png)
+            if (frameCount % 2 == 0) File(output, "%04d.png".format(frameCount / 2)).writeBytes(png)
+            frameCount++
         }
+        val timeline = mutableListOf("frame,settledFrame,endFrame,fill,weight,grade,opticalSize")
+        for ((index, axes) in states.withIndex()) {
+            val startFrame = frameCount
+            var settledFrame: Int? = null
+            animationFinished = index == 0
+            Snapshot.withMutableSnapshot { target.value = axes }
+            if (comparison) {
+                while (!animationFinished) {
+                    check(frameCount - startFrame < 600) { "Animation did not finish: $axes" }
+                    recordFrame()
+                }
+                // Align the hold to an exported 30 fps frame, preserving all 1.5 seconds.
+                if (frameCount % 2 != 0) recordFrame()
+                settledFrame = frameCount
+                repeat(SettledHoldFrames) { recordFrame() }
+            } else {
+                repeat(96) { recordFrame() }
+            }
+            timeline += "$startFrame,${settledFrame ?: ""},$frameCount,${axes.fill},${axes.weight},${axes.grade},${axes.opticalSize}"
+        }
+        File(output, "states.csv").writeText(timeline.joinToString("\n"))
         println("Captured $name: ${frameCount / 2} frames, ${frameCount / 60.0} seconds, 30 fps")
     } finally {
         scene.close()

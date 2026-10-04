@@ -12,8 +12,11 @@ DESTINATION = HERE.parents[1] / "docs" / "media"
 
 def encode(name: str) -> None:
     paths = sorted((HERE / "build" / "frames" / name).glob("*.png"))
-    count = 456 if name == "icons-comparison" else 240
+    with (HERE / "build" / "frames" / name / "states.csv").open() as source:
+        states = list(csv.DictReader(source))
+    count = int(states[-1]["endFrame"]) // 2 if name == "icons-comparison" else 240
     assert len(paths) == count, f"Expected {count} captured frames, got {len(paths)}"
+    assert [p.name for p in paths] == [f"{i:04d}.png" for i in range(count)], "Missing or stale frames"
     frames = []
     for path in paths:
         with Image.open(path) as image:
@@ -32,21 +35,32 @@ def encode(name: str) -> None:
         assert all(ImageChops.difference(first.crop(left), frame.crop(left)).getbbox() is None for frame in frames), "Legacy side must remain still"
         crops = [(588 + i * 104, 58, 668 + i * 104, 138) for i in range(4)]
         expected = [
-            (1, 400, 24), (0, 400, 24), (0, 700, 24), (0, 700, 20),
-            (0, 700, 48), (0, 100, 48), (0, 100, 20), (0, 400, 20),
-            (0, 400, 48), (0, 400, 24), (1, 400, 24), (1, 700, 24),
-            (1, 700, 20), (1, 700, 48), (1, 100, 48), (1, 100, 20),
-            (1, 400, 20), (1, 400, 48), (1, 400, 24),
+            (1, 400, 0, 24), (1, 700, 0, 24), (1, 100, 0, 24), (1, 400, 0, 24),
+            (1, 400, 0, 20), (1, 400, 0, 24), (1, 400, 0, 48), (1, 400, 0, 24),
+            (1, 400, -50, 24), (1, 400, 0, 24), (1, 400, 200, 24), (1, 400, 0, 24),
+            (0, 400, 0, 24), (0, 700, 0, 24), (0, 100, 0, 24), (0, 400, 0, 24),
+            (0, 400, 0, 20), (0, 400, 0, 24), (0, 400, 0, 48), (0, 400, 0, 24),
+            (0, 400, -50, 24), (0, 400, 0, 24), (0, 400, 200, 24), (0, 400, 0, 24),
+            (1, 400, 0, 24),
         ]
-        with (paths[0].parent / "states.csv").open() as source:
-            states = list(csv.DictReader(source))
         assert len(states) == len(expected)
+        previous_end = 0
+        settled = []
         for index, (state, axes) in enumerate(zip(states, expected)):
-            assert int(state["frame"]) == index * 48
-            assert float(state["grade"]) == 0
-            assert tuple(float(state[key]) for key in ("fill", "weight", "opticalSize")) == axes
+            start, finish, end = (int(state[key]) for key in ("frame", "settledFrame", "endFrame"))
+            assert start == previous_end and start <= finish < end
+            assert all(frame % 2 == 0 for frame in (start, finish, end)), "Timing must align with exported frames"
+            assert end - finish == 90, "Every completed spring needs a 1.5-second hold"
+            assert (finish == start) if index == 0 else (finish > start), "Wait for the animation completion callback"
+            assert tuple(float(state[key]) for key in ("fill", "weight", "grade", "opticalSize")) == axes
+            hold = frames[finish // 2:end // 2]
+            assert all(ImageChops.difference(hold[0], frame).getbbox() is None for frame in hold), "Settled hold must be pixel-static"
+            settled.append(hold[0].crop((578, 50, 1000, 145)))
+            previous_end = end
+        changes = [[a != b for a, b in zip(before, after)] for before, after in zip(expected, expected[1:])]
+        assert all(sum(change) == 1 for change in changes), "Only one axis may change at a time"
+        assert [sum(change[axis] for change in changes) for axis in range(4)] == [2, 6, 8, 8]
         # Every prescribed transition must visibly reach the renderer before the next one.
-        settled = [frames[index * 24 + 23].crop((578, 50, 1000, 145)) for index in range(len(expected))]
         assert all(ImageChops.difference(a, b).getbbox() for a, b in zip(settled, settled[1:])), "Missing visible transition"
     else:
         crops = [(73 + i * 250, 44, 177 + i * 250, 148) for i in range(4)]
@@ -54,8 +68,6 @@ def encode(name: str) -> None:
             (0, 400, 0, 24), (1, 700, 200, 48), (0, 400, 0, 24),
             (1, 100, -50, 20), (0, 400, 0, 24),
         ]
-        with (paths[0].parent / "states.csv").open() as source:
-            states = list(csv.DictReader(source))
         assert len(states) == len(expected)
         for index, (state, axes) in enumerate(zip(states, expected)):
             assert int(state["frame"]) == index * 96
@@ -78,7 +90,7 @@ def encode(name: str) -> None:
         target,
         save_all=True,
         append_images=frames[1:],
-        duration=[33, 34, 33] * (count // 3),
+        duration=[[33, 34, 33][index % 3] for index in range(count)],
         loop=2,
         disposal=0,
         blend=0,

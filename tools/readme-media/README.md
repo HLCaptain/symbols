@@ -31,34 +31,31 @@ Both compact layouts use black glyphs and text on white, without card boxes,
 subtitles, or footer labels. The comparison retains its main titles and icon
 names, with an actual Rounded `ArrowForward` ImageVector between the two sides. Material Icons
 Extended 1.7.3 Rounded vectors stay fixed on the left through standard `Icon`.
-On the right, Symbols' live Rounded font animates fill, weight, and optical size
-at the same layout size and tint. It begins and ends at
-`FILL=1, wght=400, opsz=24`.
+On the right, Symbols' live Rounded font animates fill, weight, optical size,
+and grade at the same layout size and tint. It begins and ends at
+`FILL=1, wght=400, GRAD=0, opsz=24`.
 
-The comparison holds each target for 0.8 seconds: 19 targets make a 15.2-second
-loop. Weight and optical-size transitions run first unfilled, then filled:
+The comparison runs these three segments in order at `FILL=1`, switches to
+`FILL=0`, repeats all three, then returns to `FILL=1` at the default axes.
+Each transition changes exactly one axis; the other axes retain their values.
 
-| Step | `FILL` | `wght` | `opsz` |
-| ---: | ---: | ---: | ---: |
-| 1 | 1 | 400 | 24 |
-| 2 | 0 | 400 | 24 |
-| 3 | 0 | 700 | 24 |
-| 4 | 0 | 700 | 20 |
-| 5 | 0 | 700 | 48 |
-| 6 | 0 | 100 | 48 |
-| 7 | 0 | 100 | 20 |
-| 8 | 0 | 400 | 20 |
-| 9 | 0 | 400 | 48 |
-| 10 | 0 | 400 | 24 |
-| 11 | 1 | 400 | 24 |
-| 12 | 1 | 700 | 24 |
-| 13 | 1 | 700 | 20 |
-| 14 | 1 | 700 | 48 |
-| 15 | 1 | 100 | 48 |
-| 16 | 1 | 100 | 20 |
-| 17 | 1 | 400 | 20 |
-| 18 | 1 | 400 | 48 |
-| 19 | 1 | 400 | 24 |
+| Segment | Axis targets |
+| --- | --- |
+| Weight | `400 → 700 → 100 → 400` |
+| Optical size | `24 → 20 → 24 → 48 → 24` |
+| Grade | `0 → -50 → 0 → 200 → 0` |
+
+The 25 targets produce 24 transitions: two fill changes, six weight changes,
+eight optical-size changes, and eight grade changes. The initial state holds
+for 1.5 seconds. Every transition then waits for its expressive spring to finish
+and holds the settled state for another 1.5 seconds before advancing. The
+measured comparison lasts approximately 52.37 seconds: 1,571 captured frames
+at 30 fps.
+
+`states.csv` records each target's start (`frame`), completion-aligned hold
+start (`settledFrame`), and end (`endFrame`) as native 60 Hz frame indices.
+The encoder verifies that all 25 holds span 90 native frames (1.5 seconds) with
+identical pixels throughout, and that all 24 transitions are visible.
 
 The variable-font image has four columns from one font, isolating fill, weight,
 grade, and optical size. Weight, grade, and optical size follow
@@ -74,15 +71,17 @@ Five targets held for 1.6 seconds each make an eight-second loop.
 Medium uses the font's default weight, grade, and optical size.
 Each column centers its title, glyph, and numeric axis labels; there is no
 overall title or subtitle. Optical size adjusts glyph detail within a fixed
-layout size. Explanatory captions live in the README. The font snapshot is documented in
+layout size. Explanatory captions live in the README. The font snapshot is
+documented in
 [asset provenance](../../fonts/material/README.md); Google icon attribution and
 Apache 2.0 terms are in [third-party notices](../../THIRD_PARTY_NOTICES.md).
 
 Only the two final APNGs and their still alternatives in `docs/media` are tracked.
 The `.png` extension is intentional: APNG remains a standard PNG with a readable
-first frame. The comparison runs for 15.2 seconds and the variable-font demo
-remains eight seconds. Each animation plays twice and ends on its initial
-state. The encoder verifies motion in every icon/axis, a completely static legacy
-panel, seamless loop endpoints, decoded duration and repeat count. Frames and
+first frame. The variable-font demo remains eight seconds. Each animation plays
+twice and ends on its initial state. The encoder verifies motion in every
+icon/axis, a completely static legacy panel, seamless loop endpoints, decoded
+duration and repeat count. Comparison checks also cover segment order,
+single-axis transitions, spring completion, and the settled holds. Frames and
 Gradle outputs remain under ignored `build/`. Platform fonts may change text
 rasterization across operating systems; regenerate both assets on the same host.
