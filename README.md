@@ -14,7 +14,8 @@ Shrinkable vectors and Android drawables that help keep APKs small.
 
 The left side uses fixed classic Material Icons Extended vectors through
 standard `Icon`; the right uses the live Rounded Material Symbols font. Both
-start filled: Symbols begins at `FILL=1, wght=400`, then varies fill and weight.
+start filled. Symbols varies fill, weight, and optical size, beginning and
+ending at `FILL=1, wght=400, opsz=24`.
 
 Replace `material-icons-extended` while keeping Compose's standard `Icon`.
 Add a pack and use typed names—without per-icon downloads or hand-maintained

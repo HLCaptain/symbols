@@ -30,7 +30,7 @@ import io.github.hlcaptain.symbols.Symbols
 import io.github.hlcaptain.symbols.font.SymbolFontIcon
 import io.github.hlcaptain.symbols.font.fontSettings
 import io.github.hlcaptain.symbols.material.*
-import io.github.hlcaptain.symbols.material.rounded.vectors.ArrowRight
+import io.github.hlcaptain.symbols.material.rounded.vectors.ArrowForward
 import io.github.hlcaptain.symbols.material.rounded.vectors.Home
 import java.io.File
 import javax.imageio.ImageIO
@@ -42,9 +42,10 @@ import org.jetbrains.skia.EncodedImageFormat
 import org.jetbrains.skia.Image
 
 private val Font = Symbols.Material.Rounded.font
-private const val Width = 1120
-private const val Height = 256
+private const val Width = 1000
+private const val Height = 200
 private const val FrameNanos = 16_666_667L
+private const val FramesPerStep = 48 // 0.8 seconds on the 60 Hz animation clock.
 
 private data class Example(val name: String, val legacy: ImageVector, val codePoint: Int)
 private val Examples = listOf(
@@ -60,6 +61,20 @@ private data class Axes(
     val grade: Float = 0f,
     val opticalSize: Float = 24f,
 )
+
+private val WeightAndOpticalStates = listOf(
+    Axes(weight = 700f),
+    Axes(weight = 700f, opticalSize = 20f),
+    Axes(weight = 700f, opticalSize = 48f),
+    Axes(weight = 100f, opticalSize = 48f),
+    Axes(weight = 100f, opticalSize = 20f),
+    Axes(weight = 400f, opticalSize = 20f),
+    Axes(weight = 400f, opticalSize = 48f),
+    Axes(),
+)
+private val ComparisonStates = listOf(Axes(fill = 1f), Axes()) +
+    WeightAndOpticalStates + listOf(Axes(fill = 1f)) +
+    WeightAndOpticalStates.map { it.copy(fill = 1f) }
 
 // Real Compose state animations, driven by the capture scene's deterministic frame clock.
 @Composable
@@ -116,14 +131,14 @@ private fun Glyph(codePoint: Int, x: Int, y: Int, size: Int, axes: List<State<Fl
 private fun Comparison(target: Axes) {
     val axes = animatedAxes(target)
     Box(Modifier.size(Width.dp, Height.dp).background(Color.White)) {
-        Label("Material Icons Extended", 68, 30, 25, bold = true)
-        Label("Symbols", 676, 30, 25, bold = true)
-        Icon(Icons.Rounded.ArrowRight, null, Modifier.offset(532.dp, 114.dp).size(56.dp), tint = Color.Black)
+        Label("Material Icons Extended", 24, 8, 28, bold = true)
+        Label("Symbols", 592, 8, 28, bold = true)
+        Icon(Icons.Rounded.ArrowForward, null, Modifier.offset(472.dp, 70.dp).size(56.dp), tint = Color.Black)
         Examples.forEachIndexed { i, icon ->
-            Icon(icon.legacy, null, Modifier.offset((64 + i * 108).dp, 110.dp).size(64.dp), tint = Color.Black)
-            Glyph(icon.codePoint, 672 + i * 108, 110, 64, axes)
-            listOf(48, 656).forEach { start ->
-                CenteredLabel(icon.name, start + i * 108, 194, 96, 12)
+            Icon(icon.legacy, null, Modifier.offset((20 + i * 104).dp, 58.dp).size(80.dp), tint = Color.Black)
+            Glyph(icon.codePoint, 588 + i * 104, 58, 80, axes)
+            listOf(10, 578).forEach { start ->
+                CenteredLabel(icon.name, start + i * 104, 150, 100, 15)
             }
         }
     }
@@ -137,10 +152,10 @@ private fun VariableFonts(target: Axes) {
         val ranges = listOf("Outline ↔ filled", "Light ↔ bold", "Fine ↔ strong", "Small ↔ large detail")
         val codepoints = listOf(Symbols.Material.Favorite, Symbols.Material.Home, Symbols.Material.AccountTree, Symbols.Material.VolumeOff)
         for (i in 0..3) {
-            val x = 24 + i * 276
-            CenteredLabel(labels[i], x, 22, 248, 20, bold = true)
-            Glyph(codepoints[i].codePoint, x + 80, 86, 88, axes, onlyAxis = i)
-            CenteredLabel(ranges[i], x, 198, 248, 15)
+            val x = i * 250
+            CenteredLabel(labels[i], x, 4, 250, 24, bold = true)
+            Glyph(codepoints[i].codePoint, x + 73, 44, 104, axes, onlyAxis = i)
+            CenteredLabel(ranges[i], x, 160, 250, 18)
         }
     }
 }
@@ -150,9 +165,9 @@ private fun Image.png(): ByteArray = encodeToData(EncodedImageFormat.PNG)!!.use 
 private fun glyphsReady(png: ByteArray, comparison: Boolean): Boolean {
     val image = ImageIO.read(png.inputStream())
     return (0..3).all { i ->
-        val left = if (comparison) 672 + i * 108 else 104 + i * 276
-        val top = if (comparison) 110 else 86
-        val side = if (comparison) 64 else 88
+        val left = if (comparison) 588 + i * 104 else 73 + i * 250
+        val top = if (comparison) 58 else 44
+        val side = if (comparison) 80 else 104
         var ink = 0
         for (y in top until top + side) for (x in left until left + side) {
             if ((image.getRGB(x, y) and 0xFF) < 120) ink++
@@ -163,6 +178,8 @@ private fun glyphsReady(png: ByteArray, comparison: Boolean): Boolean {
 
 private suspend fun capture(name: String, comparison: Boolean) {
     val output = File("build/frames/$name").apply { mkdirs() }
+    // The comparison duration can change; don't mix this capture with older frames.
+    output.listFiles()?.filter { it.name.matches(Regex("\\d{4}\\.png")) }?.forEach { it.delete() }
     val initial = if (comparison) Axes(fill = 1f) else Axes()
     val target = mutableStateOf(initial)
     val scene = ImageComposeScene(Width, Height, coroutineContext = Dispatchers.Unconfined) {
@@ -181,13 +198,17 @@ private suspend fun capture(name: String, comparison: Boolean) {
             while (!glyphsReady(frame(), comparison)) delay(5)
         }
         repeat(5) { frame() }
-        for (index in 0 until 480) {
-            val next = if (comparison) when (index) {
-                60 -> Axes(fill = 1f, weight = 600f)
-                156 -> Axes(fill = 0f, weight = 600f)
-                252 -> Axes(fill = 0f, weight = 300f)
-                348 -> initial
-                else -> null
+        val frameCount = if (comparison) ComparisonStates.size * FramesPerStep else 480
+        if (comparison) {
+            check(ComparisonStates.first() == initial && ComparisonStates.last() == initial)
+            File(output, "states.csv").writeText("frame,fill,weight,grade,opticalSize\n" +
+                ComparisonStates.mapIndexed { index, axes ->
+                    "${index * FramesPerStep},${axes.fill},${axes.weight},${axes.grade},${axes.opticalSize}"
+                }.joinToString("\n"))
+        }
+        for (index in 0 until frameCount) {
+            val next = if (comparison) {
+                ComparisonStates[index / FramesPerStep].takeIf { index % FramesPerStep == 0 }
             } else when (index) {
                 60 -> Axes(1f, 650f, 180f, 44f)
                 180 -> Axes(0f, 150f, -40f, 22f)
@@ -199,7 +220,7 @@ private suspend fun capture(name: String, comparison: Boolean) {
             val png = frame()
             if (index % 2 == 0) File(output, "%04d.png".format(index / 2)).writeBytes(png)
         }
-        println("Captured $name: 240 frames, 8 seconds, 30 fps")
+        println("Captured $name: ${frameCount / 2} frames, ${frameCount / 60.0} seconds, 30 fps")
     } finally {
         scene.close()
     }
