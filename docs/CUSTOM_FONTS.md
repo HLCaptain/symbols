@@ -12,7 +12,7 @@ depend on it transitively; a custom-only module can add it directly:
 
 ```kotlin
 implementation(
-    "io.github.hlcaptain:symbols-variant-font-core:0.1.0-SNAPSHOT",
+    "io.github.hlcaptain:symbols-variant-font-core:2.1.0",
 )
 ```
 
@@ -115,7 +115,7 @@ Outlined, Rounded, or Sharp selection used by theme-aware Material vectors:
 
 ```kotlin
 implementation(
-    "io.github.hlcaptain:symbols-material-compose:0.1.0-SNAPSHOT",
+    "io.github.hlcaptain:symbols-material-compose:2.1.0",
 )
 ```
 

@@ -8,32 +8,30 @@ and the project uses [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-10-04
+
 ### Added
 
-- Automatic testing snapshots pinned to each main push's commit, using
-  `<current-release>-SNAPSHOT-<8sha>`. They reuse release verification and publish
-  only to authenticated GitHub Packages, with GitHub prereleases that are not
-  marked latest. Normal releases retain Maven Central and the Plugin Portal.
-- Typed `Symbols.Material.Rounded.Filled.*` and
-  `Symbols.Material.AutoMirrored.Rounded.Filled.*` ImageVectors at
-  `FILL=1, GRAD=0, opsz=24, wght=400`. Aliases share codepoint caches, and
-  fill-invariant icons reuse their existing normal or mirrored vectors.
+- Filled Rounded ImageVectors through `Symbols.Material.Rounded.Filled.*` and
+  `Symbols.Material.AutoMirrored.Rounded.Filled.*`, with equivalent `Icons`
+  entry points. All 4,102 Rounded names are available in the existing vector
+  artifact and work with the standard Compose `Icon` API.
+- Commit-pinned testing snapshots for each push to `main`, published to
+  authenticated GitHub Packages as `<current-release>-SNAPSHOT-<8sha>`.
+  Stable releases remain available from Maven Central and the Gradle Plugin Portal.
 
 ### Changed
 
-- Recover testing snapshots using reviewed newer publisher code while preserving
-  the exact source tag and version. Backend-specific successful job receipts
-  permit completed components to be skipped; unconfirmed existing snapshot files
-  stop publication instead of being overwritten or deleted.
-- Allow manual testing-snapshot recovery to select entirely absent library
-  publications through validated native Gradle task paths. Full source
-  verification, selected-file absence checks, and final whole-library availability
-  remain required. Increase the GitHub library publication step/job limits to
-  150/180 minutes after the observed partial-upload timeout; tooling limits stay
-  90/120 minutes.
-- Store Rounded vector outlines as per-icon SVG path strings, parsed by Compose
-  on first use through a shared cached builder. Existing getters, default
-  geometry, vector names, and explicit RTL behavior are preserved.
+- More compact Rounded vector storage with per-icon path strings and lazy
+  parsing through Compose. The measured Android AAR is about 51.5% smaller
+  than 2.0.0, including filled variants; this is a library-download measurement,
+  not a promised APK reduction. See [the measurements](docs/PERFORMANCE.md#rounded-filled-vectors).
+- Aliases share their codepoint's cache, and fill-invariant icons reuse their
+  existing normal or mirrored vectors. Typed icons retain independent shrinking.
+
+Existing default and themed getters retain `FILL=0`. The new Filled getters use
+`FILL=1, GRAD=0, opsz=24, wght=400`. Existing APIs, artifact coordinates, platform
+support, font assets, and consumer requirements are unchanged from 2.0.0.
 
 ## [2.0.0]
 
@@ -219,5 +217,3 @@ historical changes, not additional changes in 2.0.0.
   governance.
 - Signed Maven Central staging for stable release tags while retaining GitHub
   Packages snapshots.
-
-No versioned release has been published yet.
