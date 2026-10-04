@@ -29,37 +29,47 @@ waits for visible glyphs before recording; it does not assume a font-loading del
 
 Both compact layouts use black glyphs and text on white, without card boxes,
 subtitles, or footer labels. The comparison retains its main titles and icon
-names, with an actual Rounded `ArrowForward` ImageVector between the two sides. Material Icons
-Extended 1.7.3 Rounded vectors stay fixed on the left through standard `Icon`.
+names: `Home`, `AccountTree`, `Favorite`, and `VolumeOff`. An actual Rounded
+`ArrowForward` ImageVector sits between the two sides. Material Icons Extended
+1.7.3 Rounded vectors stay fixed on the left through standard `Icon`.
+Labels use the legacy vector's `name.substringAfterLast('.')`, matching the
+rendered reference names.
 On the right, Symbols' live Rounded font animates fill, weight, optical size,
-and grade at the same layout size and tint. It begins and ends at
+and grade at the same requested icon size and tint. It begins and ends at
 `FILL=1, wght=400, GRAD=0, opsz=24`.
 
-The comparison runs these three segments in order at `FILL=1`, switches to
-`FILL=0`, repeats all three, then returns to `FILL=1` at the default axes.
-Each transition changes exactly one axis; the other axes retain their values.
+Starting filled at the default axes, the comparison runs these three segments
+in order. After each of the 12 axis steps, it toggles fill before advancing to
+the next axis step. Each transition changes exactly one axis; the other axes
+retain their values. The final fill toggle returns to `FILL=1` at the defaults.
 
 | Segment | Axis targets |
 | --- | --- |
-| Weight | `400 → 700 → 100 → 400` |
+| Weight | `400 → 100 → 400 → 700 → 400` |
 | Optical size | `24 → 20 → 24 → 48 → 24` |
 | Grade | `0 → -50 → 0 → 200 → 0` |
 
-The 25 targets produce 24 transitions: two fill changes, six weight changes,
-eight optical-size changes, and eight grade changes. The initial state holds
-for 1.5 seconds. Every transition then waits for its expressive spring to finish
-and holds the settled state for another 1.5 seconds before advancing. The
-measured comparison lasts approximately 52.37 seconds: 1,571 captured frames
-at 30 fps.
+The 25 targets produce 24 transitions: 12 fill changes and four changes each
+to weight, optical size, and grade. The initial state holds for 1.5 seconds.
+Every transition then waits for its expressive spring to finish and holds the
+settled state for another 1.5 seconds before advancing. The measured comparison
+lasts 49.633 seconds: 1,489 exported frames at 30 fps.
 
 `states.csv` records each target's start (`frame`), completion-aligned hold
 start (`settledFrame`), and end (`endFrame`) as native 60 Hz frame indices.
 The encoder verifies that all 25 holds span 90 native frames (1.5 seconds) with
 identical pixels throughout, and that all 24 transitions are visible.
 
+Capture glyphs use 1.25-em drawing boxes, adding `size / 8` on each edge for the
+pinned Rounded font's 1.2-em line height. Font size stays unchanged; this adjusts
+only the capture layout, not the released renderer. The clipping guard rejected
+the original square bounds. The padded capture then matched a reference with
+another 20 pixels on each edge across all 2,978 comparison and 480 variable-demo
+native frames, verifying every frame against roomier drawing bounds.
+
 The variable-font image has four columns from one font, isolating fill, weight,
 grade, and optical size. Weight, grade, and optical size follow
-medium → large → medium → small → medium. Fill alternates 0 → 1 → 0 → 1 → 0.
+medium → small → medium → large → medium. Fill alternates 0 → 1 → 0 → 1 → 0.
 Five targets held for 1.6 seconds each make an eight-second loop.
 
 | Axis | Small | Medium | Large |
@@ -78,10 +88,10 @@ Apache 2.0 terms are in [third-party notices](../../THIRD_PARTY_NOTICES.md).
 
 Only the two final APNGs and their still alternatives in `docs/media` are tracked.
 The `.png` extension is intentional: APNG remains a standard PNG with a readable
-first frame. The variable-font demo remains eight seconds. Each animation plays
-twice and ends on its initial state. The encoder verifies motion in every
-icon/axis, a completely static legacy panel, seamless loop endpoints, decoded
-duration and repeat count. Comparison checks also cover segment order,
+first frame. The variable-font demo remains eight seconds (240 exported frames).
+Each animation plays twice and ends on its initial state. The encoder verifies
+motion in every icon/axis, a completely static legacy panel, seamless loop
+endpoints, decoded duration and repeat count. Comparison checks cover segment order,
 single-axis transitions, spring completion, and the settled holds. Frames and
 Gradle outputs remain under ignored `build/`. Platform fonts may change text
 rasterization across operating systems; regenerate both assets on the same host.

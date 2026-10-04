@@ -14,9 +14,9 @@ Shrinkable vectors and Android drawables that help keep APKs small.
 
 The left side uses fixed classic Material Icons Extended vectors through
 standard `Icon`; the right uses the live Rounded Material Symbols font. Both
-start filled. Symbols varies weight, optical size, and grade in filled and
-unfilled passes, changing one axis at a time and pausing after each spring
-finishes. It begins and ends at `FILL=1, wght=400, GRAD=0, opsz=24`.
+start filled. Symbols varies weight, optical size, and grade, toggling fill
+after every axis step. Each transition changes one axis and pauses after its
+spring finishes. It begins and ends at `FILL=1, wght=400, GRAD=0, opsz=24`.
 
 Replace `material-icons-extended` while keeping Compose's standard `Icon`.
 Add a pack and use typed names—without per-icon downloads or hand-maintained
@@ -110,7 +110,7 @@ font, then use your Material 3 motion scheme:
 [Still image](docs/media/variable-fonts-still.png)
 
 The four columns use one Rounded variable font, varying one axis at a time.
-Weight, grade, and optical size follow medium → large → medium → small → medium;
+Weight, grade, and optical size follow medium → small → medium → large → medium;
 fill alternates 0 → 1 → 0 → 1 → 0. Each loop lasts eight seconds, with numeric
 axis labels. Optical size adjusts glyph detail within a fixed layout size.
 

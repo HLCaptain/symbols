@@ -35,12 +35,12 @@ def encode(name: str) -> None:
         assert all(ImageChops.difference(first.crop(left), frame.crop(left)).getbbox() is None for frame in frames), "Legacy side must remain still"
         crops = [(588 + i * 104, 58, 668 + i * 104, 138) for i in range(4)]
         expected = [
-            (1, 400, 0, 24), (1, 700, 0, 24), (1, 100, 0, 24), (1, 400, 0, 24),
-            (1, 400, 0, 20), (1, 400, 0, 24), (1, 400, 0, 48), (1, 400, 0, 24),
-            (1, 400, -50, 24), (1, 400, 0, 24), (1, 400, 200, 24), (1, 400, 0, 24),
-            (0, 400, 0, 24), (0, 700, 0, 24), (0, 100, 0, 24), (0, 400, 0, 24),
-            (0, 400, 0, 20), (0, 400, 0, 24), (0, 400, 0, 48), (0, 400, 0, 24),
-            (0, 400, -50, 24), (0, 400, 0, 24), (0, 400, 200, 24), (0, 400, 0, 24),
+            (1, 400, 0, 24), (1, 100, 0, 24), (0, 100, 0, 24), (0, 400, 0, 24),
+            (1, 400, 0, 24), (1, 700, 0, 24), (0, 700, 0, 24), (0, 400, 0, 24),
+            (1, 400, 0, 24), (1, 400, 0, 20), (0, 400, 0, 20), (0, 400, 0, 24),
+            (1, 400, 0, 24), (1, 400, 0, 48), (0, 400, 0, 48), (0, 400, 0, 24),
+            (1, 400, 0, 24), (1, 400, -50, 24), (0, 400, -50, 24), (0, 400, 0, 24),
+            (1, 400, 0, 24), (1, 400, 200, 24), (0, 400, 200, 24), (0, 400, 0, 24),
             (1, 400, 0, 24),
         ]
         assert len(states) == len(expected)
@@ -59,14 +59,14 @@ def encode(name: str) -> None:
             previous_end = end
         changes = [[a != b for a, b in zip(before, after)] for before, after in zip(expected, expected[1:])]
         assert all(sum(change) == 1 for change in changes), "Only one axis may change at a time"
-        assert [sum(change[axis] for change in changes) for axis in range(4)] == [2, 6, 8, 8]
+        assert [sum(change[axis] for change in changes) for axis in range(4)] == [12, 4, 4, 4]
         # Every prescribed transition must visibly reach the renderer before the next one.
         assert all(ImageChops.difference(a, b).getbbox() for a, b in zip(settled, settled[1:])), "Missing visible transition"
     else:
         crops = [(73 + i * 250, 44, 177 + i * 250, 148) for i in range(4)]
         expected = [
-            (0, 400, 0, 24), (1, 700, 200, 48), (0, 400, 0, 24),
-            (1, 100, -50, 20), (0, 400, 0, 24),
+            (0, 400, 0, 24), (1, 100, -50, 20), (0, 400, 0, 24),
+            (1, 700, 200, 48), (0, 400, 0, 24),
         ]
         assert len(states) == len(expected)
         for index, (state, axes) in enumerate(zip(states, expected)):

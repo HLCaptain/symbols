@@ -47,12 +47,14 @@ private const val Height = 200
 private const val FrameNanos = 16_666_667L
 private const val SettledHoldFrames = 90 // 1.5 seconds after the spring finishes, at 60 Hz.
 
-private data class Example(val name: String, val legacy: ImageVector, val codePoint: Int)
+private data class Example(val legacy: ImageVector, val codePoint: Int) {
+    val name: String get() = legacy.name.substringAfterLast('.')
+}
 private val Examples = listOf(
-    Example("Home", LegacyIcons.Rounded.Home, Symbols.Material.Home.codePoint),
-    Example("Account tree", LegacyIcons.Rounded.AccountTree, Symbols.Material.AccountTree.codePoint),
-    Example("Favorite", LegacyIcons.Rounded.Favorite, Symbols.Material.Favorite.codePoint),
-    Example("Volume off", LegacyIcons.Rounded.VolumeOff, Symbols.Material.VolumeOff.codePoint),
+    Example(LegacyIcons.Rounded.Home, Symbols.Material.Home.codePoint),
+    Example(LegacyIcons.Rounded.AccountTree, Symbols.Material.AccountTree.codePoint),
+    Example(LegacyIcons.Rounded.Favorite, Symbols.Material.Favorite.codePoint),
+    Example(LegacyIcons.Rounded.VolumeOff, Symbols.Material.VolumeOff.codePoint),
 )
 
 private data class Axes(
@@ -63,8 +65,9 @@ private data class Axes(
 )
 
 private val AxisSegments = listOf(
-    Axes(weight = 700f),
     Axes(weight = 100f),
+    Axes(),
+    Axes(weight = 700f),
     Axes(),
     Axes(opticalSize = 20f),
     Axes(),
@@ -75,14 +78,20 @@ private val AxisSegments = listOf(
     Axes(grade = 200f),
     Axes(),
 )
-private val ComparisonStates = listOf(Axes(fill = 1f)) +
-    AxisSegments.map { it.copy(fill = 1f) } + listOf(Axes()) +
-    AxisSegments + listOf(Axes(fill = 1f))
+private val ComparisonStates = buildList {
+    var fill = 1f
+    add(Axes(fill = fill))
+    for (axes in AxisSegments) {
+        add(axes.copy(fill = fill))
+        fill = 1f - fill
+        add(axes.copy(fill = fill))
+    }
+}
 private val VariableStates = listOf(
     Axes(),
-    Axes(fill = 1f, weight = 700f, grade = 200f, opticalSize = 48f),
-    Axes(),
     Axes(fill = 1f, weight = 100f, grade = -50f, opticalSize = 20f),
+    Axes(),
+    Axes(fill = 1f, weight = 700f, grade = 200f, opticalSize = 48f),
     Axes(),
 )
 
@@ -117,12 +126,19 @@ private fun CenteredLabel(text: String, x: Int, y: Int, width: Int, size: Int, b
 }
 
 @Composable
-private fun Glyph(codePoint: Int, x: Int, y: Int, size: Int, axes: List<State<Float>>, onlyAxis: Int? = null) {
+private fun Glyph(
+    codePoint: Int, x: Int, y: Int, size: Int, axes: List<State<Float>>,
+    onlyAxis: Int? = null, extraDrawingSpace: Int = 0,
+) {
+    // The pinned font's line height is 1.2 em. Give it a 1.25 em drawing box,
+    // centered on the same slot, while keeping the requested font size unchanged.
+    val padding = size / 8 + extraDrawingSpace
     SymbolFontIcon(
         codePoint = codePoint,
         font = Font,
         contentDescription = null,
-        modifier = Modifier.offset(x.dp, y.dp),
+        modifier = Modifier.offset((x - padding).dp, (y - padding).dp)
+            .size((size + padding * 2).dp),
         size = size.dp,
         tint = Color.Black,
         fontSettings = {
@@ -138,7 +154,7 @@ private fun Glyph(codePoint: Int, x: Int, y: Int, size: Int, axes: List<State<Fl
 }
 
 @Composable
-private fun Comparison(target: Axes, finishedListener: (Float) -> Unit) {
+private fun Comparison(target: Axes, extraDrawingSpace: Int = 0, finishedListener: (Float) -> Unit) {
     val axes = animatedAxes(target, finishedListener)
     Box(Modifier.size(Width.dp, Height.dp).background(Color.White)) {
         Label("Material Icons Extended", 24, 8, 28, bold = true)
@@ -146,7 +162,7 @@ private fun Comparison(target: Axes, finishedListener: (Float) -> Unit) {
         Icon(Icons.Rounded.ArrowForward, null, Modifier.offset(472.dp, 70.dp).size(56.dp), tint = Color.Black)
         Examples.forEachIndexed { i, icon ->
             Icon(icon.legacy, null, Modifier.offset((20 + i * 104).dp, 58.dp).size(80.dp), tint = Color.Black)
-            Glyph(icon.codePoint, 588 + i * 104, 58, 80, axes)
+            Glyph(icon.codePoint, 588 + i * 104, 58, 80, axes, extraDrawingSpace = extraDrawingSpace)
             listOf(10, 578).forEach { start ->
                 CenteredLabel(icon.name, start + i * 104, 150, 100, 15)
             }
@@ -155,7 +171,7 @@ private fun Comparison(target: Axes, finishedListener: (Float) -> Unit) {
 }
 
 @Composable
-private fun VariableFonts(target: Axes) {
+private fun VariableFonts(target: Axes, extraDrawingSpace: Int = 0) {
     val axes = animatedAxes(target)
     Box(Modifier.size(Width.dp, Height.dp).background(Color.White)) {
         val labels = listOf("Fill", "Weight", "Grade", "Optical size")
@@ -164,7 +180,7 @@ private fun VariableFonts(target: Axes) {
         for (i in 0..3) {
             val x = i * 250
             CenteredLabel(labels[i], x, 4, 250, 24, bold = true)
-            Glyph(codepoints[i].codePoint, x + 73, 44, 104, axes, onlyAxis = i)
+            Glyph(codepoints[i].codePoint, x + 73, 44, 104, axes, onlyAxis = i, extraDrawingSpace = extraDrawingSpace)
             CenteredLabel(ranges[i], x, 160, 250, 18)
         }
     }
@@ -206,17 +222,40 @@ private suspend fun capture(name: String, comparison: Boolean) {
             if (comparison) Comparison(target.value) { animationFinished = true } else VariableFonts(target.value)
         }
     }
+    // Same released renderer and font size, with a roomier layout to reveal internal clipping.
+    val reference = ImageComposeScene(Width, Height, coroutineContext = Dispatchers.Unconfined) {
+        MaterialExpressiveTheme {
+            if (comparison) Comparison(target.value, extraDrawingSpace = 20) {}
+            else VariableFonts(target.value, extraDrawingSpace = 20)
+        }
+    }
     var time = 0L
+    var referencePng = byteArrayOf()
+    var verifyClipping = false
     fun frame(): ByteArray {
         Snapshot.sendApplyNotifications()
-        return scene.render(time).use { it.png() }.also { time += FrameNanos }
+        val png = scene.render(time).use { it.png() }
+        referencePng = reference.render(time).use { it.png() }
+        if (verifyClipping && !png.contentEquals(referencePng)) {
+            val failure = File("build/clipping-check").apply { mkdirs() }
+            File(failure, "$name-clipped.png").writeBytes(png)
+            File(failure, "$name-unclipped-reference.png").writeBytes(referencePng)
+            error("Glyph rendering differs with additional drawing space at $time ns ($name)")
+        }
+        time += FrameNanos
+        return png
     }
     try {
         // Font loading is asynchronous. Never record an empty first frame or guess a sleep time.
         withTimeout(20_000) {
-            while (!glyphsReady(frame(), comparison)) delay(5)
+            while (true) {
+                val png = frame()
+                if (glyphsReady(png, comparison) && glyphsReady(referencePng, comparison)) break
+                delay(5)
+            }
         }
         repeat(5) { frame() }
+        verifyClipping = true
         check(states.last() == initial)
         var frameCount = 0
         fun recordFrame() {
@@ -246,14 +285,17 @@ private suspend fun capture(name: String, comparison: Boolean) {
         }
         File(output, "states.csv").writeText(timeline.joinToString("\n"))
         println("Captured $name: ${frameCount / 2} frames, ${frameCount / 60.0} seconds, 30 fps")
+        println("Verified all $frameCount frames against the unclipped reference")
     } finally {
         scene.close()
+        reference.close()
     }
 }
 
 fun main() = runBlocking {
     // Compile-check the migration-first README call against the released vector artifact too.
     check(Icons.Rounded.Home.viewportWidth > 0)
+    check(Examples.map { it.name } == listOf("Home", "AccountTree", "Favorite", "VolumeOff"))
     capture("icons-comparison", comparison = true)
     capture("variable-fonts", comparison = false)
 }
