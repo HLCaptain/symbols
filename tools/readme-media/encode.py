@@ -14,12 +14,6 @@ HERE = Path(__file__).resolve().parent
 DESTINATION = HERE.parents[1] / "docs" / "media"
 
 
-def vector_silhouette(frame):
-    # Vector coverage retains a zero channel; native fonts use captured black references.
-    red, green, blue = frame.split()
-    return ImageChops.darker(ImageChops.darker(red, green), blue)
-
-
 def encode(name: str) -> None:
     assert name in ("icons-comparison", "variable-fonts"), f"Unknown capture: {name}"
     paths = sorted((HERE / "build" / "frames" / name).glob("*.png"))
@@ -51,20 +45,27 @@ def encode(name: str) -> None:
             with Image.open(path) as image:
                 assert image.size == (1000, 200)
                 shapes.append(image.convert("L"))
-        left = (0, 0, 578, 200)
-        first_left = vector_silhouette(first).crop(left)
-        assert all(ImageChops.difference(first_left, vector_silhouette(frame).crop(left)).getbbox() is None for frame in frames), "Legacy shapes must remain still"
-        for crop in ((0, 0, 1000, 45), (0, 150, 1000, 200), (450, 0, 578, 200)):
-            assert all(ImageChops.difference(first.crop(crop), frame.crop(crop)).getbbox() is None for frame in frames), "Text, arrow, and background must remain still"
+        left = (0, 0, 450, 200)
+        first_left = first.crop(left)
+        red, green, blue = first_left.split()
+        assert ImageChops.difference(red, green).getbbox() is None
+        assert ImageChops.difference(red, blue).getbbox() is None, "Legacy icons must stay black"
+        assert all(ImageChops.difference(first_left, frame.crop(left)).getbbox() is None for frame in frames), "Legacy side must remain still"
+        for crop in ((0, 0, 1000, 45), (0, 150, 1000, 200)):
+            assert all(ImageChops.difference(first.crop(crop), frame.crop(crop)).getbbox() is None for frame in frames), "Text and background must remain still"
+        arrow_crop = (450, 50, 578, 145)
+        arrow_boxes = []
+        for frame in frames:
+            red, green, blue = frame.crop(arrow_crop).split()
+            assert ImageChops.difference(red, green).getbbox() is None
+            assert ImageChops.difference(red, blue).getbbox() is None, "Arrow must stay black"
+            arrow_boxes.append(ImageChops.invert(red).getbbox())
+        resting_arrow = arrow_boxes[0]
+        assert resting_arrow is not None
+        assert all(box is not None and box[1::2] == resting_arrow[1::2]
+                   and box[2] - box[0] == resting_arrow[2] - resting_arrow[0]
+                   and 0 <= box[0] - resting_arrow[0] <= 8 for box in arrow_boxes), "Arrow must move horizontally within 8 pixels"
         crops = [(588 + i * 104, 58, 668 + i * 104, 138) for i in range(4)]
-        both_sides = [(20 + i * 104, 58, 100 + i * 104, 138) for i in range(4)] + crops
-        assert (count - 1) % 150 == 0, "The loop must finish a complete five-second hue cycle"
-        for index in sorted({0, 1, 2, 3, count - 1, 50, 100, *range(0, count, 15)}):
-            hue_frame = index // 3 * 3
-            expected_color = tuple(round(channel * 255) for channel in colorsys.hsv_to_rgb((hue_frame % 150) / 150, 1, 0.6))
-            for crop in both_sides:
-                ink = min(frames[index].crop(crop).get_flattened_data(), key=sum)
-                assert all(abs(actual - expected) <= 1 for actual, expected in zip(ink, expected_color)), f"Unsynchronized rainbow tint in frame {index}: {ink} != {expected_color}"
         expected = [
             (1, 400, 0, 24), (1, 100, 0, 24), (0, 100, 0, 24), (0, 400, 0, 24),
             (1, 400, 0, 24), (1, 700, 0, 24), (0, 700, 0, 24), (0, 400, 0, 24),
@@ -81,14 +82,27 @@ def encode(name: str) -> None:
             start, finish, end = (int(state[key]) for key in ("frame", "settledFrame", "endFrame"))
             assert start == previous_end and start <= finish < end
             assert all(frame % 2 == 0 for frame in (start, finish, end)), "Timing must align with exported frames"
-            if index == len(expected) - 1:
-                assert 90 <= end - finish < 390, "The final hold completes the hue cycle"
-            else:
-                assert end - finish == 90, "Every completed spring needs a 1.5-second hold"
+            assert end - finish == 90, "Every completed spring needs a 1.5-second hold"
             assert (finish == start) if index == 0 else (finish > start), "Wait for the animation completion callback"
             assert tuple(float(state[key]) for key in ("fill", "weight", "grade", "opticalSize")) == axes
             hold = shapes[finish // 2:end // 2]
             assert all(ImageChops.difference(hold[0], frame).getbbox() is None for frame in hold), "Settled hold must keep its shape"
+            colored_hold = frames[finish // 2:end // 2]
+            assert all(ImageChops.difference(colored_hold[0], frame).getbbox() is None for frame in colored_hold), "Tint must stay fixed throughout the hold"
+            expected_color = tuple(round(channel * 255) for channel in colorsys.hsv_to_rgb(index / (len(expected) - 1), 1, 0.6))
+            for crop in crops:
+                ink = min(colored_hold[0].crop(crop).get_flattened_data(), key=sum)
+                assert all(abs(actual - color) <= 1 for actual, color in zip(ink, expected_color)), f"Unexpected settled Symbols tint in state {index}: {ink} != {expected_color}"
+            if index:
+                transition = frames[start // 2:finish // 2]
+                tints = {min(frame.crop(crops[0]).get_flattened_data(), key=sum) for frame in transition}
+                assert len(tints) > 1, "Tint must animate during the transition"
+                arrow_track = [box[0] - resting_arrow[0] for box in arrow_boxes[start // 2:finish // 2]]
+                assert max(arrow_track) == 8 and arrow_track[0] == 0 and arrow_track[-1] == 0, "Each transition needs a complete arrow nudge"
+                peak = arrow_track.index(8)
+                assert all(a <= b for a, b in zip(arrow_track[:peak], arrow_track[1:peak + 1]))
+                assert all(a >= b for a, b in zip(arrow_track[peak:], arrow_track[peak + 1:])), "Arrow must return gently without reversing again"
+                assert ImageChops.difference(colored_hold[0].crop(arrow_crop), first.crop(arrow_crop)).getbbox() is None, "Arrow must return to rest before the hold"
             settled.append(hold[0].crop((578, 50, 1000, 145)))
             previous_end = end
         changes = [[a != b for a, b in zip(before, after)] for before, after in zip(expected, expected[1:])]
@@ -127,11 +141,12 @@ def encode(name: str) -> None:
     ], check=True)
     # Inspect the encoded output as well as the source frames; Pillow never writes media.
     with Image.open(target) as decoded:
-        assert decoded.is_animated and decoded.n_frames > 30
+        assert decoded.is_animated and decoded.n_frames == count
         assert decoded.info["loop"] == 2
         duration = 0
         for index in range(decoded.n_frames):
             decoded.seek(index)
+            assert ImageChops.difference(frames[index], decoded.convert("RGB")).getbbox() is None, f"Encoded frame {index} differs from native capture"
             duration += decoded.info["duration"]
         assert abs(duration - count * 1000 / 30) < 1, f"Unexpected duration: {duration}"
         assert ImageChops.difference(first, decoded.convert("RGB")).getbbox() is None

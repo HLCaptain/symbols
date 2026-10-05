@@ -1,6 +1,10 @@
 @file:OptIn(androidx.compose.ui.ExperimentalComposeUiApi::class)
 
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.CubicBezierEasing
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.keyframes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
@@ -15,8 +19,10 @@ import androidx.compose.material3.MaterialExpressiveTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.Snapshot
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ImageComposeScene
@@ -30,7 +36,6 @@ import io.github.hlcaptain.symbols.Symbols
 import io.github.hlcaptain.symbols.font.SymbolFontIcon
 import io.github.hlcaptain.symbols.font.fontSettings
 import io.github.hlcaptain.symbols.material.*
-import io.github.hlcaptain.symbols.material.rounded.vectors.ArrowForward
 import io.github.hlcaptain.symbols.material.rounded.vectors.Home
 import java.io.File
 import javax.imageio.ImageIO
@@ -46,7 +51,6 @@ private const val Width = 1000
 private const val Height = 200
 private const val FrameNanos = 16_666_667L
 private const val SettledHoldFrames = 90 // 1.5 seconds after the spring finishes, at 60 Hz.
-private const val RainbowCycleFrames = 300 // Five seconds at 60 Hz.
 
 private data class Example(val legacy: ImageVector, val codePoint: Int) {
     val name: String get() = legacy.name.substringAfterLast('.')
@@ -109,6 +113,33 @@ private fun animatedAxes(target: Axes, finishedListener: ((Float) -> Unit)? = nu
 }
 
 @Composable
+private fun animatedTint(step: Float, finishedListener: ((Float) -> Unit)? = null): Color {
+    val animatedStep = animateFloatAsState(
+        step, MaterialTheme.motionScheme.defaultSpatialSpec<Float>(),
+        label = "Hue", finishedListener = finishedListener,
+    ).value
+    val hue = (animatedStep * 360f / ComparisonStates.lastIndex % 360f + 360f) % 360f
+    return Color.hsv(hue, 1f, 0.6f)
+}
+
+@Composable
+private fun animatedArrow(step: Float, finishedListener: (() -> Unit)? = null): Float {
+    val offset = remember { Animatable(0f) }
+    LaunchedEffect(step) {
+        if (step != 0f) {
+            offset.animateTo(0f, keyframes {
+                durationMillis = 1000
+                0f at 0 using FastOutSlowInEasing
+                8f at 350 using CubicBezierEasing(0.42f, 0f, 0.58f, 1f)
+                0f at 1000
+            })
+        }
+        finishedListener?.invoke()
+    }
+    return offset.value
+}
+
+@Composable
 private fun Label(text: String, x: Int, y: Int, size: Int = 16, bold: Boolean = false) {
     Text(
         text,
@@ -155,14 +186,24 @@ private fun Glyph(
 }
 
 @Composable
-private fun Comparison(target: Axes, tint: Color, extraDrawingSpace: Int = 0, finishedListener: (Float) -> Unit) {
+private fun Comparison(target: Axes, tint: Color, arrowOffset: Float = 0f, extraDrawingSpace: Int = 0, finishedListener: (Float) -> Unit) {
     val axes = animatedAxes(target, finishedListener)
     Box(Modifier.size(Width.dp, Height.dp).background(Color.White)) {
         Label("Material Icons Extended", 24, 8, 28, bold = true)
         Label("Symbols", 592, 8, 28, bold = true)
-        Icon(Icons.Rounded.ArrowForward, null, Modifier.offset(472.dp, 70.dp).size(56.dp), tint = Color.Black)
+        val arrowPadding = 56 / 8 + extraDrawingSpace
+        SymbolFontIcon(
+            codePoint = Symbols.Material.KeyboardDoubleArrowRight.codePoint,
+            font = Font,
+            contentDescription = null,
+            modifier = Modifier.offset((472f + arrowOffset - arrowPadding).dp, (70 - arrowPadding).dp)
+                .size((56 + arrowPadding * 2).dp),
+            size = 56.dp,
+            tint = Color.Black,
+            fontSettings = { Font.fontSettings(mapOf("wght" to 700f)) },
+        )
         Examples.forEachIndexed { i, icon ->
-            Icon(icon.legacy, null, Modifier.offset((20 + i * 104).dp, 58.dp).size(80.dp), tint = tint)
+            Icon(icon.legacy, null, Modifier.offset((20 + i * 104).dp, 58.dp).size(80.dp), tint = Color.Black)
             Glyph(icon.codePoint, 588 + i * 104, 58, 80, axes, extraDrawingSpace = extraDrawingSpace, tint = tint)
             listOf(10, 578).forEach { start ->
                 CenteredLabel(icon.name, start + i * 104, 150, 100, 15)
@@ -213,8 +254,10 @@ private suspend fun capture(name: String, comparison: Boolean) {
     val states = if (comparison) ComparisonStates else VariableStates
     val initial = states.first()
     val target = mutableStateOf(initial)
-    val tint = mutableStateOf(Color.hsv(0f, 1f, 0.6f))
+    val hueStep = mutableStateOf(0f)
     var animationFinished = true
+    var hueFinished = true
+    var arrowFinished = true
     if (comparison) {
         // One completion callback is sufficient only when exactly one axis changes.
         check(states.zipWithNext().all { (a, b) ->
@@ -224,19 +267,27 @@ private suspend fun capture(name: String, comparison: Boolean) {
     }
     val scene = ImageComposeScene(Width, Height, coroutineContext = Dispatchers.Unconfined) {
         MaterialExpressiveTheme {
-            if (comparison) Comparison(target.value, tint.value) { animationFinished = true } else VariableFonts(target.value)
+            if (comparison) {
+                Comparison(
+                    target.value,
+                    animatedTint(hueStep.value) { hueFinished = true },
+                    animatedArrow(hueStep.value) { arrowFinished = true },
+                ) {
+                    animationFinished = true
+                }
+            } else VariableFonts(target.value)
         }
     }
     // Same released renderer and font size, with a roomier layout to reveal internal clipping.
     val reference = ImageComposeScene(Width, Height, coroutineContext = Dispatchers.Unconfined) {
         MaterialExpressiveTheme {
-            if (comparison) Comparison(target.value, tint.value, extraDrawingSpace = 20) {}
+            if (comparison) Comparison(target.value, animatedTint(hueStep.value), animatedArrow(hueStep.value), extraDrawingSpace = 20) {}
             else VariableFonts(target.value, extraDrawingSpace = 20)
         }
     }
     // Skia's font antialiasing depends on tint; verify settled geometry in its original black.
     val shapes = if (comparison) ImageComposeScene(Width, Height, coroutineContext = Dispatchers.Unconfined) {
-        MaterialExpressiveTheme { Comparison(target.value, Color.Black) {} }
+        MaterialExpressiveTheme { Comparison(target.value, Color.Black, animatedArrow(hueStep.value)) {} }
     } else null
     var time = 0L
     var referencePng = byteArrayOf()
@@ -271,11 +322,6 @@ private suspend fun capture(name: String, comparison: Boolean) {
         check(states.last() == initial)
         var frameCount = 0
         fun recordFrame() {
-            if (comparison) Snapshot.withMutableSnapshot {
-                // ponytail: 10 Hz hue limits file size; remove quantization if 30 Hz fits the media budget.
-                val colorFrame = frameCount / 6 * 6
-                tint.value = Color.hsv((colorFrame % RainbowCycleFrames) * 360f / RainbowCycleFrames, 1f, 0.6f)
-            }
             val png = frame()
             if (frameCount % 2 == 0) {
                 val filename = "%04d.png".format(frameCount / 2)
@@ -289,9 +335,14 @@ private suspend fun capture(name: String, comparison: Boolean) {
             val startFrame = frameCount
             var settledFrame: Int? = null
             animationFinished = index == 0
-            Snapshot.withMutableSnapshot { target.value = axes }
+            hueFinished = index == 0
+            arrowFinished = index == 0
+            Snapshot.withMutableSnapshot {
+                target.value = axes
+                hueStep.value = index.toFloat()
+            }
             if (comparison) {
-                while (!animationFinished) {
+                while (!animationFinished || !hueFinished || !arrowFinished) {
                     check(frameCount - startFrame < 600) { "Animation did not finish: $axes" }
                     recordFrame()
                 }
@@ -299,10 +350,6 @@ private suspend fun capture(name: String, comparison: Boolean) {
                 if (frameCount % 2 != 0) recordFrame()
                 settledFrame = frameCount
                 repeat(SettledHoldFrames) { recordFrame() }
-                // Finish the final hue cycle on the original shape, including its first color.
-                if (index == states.lastIndex) {
-                    while ((frameCount - 2) % RainbowCycleFrames != 0) recordFrame()
-                }
             } else {
                 repeat(96) { recordFrame() }
             }
