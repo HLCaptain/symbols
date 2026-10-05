@@ -25,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ImageComposeScene
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -125,12 +126,12 @@ private fun animatedArrow(step: Float, finishedListener: (() -> Unit)? = null): 
     val motion = MaterialTheme.motionScheme
     LaunchedEffect(step) {
         if (step != 0f) {
-            offset.animateTo(8f, motion.fastSpatialSpec<Float>())
-            offset.animateTo(0f, motion.slowSpatialSpec<Float>())
+            offset.animateTo(8f, motion.fastEffectsSpec<Float>())
+            offset.animateTo(0f, motion.slowEffectsSpec<Float>())
         }
         finishedListener?.invoke()
     }
-    return offset.value
+    return offset.value.also { check(it in 0f..8f) { "Arrow effect must not overshoot" } }
 }
 
 @Composable
@@ -185,14 +186,18 @@ private fun Comparison(target: Axes, tint: Color, arrowOffset: Float = 0f, extra
     Box(Modifier.size(Width.dp, Height.dp).background(Color.White)) {
         Label("Material Icons Extended", 24, 8, 28, bold = true)
         Label("Symbols", 592, 8, 28, bold = true)
-        val arrowPadding = 56 / 8 + extraDrawingSpace
+        val arrowPadding = 60 / 8 + extraDrawingSpace
         SymbolFontIcon(
             codePoint = Symbols.Material.KeyboardDoubleArrowRight.codePoint,
             font = Font,
             contentDescription = null,
-            modifier = Modifier.offset((472f + arrowOffset - arrowPadding).dp, (70 - arrowPadding).dp)
-                .size((56 + arrowPadding * 2).dp),
-            size = 56.dp,
+            modifier = Modifier.offset((470f + arrowOffset - arrowPadding).dp, (68 - arrowPadding).dp)
+                .size((60 + arrowPadding * 2).dp)
+                .graphicsLayer {
+                    scaleX = 1f + arrowOffset * 0.01f
+                    scaleY = scaleX
+                },
+            size = 60.dp,
             tint = Color.Black,
             fontSettings = { Font.fontSettings(mapOf("wght" to 700f)) },
         )

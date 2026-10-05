@@ -3,6 +3,7 @@
 
 import colorsys
 import csv
+from math import ceil
 from pathlib import Path
 import shutil
 import subprocess
@@ -62,9 +63,14 @@ def encode(name: str) -> None:
             arrow_boxes.append(ImageChops.invert(red).getbbox())
         resting_arrow = arrow_boxes[0]
         assert resting_arrow is not None
-        assert all(box is not None and box[1::2] == resting_arrow[1::2]
-                   and box[2] - box[0] == resting_arrow[2] - resting_arrow[0]
-                   and -1 <= box[0] - resting_arrow[0] <= 10 for box in arrow_boxes), "Expressive arrow must keep its spring overshoot small and horizontal"
+        assert all(box is not None for box in arrow_boxes), "Arrow must remain visible"
+        arrow_centers = [((box[0] + box[2]) / 2, (box[1] + box[3]) / 2) for box in arrow_boxes]
+        arrow_sizes = [(box[2] - box[0], box[3] - box[1]) for box in arrow_boxes]
+        rest_center, rest_size = arrow_centers[0], arrow_sizes[0]
+        assert all(-0.5 <= x - rest_center[0] <= 8.5 and abs(y - rest_center[1]) <= 0.5
+                   for x, y in arrow_centers), "Arrow must remain centered on its horizontal nudge"
+        assert all(rest_size[axis] - 1 <= size[axis] <= ceil(rest_size[axis] * 1.08) + 1
+                   for size in arrow_sizes for axis in (0, 1)), "Arrow scale must stay within the slight 8% pulse"
         crops = [(588 + i * 104, 58, 668 + i * 104, 138) for i in range(4)]
         expected = [
             (1, 400, 0, 24), (1, 100, 0, 24), (0, 100, 0, 24), (0, 400, 0, 24),
@@ -97,8 +103,13 @@ def encode(name: str) -> None:
                 transition = frames[start // 2:finish // 2]
                 tints = {min(frame.crop(crops[0]).get_flattened_data(), key=sum) for frame in transition}
                 assert len(tints) > 1, "Tint must animate during the transition"
-                arrow_track = [box[0] - resting_arrow[0] for box in arrow_boxes[start // 2:finish // 2]]
-                assert max(arrow_track) > 8 and arrow_track[0] == 0 and arrow_track[-1] == 0, "Each transition needs an expressive overshoot and a complete return"
+                arrow_track = [x - rest_center[0] for x, _ in arrow_centers[start // 2:finish // 2]]
+                assert 7.5 <= max(arrow_track) <= 8.5 and arrow_track[0] == 0 and arrow_track[-1] == 0, "Each transition needs a complete nudge without overshoot"
+                peak = arrow_track.index(max(arrow_track))
+                assert all(b >= a - 0.5 for a, b in zip(arrow_track[:peak], arrow_track[1:peak + 1]))
+                assert all(b <= a + 0.5 for a, b in zip(arrow_track[peak:], arrow_track[peak + 1:])), "Arrow must return without a rebound"
+                pulse_sizes = arrow_sizes[start // 2:finish // 2]
+                assert all(max(size[axis] for size in pulse_sizes) >= rest_size[axis] + 2 for axis in (0, 1)), "Arrow must visibly scale up and down"
                 assert ImageChops.difference(colored_hold[0].crop(arrow_crop), first.crop(arrow_crop)).getbbox() is None, "Arrow must return to rest before the hold"
             settled.append(hold[0].crop((578, 50, 1000, 145)))
             previous_end = end
