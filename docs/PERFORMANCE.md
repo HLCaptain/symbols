@@ -112,7 +112,9 @@ and JS/Wasm/Apple compare packed KLIBs. These numbers do not predict final APK s
 | material-core | JVM | 336,505 | 365,289 | +8.55% |
 
 The Rounded JVM and Android controls have byte-identical uncompressed leaf
-files. Their download-size increases come from packaging/compression. Outlined/Sharp expanded payload increases approximately
+files. Their download-size increases come from packaging/compression. Rounded
+KLIB payload differences are limited to the shorter capture-checkout source-path
+strings and rebuilt manifest fingerprints. Outlined/Sharp expanded payload increases approximately
 17–21% with the additional Filled getters and caches. Native ordinary AARs are
 3,090,038 / 3,792,455 / 2,856,321 bytes for Outlined/Rounded/Sharp, versus
 3,071,748 / 3,769,577 / 2,839,479 for 2.1.0; their XML payloads remain identical.
