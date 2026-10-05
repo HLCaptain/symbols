@@ -8,6 +8,8 @@ and the project uses [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [2.2.0] - 2026-10-05
+
 ### Added
 
 - Separate, opt-in Filled and AutoMirrored native Android drawable packs:
@@ -35,6 +37,9 @@ and the project uses [Semantic Versioning](https://semver.org/).
   Gradle 8.14.5 wrapper.
 - Preserve dependency task outputs during screenshot comparison and allow
   120 minutes for the head/base rendering workflow.
+- Shorten the README around migration from Material Icons Extended, with a
+  separate usage reference and reproducible animated Material Symbols and
+  variable-font demonstrations.
 
 ## [2.1.0] - 2026-10-04
 

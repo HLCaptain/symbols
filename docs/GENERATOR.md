@@ -32,12 +32,13 @@ pluginManagement {
 ```kotlin
 // build.gradle.kts
 plugins {
-    id("io.github.hlcaptain.symbol-fonts") version "0.1.0"
+    id("io.github.hlcaptain.symbol-fonts") version "2.2.0"
 }
 ```
 
-Development snapshots are not uploaded to a remote package registry. Inside a
-source checkout, resolve the exact checked-in tooling instead:
+Commit-pinned testing snapshots are published to authenticated GitHub Packages;
+see [snapshot setup](../RELEASING.md#consuming-testing-snapshots). Inside a source
+checkout, resolve the exact checked-in tooling instead:
 
 ```kotlin
 // settings.gradle.kts
@@ -58,7 +59,7 @@ plugins {
 }
 
 dependencies {
-    implementation("io.github.hlcaptain:symbols-core:0.1.0")
+    implementation("io.github.hlcaptain:symbols-core:2.2.0")
 }
 ```
 
@@ -227,9 +228,8 @@ Optional settings include `packageName`, `rootName`, `fontIndex`,
 `viewportHeight`. Defaults are a 24×24 viewport, four decimal places, and 64
 unique code points per Kotlin file.
 
-The next release adds `autoMirror.set(true)` to each style (not available in
-plugin 2.1.0). It sets `ImageVector.autoMirror` and XML `android:autoMirrored`
-without changing names or path geometry. The default is false. Enable it only
+Plugin 2.2.0 adds `autoMirror.set(true)` to each style. It sets
+`ImageVector.autoMirror` and XML `android:autoMirrored` without changing names or path geometry. The default is false. Enable it only
 for icons whose meaning should follow the right-to-left layout direction:
 
 ```kotlin
@@ -574,7 +574,7 @@ outlines.
 
 ## Native drawable variants
 
-**Next release (2.2.0):** native variants are separate, opt-in Android AARs.
+**Since 2.2.0:** native variants are separate, opt-in Android AARs.
 The existing `symbols-material-drawables-{outlined|rounded|sharp}` packs keep
 only their ordinary resources. Replace `{style}` below with `outlined`,
 `rounded`, or `sharp`:
