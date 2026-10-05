@@ -98,9 +98,9 @@ Tag a commit already on `main` using `MAJOR.MINOR.PATCH`, optionally followed by
 a lowercase alphanumeric qualifier such as `-alpha01`, `-beta01`, or `-rc01`:
 
 ```shell
-git tag -a 2.1.0 -m "Symbols 2.1.0"
-git push origin 2.1.0
-gh release create 2.1.0 --verify-tag --generate-notes --title 2.1.0
+git tag -a 2.2.0 -m "Symbols 2.2.0"
+git push origin 2.2.0
+gh release create 2.2.0 --verify-tag --generate-notes --title 2.2.0
 ```
 
 Alternatively, create the tag and publish its GitHub Release in the GitHub UI.

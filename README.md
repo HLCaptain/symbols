@@ -13,8 +13,8 @@ Shrinkable vectors and Android drawables that help keep APKs small.
 Replace the deprecated `material-icons-extended` library while keeping Compose's standard `Icon`.
 Add a pack and use typed names—without per-icon downloads or hand-maintained
 generated sources. Prebuilt packs need no Symbols Gradle plugin.
-Choose `Outlined`, `Rounded`, or `Sharp` Material Symbols, including filled `Rounded`
-vectors in 2.1.0. The catalog has 4,102 names covering 3,802 unique codepoints
+Choose `Outlined`, `Rounded`, or `Sharp` Material Symbols, including filled
+vectors in every style. The catalog has 4,102 names covering 3,802 unique codepoints
 per style. Use the same `Symbols` root for generated icons from your own assets.
 
 ## Add Symbols
@@ -29,7 +29,7 @@ repositories {
 
 kotlin {
     sourceSets.commonMain.dependencies {
-        implementation("io.github.hlcaptain:symbols-material-vectors-rounded:2.1.0")
+        implementation("io.github.hlcaptain:symbols-material-vectors-rounded:2.2.0")
     }
 }
 ```
@@ -76,7 +76,8 @@ available styles, and some names differ; review the visual result when migrating
 Direct named vectors are cached on first use and allow R8 to remove unused
 icons independently. The artwork comes from Google's
 [Material Symbols repository](https://github.com/google/material-design-icons).
-Ordinary getters use `FILL=0`; `.Filled` selects `FILL=1`.
+Ordinary getters use `FILL=0`; `.Filled` selects `FILL=1` in every style.
+See [filled vector examples](docs/USAGE.md#filled-vectors).
 
 <a id="theme-selected-vectors"></a>
 
@@ -97,7 +98,7 @@ savings vary. See [shrinking boundaries](docs/PERFORMANCE.md#shrinkability-bound
 ## Variable font styling
 
 Animate fill, weight, grade, or optical size without generating another vector.
-Add `io.github.hlcaptain:symbols-material-rounded:2.1.0` for the Rounded variable
+Add `io.github.hlcaptain:symbols-material-rounded:2.2.0` for the Rounded variable
 font, then use your Material 3 motion scheme:
 
 ![Four columns demonstrate fill, weight, grade, and optical size using one Rounded variable font. Weight, grade, and optical size move together from medium to small, medium, large, and medium; fill alternates between outline and filled. Numeric axis values appear below each icon. The eight-second loop uses Material 3 Expressive default spatial motion. Optical size changes glyph detail within a fixed layout size.](docs/media/variable-fonts.png)
@@ -145,7 +146,7 @@ directory of monochrome SVGs. Both produce the same typed `ImageVector` API:
 
 ```kotlin
 plugins {
-    id("io.github.hlcaptain.symbol-fonts") version "2.1.0"
+    id("io.github.hlcaptain.symbol-fonts") version "2.2.0"
 }
 
 symbolFonts {
@@ -159,7 +160,7 @@ symbolFonts {
 }
 ```
 
-Add `io.github.hlcaptain:symbols-core:2.1.0` to your application dependencies.
+Add `io.github.hlcaptain:symbols-core:2.2.0` to your application dependencies.
 With `icons/home.svg`, import the generated properties and render it normally:
 
 ```kotlin
@@ -187,7 +188,7 @@ through the same `SymbolFontIcon` renderer.
 Native drawable artifacts work with Views, XML, and Android's resource shrinker:
 
 ```kotlin
-implementation("io.github.hlcaptain:symbols-material-drawables-outlined:2.1.0")
+implementation("io.github.hlcaptain:symbols-material-drawables-outlined:2.2.0")
 ```
 
 ```xml
@@ -197,6 +198,10 @@ implementation("io.github.hlcaptain:symbols-material-drawables-outlined:2.1.0")
     android:contentDescription="@string/home"
     android:src="@drawable/material_symbols_outlined_home_ue9b2" />
 ```
+
+Add `-filled`, `-automirrored`, or `-automirrored-filled` to the artifact name
+for an optional variant pack. Each pack contains one family and is selected
+independently. See [variant dependencies and RTL setup](docs/GENERATOR.md#native-drawable-variants).
 
 Enable normal release shrinking to remove unused native resources:
 

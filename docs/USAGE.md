@@ -6,7 +6,7 @@ lookup, and runtime font configuration.
 
 ## Choose an artifact
 
-All coordinates use the `io.github.hlcaptain` group and version `2.1.0`.
+All coordinates use the `io.github.hlcaptain` group and version `2.2.0`.
 Kotlin Multiplatform consumers add dependencies to `commonMain.dependencies`.
 See the [consumer toolchain requirements](TOOLCHAIN_UPGRADE.md) before upgrading
 from Symbols 1.x.
@@ -18,7 +18,8 @@ from Symbols 1.x.
 | Familiar Compose `Icon(ImageVector, ...)` | `symbols-material-vectors-{outlined|rounded|sharp}` | Fixed vectors for one style; unused typed vectors can be removed by R8 |
 | Runtime style selection in Compose | `symbols-material-vectors-themed` | Fixed vectors for all three styles |
 | Standard Compose `painterResource(Res.drawable...)` | `symbols-material-compose-drawables-{outlined|rounded|sharp}` | Fixed Compose Multiplatform XML resources for one complete style |
-| Android XML and Views | `symbols-material-drawables-{outlined|rounded|sharp}` | Native `VectorDrawable` resources; unused resources can be removed by Android resource shrinking |
+| Android XML and Views | `symbols-material-drawables-{outlined|rounded|sharp}` | Ordinary native `VectorDrawable` resources; unused resources can be removed by Android resource shrinking |
+| Filled or mirrored Android XML and Views | Same native artifact with `-filled`, `-automirrored`, or `-automirrored-filled` | One independently selected resource family per AAR |
 | Runtime custom regular or variable fonts | `symbols-variant-font-core` | Generic Compose theme and code-point renderer; no bundled font or catalog |
 | Material vector style and font-settings theming | `symbols-material-compose` | Material style plus generic font settings; no bundled font |
 | Font icons on Android API 23+ | `symbols-material-{outlined|rounded|sharp}-static` | One indivisible regular font at the default axes |
@@ -44,7 +45,7 @@ Icon(
 
 The call shape matches `material-icons-extended`; the artwork is Material
 Symbols at `FILL=0, GRAD=0, opsz=24, wght=400`, so it is not always visually
-identical to the legacy icon. Rounded also provides the explicit filled
+identical to the legacy icon. Every style also provides the explicit filled
 snapshot below. Generate another fixed-axis snapshot or use the font renderer
 below when the design needs other axes.
 
@@ -85,11 +86,14 @@ Typed mirrored getters directly reach the same per-icon cache with
 and unmirrored instances are cached separately, with aliases sharing each
 variant's cache. This adds no runtime dispatcher, renderer, or artifact.
 
-### Filled Rounded vectors
+<a id="filled-rounded-vectors"></a>
 
-Symbols 2.1.0 adds `FILL=1` vectors to the existing Rounded
-artifact. Keep the standard Compose `Icon` API and import `Filled` plus the
-same generated icon properties:
+### Filled vectors
+
+Each style's existing vector artifact provides `FILL=1` getters. Rounded was
+added in Symbols 2.1.0; Outlined and Sharp are available from 2.2.0.
+Keep the standard Compose `Icon` API and import `Filled` plus the same generated
+icon properties:
 
 ```kotlin
 import androidx.compose.material3.Icon
@@ -105,18 +109,37 @@ Icon(Symbols.Material.Rounded.Filled.Favorite, contentDescription = "Favorite")
 Icon(Symbols.Material.AutoMirrored.Rounded.Filled.VolumeOff, contentDescription = "Muted")
 ```
 
-`Icons.Rounded.Filled.*` and `Icons.AutoMirrored.Rounded.Filled.*` are equivalent
-entry points. All named Rounded icons support both getters. They snapshot
+Outlined and Sharp use the same imports and call shape:
+
+```kotlin
+import androidx.compose.material3.Icon
+import io.github.hlcaptain.symbols.Symbols
+import io.github.hlcaptain.symbols.material.AutoMirrored
+import io.github.hlcaptain.symbols.material.Filled
+import io.github.hlcaptain.symbols.material.Material
+import io.github.hlcaptain.symbols.material.Outlined
+import io.github.hlcaptain.symbols.material.Sharp
+import io.github.hlcaptain.symbols.material.outlined.vectors.Favorite
+import io.github.hlcaptain.symbols.material.sharp.vectors.VolumeOff
+
+Icon(Symbols.Material.Outlined.Filled.Favorite, contentDescription = "Favorite")
+Icon(Symbols.Material.AutoMirrored.Sharp.Filled.VolumeOff, contentDescription = "Muted")
+```
+
+`Icons.<Style>.Filled.*` and `Icons.AutoMirrored.<Style>.Filled.*` are equivalent
+entry points. All 4,102 names in each style support both getters. They snapshot
 `FILL=1, GRAD=0, opsz=24, wght=400`; ordinary getters retain `FILL=0`. Choose the
 fill explicitly for each state. Catalog aliases such as `Favorite` and
 `FavoriteBorder` share the same outline, so changing the name alone does not
 select a different fill.
 
-Rounded outlines are stored as separate per-icon SVG path strings and parsed
-by Compose when that vector is first requested. A shared builder owns each
+Distinct filled outlines are stored as separate per-icon SVG path strings and
+parsed by Compose when that vector is first requested. A shared builder owns each
 icon's cached normal and mirrored instances; there is no runtime font asset or
-catalog-wide path table. Filled aliases share their codepoint's cache, and
-fill-invariant icons such as `Check` and `ArrowBack` reuse the ordinary vector.
+catalog-wide path table. Rounded also uses this storage for its default outlines;
+the ordinary Outlined and Sharp builders retain their existing path operations.
+Filled aliases share their codepoint's cache, and fill-invariant icons such as
+`Check` and `ArrowBack` reuse the ordinary vector.
 The themed getters continue to select the default `FILL=0` snapshots.
 
 ### Theme-selected vectors
@@ -193,7 +216,7 @@ is more convenient than an `ImageVector`:
 kotlin {
     sourceSets.commonMain.dependencies {
         implementation(
-            "io.github.hlcaptain:symbols-material-compose-drawables-rounded:2.1.0",
+            "io.github.hlcaptain:symbols-material-compose-drawables-rounded:2.2.0",
         )
     }
 }
@@ -231,7 +254,7 @@ one style to an Android module:
 ```kotlin
 dependencies {
     implementation(
-        "io.github.hlcaptain:symbols-material-drawables-outlined:2.1.0",
+        "io.github.hlcaptain:symbols-material-drawables-outlined:2.2.0",
     )
 }
 ```
@@ -246,7 +269,31 @@ Use a generated resource directly from XML:
     android:src="@drawable/material_symbols_outlined_home_ue9b2" />
 ```
 
-The same ID works with View Binding, Data Binding, `findViewById`,
+For Filled and AutoMirrored resources, add only the optional families your UI
+uses. Each style has `-filled`, `-automirrored`, and `-automirrored-filled` packs;
+none depends on another native pack. For example:
+
+```kotlin
+dependencies {
+    implementation("io.github.hlcaptain:symbols-material-drawables-rounded-automirrored-filled:2.2.0")
+}
+```
+
+Use `@drawable/material_symbols_automirrored_rounded_filled_volume_off_ue04f`
+from XML. Code accesses it through
+`io.github.hlcaptain.symbols.material.rounded.drawables.automirrored.filled.R`.
+The original namespace is `io.github.hlcaptain.symbols.material.{style}.drawables`;
+optional packs append `.filled`, `.automirrored`, or `.automirrored.filled`.
+XML uses the drawable name directly regardless of the namespace.
+
+The ordinary packs retain their existing resources. Filled selects `FILL=1`;
+AutoMirrored follows an RTL host View when the application enables
+`android:supportsRtl="true"`. See [variant names and the full View/XML mirroring
+setup](GENERATOR.md#native-drawable-variants), including custom drawing and API 21
+support. Selecting several packs also allocates resource IDs for their unused
+icons; choose only the families you need.
+
+Native resource IDs work with View Binding, Data Binding, `findViewById`,
 `setImageResource`, or `Context.getDrawable`:
 
 ```kotlin
