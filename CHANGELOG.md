@@ -8,7 +8,33 @@ and the project uses [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- Separate, opt-in Filled and AutoMirrored native Android drawable packs:
+  `symbols-material-drawables-{outlined|rounded|sharp}-{filled|automirrored|automirrored-filled}`.
+  Each AAR contains one resource family and has no dependency on the other
+  packs. The existing ordinary artifacts, resource names, and artwork are
+  unchanged; new names include
+  `material_symbols_automirrored_rounded_filled_home_ue9b2`. These variants are
+  not included in published 2.1.0.
+- Generator `autoMirror.set(true)` for generated ImageVectors and XML drawables.
+  The option defaults to false and leaves resource names and geometry unchanged.
+- Filled Outlined and Sharp ImageVectors through `Icons.{Outlined|Sharp}.Filled.*`
+  and `Icons.AutoMirrored.{Outlined|Sharp}.Filled.*`, with equivalent
+  `Symbols.Material` entry points. All 4,102 names use the existing style artifacts,
+  share alias caches, and reuse ordinary vectors when the fill does not change
+  their geometry. Existing default, themed, and Rounded APIs are unchanged.
+
 ### Changed
+
+- Keep optional native families out of ordinary AARs to avoid allocating their
+  unused Android resource IDs in existing applications. Focused regression tests
+  compare library archives and final shrunk APKs, including published KMP consumers.
+- Update the root Gradle wrapper to 9.8.0, BuildConfig to 6.1.2, Roborazzi to
+  1.76.0, and checked GitHub Actions dependencies. Public tooling retains its
+  Gradle 8.14.5 wrapper.
+- Preserve dependency task outputs during screenshot comparison and allow
+  120 minutes for the head/base rendering workflow.
 
 - Shorten the README around migration from Material Icons Extended, with a
   separate usage reference and reproducible animated Material Symbols and

@@ -267,6 +267,26 @@ def main() -> int:
         "optimized_resource_report_omits_input_font": True,
     }
 
+    for style in ("Outlined", "Sharp"):
+        for label, point, used in (("favorite", "E87E", True), ("mirrored_volume_off", "E04F", True),
+                                   ("unused_home", "E9B2", False)):
+            class_path = f"io/github/hlcaptain/symbols/material/{style.lower()}/vectors/{style}FilledVector{point}"
+            class_name = class_path.replace("/", ".")
+            key = f"{style.lower()}_filled_{label}"
+            evidence.update({
+                f"unshrunk_contains_{key}": class_path.encode() in unshrunk_dex,
+                f"shrunk_contains_{key}": class_path.encode() in shrunk_dex,
+                f"r8_mapping_retains_{key}": f"{class_name} -> " in mapping,
+            })
+            expected.update({
+                f"unshrunk_contains_{key}": True,
+                f"shrunk_contains_{key}": used,
+                f"r8_mapping_retains_{key}": used,
+            })
+            if not used:
+                evidence[f"r8_usage_reports_{key}"] = class_name in usage
+                expected[f"r8_usage_reports_{key}"] = True
+
     result = {
         "schema_version": 1,
         "variants": {"unshrunk": unshrunk, "shrunk": shrunk},

@@ -1,12 +1,13 @@
 # Shrinkable typed-vector Android benchmark
 
-This fixture measures a full `material-vectors-outlined` Android dependency
-while consuming exactly two typed vector properties:
+This fixture includes full `material-vectors-outlined` and `material-vectors-sharp`
+Android dependencies while consuming six typed vector properties:
 `Symbols.Material.Outlined.Check` and
-`Symbols.Material.AutoMirrored.Outlined.ArrowBack`.
+`Symbols.Material.AutoMirrored.Outlined.ArrowBack`, plus `Filled.Favorite` and
+`AutoMirrored.<Style>.Filled.VolumeOff` for both Outlined and Sharp.
 `MainActivity.java` calls the static JVM forms of those Kotlin extension getters
-and passes both vector names and `autoMirror` flags to `Activity.setTitle`,
-making the ordinary and mirrored values observable to R8. Neither call uses the
+and passes the vector names and `autoMirror` flags to `Activity.setTitle`,
+making the ordinary and mirrored values observable to R8. None of these calls uses the
 dynamic catalog dispatcher.
 
 The same application uses the generator's variant-aware Android font-resource
@@ -25,8 +26,8 @@ settings, and are unsigned. They differ only as follows:
 | `unshrunk` | off | off |
 | `shrunk` | R8 full mode, optimized defaults | on |
 
-The benchmark ProGuard file only preserves the *names* of surviving
-`OutlinedVector*` classes. `-keepnames` permits shrinking; it does not keep an
+The benchmark ProGuard file only preserves the *names* of surviving ordinary
+Outlined and filled Outlined/Sharp backing classes. `-keepnames` permits shrinking; it does not keep an
 otherwise-unused vector class.
 
 ## Verification
@@ -55,6 +56,9 @@ python3 benchmarks/shrinkable-vectors/verify.py
 - confirms the unrelated Home backing class `OutlinedVectorE9B2` is in the
   unshrunk APK but absent from every shrunk DEX;
 - corroborates that result with R8's mapping and usage reports;
+- confirms the filled Favorite and mirrored VolumeOff backing classes survive
+  in both styles, while unused filled Home classes appear in the unshrunk APK
+  and are removed by R8, corroborated by mapping and usage reports;
 - confirms the fixture's unused resource marker is removed from the APK and
   absent from the optimized resource shrinker's nonempty report, which must
   still contain the reachable app name;
@@ -68,8 +72,8 @@ An analysis exits nonzero unless every retention/removal assertion holds.
 
 ## Recorded resource-overlay result: 2026-09-02 (Check-only)
 
-This historical run predates the mirrored ArrowBack consumer. Its measurements
-do not describe the current two-vector fixture.
+This historical run predates the mirrored ArrowBack and Filled consumers. Its
+measurements do not describe the current six-vector fixture.
 
 The paired APKs were built locally with Gradle 8.14.5, Android Gradle Plugin
 8.13.2, JDK 21, compile SDK 36, one worker, and configuration cache disabled.

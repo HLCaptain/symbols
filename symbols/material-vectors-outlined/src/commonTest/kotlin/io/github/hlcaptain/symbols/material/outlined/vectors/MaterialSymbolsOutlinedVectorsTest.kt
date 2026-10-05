@@ -1,10 +1,13 @@
 package io.github.hlcaptain.symbols.material.outlined.vectors
 
+import androidx.compose.ui.graphics.vector.VectorPath
 import androidx.compose.ui.unit.dp
 import io.github.hlcaptain.symbols.Symbols
 import io.github.hlcaptain.symbols.material.ArrowBack
 import io.github.hlcaptain.symbols.material.AutoMirrored
+import io.github.hlcaptain.symbols.material.Filled
 import io.github.hlcaptain.symbols.material.Grade
+import io.github.hlcaptain.symbols.material.Icons
 import io.github.hlcaptain.symbols.material.Material
 import io.github.hlcaptain.symbols.material.Outlined
 import io.github.hlcaptain.symbols.material.Search
@@ -12,6 +15,7 @@ import io.github.hlcaptain.symbols.material.Star
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
+import kotlin.test.assertNotEquals
 import kotlin.test.assertNotSame
 import kotlin.test.assertSame
 import kotlin.test.assertTrue
@@ -80,6 +84,39 @@ class MaterialSymbolsOutlinedVectorsTest {
         assertSame(
             Symbols.Material.AutoMirrored.Outlined.Grade,
             Symbols.Material.Grade.asOutlinedImageVector(autoMirror = true),
+        )
+    }
+
+    @Test
+    fun filledHeartsHaveDistinctPathsAndShareAliasCachesAcrossEntryPoints() {
+        val normal = Symbols.Material.Outlined.Favorite
+        val filled = Symbols.Material.Outlined.Filled.Favorite
+        val mirrored = Symbols.Material.AutoMirrored.Outlined.Filled.Favorite
+
+        assertEquals("MaterialSymbolsOutlined.Filled.U+E87E", filled.name)
+        assertEquals("MaterialSymbolsOutlined.Filled.U+E87E.AutoMirrored", mirrored.name)
+        assertEquals(24.dp, filled.defaultWidth)
+        assertEquals(24.dp, filled.defaultHeight)
+        assertEquals(24f, filled.viewportWidth)
+        assertEquals(24f, filled.viewportHeight)
+        assertFalse(filled.autoMirror)
+        assertTrue(mirrored.autoMirror)
+        assertNotSame(normal, filled)
+        assertNotSame(filled, mirrored)
+        assertNotEquals((normal.root[0] as VectorPath).pathData, (filled.root[0] as VectorPath).pathData)
+        assertEquals((filled.root[0] as VectorPath).pathData, (mirrored.root[0] as VectorPath).pathData)
+        assertSame(filled, Icons.Outlined.Filled.Favorite)
+        assertSame(filled, Symbols.Material.Outlined.Filled.FavoriteBorder)
+        assertSame(mirrored, Icons.AutoMirrored.Outlined.Filled.FavoriteBorder)
+        assertSame(Symbols.Material.Outlined.Filled.Grade, Symbols.Material.Outlined.Filled.Star)
+    }
+
+    @Test
+    fun fillInvariantIconsReuseDefaultAndMirroredVectors() {
+        assertSame(Symbols.Material.Outlined.Check, Symbols.Material.Outlined.Filled.Check)
+        assertSame(
+            Symbols.Material.AutoMirrored.Outlined.ArrowBack,
+            Symbols.Material.AutoMirrored.Outlined.Filled.ArrowBack,
         )
     }
 

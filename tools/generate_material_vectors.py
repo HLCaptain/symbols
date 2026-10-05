@@ -734,8 +734,8 @@ def render_style(
             f"{style.name}: {len(paths)} paths for {len(code_points)} code points"
         )
 
-    if filled_paths is not None and (style.name != "rounded" or len(filled_paths) != len(code_points)):
-        raise GenerationError("Filled vectors require a Rounded path for every code point")
+    if filled_paths is not None and len(filled_paths) != len(code_points):
+        raise GenerationError("Filled vectors require a path for every code point")
 
     chunk_count = (
         len(code_points) + ICONS_PER_FILE - 1
@@ -751,7 +751,7 @@ def render_style(
             chunk_count,
         ),
     }
-    if style.name == "rounded":
+    if style.name == "rounded" or filled_paths is not None:
         rendered[style.source_directory / f"{style.title}VectorCache.generated.kt"] = render_shared_cache(style)
 
     for chunk_index, start in enumerate(
@@ -871,9 +871,8 @@ def main(argv: Sequence[str] | None = None) -> int:
                 svg_path_pen,
                 transform_pen,
             )
-            filled_paths = (
-                extract_paths(style, code_points, tt_font, svg_path_pen, transform_pen, fill=1.0)
-                if style.name == "rounded" else None
+            filled_paths = extract_paths(
+                style, code_points, tt_font, svg_path_pen, transform_pen, fill=1.0,
             )
             rendered.update(render_style(style, entries, code_points, paths, filled_paths))
         directories = [style.source_directory for style in selected_styles]

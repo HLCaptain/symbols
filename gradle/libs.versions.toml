@@ -10,7 +10,7 @@ sample-android-minSdk = "23"
 android-targetSdk = "36"
 androidx-activity = "1.13.0"
 androidx-appcompat = "1.8.0"
-buildconfig = "6.1.1"
+buildconfig = "6.1.2"
 composeMultiplatform = "1.12.1"
 # Material3 1.13 also pulls Compose UI/runtime onto 1.13 alpha; retain stable Compose 1.12.
 composeMaterial3 = "1.12.0-alpha03"
@@ -30,7 +30,7 @@ androidx-profileinstaller = "1.4.1"
 composePreviewScanner = "0.9.3"
 junit = "4.13.2"
 robolectric = "4.17"
-roborazzi = "1.75.0"
+roborazzi = "1.76.0"
 # Align with Compose 1.12.1's Skiko runtime to avoid native/JVM ABI mismatches.
 skiko = "0.150.1"
 

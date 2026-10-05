@@ -23,7 +23,7 @@ jobs:
       (github.event.action != 'labeled' && github.event.action != 'unlabeled') ||
       github.event.label.name == 'ui-review-approved'
     runs-on: macos-26-intel
-    timeout-minutes: 90
+    timeout-minutes: 120
     # Public fork PR tokens remain read-only. Publishing also checks repository identity.
     permissions:
       contents: write
@@ -154,7 +154,6 @@ jobs:
           ./gradlew
           :samples:image-vector-migration:compareRoborazziAndroidHostTest
           :samples:image-vector-migration:compareRoborazziJvm
-          --rerun-tasks
           --max-workers=1
           --no-daemon
           --stacktrace

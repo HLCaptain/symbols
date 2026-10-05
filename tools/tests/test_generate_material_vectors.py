@@ -265,52 +265,71 @@ class VectorGeneratorTest(unittest.TestCase):
         self.assertIn("roundedVectorChunk000(index, autoMirror)", index)
 
     def test_filled_getters_deduplicate_invariants_and_keep_aliases_direct(self) -> None:
-        style = generator.Style("rounded", "Rounded")
-        source = generator.render_icon_file(
-            style=style, chunk_index=0, start=0,
-            code_points=(0xE5CA, 0xF09A),
-            paths=("M1 2L3 4Z", "M5 6L7 8Z"),
-            filled_paths=("M1 2L3 4Z", "M9 10L11 12Z"),
-            names_by_code_point={0xE5CA: ("check",), 0xF09A: ("grade", "star")},
-        )
-
-        for root, mirror in (("Icons", "false"), ("Icons.AutoMirrored", "true")):
-            self.assertIn(
-                f"val {root}.Rounded.Filled.Check: ImageVector\n"
-                f"    get() = RoundedVectorE5CA.value(autoMirror = {mirror})",
-                source,
-            )
-            for name in ("Grade", "Star"):
-                self.assertIn(
-                    f"val {root}.Rounded.Filled.{name}: ImageVector\n"
-                    f"    get() = RoundedFilledVectorF09A.value(autoMirror = {mirror})",
-                    source,
+        for style in generator.STYLES:
+            with self.subTest(style=style.name):
+                source = generator.render_icon_file(
+                    style=style, chunk_index=0, start=0,
+                    code_points=(0xE5CA, 0xF09A),
+                    paths=("M1 2L3 4Z", "M5 6L7 8Z"),
+                    filled_paths=("M1 2L3 4Z", "M9 10L11 12Z"),
+                    names_by_code_point={0xE5CA: ("check",), 0xF09A: ("grade", "star")},
                 )
-        self.assertNotIn("private object RoundedFilledVectorE5CA", source)
-        self.assertEqual(1, source.count("private object RoundedFilledVectorF09A : RoundedVectorCache("))
-        self.assertIn('"MaterialSymbolsRounded.Filled.U+F09A",', source)
-        self.assertIn('"M9 10L11 12Z",', source)
-        self.assertIn('"M5 6L7 8Z",', source)
-        self.assertNotIn("PathParser", source)
-        self.assertNotIn("roundedFilledVectorAt", source)
+                for root, mirror in (("Icons", "false"), ("Icons.AutoMirrored", "true")):
+                    self.assertIn(
+                        f"val {root}.{style.title}.Filled.Check: ImageVector\n"
+                        f"    get() = {style.title}VectorE5CA.value(autoMirror = {mirror})",
+                        source,
+                    )
+                    for name in ("Grade", "Star"):
+                        self.assertIn(
+                            f"val {root}.{style.title}.Filled.{name}: ImageVector\n"
+                            f"    get() = {style.title}FilledVectorF09A.value(autoMirror = {mirror})",
+                            source,
+                        )
+                self.assertNotIn(f"private object {style.title}FilledVectorE5CA", source)
+                self.assertEqual(1, source.count(
+                    f"private object {style.title}FilledVectorF09A : {style.title}VectorCache("
+                ))
+                self.assertIn(f'"MaterialSymbols{style.title}.Filled.U+F09A",', source)
+                self.assertIn('"M9 10L11 12Z",', source)
+                self.assertNotIn(f"{style.name}FilledVectorAt", source)
 
     def test_pinned_fill_axis_changes_hearts_but_not_arrows(self) -> None:
-        style = generator.Style("rounded", "Rounded")
         tt_font, svg_pen, transform_pen, _ = generator.import_fonttools()
-        points = (0xE5C4, 0xE87E, 0xE88E)
-        normal = generator.extract_paths(style, points, tt_font, svg_pen, transform_pen)
-        filled = generator.extract_paths(style, points, tt_font, svg_pen, transform_pen, fill=1.0)
-
-        self.assertEqual(normal[0], filled[0])
-        self.assertNotEqual(normal[1], filled[1])
-        self.assertNotEqual(normal[2], filled[2])
+        for style in generator.STYLES:
+            with self.subTest(style=style.name):
+                points = (0xE5C4, 0xE87E, 0xE88E)
+                normal = generator.extract_paths(style, points, tt_font, svg_pen, transform_pen)
+                filled = generator.extract_paths(style, points, tt_font, svg_pen, transform_pen, fill=1.0)
+                self.assertEqual(normal[0], filled[0])
+                self.assertNotEqual(normal[1], filled[1])
+                self.assertNotEqual(normal[2], filled[2])
         self.assertEqual(0.0, generator.AXIS_LOCATION["FILL"])
 
-    def test_filled_paths_require_complete_rounded_input(self) -> None:
-        for style, paths in ((generator.Style("outlined", "Outlined"), ("M1 2Z",)),
-                             (generator.Style("rounded", "Rounded"), ())):
-            with self.subTest(style=style.name), self.assertRaisesRegex(generator.GenerationError, "Filled vectors"):
-                generator.render_style(style, (("check", 0xE5CA),), (0xE5CA,), ("M1 2Z",), paths)
+    def test_filled_paths_require_complete_input_for_every_style(self) -> None:
+        for style in generator.STYLES:
+            for paths in ((), ("M1 2Z", "M3 4Z")):
+                with self.subTest(style=style.name, count=len(paths)):
+                    with self.assertRaisesRegex(generator.GenerationError, "Filled vectors"):
+                        generator.render_style(style, (("check", 0xE5CA),), (0xE5CA,), ("M1 2Z",), paths)
+
+    def test_outlined_and_sharp_preserve_default_builders_and_isolate_filled_paths(self) -> None:
+        for style in (generator.STYLES[0], generator.STYLES[2]):
+            with self.subTest(style=style.name):
+                rendered = generator.render_style(
+                    style, (("favorite", 0xE87E),), (0xE87E,), ("M1 2L3 4Z",), ("M5 6L7 8Z",),
+                )
+                icons = next(text for path, text in rendered.items() if path.name == f"{style.title}Icons000.generated.kt")
+                helper = next(text for path, text in rendered.items() if path.name == f"{style.title}VectorCache.generated.kt")
+                self.assertIn(f"private object {style.title}VectorE87E {{", icons)
+                self.assertIn("moveTo(1f, 2f)", icons)
+                self.assertIn("lineTo(3f, 4f)", icons)
+                self.assertNotIn("moveTo(5f, 6f)", icons)
+                self.assertIn(f"private object {style.title}FilledVectorE87E : {style.title}VectorCache(", icons)
+                self.assertIn('"M5 6L7 8Z",', icons)
+                self.assertNotIn('"M5 6L7 8Z"', helper)
+                self.assertNotIn("IntArray", helper)
+                self.assertNotIn("Map<", helper)
 
     def test_rounded_backings_keep_per_icon_caches_and_exact_svg(self) -> None:
         normal = ("M1.2346 2H3V4Q5 6 7 8Z", "M0 0L1 1Z")
