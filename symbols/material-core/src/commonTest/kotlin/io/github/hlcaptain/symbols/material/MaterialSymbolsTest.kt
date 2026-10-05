@@ -22,8 +22,12 @@ class MaterialSymbolsTest {
         assertSame(Icons.AutoMirrored.Outlined, Symbols.Material.AutoMirrored.Outlined)
         assertSame(Icons.AutoMirrored.Rounded, Symbols.Material.AutoMirrored.Rounded)
         assertSame(Icons.AutoMirrored.Sharp, Symbols.Material.AutoMirrored.Sharp)
+        assertSame(Icons.Outlined.Filled, Symbols.Material.Outlined.Filled)
+        assertSame(Icons.AutoMirrored.Outlined.Filled, Symbols.Material.AutoMirrored.Outlined.Filled)
         assertSame(Icons.Rounded.Filled, Symbols.Material.Rounded.Filled)
         assertSame(Icons.AutoMirrored.Rounded.Filled, Symbols.Material.AutoMirrored.Rounded.Filled)
+        assertSame(Icons.Sharp.Filled, Symbols.Material.Sharp.Filled)
+        assertSame(Icons.AutoMirrored.Sharp.Filled, Symbols.Material.AutoMirrored.Sharp.Filled)
     }
 
     @Test
