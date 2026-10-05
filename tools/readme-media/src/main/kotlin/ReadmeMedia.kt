@@ -2,6 +2,9 @@
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.EaseInOutQuart
+import androidx.compose.animation.core.EaseOutQuart
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
@@ -25,7 +28,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ImageComposeScene
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -121,17 +123,16 @@ private fun animatedTint(step: Float, finishedListener: ((Float) -> Unit)? = nul
 }
 
 @Composable
-private fun animatedArrow(step: Float, finishedListener: (() -> Unit)? = null): Float {
+private fun animatedArrow(step: Float, delayMillis: Int = 0, finishedListener: (() -> Unit)? = null): Float {
     val offset = remember { Animatable(0f) }
-    val motion = MaterialTheme.motionScheme
-    LaunchedEffect(step) {
+    LaunchedEffect(step, delayMillis) {
         if (step != 0f) {
-            offset.animateTo(8f, motion.fastEffectsSpec<Float>())
-            offset.animateTo(0f, motion.slowEffectsSpec<Float>())
+            offset.animateTo(8f, tween(600, delayMillis, EaseInOutQuart))
+            offset.animateTo(0f, tween(700, easing = EaseOutQuart))
         }
         finishedListener?.invoke()
     }
-    return offset.value.also { check(it in 0f..8f) { "Arrow effect must not overshoot" } }
+    return offset.value.also { check(it in 0f..8f) { "Arrow nudge must not overshoot" } }
 }
 
 @Composable
@@ -181,26 +182,24 @@ private fun Glyph(
 }
 
 @Composable
-private fun Comparison(target: Axes, tint: Color, arrowOffset: Float = 0f, extraDrawingSpace: Int = 0, finishedListener: (Float) -> Unit) {
+private fun Comparison(target: Axes, tint: Color, leadingOffset: Float = 0f, trailingOffset: Float = 0f, extraDrawingSpace: Int = 0, finishedListener: (Float) -> Unit) {
     val axes = animatedAxes(target, finishedListener)
     Box(Modifier.size(Width.dp, Height.dp).background(Color.White)) {
         Label("Material Icons Extended", 24, 8, 28, bold = true)
         Label("Symbols", 592, 8, 28, bold = true)
         val arrowPadding = 60 / 8 + extraDrawingSpace
-        SymbolFontIcon(
-            codePoint = Symbols.Material.KeyboardDoubleArrowRight.codePoint,
-            font = Font,
-            contentDescription = null,
-            modifier = Modifier.offset((470f + arrowOffset - arrowPadding).dp, (68 - arrowPadding).dp)
-                .size((60 + arrowPadding * 2).dp)
-                .graphicsLayer {
-                    scaleX = 1f + arrowOffset * 0.01f
-                    scaleY = scaleX
-                },
-            size = 60.dp,
-            tint = Color.Black,
-            fontSettings = { Font.fontSettings(mapOf("wght" to 700f)) },
-        )
+        listOf(480.75f + leadingOffset, 460.75f + trailingOffset).forEach { x ->
+            SymbolFontIcon(
+                codePoint = Symbols.Material.KeyboardArrowRight.codePoint,
+                font = Font,
+                contentDescription = null,
+                modifier = Modifier.offset((x - arrowPadding).dp, (68 - arrowPadding).dp)
+                    .size((60 + arrowPadding * 2).dp),
+                size = 60.dp,
+                tint = Color.Black,
+                fontSettings = { Font.fontSettings(mapOf("wght" to 700f)) },
+            )
+        }
         Examples.forEachIndexed { i, icon ->
             Icon(icon.legacy, null, Modifier.offset((20 + i * 104).dp, 58.dp).size(80.dp), tint = Color.Black)
             Glyph(icon.codePoint, 588 + i * 104, 58, 80, axes, extraDrawingSpace = extraDrawingSpace, tint = tint)
@@ -257,6 +256,7 @@ private suspend fun capture(name: String, comparison: Boolean) {
     var animationFinished = true
     var hueFinished = true
     var arrowFinished = true
+    var trailingArrowFinished = true
     if (comparison) {
         // One completion callback is sufficient only when exactly one axis changes.
         check(states.zipWithNext().all { (a, b) ->
@@ -271,6 +271,7 @@ private suspend fun capture(name: String, comparison: Boolean) {
                     target.value,
                     animatedTint(hueStep.value) { hueFinished = true },
                     animatedArrow(hueStep.value) { arrowFinished = true },
+                    animatedArrow(hueStep.value, 100) { trailingArrowFinished = true },
                 ) {
                     animationFinished = true
                 }
@@ -280,13 +281,13 @@ private suspend fun capture(name: String, comparison: Boolean) {
     // Same released renderer and font size, with a roomier layout to reveal internal clipping.
     val reference = ImageComposeScene(Width, Height, coroutineContext = Dispatchers.Unconfined) {
         MaterialExpressiveTheme {
-            if (comparison) Comparison(target.value, animatedTint(hueStep.value), animatedArrow(hueStep.value), extraDrawingSpace = 20) {}
+            if (comparison) Comparison(target.value, animatedTint(hueStep.value), animatedArrow(hueStep.value), animatedArrow(hueStep.value, 100), extraDrawingSpace = 20) {}
             else VariableFonts(target.value, extraDrawingSpace = 20)
         }
     }
     // Skia's font antialiasing depends on tint; verify settled geometry in its original black.
     val shapes = if (comparison) ImageComposeScene(Width, Height, coroutineContext = Dispatchers.Unconfined) {
-        MaterialExpressiveTheme { Comparison(target.value, Color.Black, animatedArrow(hueStep.value)) {} }
+        MaterialExpressiveTheme { Comparison(target.value, Color.Black, animatedArrow(hueStep.value), animatedArrow(hueStep.value, 100)) {} }
     } else null
     var time = 0L
     var referencePng = byteArrayOf()
@@ -336,12 +337,13 @@ private suspend fun capture(name: String, comparison: Boolean) {
             animationFinished = index == 0
             hueFinished = index == 0
             arrowFinished = index == 0
+            trailingArrowFinished = index == 0
             Snapshot.withMutableSnapshot {
                 target.value = axes
                 hueStep.value = index.toFloat()
             }
             if (comparison) {
-                while (!animationFinished || !hueFinished || !arrowFinished) {
+                while (!animationFinished || !hueFinished || !arrowFinished || !trailingArrowFinished) {
                     check(frameCount - startFrame < 600) { "Animation did not finish: $axes" }
                     recordFrame()
                 }

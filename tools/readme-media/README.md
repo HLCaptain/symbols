@@ -32,9 +32,8 @@ waits for visible glyphs before recording; it does not assume a font-loading del
 
 Both compact layouts use black text on white, without card boxes,
 subtitles, or footer labels. The comparison retains its main titles and icon
-names: `Home`, `AccountTree`, `Favorite`, and `VolumeOff`. A Rounded
-`KeyboardDoubleArrowRight` glyph at 60 dp and weight 700 sits between the two
-sides. Material Icons Extended 1.7.3 Rounded vector shapes stay fixed and black
+names: `Home`, `AccountTree`, `Favorite`, and `VolumeOff`. Two Rounded `KeyboardArrowRight` glyphs at 60 dp and weight 700 sit between
+the two sides, forming a double-chevron cue. Material Icons Extended 1.7.3 Rounded vector shapes stay fixed and black
 on the left through standard `Icon`.
 Labels use the legacy vector's `name.substringAfterLast('.')`, matching the
 rendered reference names.
@@ -61,19 +60,18 @@ retain their values. The final fill toggle returns to `FILL=1` at the defaults.
 The 25 targets produce 24 transitions: 12 fill changes and four changes each
 to weight, optical size, and grade. The initial state holds for 1.5 seconds.
 Every transition waits for the axis spring, hue spring, and arrow motion to
-finish, then holds the complete settled frame for 1.5 seconds. The 24 color
+finish for both chevrons, then holds the complete settled frame for 1.5 seconds. The 24 color
 steps complete one rainbow cycle and return to the initial red. The comparison
-lasts approximately 51.767 seconds: 1,553 exported frames at 30 fps.
+lasts 72.7 seconds: 2,181 exported frames at 30 fps.
 
-The arrow uses the `MaterialExpressiveTheme` motion scheme's effect springs:
-an `Animatable` moves toward 8 dp with `fastEffectsSpec`, then returns to zero
-with `slowEffectsSpec`. Every captured offset must remain between 0 and 8 dp;
-the effect springs do not overshoot. One animation also drives a centered scale
-pulse from 1.00 to 1.08 and back. The base glyph grows from 56 to 60 dp while
-preserving its original center at (500, 98). Its transform follows layout
-placement, so scaling emphasizes the glyph without scaling its absolute offset.
-Timing comes from both effect springs completing on the capture clock; the
-arrow rests during every settled hold.
+Each chevron uses one out-and-back `Animatable` track: 8 dp right over 600 ms
+with Compose `EaseInOutQuart`, then back to zero over 700 ms with `EaseOutQuart`.
+The right/front chevron starts first; the left starts 100 ms later, exactly
+three exported frames. `tween(delayMillis = 100)` uses the capture frame clock,
+so the stagger remains deterministic. Both glyphs keep their fixed 60 dp size
+and weight 700, with no scale pulse or overshoot. Their 20 dp spacing keeps them distinct through the staggered return while
+preserving a compact layout centered around (500, 98). Each chevron stops
+before the existing 1.5-second settled hold.
 
 `states.csv` records each target's start (`frame`), completion-aligned hold
 start (`settledFrame`), and end (`endFrame`) as native 60 Hz frame indices.
@@ -84,8 +82,9 @@ captures, since Skia's font antialiasing changes with tint. The entire legacy
 half stays pixel-identical throughout. Checks require all four Symbols glyphs
 to reach the expected color, tint to animate during transitions, complete colored
 frames to stay pixel-static during holds, and the arrow to move only horizontally
-through its 8 dp nudge without overshoot, scale slightly in both dimensions,
-and return to rest. Text and background pixels stay unchanged.
+through one 8 dp out-and-back nudge without overshoot or scaling. The encoder
+tracks the two separate ink components and requires the left trajectory to match
+the right exactly three frames later. Both return to rest. Text and background pixels stay unchanged.
 
 Capture glyphs use 1.25-em drawing boxes, adding `size / 8` on each edge for the
 pinned Rounded font's 1.2-em line height. Font size stays unchanged; this adjusts

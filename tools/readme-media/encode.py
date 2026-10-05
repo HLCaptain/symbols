@@ -3,7 +3,6 @@
 
 import colorsys
 import csv
-from math import ceil
 from pathlib import Path
 import shutil
 import subprocess
@@ -13,6 +12,29 @@ from PIL import Image, ImageChops
 
 HERE = Path(__file__).resolve().parent
 DESTINATION = HERE.parents[1] / "docs" / "media"
+
+
+def arrow_boxes(frame):
+    crop = frame.crop((450, 50, 578, 145))
+    red, green, blue = crop.split()
+    assert ImageChops.difference(red, green).getbbox() is None
+    assert ImageChops.difference(red, blue).getbbox() is None, "Arrows must stay black"
+    ink = {(index % 128, index // 128) for index, value in enumerate(red.get_flattened_data()) if value < 250}
+    boxes = []
+    while ink:
+        todo = [ink.pop()]
+        points = []
+        while todo:
+            x, y = todo.pop()
+            points.append((x, y))
+            for neighbor in ((x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)):
+                if neighbor in ink:
+                    ink.remove(neighbor)
+                    todo.append(neighbor)
+        xs, ys = zip(*points)
+        boxes.append((min(xs), min(ys), max(xs) + 1, max(ys) + 1))
+    assert len(boxes) == 2, "Both single chevrons must remain separately visible"
+    return sorted(boxes)
 
 
 def encode(name: str) -> None:
@@ -55,22 +77,13 @@ def encode(name: str) -> None:
         for crop in ((0, 0, 1000, 45), (0, 150, 1000, 200)):
             assert all(ImageChops.difference(first.crop(crop), frame.crop(crop)).getbbox() is None for frame in frames), "Text and background must remain still"
         arrow_crop = (450, 50, 578, 145)
-        arrow_boxes = []
-        for frame in frames:
-            red, green, blue = frame.crop(arrow_crop).split()
-            assert ImageChops.difference(red, green).getbbox() is None
-            assert ImageChops.difference(red, blue).getbbox() is None, "Arrow must stay black"
-            arrow_boxes.append(ImageChops.invert(red).getbbox())
-        resting_arrow = arrow_boxes[0]
-        assert resting_arrow is not None
-        assert all(box is not None for box in arrow_boxes), "Arrow must remain visible"
-        arrow_centers = [((box[0] + box[2]) / 2, (box[1] + box[3]) / 2) for box in arrow_boxes]
-        arrow_sizes = [(box[2] - box[0], box[3] - box[1]) for box in arrow_boxes]
-        rest_center, rest_size = arrow_centers[0], arrow_sizes[0]
-        assert all(-0.5 <= x - rest_center[0] <= 8.5 and abs(y - rest_center[1]) <= 0.5
-                   for x, y in arrow_centers), "Arrow must remain centered on its horizontal nudge"
-        assert all(rest_size[axis] - 1 <= size[axis] <= ceil(rest_size[axis] * 1.08) + 1
-                   for size in arrow_sizes for axis in (0, 1)), "Arrow scale must stay within the slight 8% pulse"
+        arrows = [arrow_boxes(frame) for frame in frames]
+        arrow_tracks = []
+        for side in (0, 1):
+            rest = arrows[0][side]
+            assert all(box[side][1::2] == rest[1::2] and box[side][2] - box[side][0] == rest[2] - rest[0]
+                       and 0 <= box[side][0] - rest[0] <= 8 for box in arrows), "Single arrows must move horizontally without scaling or overshoot"
+            arrow_tracks.append([box[side][0] - rest[0] for box in arrows])
         crops = [(588 + i * 104, 58, 668 + i * 104, 138) for i in range(4)]
         expected = [
             (1, 400, 0, 24), (1, 100, 0, 24), (0, 100, 0, 24), (0, 400, 0, 24),
@@ -103,13 +116,13 @@ def encode(name: str) -> None:
                 transition = frames[start // 2:finish // 2]
                 tints = {min(frame.crop(crops[0]).get_flattened_data(), key=sum) for frame in transition}
                 assert len(tints) > 1, "Tint must animate during the transition"
-                arrow_track = [x - rest_center[0] for x, _ in arrow_centers[start // 2:finish // 2]]
-                assert 7.5 <= max(arrow_track) <= 8.5 and arrow_track[0] == 0 and arrow_track[-1] == 0, "Each transition needs a complete nudge without overshoot"
-                peak = arrow_track.index(max(arrow_track))
-                assert all(b >= a - 0.5 for a, b in zip(arrow_track[:peak], arrow_track[1:peak + 1]))
-                assert all(b <= a + 0.5 for a, b in zip(arrow_track[peak:], arrow_track[peak + 1:])), "Arrow must return without a rebound"
-                pulse_sizes = arrow_sizes[start // 2:finish // 2]
-                assert all(max(size[axis] for size in pulse_sizes) >= rest_size[axis] + 2 for axis in (0, 1)), "Arrow must visibly scale up and down"
+                left_track, right_track = [track[start // 2:finish // 2] for track in arrow_tracks]
+                for track in (left_track, right_track):
+                    assert max(track) == 8 and track[0] == 0 and track[-1] == 0, "Each arrow needs a complete out-and-back nudge"
+                    peak = track.index(8)
+                    assert all(a <= b for a, b in zip(track[:peak], track[1:peak + 1]))
+                    assert all(a >= b for a, b in zip(track[peak:], track[peak + 1:])), "Each arrow must make only one bounce"
+                assert left_track[:3] == [0, 0, 0] and left_track[3:] == right_track[:-3], "Right arrow must lead the left by exactly three frames"
                 assert ImageChops.difference(colored_hold[0].crop(arrow_crop), first.crop(arrow_crop)).getbbox() is None, "Arrow must return to rest before the hold"
             settled.append(hold[0].crop((578, 50, 1000, 145)))
             previous_end = end
