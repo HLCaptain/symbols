@@ -30,7 +30,7 @@ androidx-profileinstaller = "1.4.1"
 composePreviewScanner = "0.9.3"
 junit = "4.13.2"
 robolectric = "4.17"
-roborazzi = "1.75.0"
+roborazzi = "1.76.0"
 # Align with Compose 1.12.1's Skiko runtime to avoid native/JVM ABI mismatches.
 skiko = "0.150.1"
 
