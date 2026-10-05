@@ -82,7 +82,7 @@ def encode(name: str) -> None:
         for side in (0, 1):
             rest = arrows[0][side]
             assert all(box[side][1::2] == rest[1::2] and box[side][2] - box[side][0] == rest[2] - rest[0]
-                       and 0 <= box[side][0] - rest[0] <= 8 for box in arrows), "Single arrows must move horizontally without scaling or overshoot"
+                       and 0 <= box[side][0] - rest[0] <= (11 if side == 0 else 8) for box in arrows), "Single arrows must move horizontally without scaling or overshoot"
             arrow_tracks.append([box[side][0] - rest[0] for box in arrows])
         crops = [(588 + i * 104, 58, 668 + i * 104, 138) for i in range(4)]
         expected = [
@@ -117,12 +117,12 @@ def encode(name: str) -> None:
                 tints = {min(frame.crop(crops[0]).get_flattened_data(), key=sum) for frame in transition}
                 assert len(tints) > 1, "Tint must animate during the transition"
                 left_track, right_track = [track[start // 2:finish // 2] for track in arrow_tracks]
-                for track in (left_track, right_track):
-                    assert max(track) == 8 and track[0] == 0 and track[-1] == 0, "Each arrow needs a complete out-and-back nudge"
-                    peak = track.index(8)
+                for track, distance in ((left_track, 11), (right_track, 8)):
+                    assert max(track) == distance and track[0] == 0 and track[-1] == 0, "Each arrow needs its full out-and-back distance"
+                    peak = track.index(distance)
                     assert all(a <= b for a, b in zip(track[:peak], track[1:peak + 1]))
                     assert all(a >= b for a, b in zip(track[peak:], track[peak + 1:])), "Each arrow must make only one bounce"
-                assert left_track[:3] == [0, 0, 0] and left_track[3:] == right_track[:-3], "Right arrow must lead the left by exactly three frames"
+                assert all(abs(left - right * 11 / 8) <= 1.5 for left, right in zip(left_track, right_track)), "Arrow timing must stay synchronized while the left travels 3 dp farther"
                 assert ImageChops.difference(colored_hold[0].crop(arrow_crop), first.crop(arrow_crop)).getbbox() is None, "Arrow must return to rest before the hold"
             settled.append(hold[0].crop((578, 50, 1000, 145)))
             previous_end = end

@@ -123,11 +123,11 @@ private fun animatedTint(step: Float, finishedListener: ((Float) -> Unit)? = nul
 }
 
 @Composable
-private fun animatedArrow(step: Float, delayMillis: Int = 0, finishedListener: (() -> Unit)? = null): Float {
+private fun animatedArrow(step: Float, finishedListener: (() -> Unit)? = null): Float {
     val offset = remember { Animatable(0f) }
-    LaunchedEffect(step, delayMillis) {
+    LaunchedEffect(step) {
         if (step != 0f) {
-            offset.animateTo(8f, tween(600, delayMillis, EaseInOutQuart))
+            offset.animateTo(8f, tween(600, easing = EaseInOutQuart))
             offset.animateTo(0f, tween(700, easing = EaseOutQuart))
         }
         finishedListener?.invoke()
@@ -182,13 +182,13 @@ private fun Glyph(
 }
 
 @Composable
-private fun Comparison(target: Axes, tint: Color, leadingOffset: Float = 0f, trailingOffset: Float = 0f, extraDrawingSpace: Int = 0, finishedListener: (Float) -> Unit) {
+private fun Comparison(target: Axes, tint: Color, arrowOffset: Float = 0f, extraDrawingSpace: Int = 0, finishedListener: (Float) -> Unit) {
     val axes = animatedAxes(target, finishedListener)
     Box(Modifier.size(Width.dp, Height.dp).background(Color.White)) {
         Label("Material Icons Extended", 24, 8, 28, bold = true)
         Label("Symbols", 592, 8, 28, bold = true)
         val arrowPadding = 60 / 8 + extraDrawingSpace
-        listOf(480.75f + leadingOffset, 460.75f + trailingOffset).forEach { x ->
+        listOf(480.75f + arrowOffset, 460.75f + arrowOffset * 11f / 8f).forEach { x ->
             SymbolFontIcon(
                 codePoint = Symbols.Material.KeyboardArrowRight.codePoint,
                 font = Font,
@@ -256,7 +256,6 @@ private suspend fun capture(name: String, comparison: Boolean) {
     var animationFinished = true
     var hueFinished = true
     var arrowFinished = true
-    var trailingArrowFinished = true
     if (comparison) {
         // One completion callback is sufficient only when exactly one axis changes.
         check(states.zipWithNext().all { (a, b) ->
@@ -271,7 +270,6 @@ private suspend fun capture(name: String, comparison: Boolean) {
                     target.value,
                     animatedTint(hueStep.value) { hueFinished = true },
                     animatedArrow(hueStep.value) { arrowFinished = true },
-                    animatedArrow(hueStep.value, 100) { trailingArrowFinished = true },
                 ) {
                     animationFinished = true
                 }
@@ -281,13 +279,13 @@ private suspend fun capture(name: String, comparison: Boolean) {
     // Same released renderer and font size, with a roomier layout to reveal internal clipping.
     val reference = ImageComposeScene(Width, Height, coroutineContext = Dispatchers.Unconfined) {
         MaterialExpressiveTheme {
-            if (comparison) Comparison(target.value, animatedTint(hueStep.value), animatedArrow(hueStep.value), animatedArrow(hueStep.value, 100), extraDrawingSpace = 20) {}
+            if (comparison) Comparison(target.value, animatedTint(hueStep.value), animatedArrow(hueStep.value), extraDrawingSpace = 20) {}
             else VariableFonts(target.value, extraDrawingSpace = 20)
         }
     }
     // Skia's font antialiasing depends on tint; verify settled geometry in its original black.
     val shapes = if (comparison) ImageComposeScene(Width, Height, coroutineContext = Dispatchers.Unconfined) {
-        MaterialExpressiveTheme { Comparison(target.value, Color.Black, animatedArrow(hueStep.value), animatedArrow(hueStep.value, 100)) {} }
+        MaterialExpressiveTheme { Comparison(target.value, Color.Black, animatedArrow(hueStep.value)) {} }
     } else null
     var time = 0L
     var referencePng = byteArrayOf()
@@ -337,13 +335,12 @@ private suspend fun capture(name: String, comparison: Boolean) {
             animationFinished = index == 0
             hueFinished = index == 0
             arrowFinished = index == 0
-            trailingArrowFinished = index == 0
             Snapshot.withMutableSnapshot {
                 target.value = axes
                 hueStep.value = index.toFloat()
             }
             if (comparison) {
-                while (!animationFinished || !hueFinished || !arrowFinished || !trailingArrowFinished) {
+                while (!animationFinished || !hueFinished || !arrowFinished) {
                     check(frameCount - startFrame < 600) { "Animation did not finish: $axes" }
                     recordFrame()
                 }

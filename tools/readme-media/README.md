@@ -60,18 +60,17 @@ retain their values. The final fill toggle returns to `FILL=1` at the defaults.
 The 25 targets produce 24 transitions: 12 fill changes and four changes each
 to weight, optical size, and grade. The initial state holds for 1.5 seconds.
 Every transition waits for the axis spring, hue spring, and arrow motion to
-finish for both chevrons, then holds the complete settled frame for 1.5 seconds. The 24 color
+finish, then holds the complete settled frame for 1.5 seconds. The 24 color
 steps complete one rainbow cycle and return to the initial red. The comparison
-lasts 72.7 seconds: 2,181 exported frames at 30 fps.
+lasts 70.3 seconds: 2,109 exported frames at 30 fps.
 
-Each chevron uses one out-and-back `Animatable` track: 8 dp right over 600 ms
-with Compose `EaseInOutQuart`, then back to zero over 700 ms with `EaseOutQuart`.
-The right/front chevron starts first; the left starts 100 ms later, exactly
-three exported frames. `tween(delayMillis = 100)` uses the capture frame clock,
-so the stagger remains deterministic. Both glyphs keep their fixed 60 dp size
-and weight 700, with no scale pulse or overshoot. Their 20 dp spacing keeps them distinct through the staggered return while
-preserving a compact layout centered around (500, 98). Each chevron stops
-before the existing 1.5-second settled hold.
+Both chevrons share one out-and-back `Animatable` track: 600 ms right with
+Compose `EaseInOutQuart`, then 700 ms back with `EaseOutQuart`. The right
+chevron travels 8 dp; the left travels 11 dp, derived from the same progress.
+They therefore start and finish together, with a 3 dp difference in reach at
+the peak. Both glyphs retain their fixed 60 dp size and weight 700. Their centers are 20 dp apart at rest and at least 17 dp apart during motion.
+The resting pair remains centered around (500, 98); connected ink checks ensure
+the chevrons stay distinct. Both stop before the 1.5-second settled hold.
 
 `states.csv` records each target's start (`frame`), completion-aligned hold
 start (`settledFrame`), and end (`endFrame`) as native 60 Hz frame indices.
@@ -82,9 +81,9 @@ captures, since Skia's font antialiasing changes with tint. The entire legacy
 half stays pixel-identical throughout. Checks require all four Symbols glyphs
 to reach the expected color, tint to animate during transitions, complete colored
 frames to stay pixel-static during holds, and the arrow to move only horizontally
-through one 8 dp out-and-back nudge without overshoot or scaling. The encoder
-tracks the two separate ink components and requires the left trajectory to match
-the right exactly three frames later. Both return to rest. Text and background pixels stay unchanged.
+through one out-and-back nudge without overshoot or scaling. The encoder
+tracks the two separate ink components, requires 11 dp and 8 dp peak travel,
+and checks proportional synchronized progress with pixel-rounding tolerance. Both return to rest. Text and background pixels stay unchanged.
 
 Capture glyphs use 1.25-em drawing boxes, adding `size / 8` on each edge for the
 pinned Rounded font's 1.2-em line height. Font size stays unchanged; this adjusts
