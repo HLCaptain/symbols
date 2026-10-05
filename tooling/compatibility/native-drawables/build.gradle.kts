@@ -22,11 +22,12 @@ android {
 }
 
 dependencies {
-    implementation(files(
-        "../../../symbols/material-drawables-outlined/build/outputs/aar/material-drawables-outlined-release.aar",
-        "../../../symbols/material-drawables-rounded/build/outputs/aar/material-drawables-rounded-release.aar",
-        "../../../symbols/material-drawables-sharp/build/outputs/aar/material-drawables-sharp-release.aar",
-    ))
+    listOf("outlined", "rounded", "sharp").forEach { style ->
+        listOf("", "-filled", "-automirrored", "-automirrored-filled").forEach { variant ->
+            val module = "material-drawables-$style$variant"
+            implementation(files("../../../symbols/$module/build/outputs/aar/$module-release.aar"))
+        }
+    }
     testImplementation(libs.junit)
     testImplementation(libs.robolectric)
 }

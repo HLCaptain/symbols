@@ -98,12 +98,19 @@ def pom_url(base, group, artifact, version):
 
 
 def publication_urls(component, version):
+    # Recovery runs these tools against the tagged source, which may predate optional packs.
+    libraries = LIBRARIES + [
+        f"symbols-material-drawables-{style}-{variant}"
+        for style in ("outlined", "rounded", "sharp")
+        for variant in ("filled", "automirrored", "automirrored-filled")
+        if Path(f"symbols/material-drawables-{style}-{variant}/build.gradle.kts").is_file()
+    ]
     if SNAPSHOT.fullmatch(version):
         if component == "portal":
             return []  # Testing snapshots never go to the Plugin Portal.
         if component == "libraries":
-            artifacts = list(LIBRARIES)
-            for artifact in LIBRARIES:
+            artifacts = list(libraries)
+            for artifact in libraries:
                 if not artifact.startswith("symbols-material-drawables-"):
                     artifacts.extend(f"{artifact}-{target}" for target in
                                      ("android", "iosarm64", "iossimulatorarm64", "js", "jvm", "wasm-js"))
@@ -113,7 +120,7 @@ def publication_urls(component, version):
             pom_url(GITHUB_PACKAGES, PLUGIN, PLUGIN + ".gradle.plugin", version)]
     central = "https://repo.maven.apache.org/maven2"
     if component == "libraries":
-        return [pom_url(central, GROUP, artifact, version) for artifact in LIBRARIES]
+        return [pom_url(central, GROUP, artifact, version) for artifact in libraries]
     if component == "tooling":
         return [pom_url(central, GROUP, artifact, version) for artifact in ("symbol-generator-core", "symbol-gradle-plugin")] + [
             pom_url(central, PLUGIN, PLUGIN + ".gradle.plugin", version)]

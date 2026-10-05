@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify that the three full native drawable AARs shrink to three used resources."""
+"""Verify that twelve explicitly selected native drawable AARs shrink to three used resources."""
 
 import argparse
 import json
@@ -22,7 +22,7 @@ for variant in ("debug", "release"):
     names = set(re.findall(r"drawable/(material_symbols_[a-z0-9_]+)", dump))
     assert used <= names, (variant, "used resources removed", used - names)
     if variant == "debug":
-        assert len(names) == 45624, ("expected three full drawable packs", len(names))
+        assert len(names) == 45624, ("expected twelve single-family drawable packs", len(names))
     else:
         assert names == used, ("unused resources survived", sorted(names - used))
         configuration = (build / "outputs/mapping/release/configuration.txt").read_text()

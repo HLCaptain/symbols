@@ -231,10 +231,27 @@ class ReleaseTest(unittest.TestCase):
             release.wait_for_publication("tooling", "1.0.1")
 
     def test_coordinates_include_every_umbrella_pack_and_both_plugin_markers(self):
-        self.assertEqual(20, len(set(release.publication_urls("libraries", "0.1.0"))))
+        self.assertEqual(29, len(set(release.publication_urls("libraries", "0.1.0"))))
         self.assertIn("/symbols-core/0.1.0/symbols-core-0.1.0.pom", release.publication_urls("libraries", "0.1.0")[0])
         self.assertEqual(3, len(release.publication_urls("tooling", "0.1.0")))
         self.assertTrue(release.publication_urls("portal", "0.1.0")[0].startswith("https://plugins.gradle.org/plugin/"))
+
+    def test_optional_native_coordinates_follow_tagged_source_not_version(self):
+        optional = {f"symbols-material-drawables-{style}-{variant}" for style in ("outlined", "rounded", "sharp")
+                    for variant in ("filled", "automirrored", "automirrored-filled")}
+        versions = ("2.1.0", "2.2.0", "2.1.0-SNAPSHOT-deadbeef")
+        with TemporaryDirectory() as directory, chdir(directory):
+            for version in versions:
+                roots = {url.split("/")[-3] for url in release.publication_urls("libraries", version)}
+                self.assertTrue(optional.isdisjoint(roots))
+            for artifact in optional:
+                build = Path("symbols") / artifact.removeprefix("symbols-") / "build.gradle.kts"
+                build.parent.mkdir(parents=True)
+                build.touch()
+            for version in versions:
+                roots = {url.split("/")[-3] for url in release.publication_urls("libraries", version)}
+                self.assertTrue(optional <= roots)
+                self.assertFalse(any(f"{artifact}-jvm" in roots for artifact in optional))
 
     def test_snapshots_cover_all_platform_publications_only_on_github_packages(self):
         tag = "2.0.0-SNAPSHOT-deadbeef"
@@ -247,11 +264,13 @@ class ReleaseTest(unittest.TestCase):
             "symbols-material-compose-drawables-sharp", "symbols-material-vectors-outlined",
             "symbols-material-vectors-rounded", "symbols-material-vectors-sharp", "symbols-material-vectors-themed",
         }
+        roots |= {f"symbols-material-drawables-{style}-{variant}" for style in ("outlined", "rounded", "sharp")
+                  for variant in ("filled", "automirrored", "automirrored-filled")}
         targets = {"android", "iosarm64", "iossimulatorarm64", "js", "jvm", "wasm-js"}
         expected = roots | {f"{root}-{target}" for root in roots for target in targets
                             if not root.startswith("symbols-material-drawables-")}
         libraries = release.publication_urls("libraries", tag)
-        self.assertEqual(122, len(libraries))
+        self.assertEqual(131, len(libraries))
         self.assertEqual(expected, {url.split("/")[-3] for url in libraries})
         tooling = release.publication_urls("tooling", tag)
         self.assertEqual({"symbol-generator-core", "symbol-gradle-plugin", "io.github.hlcaptain.symbol-fonts.gradle.plugin"},

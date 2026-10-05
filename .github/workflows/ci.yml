@@ -193,6 +193,32 @@ jobs:
         if: ${{ !inputs.publication-only }}
         run: python3 benchmarks/shrinkable-vectors/verify.py
 
+      - name: Verify native drawable families, RTL rendering, and shrinking
+        if: ${{ !inputs.publication-only }}
+        shell: bash
+        run: |
+          native_poms=()
+          for style in outlined rounded sharp; do
+            for variant in "" -filled -automirrored -automirrored-filled; do
+              native_poms+=(":modules:material-drawables-$style$variant:generatePomFileForReleasePublication")
+            done
+          done
+          ./gradlew "${native_poms[@]}" --max-workers=1 --no-daemon --stacktrace
+          ./gradlew -p tooling/compatibility/native-drawables \
+            testDebugUnitTest assembleDebug assembleRelease \
+            --max-workers=1 --no-configuration-cache --no-daemon --stacktrace
+          python3 tooling/compatibility/native-drawables/verify.py \
+            "$ANDROID_HOME/build-tools/36.0.0/aapt2"
+          native_baseline=tooling/compatibility/native-drawables/build/baseline
+          mkdir -p "$native_baseline"
+          for style in outlined rounded sharp; do
+            artifact="symbols-material-drawables-$style"
+            curl --fail --location --retry 3 \
+              --output "$native_baseline/$artifact-2.1.0.aar" \
+              "https://repo.maven.apache.org/maven2/io/github/hlcaptain/$artifact/2.1.0/$artifact-2.1.0.aar"
+          done
+          python3 tooling/compatibility/native-drawables/verify_aars.py
+
       - name: Publish built-in vector candidates for JVM and Android consumers
         if: ${{ !inputs.publication-only }}
         shell: bash
