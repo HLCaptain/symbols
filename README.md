@@ -298,6 +298,12 @@ Use a generated resource directly from XML:
     android:src="@drawable/material_symbols_outlined_home_ue9b2" />
 ```
 
+The next release adds Filled and AutoMirrored native variants to all three
+style artifacts, including
+`@drawable/material_symbols_automirrored_rounded_filled_home_ue9b2`.
+These names are not in published 2.1.0; see the
+[native drawable variant names](docs/GENERATOR.md#native-drawable-variants).
+
 The same ID works with View Binding, Data Binding, `findViewById`,
 `setImageResource`, or `Context.getDrawable`:
 

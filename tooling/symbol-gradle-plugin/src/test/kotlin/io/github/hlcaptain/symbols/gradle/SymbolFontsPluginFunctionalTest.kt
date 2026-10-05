@@ -1086,7 +1086,7 @@ class SymbolFontsPluginFunctionalTest {
     }
 
     @Test
-    fun svgDirectoryGeneratesEveryOutputUnderBuild() {
+    fun svgDirectoryGeneratesEveryOutputAndCachesMirroring() {
         val project = fixture(
             """
             import io.github.hlcaptain.symbols.gradle.GenerateSymbolFontTask
@@ -1104,6 +1104,9 @@ class SymbolFontsPluginFunctionalTest {
                     packageName.set('com.example.icons')
                     style('Outline') {
                         svgDirectory.set(file('svg'))
+                        if (providers.gradleProperty('mirrorIcons').isPresent()) {
+                            autoMirror.set(providers.gradleProperty('mirrorIcons').get().toBoolean())
+                        }
                         imageVectors()
                         androidDrawables()
                         composeDrawables()
@@ -1128,7 +1131,7 @@ class SymbolFontsPluginFunctionalTest {
         )
 
         val taskName = "generateTablerIconsOutlineSymbolFonts"
-        val first = runner(project, taskName).build()
+        val first = buildCachedRunner(project, taskName).build()
         assertEquals(TaskOutcome.SUCCESS, first.task(":$taskName")?.outcome)
 
         val outputRoot = project.resolve(
@@ -1140,6 +1143,7 @@ class SymbolFontsPluginFunctionalTest {
         )
         assertTrue(kotlinSource.isFile)
         val kotlinContents = kotlinSource.readText()
+        assertTrue("autoMirror = false" in kotlinContents)
         assertTrue("TablerIcons.Outline.ArrowLeft" in kotlinContents)
         assertTrue("TablerIcons.Outline.BadgeCheck" in kotlinContents)
         assertTrue("U+" !in kotlinContents)
@@ -1159,6 +1163,7 @@ class SymbolFontsPluginFunctionalTest {
             composeDrawables.listFiles().orEmpty().map(File::getName).toSet(),
         )
         expectedResources.forEach { resourceName ->
+            assertTrue("android:autoMirrored=\"false\"" in androidDrawables.resolve(resourceName).readText())
             assertEquals(
                 androidDrawables.resolve(resourceName).readText(),
                 composeDrawables.resolve(resourceName).readText(),
@@ -1166,8 +1171,36 @@ class SymbolFontsPluginFunctionalTest {
         }
         assertTrue(outputRoot.toPath().startsWith(project.resolve("build").toPath()))
 
-        val second = runner(project, taskName).build()
+        val second = buildCachedRunner(project, taskName).build()
         assertEquals(TaskOutcome.UP_TO_DATE, second.task(":$taskName")?.outcome)
+        assertTrue("Reusing configuration cache." in second.output)
+
+        val mirrored = buildCachedRunner(project, taskName, "-PmirrorIcons=true").build()
+        assertEquals(TaskOutcome.SUCCESS, mirrored.task(":$taskName")?.outcome)
+        assertEquals(kotlinContents.replace("autoMirror = false", "autoMirror = true"), kotlinSource.readText())
+        val mirroredXml = expectedResources.associateWith { resourceName ->
+            androidDrawables.resolve(resourceName).readText().also { contents ->
+                assertTrue("android:autoMirrored=\"true\"" in contents)
+                assertEquals(contents, composeDrawables.resolve(resourceName).readText())
+            }
+        }
+
+        check(project.resolve("build").deleteRecursively())
+        val restored = buildCachedRunner(project, taskName, "-PmirrorIcons=true").build()
+        assertEquals(TaskOutcome.FROM_CACHE, restored.task(":$taskName")?.outcome)
+        mirroredXml.forEach { (resourceName, contents) ->
+            assertEquals(contents, androidDrawables.resolve(resourceName).readText())
+        }
+
+        val ordinary = buildCachedRunner(project, taskName).build()
+        assertEquals(TaskOutcome.FROM_CACHE, ordinary.task(":$taskName")?.outcome)
+        assertEquals(kotlinContents, kotlinSource.readText())
+        mirroredXml.forEach { (resourceName, contents) ->
+            assertEquals(
+                contents.replace("android:autoMirrored=\"true\"", "android:autoMirrored=\"false\""),
+                androidDrawables.resolve(resourceName).readText(),
+            )
+        }
     }
 
     @Test
