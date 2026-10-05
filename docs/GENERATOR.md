@@ -574,36 +574,104 @@ outlines.
 
 ## Native drawable variants
 
-**Next release:** the existing `symbols-material-drawables-{outlined|rounded|sharp}`
-artifacts add filled and opt-in mirrored variants. These names are not in
-published 2.1.0. Replace `{style}` below with `outlined`, `rounded`, or `sharp`:
+**Next release (2.2.0):** native variants are separate, opt-in Android AARs.
+The existing `symbols-material-drawables-{outlined|rounded|sharp}` packs keep
+only their ordinary resources. Replace `{style}` below with `outlined`,
+`rounded`, or `sharp`:
 
-| Variant | Native drawable name |
-| --- | --- |
-| Default | `material_symbols_{style}_home_ue9b2` |
-| Filled | `material_symbols_{style}_filled_home_ue9b2` |
-| Mirrored | `material_symbols_automirrored_{style}_home_ue9b2` |
-| Mirrored and filled | `material_symbols_automirrored_{style}_filled_home_ue9b2` |
+| Variant | Artifact suffix after `symbols-material-drawables-{style}` | Native drawable name |
+| --- | --- | --- |
+| Default | none | `material_symbols_{style}_home_ue9b2` |
+| Filled | `-filled` | `material_symbols_{style}_filled_home_ue9b2` |
+| Mirrored | `-automirrored` | `material_symbols_automirrored_{style}_home_ue9b2` |
+| Mirrored and filled | `-automirrored-filled` | `material_symbols_automirrored_{style}_filled_home_ue9b2` |
 
 Use any of these names with `@drawable/` in XML or `R.drawable` in code.
 Filled selects `FILL=1`; all variants retain `wght=400, GRAD=0, opsz=24`.
-Mirrored variants set `android:autoMirrored="true"` on the drawable; this is
-not a font axis. The hosting View must receive RTL layout direction, with
-`android:supportsRtl="true"` enabled on the application. Choose mirroring
-explicitly for directional icons; for example, replace `home_ue9b2` with
-`arrow_back_ue5c4`. Default resources stay unchanged, and the resource shrinker
-can remove unused variants.
-Each artifact contains four variants of all 3,802 unique codepoints. Aliases in
-the manifest share one canonical resource per variant; no runtime fonts are packaged.
+Each artifact contains one family of all 3,802 unique codepoints. Aliases in
+the manifest share one canonical resource per family; no runtime fonts are
+packaged. No pack depends on another variant pack. Ordinary XML and its resource
+names are byte-identical to 2.1.0.
+
+For example, a Rounded mirrored-filled icon needs only:
+
+```kotlin
+dependencies {
+    implementation("io.github.hlcaptain:symbols-material-drawables-rounded-automirrored-filled:2.2.0")
+}
+```
+
+When accessing a pack from Kotlin/Java, its `R` namespace is
+`io.github.hlcaptain.symbols.material.{style}.drawables`, followed by `.filled`,
+`.automirrored`, or `.automirrored.filled` for the corresponding optional pack.
+XML uses the drawable name directly, regardless of that namespace.
+
+### How automatic mirroring works in Views
+
+The generator's `autoMirror.set(true)` is passed to the outline generator as
+`--auto-mirror`. The emitted `<vector>` contains `android:autoMirrored="true"`.
+The path coordinates remain the same as in the corresponding unmirrored family;
+mirroring is a runtime drawable property, not a font axis or a second RTL outline.
+
+Enable RTL support on the application:
+
+```xml
+<application android:supportsRtl="true">
+    <!-- Activities and other application configuration. -->
+</application>
+```
+
+Load the resource into a normal `ImageView`:
 
 ```xml
 <ImageView
     android:layout_width="24dp"
     android:layout_height="24dp"
-    android:contentDescription="@string/home"
-    android:src="@drawable/material_symbols_automirrored_rounded_filled_home_ue9b2" />
+    android:contentDescription="@string/muted"
+    android:src="@drawable/material_symbols_automirrored_rounded_filled_volume_off_ue04f" />
 ```
+
+The View inherits its parent's layout direction, normally selected from the
+application locale. `ImageView` passes its resolved direction to the drawable
+when loading it and when RTL properties change. Android's `VectorDrawable`
+reflects the complete drawing horizontally only when **both** `autoMirrored`
+is true and the drawable's layout direction is RTL. In LTR it renders the
+original outline. `setImageResource` and View Binding use this same path;
+no additional transform is needed.
+
+For an explicit RTL preview/test, set `android:layoutDirection="rtl"` on the
+parent layout or set `host.layoutDirection = View.LAYOUT_DIRECTION_RTL` in code.
+Text direction alone does not change the View's layout direction. Avoid also
+applying `scaleX = -1f`, which would mirror a mirrored drawable again. Choose
+mirroring for directional artwork; the generator does not decide which icons
+should change meaning in RTL.
+
+A custom View that obtains a drawable and calls `draw(canvas)` itself must
+forward its own layout direction to that drawable, including from
+`onRtlPropertiesChanged`. `Drawable.setLayoutDirection` is public from API 23;
+for API 21/22, use `DrawableCompat.setLayoutDirection(drawable, layoutDirection)`
+with an AndroidX Core version that supports those API levels. Merely calling
+`Context.getDrawable` does not supply a hosting View's direction. Standard
+`ImageView` handles this propagation for you without adding AndroidX Core.
+
+See Android's [RTL layout guidance](https://developer.android.com/training/basics/supporting-devices/languages)
+and [VectorDrawable API](https://developer.android.com/reference/android/graphics/drawable/VectorDrawable).
 
 The [native drawable consumer check](../tooling/compatibility/native-drawables/README.md)
 verifies complete AAR inventories, LTR/RTL rendering of asymmetric icons, and
-removal of unused variants from a minified Android application.
+removal of unused icons from a minified Android application. Its API 35 native
+renderer inflates an XML layout, loads mirrored-filled `android:src`, and
+checks inherited View/drawable direction and reflected pixels for all three
+styles. The API 21/26 APK checks separately verify packaging and shrinking;
+they are not device rendering tests on those API levels.
+
+### Why the variants are separate packs
+
+Android resource shrinking can remove an unused drawable file while retaining
+slots for its allocated resource ID in `resources.arsc`. Bundling all four
+families into each ordinary AAR therefore increased an otherwise identical
+three-icon release APK by 273,744 bytes in the focused API 21 test. Separate
+packs let ordinary consumers retain their existing resource inventory and let
+variant consumers choose only the families they use. Including several families
+still increases the app's linked resource inventory even when unused files are
+removed; generate a small application-specific subset when that cost matters.

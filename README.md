@@ -315,11 +315,13 @@ Use a generated resource directly from XML:
     android:src="@drawable/material_symbols_outlined_home_ue9b2" />
 ```
 
-The next release adds Filled and AutoMirrored native variants to all three
-style artifacts, including
-`@drawable/material_symbols_automirrored_rounded_filled_home_ue9b2`.
-These names are not in published 2.1.0; see the
-[native drawable variant names](docs/GENERATOR.md#native-drawable-variants).
+The next release adds separate Filled and AutoMirrored native packs for each
+style. For a filled icon that follows RTL layout direction, add
+`io.github.hlcaptain:symbols-material-drawables-rounded-automirrored-filled:2.2.0`
+and use `@drawable/material_symbols_automirrored_rounded_filled_volume_off_ue04f`.
+Choose only the resource families your UI uses. The ordinary packs retain their
+existing resources; the optional packs do not pull in other families.
+See [variant dependencies and RTL setup](docs/GENERATOR.md#native-drawable-variants).
 
 The same ID works with View Binding, Data Binding, `findViewById`,
 `setImageResource`, or `Context.getDrawable`:

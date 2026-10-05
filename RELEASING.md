@@ -43,6 +43,13 @@ The native resource packs are Android-only AAR coordinates:
 - `symbols-material-drawables-rounded`
 - `symbols-material-drawables-sharp`
 
+Each style also has independent `-filled`, `-automirrored`, and
+`-automirrored-filled` AARs. For example,
+`symbols-material-drawables-rounded-automirrored-filled` contains only the
+Rounded mirrored-filled family. No native pack depends on another family.
+All twelve native coordinates participate in Central publication and release
+availability checks. See [variant dependencies](docs/GENERATOR.md#native-drawable-variants).
+
 The tooling build separately publishes `symbol-generator-core`,
 `symbol-gradle-plugin`, and the `io.github.hlcaptain.symbol-fonts` plugin marker.
 Its marker coordinates remain

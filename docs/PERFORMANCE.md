@@ -12,6 +12,114 @@ No mode is universally smallest. Font compression, code shrinking, resource
 shrinking, target packaging, icon count, and keep rules determine the release
 result.
 
+## 2.2.0 native packs and KMP size regressions
+
+The combined Outlined/Sharp Filled and native-variant candidate was measured
+on 2026-10-05 with Gradle 9.8.0, AGP 9.4.1, Kotlin 2.4.20, Compose 1.12.1,
+JDK 21, compile SDK 37, and R8/resource shrinking enabled for release consumers.
+Public 2.1.0 baselines were verified against Maven metadata or pinned AAR SHA-256
+hashes. Baseline and candidate applications use the same consumer source and
+toolchain; adding Filled changes the workload only in the explicitly marked cases.
+
+### Native Android XML
+
+Putting all four families into each ordinary AAR allocated 45,488 drawable
+entry slots in the three-icon test, versus 11,270 for 2.1.0. Even after unused
+XML was removed, the additional type-spec flags and dense offsets cost
+`34,218 × (4 + 4) = 273,744` bytes in `resources.arsc`. Renaming new resources
+only shifted that cost to the users of the later-sorted names.
+
+The final packaging keeps the ordinary AARs unchanged and provides separate
+Filled, AutoMirrored, and AutoMirroredFilled AARs per style, with no automatic
+pack dependencies. Each selected AAR contributes exactly 3,802 resources.
+All 11,406 ordinary XML files are byte-identical to 2.1.0; every optional pack
+passes exact resource inventory, dependency-free POM, font exclusion, fill,
+and mirror checks.
+
+| Three-icon consumer | Public 2.1.0 release APK B | Candidate release APK B |
+| --- | ---: | ---: |
+| Ordinary, minSdk 21 | 96,096 | 96,096 |
+| Ordinary, minSdk 26 | 96,092 | 96,092 |
+| Filled only, minSdk 21 | — | 96,164 |
+| AutoMirrored only, minSdk 21 | — | 96,136 |
+| AutoMirroredFilled only, minSdk 21 | — | 96,204 |
+| Three mixed families plus a wholly unused pack | — | 126,568 |
+
+Both ordinary release APKs are byte-identical to the matching baseline APKs.
+Each release case retains exactly its three referenced drawables. Including
+multiple families still allocates their resource IDs; the mixed case demonstrates
+that removing unused files is not the same as removing every resource-table slot.
+The all-twelve-pack rendering fixture retains three resources in a 167,864-byte
+release APK. Its API 35 native renderer verifies inherited View/drawable LTR/RTL
+direction and reflected pixels; API 21/26 checks cover packaging and shrinking.
+
+Reproduce the native checks using the [fixture instructions](../tooling/compatibility/native-drawables/README.md)
+and its `check_sizes.py` runner. Full APKs are unsigned universal install
+artifacts, not Play download sizes.
+
+### Published KMP libraries consumed by Android apps
+
+The KMP library publishes to an isolated Maven repository, then an independent
+Android application resolves that library. Its Activity calls the common-source
+vector function so R8 must retain the selected icons.
+
+| KMP resource mode | 2.1.0 APK B | Candidate default APK B | Candidate Filled APK B |
+| --- | ---: | ---: | ---: |
+| Native XML resources | 189,619 | 189,619 | 206,003 |
+| Compose resources | 191,620 | 191,620 | 208,004 |
+
+Both default workloads have zero final APK growth. Replacing four Outlined/Sharp
+default icons with Filled adds 16,384 bytes in either mode. Used vector caches
+survive, unused Home classes are absent from DEX and reported removed by R8,
+and library/application configuration caches are reused. Native resources shrink;
+Compose resources preserve the exact font bytes and drawable assets through both
+AAR and APK packaging.
+
+A separate transitive native-pack case declares only the Rounded
+AutoMirroredFilled dependency in the KMP library's Android source set. Published
+metadata carries it to the consuming application without embedding the pack XML
+in the KMP AAR. The resulting 220,379-byte APK retains exactly one Material native
+drawable and removes the unused Home resource.
+
+The six-vector Android benchmark also passes its used/unused class, font, and
+resource checks: 11,746,822 bytes without shrinking versus 205,827 with shrinking.
+That paired result includes removal of transitive code; it is not an isolated
+per-icon saving or a comparison against the smaller 2.1.0 workload.
+
+### Published vector archive sizes
+
+Adding Filled expands the complete Outlined and Sharp library API. The following
+are whole publication downloads; Android compares AARs, JVM compares JARs,
+and JS/Wasm/Apple compare packed KLIBs. These numbers do not predict final APK size.
+
+| Module | Target | 2.1.0 archive B | Candidate archive B | Change |
+| --- | --- | ---: | ---: | ---: |
+| material-vectors-outlined | JVM | 15,169,684 | 18,495,383 | +21.92% |
+| material-vectors-outlined | Android | 14,383,046 | 17,136,343 | +19.14% |
+| material-vectors-outlined | JS | 6,454,969 | 8,436,332 | +30.70% |
+| material-vectors-outlined | Wasm | 6,455,007 | 8,436,372 | +30.70% |
+| material-vectors-outlined | Apple arm64 | 6,455,034 | 8,436,384 | +30.69% |
+| material-vectors-sharp | JVM | 14,646,101 | 17,740,480 | +21.13% |
+| material-vectors-sharp | Android | 13,895,975 | 16,458,360 | +18.44% |
+| material-vectors-sharp | JS | 5,873,401 | 7,723,787 | +31.50% |
+| material-vectors-sharp | Wasm | 5,873,439 | 7,723,825 | +31.50% |
+| material-vectors-sharp | Apple arm64 | 5,873,457 | 7,723,839 | +31.50% |
+| material-vectors-rounded | JVM | 8,811,679 | 8,931,624 | +1.36% |
+| material-vectors-rounded | Android | 7,411,454 | 7,518,599 | +1.45% |
+| material-vectors-rounded | JS | 3,602,694 | 3,670,239 | +1.87% |
+| material-vectors-rounded | Wasm | 3,602,734 | 3,670,279 | +1.87% |
+| material-vectors-rounded | Apple arm64 | 3,602,740 | 3,670,297 | +1.88% |
+| material-core | JVM | 336,505 | 365,289 | +8.55% |
+
+The Rounded JVM and Android controls have byte-identical uncompressed leaf
+files. Their download-size increases come from packaging/compression. Outlined/Sharp expanded payload increases approximately
+17–21% with the additional Filled getters and caches. Native ordinary AARs are
+3,090,038 / 3,792,455 / 2,856,321 bytes for Outlined/Rounded/Sharp, versus
+3,071,748 / 3,769,577 / 2,839,479 for 2.1.0; their XML payloads remain identical.
+
+Apple KLIB compilation and packaging were checked on Linux. This is archive
+validation, not a measurement of a linked iOS application's size or rendering.
+
 ## Rounded Filled vectors
 
 `Symbols.Material.Rounded.Filled` adds FILL=1 without changing existing FILL=0
