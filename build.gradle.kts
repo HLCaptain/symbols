@@ -57,13 +57,13 @@ abstract class VerifyPublishedArchives : DefaultTask() {
 
     @get:InputFiles
     @get:PathSensitive(PathSensitivity.RELATIVE)
-    abstract val composeDrawableArchives: ConfigurableFileCollection
+    abstract val drawableArchives: ConfigurableFileCollection
 
     @get:Input
     abstract val legalNamespaceByArchivePath: MapProperty<String, String>
 
     @get:Input
-    abstract val composeDrawableStyleByArchivePath: MapProperty<String, String>
+    abstract val drawablePrefixByArchivePath: MapProperty<String, String>
 
     @TaskAction
     fun verifyArchives() {
@@ -73,7 +73,7 @@ abstract class VerifyPublishedArchives : DefaultTask() {
         val namespacedLegalArchivePaths = namespacedLegalArchives.files
             .map { it.toPath().toAbsolutePath().normalize() }
             .toSet()
-        val composeDrawableArchivePaths = composeDrawableArchives.files
+        val drawableArchivePaths = drawableArchives.files
             .map { it.toPath().toAbsolutePath().normalize() }
             .toSet()
         val expectedLegalDocuments = legalDocuments.files.associate {
@@ -96,13 +96,13 @@ abstract class VerifyPublishedArchives : DefaultTask() {
             } else {
                 null
             }
-            val expectedComposeDrawableStyle = if (
-                archivePath in composeDrawableArchivePaths
+            val expectedDrawablePrefix = if (
+                archivePath in drawableArchivePaths
             ) {
                 checkNotNull(
-                    composeDrawableStyleByArchivePath.get()[archivePath.toString()],
+                    drawablePrefixByArchivePath.get()[archivePath.toString()],
                 ) {
-                    "Missing Compose drawable metadata for $archive"
+                    "Missing drawable metadata for $archive"
                 }
             } else {
                 null
@@ -153,15 +153,17 @@ abstract class VerifyPublishedArchives : DefaultTask() {
                         "$archive must not contain a TTF font; found ${fonts.size}: $fonts"
                     }
                 }
-                if (expectedComposeDrawableStyle != null) {
-                    val drawablePrefix =
-                        "material_symbols_${expectedComposeDrawableStyle}_"
+                if (expectedDrawablePrefix != null) {
+                    val drawablePrefix = expectedDrawablePrefix
                     val drawables = entries.filter { entry ->
-                        "/drawable/$drawablePrefix" in entry && entry.endsWith(".xml")
+                        "/drawable/" in entry && entry.endsWith(".xml")
                     }
-                    check(drawables.size == MaterialComposeDrawableCount) {
-                        "$archive must contain $MaterialComposeDrawableCount " +
-                            "$expectedComposeDrawableStyle Compose drawables; found " +
+                    check(drawables.all { "/drawable/$drawablePrefix" in it }) {
+                        "$archive contains drawable resources outside $drawablePrefix"
+                    }
+                    check(drawables.size == MaterialDrawableCount) {
+                        "$archive must contain $MaterialDrawableCount " +
+                            "$drawablePrefix drawables; found " +
                             drawables.size
                     }
                     check(
@@ -169,7 +171,7 @@ abstract class VerifyPublishedArchives : DefaultTask() {
                             entry.endsWith("${drawablePrefix}home_ue9b2.xml")
                         },
                     ) {
-                        "$archive is missing the expected $expectedComposeDrawableStyle " +
+                        "$archive is missing the expected $expectedDrawablePrefix " +
                             "Home drawable"
                     }
                 }
@@ -184,7 +186,7 @@ abstract class VerifyPublishedArchives : DefaultTask() {
     }
 
     private companion object {
-        const val MaterialComposeDrawableCount = 3_802
+        const val MaterialDrawableCount = 3_802
     }
 }
 
@@ -264,6 +266,17 @@ subprojects {
             "material-compose-drawables-rounded" to "rounded",
             "material-compose-drawables-sharp" to "sharp",
         )
+        val nativeDrawablePrefixes = buildMap {
+            listOf("outlined", "rounded", "sharp").forEach { style ->
+                put("material-drawables-$style", "material_symbols_${style}_")
+                put("material-drawables-$style-filled", "material_symbols_${style}_filled_")
+                put("material-drawables-$style-automirrored", "material_symbols_automirrored_${style}_")
+                put(
+                    "material-drawables-$style-automirrored-filled",
+                    "material_symbols_automirrored_${style}_filled_",
+                )
+            }
+        }
         val publicationDescription = when (project.name) {
             "symbols-core" ->
                 "Common Symbols namespace for built-in and generated Kotlin " +
@@ -325,6 +338,9 @@ subprojects {
             "material-vectors-themed" ->
                 "Theme-selected default-axis ImageVector access over all three " +
                     "style packs; no bundled font."
+            in nativeDrawablePrefixes ->
+                "${project.name.removePrefix("material-drawables-").replace('-', ' ')} " +
+                    "Material Symbols Android vector drawable pack; no bundled font."
             else -> error("Missing publication description for ${project.path}")
         }
         val legalDocuments = rootProject.files(
@@ -400,13 +416,17 @@ subprojects {
                             name == "bundleAndroidMainAar" ||
                             name.endsWith("ZipMultiplatformResourcesForPublication")
                     )
-                val expectedComposeDrawableStyle = composeDrawableStyles[project.name]
-                    ?.takeIf {
-                        name == "jvmJar" ||
-                            name == "bundleReleaseAar" ||
-                            name == "bundleAndroidMainAar" ||
-                            name.endsWith("ZipMultiplatformResourcesForPublication")
-                    }
+                val expectedDrawablePrefix = if (name == "bundleReleaseAar") {
+                    nativeDrawablePrefixes[project.name]
+                        ?: composeDrawableStyles[project.name]?.let { "material_symbols_${it}_" }
+                } else {
+                    composeDrawableStyles[project.name]
+                        ?.takeIf {
+                            name == "jvmJar" || name == "bundleAndroidMainAar" ||
+                                name.endsWith("ZipMultiplatformResourcesForPublication")
+                        }
+                        ?.let { "material_symbols_${it}_" }
+                }
 
                 val platform = when {
                     name.startsWith("ios") -> "Apple"
@@ -436,11 +456,11 @@ subprojects {
                     if (expectsSingleFont) {
                         singleFontArchives.from(archiveTask.archiveFile)
                     }
-                    if (expectedComposeDrawableStyle != null) {
-                        composeDrawableArchives.from(archiveTask.archiveFile)
-                        composeDrawableStyleByArchivePath.put(
+                    if (expectedDrawablePrefix != null) {
+                        drawableArchives.from(archiveTask.archiveFile)
+                        drawablePrefixByArchivePath.put(
                             archivePath,
-                            expectedComposeDrawableStyle,
+                            expectedDrawablePrefix,
                         )
                     }
                 }

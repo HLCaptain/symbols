@@ -85,8 +85,17 @@ include(
     ":modules:material-compose-drawables-rounded",
     ":modules:material-compose-drawables-sharp",
     ":modules:material-drawables-outlined",
+    ":modules:material-drawables-outlined-filled",
+    ":modules:material-drawables-outlined-automirrored",
+    ":modules:material-drawables-outlined-automirrored-filled",
     ":modules:material-drawables-rounded",
+    ":modules:material-drawables-rounded-filled",
+    ":modules:material-drawables-rounded-automirrored",
+    ":modules:material-drawables-rounded-automirrored-filled",
     ":modules:material-drawables-sharp",
+    ":modules:material-drawables-sharp-filled",
+    ":modules:material-drawables-sharp-automirrored",
+    ":modules:material-drawables-sharp-automirrored-filled",
     ":modules:material-vectors-outlined",
     ":modules:material-vectors-rounded",
     ":modules:material-vectors-sharp",
@@ -119,6 +128,24 @@ project(":modules:material-drawables-rounded").projectDir =
     file("symbols/material-drawables-rounded")
 project(":modules:material-drawables-sharp").projectDir =
     file("symbols/material-drawables-sharp")
+project(":modules:material-drawables-outlined-filled").projectDir =
+    file("symbols/material-drawables-outlined-filled")
+project(":modules:material-drawables-outlined-automirrored").projectDir =
+    file("symbols/material-drawables-outlined-automirrored")
+project(":modules:material-drawables-outlined-automirrored-filled").projectDir =
+    file("symbols/material-drawables-outlined-automirrored-filled")
+project(":modules:material-drawables-rounded-filled").projectDir =
+    file("symbols/material-drawables-rounded-filled")
+project(":modules:material-drawables-rounded-automirrored").projectDir =
+    file("symbols/material-drawables-rounded-automirrored")
+project(":modules:material-drawables-rounded-automirrored-filled").projectDir =
+    file("symbols/material-drawables-rounded-automirrored-filled")
+project(":modules:material-drawables-sharp-filled").projectDir =
+    file("symbols/material-drawables-sharp-filled")
+project(":modules:material-drawables-sharp-automirrored").projectDir =
+    file("symbols/material-drawables-sharp-automirrored")
+project(":modules:material-drawables-sharp-automirrored-filled").projectDir =
+    file("symbols/material-drawables-sharp-automirrored-filled")
 project(":modules:material-vectors-outlined").projectDir =
     file("symbols/material-vectors-outlined")
 project(":modules:material-vectors-rounded").projectDir =

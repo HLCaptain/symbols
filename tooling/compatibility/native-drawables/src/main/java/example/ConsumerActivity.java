@@ -1,8 +1,8 @@
 package example;
 
-import static io.github.hlcaptain.symbols.material.outlined.drawables.R.drawable.*;
-import static io.github.hlcaptain.symbols.material.rounded.drawables.R.drawable.*;
-import static io.github.hlcaptain.symbols.material.sharp.drawables.R.drawable.*;
+import static io.github.hlcaptain.symbols.material.outlined.drawables.automirrored.filled.R.drawable.*;
+import static io.github.hlcaptain.symbols.material.rounded.drawables.automirrored.filled.R.drawable.*;
+import static io.github.hlcaptain.symbols.material.sharp.drawables.automirrored.filled.R.drawable.*;
 
 public final class ConsumerActivity extends android.app.Activity {
     @Override public void onCreate(android.os.Bundle state) {

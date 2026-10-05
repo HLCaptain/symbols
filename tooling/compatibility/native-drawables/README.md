@@ -1,7 +1,7 @@
 # Native drawable pack verification
 
-This standalone Java Android app consumes the locally built Outlined, Rounded,
-and Sharp AARs directly. It has no Kotlin or Compose runtime dependency and uses
+This standalone Java Android app explicitly consumes all twelve locally built
+Outlined, Rounded, and Sharp AARs directly. It has no Kotlin or Compose runtime dependency and uses
 the repository's version catalog and root Gradle wrapper. Nothing is published.
 
 From the repository root, with JDK 21 and the Android SDK configured:
@@ -10,9 +10,14 @@ From the repository root, with JDK 21 and the Android SDK configured:
 export JAVA_HOME=/path/to/jdk-21
 export ANDROID_HOME=/path/to/android-sdk
 
-./gradlew :modules:material-drawables-outlined:assembleRelease \
-  :modules:material-drawables-rounded:assembleRelease \
-  :modules:material-drawables-sharp:assembleRelease
+native_tasks=()
+for style in outlined rounded sharp; do
+  for variant in "" -filled -automirrored -automirrored-filled; do
+    module=":modules:material-drawables-$style$variant"
+    native_tasks+=("$module:assembleRelease" "$module:generatePomFileForReleasePublication")
+  done
+done
+./gradlew "${native_tasks[@]}"
 
 ./gradlew -p tooling/compatibility/native-drawables \
   testDebugUnitTest assembleDebug assembleRelease
@@ -40,9 +45,9 @@ done
 python3 tooling/compatibility/native-drawables/verify_aars.py
 ```
 
-The script pins the baseline SHA-256 hashes, verifies all four families and
-`R.txt` names in every candidate AAR, requires byte-identical existing ordinary
-XML, and checks mirror flags, unchanged mirrored geometry, differing filled
+The script pins the baseline SHA-256 hashes, requires exactly one family and
+3,802 matching `R.txt` names in every candidate AAR, requires dependency-free POMs
+and byte-identical existing ordinary XML, and checks mirror flags, unchanged mirrored geometry, differing filled
 geometry, and absence of bundled font files. It reads local files only.
 
 For each style, Robolectric's native Android API 35 renderer draws asymmetric
@@ -60,7 +65,17 @@ alpha levels of antialiasing roundoff per pixel. The fixture retains minSdk 21,
 but these are API 35 native renderer tests, not API 21/device instrumentation
 tests.
 
-The debug APK must contain all 45,624 drawable resource names. The release app
+Each existing `symbols-material-drawables-{style}` artifact contains ordinary
+resources only. Add `-filled`, `-automirrored`, or `-automirrored-filled` explicitly
+for that family; none of these artifacts pulls in another pack. Their `R`
+packages append `.filled`, `.automirrored`, or `.automirrored.filled` to the
+original `io.github.hlcaptain.symbols.material.{style}.drawables` namespace.
+Resource names remain `material_symbols_{style}_*`,
+`material_symbols_{style}_filled_*`, `material_symbols_automirrored_{style}_*`,
+and `material_symbols_automirrored_{style}_filled_*` respectively.
+
+This fixture opts into every pack so the debug APK must contain all 45,624
+drawable resource names. The release app
 uses full-mode R8 and resource shrinking; it must retain exactly the three
 referenced mirrored-filled VolumeOff resources, one per style. No keep rules
 are added. Update the expected full-pack count in `verify.py` when the pinned
@@ -70,3 +85,18 @@ All generated evidence stays in this fixture's ignored `build/` directory:
 JUnit results in `test-results/testDebugUnitTest/`, 24 white-backed PNG previews
 in `rendered/`, APK inventories in `debug-resources.txt` and
 `release-resources.txt`, and counts/sizes in `shrink-results.json`.
+
+Run the focused native APK size regression after assembling packs and downloading
+the pinned baselines:
+
+```sh
+python3 tooling/compatibility/native-drawables/check_sizes.py \
+  "$ANDROID_HOME/build-tools/36.1.0/aapt2"
+```
+
+It compares identical ordinary-only baseline/candidate consumers at minSdk 21
+and 26 and requires equal final release APK and resource-table sizes. It also
+builds each optional family independently and a mixed-family consumer with one
+wholly unused pack. Every debug inventory must match the selected packs; every
+release must retain exactly its three referenced resources. Logs, inventories,
+and `results.json` stay in `build/size-regression/`.

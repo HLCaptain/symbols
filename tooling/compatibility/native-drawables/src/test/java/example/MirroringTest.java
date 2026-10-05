@@ -16,8 +16,17 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.annotation.GraphicsMode;
 import static io.github.hlcaptain.symbols.material.outlined.drawables.R.drawable.*;
+import static io.github.hlcaptain.symbols.material.outlined.drawables.filled.R.drawable.*;
+import static io.github.hlcaptain.symbols.material.outlined.drawables.automirrored.R.drawable.*;
+import static io.github.hlcaptain.symbols.material.outlined.drawables.automirrored.filled.R.drawable.*;
 import static io.github.hlcaptain.symbols.material.rounded.drawables.R.drawable.*;
+import static io.github.hlcaptain.symbols.material.rounded.drawables.filled.R.drawable.*;
+import static io.github.hlcaptain.symbols.material.rounded.drawables.automirrored.R.drawable.*;
+import static io.github.hlcaptain.symbols.material.rounded.drawables.automirrored.filled.R.drawable.*;
 import static io.github.hlcaptain.symbols.material.sharp.drawables.R.drawable.*;
+import static io.github.hlcaptain.symbols.material.sharp.drawables.filled.R.drawable.*;
+import static io.github.hlcaptain.symbols.material.sharp.drawables.automirrored.R.drawable.*;
+import static io.github.hlcaptain.symbols.material.sharp.drawables.automirrored.filled.R.drawable.*;
 import static org.junit.Assert.*;
 
 @RunWith(RobolectricTestRunner.class)
