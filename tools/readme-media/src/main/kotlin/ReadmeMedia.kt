@@ -2,9 +2,6 @@
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.CubicBezierEasing
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.keyframes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
@@ -125,14 +122,11 @@ private fun animatedTint(step: Float, finishedListener: ((Float) -> Unit)? = nul
 @Composable
 private fun animatedArrow(step: Float, finishedListener: (() -> Unit)? = null): Float {
     val offset = remember { Animatable(0f) }
+    val motion = MaterialTheme.motionScheme
     LaunchedEffect(step) {
         if (step != 0f) {
-            offset.animateTo(0f, keyframes {
-                durationMillis = 1000
-                0f at 0 using FastOutSlowInEasing
-                8f at 350 using CubicBezierEasing(0.42f, 0f, 0.58f, 1f)
-                0f at 1000
-            })
+            offset.animateTo(8f, motion.fastSpatialSpec<Float>())
+            offset.animateTo(0f, motion.slowSpatialSpec<Float>())
         }
         finishedListener?.invoke()
     }

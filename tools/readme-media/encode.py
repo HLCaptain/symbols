@@ -64,7 +64,7 @@ def encode(name: str) -> None:
         assert resting_arrow is not None
         assert all(box is not None and box[1::2] == resting_arrow[1::2]
                    and box[2] - box[0] == resting_arrow[2] - resting_arrow[0]
-                   and 0 <= box[0] - resting_arrow[0] <= 8 for box in arrow_boxes), "Arrow must move horizontally within 8 pixels"
+                   and -1 <= box[0] - resting_arrow[0] <= 10 for box in arrow_boxes), "Expressive arrow must keep its spring overshoot small and horizontal"
         crops = [(588 + i * 104, 58, 668 + i * 104, 138) for i in range(4)]
         expected = [
             (1, 400, 0, 24), (1, 100, 0, 24), (0, 100, 0, 24), (0, 400, 0, 24),
@@ -98,10 +98,7 @@ def encode(name: str) -> None:
                 tints = {min(frame.crop(crops[0]).get_flattened_data(), key=sum) for frame in transition}
                 assert len(tints) > 1, "Tint must animate during the transition"
                 arrow_track = [box[0] - resting_arrow[0] for box in arrow_boxes[start // 2:finish // 2]]
-                assert max(arrow_track) == 8 and arrow_track[0] == 0 and arrow_track[-1] == 0, "Each transition needs a complete arrow nudge"
-                peak = arrow_track.index(8)
-                assert all(a <= b for a, b in zip(arrow_track[:peak], arrow_track[1:peak + 1]))
-                assert all(a >= b for a, b in zip(arrow_track[peak:], arrow_track[peak + 1:])), "Arrow must return gently without reversing again"
+                assert max(arrow_track) > 8 and arrow_track[0] == 0 and arrow_track[-1] == 0, "Each transition needs an expressive overshoot and a complete return"
                 assert ImageChops.difference(colored_hold[0].crop(arrow_crop), first.crop(arrow_crop)).getbbox() is None, "Arrow must return to rest before the hold"
             settled.append(hold[0].crop((578, 50, 1000, 145)))
             previous_end = end

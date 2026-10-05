@@ -62,12 +62,16 @@ to weight, optical size, and grade. The initial state holds for 1.5 seconds.
 Every transition waits for the axis spring, hue spring, and arrow motion to
 finish, then holds the complete settled frame for 1.5 seconds. The 24 color
 steps complete one rainbow cycle and return to the initial red. The comparison
-lasts 62.3 seconds: 1,869 exported frames at 30 fps.
+lasts 64.7 seconds: 1,941 exported frames at 30 fps.
 
-The arrow moves 8 dp right in 350 ms using `FastOutSlowInEasing`, then returns
-left in 650 ms using `CubicBezierEasing(0.42, 0, 0.58, 1)`. It stays on the same
-horizontal baseline and rests during every settled hold. The one-second motion
-uses Compose `Animatable` keyframes driven by the same capture clock.
+The arrow uses the actual `MaterialExpressiveTheme` motion scheme: an
+`Animatable` moves toward 8 dp with `MaterialTheme.motionScheme.fastSpatialSpec`,
+then returns to zero with `slowSpatialSpec`. The expressive fast spring adds a
+small overshoot and rebound; the slow spring gives a gentler return. Timing
+comes from spring completion on the same capture clock. The captured nudge peaks
+at 9 pixels after approximately 133 ms, rebounds toward the 8 dp target, and
+returns visibly to rest after approximately 700 ms. The arrow stays on its
+horizontal baseline and rests during every settled hold.
 
 `states.csv` records each target's start (`frame`), completion-aligned hold
 start (`settledFrame`), and end (`endFrame`) as native 60 Hz frame indices.
@@ -78,7 +82,7 @@ captures, since Skia's font antialiasing changes with tint. The entire legacy
 half stays pixel-identical throughout. Checks require all four Symbols glyphs
 to reach the expected color, tint to animate during transitions, complete colored
 frames to stay pixel-static during holds, and the arrow to move only horizontally
-within 8 pixels and return to rest. Text and background pixels stay unchanged.
+with a small expressive overshoot beyond its 8 dp target and return to rest. Text and background pixels stay unchanged.
 
 Capture glyphs use 1.25-em drawing boxes, adding `size / 8` on each edge for the
 pinned Rounded font's 1.2-em line height. Font size stays unchanged; this adjusts
