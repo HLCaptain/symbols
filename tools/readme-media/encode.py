@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Verify Compose captures with Pillow and encode their unchanged frames with FFmpeg."""
 
-import colorsys
 import csv
 from pathlib import Path
 import shutil
@@ -95,6 +94,10 @@ def encode(name: str) -> None:
             (1, 400, 0, 24),
         ]
         assert len(states) == len(expected)
+        palette = [int(state["tintArgb"], 16) for state in states]
+        assert palette[0] == palette[-1] == 0xFF000000, "Color loop must begin and end at black"
+        assert palette[1] == 0xFF6750A4, "First transition must reach Material's default purple"
+        assert len(set(palette[2:-1])) == len(palette[2:-1]), "Seed-derived primaries must vary"
         previous_end = 0
         settled = []
         for index, (state, axes) in enumerate(zip(states, expected)):
@@ -108,7 +111,11 @@ def encode(name: str) -> None:
             assert all(ImageChops.difference(hold[0], frame).getbbox() is None for frame in hold), "Settled hold must keep its shape"
             colored_hold = frames[finish // 2:end // 2]
             assert all(ImageChops.difference(colored_hold[0], frame).getbbox() is None for frame in colored_hold), "Tint must stay fixed throughout the hold"
-            expected_color = tuple(round(channel * 255) for channel in colorsys.hsv_to_rgb(index / (len(expected) - 1), 1, 0.6))
+            expected_color = tuple((palette[index] >> shift) & 255 for shift in (16, 8, 0))
+            channels = [value / 255 for value in expected_color]
+            linear = [value / 12.92 if value <= 0.04045 else ((value + 0.055) / 1.055) ** 2.4 for value in channels]
+            luminance = sum(value * weight for value, weight in zip(linear, (0.2126, 0.7152, 0.0722)))
+            assert 1.05 / (luminance + 0.05) >= 3, "Material primary must remain legible on white"
             for crop in crops:
                 ink = min(colored_hold[0].crop(crop).get_flattened_data(), key=sum)
                 assert all(abs(actual - color) <= 1 for actual, color in zip(ink, expected_color)), f"Unexpected settled Symbols tint in state {index}: {ink} != {expected_color}"

@@ -1,6 +1,7 @@
 @file:OptIn(androidx.compose.ui.ExperimentalComposeUiApi::class)
 
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.EaseInOutQuart
 import androidx.compose.animation.core.EaseOutQuart
@@ -18,6 +19,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialExpressiveTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
@@ -28,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ImageComposeScene
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -37,6 +40,8 @@ import io.github.hlcaptain.symbols.font.SymbolFontIcon
 import io.github.hlcaptain.symbols.font.fontSettings
 import io.github.hlcaptain.symbols.material.*
 import io.github.hlcaptain.symbols.material.rounded.vectors.Home
+import com.materialkolor.hct.Hct
+import com.materialkolor.scheme.SchemeTonalSpot
 import java.io.File
 import javax.imageio.ImageIO
 import kotlinx.coroutines.Dispatchers
@@ -92,6 +97,21 @@ private val ComparisonStates = buildList {
         add(axes.copy(fill = fill))
     }
 }
+
+private fun primaryFromSeed(seed: Color): Color =
+    Color(SchemeTonalSpot(Hct.fromInt(seed.toArgb()), false, 0.0).primary)
+
+private val ComparisonTints = buildList {
+    val purple = lightColorScheme().primary
+    val purpleHue = Hct.fromInt(purple.toArgb()).hue
+    add(Color.Black)
+    add(purple)
+    for (index in 2 until ComparisonStates.lastIndex) {
+        val hue = (purpleHue + (index - 1) * 360.0 / (ComparisonStates.lastIndex - 1)) % 360.0
+        add(primaryFromSeed(Color(Hct.from(hue, 48.0, 50.0).toInt())))
+    }
+    add(Color.Black)
+}
 private val VariableStates = listOf(
     Axes(),
     Axes(fill = 1f, weight = 100f, grade = -50f, opticalSize = 20f),
@@ -113,14 +133,11 @@ private fun animatedAxes(target: Axes, finishedListener: ((Float) -> Unit)? = nu
 }
 
 @Composable
-private fun animatedTint(step: Float, finishedListener: ((Float) -> Unit)? = null): Color {
-    val animatedStep = animateFloatAsState(
-        step, MaterialTheme.motionScheme.defaultSpatialSpec<Float>(),
-        label = "Hue", finishedListener = finishedListener,
+private fun animatedTint(step: Float, finishedListener: ((Color) -> Unit)? = null): Color =
+    animateColorAsState(
+        ComparisonTints[step.toInt()], MaterialTheme.motionScheme.defaultEffectsSpec<Color>(),
+        label = "Tint", finishedListener = finishedListener,
     ).value
-    val hue = (animatedStep * 360f / ComparisonStates.lastIndex % 360f + 360f) % 360f
-    return Color.hsv(hue, 1f, 0.6f)
-}
 
 @Composable
 private fun animatedArrow(step: Float, finishedListener: (() -> Unit)? = null): Float {
@@ -252,9 +269,9 @@ private suspend fun capture(name: String, comparison: Boolean) {
     val states = if (comparison) ComparisonStates else VariableStates
     val initial = states.first()
     val target = mutableStateOf(initial)
-    val hueStep = mutableStateOf(0f)
+    val colorStep = mutableStateOf(0f)
     var animationFinished = true
-    var hueFinished = true
+    var tintFinished = true
     var arrowFinished = true
     if (comparison) {
         // One completion callback is sufficient only when exactly one axis changes.
@@ -268,8 +285,8 @@ private suspend fun capture(name: String, comparison: Boolean) {
             if (comparison) {
                 Comparison(
                     target.value,
-                    animatedTint(hueStep.value) { hueFinished = true },
-                    animatedArrow(hueStep.value) { arrowFinished = true },
+                    animatedTint(colorStep.value) { tintFinished = true },
+                    animatedArrow(colorStep.value) { arrowFinished = true },
                 ) {
                     animationFinished = true
                 }
@@ -279,13 +296,13 @@ private suspend fun capture(name: String, comparison: Boolean) {
     // Same released renderer and font size, with a roomier layout to reveal internal clipping.
     val reference = ImageComposeScene(Width, Height, coroutineContext = Dispatchers.Unconfined) {
         MaterialExpressiveTheme {
-            if (comparison) Comparison(target.value, animatedTint(hueStep.value), animatedArrow(hueStep.value), extraDrawingSpace = 20) {}
+            if (comparison) Comparison(target.value, animatedTint(colorStep.value), animatedArrow(colorStep.value), extraDrawingSpace = 20) {}
             else VariableFonts(target.value, extraDrawingSpace = 20)
         }
     }
     // Skia's font antialiasing depends on tint; verify settled geometry in its original black.
     val shapes = if (comparison) ImageComposeScene(Width, Height, coroutineContext = Dispatchers.Unconfined) {
-        MaterialExpressiveTheme { Comparison(target.value, Color.Black, animatedArrow(hueStep.value)) {} }
+        MaterialExpressiveTheme { Comparison(target.value, Color.Black, animatedArrow(colorStep.value)) {} }
     } else null
     var time = 0L
     var referencePng = byteArrayOf()
@@ -328,19 +345,19 @@ private suspend fun capture(name: String, comparison: Boolean) {
             }
             frameCount++
         }
-        val timeline = mutableListOf("frame,settledFrame,endFrame,fill,weight,grade,opticalSize")
+        val timeline = mutableListOf("frame,settledFrame,endFrame,fill,weight,grade,opticalSize,tintArgb")
         for ((index, axes) in states.withIndex()) {
             val startFrame = frameCount
             var settledFrame: Int? = null
             animationFinished = index == 0
-            hueFinished = index == 0
+            tintFinished = index == 0
             arrowFinished = index == 0
             Snapshot.withMutableSnapshot {
                 target.value = axes
-                hueStep.value = index.toFloat()
+                colorStep.value = index.toFloat()
             }
             if (comparison) {
-                while (!animationFinished || !hueFinished || !arrowFinished) {
+                while (!animationFinished || !tintFinished || !arrowFinished) {
                     check(frameCount - startFrame < 600) { "Animation did not finish: $axes" }
                     recordFrame()
                 }
@@ -351,7 +368,8 @@ private suspend fun capture(name: String, comparison: Boolean) {
             } else {
                 repeat(96) { recordFrame() }
             }
-            timeline += "$startFrame,${settledFrame ?: ""},$frameCount,${axes.fill},${axes.weight},${axes.grade},${axes.opticalSize}"
+            val targetTint = if (comparison) ComparisonTints[index] else Color.Black
+            timeline += "$startFrame,${settledFrame ?: ""},$frameCount,${axes.fill},${axes.weight},${axes.grade},${axes.opticalSize},${targetTint.toArgb().toUInt().toString(16)}"
         }
         File(output, "states.csv").writeText(timeline.joinToString("\n"))
         println("Captured $name: ${frameCount / 2} frames, ${frameCount / 60.0} seconds, 30 fps")
@@ -367,6 +385,9 @@ fun main() = runBlocking {
     // Compile-check the migration-first README call against the released vector artifact too.
     check(Icons.Rounded.Home.viewportWidth > 0)
     check(Examples.map { it.name } == listOf("Home", "AccountTree", "Favorite", "VolumeOff"))
+    check(ComparisonTints.size == ComparisonStates.size)
+    check(ComparisonTints.first() == Color.Black && ComparisonTints.last() == Color.Black)
+    check(ComparisonTints[1] == lightColorScheme().primary)
     capture("icons-comparison", comparison = true)
     capture("variable-fonts", comparison = false)
 }

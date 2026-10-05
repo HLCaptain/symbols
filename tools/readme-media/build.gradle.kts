@@ -8,6 +8,7 @@ plugins {
 kotlin { jvmToolchain(21) }
 
 dependencies {
+    implementation("com.materialkolor:material-color-utilities:5.0.1")
     implementation("io.github.hlcaptain:symbols-material-rounded:2.1.0")
     implementation("io.github.hlcaptain:symbols-material-vectors-rounded:2.1.0")
     implementation(libs.compose.material.icons.extended)
