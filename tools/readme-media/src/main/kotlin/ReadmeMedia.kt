@@ -46,6 +46,7 @@ private const val Width = 1000
 private const val Height = 200
 private const val FrameNanos = 16_666_667L
 private const val SettledHoldFrames = 90 // 1.5 seconds after the spring finishes, at 60 Hz.
+private const val RainbowCycleFrames = 300 // Five seconds at 60 Hz.
 
 private data class Example(val legacy: ImageVector, val codePoint: Int) {
     val name: String get() = legacy.name.substringAfterLast('.')
@@ -128,7 +129,7 @@ private fun CenteredLabel(text: String, x: Int, y: Int, width: Int, size: Int, b
 @Composable
 private fun Glyph(
     codePoint: Int, x: Int, y: Int, size: Int, axes: List<State<Float>>,
-    onlyAxis: Int? = null, extraDrawingSpace: Int = 0,
+    onlyAxis: Int? = null, extraDrawingSpace: Int = 0, tint: Color = Color.Black,
 ) {
     // The pinned font's line height is 1.2 em. Give it a 1.25 em drawing box,
     // centered on the same slot, while keeping the requested font size unchanged.
@@ -140,7 +141,7 @@ private fun Glyph(
         modifier = Modifier.offset((x - padding).dp, (y - padding).dp)
             .size((size + padding * 2).dp),
         size = size.dp,
-        tint = Color.Black,
+        tint = tint,
         fontSettings = {
             // Expressive spatial springs can overshoot; a font's declared axis bounds cannot.
             Font.fontSettings(mapOf(
@@ -154,15 +155,15 @@ private fun Glyph(
 }
 
 @Composable
-private fun Comparison(target: Axes, extraDrawingSpace: Int = 0, finishedListener: (Float) -> Unit) {
+private fun Comparison(target: Axes, tint: Color, extraDrawingSpace: Int = 0, finishedListener: (Float) -> Unit) {
     val axes = animatedAxes(target, finishedListener)
     Box(Modifier.size(Width.dp, Height.dp).background(Color.White)) {
         Label("Material Icons Extended", 24, 8, 28, bold = true)
         Label("Symbols", 592, 8, 28, bold = true)
         Icon(Icons.Rounded.ArrowForward, null, Modifier.offset(472.dp, 70.dp).size(56.dp), tint = Color.Black)
         Examples.forEachIndexed { i, icon ->
-            Icon(icon.legacy, null, Modifier.offset((20 + i * 104).dp, 58.dp).size(80.dp), tint = Color.Black)
-            Glyph(icon.codePoint, 588 + i * 104, 58, 80, axes, extraDrawingSpace = extraDrawingSpace)
+            Icon(icon.legacy, null, Modifier.offset((20 + i * 104).dp, 58.dp).size(80.dp), tint = tint)
+            Glyph(icon.codePoint, 588 + i * 104, 58, 80, axes, extraDrawingSpace = extraDrawingSpace, tint = tint)
             listOf(10, 578).forEach { start ->
                 CenteredLabel(icon.name, start + i * 104, 150, 100, 15)
             }
@@ -204,11 +205,15 @@ private fun glyphsReady(png: ByteArray, comparison: Boolean): Boolean {
 
 private suspend fun capture(name: String, comparison: Boolean) {
     val output = File("build/frames/$name").apply { mkdirs() }
+    val shapeOutput = if (comparison) File(output, "shapes").apply { mkdirs() } else null
     // The comparison duration can change; don't mix this capture with older frames.
-    output.listFiles()?.filter { it.name.matches(Regex("\\d{4}\\.png")) }?.forEach { it.delete() }
+    listOfNotNull(output, shapeOutput).forEach { directory ->
+        directory.listFiles()?.filter { it.name.matches(Regex("\\d{4}\\.png")) }?.forEach { it.delete() }
+    }
     val states = if (comparison) ComparisonStates else VariableStates
     val initial = states.first()
     val target = mutableStateOf(initial)
+    val tint = mutableStateOf(Color.hsv(0f, 1f, 0.6f))
     var animationFinished = true
     if (comparison) {
         // One completion callback is sufficient only when exactly one axis changes.
@@ -219,23 +224,29 @@ private suspend fun capture(name: String, comparison: Boolean) {
     }
     val scene = ImageComposeScene(Width, Height, coroutineContext = Dispatchers.Unconfined) {
         MaterialExpressiveTheme {
-            if (comparison) Comparison(target.value) { animationFinished = true } else VariableFonts(target.value)
+            if (comparison) Comparison(target.value, tint.value) { animationFinished = true } else VariableFonts(target.value)
         }
     }
     // Same released renderer and font size, with a roomier layout to reveal internal clipping.
     val reference = ImageComposeScene(Width, Height, coroutineContext = Dispatchers.Unconfined) {
         MaterialExpressiveTheme {
-            if (comparison) Comparison(target.value, extraDrawingSpace = 20) {}
+            if (comparison) Comparison(target.value, tint.value, extraDrawingSpace = 20) {}
             else VariableFonts(target.value, extraDrawingSpace = 20)
         }
     }
+    // Skia's font antialiasing depends on tint; verify settled geometry in its original black.
+    val shapes = if (comparison) ImageComposeScene(Width, Height, coroutineContext = Dispatchers.Unconfined) {
+        MaterialExpressiveTheme { Comparison(target.value, Color.Black) {} }
+    } else null
     var time = 0L
     var referencePng = byteArrayOf()
+    var shapePng = byteArrayOf()
     var verifyClipping = false
     fun frame(): ByteArray {
         Snapshot.sendApplyNotifications()
         val png = scene.render(time).use { it.png() }
         referencePng = reference.render(time).use { it.png() }
+        shapePng = shapes?.render(time)?.use { it.png() } ?: byteArrayOf()
         if (verifyClipping && !png.contentEquals(referencePng)) {
             val failure = File("build/clipping-check").apply { mkdirs() }
             File(failure, "$name-clipped.png").writeBytes(png)
@@ -250,7 +261,8 @@ private suspend fun capture(name: String, comparison: Boolean) {
         withTimeout(20_000) {
             while (true) {
                 val png = frame()
-                if (glyphsReady(png, comparison) && glyphsReady(referencePng, comparison)) break
+                if (glyphsReady(png, comparison) && glyphsReady(referencePng, comparison)
+                    && (!comparison || glyphsReady(shapePng, comparison))) break
                 delay(5)
             }
         }
@@ -259,8 +271,17 @@ private suspend fun capture(name: String, comparison: Boolean) {
         check(states.last() == initial)
         var frameCount = 0
         fun recordFrame() {
+            if (comparison) Snapshot.withMutableSnapshot {
+                // ponytail: 10 Hz hue limits file size; remove quantization if 30 Hz fits the media budget.
+                val colorFrame = frameCount / 6 * 6
+                tint.value = Color.hsv((colorFrame % RainbowCycleFrames) * 360f / RainbowCycleFrames, 1f, 0.6f)
+            }
             val png = frame()
-            if (frameCount % 2 == 0) File(output, "%04d.png".format(frameCount / 2)).writeBytes(png)
+            if (frameCount % 2 == 0) {
+                val filename = "%04d.png".format(frameCount / 2)
+                File(output, filename).writeBytes(png)
+                if (shapeOutput != null) File(shapeOutput, filename).writeBytes(shapePng)
+            }
             frameCount++
         }
         val timeline = mutableListOf("frame,settledFrame,endFrame,fill,weight,grade,opticalSize")
@@ -278,6 +299,10 @@ private suspend fun capture(name: String, comparison: Boolean) {
                 if (frameCount % 2 != 0) recordFrame()
                 settledFrame = frameCount
                 repeat(SettledHoldFrames) { recordFrame() }
+                // Finish the final hue cycle on the original shape, including its first color.
+                if (index == states.lastIndex) {
+                    while ((frameCount - 2) % RainbowCycleFrames != 0) recordFrame()
+                }
             } else {
                 repeat(96) { recordFrame() }
             }
@@ -289,6 +314,7 @@ private suspend fun capture(name: String, comparison: Boolean) {
     } finally {
         scene.close()
         reference.close()
+        shapes?.close()
     }
 }
 

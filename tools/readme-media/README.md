@@ -5,12 +5,15 @@ The README APNGs are real headless Compose renders, using the published Symbols
 uses the repository's Kotlin, Compose and Material3 versions from the catalog;
 it does not build the library's full generated vector packs or sample apps.
 
-From the repository root, with JDK 21 and Pillow 12.3.0 available:
+From the repository root, with JDK 21, FFmpeg, and Pillow 12.3.0 available:
 
 ```sh
 ./gradlew -p tools/readme-media run --max-workers=2
 python3 tools/readme-media/encode.py
 ```
+
+Pass `icons-comparison` to the encoder to update only that animation and its still.
+Pillow only inspects pixels and timing; FFmpeg encodes the original Compose frames.
 
 Install the encoder dependency in a virtual environment if necessary:
 
@@ -27,16 +30,20 @@ Font settings are read inside `SymbolFontIcon`'s producer. Expressive springs ma
 overshoot, so each coordinate is clamped to its font's declared range. Capture
 waits for visible glyphs before recording; it does not assume a font-loading delay.
 
-Both compact layouts use black glyphs and text on white, without card boxes,
+Both compact layouts use black text on white, without card boxes,
 subtitles, or footer labels. The comparison retains its main titles and icon
 names: `Home`, `AccountTree`, `Favorite`, and `VolumeOff`. An actual Rounded
 `ArrowForward` ImageVector sits between the two sides. Material Icons Extended
-1.7.3 Rounded vectors stay fixed on the left through standard `Icon`.
+1.7.3 Rounded vector shapes stay fixed on the left through standard `Icon`.
 Labels use the legacy vector's `name.substringAfterLast('.')`, matching the
 rendered reference names.
 On the right, Symbols' live Rounded font animates fill, weight, optical size,
-and grade at the same requested icon size and tint. It begins and ends at
-`FILL=1, wght=400, GRAD=0, opsz=24`.
+and grade at the same requested icon size and tint. Both columns share a continuous
+five-second hue cycle using HSV saturation `1` and value `0.6`; text and the arrow
+stay black. Hue updates at 10 Hz to keep the APNG compact, while axis motion
+retains the full 30 fps export. This tint keeps every hue at least 3:1 against white. The variable-font
+demo keeps its black glyphs. The comparison begins and ends at
+`FILL=1, wght=400, GRAD=0, opsz=24` and its initial red tint.
 
 Starting filled at the default axes, the comparison runs these three segments
 in order. After each of the 12 axis steps, it toggles fill before advancing to
@@ -52,19 +59,25 @@ retain their values. The final fill toggle returns to `FILL=1` at the defaults.
 The 25 targets produce 24 transitions: 12 fill changes and four changes each
 to weight, optical size, and grade. The initial state holds for 1.5 seconds.
 Every transition then waits for its expressive spring to finish and holds the
-settled state for another 1.5 seconds before advancing. The measured comparison
-lasts 49.633 seconds: 1,489 exported frames at 30 fps.
+settled state for another 1.5 seconds before advancing. The final hold extends
+only far enough to finish the rainbow cycle on its initial color. The comparison
+lasts 50.033 seconds: 1,501 exported frames at 30 fps and ten full hue cycles.
 
 `states.csv` records each target's start (`frame`), completion-aligned hold
 start (`settledFrame`), and end (`endFrame`) as native 60 Hz frame indices.
-The encoder verifies that all 25 holds span 90 native frames (1.5 seconds) with
-identical pixels throughout, and that all 24 transitions are visible.
+The encoder verifies that the first 24 holds span 90 native frames (1.5 seconds),
+the final hold completes the hue cycle, and all 24 axis transitions are visible.
+It checks pixel-static geometry during holds against additional black Compose
+captures, since Skia's font antialiasing changes with tint. The legacy vector
+silhouettes stay identical throughout using their minimum RGB channel.
+It also checks synchronized hue samples in all eight icons and
+unchanged text, arrow, and background pixels.
 
 Capture glyphs use 1.25-em drawing boxes, adding `size / 8` on each edge for the
 pinned Rounded font's 1.2-em line height. Font size stays unchanged; this adjusts
 only the capture layout, not the released renderer. The clipping guard rejected
 the original square bounds. The padded capture then matched a reference with
-another 20 pixels on each edge across all 2,978 comparison and 480 variable-demo
+another 20 pixels on each edge across all 3,002 comparison and 480 variable-demo
 native frames, verifying every frame against roomier drawing bounds.
 
 The variable-font image has four columns from one font, isolating fill, weight,
@@ -90,7 +103,7 @@ Only the two final APNGs and their still alternatives in `docs/media` are tracke
 The `.png` extension is intentional: APNG remains a standard PNG with a readable
 first frame. The variable-font demo remains eight seconds (240 exported frames).
 Each animation plays twice and ends on its initial state. The encoder verifies
-motion in every icon/axis, a completely static legacy panel, seamless loop
+motion in every icon/axis, static legacy shapes, seamless color and shape loop
 endpoints, decoded duration and repeat count. Comparison checks cover segment order,
 single-axis transitions, spring completion, and the settled holds. Frames and
 Gradle outputs remain under ignored `build/`. Platform fonts may change text

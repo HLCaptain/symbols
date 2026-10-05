@@ -8,7 +8,7 @@ Shrinkable vectors and Android drawables that help keep APKs small.
 [![CI](https://github.com/HLCaptain/symbols/actions/workflows/ci.yml/badge.svg)](https://github.com/HLCaptain/symbols/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
-![Home, AccountTree, Favorite, and VolumeOff compared side by side. Fixed classic Material Icons Extended vectors are on the left; the Rounded Material Symbols variable font is on the right. Both start filled. Symbols varies weight, optical size, and grade, toggling fill after each axis step with a pause after every transition. The sequence returns to filled icons at default weight, grade, and optical size.](docs/media/icons-comparison.png)
+![Home, AccountTree, Favorite, and VolumeOff compared side by side. Classic Material Icons Extended vectors keep their shapes on the left; the Rounded Material Symbols variable font is on the right. Both icon columns share a synchronized five-second rainbow color cycle and start filled. Symbols varies weight, optical size, and grade, toggling fill after each axis step with a pause after every transition. The sequence returns to filled icons at default weight, grade, optical size, and its initial color.](docs/media/icons-comparison.png)
 
 Replace the deprecated `material-icons-extended` library while keeping Compose's standard `Icon`.
 Add a pack and use typed names—without per-icon downloads or hand-maintained
