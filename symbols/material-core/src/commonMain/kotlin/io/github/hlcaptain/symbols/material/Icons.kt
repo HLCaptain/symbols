@@ -14,7 +14,10 @@ object Icons {
     object Themed
 
     /** Material Symbols Outlined vectors. */
-    object Outlined
+    object Outlined {
+        /** Outlined vectors at FILL=1, GRAD=0, opsz=24, wght=400. */
+        object Filled
+    }
 
     /** Material Symbols Rounded vectors. */
     object Rounded {
@@ -23,7 +26,10 @@ object Icons {
     }
 
     /** Material Symbols Sharp vectors. */
-    object Sharp
+    object Sharp {
+        /** Sharp vectors at FILL=1, GRAD=0, opsz=24, wght=400. */
+        object Filled
+    }
 
     /** Explicitly opt-in vectors that mirror in right-to-left layouts. */
     object AutoMirrored {
@@ -31,7 +37,10 @@ object Icons {
         object Themed
 
         /** Material Symbols Outlined vectors with automatic RTL mirroring. */
-        object Outlined
+        object Outlined {
+            /** Filled Outlined vectors with automatic RTL mirroring. */
+            object Filled
+        }
 
         /** Material Symbols Rounded vectors with automatic RTL mirroring. */
         object Rounded {
@@ -40,7 +49,10 @@ object Icons {
         }
 
         /** Material Symbols Sharp vectors with automatic RTL mirroring. */
-        object Sharp
+        object Sharp {
+            /** Filled Sharp vectors with automatic RTL mirroring. */
+            object Filled
+        }
     }
 }
 
@@ -84,6 +96,14 @@ val Icons.AutoMirrored.Rounded: Icons.AutoMirrored.Rounded
 val Icons.AutoMirrored.Sharp: Icons.AutoMirrored.Sharp
     get() = Icons.AutoMirrored.Sharp
 
+/** Outlined vectors at FILL=1; all other axes retain their defaults. */
+val Icons.Outlined.Filled: Icons.Outlined.Filled
+    get() = Icons.Outlined.Filled
+
+/** Filled Outlined vectors with automatic RTL mirroring. */
+val Icons.AutoMirrored.Outlined.Filled: Icons.AutoMirrored.Outlined.Filled
+    get() = Icons.AutoMirrored.Outlined.Filled
+
 /** Rounded vectors at FILL=1; all other axes retain their defaults. */
 val Icons.Rounded.Filled: Icons.Rounded.Filled
     get() = Icons.Rounded.Filled
@@ -91,3 +111,11 @@ val Icons.Rounded.Filled: Icons.Rounded.Filled
 /** Filled Rounded vectors with automatic RTL mirroring. */
 val Icons.AutoMirrored.Rounded.Filled: Icons.AutoMirrored.Rounded.Filled
     get() = Icons.AutoMirrored.Rounded.Filled
+
+/** Sharp vectors at FILL=1; all other axes retain their defaults. */
+val Icons.Sharp.Filled: Icons.Sharp.Filled
+    get() = Icons.Sharp.Filled
+
+/** Filled Sharp vectors with automatic RTL mirroring. */
+val Icons.AutoMirrored.Sharp.Filled: Icons.AutoMirrored.Sharp.Filled
+    get() = Icons.AutoMirrored.Sharp.Filled

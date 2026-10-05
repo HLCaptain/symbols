@@ -17,6 +17,11 @@ and the project uses [Semantic Versioning](https://semver.org/).
   not included in published 2.1.0.
 - Generator `autoMirror.set(true)` for generated ImageVectors and XML drawables.
   The option defaults to false and leaves resource names and geometry unchanged.
+- Filled Outlined and Sharp ImageVectors through `Icons.{Outlined|Sharp}.Filled.*`
+  and `Icons.AutoMirrored.{Outlined|Sharp}.Filled.*`, with equivalent
+  `Symbols.Material` entry points. All 4,102 names use the existing style artifacts,
+  share alias caches, and reuse ordinary vectors when the fill does not change
+  their geometry. Existing default, themed, and Rounded APIs are unchanged.
 
 ## [2.1.0] - 2026-10-04
 

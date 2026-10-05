@@ -2,3 +2,5 @@
 # `-keepnames` still permits shrinking, so absent names remain direct evidence
 # that the corresponding vector class was removed.
 -keepnames class io.github.hlcaptain.symbols.material.outlined.vectors.OutlinedVector*
+-keepnames class io.github.hlcaptain.symbols.material.outlined.vectors.OutlinedFilledVector*
+-keepnames class io.github.hlcaptain.symbols.material.sharp.vectors.SharpFilledVector*
