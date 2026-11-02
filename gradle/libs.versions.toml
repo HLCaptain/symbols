@@ -19,7 +19,7 @@ koin = "4.2.2"
 koin-compiler = "1.2.1"
 kotlin = "2.4.20"
 kotlinx-coroutines = "1.11.0"
-navigation3 = "1.1.2"
+navigation3 = "1.2.0"
 # Navigation 1.2 raises Android minSdk to 24; samples retain API 23.
 navigation3-runtime = "1.1.7"
 androidx-compose = "1.12.1"
