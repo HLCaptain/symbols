@@ -1,6 +1,6 @@
 [versions]
 pluginPublish = "2.2.1"
-agp = "9.4.1"
+agp = "9.5.0"
 # Public tooling remains compatible with AGP 8.13 consumers.
 agpPluginApi = "8.13.2"
 android-compileSdk = "37"
