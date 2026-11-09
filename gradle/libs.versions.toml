@@ -1,6 +1,6 @@
 [versions]
 pluginPublish = "2.2.1"
-agp = "9.4.1"
+agp = "9.5.1"
 # Public tooling remains compatible with AGP 8.13 consumers.
 agpPluginApi = "8.13.2"
 android-compileSdk = "37"
@@ -25,7 +25,7 @@ navigation3-runtime = "1.1.7"
 androidx-compose = "1.12.1"
 androidx-test = "1.7.0"
 androidx-benchmark = "1.5.0"
-androidx-uiautomator = "2.4.0"
+androidx-uiautomator = "2.4.1"
 androidx-profileinstaller = "1.4.1"
 composePreviewScanner = "0.9.3"
 junit = "4.13.2"
